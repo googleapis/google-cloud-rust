@@ -20,6 +20,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
@@ -158,21 +159,78 @@ func TestEnumValues(t *testing.T) {
 	}
 }
 
-func TestMethodInOutTypeName(t *testing.T) {
+func TestResolveTypeName(t *testing.T) {
 	message := sample.CreateRequest()
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{
+		message, {
+			ID:   ".google.protobuf.Duration",
+			Name: "Duration",
+		}, {
+			ID:   ".google.protobuf.Empty",
+			Name: "Empty",
+		},
+		{
+			ID:   ".google.protobuf.Timestamp",
+			Name: "Timestamp",
+		},
+	}, []*api.Enum{}, []*api.Service{})
+
 	annotateModel(model, map[string]string{})
+	state := model.State
 
 	for _, test := range []struct {
 		typeId string
 		want   string
 	}{
-		{".google.protobuf.Empty", "void"},
 		{message.ID, "CreateSecretRequest"},
+		{".google.protobuf.Empty", "void"},
+		{".google.protobuf.Timestamp", "Timestamp"},
+		{".google.protobuf.Duration", "Duration"},
 	} {
-		got := methodInOutTypeName(test.typeId, model.State)
+		got := resolveTypeName(state.MessageByID[test.typeId], map[string]string{}, map[string]string{})
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
+		}
+	}
+}
+
+func TestResolveTypeName_Imports(t *testing.T) {
+	model := api.NewTestAPI([]*api.Message{
+		{
+			ID:      ".google.protobuf.Any",
+			Package: "google.protobuf",
+		},
+		{
+			ID:      ".google.rpc.Status",
+			Package: "google.rpc",
+		},
+		{
+			ID:      ".google.type.Expr",
+			Package: "google.type",
+		},
+	}, []*api.Enum{}, []*api.Service{})
+
+	annotateModel(model, map[string]string{})
+	state := model.State
+
+	packageMapping := map[string]string{
+		"google.protobuf": "package:google_cloud_protobuf/protobuf.dart",
+		"google.rpc":      "package:google_cloud_rpc/rpc.dart",
+		"google.type":     "package:google_cloud_type/type.dart",
+	}
+
+	for _, test := range []struct {
+		typeId string
+		want   string
+	}{
+		{".google.protobuf.Any", "google.protobuf"},
+		{".google.rpc.Status", "google.rpc"},
+		{".google.type.Expr", "google.type"},
+	} {
+		imports := map[string]string{}
+		resolveTypeName(state.MessageByID[test.typeId], packageMapping, imports)
+		if _, ok := imports[test.want]; !ok {
+			t.Errorf("import not added type name, got: %v want: %s", imports, test.want)
 		}
 	}
 }
@@ -183,10 +241,14 @@ func TestFieldType(t *testing.T) {
 		typez api.Typez
 		want  string
 	}{
-		{api.STRING_TYPE, "String"},
+		{api.BOOL_TYPE, "bool"},
 		{api.INT32_TYPE, "int"},
 		{api.INT64_TYPE, "int"},
-		{api.BOOL_TYPE, "bool"},
+		{api.UINT32_TYPE, "int"},
+		{api.UINT64_TYPE, "int"},
+		{api.FLOAT_TYPE, "double"},
+		{api.DOUBLE_TYPE, "double"},
+		{api.STRING_TYPE, "String"},
 		{api.BYTES_TYPE, "Uint8List"},
 	} {
 		field := &api.Field{
@@ -204,7 +266,7 @@ func TestFieldType(t *testing.T) {
 		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 		annotateModel(model, map[string]string{})
 
-		got := fieldType(field, model.State)
+		got := fieldType(field, model.State, map[string]string{}, map[string]string{})
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
 		}
@@ -240,16 +302,83 @@ func TestFieldType(t *testing.T) {
 	)
 	annotateModel(model, map[string]string{})
 
-	got := fieldType(field1, model.State)
+	got := fieldType(field1, model.State, map[string]string{}, map[string]string{})
 	want := "CreateSecretRequest"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
 	}
 
-	got = fieldType(field2, model.State)
+	got = fieldType(field2, model.State, map[string]string{}, map[string]string{})
 	want = "State"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+}
+
+func TestFieldType_Maps(t *testing.T) {
+	map1 := &api.Message{
+		Name:  "$map<string, string>",
+		ID:    "$map<string, string>",
+		IsMap: true,
+		Fields: []*api.Field{
+			{
+				Name:  "key",
+				Typez: api.STRING_TYPE,
+			},
+			{
+				Name:  "value",
+				Typez: api.INT32_TYPE,
+			},
+		},
+	}
+	field := &api.Field{
+		Name:     "map",
+		JSONName: "map",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  map1.ID,
+	}
+	model := api.NewTestAPI([]*api.Message{map1}, []*api.Enum{}, []*api.Service{})
+	annotateModel(model, map[string]string{})
+
+	got := fieldType(field, model.State, map[string]string{}, map[string]string{})
+	want := "Map<String, int>"
+	if got != want {
+		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+}
+
+func TestFieldType_Bytes(t *testing.T) {
+	field := &api.Field{
+		Name:     "test",
+		JSONName: "test",
+		Typez:    api.BYTES_TYPE,
+	}
+	message := &api.Message{
+		Name:   "$test",
+		ID:     "$test",
+		IsMap:  true,
+		Fields: []*api.Field{field},
+	}
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	annotateModel(model, map[string]string{})
+	imports := map[string]string{}
+
+	got := fieldType(field, model.State, map[string]string{}, imports)
+	want := "Uint8List"
+	if got != want {
+		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+
+	// verify the typed_data import
+	if !(len(imports) > 0) {
+		t.Errorf("unexpected: no typed_data import added")
+	}
+
+	for _, got := range imports {
+		want := "dart:typed_data"
+		if got != want {
+			t.Errorf("unexpected import, got: %s want: %s", got, want)
+		}
 	}
 }
 
@@ -259,10 +388,14 @@ func TestFieldType_Repeated(t *testing.T) {
 		typez api.Typez
 		want  string
 	}{
-		{api.STRING_TYPE, "List<String>"},
+		{api.BOOL_TYPE, "List<bool>"},
 		{api.INT32_TYPE, "List<int>"},
 		{api.INT64_TYPE, "List<int>"},
-		{api.BOOL_TYPE, "List<bool>"},
+		{api.UINT32_TYPE, "List<int>"},
+		{api.UINT64_TYPE, "List<int>"},
+		{api.FLOAT_TYPE, "List<double>"},
+		{api.DOUBLE_TYPE, "List<double>"},
+		{api.STRING_TYPE, "List<String>"},
 	} {
 		field := &api.Field{
 			Name:     "parent",
@@ -280,7 +413,7 @@ func TestFieldType_Repeated(t *testing.T) {
 		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 		annotateModel(model, map[string]string{})
 
-		got := fieldType(field, model.State)
+		got := fieldType(field, model.State, map[string]string{}, map[string]string{})
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
 		}
@@ -318,33 +451,87 @@ func TestFieldType_Repeated(t *testing.T) {
 	)
 	annotateModel(model, map[string]string{})
 
-	got := fieldType(field1, model.State)
+	got := fieldType(field1, model.State, map[string]string{}, map[string]string{})
 	want := "List<CreateSecretRequest>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
 	}
 
-	got = fieldType(field2, model.State)
+	got = fieldType(field2, model.State, map[string]string{}, map[string]string{})
 	want = "List<State>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
 	}
 }
 
-func TestWKT(t *testing.T) {
-	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	annotateModel(model, map[string]string{})
+func TestFormatDocComments(t *testing.T) {
+	input := `Some comments describing the thing.
 
-	for _, test := range []struct {
-		wktID string
-	}{
-		{".google.protobuf.Duration"},
-		{".google.protobuf.Timestamp"},
-	} {
-		resolvedType := model.State.MessageByID[test.wktID]
+We want to respect whitespace at the beginning, because it important in Markdown:
+- A thing
+  - A nested thing
+- The next thing
+`
 
-		if resolvedType == nil {
-			t.Errorf("no mapping for WKT: %s", test.wktID)
-		}
+	want := []string{
+		"/// Some comments describing the thing.",
+		"///",
+		"/// We want to respect whitespace at the beginning, because it important in Markdown:",
+		"/// - A thing",
+		"///   - A nested thing",
+		"/// - The next thing",
+	}
+	state := &api.APIState{}
+	got := formatDocComments(input, state)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestFormatDocCommentsEmpty(t *testing.T) {
+	input := ``
+
+	want := []string{}
+	state := &api.APIState{}
+	got := formatDocComments(input, state)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestFormatDocCommentsTrimTrailingSpaces(t *testing.T) {
+	input := `The next line contains spaces.
+  
+This line has trailing spaces.  `
+
+	want := []string{
+		"/// The next line contains spaces.",
+		"///",
+		"/// This line has trailing spaces.",
+	}
+	state := &api.APIState{}
+	got := formatDocComments(input, state)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestFormatDocCommentsTrimTrailingEmptyLines(t *testing.T) {
+	input := `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+
+
+`
+
+	want := []string{
+		"/// Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+		"/// sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+		"/// Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+	}
+	state := &api.APIState{}
+	got := formatDocComments(input, state)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
 }

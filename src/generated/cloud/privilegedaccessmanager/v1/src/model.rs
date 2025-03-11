@@ -688,47 +688,74 @@ pub mod entitlement {
     }
 
     /// Different states an entitlement can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Unspecified state. This value is never returned by the server.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The entitlement is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The entitlement is available for requesting access.
+        pub const AVAILABLE: State = State::new(2);
+
+        /// The entitlement is being deleted.
+        pub const DELETING: State = State::new(3);
+
+        /// The entitlement has been deleted.
+        pub const DELETED: State = State::new(4);
+
+        /// The entitlement is being updated.
+        pub const UPDATING: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("AVAILABLE"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("DELETED"),
+                5 => std::borrow::Cow::Borrowed("UPDATING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "AVAILABLE" => std::option::Option::Some(Self::AVAILABLE),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "DELETED" => std::option::Option::Some(Self::DELETED),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Unspecified state. This value is never returned by the server.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The entitlement is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The entitlement is available for requesting access.
-        pub const AVAILABLE: State = State::new("AVAILABLE");
-
-        /// The entitlement is being deleted.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// The entitlement has been deleted.
-        pub const DELETED: State = State::new("DELETED");
-
-        /// The entitlement is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1394,40 +1421,62 @@ pub mod search_entitlements_request {
     use super::*;
 
     /// Different types of access a user can have on the entitlement resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallerAccessType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct CallerAccessType(i32);
 
     impl CallerAccessType {
-        /// Creates a new CallerAccessType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CallerAccessType](CallerAccessType)
-    pub mod caller_access_type {
-        use super::CallerAccessType;
-
         /// Unspecified access type.
-        pub const CALLER_ACCESS_TYPE_UNSPECIFIED: CallerAccessType =
-            CallerAccessType::new("CALLER_ACCESS_TYPE_UNSPECIFIED");
+        pub const CALLER_ACCESS_TYPE_UNSPECIFIED: CallerAccessType = CallerAccessType::new(0);
 
         /// The user has access to create grants using this entitlement.
-        pub const GRANT_REQUESTER: CallerAccessType = CallerAccessType::new("GRANT_REQUESTER");
+        pub const GRANT_REQUESTER: CallerAccessType = CallerAccessType::new(1);
 
         /// The user has access to approve/deny grants created under this
         /// entitlement.
-        pub const GRANT_APPROVER: CallerAccessType = CallerAccessType::new("GRANT_APPROVER");
+        pub const GRANT_APPROVER: CallerAccessType = CallerAccessType::new(2);
+
+        /// Creates a new CallerAccessType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CALLER_ACCESS_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GRANT_REQUESTER"),
+                2 => std::borrow::Cow::Borrowed("GRANT_APPROVER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CALLER_ACCESS_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CALLER_ACCESS_TYPE_UNSPECIFIED)
+                }
+                "GRANT_REQUESTER" => std::option::Option::Some(Self::GRANT_REQUESTER),
+                "GRANT_APPROVER" => std::option::Option::Some(Self::GRANT_APPROVER),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CallerAccessType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for CallerAccessType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for CallerAccessType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2757,68 +2806,105 @@ pub mod grant {
     }
 
     /// Different states a grant can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state. This value is never returned by the server.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The entitlement had an approval workflow configured and this grant is
         /// waiting for the workflow to complete.
-        pub const APPROVAL_AWAITED: State = State::new("APPROVAL_AWAITED");
+        pub const APPROVAL_AWAITED: State = State::new(1);
 
         /// The approval workflow completed with a denied result. No access is
         /// granted for this grant. This is a terminal state.
-        pub const DENIED: State = State::new("DENIED");
+        pub const DENIED: State = State::new(3);
 
         /// The approval workflow completed successfully with an approved result or
         /// none was configured. Access is provided at an appropriate time.
-        pub const SCHEDULED: State = State::new("SCHEDULED");
+        pub const SCHEDULED: State = State::new(4);
 
         /// Access is being given.
-        pub const ACTIVATING: State = State::new("ACTIVATING");
+        pub const ACTIVATING: State = State::new(5);
 
         /// Access was successfully given and is currently active.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(6);
 
         /// The system could not give access due to a non-retriable error. This is a
         /// terminal state.
-        pub const ACTIVATION_FAILED: State = State::new("ACTIVATION_FAILED");
+        pub const ACTIVATION_FAILED: State = State::new(7);
 
         /// Expired after waiting for the approval workflow to complete. This is a
         /// terminal state.
-        pub const EXPIRED: State = State::new("EXPIRED");
+        pub const EXPIRED: State = State::new(8);
 
         /// Access is being revoked.
-        pub const REVOKING: State = State::new("REVOKING");
+        pub const REVOKING: State = State::new(9);
 
         /// Access was revoked by a user. This is a terminal state.
-        pub const REVOKED: State = State::new("REVOKED");
+        pub const REVOKED: State = State::new(10);
 
         /// System took back access as the requested duration was over. This is a
         /// terminal state.
-        pub const ENDED: State = State::new("ENDED");
+        pub const ENDED: State = State::new(11);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("APPROVAL_AWAITED"),
+                3 => std::borrow::Cow::Borrowed("DENIED"),
+                4 => std::borrow::Cow::Borrowed("SCHEDULED"),
+                5 => std::borrow::Cow::Borrowed("ACTIVATING"),
+                6 => std::borrow::Cow::Borrowed("ACTIVE"),
+                7 => std::borrow::Cow::Borrowed("ACTIVATION_FAILED"),
+                8 => std::borrow::Cow::Borrowed("EXPIRED"),
+                9 => std::borrow::Cow::Borrowed("REVOKING"),
+                10 => std::borrow::Cow::Borrowed("REVOKED"),
+                11 => std::borrow::Cow::Borrowed("ENDED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "APPROVAL_AWAITED" => std::option::Option::Some(Self::APPROVAL_AWAITED),
+                "DENIED" => std::option::Option::Some(Self::DENIED),
+                "SCHEDULED" => std::option::Option::Some(Self::SCHEDULED),
+                "ACTIVATING" => std::option::Option::Some(Self::ACTIVATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "ACTIVATION_FAILED" => std::option::Option::Some(Self::ACTIVATION_FAILED),
+                "EXPIRED" => std::option::Option::Some(Self::EXPIRED),
+                "REVOKING" => std::option::Option::Some(Self::REVOKING),
+                "REVOKED" => std::option::Option::Some(Self::REVOKED),
+                "ENDED" => std::option::Option::Some(Self::ENDED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3120,44 +3206,68 @@ pub mod search_grants_request {
     use super::*;
 
     /// Different types of relationships a user can have with a grant.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallerRelationshipType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct CallerRelationshipType(i32);
 
     impl CallerRelationshipType {
-        /// Creates a new CallerRelationshipType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CallerRelationshipType](CallerRelationshipType)
-    pub mod caller_relationship_type {
-        use super::CallerRelationshipType;
-
         /// Unspecified caller relationship type.
         pub const CALLER_RELATIONSHIP_TYPE_UNSPECIFIED: CallerRelationshipType =
-            CallerRelationshipType::new("CALLER_RELATIONSHIP_TYPE_UNSPECIFIED");
+            CallerRelationshipType::new(0);
 
         /// The user created this grant by calling `CreateGrant` earlier.
-        pub const HAD_CREATED: CallerRelationshipType = CallerRelationshipType::new("HAD_CREATED");
+        pub const HAD_CREATED: CallerRelationshipType = CallerRelationshipType::new(1);
 
         /// The user is an approver for the entitlement that this grant is parented
         /// under and can currently approve/deny it.
-        pub const CAN_APPROVE: CallerRelationshipType = CallerRelationshipType::new("CAN_APPROVE");
+        pub const CAN_APPROVE: CallerRelationshipType = CallerRelationshipType::new(2);
 
         /// The caller had successfully approved/denied this grant earlier.
-        pub const HAD_APPROVED: CallerRelationshipType =
-            CallerRelationshipType::new("HAD_APPROVED");
+        pub const HAD_APPROVED: CallerRelationshipType = CallerRelationshipType::new(3);
+
+        /// Creates a new CallerRelationshipType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CALLER_RELATIONSHIP_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("HAD_CREATED"),
+                2 => std::borrow::Cow::Borrowed("CAN_APPROVE"),
+                3 => std::borrow::Cow::Borrowed("HAD_APPROVED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CALLER_RELATIONSHIP_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CALLER_RELATIONSHIP_TYPE_UNSPECIFIED)
+                }
+                "HAD_CREATED" => std::option::Option::Some(Self::HAD_CREATED),
+                "CAN_APPROVE" => std::option::Option::Some(Self::CAN_APPROVE),
+                "HAD_APPROVED" => std::option::Option::Some(Self::HAD_APPROVED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CallerRelationshipType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for CallerRelationshipType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for CallerRelationshipType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

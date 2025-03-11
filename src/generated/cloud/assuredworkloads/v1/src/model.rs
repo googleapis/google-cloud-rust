@@ -647,50 +647,77 @@ pub mod workload {
         use super::*;
 
         /// The type of resource.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ResourceType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct ResourceType(i32);
 
         impl ResourceType {
-            /// Creates a new ResourceType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [ResourceType](ResourceType)
-        pub mod resource_type {
-            use super::ResourceType;
-
             /// Unknown resource type.
-            pub const RESOURCE_TYPE_UNSPECIFIED: ResourceType =
-                ResourceType::new("RESOURCE_TYPE_UNSPECIFIED");
+            pub const RESOURCE_TYPE_UNSPECIFIED: ResourceType = ResourceType::new(0);
 
             /// Consumer project.
             /// AssuredWorkloads Projects are no longer supported. This field will be
             /// ignored only in CreateWorkload requests. ListWorkloads and GetWorkload
             /// will continue to provide projects information.
             /// Use CONSUMER_FOLDER instead.
-            pub const CONSUMER_PROJECT: ResourceType = ResourceType::new("CONSUMER_PROJECT");
+            pub const CONSUMER_PROJECT: ResourceType = ResourceType::new(1);
 
             /// Consumer Folder.
-            pub const CONSUMER_FOLDER: ResourceType = ResourceType::new("CONSUMER_FOLDER");
+            pub const CONSUMER_FOLDER: ResourceType = ResourceType::new(4);
 
             /// Consumer project containing encryption keys.
-            pub const ENCRYPTION_KEYS_PROJECT: ResourceType =
-                ResourceType::new("ENCRYPTION_KEYS_PROJECT");
+            pub const ENCRYPTION_KEYS_PROJECT: ResourceType = ResourceType::new(2);
 
             /// Keyring resource that hosts encryption keys.
-            pub const KEYRING: ResourceType = ResourceType::new("KEYRING");
+            pub const KEYRING: ResourceType = ResourceType::new(3);
+
+            /// Creates a new ResourceType instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("RESOURCE_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("CONSUMER_PROJECT"),
+                    2 => std::borrow::Cow::Borrowed("ENCRYPTION_KEYS_PROJECT"),
+                    3 => std::borrow::Cow::Borrowed("KEYRING"),
+                    4 => std::borrow::Cow::Borrowed("CONSUMER_FOLDER"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "RESOURCE_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::RESOURCE_TYPE_UNSPECIFIED)
+                    }
+                    "CONSUMER_PROJECT" => std::option::Option::Some(Self::CONSUMER_PROJECT),
+                    "CONSUMER_FOLDER" => std::option::Option::Some(Self::CONSUMER_FOLDER),
+                    "ENCRYPTION_KEYS_PROJECT" => {
+                        std::option::Option::Some(Self::ENCRYPTION_KEYS_PROJECT)
+                    }
+                    "KEYRING" => std::option::Option::Some(Self::KEYRING),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for ResourceType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for ResourceType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for ResourceType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -871,236 +898,372 @@ pub mod workload {
         use super::*;
 
         /// Setup state of SAA enrollment.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SetupState(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct SetupState(i32);
 
         impl SetupState {
+            /// Unspecified.
+            pub const SETUP_STATE_UNSPECIFIED: SetupState = SetupState::new(0);
+
+            /// SAA enrollment pending.
+            pub const STATUS_PENDING: SetupState = SetupState::new(1);
+
+            /// SAA enrollment comopleted.
+            pub const STATUS_COMPLETE: SetupState = SetupState::new(2);
+
             /// Creates a new SetupState instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("SETUP_STATE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("STATUS_PENDING"),
+                    2 => std::borrow::Cow::Borrowed("STATUS_COMPLETE"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "SETUP_STATE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::SETUP_STATE_UNSPECIFIED)
+                    }
+                    "STATUS_PENDING" => std::option::Option::Some(Self::STATUS_PENDING),
+                    "STATUS_COMPLETE" => std::option::Option::Some(Self::STATUS_COMPLETE),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [SetupState](SetupState)
-        pub mod setup_state {
-            use super::SetupState;
-
-            /// Unspecified.
-            pub const SETUP_STATE_UNSPECIFIED: SetupState =
-                SetupState::new("SETUP_STATE_UNSPECIFIED");
-
-            /// SAA enrollment pending.
-            pub const STATUS_PENDING: SetupState = SetupState::new("STATUS_PENDING");
-
-            /// SAA enrollment comopleted.
-            pub const STATUS_COMPLETE: SetupState = SetupState::new("STATUS_COMPLETE");
+        impl std::convert::From<i32> for SetupState {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for SetupState {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for SetupState {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
 
         /// Setup error of SAA enrollment.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SetupError(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct SetupError(i32);
 
         impl SetupError {
-            /// Creates a new SetupError instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [SetupError](SetupError)
-        pub mod setup_error {
-            use super::SetupError;
-
             /// Unspecified.
-            pub const SETUP_ERROR_UNSPECIFIED: SetupError =
-                SetupError::new("SETUP_ERROR_UNSPECIFIED");
+            pub const SETUP_ERROR_UNSPECIFIED: SetupError = SetupError::new(0);
 
             /// Invalid states for all customers, to be redirected to AA UI for
             /// additional details.
-            pub const ERROR_INVALID_BASE_SETUP: SetupError =
-                SetupError::new("ERROR_INVALID_BASE_SETUP");
+            pub const ERROR_INVALID_BASE_SETUP: SetupError = SetupError::new(1);
 
             /// Returned when there is not an EKM key configured.
-            pub const ERROR_MISSING_EXTERNAL_SIGNING_KEY: SetupError =
-                SetupError::new("ERROR_MISSING_EXTERNAL_SIGNING_KEY");
+            pub const ERROR_MISSING_EXTERNAL_SIGNING_KEY: SetupError = SetupError::new(2);
 
             /// Returned when there are no enrolled services or the customer is
             /// enrolled in CAA only for a subset of services.
-            pub const ERROR_NOT_ALL_SERVICES_ENROLLED: SetupError =
-                SetupError::new("ERROR_NOT_ALL_SERVICES_ENROLLED");
+            pub const ERROR_NOT_ALL_SERVICES_ENROLLED: SetupError = SetupError::new(3);
 
             /// Returned when exception was encountered during evaluation of other
             /// criteria.
-            pub const ERROR_SETUP_CHECK_FAILED: SetupError =
-                SetupError::new("ERROR_SETUP_CHECK_FAILED");
+            pub const ERROR_SETUP_CHECK_FAILED: SetupError = SetupError::new(4);
+
+            /// Creates a new SetupError instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("SETUP_ERROR_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("ERROR_INVALID_BASE_SETUP"),
+                    2 => std::borrow::Cow::Borrowed("ERROR_MISSING_EXTERNAL_SIGNING_KEY"),
+                    3 => std::borrow::Cow::Borrowed("ERROR_NOT_ALL_SERVICES_ENROLLED"),
+                    4 => std::borrow::Cow::Borrowed("ERROR_SETUP_CHECK_FAILED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "SETUP_ERROR_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::SETUP_ERROR_UNSPECIFIED)
+                    }
+                    "ERROR_INVALID_BASE_SETUP" => {
+                        std::option::Option::Some(Self::ERROR_INVALID_BASE_SETUP)
+                    }
+                    "ERROR_MISSING_EXTERNAL_SIGNING_KEY" => {
+                        std::option::Option::Some(Self::ERROR_MISSING_EXTERNAL_SIGNING_KEY)
+                    }
+                    "ERROR_NOT_ALL_SERVICES_ENROLLED" => {
+                        std::option::Option::Some(Self::ERROR_NOT_ALL_SERVICES_ENROLLED)
+                    }
+                    "ERROR_SETUP_CHECK_FAILED" => {
+                        std::option::Option::Some(Self::ERROR_SETUP_CHECK_FAILED)
+                    }
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for SetupError {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for SetupError {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for SetupError {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
 
     /// Supported Compliance Regimes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ComplianceRegime(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ComplianceRegime(i32);
 
     impl ComplianceRegime {
-        /// Creates a new ComplianceRegime instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ComplianceRegime](ComplianceRegime)
-    pub mod compliance_regime {
-        use super::ComplianceRegime;
-
         /// Unknown compliance regime.
-        pub const COMPLIANCE_REGIME_UNSPECIFIED: ComplianceRegime =
-            ComplianceRegime::new("COMPLIANCE_REGIME_UNSPECIFIED");
+        pub const COMPLIANCE_REGIME_UNSPECIFIED: ComplianceRegime = ComplianceRegime::new(0);
 
         /// Information protection as per DoD IL4 requirements.
-        pub const IL4: ComplianceRegime = ComplianceRegime::new("IL4");
+        pub const IL4: ComplianceRegime = ComplianceRegime::new(1);
 
         /// Criminal Justice Information Services (CJIS) Security policies.
-        pub const CJIS: ComplianceRegime = ComplianceRegime::new("CJIS");
+        pub const CJIS: ComplianceRegime = ComplianceRegime::new(2);
 
         /// FedRAMP High data protection controls
-        pub const FEDRAMP_HIGH: ComplianceRegime = ComplianceRegime::new("FEDRAMP_HIGH");
+        pub const FEDRAMP_HIGH: ComplianceRegime = ComplianceRegime::new(3);
 
         /// FedRAMP Moderate data protection controls
-        pub const FEDRAMP_MODERATE: ComplianceRegime = ComplianceRegime::new("FEDRAMP_MODERATE");
+        pub const FEDRAMP_MODERATE: ComplianceRegime = ComplianceRegime::new(4);
 
         /// Assured Workloads For US Regions data protection controls
-        pub const US_REGIONAL_ACCESS: ComplianceRegime =
-            ComplianceRegime::new("US_REGIONAL_ACCESS");
+        pub const US_REGIONAL_ACCESS: ComplianceRegime = ComplianceRegime::new(5);
 
         /// Health Insurance Portability and Accountability Act controls
-        pub const HIPAA: ComplianceRegime = ComplianceRegime::new("HIPAA");
+        pub const HIPAA: ComplianceRegime = ComplianceRegime::new(6);
 
         /// Health Information Trust Alliance controls
-        pub const HITRUST: ComplianceRegime = ComplianceRegime::new("HITRUST");
+        pub const HITRUST: ComplianceRegime = ComplianceRegime::new(7);
 
         /// Assured Workloads For EU Regions and Support controls
-        pub const EU_REGIONS_AND_SUPPORT: ComplianceRegime =
-            ComplianceRegime::new("EU_REGIONS_AND_SUPPORT");
+        pub const EU_REGIONS_AND_SUPPORT: ComplianceRegime = ComplianceRegime::new(8);
 
         /// Assured Workloads For Canada Regions and Support controls
-        pub const CA_REGIONS_AND_SUPPORT: ComplianceRegime =
-            ComplianceRegime::new("CA_REGIONS_AND_SUPPORT");
+        pub const CA_REGIONS_AND_SUPPORT: ComplianceRegime = ComplianceRegime::new(9);
 
         /// International Traffic in Arms Regulations
-        pub const ITAR: ComplianceRegime = ComplianceRegime::new("ITAR");
+        pub const ITAR: ComplianceRegime = ComplianceRegime::new(10);
 
         /// Assured Workloads for Australia Regions and Support controls
         /// Available for public preview consumption.
         /// Don't create production workloads.
-        pub const AU_REGIONS_AND_US_SUPPORT: ComplianceRegime =
-            ComplianceRegime::new("AU_REGIONS_AND_US_SUPPORT");
+        pub const AU_REGIONS_AND_US_SUPPORT: ComplianceRegime = ComplianceRegime::new(11);
 
         /// Assured Workloads for Partners
-        pub const ASSURED_WORKLOADS_FOR_PARTNERS: ComplianceRegime =
-            ComplianceRegime::new("ASSURED_WORKLOADS_FOR_PARTNERS");
+        pub const ASSURED_WORKLOADS_FOR_PARTNERS: ComplianceRegime = ComplianceRegime::new(12);
+
+        /// Creates a new ComplianceRegime instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("COMPLIANCE_REGIME_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IL4"),
+                2 => std::borrow::Cow::Borrowed("CJIS"),
+                3 => std::borrow::Cow::Borrowed("FEDRAMP_HIGH"),
+                4 => std::borrow::Cow::Borrowed("FEDRAMP_MODERATE"),
+                5 => std::borrow::Cow::Borrowed("US_REGIONAL_ACCESS"),
+                6 => std::borrow::Cow::Borrowed("HIPAA"),
+                7 => std::borrow::Cow::Borrowed("HITRUST"),
+                8 => std::borrow::Cow::Borrowed("EU_REGIONS_AND_SUPPORT"),
+                9 => std::borrow::Cow::Borrowed("CA_REGIONS_AND_SUPPORT"),
+                10 => std::borrow::Cow::Borrowed("ITAR"),
+                11 => std::borrow::Cow::Borrowed("AU_REGIONS_AND_US_SUPPORT"),
+                12 => std::borrow::Cow::Borrowed("ASSURED_WORKLOADS_FOR_PARTNERS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "COMPLIANCE_REGIME_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::COMPLIANCE_REGIME_UNSPECIFIED)
+                }
+                "IL4" => std::option::Option::Some(Self::IL4),
+                "CJIS" => std::option::Option::Some(Self::CJIS),
+                "FEDRAMP_HIGH" => std::option::Option::Some(Self::FEDRAMP_HIGH),
+                "FEDRAMP_MODERATE" => std::option::Option::Some(Self::FEDRAMP_MODERATE),
+                "US_REGIONAL_ACCESS" => std::option::Option::Some(Self::US_REGIONAL_ACCESS),
+                "HIPAA" => std::option::Option::Some(Self::HIPAA),
+                "HITRUST" => std::option::Option::Some(Self::HITRUST),
+                "EU_REGIONS_AND_SUPPORT" => std::option::Option::Some(Self::EU_REGIONS_AND_SUPPORT),
+                "CA_REGIONS_AND_SUPPORT" => std::option::Option::Some(Self::CA_REGIONS_AND_SUPPORT),
+                "ITAR" => std::option::Option::Some(Self::ITAR),
+                "AU_REGIONS_AND_US_SUPPORT" => {
+                    std::option::Option::Some(Self::AU_REGIONS_AND_US_SUPPORT)
+                }
+                "ASSURED_WORKLOADS_FOR_PARTNERS" => {
+                    std::option::Option::Some(Self::ASSURED_WORKLOADS_FOR_PARTNERS)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ComplianceRegime {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ComplianceRegime {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ComplianceRegime {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Key Access Justifications(KAJ) Enrollment State.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KajEnrollmentState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct KajEnrollmentState(i32);
 
     impl KajEnrollmentState {
+        /// Default State for KAJ Enrollment.
+        pub const KAJ_ENROLLMENT_STATE_UNSPECIFIED: KajEnrollmentState = KajEnrollmentState::new(0);
+
+        /// Pending State for KAJ Enrollment.
+        pub const KAJ_ENROLLMENT_STATE_PENDING: KajEnrollmentState = KajEnrollmentState::new(1);
+
+        /// Complete State for KAJ Enrollment.
+        pub const KAJ_ENROLLMENT_STATE_COMPLETE: KajEnrollmentState = KajEnrollmentState::new(2);
+
         /// Creates a new KajEnrollmentState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("KAJ_ENROLLMENT_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("KAJ_ENROLLMENT_STATE_PENDING"),
+                2 => std::borrow::Cow::Borrowed("KAJ_ENROLLMENT_STATE_COMPLETE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "KAJ_ENROLLMENT_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::KAJ_ENROLLMENT_STATE_UNSPECIFIED)
+                }
+                "KAJ_ENROLLMENT_STATE_PENDING" => {
+                    std::option::Option::Some(Self::KAJ_ENROLLMENT_STATE_PENDING)
+                }
+                "KAJ_ENROLLMENT_STATE_COMPLETE" => {
+                    std::option::Option::Some(Self::KAJ_ENROLLMENT_STATE_COMPLETE)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [KajEnrollmentState](KajEnrollmentState)
-    pub mod kaj_enrollment_state {
-        use super::KajEnrollmentState;
-
-        /// Default State for KAJ Enrollment.
-        pub const KAJ_ENROLLMENT_STATE_UNSPECIFIED: KajEnrollmentState =
-            KajEnrollmentState::new("KAJ_ENROLLMENT_STATE_UNSPECIFIED");
-
-        /// Pending State for KAJ Enrollment.
-        pub const KAJ_ENROLLMENT_STATE_PENDING: KajEnrollmentState =
-            KajEnrollmentState::new("KAJ_ENROLLMENT_STATE_PENDING");
-
-        /// Complete State for KAJ Enrollment.
-        pub const KAJ_ENROLLMENT_STATE_COMPLETE: KajEnrollmentState =
-            KajEnrollmentState::new("KAJ_ENROLLMENT_STATE_COMPLETE");
+    impl std::convert::From<i32> for KajEnrollmentState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for KajEnrollmentState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for KajEnrollmentState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Supported Assured Workloads Partners.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Partner(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Partner(i32);
 
     impl Partner {
+        /// Unknown partner regime/controls.
+        pub const PARTNER_UNSPECIFIED: Partner = Partner::new(0);
+
+        /// S3NS regime/controls.
+        pub const LOCAL_CONTROLS_BY_S3NS: Partner = Partner::new(1);
+
         /// Creates a new Partner instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PARTNER_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LOCAL_CONTROLS_BY_S3NS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PARTNER_UNSPECIFIED" => std::option::Option::Some(Self::PARTNER_UNSPECIFIED),
+                "LOCAL_CONTROLS_BY_S3NS" => std::option::Option::Some(Self::LOCAL_CONTROLS_BY_S3NS),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Partner](Partner)
-    pub mod partner {
-        use super::Partner;
-
-        /// Unknown partner regime/controls.
-        pub const PARTNER_UNSPECIFIED: Partner = Partner::new("PARTNER_UNSPECIFIED");
-
-        /// S3NS regime/controls.
-        pub const LOCAL_CONTROLS_BY_S3NS: Partner = Partner::new("LOCAL_CONTROLS_BY_S3NS");
+    impl std::convert::From<i32> for Partner {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Partner {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Partner {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1225,45 +1388,69 @@ pub mod restrict_allowed_resources_request {
     use super::*;
 
     /// The type of restriction.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RestrictionType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RestrictionType(i32);
 
     impl RestrictionType {
-        /// Creates a new RestrictionType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RestrictionType](RestrictionType)
-    pub mod restriction_type {
-        use super::RestrictionType;
-
         /// Unknown restriction type.
-        pub const RESTRICTION_TYPE_UNSPECIFIED: RestrictionType =
-            RestrictionType::new("RESTRICTION_TYPE_UNSPECIFIED");
+        pub const RESTRICTION_TYPE_UNSPECIFIED: RestrictionType = RestrictionType::new(0);
 
         /// Allow the use all of all gcp products, irrespective of the compliance
         /// posture. This effectively removes gcp.restrictServiceUsage OrgPolicy
         /// on the AssuredWorkloads Folder.
-        pub const ALLOW_ALL_GCP_RESOURCES: RestrictionType =
-            RestrictionType::new("ALLOW_ALL_GCP_RESOURCES");
+        pub const ALLOW_ALL_GCP_RESOURCES: RestrictionType = RestrictionType::new(1);
 
         /// Based on Workload's compliance regime, allowed list changes.
         /// See - <https://cloud.google.com/assured-workloads/docs/supported-products>
         /// for the list of supported resources.
-        pub const ALLOW_COMPLIANT_RESOURCES: RestrictionType =
-            RestrictionType::new("ALLOW_COMPLIANT_RESOURCES");
+        pub const ALLOW_COMPLIANT_RESOURCES: RestrictionType = RestrictionType::new(2);
+
+        /// Creates a new RestrictionType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESTRICTION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALLOW_ALL_GCP_RESOURCES"),
+                2 => std::borrow::Cow::Borrowed("ALLOW_COMPLIANT_RESOURCES"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESTRICTION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RESTRICTION_TYPE_UNSPECIFIED)
+                }
+                "ALLOW_ALL_GCP_RESOURCES" => {
+                    std::option::Option::Some(Self::ALLOW_ALL_GCP_RESOURCES)
+                }
+                "ALLOW_COMPLIANT_RESOURCES" => {
+                    std::option::Option::Some(Self::ALLOW_COMPLIANT_RESOURCES)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RestrictionType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RestrictionType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RestrictionType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2049,93 +2236,144 @@ pub mod violation {
         /// violation. For example, violations caused due to changes in boolean org
         /// policy requires different remediation instructions compared to violation
         /// caused due to changes in allowed values of list org policy.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct RemediationType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct RemediationType(i32);
 
         impl RemediationType {
-            /// Creates a new RemediationType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [RemediationType](RemediationType)
-        pub mod remediation_type {
-            use super::RemediationType;
-
             /// Unspecified remediation type
-            pub const REMEDIATION_TYPE_UNSPECIFIED: RemediationType =
-                RemediationType::new("REMEDIATION_TYPE_UNSPECIFIED");
+            pub const REMEDIATION_TYPE_UNSPECIFIED: RemediationType = RemediationType::new(0);
 
             /// Remediation type for boolean org policy
             pub const REMEDIATION_BOOLEAN_ORG_POLICY_VIOLATION: RemediationType =
-                RemediationType::new("REMEDIATION_BOOLEAN_ORG_POLICY_VIOLATION");
+                RemediationType::new(1);
 
             /// Remediation type for list org policy which have allowed values in the
             /// monitoring rule
             pub const REMEDIATION_LIST_ALLOWED_VALUES_ORG_POLICY_VIOLATION: RemediationType =
-                RemediationType::new("REMEDIATION_LIST_ALLOWED_VALUES_ORG_POLICY_VIOLATION");
+                RemediationType::new(2);
 
             /// Remediation type for list org policy which have denied values in the
             /// monitoring rule
             pub const REMEDIATION_LIST_DENIED_VALUES_ORG_POLICY_VIOLATION: RemediationType =
-                RemediationType::new("REMEDIATION_LIST_DENIED_VALUES_ORG_POLICY_VIOLATION");
+                RemediationType::new(3);
 
             /// Remediation type for gcp.restrictCmekCryptoKeyProjects
             pub const REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION:
-                RemediationType = RemediationType::new(
-                "REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION",
-            );
+                RemediationType = RemediationType::new(4);
+
+            /// Creates a new RemediationType instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("REMEDIATION_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("REMEDIATION_BOOLEAN_ORG_POLICY_VIOLATION"),
+                    2 => std::borrow::Cow::Borrowed(
+                        "REMEDIATION_LIST_ALLOWED_VALUES_ORG_POLICY_VIOLATION",
+                    ),
+                    3 => std::borrow::Cow::Borrowed(
+                        "REMEDIATION_LIST_DENIED_VALUES_ORG_POLICY_VIOLATION",
+                    ),
+                    4 => std::borrow::Cow::Borrowed(
+                        "REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION",
+                    ),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "REMEDIATION_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::REMEDIATION_TYPE_UNSPECIFIED),
+                    "REMEDIATION_BOOLEAN_ORG_POLICY_VIOLATION" => std::option::Option::Some(Self::REMEDIATION_BOOLEAN_ORG_POLICY_VIOLATION),
+                    "REMEDIATION_LIST_ALLOWED_VALUES_ORG_POLICY_VIOLATION" => std::option::Option::Some(Self::REMEDIATION_LIST_ALLOWED_VALUES_ORG_POLICY_VIOLATION),
+                    "REMEDIATION_LIST_DENIED_VALUES_ORG_POLICY_VIOLATION" => std::option::Option::Some(Self::REMEDIATION_LIST_DENIED_VALUES_ORG_POLICY_VIOLATION),
+                    "REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION" => std::option::Option::Some(Self::REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for RemediationType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for RemediationType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for RemediationType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
 
     /// Violation State Values
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Unspecified state.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Violation is resolved.
+        pub const RESOLVED: State = State::new(2);
+
+        /// Violation is Unresolved
+        pub const UNRESOLVED: State = State::new(3);
+
+        /// Violation is Exception
+        pub const EXCEPTION: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("RESOLVED"),
+                3 => std::borrow::Cow::Borrowed("UNRESOLVED"),
+                4 => std::borrow::Cow::Borrowed("EXCEPTION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "RESOLVED" => std::option::Option::Some(Self::RESOLVED),
+                "UNRESOLVED" => std::option::Option::Some(Self::UNRESOLVED),
+                "EXCEPTION" => std::option::Option::Some(Self::EXCEPTION),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Violation is resolved.
-        pub const RESOLVED: State = State::new("RESOLVED");
-
-        /// Violation is Unresolved
-        pub const UNRESOLVED: State = State::new("UNRESOLVED");
-
-        /// Violation is Exception
-        pub const EXCEPTION: State = State::new("EXCEPTION");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

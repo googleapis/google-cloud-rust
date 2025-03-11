@@ -43,7 +43,7 @@ func createRustCodec() *codec {
 	}
 }
 
-func TestParseOptions(t *testing.T) {
+func TestParseOptionsProtobuf(t *testing.T) {
 	options := map[string]string{
 		"version":               "1.2.3",
 		"package-name-override": "test-only",
@@ -53,7 +53,7 @@ func TestParseOptions(t *testing.T) {
 		"package:gax":           "package=gax,path=src/gax,feature=unstable-sdk-client",
 		"package:serde_with":    "package=serde_with,version=2.3.4,default-features=false",
 	}
-	got, err := newCodec(options)
+	got, err := newCodec(true, options)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -64,12 +64,11 @@ func TestParseOptions(t *testing.T) {
 		defaultFeatures: true,
 	}
 	want := &codec{
-		version:                  "1.2.3",
-		releaseLevel:             "preview",
-		packageNameOverride:      "test-only",
-		generationYear:           "2035",
-		modulePath:               "alternative::generated",
-		deserializeWithdDefaults: true,
+		version:             "1.2.3",
+		releaseLevel:        "preview",
+		packageNameOverride: "test-only",
+		generationYear:      "2035",
+		modulePath:          "alternative::generated",
 		extraPackages: []*packagez{
 			gp,
 			{
@@ -91,6 +90,46 @@ func TestParseOptions(t *testing.T) {
 		packageMapping: map[string]*packagez{
 			"google.protobuf": gp,
 			"test-only":       gp,
+		},
+		systemParameters: []systemParameter{
+			{Name: "$alt", Value: "json;enum-encoding=int"},
+		},
+	}
+	sort.Slice(want.extraPackages, func(i, j int) bool {
+		return want.extraPackages[i].name < want.extraPackages[j].name
+	})
+	sort.Slice(got.extraPackages, func(i, j int) bool {
+		return got.extraPackages[i].name < got.extraPackages[j].name
+	})
+	if diff := cmp.Diff(want, got, cmp.AllowUnexported(codec{}, packagez{})); diff != "" {
+		t.Errorf("codec mismatch (-want, +got):\n%s", diff)
+	}
+	if want.packageNameOverride != got.packageNameOverride {
+		t.Errorf("mismatched in packageNameOverride, want=%s, got=%s", want.packageNameOverride, got.packageNameOverride)
+	}
+	checkRustPackages(t, got, want)
+}
+
+func TestParseOptionsOpenAPI(t *testing.T) {
+	options := map[string]string{
+		"version":               "1.2.3",
+		"package-name-override": "test-only",
+		"copyright-year":        "2035",
+	}
+	got, err := newCodec(false, options)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := &codec{
+		version:             "1.2.3",
+		releaseLevel:        "preview",
+		packageNameOverride: "test-only",
+		generationYear:      "2035",
+		modulePath:          "crate::model",
+		extraPackages:       []*packagez{},
+		packageMapping:      map[string]*packagez{},
+		systemParameters: []systemParameter{
+			{Name: "$alt", Value: "json"},
 		},
 	}
 	sort.Slice(want.extraPackages, func(i, j int) bool {
@@ -127,11 +166,11 @@ func TestPackageName(t *testing.T) {
 
 func rustPackageNameImpl(t *testing.T, want string, opts map[string]string, api *api.API) {
 	t.Helper()
-	c, err := newCodec(opts)
+	c, err := newCodec(true, opts)
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := packageName(api, c.packageNameOverride)
+	got := PackageName(api, c.packageNameOverride)
 	if want != got {
 		t.Errorf("mismatch in package name, want=%s, got=%s", want, got)
 	}
@@ -257,23 +296,24 @@ func TestWellKnownTypesAsMethod(t *testing.T) {
 }
 
 func TestGeneratedFiles(t *testing.T) {
-	generateModule := true
-	files := generatedFiles(generateModule, false)
+	c := codec{}
+	c.generateModule = true
+	files := c.generatedFiles(false)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles(true, false)")
 	}
 	// No crate for module-only files
 	unexpectedGeneratedFile(t, "Cargo.toml", files)
 
-	files = generatedFiles(generateModule, true)
+	files = c.generatedFiles(true)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles(true, true)")
 	}
 	// No crate for module-only files
 	unexpectedGeneratedFile(t, "Cargo.toml", files)
 
-	generateModule = false
-	files = generatedFiles(generateModule, false)
+	c.generateModule = false
+	files = c.generatedFiles(false)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles(false, false)")
 	}
@@ -282,7 +322,7 @@ func TestGeneratedFiles(t *testing.T) {
 	// Should not have a client if there are no services.
 	unexpectedGeneratedFile(t, "client.rs", files)
 
-	files = generatedFiles(generateModule, true)
+	files = c.generatedFiles(true)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles(false, false)")
 	}
@@ -416,7 +456,7 @@ func TestFieldAttributes(t *testing.T) {
 		"f_int64_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
 		"f_int64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
 
-		"f_bytes":          `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
+		"f_bytes":          `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
 		"f_bytes_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
 		"f_bytes_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]`,
 
@@ -694,7 +734,7 @@ func TestFieldLossyName(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"data": `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" +
+		"data": `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" +
 			`#[serde_as(as = "serde_with::base64::Base64")]`,
 		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" +
 			`#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" +

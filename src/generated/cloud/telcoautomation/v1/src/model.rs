@@ -148,45 +148,70 @@ pub mod orchestration_cluster {
     use super::*;
 
     /// Possible states that the Orchestration Cluster can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// OrchestrationCluster is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// OrchestrationCluster has been created and is ready for use.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// OrchestrationCluster is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(3);
 
         /// OrchestrationCluster encountered an error and is in an indeterministic
         /// state. User can still initiate a delete operation on this state.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(4);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -320,83 +345,131 @@ pub mod edge_slm {
     use super::*;
 
     /// Possible states of the resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// EdgeSlm is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// EdgeSlm has been created and is ready for use.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// EdgeSlm is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(3);
 
         /// EdgeSlm encountered an error and is in an indeterministic
         /// state. User can still initiate a delete operation on this state.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(4);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Workload clusters supported by TNA. New values will be added to the enum
     /// list as TNA adds supports for new workload clusters in future.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WorkloadClusterType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct WorkloadClusterType(i32);
 
     impl WorkloadClusterType {
+        /// Unspecified workload cluster.
+        pub const WORKLOAD_CLUSTER_TYPE_UNSPECIFIED: WorkloadClusterType =
+            WorkloadClusterType::new(0);
+
+        /// Workload cluster is a GDCE cluster.
+        pub const GDCE: WorkloadClusterType = WorkloadClusterType::new(1);
+
+        /// Workload cluster is a GKE cluster.
+        pub const GKE: WorkloadClusterType = WorkloadClusterType::new(2);
+
         /// Creates a new WorkloadClusterType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("WORKLOAD_CLUSTER_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GDCE"),
+                2 => std::borrow::Cow::Borrowed("GKE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "WORKLOAD_CLUSTER_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::WORKLOAD_CLUSTER_TYPE_UNSPECIFIED)
+                }
+                "GDCE" => std::option::Option::Some(Self::GDCE),
+                "GKE" => std::option::Option::Some(Self::GKE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [WorkloadClusterType](WorkloadClusterType)
-    pub mod workload_cluster_type {
-        use super::WorkloadClusterType;
-
-        /// Unspecified workload cluster.
-        pub const WORKLOAD_CLUSTER_TYPE_UNSPECIFIED: WorkloadClusterType =
-            WorkloadClusterType::new("WORKLOAD_CLUSTER_TYPE_UNSPECIFIED");
-
-        /// Workload cluster is a GDCE cluster.
-        pub const GDCE: WorkloadClusterType = WorkloadClusterType::new("GDCE");
-
-        /// Workload cluster is a GKE cluster.
-        pub const GKE: WorkloadClusterType = WorkloadClusterType::new("GKE");
+    impl std::convert::From<i32> for WorkloadClusterType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for WorkloadClusterType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for WorkloadClusterType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -610,48 +683,72 @@ pub mod blueprint {
 
     /// Approval state indicates the state of a Blueprint in its approval
     /// lifecycle.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ApprovalState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ApprovalState(i32);
 
     impl ApprovalState {
-        /// Creates a new ApprovalState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ApprovalState](ApprovalState)
-    pub mod approval_state {
-        use super::ApprovalState;
-
         /// Unspecified state.
-        pub const APPROVAL_STATE_UNSPECIFIED: ApprovalState =
-            ApprovalState::new("APPROVAL_STATE_UNSPECIFIED");
+        pub const APPROVAL_STATE_UNSPECIFIED: ApprovalState = ApprovalState::new(0);
 
         /// A blueprint starts in DRAFT state once it is created. All edits are made
         /// to the blueprint in DRAFT state.
-        pub const DRAFT: ApprovalState = ApprovalState::new("DRAFT");
+        pub const DRAFT: ApprovalState = ApprovalState::new(1);
 
         /// When the edits are ready for review, blueprint can be proposed and moves
         /// to PROPOSED state. Edits cannot be made to a blueprint in PROPOSED state.
-        pub const PROPOSED: ApprovalState = ApprovalState::new("PROPOSED");
+        pub const PROPOSED: ApprovalState = ApprovalState::new(2);
 
         /// When a proposed blueprint is approved, it moves to APPROVED state. A new
         /// revision is committed. The latest committed revision can be used to
         /// create a deployment on Orchestration or Workload Cluster. Edits to an
         /// APPROVED blueprint changes its state back to DRAFT. The last committed
         /// revision of a blueprint represents its latest APPROVED state.
-        pub const APPROVED: ApprovalState = ApprovalState::new("APPROVED");
+        pub const APPROVED: ApprovalState = ApprovalState::new(3);
+
+        /// Creates a new ApprovalState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("APPROVAL_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DRAFT"),
+                2 => std::borrow::Cow::Borrowed("PROPOSED"),
+                3 => std::borrow::Cow::Borrowed("APPROVED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "APPROVAL_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::APPROVAL_STATE_UNSPECIFIED)
+                }
+                "DRAFT" => std::option::Option::Some(Self::DRAFT),
+                "PROPOSED" => std::option::Option::Some(Self::PROPOSED),
+                "APPROVED" => std::option::Option::Some(Self::APPROVED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ApprovalState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ApprovalState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ApprovalState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -961,32 +1058,17 @@ pub mod deployment {
     use super::*;
 
     /// State defines which state the current deployment is in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// A deployment starts in DRAFT state. All edits are made in DRAFT state. A
         /// deployment opened for editing after applying will be in draft state,
         /// while its prevision revision will be its current applied version.
-        pub const DRAFT: State = State::new("DRAFT");
+        pub const DRAFT: State = State::new(1);
 
         /// This state means that the contents (YAML files containing kubernetes
         /// resources) of the deployment have been applied to an Orchestration or
@@ -994,17 +1076,55 @@ pub mod deployment {
         /// This revision will represent the latest view of what is applied on the
         /// cluster until the deployment is modified and applied again, which will
         /// create a new revision.
-        pub const APPLIED: State = State::new("APPLIED");
+        pub const APPLIED: State = State::new(2);
 
         /// A deployment in DELETING state has been marked for deletion. Its
         /// deletion status can be queried using `ComputeDeploymentStatus` API. No
         /// updates are allowed to a deployment in DELETING state.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(3);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DRAFT"),
+                2 => std::borrow::Cow::Borrowed("APPLIED"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "DRAFT" => std::option::Option::Some(Self::DRAFT),
+                "APPLIED" => std::option::Option::Some(Self::APPLIED),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1089,40 +1209,61 @@ pub mod hydrated_deployment {
     use super::*;
 
     /// State defines which state the current hydrated deployment is in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// A hydrated deployment starts in DRAFT state. All edits are made in DRAFT
         /// state.
-        pub const DRAFT: State = State::new("DRAFT");
+        pub const DRAFT: State = State::new(1);
 
         /// When the edit is applied, the hydrated deployment moves to APPLIED
         /// state. No changes can be made once a hydrated deployment is applied.
-        pub const APPLIED: State = State::new("APPLIED");
+        pub const APPLIED: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DRAFT"),
+                2 => std::borrow::Cow::Borrowed("APPLIED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "DRAFT" => std::option::Option::Some(Self::DRAFT),
+                "APPLIED" => std::option::Option::Some(Self::APPLIED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4484,222 +4625,346 @@ impl wkt::message::Message for WorkloadStatus {
 }
 
 /// BlueprintView defines the type of view of the blueprint.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct BlueprintView(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct BlueprintView(i32);
 
 impl BlueprintView {
+    /// Unspecified enum value.
+    pub const BLUEPRINT_VIEW_UNSPECIFIED: BlueprintView = BlueprintView::new(0);
+
+    /// View which only contains metadata.
+    pub const BLUEPRINT_VIEW_BASIC: BlueprintView = BlueprintView::new(1);
+
+    /// View which contains metadata and files it encapsulates.
+    pub const BLUEPRINT_VIEW_FULL: BlueprintView = BlueprintView::new(2);
+
     /// Creates a new BlueprintView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("BLUEPRINT_VIEW_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BLUEPRINT_VIEW_BASIC"),
+            2 => std::borrow::Cow::Borrowed("BLUEPRINT_VIEW_FULL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "BLUEPRINT_VIEW_UNSPECIFIED" => {
+                std::option::Option::Some(Self::BLUEPRINT_VIEW_UNSPECIFIED)
+            }
+            "BLUEPRINT_VIEW_BASIC" => std::option::Option::Some(Self::BLUEPRINT_VIEW_BASIC),
+            "BLUEPRINT_VIEW_FULL" => std::option::Option::Some(Self::BLUEPRINT_VIEW_FULL),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [BlueprintView](BlueprintView)
-pub mod blueprint_view {
-    use super::BlueprintView;
-
-    /// Unspecified enum value.
-    pub const BLUEPRINT_VIEW_UNSPECIFIED: BlueprintView =
-        BlueprintView::new("BLUEPRINT_VIEW_UNSPECIFIED");
-
-    /// View which only contains metadata.
-    pub const BLUEPRINT_VIEW_BASIC: BlueprintView = BlueprintView::new("BLUEPRINT_VIEW_BASIC");
-
-    /// View which contains metadata and files it encapsulates.
-    pub const BLUEPRINT_VIEW_FULL: BlueprintView = BlueprintView::new("BLUEPRINT_VIEW_FULL");
+impl std::convert::From<i32> for BlueprintView {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for BlueprintView {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for BlueprintView {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// DeploymentView defines the type of view of the deployment.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeploymentView(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct DeploymentView(i32);
 
 impl DeploymentView {
+    /// Unspecified enum value.
+    pub const DEPLOYMENT_VIEW_UNSPECIFIED: DeploymentView = DeploymentView::new(0);
+
+    /// View which only contains metadata.
+    pub const DEPLOYMENT_VIEW_BASIC: DeploymentView = DeploymentView::new(1);
+
+    /// View which contains metadata and files it encapsulates.
+    pub const DEPLOYMENT_VIEW_FULL: DeploymentView = DeploymentView::new(2);
+
     /// Creates a new DeploymentView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DEPLOYMENT_VIEW_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("DEPLOYMENT_VIEW_BASIC"),
+            2 => std::borrow::Cow::Borrowed("DEPLOYMENT_VIEW_FULL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DEPLOYMENT_VIEW_UNSPECIFIED" => {
+                std::option::Option::Some(Self::DEPLOYMENT_VIEW_UNSPECIFIED)
+            }
+            "DEPLOYMENT_VIEW_BASIC" => std::option::Option::Some(Self::DEPLOYMENT_VIEW_BASIC),
+            "DEPLOYMENT_VIEW_FULL" => std::option::Option::Some(Self::DEPLOYMENT_VIEW_FULL),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [DeploymentView](DeploymentView)
-pub mod deployment_view {
-    use super::DeploymentView;
-
-    /// Unspecified enum value.
-    pub const DEPLOYMENT_VIEW_UNSPECIFIED: DeploymentView =
-        DeploymentView::new("DEPLOYMENT_VIEW_UNSPECIFIED");
-
-    /// View which only contains metadata.
-    pub const DEPLOYMENT_VIEW_BASIC: DeploymentView = DeploymentView::new("DEPLOYMENT_VIEW_BASIC");
-
-    /// View which contains metadata and files it encapsulates.
-    pub const DEPLOYMENT_VIEW_FULL: DeploymentView = DeploymentView::new("DEPLOYMENT_VIEW_FULL");
+impl std::convert::From<i32> for DeploymentView {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for DeploymentView {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for DeploymentView {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Represent type of CR.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ResourceType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ResourceType(i32);
 
 impl ResourceType {
+    /// Unspecified resource type.
+    pub const RESOURCE_TYPE_UNSPECIFIED: ResourceType = ResourceType::new(0);
+
+    /// User specified NF Deploy CR.
+    pub const NF_DEPLOY_RESOURCE: ResourceType = ResourceType::new(1);
+
+    /// CRs that are part of a blueprint.
+    pub const DEPLOYMENT_RESOURCE: ResourceType = ResourceType::new(2);
+
     /// Creates a new ResourceType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("RESOURCE_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("NF_DEPLOY_RESOURCE"),
+            2 => std::borrow::Cow::Borrowed("DEPLOYMENT_RESOURCE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "RESOURCE_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::RESOURCE_TYPE_UNSPECIFIED)
+            }
+            "NF_DEPLOY_RESOURCE" => std::option::Option::Some(Self::NF_DEPLOY_RESOURCE),
+            "DEPLOYMENT_RESOURCE" => std::option::Option::Some(Self::DEPLOYMENT_RESOURCE),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ResourceType](ResourceType)
-pub mod resource_type {
-    use super::ResourceType;
-
-    /// Unspecified resource type.
-    pub const RESOURCE_TYPE_UNSPECIFIED: ResourceType =
-        ResourceType::new("RESOURCE_TYPE_UNSPECIFIED");
-
-    /// User specified NF Deploy CR.
-    pub const NF_DEPLOY_RESOURCE: ResourceType = ResourceType::new("NF_DEPLOY_RESOURCE");
-
-    /// CRs that are part of a blueprint.
-    pub const DEPLOYMENT_RESOURCE: ResourceType = ResourceType::new("DEPLOYMENT_RESOURCE");
+impl std::convert::From<i32> for ResourceType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for ResourceType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for ResourceType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Status of an entity (resource, deployment).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Status(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct Status(i32);
 
 impl Status {
-    /// Creates a new Status instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [Status](Status)
-pub mod status {
-    use super::Status;
-
     /// Unknown state.
-    pub const STATUS_UNSPECIFIED: Status = Status::new("STATUS_UNSPECIFIED");
+    pub const STATUS_UNSPECIFIED: Status = Status::new(0);
 
     /// Under progress.
-    pub const STATUS_IN_PROGRESS: Status = Status::new("STATUS_IN_PROGRESS");
+    pub const STATUS_IN_PROGRESS: Status = Status::new(1);
 
     /// Running and ready to serve traffic.
-    pub const STATUS_ACTIVE: Status = Status::new("STATUS_ACTIVE");
+    pub const STATUS_ACTIVE: Status = Status::new(2);
 
     /// Failed or stalled.
-    pub const STATUS_FAILED: Status = Status::new("STATUS_FAILED");
+    pub const STATUS_FAILED: Status = Status::new(3);
 
     /// Delete in progress.
-    pub const STATUS_DELETING: Status = Status::new("STATUS_DELETING");
+    pub const STATUS_DELETING: Status = Status::new(4);
 
     /// Deleted deployment.
-    pub const STATUS_DELETED: Status = Status::new("STATUS_DELETED");
+    pub const STATUS_DELETED: Status = Status::new(5);
 
     /// NFDeploy specific status. Peering in progress.
-    pub const STATUS_PEERING: Status = Status::new("STATUS_PEERING");
+    pub const STATUS_PEERING: Status = Status::new(10);
 
     /// K8s objects such as NetworkAttachmentDefinition don't have a defined
     /// status.
-    pub const STATUS_NOT_APPLICABLE: Status = Status::new("STATUS_NOT_APPLICABLE");
+    pub const STATUS_NOT_APPLICABLE: Status = Status::new(11);
+
+    /// Creates a new Status instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("STATUS_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("STATUS_IN_PROGRESS"),
+            2 => std::borrow::Cow::Borrowed("STATUS_ACTIVE"),
+            3 => std::borrow::Cow::Borrowed("STATUS_FAILED"),
+            4 => std::borrow::Cow::Borrowed("STATUS_DELETING"),
+            5 => std::borrow::Cow::Borrowed("STATUS_DELETED"),
+            10 => std::borrow::Cow::Borrowed("STATUS_PEERING"),
+            11 => std::borrow::Cow::Borrowed("STATUS_NOT_APPLICABLE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "STATUS_UNSPECIFIED" => std::option::Option::Some(Self::STATUS_UNSPECIFIED),
+            "STATUS_IN_PROGRESS" => std::option::Option::Some(Self::STATUS_IN_PROGRESS),
+            "STATUS_ACTIVE" => std::option::Option::Some(Self::STATUS_ACTIVE),
+            "STATUS_FAILED" => std::option::Option::Some(Self::STATUS_FAILED),
+            "STATUS_DELETING" => std::option::Option::Some(Self::STATUS_DELETING),
+            "STATUS_DELETED" => std::option::Option::Some(Self::STATUS_DELETED),
+            "STATUS_PEERING" => std::option::Option::Some(Self::STATUS_PEERING),
+            "STATUS_NOT_APPLICABLE" => std::option::Option::Some(Self::STATUS_NOT_APPLICABLE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for Status {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for Status {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for Status {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// DeploymentLevel of a blueprint signifies where the blueprint will be
 /// applied.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeploymentLevel(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct DeploymentLevel(i32);
 
 impl DeploymentLevel {
-    /// Creates a new DeploymentLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [DeploymentLevel](DeploymentLevel)
-pub mod deployment_level {
-    use super::DeploymentLevel;
-
     /// Default unspecified deployment level.
-    pub const DEPLOYMENT_LEVEL_UNSPECIFIED: DeploymentLevel =
-        DeploymentLevel::new("DEPLOYMENT_LEVEL_UNSPECIFIED");
+    pub const DEPLOYMENT_LEVEL_UNSPECIFIED: DeploymentLevel = DeploymentLevel::new(0);
 
     /// Blueprints at HYDRATION level cannot be used to create a Deployment
     /// (A user cannot manually initate deployment of these blueprints on
     /// orchestration or workload cluster).
     /// These blueprints stay in a user's private catalog and are configured and
     /// deployed by TNA automation.
-    pub const HYDRATION: DeploymentLevel = DeploymentLevel::new("HYDRATION");
+    pub const HYDRATION: DeploymentLevel = DeploymentLevel::new(1);
 
     /// Blueprints at SINGLE_DEPLOYMENT level can be
     /// a) Modified in private catalog.
     /// b) Used to create a deployment on orchestration cluster by the user, once
     /// approved.
-    pub const SINGLE_DEPLOYMENT: DeploymentLevel = DeploymentLevel::new("SINGLE_DEPLOYMENT");
+    pub const SINGLE_DEPLOYMENT: DeploymentLevel = DeploymentLevel::new(2);
 
     /// Blueprints at MULTI_DEPLOYMENT level can be
     /// a) Modified in private catalog.
     /// b) Used to create a deployment on orchestration cluster which will create
     /// further hydrated deployments.
-    pub const MULTI_DEPLOYMENT: DeploymentLevel = DeploymentLevel::new("MULTI_DEPLOYMENT");
+    pub const MULTI_DEPLOYMENT: DeploymentLevel = DeploymentLevel::new(3);
 
     /// Blueprints at WORKLOAD_CLUSTER_DEPLOYMENT level can be
     /// a) Modified in private catalog.
     /// b) Used to create a deployment on workload cluster by the user, once
     /// approved.
-    pub const WORKLOAD_CLUSTER_DEPLOYMENT: DeploymentLevel =
-        DeploymentLevel::new("WORKLOAD_CLUSTER_DEPLOYMENT");
+    pub const WORKLOAD_CLUSTER_DEPLOYMENT: DeploymentLevel = DeploymentLevel::new(4);
+
+    /// Creates a new DeploymentLevel instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DEPLOYMENT_LEVEL_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("HYDRATION"),
+            2 => std::borrow::Cow::Borrowed("SINGLE_DEPLOYMENT"),
+            3 => std::borrow::Cow::Borrowed("MULTI_DEPLOYMENT"),
+            4 => std::borrow::Cow::Borrowed("WORKLOAD_CLUSTER_DEPLOYMENT"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DEPLOYMENT_LEVEL_UNSPECIFIED" => {
+                std::option::Option::Some(Self::DEPLOYMENT_LEVEL_UNSPECIFIED)
+            }
+            "HYDRATION" => std::option::Option::Some(Self::HYDRATION),
+            "SINGLE_DEPLOYMENT" => std::option::Option::Some(Self::SINGLE_DEPLOYMENT),
+            "MULTI_DEPLOYMENT" => std::option::Option::Some(Self::MULTI_DEPLOYMENT),
+            "WORKLOAD_CLUSTER_DEPLOYMENT" => {
+                std::option::Option::Some(Self::WORKLOAD_CLUSTER_DEPLOYMENT)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for DeploymentLevel {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DeploymentLevel {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for DeploymentLevel {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

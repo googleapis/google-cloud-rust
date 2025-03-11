@@ -50,13 +50,7 @@ pub struct Reservation {
     /// Queries using this reservation might use more slots during runtime if
     /// ignore_idle_slots is set to false, or autoscaling is enabled.
     ///
-    /// If edition is EDITION_UNSPECIFIED and total slot_capacity of the
-    /// reservation and its siblings exceeds the total slot_count of all capacity
-    /// commitments, the request will fail with
-    /// `google.rpc.Code.RESOURCE_EXHAUSTED`.
-    ///
-    /// If edition is any value but EDITION_UNSPECIFIED, then the above requirement
-    /// is not needed. The total slot_capacity of the reservation and its siblings
+    /// The total slot_capacity of the reservation and its siblings
     /// may exceed the total slot_count of capacity commitments. In that case, the
     /// exceeding slots will be charged with the autoscale SKU. You can increase
     /// the number of baseline slots in a reservation every few minutes. If you
@@ -110,8 +104,8 @@ pub struct Reservation {
     /// Edition of the reservation.
     pub edition: crate::model::Edition,
 
-    /// Optional. The current location of the reservation's primary replica. This
-    /// field is only set for reservations using the managed disaster recovery
+    /// Output only. The current location of the reservation's primary replica.
+    /// This field is only set for reservations using the managed disaster recovery
     /// feature.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub primary_location: std::string::String,
@@ -124,11 +118,22 @@ pub struct Reservation {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secondary_location: std::string::String,
 
-    /// Optional. The location where the reservation was originally created. This
-    /// is set only during the failover reservation's creation. All billing charges
-    /// for the failover reservation will be applied to this location.
+    /// Output only. The location where the reservation was originally created.
+    /// This is set only during the failover reservation's creation. All billing
+    /// charges for the failover reservation will be applied to this location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub original_primary_location: std::string::String,
+
+    /// Output only. The Disaster Recovery(DR) replication status of the
+    /// reservation. This is only available for the primary replicas of DR/failover
+    /// reservations and provides information about the both the staleness of the
+    /// secondary and the last error encountered while trying to replicate changes
+    /// from the primary to the secondary. If this field is blank, it means that
+    /// the reservation is either not a DR reservation or the reservation is a DR
+    /// secondary or that any replication operations on the reservation have
+    /// succeeded.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub replication_status: std::option::Option<crate::model::reservation::ReplicationStatus>,
 }
 
 impl Reservation {
@@ -227,6 +232,17 @@ impl Reservation {
         self.original_primary_location = v.into();
         self
     }
+
+    /// Sets the value of [replication_status][crate::model::Reservation::replication_status].
+    pub fn set_replication_status<
+        T: std::convert::Into<std::option::Option<crate::model::reservation::ReplicationStatus>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.replication_status = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Reservation {
@@ -280,6 +296,71 @@ pub mod reservation {
     impl wkt::message::Message for Autoscale {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.bigquery.reservation.v1.Reservation.Autoscale"
+        }
+    }
+
+    /// Disaster Recovery(DR) replication status of the reservation.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ReplicationStatus {
+        /// Output only. The last error encountered while trying to replicate changes
+        /// from the primary to the secondary. This field is only available if the
+        /// replication has not succeeded since.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub error: std::option::Option<rpc::model::Status>,
+
+        /// Output only. The time at which the last error was encountered while
+        /// trying to replicate changes from the primary to the secondary. This field
+        /// is only available if the replication has not succeeded since.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub last_error_time: std::option::Option<wkt::Timestamp>,
+
+        /// Output only. A timestamp corresponding to the last change on the primary
+        /// that was successfully replicated to the secondary.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub last_replication_time: std::option::Option<wkt::Timestamp>,
+    }
+
+    impl ReplicationStatus {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [error][crate::model::reservation::ReplicationStatus::error].
+        pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.error = v.into();
+            self
+        }
+
+        /// Sets the value of [last_error_time][crate::model::reservation::ReplicationStatus::last_error_time].
+        pub fn set_last_error_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.last_error_time = v.into();
+            self
+        }
+
+        /// Sets the value of [last_replication_time][crate::model::reservation::ReplicationStatus::last_replication_time].
+        pub fn set_last_replication_time<
+            T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.last_replication_time = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ReplicationStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.reservation.v1.Reservation.ReplicationStatus"
         }
     }
 }
@@ -465,67 +546,51 @@ pub mod capacity_commitment {
 
     /// Commitment plan defines the current committed period. Capacity commitment
     /// cannot be deleted during it's committed period.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CommitmentPlan(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct CommitmentPlan(i32);
 
     impl CommitmentPlan {
-        /// Creates a new CommitmentPlan instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CommitmentPlan](CommitmentPlan)
-    pub mod commitment_plan {
-        use super::CommitmentPlan;
-
         /// Invalid plan value. Requests with this value will be rejected with
         /// error code `google.rpc.Code.INVALID_ARGUMENT`.
-        pub const COMMITMENT_PLAN_UNSPECIFIED: CommitmentPlan =
-            CommitmentPlan::new("COMMITMENT_PLAN_UNSPECIFIED");
+        pub const COMMITMENT_PLAN_UNSPECIFIED: CommitmentPlan = CommitmentPlan::new(0);
 
         /// Flex commitments have committed period of 1 minute after becoming ACTIVE.
         /// After that, they are not in a committed period anymore and can be removed
         /// any time.
-        pub const FLEX: CommitmentPlan = CommitmentPlan::new("FLEX");
+        pub const FLEX: CommitmentPlan = CommitmentPlan::new(3);
 
         /// Same as FLEX, should only be used if flat-rate commitments are still
         /// available.
-        pub const FLEX_FLAT_RATE: CommitmentPlan = CommitmentPlan::new("FLEX_FLAT_RATE");
+        pub const FLEX_FLAT_RATE: CommitmentPlan = CommitmentPlan::new(7);
 
         /// Trial commitments have a committed period of 182 days after becoming
         /// ACTIVE. After that, they are converted to a new commitment based on the
         /// `renewal_plan`. Default `renewal_plan` for Trial commitment is Flex so
         /// that it can be deleted right after committed period ends.
-        pub const TRIAL: CommitmentPlan = CommitmentPlan::new("TRIAL");
+        pub const TRIAL: CommitmentPlan = CommitmentPlan::new(5);
 
         /// Monthly commitments have a committed period of 30 days after becoming
         /// ACTIVE. After that, they are not in a committed period anymore and can be
         /// removed any time.
-        pub const MONTHLY: CommitmentPlan = CommitmentPlan::new("MONTHLY");
+        pub const MONTHLY: CommitmentPlan = CommitmentPlan::new(2);
 
         /// Same as MONTHLY, should only be used if flat-rate commitments are still
         /// available.
-        pub const MONTHLY_FLAT_RATE: CommitmentPlan = CommitmentPlan::new("MONTHLY_FLAT_RATE");
+        pub const MONTHLY_FLAT_RATE: CommitmentPlan = CommitmentPlan::new(8);
 
         /// Annual commitments have a committed period of 365 days after becoming
         /// ACTIVE. After that they are converted to a new commitment based on the
         /// renewal_plan.
-        pub const ANNUAL: CommitmentPlan = CommitmentPlan::new("ANNUAL");
+        pub const ANNUAL: CommitmentPlan = CommitmentPlan::new(4);
 
         /// Same as ANNUAL, should only be used if flat-rate commitments are still
         /// available.
-        pub const ANNUAL_FLAT_RATE: CommitmentPlan = CommitmentPlan::new("ANNUAL_FLAT_RATE");
+        pub const ANNUAL_FLAT_RATE: CommitmentPlan = CommitmentPlan::new(9);
 
         /// 3-year commitments have a committed period of 1095(3 * 365) days after
         /// becoming ACTIVE. After that they are converted to a new commitment based
         /// on the renewal_plan.
-        pub const THREE_YEAR: CommitmentPlan = CommitmentPlan::new("THREE_YEAR");
+        pub const THREE_YEAR: CommitmentPlan = CommitmentPlan::new(10);
 
         /// Should only be used for `renewal_plan` and is only meaningful if
         /// edition is specified to values other than EDITION_UNSPECIFIED. Otherwise
@@ -533,54 +598,129 @@ pub mod capacity_commitment {
         /// be rejected with error code `google.rpc.Code.INVALID_ARGUMENT`. If the
         /// renewal_plan is NONE, capacity commitment will be removed at the end of
         /// its commitment period.
-        pub const NONE: CommitmentPlan = CommitmentPlan::new("NONE");
+        pub const NONE: CommitmentPlan = CommitmentPlan::new(6);
+
+        /// Creates a new CommitmentPlan instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("COMMITMENT_PLAN_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("MONTHLY"),
+                3 => std::borrow::Cow::Borrowed("FLEX"),
+                4 => std::borrow::Cow::Borrowed("ANNUAL"),
+                5 => std::borrow::Cow::Borrowed("TRIAL"),
+                6 => std::borrow::Cow::Borrowed("NONE"),
+                7 => std::borrow::Cow::Borrowed("FLEX_FLAT_RATE"),
+                8 => std::borrow::Cow::Borrowed("MONTHLY_FLAT_RATE"),
+                9 => std::borrow::Cow::Borrowed("ANNUAL_FLAT_RATE"),
+                10 => std::borrow::Cow::Borrowed("THREE_YEAR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "COMMITMENT_PLAN_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::COMMITMENT_PLAN_UNSPECIFIED)
+                }
+                "FLEX" => std::option::Option::Some(Self::FLEX),
+                "FLEX_FLAT_RATE" => std::option::Option::Some(Self::FLEX_FLAT_RATE),
+                "TRIAL" => std::option::Option::Some(Self::TRIAL),
+                "MONTHLY" => std::option::Option::Some(Self::MONTHLY),
+                "MONTHLY_FLAT_RATE" => std::option::Option::Some(Self::MONTHLY_FLAT_RATE),
+                "ANNUAL" => std::option::Option::Some(Self::ANNUAL),
+                "ANNUAL_FLAT_RATE" => std::option::Option::Some(Self::ANNUAL_FLAT_RATE),
+                "THREE_YEAR" => std::option::Option::Some(Self::THREE_YEAR),
+                "NONE" => std::option::Option::Some(Self::NONE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CommitmentPlan {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for CommitmentPlan {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for CommitmentPlan {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Capacity commitment can either become ACTIVE right away or transition
     /// from PENDING to ACTIVE or FAILED.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Invalid state value.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Capacity commitment is pending provisioning. Pending capacity commitment
         /// does not contribute to the project's slot_capacity.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::new(1);
 
         /// Once slots are provisioned, capacity commitment becomes active.
         /// slot_count is added to the project's slot_capacity.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// Capacity commitment is failed to be activated by the backend.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(3);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1393,6 +1533,16 @@ pub struct Assignment {
 
     /// Output only. State of the assignment.
     pub state: crate::model::assignment::State,
+
+    /// Optional. This field controls if "Gemini in BigQuery"
+    /// (<https://cloud.google.com/gemini/docs/bigquery/overview>) features should be
+    /// enabled for this reservation assignment, which is not on by default.
+    /// "Gemini in BigQuery" has a distinct compliance posture from BigQuery.  If
+    /// this field is set to true, the assignment job type is QUERY, and
+    /// the parent reservation edition is ENTERPRISE_PLUS, then the assignment will
+    /// give the grantee project/organization access to "Gemini in BigQuery"
+    /// features.
+    pub enable_gemini_in_bigquery: bool,
 }
 
 impl Assignment {
@@ -1429,6 +1579,12 @@ impl Assignment {
         self.state = v.into();
         self
     }
+
+    /// Sets the value of [enable_gemini_in_bigquery][crate::model::Assignment::enable_gemini_in_bigquery].
+    pub fn set_enable_gemini_in_bigquery<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_gemini_in_bigquery = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Assignment {
@@ -1443,85 +1599,137 @@ pub mod assignment {
     use super::*;
 
     /// Types of job, which could be specified when using the reservation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct JobType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct JobType(i32);
 
     impl JobType {
-        /// Creates a new JobType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [JobType](JobType)
-    pub mod job_type {
-        use super::JobType;
-
         /// Invalid type. Requests with this value will be rejected with
         /// error code `google.rpc.Code.INVALID_ARGUMENT`.
-        pub const JOB_TYPE_UNSPECIFIED: JobType = JobType::new("JOB_TYPE_UNSPECIFIED");
+        pub const JOB_TYPE_UNSPECIFIED: JobType = JobType::new(0);
 
         /// Pipeline (load/export) jobs from the project will use the reservation.
-        pub const PIPELINE: JobType = JobType::new("PIPELINE");
+        pub const PIPELINE: JobType = JobType::new(1);
 
         /// Query jobs from the project will use the reservation.
-        pub const QUERY: JobType = JobType::new("QUERY");
+        pub const QUERY: JobType = JobType::new(2);
 
         /// BigQuery ML jobs that use services external to BigQuery for model
         /// training. These jobs will not utilize idle slots from other reservations.
-        pub const ML_EXTERNAL: JobType = JobType::new("ML_EXTERNAL");
+        pub const ML_EXTERNAL: JobType = JobType::new(3);
 
         /// Background jobs that BigQuery runs for the customers in the background.
-        pub const BACKGROUND: JobType = JobType::new("BACKGROUND");
+        pub const BACKGROUND: JobType = JobType::new(4);
+
+        /// Continuous SQL jobs will use this reservation. Reservations with
+        /// continuous assignments cannot be mixed with non-continuous assignments.
+        pub const CONTINUOUS: JobType = JobType::new(6);
+
+        /// Creates a new JobType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("JOB_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PIPELINE"),
+                2 => std::borrow::Cow::Borrowed("QUERY"),
+                3 => std::borrow::Cow::Borrowed("ML_EXTERNAL"),
+                4 => std::borrow::Cow::Borrowed("BACKGROUND"),
+                6 => std::borrow::Cow::Borrowed("CONTINUOUS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "JOB_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::JOB_TYPE_UNSPECIFIED),
+                "PIPELINE" => std::option::Option::Some(Self::PIPELINE),
+                "QUERY" => std::option::Option::Some(Self::QUERY),
+                "ML_EXTERNAL" => std::option::Option::Some(Self::ML_EXTERNAL),
+                "BACKGROUND" => std::option::Option::Some(Self::BACKGROUND),
+                "CONTINUOUS" => std::option::Option::Some(Self::CONTINUOUS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for JobType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for JobType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for JobType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Assignment will remain in PENDING state if no active capacity commitment is
     /// present. It will become ACTIVE when some capacity commitment becomes
     /// active.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Invalid state value.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Queries from assignee will be executed as on-demand, if related
         /// assignment is pending.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::new(1);
 
         /// Assignment is ready.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2317,40 +2525,63 @@ impl wkt::message::Message for UpdateBiReservationRequest {
 /// The type of editions.
 /// Different features and behaviors are provided to different editions
 /// Capacity commitments and reservations are linked to editions.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Edition(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct Edition(i32);
 
 impl Edition {
+    /// Default value, which will be treated as ENTERPRISE.
+    pub const EDITION_UNSPECIFIED: Edition = Edition::new(0);
+
+    /// Standard edition.
+    pub const STANDARD: Edition = Edition::new(1);
+
+    /// Enterprise edition.
+    pub const ENTERPRISE: Edition = Edition::new(2);
+
+    /// Enterprise Plus edition.
+    pub const ENTERPRISE_PLUS: Edition = Edition::new(3);
+
     /// Creates a new Edition instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("EDITION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("STANDARD"),
+            2 => std::borrow::Cow::Borrowed("ENTERPRISE"),
+            3 => std::borrow::Cow::Borrowed("ENTERPRISE_PLUS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "EDITION_UNSPECIFIED" => std::option::Option::Some(Self::EDITION_UNSPECIFIED),
+            "STANDARD" => std::option::Option::Some(Self::STANDARD),
+            "ENTERPRISE" => std::option::Option::Some(Self::ENTERPRISE),
+            "ENTERPRISE_PLUS" => std::option::Option::Some(Self::ENTERPRISE_PLUS),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [Edition](Edition)
-pub mod edition {
-    use super::Edition;
-
-    /// Default value, which will be treated as ENTERPRISE.
-    pub const EDITION_UNSPECIFIED: Edition = Edition::new("EDITION_UNSPECIFIED");
-
-    /// Standard edition.
-    pub const STANDARD: Edition = Edition::new("STANDARD");
-
-    /// Enterprise edition.
-    pub const ENTERPRISE: Edition = Edition::new("ENTERPRISE");
-
-    /// Enterprise Plus edition.
-    pub const ENTERPRISE_PLUS: Edition = Edition::new("ENTERPRISE_PLUS");
+impl std::convert::From<i32> for Edition {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for Edition {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for Edition {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

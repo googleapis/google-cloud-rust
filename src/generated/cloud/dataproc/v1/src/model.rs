@@ -1434,50 +1434,79 @@ pub mod batch {
     }
 
     /// The batch state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// The batch state is unknown.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The batch is created before running.
+        pub const PENDING: State = State::new(1);
+
+        /// The batch is running.
+        pub const RUNNING: State = State::new(2);
+
+        /// The batch is cancelling.
+        pub const CANCELLING: State = State::new(3);
+
+        /// The batch cancellation was successful.
+        pub const CANCELLED: State = State::new(4);
+
+        /// The batch completed successfully.
+        pub const SUCCEEDED: State = State::new(5);
+
+        /// The batch is no longer running due to an error.
+        pub const FAILED: State = State::new(6);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("CANCELLING"),
+                4 => std::borrow::Cow::Borrowed("CANCELLED"),
+                5 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                6 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "CANCELLING" => std::option::Option::Some(Self::CANCELLING),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The batch state is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The batch is created before running.
-        pub const PENDING: State = State::new("PENDING");
-
-        /// The batch is running.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// The batch is cancelling.
-        pub const CANCELLING: State = State::new("CANCELLING");
-
-        /// The batch cancellation was successful.
-        pub const CANCELLED: State = State::new("CANCELLED");
-
-        /// The batch completed successfully.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// The batch is no longer running due to an error.
-        pub const FAILED: State = State::new("FAILED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -2984,52 +3013,78 @@ pub mod gce_cluster_config {
     /// These values are directly mapped to corresponding values in the
     /// [Compute Engine Instance
     /// fields](https://cloud.google.com/compute/docs/reference/rest/v1/instances).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PrivateIpv6GoogleAccess(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PrivateIpv6GoogleAccess(i32);
 
     impl PrivateIpv6GoogleAccess {
-        /// Creates a new PrivateIpv6GoogleAccess instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PrivateIpv6GoogleAccess](PrivateIpv6GoogleAccess)
-    pub mod private_ipv_6_google_access {
-        use super::PrivateIpv6GoogleAccess;
-
         /// If unspecified, Compute Engine default behavior will apply, which
         /// is the same as
         /// [INHERIT_FROM_SUBNETWORK][google.cloud.dataproc.v1.GceClusterConfig.PrivateIpv6GoogleAccess.INHERIT_FROM_SUBNETWORK].
         ///
         /// [google.cloud.dataproc.v1.GceClusterConfig.PrivateIpv6GoogleAccess.INHERIT_FROM_SUBNETWORK]: crate::model::gce_cluster_config::private_ipv_6_google_access::INHERIT_FROM_SUBNETWORK
         pub const PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED: PrivateIpv6GoogleAccess =
-            PrivateIpv6GoogleAccess::new("PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED");
+            PrivateIpv6GoogleAccess::new(0);
 
         /// Private access to and from Google Services configuration
         /// inherited from the subnetwork configuration. This is the
         /// default Compute Engine behavior.
         pub const INHERIT_FROM_SUBNETWORK: PrivateIpv6GoogleAccess =
-            PrivateIpv6GoogleAccess::new("INHERIT_FROM_SUBNETWORK");
+            PrivateIpv6GoogleAccess::new(1);
 
         /// Enables outbound private IPv6 access to Google Services from the Dataproc
         /// cluster.
-        pub const OUTBOUND: PrivateIpv6GoogleAccess = PrivateIpv6GoogleAccess::new("OUTBOUND");
+        pub const OUTBOUND: PrivateIpv6GoogleAccess = PrivateIpv6GoogleAccess::new(2);
 
         /// Enables bidirectional private IPv6 access between Google Services and the
         /// Dataproc cluster.
-        pub const BIDIRECTIONAL: PrivateIpv6GoogleAccess =
-            PrivateIpv6GoogleAccess::new("BIDIRECTIONAL");
+        pub const BIDIRECTIONAL: PrivateIpv6GoogleAccess = PrivateIpv6GoogleAccess::new(3);
+
+        /// Creates a new PrivateIpv6GoogleAccess instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INHERIT_FROM_SUBNETWORK"),
+                2 => std::borrow::Cow::Borrowed("OUTBOUND"),
+                3 => std::borrow::Cow::Borrowed("BIDIRECTIONAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED)
+                }
+                "INHERIT_FROM_SUBNETWORK" => {
+                    std::option::Option::Some(Self::INHERIT_FROM_SUBNETWORK)
+                }
+                "OUTBOUND" => std::option::Option::Some(Self::OUTBOUND),
+                "BIDIRECTIONAL" => std::option::Option::Some(Self::BIDIRECTIONAL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PrivateIpv6GoogleAccess {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PrivateIpv6GoogleAccess {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for PrivateIpv6GoogleAccess {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3433,35 +3488,19 @@ pub mod instance_group_config {
     use super::*;
 
     /// Controls the use of preemptible instances within the group.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Preemptibility(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Preemptibility(i32);
 
     impl Preemptibility {
-        /// Creates a new Preemptibility instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Preemptibility](Preemptibility)
-    pub mod preemptibility {
-        use super::Preemptibility;
-
         /// Preemptibility is unspecified, the system will choose the
         /// appropriate setting for each instance group.
-        pub const PREEMPTIBILITY_UNSPECIFIED: Preemptibility =
-            Preemptibility::new("PREEMPTIBILITY_UNSPECIFIED");
+        pub const PREEMPTIBILITY_UNSPECIFIED: Preemptibility = Preemptibility::new(0);
 
         /// Instances are non-preemptible.
         ///
         /// This option is allowed for all instance groups and is the only valid
         /// value for Master and Worker instance groups.
-        pub const NON_PREEMPTIBLE: Preemptibility = Preemptibility::new("NON_PREEMPTIBLE");
+        pub const NON_PREEMPTIBLE: Preemptibility = Preemptibility::new(1);
 
         /// Instances are [preemptible]
         /// (<https://cloud.google.com/compute/docs/instances/preemptible>).
@@ -3469,7 +3508,7 @@ pub mod instance_group_config {
         /// This option is allowed only for [secondary worker]
         /// (<https://cloud.google.com/dataproc/docs/concepts/compute/secondary-vms>)
         /// groups.
-        pub const PREEMPTIBLE: Preemptibility = Preemptibility::new("PREEMPTIBLE");
+        pub const PREEMPTIBLE: Preemptibility = Preemptibility::new(2);
 
         /// Instances are [Spot VMs]
         /// (<https://cloud.google.com/compute/docs/instances/spot>).
@@ -3479,12 +3518,52 @@ pub mod instance_group_config {
         /// groups. Spot VMs are the latest version of [preemptible VMs]
         /// (<https://cloud.google.com/compute/docs/instances/preemptible>), and
         /// provide additional features.
-        pub const SPOT: Preemptibility = Preemptibility::new("SPOT");
+        pub const SPOT: Preemptibility = Preemptibility::new(3);
+
+        /// Creates a new Preemptibility instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PREEMPTIBILITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NON_PREEMPTIBLE"),
+                2 => std::borrow::Cow::Borrowed("PREEMPTIBLE"),
+                3 => std::borrow::Cow::Borrowed("SPOT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PREEMPTIBILITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PREEMPTIBILITY_UNSPECIFIED)
+                }
+                "NON_PREEMPTIBLE" => std::option::Option::Some(Self::NON_PREEMPTIBLE),
+                "PREEMPTIBLE" => std::option::Option::Some(Self::PREEMPTIBLE),
+                "SPOT" => std::option::Option::Some(Self::SPOT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Preemptibility {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Preemptibility {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Preemptibility {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4186,35 +4265,54 @@ pub mod node_group {
     use super::*;
 
     /// Node pool roles.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Role(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Role(i32);
 
     impl Role {
+        /// Required unspecified role.
+        pub const ROLE_UNSPECIFIED: Role = Role::new(0);
+
+        /// Job drivers run on the node pool.
+        pub const DRIVER: Role = Role::new(1);
+
         /// Creates a new Role instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROLE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DRIVER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROLE_UNSPECIFIED" => std::option::Option::Some(Self::ROLE_UNSPECIFIED),
+                "DRIVER" => std::option::Option::Some(Self::DRIVER),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Role](Role)
-    pub mod role {
-        use super::Role;
-
-        /// Required unspecified role.
-        pub const ROLE_UNSPECIFIED: Role = Role::new("ROLE_UNSPECIFIED");
-
-        /// Job drivers run on the node pool.
-        pub const DRIVER: Role = Role::new("DRIVER");
+    impl std::convert::From<i32> for Role {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Role {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Role {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4342,110 +4440,168 @@ pub mod cluster_status {
     use super::*;
 
     /// The cluster state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The cluster state is unknown.
-        pub const UNKNOWN: State = State::new("UNKNOWN");
+        pub const UNKNOWN: State = State::new(0);
 
         /// The cluster is being created and set up. It is not ready for use.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The cluster is currently running and healthy. It is ready for use.
         ///
         /// **Note:** The cluster state changes from "creating" to "running" status
         /// after the master node(s), first two primary worker nodes (and the last
         /// primary worker node if primary workers > 2) are running.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::new(2);
 
         /// The cluster encountered an error. It is not ready for use.
-        pub const ERROR: State = State::new("ERROR");
+        pub const ERROR: State = State::new(3);
 
         /// The cluster has encountered an error while being updated. Jobs can
         /// be submitted to the cluster, but the cluster cannot be updated.
-        pub const ERROR_DUE_TO_UPDATE: State = State::new("ERROR_DUE_TO_UPDATE");
+        pub const ERROR_DUE_TO_UPDATE: State = State::new(9);
 
         /// The cluster is being deleted. It cannot be used.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// The cluster is being updated. It continues to accept and process jobs.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(5);
 
         /// The cluster is being stopped. It cannot be used.
-        pub const STOPPING: State = State::new("STOPPING");
+        pub const STOPPING: State = State::new(6);
 
         /// The cluster is currently stopped. It is not ready for use.
-        pub const STOPPED: State = State::new("STOPPED");
+        pub const STOPPED: State = State::new(7);
 
         /// The cluster is being started. It is not ready for use.
-        pub const STARTING: State = State::new("STARTING");
+        pub const STARTING: State = State::new(8);
 
         /// The cluster is being repaired. It is not ready for use.
-        pub const REPAIRING: State = State::new("REPAIRING");
+        pub const REPAIRING: State = State::new(10);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("ERROR"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("UPDATING"),
+                6 => std::borrow::Cow::Borrowed("STOPPING"),
+                7 => std::borrow::Cow::Borrowed("STOPPED"),
+                8 => std::borrow::Cow::Borrowed("STARTING"),
+                9 => std::borrow::Cow::Borrowed("ERROR_DUE_TO_UPDATE"),
+                10 => std::borrow::Cow::Borrowed("REPAIRING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "ERROR_DUE_TO_UPDATE" => std::option::Option::Some(Self::ERROR_DUE_TO_UPDATE),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "STOPPING" => std::option::Option::Some(Self::STOPPING),
+                "STOPPED" => std::option::Option::Some(Self::STOPPED),
+                "STARTING" => std::option::Option::Some(Self::STARTING),
+                "REPAIRING" => std::option::Option::Some(Self::REPAIRING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The cluster substate.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Substate(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Substate(i32);
 
     impl Substate {
-        /// Creates a new Substate instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Substate](Substate)
-    pub mod substate {
-        use super::Substate;
-
         /// The cluster substate is unknown.
-        pub const UNSPECIFIED: Substate = Substate::new("UNSPECIFIED");
+        pub const UNSPECIFIED: Substate = Substate::new(0);
 
         /// The cluster is known to be in an unhealthy state
         /// (for example, critical daemons are not running or HDFS capacity is
         /// exhausted).
         ///
         /// Applies to RUNNING state.
-        pub const UNHEALTHY: Substate = Substate::new("UNHEALTHY");
+        pub const UNHEALTHY: Substate = Substate::new(1);
 
         /// The agent-reported status is out of date (may occur if
         /// Dataproc loses communication with Agent).
         ///
         /// Applies to RUNNING state.
-        pub const STALE_STATUS: Substate = Substate::new("STALE_STATUS");
+        pub const STALE_STATUS: Substate = Substate::new(2);
+
+        /// Creates a new Substate instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UNHEALTHY"),
+                2 => std::borrow::Cow::Borrowed("STALE_STATUS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "UNHEALTHY" => std::option::Option::Some(Self::UNHEALTHY),
+                "STALE_STATUS" => std::option::Option::Some(Self::STALE_STATUS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Substate {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Substate {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Substate {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -5189,61 +5345,96 @@ pub mod dataproc_metric_config {
     /// A source for the collection of Dataproc custom metrics (see [Custom
     /// metrics]
     /// (<https://cloud.google.com//dataproc/docs/guides/dataproc-metrics#custom_metrics>)).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MetricSource(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct MetricSource(i32);
 
     impl MetricSource {
-        /// Creates a new MetricSource instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [MetricSource](MetricSource)
-    pub mod metric_source {
-        use super::MetricSource;
-
         /// Required unspecified metric source.
-        pub const METRIC_SOURCE_UNSPECIFIED: MetricSource =
-            MetricSource::new("METRIC_SOURCE_UNSPECIFIED");
+        pub const METRIC_SOURCE_UNSPECIFIED: MetricSource = MetricSource::new(0);
 
         /// Monitoring agent metrics. If this source is enabled,
         /// Dataproc enables the monitoring agent in Compute Engine,
         /// and collects monitoring agent metrics, which are published
         /// with an `agent.googleapis.com` prefix.
-        pub const MONITORING_AGENT_DEFAULTS: MetricSource =
-            MetricSource::new("MONITORING_AGENT_DEFAULTS");
+        pub const MONITORING_AGENT_DEFAULTS: MetricSource = MetricSource::new(1);
 
         /// HDFS metric source.
-        pub const HDFS: MetricSource = MetricSource::new("HDFS");
+        pub const HDFS: MetricSource = MetricSource::new(2);
 
         /// Spark metric source.
-        pub const SPARK: MetricSource = MetricSource::new("SPARK");
+        pub const SPARK: MetricSource = MetricSource::new(3);
 
         /// YARN metric source.
-        pub const YARN: MetricSource = MetricSource::new("YARN");
+        pub const YARN: MetricSource = MetricSource::new(4);
 
         /// Spark History Server metric source.
-        pub const SPARK_HISTORY_SERVER: MetricSource = MetricSource::new("SPARK_HISTORY_SERVER");
+        pub const SPARK_HISTORY_SERVER: MetricSource = MetricSource::new(5);
 
         /// Hiveserver2 metric source.
-        pub const HIVESERVER2: MetricSource = MetricSource::new("HIVESERVER2");
+        pub const HIVESERVER2: MetricSource = MetricSource::new(6);
 
         /// hivemetastore metric source
-        pub const HIVEMETASTORE: MetricSource = MetricSource::new("HIVEMETASTORE");
+        pub const HIVEMETASTORE: MetricSource = MetricSource::new(7);
 
         /// flink metric source
-        pub const FLINK: MetricSource = MetricSource::new("FLINK");
+        pub const FLINK: MetricSource = MetricSource::new(8);
+
+        /// Creates a new MetricSource instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("METRIC_SOURCE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MONITORING_AGENT_DEFAULTS"),
+                2 => std::borrow::Cow::Borrowed("HDFS"),
+                3 => std::borrow::Cow::Borrowed("SPARK"),
+                4 => std::borrow::Cow::Borrowed("YARN"),
+                5 => std::borrow::Cow::Borrowed("SPARK_HISTORY_SERVER"),
+                6 => std::borrow::Cow::Borrowed("HIVESERVER2"),
+                7 => std::borrow::Cow::Borrowed("HIVEMETASTORE"),
+                8 => std::borrow::Cow::Borrowed("FLINK"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "METRIC_SOURCE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::METRIC_SOURCE_UNSPECIFIED)
+                }
+                "MONITORING_AGENT_DEFAULTS" => {
+                    std::option::Option::Some(Self::MONITORING_AGENT_DEFAULTS)
+                }
+                "HDFS" => std::option::Option::Some(Self::HDFS),
+                "SPARK" => std::option::Option::Some(Self::SPARK),
+                "YARN" => std::option::Option::Some(Self::YARN),
+                "SPARK_HISTORY_SERVER" => std::option::Option::Some(Self::SPARK_HISTORY_SERVER),
+                "HIVESERVER2" => std::option::Option::Some(Self::HIVESERVER2),
+                "HIVEMETASTORE" => std::option::Option::Some(Self::HIVEMETASTORE),
+                "FLINK" => std::option::Option::Some(Self::FLINK),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for MetricSource {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for MetricSource {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for MetricSource {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -6070,42 +6261,65 @@ pub mod diagnose_cluster_request {
     use super::*;
 
     /// Defines who has access to the diagnostic tarball
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TarballAccess(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TarballAccess(i32);
 
     impl TarballAccess {
-        /// Creates a new TarballAccess instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [TarballAccess](TarballAccess)
-    pub mod tarball_access {
-        use super::TarballAccess;
-
         /// Tarball Access unspecified. Falls back to default access of the bucket
-        pub const TARBALL_ACCESS_UNSPECIFIED: TarballAccess =
-            TarballAccess::new("TARBALL_ACCESS_UNSPECIFIED");
+        pub const TARBALL_ACCESS_UNSPECIFIED: TarballAccess = TarballAccess::new(0);
 
         /// Google Cloud Support group has read access to the
         /// diagnostic tarball
-        pub const GOOGLE_CLOUD_SUPPORT: TarballAccess = TarballAccess::new("GOOGLE_CLOUD_SUPPORT");
+        pub const GOOGLE_CLOUD_SUPPORT: TarballAccess = TarballAccess::new(1);
 
         /// Google Cloud Dataproc Diagnose service account has read access to the
         /// diagnostic tarball
-        pub const GOOGLE_DATAPROC_DIAGNOSE: TarballAccess =
-            TarballAccess::new("GOOGLE_DATAPROC_DIAGNOSE");
+        pub const GOOGLE_DATAPROC_DIAGNOSE: TarballAccess = TarballAccess::new(2);
+
+        /// Creates a new TarballAccess instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TARBALL_ACCESS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GOOGLE_CLOUD_SUPPORT"),
+                2 => std::borrow::Cow::Borrowed("GOOGLE_DATAPROC_DIAGNOSE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TARBALL_ACCESS_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TARBALL_ACCESS_UNSPECIFIED)
+                }
+                "GOOGLE_CLOUD_SUPPORT" => std::option::Option::Some(Self::GOOGLE_CLOUD_SUPPORT),
+                "GOOGLE_DATAPROC_DIAGNOSE" => {
+                    std::option::Option::Some(Self::GOOGLE_DATAPROC_DIAGNOSE)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for TarballAccess {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for TarballAccess {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for TarballAccess {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -6205,41 +6419,64 @@ pub mod reservation_affinity {
     use super::*;
 
     /// Indicates whether to consume capacity from an reservation or not.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
         /// Do not consume from any allocated capacity.
-        pub const NO_RESERVATION: Type = Type::new("NO_RESERVATION");
+        pub const NO_RESERVATION: Type = Type::new(1);
 
         /// Consume any reservation available.
-        pub const ANY_RESERVATION: Type = Type::new("ANY_RESERVATION");
+        pub const ANY_RESERVATION: Type = Type::new(2);
 
         /// Must consume from a specific reservation. Must specify key value fields
         /// for specifying the reservations.
-        pub const SPECIFIC_RESERVATION: Type = Type::new("SPECIFIC_RESERVATION");
+        pub const SPECIFIC_RESERVATION: Type = Type::new(3);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NO_RESERVATION"),
+                2 => std::borrow::Cow::Borrowed("ANY_RESERVATION"),
+                3 => std::borrow::Cow::Borrowed("SPECIFIC_RESERVATION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "NO_RESERVATION" => std::option::Option::Some(Self::NO_RESERVATION),
+                "ANY_RESERVATION" => std::option::Option::Some(Self::ANY_RESERVATION),
+                "SPECIFIC_RESERVATION" => std::option::Option::Some(Self::SPECIFIC_RESERVATION),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -6294,56 +6531,89 @@ pub mod logging_config {
     /// The Log4j level for job execution. When running an
     /// [Apache Hive](https://hive.apache.org/) job, Cloud
     /// Dataproc configures the Hive client to an equivalent verbosity level.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Level(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Level(i32);
 
     impl Level {
+        /// Level is unspecified. Use default level for log4j.
+        pub const LEVEL_UNSPECIFIED: Level = Level::new(0);
+
+        /// Use ALL level for log4j.
+        pub const ALL: Level = Level::new(1);
+
+        /// Use TRACE level for log4j.
+        pub const TRACE: Level = Level::new(2);
+
+        /// Use DEBUG level for log4j.
+        pub const DEBUG: Level = Level::new(3);
+
+        /// Use INFO level for log4j.
+        pub const INFO: Level = Level::new(4);
+
+        /// Use WARN level for log4j.
+        pub const WARN: Level = Level::new(5);
+
+        /// Use ERROR level for log4j.
+        pub const ERROR: Level = Level::new(6);
+
+        /// Use FATAL level for log4j.
+        pub const FATAL: Level = Level::new(7);
+
+        /// Turn off log4j.
+        pub const OFF: Level = Level::new(8);
+
         /// Creates a new Level instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LEVEL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALL"),
+                2 => std::borrow::Cow::Borrowed("TRACE"),
+                3 => std::borrow::Cow::Borrowed("DEBUG"),
+                4 => std::borrow::Cow::Borrowed("INFO"),
+                5 => std::borrow::Cow::Borrowed("WARN"),
+                6 => std::borrow::Cow::Borrowed("ERROR"),
+                7 => std::borrow::Cow::Borrowed("FATAL"),
+                8 => std::borrow::Cow::Borrowed("OFF"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LEVEL_UNSPECIFIED" => std::option::Option::Some(Self::LEVEL_UNSPECIFIED),
+                "ALL" => std::option::Option::Some(Self::ALL),
+                "TRACE" => std::option::Option::Some(Self::TRACE),
+                "DEBUG" => std::option::Option::Some(Self::DEBUG),
+                "INFO" => std::option::Option::Some(Self::INFO),
+                "WARN" => std::option::Option::Some(Self::WARN),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "FATAL" => std::option::Option::Some(Self::FATAL),
+                "OFF" => std::option::Option::Some(Self::OFF),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Level](Level)
-    pub mod level {
-        use super::Level;
-
-        /// Level is unspecified. Use default level for log4j.
-        pub const LEVEL_UNSPECIFIED: Level = Level::new("LEVEL_UNSPECIFIED");
-
-        /// Use ALL level for log4j.
-        pub const ALL: Level = Level::new("ALL");
-
-        /// Use TRACE level for log4j.
-        pub const TRACE: Level = Level::new("TRACE");
-
-        /// Use DEBUG level for log4j.
-        pub const DEBUG: Level = Level::new("DEBUG");
-
-        /// Use INFO level for log4j.
-        pub const INFO: Level = Level::new("INFO");
-
-        /// Use WARN level for log4j.
-        pub const WARN: Level = Level::new("WARN");
-
-        /// Use ERROR level for log4j.
-        pub const ERROR: Level = Level::new("ERROR");
-
-        /// Use FATAL level for log4j.
-        pub const FATAL: Level = Level::new("FATAL");
-
-        /// Turn off log4j.
-        pub const OFF: Level = Level::new("OFF");
+    impl std::convert::From<i32> for Level {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Level {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Level {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -8282,113 +8552,171 @@ pub mod job_status {
     use super::*;
 
     /// The job state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The job state is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The job is pending; it has been submitted, but is not yet running.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::new(1);
 
         /// Job has been received by the service and completed initial setup;
         /// it will soon be submitted to the cluster.
-        pub const SETUP_DONE: State = State::new("SETUP_DONE");
+        pub const SETUP_DONE: State = State::new(8);
 
         /// The job is running on the cluster.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::new(2);
 
         /// A CancelJob request has been received, but is pending.
-        pub const CANCEL_PENDING: State = State::new("CANCEL_PENDING");
+        pub const CANCEL_PENDING: State = State::new(3);
 
         /// Transient in-flight resources have been canceled, and the request to
         /// cancel the running job has been issued to the cluster.
-        pub const CANCEL_STARTED: State = State::new("CANCEL_STARTED");
+        pub const CANCEL_STARTED: State = State::new(7);
 
         /// The job cancellation was successful.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::new(4);
 
         /// The job has completed successfully.
-        pub const DONE: State = State::new("DONE");
+        pub const DONE: State = State::new(5);
 
         /// The job has completed, but encountered an error.
-        pub const ERROR: State = State::new("ERROR");
+        pub const ERROR: State = State::new(6);
 
         /// Job attempt has failed. The detail field contains failure details for
         /// this attempt.
         ///
         /// Applies to restartable jobs only.
-        pub const ATTEMPT_FAILURE: State = State::new("ATTEMPT_FAILURE");
+        pub const ATTEMPT_FAILURE: State = State::new(9);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("CANCEL_PENDING"),
+                4 => std::borrow::Cow::Borrowed("CANCELLED"),
+                5 => std::borrow::Cow::Borrowed("DONE"),
+                6 => std::borrow::Cow::Borrowed("ERROR"),
+                7 => std::borrow::Cow::Borrowed("CANCEL_STARTED"),
+                8 => std::borrow::Cow::Borrowed("SETUP_DONE"),
+                9 => std::borrow::Cow::Borrowed("ATTEMPT_FAILURE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "SETUP_DONE" => std::option::Option::Some(Self::SETUP_DONE),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "CANCEL_PENDING" => std::option::Option::Some(Self::CANCEL_PENDING),
+                "CANCEL_STARTED" => std::option::Option::Some(Self::CANCEL_STARTED),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                "DONE" => std::option::Option::Some(Self::DONE),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "ATTEMPT_FAILURE" => std::option::Option::Some(Self::ATTEMPT_FAILURE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The job substate.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Substate(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Substate(i32);
 
     impl Substate {
-        /// Creates a new Substate instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Substate](Substate)
-    pub mod substate {
-        use super::Substate;
-
         /// The job substate is unknown.
-        pub const UNSPECIFIED: Substate = Substate::new("UNSPECIFIED");
+        pub const UNSPECIFIED: Substate = Substate::new(0);
 
         /// The Job is submitted to the agent.
         ///
         /// Applies to RUNNING state.
-        pub const SUBMITTED: Substate = Substate::new("SUBMITTED");
+        pub const SUBMITTED: Substate = Substate::new(1);
 
         /// The Job has been received and is awaiting execution (it might be waiting
         /// for a condition to be met). See the "details" field for the reason for
         /// the delay.
         ///
         /// Applies to RUNNING state.
-        pub const QUEUED: Substate = Substate::new("QUEUED");
+        pub const QUEUED: Substate = Substate::new(2);
 
         /// The agent-reported status is out of date, which can be caused by a
         /// loss of communication between the agent and Dataproc. If the
         /// agent does not send a timely update, the job will fail.
         ///
         /// Applies to RUNNING state.
-        pub const STALE_STATUS: Substate = Substate::new("STALE_STATUS");
+        pub const STALE_STATUS: Substate = Substate::new(3);
+
+        /// Creates a new Substate instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SUBMITTED"),
+                2 => std::borrow::Cow::Borrowed("QUEUED"),
+                3 => std::borrow::Cow::Borrowed("STALE_STATUS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "SUBMITTED" => std::option::Option::Some(Self::SUBMITTED),
+                "QUEUED" => std::option::Option::Some(Self::QUEUED),
+                "STALE_STATUS" => std::option::Option::Some(Self::STALE_STATUS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Substate {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Substate {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Substate {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -8512,56 +8840,89 @@ pub mod yarn_application {
 
     /// The application state, corresponding to
     /// \<code\>YarnProtos.YarnApplicationStateProto\</code\>.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Status is unspecified.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Status is NEW.
+        pub const NEW: State = State::new(1);
+
+        /// Status is NEW_SAVING.
+        pub const NEW_SAVING: State = State::new(2);
+
+        /// Status is SUBMITTED.
+        pub const SUBMITTED: State = State::new(3);
+
+        /// Status is ACCEPTED.
+        pub const ACCEPTED: State = State::new(4);
+
+        /// Status is RUNNING.
+        pub const RUNNING: State = State::new(5);
+
+        /// Status is FINISHED.
+        pub const FINISHED: State = State::new(6);
+
+        /// Status is FAILED.
+        pub const FAILED: State = State::new(7);
+
+        /// Status is KILLED.
+        pub const KILLED: State = State::new(8);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NEW"),
+                2 => std::borrow::Cow::Borrowed("NEW_SAVING"),
+                3 => std::borrow::Cow::Borrowed("SUBMITTED"),
+                4 => std::borrow::Cow::Borrowed("ACCEPTED"),
+                5 => std::borrow::Cow::Borrowed("RUNNING"),
+                6 => std::borrow::Cow::Borrowed("FINISHED"),
+                7 => std::borrow::Cow::Borrowed("FAILED"),
+                8 => std::borrow::Cow::Borrowed("KILLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "NEW" => std::option::Option::Some(Self::NEW),
+                "NEW_SAVING" => std::option::Option::Some(Self::NEW_SAVING),
+                "SUBMITTED" => std::option::Option::Some(Self::SUBMITTED),
+                "ACCEPTED" => std::option::Option::Some(Self::ACCEPTED),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "FINISHED" => std::option::Option::Some(Self::FINISHED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "KILLED" => std::option::Option::Some(Self::KILLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Status is unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Status is NEW.
-        pub const NEW: State = State::new("NEW");
-
-        /// Status is NEW_SAVING.
-        pub const NEW_SAVING: State = State::new("NEW_SAVING");
-
-        /// Status is SUBMITTED.
-        pub const SUBMITTED: State = State::new("SUBMITTED");
-
-        /// Status is ACCEPTED.
-        pub const ACCEPTED: State = State::new("ACCEPTED");
-
-        /// Status is RUNNING.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// Status is FINISHED.
-        pub const FINISHED: State = State::new("FINISHED");
-
-        /// Status is FAILED.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// Status is KILLED.
-        pub const KILLED: State = State::new("KILLED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -9463,39 +9824,60 @@ pub mod list_jobs_request {
     use super::*;
 
     /// A matcher that specifies categories of job states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct JobStateMatcher(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct JobStateMatcher(i32);
 
     impl JobStateMatcher {
-        /// Creates a new JobStateMatcher instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [JobStateMatcher](JobStateMatcher)
-    pub mod job_state_matcher {
-        use super::JobStateMatcher;
-
         /// Match all jobs, regardless of state.
-        pub const ALL: JobStateMatcher = JobStateMatcher::new("ALL");
+        pub const ALL: JobStateMatcher = JobStateMatcher::new(0);
 
         /// Only match jobs in non-terminal states: PENDING, RUNNING, or
         /// CANCEL_PENDING.
-        pub const ACTIVE: JobStateMatcher = JobStateMatcher::new("ACTIVE");
+        pub const ACTIVE: JobStateMatcher = JobStateMatcher::new(1);
 
         /// Only match jobs in terminal states: CANCELLED, DONE, or ERROR.
-        pub const NON_ACTIVE: JobStateMatcher = JobStateMatcher::new("NON_ACTIVE");
+        pub const NON_ACTIVE: JobStateMatcher = JobStateMatcher::new(2);
+
+        /// Creates a new JobStateMatcher instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ALL"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("NON_ACTIVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ALL" => std::option::Option::Some(Self::ALL),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "NON_ACTIVE" => std::option::Option::Some(Self::NON_ACTIVE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for JobStateMatcher {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for JobStateMatcher {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for JobStateMatcher {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -10088,36 +10470,56 @@ pub mod batch_operation_metadata {
     use super::*;
 
     /// Operation type for Batch resources
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BatchOperationType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct BatchOperationType(i32);
 
     impl BatchOperationType {
+        /// Batch operation type is unknown.
+        pub const BATCH_OPERATION_TYPE_UNSPECIFIED: BatchOperationType = BatchOperationType::new(0);
+
+        /// Batch operation type.
+        pub const BATCH: BatchOperationType = BatchOperationType::new(1);
+
         /// Creates a new BatchOperationType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("BATCH_OPERATION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BATCH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "BATCH_OPERATION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::BATCH_OPERATION_TYPE_UNSPECIFIED)
+                }
+                "BATCH" => std::option::Option::Some(Self::BATCH),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [BatchOperationType](BatchOperationType)
-    pub mod batch_operation_type {
-        use super::BatchOperationType;
-
-        /// Batch operation type is unknown.
-        pub const BATCH_OPERATION_TYPE_UNSPECIFIED: BatchOperationType =
-            BatchOperationType::new("BATCH_OPERATION_TYPE_UNSPECIFIED");
-
-        /// Batch operation type.
-        pub const BATCH: BatchOperationType = BatchOperationType::new("BATCH");
+    impl std::convert::From<i32> for BatchOperationType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for BatchOperationType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for BatchOperationType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -10248,42 +10650,67 @@ pub mod session_operation_metadata {
     use super::*;
 
     /// Operation type for Session resources
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SessionOperationType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct SessionOperationType(i32);
 
     impl SessionOperationType {
+        /// Session operation type is unknown.
+        pub const SESSION_OPERATION_TYPE_UNSPECIFIED: SessionOperationType =
+            SessionOperationType::new(0);
+
+        /// Create Session operation type.
+        pub const CREATE: SessionOperationType = SessionOperationType::new(1);
+
+        /// Terminate Session operation type.
+        pub const TERMINATE: SessionOperationType = SessionOperationType::new(2);
+
+        /// Delete Session operation type.
+        pub const DELETE: SessionOperationType = SessionOperationType::new(3);
+
         /// Creates a new SessionOperationType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SESSION_OPERATION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATE"),
+                2 => std::borrow::Cow::Borrowed("TERMINATE"),
+                3 => std::borrow::Cow::Borrowed("DELETE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SESSION_OPERATION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SESSION_OPERATION_TYPE_UNSPECIFIED)
+                }
+                "CREATE" => std::option::Option::Some(Self::CREATE),
+                "TERMINATE" => std::option::Option::Some(Self::TERMINATE),
+                "DELETE" => std::option::Option::Some(Self::DELETE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SessionOperationType](SessionOperationType)
-    pub mod session_operation_type {
-        use super::SessionOperationType;
-
-        /// Session operation type is unknown.
-        pub const SESSION_OPERATION_TYPE_UNSPECIFIED: SessionOperationType =
-            SessionOperationType::new("SESSION_OPERATION_TYPE_UNSPECIFIED");
-
-        /// Create Session operation type.
-        pub const CREATE: SessionOperationType = SessionOperationType::new("CREATE");
-
-        /// Terminate Session operation type.
-        pub const TERMINATE: SessionOperationType = SessionOperationType::new("TERMINATE");
-
-        /// Delete Session operation type.
-        pub const DELETE: SessionOperationType = SessionOperationType::new("DELETE");
+    impl std::convert::From<i32> for SessionOperationType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for SessionOperationType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for SessionOperationType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -10358,41 +10785,64 @@ pub mod cluster_operation_status {
     use super::*;
 
     /// The operation state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Unused.
+        pub const UNKNOWN: State = State::new(0);
+
+        /// The operation has been created.
+        pub const PENDING: State = State::new(1);
+
+        /// The operation is running.
+        pub const RUNNING: State = State::new(2);
+
+        /// The operation is done; either cancelled or completed.
+        pub const DONE: State = State::new(3);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("DONE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "DONE" => std::option::Option::Some(Self::DONE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Unused.
-        pub const UNKNOWN: State = State::new("UNKNOWN");
-
-        /// The operation has been created.
-        pub const PENDING: State = State::new("PENDING");
-
-        /// The operation is running.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// The operation is done; either cancelled or completed.
-        pub const DONE: State = State::new("DONE");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -10662,45 +11112,72 @@ pub mod node_group_operation_metadata {
     use super::*;
 
     /// Operation type for node group resources.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NodeGroupOperationType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct NodeGroupOperationType(i32);
 
     impl NodeGroupOperationType {
+        /// Node group operation type is unknown.
+        pub const NODE_GROUP_OPERATION_TYPE_UNSPECIFIED: NodeGroupOperationType =
+            NodeGroupOperationType::new(0);
+
+        /// Create node group operation type.
+        pub const CREATE: NodeGroupOperationType = NodeGroupOperationType::new(1);
+
+        /// Update node group operation type.
+        pub const UPDATE: NodeGroupOperationType = NodeGroupOperationType::new(2);
+
+        /// Delete node group operation type.
+        pub const DELETE: NodeGroupOperationType = NodeGroupOperationType::new(3);
+
+        /// Resize node group operation type.
+        pub const RESIZE: NodeGroupOperationType = NodeGroupOperationType::new(4);
+
         /// Creates a new NodeGroupOperationType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("NODE_GROUP_OPERATION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATE"),
+                2 => std::borrow::Cow::Borrowed("UPDATE"),
+                3 => std::borrow::Cow::Borrowed("DELETE"),
+                4 => std::borrow::Cow::Borrowed("RESIZE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "NODE_GROUP_OPERATION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::NODE_GROUP_OPERATION_TYPE_UNSPECIFIED)
+                }
+                "CREATE" => std::option::Option::Some(Self::CREATE),
+                "UPDATE" => std::option::Option::Some(Self::UPDATE),
+                "DELETE" => std::option::Option::Some(Self::DELETE),
+                "RESIZE" => std::option::Option::Some(Self::RESIZE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [NodeGroupOperationType](NodeGroupOperationType)
-    pub mod node_group_operation_type {
-        use super::NodeGroupOperationType;
-
-        /// Node group operation type is unknown.
-        pub const NODE_GROUP_OPERATION_TYPE_UNSPECIFIED: NodeGroupOperationType =
-            NodeGroupOperationType::new("NODE_GROUP_OPERATION_TYPE_UNSPECIFIED");
-
-        /// Create node group operation type.
-        pub const CREATE: NodeGroupOperationType = NodeGroupOperationType::new("CREATE");
-
-        /// Update node group operation type.
-        pub const UPDATE: NodeGroupOperationType = NodeGroupOperationType::new("UPDATE");
-
-        /// Delete node group operation type.
-        pub const DELETE: NodeGroupOperationType = NodeGroupOperationType::new("DELETE");
-
-        /// Resize node group operation type.
-        pub const RESIZE: NodeGroupOperationType = NodeGroupOperationType::new("RESIZE");
+    impl std::convert::From<i32> for NodeGroupOperationType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for NodeGroupOperationType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for NodeGroupOperationType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -11885,47 +12362,74 @@ pub mod session {
     }
 
     /// The session state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// The session state is unknown.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The session is created prior to running.
+        pub const CREATING: State = State::new(1);
+
+        /// The session is running.
+        pub const ACTIVE: State = State::new(2);
+
+        /// The session is terminating.
+        pub const TERMINATING: State = State::new(3);
+
+        /// The session is terminated successfully.
+        pub const TERMINATED: State = State::new(4);
+
+        /// The session is no longer running due to an error.
+        pub const FAILED: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("TERMINATING"),
+                4 => std::borrow::Cow::Borrowed("TERMINATED"),
+                5 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "TERMINATING" => std::option::Option::Some(Self::TERMINATING),
+                "TERMINATED" => std::option::Option::Some(Self::TERMINATED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The session state is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The session is created prior to running.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The session is running.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// The session is terminating.
-        pub const TERMINATING: State = State::new("TERMINATING");
-
-        /// The session is terminated successfully.
-        pub const TERMINATED: State = State::new("TERMINATED");
-
-        /// The session is no longer running due to an error.
-        pub const FAILED: State = State::new("FAILED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -11988,38 +12492,59 @@ pub mod jupyter_config {
     use super::*;
 
     /// Jupyter kernel types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Kernel(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Kernel(i32);
 
     impl Kernel {
+        /// The kernel is unknown.
+        pub const KERNEL_UNSPECIFIED: Kernel = Kernel::new(0);
+
+        /// Python kernel.
+        pub const PYTHON: Kernel = Kernel::new(1);
+
+        /// Scala kernel.
+        pub const SCALA: Kernel = Kernel::new(2);
+
         /// Creates a new Kernel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("KERNEL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PYTHON"),
+                2 => std::borrow::Cow::Borrowed("SCALA"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "KERNEL_UNSPECIFIED" => std::option::Option::Some(Self::KERNEL_UNSPECIFIED),
+                "PYTHON" => std::option::Option::Some(Self::PYTHON),
+                "SCALA" => std::option::Option::Some(Self::SCALA),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Kernel](Kernel)
-    pub mod kernel {
-        use super::Kernel;
-
-        /// The kernel is unknown.
-        pub const KERNEL_UNSPECIFIED: Kernel = Kernel::new("KERNEL_UNSPECIFIED");
-
-        /// Python kernel.
-        pub const PYTHON: Kernel = Kernel::new("PYTHON");
-
-        /// Scala kernel.
-        pub const SCALA: Kernel = Kernel::new("SCALA");
+    impl std::convert::From<i32> for Kernel {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Kernel {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Kernel {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -12249,6 +12774,13 @@ pub struct ExecutionConfig {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub staging_bucket: std::string::String,
 
+    /// Optional. Authentication configuration used to set the default identity for
+    /// the workload execution. The config specifies the type of identity
+    /// (service account or user) that will be used by workloads to access
+    /// resources on the project(s).
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub authentication_config: std::option::Option<crate::model::AuthenticationConfig>,
+
     /// Network configuration for workload execution.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub network: std::option::Option<crate::model::execution_config::Network>,
@@ -12292,6 +12824,17 @@ impl ExecutionConfig {
     /// Sets the value of [staging_bucket][crate::model::ExecutionConfig::staging_bucket].
     pub fn set_staging_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.staging_bucket = v.into();
+        self
+    }
+
+    /// Sets the value of [authentication_config][crate::model::ExecutionConfig::authentication_config].
+    pub fn set_authentication_config<
+        T: std::convert::Into<std::option::Option<crate::model::AuthenticationConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authentication_config = v.into();
         self
     }
 
@@ -13064,49 +13607,74 @@ pub mod gke_node_pool_target {
     /// workloads that are not associated with a node pool.
     ///
     /// [google.cloud.dataproc.v1.GkeNodePoolTarget]: crate::model::GkeNodePoolTarget
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Role(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Role(i32);
 
     impl Role {
-        /// Creates a new Role instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Role](Role)
-    pub mod role {
-        use super::Role;
-
         /// Role is unspecified.
-        pub const ROLE_UNSPECIFIED: Role = Role::new("ROLE_UNSPECIFIED");
+        pub const ROLE_UNSPECIFIED: Role = Role::new(0);
 
         /// At least one node pool must have the `DEFAULT` role.
         /// Work assigned to a role that is not associated with a node pool
         /// is assigned to the node pool with the `DEFAULT` role. For example,
         /// work assigned to the `CONTROLLER` role will be assigned to the node pool
         /// with the `DEFAULT` role if no node pool has the `CONTROLLER` role.
-        pub const DEFAULT: Role = Role::new("DEFAULT");
+        pub const DEFAULT: Role = Role::new(1);
 
         /// Run work associated with the Dataproc control plane (for example,
         /// controllers and webhooks). Very low resource requirements.
-        pub const CONTROLLER: Role = Role::new("CONTROLLER");
+        pub const CONTROLLER: Role = Role::new(2);
 
         /// Run work associated with a Spark driver of a job.
-        pub const SPARK_DRIVER: Role = Role::new("SPARK_DRIVER");
+        pub const SPARK_DRIVER: Role = Role::new(3);
 
         /// Run work associated with a Spark executor of a job.
-        pub const SPARK_EXECUTOR: Role = Role::new("SPARK_EXECUTOR");
+        pub const SPARK_EXECUTOR: Role = Role::new(4);
+
+        /// Creates a new Role instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROLE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DEFAULT"),
+                2 => std::borrow::Cow::Borrowed("CONTROLLER"),
+                3 => std::borrow::Cow::Borrowed("SPARK_DRIVER"),
+                4 => std::borrow::Cow::Borrowed("SPARK_EXECUTOR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROLE_UNSPECIFIED" => std::option::Option::Some(Self::ROLE_UNSPECIFIED),
+                "DEFAULT" => std::option::Option::Some(Self::DEFAULT),
+                "CONTROLLER" => std::option::Option::Some(Self::CONTROLLER),
+                "SPARK_DRIVER" => std::option::Option::Some(Self::SPARK_DRIVER),
+                "SPARK_EXECUTOR" => std::option::Option::Some(Self::SPARK_EXECUTOR),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Role {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Role {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Role {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -13431,6 +13999,110 @@ pub mod gke_node_pool_config {
     }
 }
 
+/// Authentication configuration for a workload is used to set the default
+/// identity for the workload execution.
+/// The config specifies the type of identity (service account or user) that
+/// will be used by workloads to access resources on the project(s).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AuthenticationConfig {
+    /// Optional. Authentication type for the user workload running in containers.
+    pub user_workload_authentication_type: crate::model::authentication_config::AuthenticationType,
+}
+
+impl AuthenticationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user_workload_authentication_type][crate::model::AuthenticationConfig::user_workload_authentication_type].
+    pub fn set_user_workload_authentication_type<
+        T: std::convert::Into<crate::model::authentication_config::AuthenticationType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.user_workload_authentication_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AuthenticationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataproc.v1.AuthenticationConfig"
+    }
+}
+
+/// Defines additional types related to AuthenticationConfig
+pub mod authentication_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Authentication types for workload execution.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AuthenticationType(i32);
+
+    impl AuthenticationType {
+        /// If AuthenticationType is unspecified then END_USER_CREDENTIALS is used
+        /// for 3.0 and newer runtimes, and SERVICE_ACCOUNT is used for older
+        /// runtimes.
+        pub const AUTHENTICATION_TYPE_UNSPECIFIED: AuthenticationType = AuthenticationType::new(0);
+
+        /// Use service account credentials for authenticating to other services.
+        pub const SERVICE_ACCOUNT: AuthenticationType = AuthenticationType::new(1);
+
+        /// Use OAuth credentials associated with the workload creator/user for
+        /// authenticating to other services.
+        pub const END_USER_CREDENTIALS: AuthenticationType = AuthenticationType::new(2);
+
+        /// Creates a new AuthenticationType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("AUTHENTICATION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SERVICE_ACCOUNT"),
+                2 => std::borrow::Cow::Borrowed("END_USER_CREDENTIALS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "AUTHENTICATION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::AUTHENTICATION_TYPE_UNSPECIFIED)
+                }
+                "SERVICE_ACCOUNT" => std::option::Option::Some(Self::SERVICE_ACCOUNT),
+                "END_USER_CREDENTIALS" => std::option::Option::Some(Self::END_USER_CREDENTIALS),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for AuthenticationType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for AuthenticationType {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+}
+
 /// Autotuning configuration of the workload.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -13472,41 +14144,64 @@ pub mod autotuning_config {
 
     /// Scenario represents a specific goal that autotuning will attempt to achieve
     /// by modifying workloads.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Scenario(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Scenario(i32);
 
     impl Scenario {
+        /// Default value.
+        pub const SCENARIO_UNSPECIFIED: Scenario = Scenario::new(0);
+
+        /// Scaling recommendations such as initialExecutors.
+        pub const SCALING: Scenario = Scenario::new(2);
+
+        /// Adding hints for potential relation broadcasts.
+        pub const BROADCAST_HASH_JOIN: Scenario = Scenario::new(3);
+
+        /// Memory management for workloads.
+        pub const MEMORY: Scenario = Scenario::new(4);
+
         /// Creates a new Scenario instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SCENARIO_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("SCALING"),
+                3 => std::borrow::Cow::Borrowed("BROADCAST_HASH_JOIN"),
+                4 => std::borrow::Cow::Borrowed("MEMORY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SCENARIO_UNSPECIFIED" => std::option::Option::Some(Self::SCENARIO_UNSPECIFIED),
+                "SCALING" => std::option::Option::Some(Self::SCALING),
+                "BROADCAST_HASH_JOIN" => std::option::Option::Some(Self::BROADCAST_HASH_JOIN),
+                "MEMORY" => std::option::Option::Some(Self::MEMORY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Scenario](Scenario)
-    pub mod scenario {
-        use super::Scenario;
-
-        /// Default value.
-        pub const SCENARIO_UNSPECIFIED: Scenario = Scenario::new("SCENARIO_UNSPECIFIED");
-
-        /// Scaling recommendations such as initialExecutors.
-        pub const SCALING: Scenario = Scenario::new("SCALING");
-
-        /// Adding hints for potential relation broadcasts.
-        pub const BROADCAST_HASH_JOIN: Scenario = Scenario::new("BROADCAST_HASH_JOIN");
-
-        /// Memory management for workloads.
-        pub const MEMORY: Scenario = Scenario::new("MEMORY");
+    impl std::convert::From<i32> for Scenario {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Scenario {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Scenario {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -15019,41 +15714,64 @@ pub mod workflow_metadata {
     use super::*;
 
     /// The operation state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Unused.
+        pub const UNKNOWN: State = State::new(0);
+
+        /// The operation has been created.
+        pub const PENDING: State = State::new(1);
+
+        /// The operation is running.
+        pub const RUNNING: State = State::new(2);
+
+        /// The operation is done; either cancelled or completed.
+        pub const DONE: State = State::new(3);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("DONE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "DONE" => std::option::Option::Some(Self::DONE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Unused.
-        pub const UNKNOWN: State = State::new("UNKNOWN");
-
-        /// The operation has been created.
-        pub const PENDING: State = State::new("PENDING");
-
-        /// The operation is running.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// The operation is done; either cancelled or completed.
-        pub const DONE: State = State::new("DONE");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -15222,48 +15940,75 @@ pub mod workflow_node {
     use super::*;
 
     /// The workflow node state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NodeState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct NodeState(i32);
 
     impl NodeState {
-        /// Creates a new NodeState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [NodeState](NodeState)
-    pub mod node_state {
-        use super::NodeState;
-
         /// State is unspecified.
-        pub const NODE_STATE_UNSPECIFIED: NodeState = NodeState::new("NODE_STATE_UNSPECIFIED");
+        pub const NODE_STATE_UNSPECIFIED: NodeState = NodeState::new(0);
 
         /// The node is awaiting prerequisite node to finish.
-        pub const BLOCKED: NodeState = NodeState::new("BLOCKED");
+        pub const BLOCKED: NodeState = NodeState::new(1);
 
         /// The node is runnable but not running.
-        pub const RUNNABLE: NodeState = NodeState::new("RUNNABLE");
+        pub const RUNNABLE: NodeState = NodeState::new(2);
 
         /// The node is running.
-        pub const RUNNING: NodeState = NodeState::new("RUNNING");
+        pub const RUNNING: NodeState = NodeState::new(3);
 
         /// The node completed successfully.
-        pub const COMPLETED: NodeState = NodeState::new("COMPLETED");
+        pub const COMPLETED: NodeState = NodeState::new(4);
 
         /// The node failed. A node can be marked FAILED because
         /// its ancestor or peer failed.
-        pub const FAILED: NodeState = NodeState::new("FAILED");
+        pub const FAILED: NodeState = NodeState::new(5);
+
+        /// Creates a new NodeState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("NODE_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BLOCKED"),
+                2 => std::borrow::Cow::Borrowed("RUNNABLE"),
+                3 => std::borrow::Cow::Borrowed("RUNNING"),
+                4 => std::borrow::Cow::Borrowed("COMPLETED"),
+                5 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "NODE_STATE_UNSPECIFIED" => std::option::Option::Some(Self::NODE_STATE_UNSPECIFIED),
+                "BLOCKED" => std::option::Option::Some(Self::BLOCKED),
+                "RUNNABLE" => std::option::Option::Some(Self::RUNNABLE),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "COMPLETED" => std::option::Option::Some(Self::COMPLETED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for NodeState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for NodeState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for NodeState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -15757,115 +16502,182 @@ impl wkt::message::Message for DeleteWorkflowTemplateRequest {
 }
 
 /// Cluster components that can be activated.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Component(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct Component(i32);
 
 impl Component {
-    /// Creates a new Component instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [Component](Component)
-pub mod component {
-    use super::Component;
-
     /// Unspecified component. Specifying this will cause Cluster creation to fail.
-    pub const COMPONENT_UNSPECIFIED: Component = Component::new("COMPONENT_UNSPECIFIED");
+    pub const COMPONENT_UNSPECIFIED: Component = Component::new(0);
 
     /// The Anaconda component is no longer supported or applicable to
     /// [supported Dataproc on Compute Engine image versions]
     /// (<https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-version-clusters#supported-dataproc-image-versions>).
     /// It cannot be activated on clusters created with supported Dataproc on
     /// Compute Engine image versions.
-    pub const ANACONDA: Component = Component::new("ANACONDA");
+    pub const ANACONDA: Component = Component::new(5);
 
     /// Docker
-    pub const DOCKER: Component = Component::new("DOCKER");
+    pub const DOCKER: Component = Component::new(13);
 
     /// The Druid query engine. (alpha)
-    pub const DRUID: Component = Component::new("DRUID");
+    pub const DRUID: Component = Component::new(9);
 
     /// Flink
-    pub const FLINK: Component = Component::new("FLINK");
+    pub const FLINK: Component = Component::new(14);
 
     /// HBase. (beta)
-    pub const HBASE: Component = Component::new("HBASE");
+    pub const HBASE: Component = Component::new(11);
 
     /// The Hive Web HCatalog (the REST service for accessing HCatalog).
-    pub const HIVE_WEBHCAT: Component = Component::new("HIVE_WEBHCAT");
+    pub const HIVE_WEBHCAT: Component = Component::new(3);
 
     /// Hudi.
-    pub const HUDI: Component = Component::new("HUDI");
+    pub const HUDI: Component = Component::new(18);
 
     /// The Jupyter Notebook.
-    pub const JUPYTER: Component = Component::new("JUPYTER");
+    pub const JUPYTER: Component = Component::new(1);
 
     /// The Presto query engine.
-    pub const PRESTO: Component = Component::new("PRESTO");
+    pub const PRESTO: Component = Component::new(6);
 
     /// The Trino query engine.
-    pub const TRINO: Component = Component::new("TRINO");
+    pub const TRINO: Component = Component::new(17);
 
     /// The Ranger service.
-    pub const RANGER: Component = Component::new("RANGER");
+    pub const RANGER: Component = Component::new(12);
 
     /// The Solr service.
-    pub const SOLR: Component = Component::new("SOLR");
+    pub const SOLR: Component = Component::new(10);
 
     /// The Zeppelin notebook.
-    pub const ZEPPELIN: Component = Component::new("ZEPPELIN");
+    pub const ZEPPELIN: Component = Component::new(4);
 
     /// The Zookeeper service.
-    pub const ZOOKEEPER: Component = Component::new("ZOOKEEPER");
+    pub const ZOOKEEPER: Component = Component::new(8);
+
+    /// Creates a new Component instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("COMPONENT_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("JUPYTER"),
+            3 => std::borrow::Cow::Borrowed("HIVE_WEBHCAT"),
+            4 => std::borrow::Cow::Borrowed("ZEPPELIN"),
+            5 => std::borrow::Cow::Borrowed("ANACONDA"),
+            6 => std::borrow::Cow::Borrowed("PRESTO"),
+            8 => std::borrow::Cow::Borrowed("ZOOKEEPER"),
+            9 => std::borrow::Cow::Borrowed("DRUID"),
+            10 => std::borrow::Cow::Borrowed("SOLR"),
+            11 => std::borrow::Cow::Borrowed("HBASE"),
+            12 => std::borrow::Cow::Borrowed("RANGER"),
+            13 => std::borrow::Cow::Borrowed("DOCKER"),
+            14 => std::borrow::Cow::Borrowed("FLINK"),
+            17 => std::borrow::Cow::Borrowed("TRINO"),
+            18 => std::borrow::Cow::Borrowed("HUDI"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "COMPONENT_UNSPECIFIED" => std::option::Option::Some(Self::COMPONENT_UNSPECIFIED),
+            "ANACONDA" => std::option::Option::Some(Self::ANACONDA),
+            "DOCKER" => std::option::Option::Some(Self::DOCKER),
+            "DRUID" => std::option::Option::Some(Self::DRUID),
+            "FLINK" => std::option::Option::Some(Self::FLINK),
+            "HBASE" => std::option::Option::Some(Self::HBASE),
+            "HIVE_WEBHCAT" => std::option::Option::Some(Self::HIVE_WEBHCAT),
+            "HUDI" => std::option::Option::Some(Self::HUDI),
+            "JUPYTER" => std::option::Option::Some(Self::JUPYTER),
+            "PRESTO" => std::option::Option::Some(Self::PRESTO),
+            "TRINO" => std::option::Option::Some(Self::TRINO),
+            "RANGER" => std::option::Option::Some(Self::RANGER),
+            "SOLR" => std::option::Option::Some(Self::SOLR),
+            "ZEPPELIN" => std::option::Option::Some(Self::ZEPPELIN),
+            "ZOOKEEPER" => std::option::Option::Some(Self::ZOOKEEPER),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for Component {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for Component {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for Component {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Actions in response to failure of a resource associated with a cluster.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FailureAction(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct FailureAction(i32);
 
 impl FailureAction {
-    /// Creates a new FailureAction instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [FailureAction](FailureAction)
-pub mod failure_action {
-    use super::FailureAction;
-
     /// When FailureAction is unspecified, failure action defaults to NO_ACTION.
-    pub const FAILURE_ACTION_UNSPECIFIED: FailureAction =
-        FailureAction::new("FAILURE_ACTION_UNSPECIFIED");
+    pub const FAILURE_ACTION_UNSPECIFIED: FailureAction = FailureAction::new(0);
 
     /// Take no action on failure to create a cluster resource. NO_ACTION is the
     /// default.
-    pub const NO_ACTION: FailureAction = FailureAction::new("NO_ACTION");
+    pub const NO_ACTION: FailureAction = FailureAction::new(1);
 
     /// Delete the failed cluster resource.
-    pub const DELETE: FailureAction = FailureAction::new("DELETE");
+    pub const DELETE: FailureAction = FailureAction::new(2);
+
+    /// Creates a new FailureAction instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("FAILURE_ACTION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("NO_ACTION"),
+            2 => std::borrow::Cow::Borrowed("DELETE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "FAILURE_ACTION_UNSPECIFIED" => {
+                std::option::Option::Some(Self::FAILURE_ACTION_UNSPECIFIED)
+            }
+            "NO_ACTION" => std::option::Option::Some(Self::NO_ACTION),
+            "DELETE" => std::option::Option::Some(Self::DELETE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for FailureAction {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for FailureAction {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for FailureAction {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

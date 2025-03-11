@@ -54,7 +54,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.parent
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -81,7 +81,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.parent
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("secretId", &req.secret_id)]);
         self.inner.execute(
@@ -106,7 +106,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.parent
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -130,7 +130,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -154,7 +154,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.secret.as_ref().ok_or_else(|| gax::path_parameter::missing("secret"))?.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "updateMask") });
         self.inner.execute(
@@ -179,7 +179,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner.execute(
@@ -204,7 +204,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.parent
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -231,7 +231,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -255,7 +255,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -279,7 +279,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -303,7 +303,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -327,7 +327,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -351,7 +351,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.resource
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -375,7 +375,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.resource
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = req.options.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "options") });
         self.inner.execute(
@@ -400,7 +400,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.resource
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -424,7 +424,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -451,7 +451,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                         , req.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,

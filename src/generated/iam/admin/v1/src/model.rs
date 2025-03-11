@@ -184,9 +184,9 @@ pub struct ServiceAccount {
     pub display_name: std::string::String,
 
     /// Deprecated. Do not use.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 
     /// Optional. A user-specified, human-readable description of the service account. The
     /// maximum length is 256 UTF-8 bytes.
@@ -237,7 +237,7 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [etag][crate::model::ServiceAccount::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -758,39 +758,60 @@ pub mod list_service_account_keys_request {
 
     /// `KeyType` filters to selectively retrieve certain varieties
     /// of keys.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KeyType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct KeyType(i32);
 
     impl KeyType {
+        /// Unspecified key type. The presence of this in the
+        /// message will immediately result in an error.
+        pub const KEY_TYPE_UNSPECIFIED: KeyType = KeyType::new(0);
+
+        /// User-managed keys (managed and rotated by the user).
+        pub const USER_MANAGED: KeyType = KeyType::new(1);
+
+        /// System-managed keys (managed and rotated by Google).
+        pub const SYSTEM_MANAGED: KeyType = KeyType::new(2);
+
         /// Creates a new KeyType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("KEY_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("USER_MANAGED"),
+                2 => std::borrow::Cow::Borrowed("SYSTEM_MANAGED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "KEY_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::KEY_TYPE_UNSPECIFIED),
+                "USER_MANAGED" => std::option::Option::Some(Self::USER_MANAGED),
+                "SYSTEM_MANAGED" => std::option::Option::Some(Self::SYSTEM_MANAGED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [KeyType](KeyType)
-    pub mod key_type {
-        use super::KeyType;
-
-        /// Unspecified key type. The presence of this in the
-        /// message will immediately result in an error.
-        pub const KEY_TYPE_UNSPECIFIED: KeyType = KeyType::new("KEY_TYPE_UNSPECIFIED");
-
-        /// User-managed keys (managed and rotated by the user).
-        pub const USER_MANAGED: KeyType = KeyType::new("USER_MANAGED");
-
-        /// System-managed keys (managed and rotated by Google).
-        pub const SYSTEM_MANAGED: KeyType = KeyType::new("SYSTEM_MANAGED");
+    impl std::convert::From<i32> for KeyType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for KeyType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for KeyType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -928,14 +949,14 @@ pub struct ServiceAccountKey {
     /// Google API client libraries and with
     /// <a href="/sdk/gcloud/reference/auth/activate-service-account">gcloud
     /// auth activate-service-account</a>.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub private_key_data: bytes::Bytes,
+    pub private_key_data: ::bytes::Bytes,
 
     /// The public key data. Only provided in `GetServiceAccountKey` responses.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub public_key_data: bytes::Bytes,
+    pub public_key_data: ::bytes::Bytes,
 
     /// The key can be used after this timestamp.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -990,13 +1011,13 @@ impl ServiceAccountKey {
     }
 
     /// Sets the value of [private_key_data][crate::model::ServiceAccountKey::private_key_data].
-    pub fn set_private_key_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_private_key_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.private_key_data = v.into();
         self
     }
 
     /// Sets the value of [public_key_data][crate::model::ServiceAccountKey::public_key_data].
-    pub fn set_public_key_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_public_key_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.public_key_data = v.into();
         self
     }
@@ -1133,9 +1154,9 @@ pub struct UploadServiceAccountKeyRequest {
     /// key that is wrapped in an X.509 v3 certificate. Include the first line,
     /// `-----BEGIN CERTIFICATE-----`, and the last line,
     /// `-----END CERTIFICATE-----`.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub public_key_data: bytes::Bytes,
+    pub public_key_data: ::bytes::Bytes,
 }
 
 impl UploadServiceAccountKeyRequest {
@@ -1150,7 +1171,7 @@ impl UploadServiceAccountKeyRequest {
     }
 
     /// Sets the value of [public_key_data][crate::model::UploadServiceAccountKeyRequest::public_key_data].
-    pub fn set_public_key_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_public_key_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.public_key_data = v.into();
         self
     }
@@ -1287,9 +1308,9 @@ pub struct SignBlobRequest {
     /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
     ///
     /// The bytes to sign.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub bytes_to_sign: bytes::Bytes,
+    pub bytes_to_sign: ::bytes::Bytes,
 }
 
 impl SignBlobRequest {
@@ -1304,7 +1325,7 @@ impl SignBlobRequest {
     }
 
     /// Sets the value of [bytes_to_sign][crate::model::SignBlobRequest::bytes_to_sign].
-    pub fn set_bytes_to_sign<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_bytes_to_sign<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.bytes_to_sign = v.into();
         self
     }
@@ -1336,9 +1357,9 @@ pub struct SignBlobResponse {
     /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
     ///
     /// The signed blob.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub signature: bytes::Bytes,
+    pub signature: ::bytes::Bytes,
 }
 
 impl SignBlobResponse {
@@ -1353,7 +1374,7 @@ impl SignBlobResponse {
     }
 
     /// Sets the value of [signature][crate::model::SignBlobResponse::signature].
-    pub fn set_signature<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }
@@ -1509,9 +1530,9 @@ pub struct Role {
     pub stage: crate::model::role::RoleLaunchStage,
 
     /// Used to perform a consistent read-modify-write.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 
     /// The current deleted state of the role. This field is read only.
     /// It will be ignored in calls to CreateRole and UpdateRole.
@@ -1551,7 +1572,7 @@ impl Role {
     }
 
     /// Sets the value of [etag][crate::model::Role::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -1586,50 +1607,77 @@ pub mod role {
     use super::*;
 
     /// A stage representing a role's lifecycle phase.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RoleLaunchStage(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RoleLaunchStage(i32);
 
     impl RoleLaunchStage {
-        /// Creates a new RoleLaunchStage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RoleLaunchStage](RoleLaunchStage)
-    pub mod role_launch_stage {
-        use super::RoleLaunchStage;
-
         /// The user has indicated this role is currently in an Alpha phase. If this
         /// launch stage is selected, the `stage` field will not be included when
         /// requesting the definition for a given role.
-        pub const ALPHA: RoleLaunchStage = RoleLaunchStage::new("ALPHA");
+        pub const ALPHA: RoleLaunchStage = RoleLaunchStage::new(0);
 
         /// The user has indicated this role is currently in a Beta phase.
-        pub const BETA: RoleLaunchStage = RoleLaunchStage::new("BETA");
+        pub const BETA: RoleLaunchStage = RoleLaunchStage::new(1);
 
         /// The user has indicated this role is generally available.
-        pub const GA: RoleLaunchStage = RoleLaunchStage::new("GA");
+        pub const GA: RoleLaunchStage = RoleLaunchStage::new(2);
 
         /// The user has indicated this role is being deprecated.
-        pub const DEPRECATED: RoleLaunchStage = RoleLaunchStage::new("DEPRECATED");
+        pub const DEPRECATED: RoleLaunchStage = RoleLaunchStage::new(4);
 
         /// This role is disabled and will not contribute permissions to any
         /// principals it is granted to in policies.
-        pub const DISABLED: RoleLaunchStage = RoleLaunchStage::new("DISABLED");
+        pub const DISABLED: RoleLaunchStage = RoleLaunchStage::new(5);
 
         /// The user has indicated this role is currently in an EAP phase.
-        pub const EAP: RoleLaunchStage = RoleLaunchStage::new("EAP");
+        pub const EAP: RoleLaunchStage = RoleLaunchStage::new(6);
+
+        /// Creates a new RoleLaunchStage instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ALPHA"),
+                1 => std::borrow::Cow::Borrowed("BETA"),
+                2 => std::borrow::Cow::Borrowed("GA"),
+                4 => std::borrow::Cow::Borrowed("DEPRECATED"),
+                5 => std::borrow::Cow::Borrowed("DISABLED"),
+                6 => std::borrow::Cow::Borrowed("EAP"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ALPHA" => std::option::Option::Some(Self::ALPHA),
+                "BETA" => std::option::Option::Some(Self::BETA),
+                "GA" => std::option::Option::Some(Self::GA),
+                "DEPRECATED" => std::option::Option::Some(Self::DEPRECATED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                "EAP" => std::option::Option::Some(Self::EAP),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RoleLaunchStage {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RoleLaunchStage {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RoleLaunchStage {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2168,9 +2216,9 @@ pub struct DeleteRoleRequest {
     pub name: std::string::String,
 
     /// Used to perform a consistent read-modify-write.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 }
 
 impl DeleteRoleRequest {
@@ -2185,7 +2233,7 @@ impl DeleteRoleRequest {
     }
 
     /// Sets the value of [etag][crate::model::DeleteRoleRequest::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -2231,9 +2279,9 @@ pub struct UndeleteRoleRequest {
     pub name: std::string::String,
 
     /// Used to perform a consistent read-modify-write.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 }
 
 impl UndeleteRoleRequest {
@@ -2248,7 +2296,7 @@ impl UndeleteRoleRequest {
     }
 
     /// Sets the value of [etag][crate::model::UndeleteRoleRequest::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -2373,78 +2421,121 @@ pub mod permission {
     use super::*;
 
     /// A stage representing a permission's lifecycle phase.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PermissionLaunchStage(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PermissionLaunchStage(i32);
 
     impl PermissionLaunchStage {
+        /// The permission is currently in an alpha phase.
+        pub const ALPHA: PermissionLaunchStage = PermissionLaunchStage::new(0);
+
+        /// The permission is currently in a beta phase.
+        pub const BETA: PermissionLaunchStage = PermissionLaunchStage::new(1);
+
+        /// The permission is generally available.
+        pub const GA: PermissionLaunchStage = PermissionLaunchStage::new(2);
+
+        /// The permission is being deprecated.
+        pub const DEPRECATED: PermissionLaunchStage = PermissionLaunchStage::new(3);
+
         /// Creates a new PermissionLaunchStage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ALPHA"),
+                1 => std::borrow::Cow::Borrowed("BETA"),
+                2 => std::borrow::Cow::Borrowed("GA"),
+                3 => std::borrow::Cow::Borrowed("DEPRECATED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ALPHA" => std::option::Option::Some(Self::ALPHA),
+                "BETA" => std::option::Option::Some(Self::BETA),
+                "GA" => std::option::Option::Some(Self::GA),
+                "DEPRECATED" => std::option::Option::Some(Self::DEPRECATED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [PermissionLaunchStage](PermissionLaunchStage)
-    pub mod permission_launch_stage {
-        use super::PermissionLaunchStage;
-
-        /// The permission is currently in an alpha phase.
-        pub const ALPHA: PermissionLaunchStage = PermissionLaunchStage::new("ALPHA");
-
-        /// The permission is currently in a beta phase.
-        pub const BETA: PermissionLaunchStage = PermissionLaunchStage::new("BETA");
-
-        /// The permission is generally available.
-        pub const GA: PermissionLaunchStage = PermissionLaunchStage::new("GA");
-
-        /// The permission is being deprecated.
-        pub const DEPRECATED: PermissionLaunchStage = PermissionLaunchStage::new("DEPRECATED");
+    impl std::convert::From<i32> for PermissionLaunchStage {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for PermissionLaunchStage {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for PermissionLaunchStage {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The state of the permission with regards to custom roles.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CustomRolesSupportLevel(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct CustomRolesSupportLevel(i32);
 
     impl CustomRolesSupportLevel {
+        /// Default state. Permission is fully supported for custom role use.
+        pub const SUPPORTED: CustomRolesSupportLevel = CustomRolesSupportLevel::new(0);
+
+        /// Permission is being tested to check custom role compatibility.
+        pub const TESTING: CustomRolesSupportLevel = CustomRolesSupportLevel::new(1);
+
+        /// Permission is not supported for custom role use.
+        pub const NOT_SUPPORTED: CustomRolesSupportLevel = CustomRolesSupportLevel::new(2);
+
         /// Creates a new CustomRolesSupportLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SUPPORTED"),
+                1 => std::borrow::Cow::Borrowed("TESTING"),
+                2 => std::borrow::Cow::Borrowed("NOT_SUPPORTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SUPPORTED" => std::option::Option::Some(Self::SUPPORTED),
+                "TESTING" => std::option::Option::Some(Self::TESTING),
+                "NOT_SUPPORTED" => std::option::Option::Some(Self::NOT_SUPPORTED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [CustomRolesSupportLevel](CustomRolesSupportLevel)
-    pub mod custom_roles_support_level {
-        use super::CustomRolesSupportLevel;
-
-        /// Default state. Permission is fully supported for custom role use.
-        pub const SUPPORTED: CustomRolesSupportLevel = CustomRolesSupportLevel::new("SUPPORTED");
-
-        /// Permission is being tested to check custom role compatibility.
-        pub const TESTING: CustomRolesSupportLevel = CustomRolesSupportLevel::new("TESTING");
-
-        /// Permission is not supported for custom role use.
-        pub const NOT_SUPPORTED: CustomRolesSupportLevel =
-            CustomRolesSupportLevel::new("NOT_SUPPORTED");
+    impl std::convert::From<i32> for CustomRolesSupportLevel {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for CustomRolesSupportLevel {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for CustomRolesSupportLevel {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2872,66 +2963,70 @@ pub mod lint_result {
 
     /// Possible Level values of a validation unit corresponding to its domain
     /// of discourse.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Level(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Level(i32);
 
     impl Level {
-        /// Creates a new Level instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Level](Level)
-    pub mod level {
-        use super::Level;
-
         /// Level is unspecified.
-        pub const LEVEL_UNSPECIFIED: Level = Level::new("LEVEL_UNSPECIFIED");
+        pub const LEVEL_UNSPECIFIED: Level = Level::new(0);
 
         /// A validation unit which operates on an individual condition within a
         /// binding.
-        pub const CONDITION: Level = Level::new("CONDITION");
+        pub const CONDITION: Level = Level::new(3);
+
+        /// Creates a new Level instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LEVEL_UNSPECIFIED"),
+                3 => std::borrow::Cow::Borrowed("CONDITION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LEVEL_UNSPECIFIED" => std::option::Option::Some(Self::LEVEL_UNSPECIFIED),
+                "CONDITION" => std::option::Option::Some(Self::CONDITION),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Level {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Level {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Level {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Possible Severity values of an issued result.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Severity(i32);
 
     impl Severity {
-        /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Severity](Severity)
-    pub mod severity {
-        use super::Severity;
-
         /// Severity is unspecified.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new(0);
 
         /// A validation unit returns an error only for critical issues. If an
         /// attempt is made to set the problematic policy without rectifying the
         /// critical issue, it causes the `setPolicy` operation to fail.
-        pub const ERROR: Severity = Severity::new("ERROR");
+        pub const ERROR: Severity = Severity::new(1);
 
         /// Any issue which is severe enough but does not cause an error.
         /// For example, suspicious constructs in the input object will not
@@ -2942,26 +3037,68 @@ pub mod lint_result {
         /// - Unsatisfiable condition: Expired timestamp in date/time condition.
         /// - Ineffective condition: Condition on a <principal, role> pair which is
         ///   granted unconditionally in another binding of the same policy.
-        pub const WARNING: Severity = Severity::new("WARNING");
+        pub const WARNING: Severity = Severity::new(2);
 
         /// Reserved for the issues that are not severe as `ERROR`/`WARNING`, but
         /// need special handling. For instance, messages about skipped validation
         /// units are issued as `NOTICE`.
-        pub const NOTICE: Severity = Severity::new("NOTICE");
+        pub const NOTICE: Severity = Severity::new(3);
 
         /// Any informative statement which is not severe enough to raise
         /// `ERROR`/`WARNING`/`NOTICE`, like auto-correction recommendations on the
         /// input content. Note that current version of the linter does not utilize
         /// `INFO`.
-        pub const INFO: Severity = Severity::new("INFO");
+        pub const INFO: Severity = Severity::new(4);
 
         /// Deprecated severity level.
-        pub const DEPRECATED: Severity = Severity::new("DEPRECATED");
+        pub const DEPRECATED: Severity = Severity::new(5);
+
+        /// Creates a new Severity instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ERROR"),
+                2 => std::borrow::Cow::Borrowed("WARNING"),
+                3 => std::borrow::Cow::Borrowed("NOTICE"),
+                4 => std::borrow::Cow::Borrowed("INFO"),
+                5 => std::borrow::Cow::Borrowed("DEPRECATED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SEVERITY_UNSPECIFIED" => std::option::Option::Some(Self::SEVERITY_UNSPECIFIED),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                "NOTICE" => std::option::Option::Some(Self::NOTICE),
+                "INFO" => std::option::Option::Some(Self::INFO),
+                "DEPRECATED" => std::option::Option::Some(Self::DEPRECATED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Severity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3002,193 +3139,288 @@ impl wkt::message::Message for LintPolicyResponse {
 }
 
 /// Supported key algorithms.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountKeyAlgorithm(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ServiceAccountKeyAlgorithm(i32);
 
 impl ServiceAccountKeyAlgorithm {
+    /// An unspecified key algorithm.
+    pub const KEY_ALG_UNSPECIFIED: ServiceAccountKeyAlgorithm = ServiceAccountKeyAlgorithm::new(0);
+
+    /// 1k RSA Key.
+    pub const KEY_ALG_RSA_1024: ServiceAccountKeyAlgorithm = ServiceAccountKeyAlgorithm::new(1);
+
+    /// 2k RSA Key.
+    pub const KEY_ALG_RSA_2048: ServiceAccountKeyAlgorithm = ServiceAccountKeyAlgorithm::new(2);
+
     /// Creates a new ServiceAccountKeyAlgorithm instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("KEY_ALG_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("KEY_ALG_RSA_1024"),
+            2 => std::borrow::Cow::Borrowed("KEY_ALG_RSA_2048"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "KEY_ALG_UNSPECIFIED" => std::option::Option::Some(Self::KEY_ALG_UNSPECIFIED),
+            "KEY_ALG_RSA_1024" => std::option::Option::Some(Self::KEY_ALG_RSA_1024),
+            "KEY_ALG_RSA_2048" => std::option::Option::Some(Self::KEY_ALG_RSA_2048),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ServiceAccountKeyAlgorithm](ServiceAccountKeyAlgorithm)
-pub mod service_account_key_algorithm {
-    use super::ServiceAccountKeyAlgorithm;
-
-    /// An unspecified key algorithm.
-    pub const KEY_ALG_UNSPECIFIED: ServiceAccountKeyAlgorithm =
-        ServiceAccountKeyAlgorithm::new("KEY_ALG_UNSPECIFIED");
-
-    /// 1k RSA Key.
-    pub const KEY_ALG_RSA_1024: ServiceAccountKeyAlgorithm =
-        ServiceAccountKeyAlgorithm::new("KEY_ALG_RSA_1024");
-
-    /// 2k RSA Key.
-    pub const KEY_ALG_RSA_2048: ServiceAccountKeyAlgorithm =
-        ServiceAccountKeyAlgorithm::new("KEY_ALG_RSA_2048");
+impl std::convert::From<i32> for ServiceAccountKeyAlgorithm {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for ServiceAccountKeyAlgorithm {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for ServiceAccountKeyAlgorithm {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Supported private key output formats.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountPrivateKeyType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ServiceAccountPrivateKeyType(i32);
 
 impl ServiceAccountPrivateKeyType {
-    /// Creates a new ServiceAccountPrivateKeyType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [ServiceAccountPrivateKeyType](ServiceAccountPrivateKeyType)
-pub mod service_account_private_key_type {
-    use super::ServiceAccountPrivateKeyType;
-
     /// Unspecified. Equivalent to `TYPE_GOOGLE_CREDENTIALS_FILE`.
-    pub const TYPE_UNSPECIFIED: ServiceAccountPrivateKeyType =
-        ServiceAccountPrivateKeyType::new("TYPE_UNSPECIFIED");
+    pub const TYPE_UNSPECIFIED: ServiceAccountPrivateKeyType = ServiceAccountPrivateKeyType::new(0);
 
     /// PKCS12 format.
     /// The password for the PKCS12 file is `notasecret`.
     /// For more information, see <https://tools.ietf.org/html/rfc7292>.
-    pub const TYPE_PKCS12_FILE: ServiceAccountPrivateKeyType =
-        ServiceAccountPrivateKeyType::new("TYPE_PKCS12_FILE");
+    pub const TYPE_PKCS12_FILE: ServiceAccountPrivateKeyType = ServiceAccountPrivateKeyType::new(1);
 
     /// Google Credentials File format.
     pub const TYPE_GOOGLE_CREDENTIALS_FILE: ServiceAccountPrivateKeyType =
-        ServiceAccountPrivateKeyType::new("TYPE_GOOGLE_CREDENTIALS_FILE");
+        ServiceAccountPrivateKeyType::new(2);
+
+    /// Creates a new ServiceAccountPrivateKeyType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("TYPE_PKCS12_FILE"),
+            2 => std::borrow::Cow::Borrowed("TYPE_GOOGLE_CREDENTIALS_FILE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+            "TYPE_PKCS12_FILE" => std::option::Option::Some(Self::TYPE_PKCS12_FILE),
+            "TYPE_GOOGLE_CREDENTIALS_FILE" => {
+                std::option::Option::Some(Self::TYPE_GOOGLE_CREDENTIALS_FILE)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for ServiceAccountPrivateKeyType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ServiceAccountPrivateKeyType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for ServiceAccountPrivateKeyType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Supported public key output formats.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountPublicKeyType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ServiceAccountPublicKeyType(i32);
 
 impl ServiceAccountPublicKeyType {
-    /// Creates a new ServiceAccountPublicKeyType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [ServiceAccountPublicKeyType](ServiceAccountPublicKeyType)
-pub mod service_account_public_key_type {
-    use super::ServiceAccountPublicKeyType;
-
     /// Do not return the public key.
-    pub const TYPE_NONE: ServiceAccountPublicKeyType =
-        ServiceAccountPublicKeyType::new("TYPE_NONE");
+    pub const TYPE_NONE: ServiceAccountPublicKeyType = ServiceAccountPublicKeyType::new(0);
 
     /// X509 PEM format.
-    pub const TYPE_X509_PEM_FILE: ServiceAccountPublicKeyType =
-        ServiceAccountPublicKeyType::new("TYPE_X509_PEM_FILE");
+    pub const TYPE_X509_PEM_FILE: ServiceAccountPublicKeyType = ServiceAccountPublicKeyType::new(1);
 
     /// Raw public key.
     pub const TYPE_RAW_PUBLIC_KEY: ServiceAccountPublicKeyType =
-        ServiceAccountPublicKeyType::new("TYPE_RAW_PUBLIC_KEY");
+        ServiceAccountPublicKeyType::new(2);
+
+    /// Creates a new ServiceAccountPublicKeyType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TYPE_NONE"),
+            1 => std::borrow::Cow::Borrowed("TYPE_X509_PEM_FILE"),
+            2 => std::borrow::Cow::Borrowed("TYPE_RAW_PUBLIC_KEY"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TYPE_NONE" => std::option::Option::Some(Self::TYPE_NONE),
+            "TYPE_X509_PEM_FILE" => std::option::Option::Some(Self::TYPE_X509_PEM_FILE),
+            "TYPE_RAW_PUBLIC_KEY" => std::option::Option::Some(Self::TYPE_RAW_PUBLIC_KEY),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for ServiceAccountPublicKeyType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ServiceAccountPublicKeyType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for ServiceAccountPublicKeyType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Service Account Key Origin.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountKeyOrigin(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ServiceAccountKeyOrigin(i32);
 
 impl ServiceAccountKeyOrigin {
+    /// Unspecified key origin.
+    pub const ORIGIN_UNSPECIFIED: ServiceAccountKeyOrigin = ServiceAccountKeyOrigin::new(0);
+
+    /// Key is provided by user.
+    pub const USER_PROVIDED: ServiceAccountKeyOrigin = ServiceAccountKeyOrigin::new(1);
+
+    /// Key is provided by Google.
+    pub const GOOGLE_PROVIDED: ServiceAccountKeyOrigin = ServiceAccountKeyOrigin::new(2);
+
     /// Creates a new ServiceAccountKeyOrigin instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("ORIGIN_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("USER_PROVIDED"),
+            2 => std::borrow::Cow::Borrowed("GOOGLE_PROVIDED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "ORIGIN_UNSPECIFIED" => std::option::Option::Some(Self::ORIGIN_UNSPECIFIED),
+            "USER_PROVIDED" => std::option::Option::Some(Self::USER_PROVIDED),
+            "GOOGLE_PROVIDED" => std::option::Option::Some(Self::GOOGLE_PROVIDED),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ServiceAccountKeyOrigin](ServiceAccountKeyOrigin)
-pub mod service_account_key_origin {
-    use super::ServiceAccountKeyOrigin;
-
-    /// Unspecified key origin.
-    pub const ORIGIN_UNSPECIFIED: ServiceAccountKeyOrigin =
-        ServiceAccountKeyOrigin::new("ORIGIN_UNSPECIFIED");
-
-    /// Key is provided by user.
-    pub const USER_PROVIDED: ServiceAccountKeyOrigin =
-        ServiceAccountKeyOrigin::new("USER_PROVIDED");
-
-    /// Key is provided by Google.
-    pub const GOOGLE_PROVIDED: ServiceAccountKeyOrigin =
-        ServiceAccountKeyOrigin::new("GOOGLE_PROVIDED");
+impl std::convert::From<i32> for ServiceAccountKeyOrigin {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for ServiceAccountKeyOrigin {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for ServiceAccountKeyOrigin {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// A view for Role objects.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RoleView(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct RoleView(i32);
 
 impl RoleView {
+    /// Omits the `included_permissions` field.
+    /// This is the default value.
+    pub const BASIC: RoleView = RoleView::new(0);
+
+    /// Returns all fields.
+    pub const FULL: RoleView = RoleView::new(1);
+
     /// Creates a new RoleView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("BASIC"),
+            1 => std::borrow::Cow::Borrowed("FULL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "BASIC" => std::option::Option::Some(Self::BASIC),
+            "FULL" => std::option::Option::Some(Self::FULL),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [RoleView](RoleView)
-pub mod role_view {
-    use super::RoleView;
-
-    /// Omits the `included_permissions` field.
-    /// This is the default value.
-    pub const BASIC: RoleView = RoleView::new("BASIC");
-
-    /// Returns all fields.
-    pub const FULL: RoleView = RoleView::new("FULL");
+impl std::convert::From<i32> for RoleView {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for RoleView {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for RoleView {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

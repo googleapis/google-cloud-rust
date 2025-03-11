@@ -242,159 +242,205 @@ pub mod event {
 
     /// The category of the event. This enum lists all possible categories of
     /// event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventCategory(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct EventCategory(i32);
 
     impl EventCategory {
+        /// Unspecified category.
+        pub const EVENT_CATEGORY_UNSPECIFIED: EventCategory = EventCategory::new(0);
+
+        /// Event category for service outage or degradation.
+        pub const INCIDENT: EventCategory = EventCategory::new(2);
+
         /// Creates a new EventCategory instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EVENT_CATEGORY_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("INCIDENT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EVENT_CATEGORY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::EVENT_CATEGORY_UNSPECIFIED)
+                }
+                "INCIDENT" => std::option::Option::Some(Self::INCIDENT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [EventCategory](EventCategory)
-    pub mod event_category {
-        use super::EventCategory;
-
-        /// Unspecified category.
-        pub const EVENT_CATEGORY_UNSPECIFIED: EventCategory =
-            EventCategory::new("EVENT_CATEGORY_UNSPECIFIED");
-
-        /// Event category for service outage or degradation.
-        pub const INCIDENT: EventCategory = EventCategory::new("INCIDENT");
+    impl std::convert::From<i32> for EventCategory {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for EventCategory {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for EventCategory {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The detailed category of an event. Contains all possible states for all
     /// event categories.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedCategory(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DetailedCategory(i32);
 
     impl DetailedCategory {
-        /// Creates a new DetailedCategory instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DetailedCategory](DetailedCategory)
-    pub mod detailed_category {
-        use super::DetailedCategory;
-
         /// Unspecified detailed category.
-        pub const DETAILED_CATEGORY_UNSPECIFIED: DetailedCategory =
-            DetailedCategory::new("DETAILED_CATEGORY_UNSPECIFIED");
+        pub const DETAILED_CATEGORY_UNSPECIFIED: DetailedCategory = DetailedCategory::new(0);
 
         /// Indicates an event with category INCIDENT has a confirmed impact to at
         /// least one Google Cloud product.
-        pub const CONFIRMED_INCIDENT: DetailedCategory =
-            DetailedCategory::new("CONFIRMED_INCIDENT");
+        pub const CONFIRMED_INCIDENT: DetailedCategory = DetailedCategory::new(1);
 
         /// Indicates an event with category INCIDENT is under investigation to
         /// determine if it has a confirmed impact on any Google Cloud products.
-        pub const EMERGING_INCIDENT: DetailedCategory = DetailedCategory::new("EMERGING_INCIDENT");
+        pub const EMERGING_INCIDENT: DetailedCategory = DetailedCategory::new(2);
+
+        /// Creates a new DetailedCategory instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DETAILED_CATEGORY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CONFIRMED_INCIDENT"),
+                2 => std::borrow::Cow::Borrowed("EMERGING_INCIDENT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DETAILED_CATEGORY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DETAILED_CATEGORY_UNSPECIFIED)
+                }
+                "CONFIRMED_INCIDENT" => std::option::Option::Some(Self::CONFIRMED_INCIDENT),
+                "EMERGING_INCIDENT" => std::option::Option::Some(Self::EMERGING_INCIDENT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DetailedCategory {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DetailedCategory {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DetailedCategory {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The state of the event. This enum lists all possible states of event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Event is actively affecting a Google Cloud product and will continue to
         /// receive updates.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(1);
 
         /// Event is no longer affecting the Google Cloud product or has been merged
         /// with another event.
-        pub const CLOSED: State = State::new("CLOSED");
+        pub const CLOSED: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("CLOSED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "CLOSED" => std::option::Option::Some(Self::CLOSED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The detailed state of the incident. This enum lists all possible detailed
     /// states of an incident.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DetailedState(i32);
 
     impl DetailedState {
-        /// Creates a new DetailedState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DetailedState](DetailedState)
-    pub mod detailed_state {
-        use super::DetailedState;
-
         /// Unspecified detail state.
-        pub const DETAILED_STATE_UNSPECIFIED: DetailedState =
-            DetailedState::new("DETAILED_STATE_UNSPECIFIED");
+        pub const DETAILED_STATE_UNSPECIFIED: DetailedState = DetailedState::new(0);
 
         /// Google engineers are actively investigating the event to determine the
         /// impact.
-        pub const EMERGING: DetailedState = DetailedState::new("EMERGING");
+        pub const EMERGING: DetailedState = DetailedState::new(1);
 
         /// The incident is confirmed and impacting at least one Google Cloud
         /// product. Ongoing status updates will be provided until it is resolved.
-        pub const CONFIRMED: DetailedState = DetailedState::new("CONFIRMED");
+        pub const CONFIRMED: DetailedState = DetailedState::new(2);
 
         /// The incident is no longer affecting any Google Cloud product, and there
         /// will be no further updates.
-        pub const RESOLVED: DetailedState = DetailedState::new("RESOLVED");
+        pub const RESOLVED: DetailedState = DetailedState::new(3);
 
         /// The incident was merged into a parent incident. All further updates will
         /// be published to the parent only. The `parent_event` field contains the
         /// name of the parent.
-        pub const MERGED: DetailedState = DetailedState::new("MERGED");
+        pub const MERGED: DetailedState = DetailedState::new(4);
 
         /// The incident was automatically closed because of the following reasons:
         ///
@@ -403,67 +449,140 @@ pub mod event {
         ///
         /// The incident does not have a resolution because no action or
         /// investigation happened. If it is intermittent, the incident may reopen.
-        pub const AUTO_CLOSED: DetailedState = DetailedState::new("AUTO_CLOSED");
+        pub const AUTO_CLOSED: DetailedState = DetailedState::new(9);
 
         /// Upon investigation, Google engineers concluded that the incident is not
         /// affecting a Google Cloud product. This state can change if the incident
         /// is reviewed again.
-        pub const FALSE_POSITIVE: DetailedState = DetailedState::new("FALSE_POSITIVE");
+        pub const FALSE_POSITIVE: DetailedState = DetailedState::new(10);
+
+        /// Creates a new DetailedState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DETAILED_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("EMERGING"),
+                2 => std::borrow::Cow::Borrowed("CONFIRMED"),
+                3 => std::borrow::Cow::Borrowed("RESOLVED"),
+                4 => std::borrow::Cow::Borrowed("MERGED"),
+                9 => std::borrow::Cow::Borrowed("AUTO_CLOSED"),
+                10 => std::borrow::Cow::Borrowed("FALSE_POSITIVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DETAILED_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DETAILED_STATE_UNSPECIFIED)
+                }
+                "EMERGING" => std::option::Option::Some(Self::EMERGING),
+                "CONFIRMED" => std::option::Option::Some(Self::CONFIRMED),
+                "RESOLVED" => std::option::Option::Some(Self::RESOLVED),
+                "MERGED" => std::option::Option::Some(Self::MERGED),
+                "AUTO_CLOSED" => std::option::Option::Some(Self::AUTO_CLOSED),
+                "FALSE_POSITIVE" => std::option::Option::Some(Self::FALSE_POSITIVE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DetailedState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DetailedState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DetailedState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Communicates why a given incident is deemed relevant in the context of a
     /// given project. This enum lists all possible detailed states of relevance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Relevance(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Relevance(i32);
 
     impl Relevance {
-        /// Creates a new Relevance instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Relevance](Relevance)
-    pub mod relevance {
-        use super::Relevance;
-
         /// Unspecified relevance.
-        pub const RELEVANCE_UNSPECIFIED: Relevance = Relevance::new("RELEVANCE_UNSPECIFIED");
+        pub const RELEVANCE_UNSPECIFIED: Relevance = Relevance::new(0);
 
         /// The relevance of the incident to the project is unknown.
-        pub const UNKNOWN: Relevance = Relevance::new("UNKNOWN");
+        pub const UNKNOWN: Relevance = Relevance::new(2);
 
         /// The incident does not impact the project.
-        pub const NOT_IMPACTED: Relevance = Relevance::new("NOT_IMPACTED");
+        pub const NOT_IMPACTED: Relevance = Relevance::new(6);
 
         /// The incident is associated with a Google Cloud product your project uses,
         /// but the incident may not be impacting your project. For example, the
         /// incident may be impacting a Google Cloud product that your project uses,
         /// but in a location that your project does not use.
-        pub const PARTIALLY_RELATED: Relevance = Relevance::new("PARTIALLY_RELATED");
+        pub const PARTIALLY_RELATED: Relevance = Relevance::new(7);
 
         /// The incident has a direct connection with your project and impacts a
         /// Google Cloud product in a location your project uses.
-        pub const RELATED: Relevance = Relevance::new("RELATED");
+        pub const RELATED: Relevance = Relevance::new(8);
 
         /// The incident is verified to be impacting your project.
-        pub const IMPACTED: Relevance = Relevance::new("IMPACTED");
+        pub const IMPACTED: Relevance = Relevance::new(9);
+
+        /// Creates a new Relevance instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RELEVANCE_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                6 => std::borrow::Cow::Borrowed("NOT_IMPACTED"),
+                7 => std::borrow::Cow::Borrowed("PARTIALLY_RELATED"),
+                8 => std::borrow::Cow::Borrowed("RELATED"),
+                9 => std::borrow::Cow::Borrowed("IMPACTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RELEVANCE_UNSPECIFIED" => std::option::Option::Some(Self::RELEVANCE_UNSPECIFIED),
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "NOT_IMPACTED" => std::option::Option::Some(Self::NOT_IMPACTED),
+                "PARTIALLY_RELATED" => std::option::Option::Some(Self::PARTIALLY_RELATED),
+                "RELATED" => std::option::Option::Some(Self::RELATED),
+                "IMPACTED" => std::option::Option::Some(Self::IMPACTED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Relevance {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Relevance {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Relevance {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -682,160 +801,206 @@ pub mod organization_event {
 
     /// The category of the event. This enum lists all possible categories of
     /// event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventCategory(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct EventCategory(i32);
 
     impl EventCategory {
+        /// Unspecified category.
+        pub const EVENT_CATEGORY_UNSPECIFIED: EventCategory = EventCategory::new(0);
+
+        /// Event category for service outage or degradation.
+        pub const INCIDENT: EventCategory = EventCategory::new(2);
+
         /// Creates a new EventCategory instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EVENT_CATEGORY_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("INCIDENT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EVENT_CATEGORY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::EVENT_CATEGORY_UNSPECIFIED)
+                }
+                "INCIDENT" => std::option::Option::Some(Self::INCIDENT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [EventCategory](EventCategory)
-    pub mod event_category {
-        use super::EventCategory;
-
-        /// Unspecified category.
-        pub const EVENT_CATEGORY_UNSPECIFIED: EventCategory =
-            EventCategory::new("EVENT_CATEGORY_UNSPECIFIED");
-
-        /// Event category for service outage or degradation.
-        pub const INCIDENT: EventCategory = EventCategory::new("INCIDENT");
+    impl std::convert::From<i32> for EventCategory {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for EventCategory {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for EventCategory {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The detailed category of an event. Contains all possible states for all
     /// event categories.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedCategory(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DetailedCategory(i32);
 
     impl DetailedCategory {
-        /// Creates a new DetailedCategory instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DetailedCategory](DetailedCategory)
-    pub mod detailed_category {
-        use super::DetailedCategory;
-
         /// Unspecified detailed category.
-        pub const DETAILED_CATEGORY_UNSPECIFIED: DetailedCategory =
-            DetailedCategory::new("DETAILED_CATEGORY_UNSPECIFIED");
+        pub const DETAILED_CATEGORY_UNSPECIFIED: DetailedCategory = DetailedCategory::new(0);
 
         /// Indicates an event with category INCIDENT has a confirmed impact to at
         /// least one Google Cloud product.
-        pub const CONFIRMED_INCIDENT: DetailedCategory =
-            DetailedCategory::new("CONFIRMED_INCIDENT");
+        pub const CONFIRMED_INCIDENT: DetailedCategory = DetailedCategory::new(1);
 
         /// Indicates an event with category INCIDENT is under investigation to
         /// determine if it has a confirmed impact on any Google Cloud products.
-        pub const EMERGING_INCIDENT: DetailedCategory = DetailedCategory::new("EMERGING_INCIDENT");
+        pub const EMERGING_INCIDENT: DetailedCategory = DetailedCategory::new(2);
+
+        /// Creates a new DetailedCategory instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DETAILED_CATEGORY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CONFIRMED_INCIDENT"),
+                2 => std::borrow::Cow::Borrowed("EMERGING_INCIDENT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DETAILED_CATEGORY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DETAILED_CATEGORY_UNSPECIFIED)
+                }
+                "CONFIRMED_INCIDENT" => std::option::Option::Some(Self::CONFIRMED_INCIDENT),
+                "EMERGING_INCIDENT" => std::option::Option::Some(Self::EMERGING_INCIDENT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DetailedCategory {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DetailedCategory {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DetailedCategory {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The state of the organization event. This enum lists all possible states of
     /// event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Event is actively affecting a Google Cloud product and will continue to
         /// receive updates.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(1);
 
         /// Event is no longer affecting the Google Cloud product or has been merged
         /// with another event.
-        pub const CLOSED: State = State::new("CLOSED");
+        pub const CLOSED: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("CLOSED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "CLOSED" => std::option::Option::Some(Self::CLOSED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The detailed state of the incident. This enum lists all possible detailed
     /// states of an incident.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DetailedState(i32);
 
     impl DetailedState {
-        /// Creates a new DetailedState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DetailedState](DetailedState)
-    pub mod detailed_state {
-        use super::DetailedState;
-
         /// Unspecified detail state.
-        pub const DETAILED_STATE_UNSPECIFIED: DetailedState =
-            DetailedState::new("DETAILED_STATE_UNSPECIFIED");
+        pub const DETAILED_STATE_UNSPECIFIED: DetailedState = DetailedState::new(0);
 
         /// Google engineers are actively investigating the incident to determine the
         /// impact.
-        pub const EMERGING: DetailedState = DetailedState::new("EMERGING");
+        pub const EMERGING: DetailedState = DetailedState::new(1);
 
         /// The incident is confirmed and impacting at least one Google Cloud
         /// product. Ongoing status updates will be provided until it is resolved.
-        pub const CONFIRMED: DetailedState = DetailedState::new("CONFIRMED");
+        pub const CONFIRMED: DetailedState = DetailedState::new(2);
 
         /// The incident is no longer affecting any Google Cloud product, and there
         /// will be no further updates.
-        pub const RESOLVED: DetailedState = DetailedState::new("RESOLVED");
+        pub const RESOLVED: DetailedState = DetailedState::new(3);
 
         /// The incident was merged into a parent event. All further updates will be
         /// published to the parent only. The `parent_event` contains the name of the
         /// parent.
-        pub const MERGED: DetailedState = DetailedState::new("MERGED");
+        pub const MERGED: DetailedState = DetailedState::new(4);
 
         /// The incident was automatically closed because of the following reasons:
         ///
@@ -844,17 +1009,63 @@ pub mod organization_event {
         ///
         /// The incident does not have a resolution because no action or
         /// investigation happened. If it is intermittent, the incident may reopen.
-        pub const AUTO_CLOSED: DetailedState = DetailedState::new("AUTO_CLOSED");
+        pub const AUTO_CLOSED: DetailedState = DetailedState::new(9);
 
         /// Upon investigation, Google engineers concluded that the incident is not
         /// affecting a Google Cloud product. This state can change if the incident
         /// is reviewed again.
-        pub const FALSE_POSITIVE: DetailedState = DetailedState::new("FALSE_POSITIVE");
+        pub const FALSE_POSITIVE: DetailedState = DetailedState::new(10);
+
+        /// Creates a new DetailedState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DETAILED_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("EMERGING"),
+                2 => std::borrow::Cow::Borrowed("CONFIRMED"),
+                3 => std::borrow::Cow::Borrowed("RESOLVED"),
+                4 => std::borrow::Cow::Borrowed("MERGED"),
+                9 => std::borrow::Cow::Borrowed("AUTO_CLOSED"),
+                10 => std::borrow::Cow::Borrowed("FALSE_POSITIVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DETAILED_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DETAILED_STATE_UNSPECIFIED)
+                }
+                "EMERGING" => std::option::Option::Some(Self::EMERGING),
+                "CONFIRMED" => std::option::Option::Some(Self::CONFIRMED),
+                "RESOLVED" => std::option::Option::Some(Self::RESOLVED),
+                "MERGED" => std::option::Option::Some(Self::MERGED),
+                "AUTO_CLOSED" => std::option::Option::Some(Self::AUTO_CLOSED),
+                "FALSE_POSITIVE" => std::option::Option::Some(Self::FALSE_POSITIVE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DetailedState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DetailedState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DetailedState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1801,79 +2012,125 @@ impl wkt::message::Message for GetOrganizationImpactRequest {
 
 /// The event fields to include in ListEvents API response. This enum lists all
 /// possible event views.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EventView(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct EventView(i32);
 
 impl EventView {
-    /// Creates a new EventView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [EventView](EventView)
-pub mod event_view {
-    use super::EventView;
-
     /// Unspecified event view. Default to `EVENT_VIEW_BASIC`.
-    pub const EVENT_VIEW_UNSPECIFIED: EventView = EventView::new("EVENT_VIEW_UNSPECIFIED");
+    pub const EVENT_VIEW_UNSPECIFIED: EventView = EventView::new(0);
 
     /// Includes all fields except `updates`. This view is the default for
     /// ListEvents API.
-    pub const EVENT_VIEW_BASIC: EventView = EventView::new("EVENT_VIEW_BASIC");
+    pub const EVENT_VIEW_BASIC: EventView = EventView::new(1);
 
     /// Includes all event fields.
-    pub const EVENT_VIEW_FULL: EventView = EventView::new("EVENT_VIEW_FULL");
+    pub const EVENT_VIEW_FULL: EventView = EventView::new(2);
+
+    /// Creates a new EventView instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("EVENT_VIEW_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("EVENT_VIEW_BASIC"),
+            2 => std::borrow::Cow::Borrowed("EVENT_VIEW_FULL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "EVENT_VIEW_UNSPECIFIED" => std::option::Option::Some(Self::EVENT_VIEW_UNSPECIFIED),
+            "EVENT_VIEW_BASIC" => std::option::Option::Some(Self::EVENT_VIEW_BASIC),
+            "EVENT_VIEW_FULL" => std::option::Option::Some(Self::EVENT_VIEW_FULL),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for EventView {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for EventView {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for EventView {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// The organization event fields to include in ListOrganizationEvents API
 /// response. This enum lists all possible organization event views.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OrganizationEventView(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct OrganizationEventView(i32);
 
 impl OrganizationEventView {
-    /// Creates a new OrganizationEventView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [OrganizationEventView](OrganizationEventView)
-pub mod organization_event_view {
-    use super::OrganizationEventView;
-
     /// Unspecified event view. Default to `ORGANIZATION_EVENT_VIEW_BASIC`.
     pub const ORGANIZATION_EVENT_VIEW_UNSPECIFIED: OrganizationEventView =
-        OrganizationEventView::new("ORGANIZATION_EVENT_VIEW_UNSPECIFIED");
+        OrganizationEventView::new(0);
 
     /// Includes all organization event fields except `updates`. This view is the
     /// default for ListOrganizationEvents API.
-    pub const ORGANIZATION_EVENT_VIEW_BASIC: OrganizationEventView =
-        OrganizationEventView::new("ORGANIZATION_EVENT_VIEW_BASIC");
+    pub const ORGANIZATION_EVENT_VIEW_BASIC: OrganizationEventView = OrganizationEventView::new(1);
 
     /// Includes all organization event fields.
-    pub const ORGANIZATION_EVENT_VIEW_FULL: OrganizationEventView =
-        OrganizationEventView::new("ORGANIZATION_EVENT_VIEW_FULL");
+    pub const ORGANIZATION_EVENT_VIEW_FULL: OrganizationEventView = OrganizationEventView::new(2);
+
+    /// Creates a new OrganizationEventView instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("ORGANIZATION_EVENT_VIEW_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("ORGANIZATION_EVENT_VIEW_BASIC"),
+            2 => std::borrow::Cow::Borrowed("ORGANIZATION_EVENT_VIEW_FULL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "ORGANIZATION_EVENT_VIEW_UNSPECIFIED" => {
+                std::option::Option::Some(Self::ORGANIZATION_EVENT_VIEW_UNSPECIFIED)
+            }
+            "ORGANIZATION_EVENT_VIEW_BASIC" => {
+                std::option::Option::Some(Self::ORGANIZATION_EVENT_VIEW_BASIC)
+            }
+            "ORGANIZATION_EVENT_VIEW_FULL" => {
+                std::option::Option::Some(Self::ORGANIZATION_EVENT_VIEW_FULL)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for OrganizationEventView {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for OrganizationEventView {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for OrganizationEventView {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

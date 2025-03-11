@@ -258,54 +258,85 @@ pub mod data_set {
     use super::*;
 
     /// DataSet state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified / undefined state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Dataset is unknown to the system; we have never seen this dataset before
         /// or we have seen this dataset but have fully GC-ed it.
-        pub const UNKNOWN: State = State::new("UNKNOWN");
+        pub const UNKNOWN: State = State::new(1);
 
         /// Dataset processing is pending.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::new(2);
 
         /// Dataset is loading.
-        pub const LOADING: State = State::new("LOADING");
+        pub const LOADING: State = State::new(3);
 
         /// Dataset is loaded and can be queried.
-        pub const LOADED: State = State::new("LOADED");
+        pub const LOADED: State = State::new(4);
 
         /// Dataset is unloading.
-        pub const UNLOADING: State = State::new("UNLOADING");
+        pub const UNLOADING: State = State::new(5);
 
         /// Dataset is unloaded and is removed from the system.
-        pub const UNLOADED: State = State::new("UNLOADED");
+        pub const UNLOADED: State = State::new(6);
 
         /// Dataset processing failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(7);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                2 => std::borrow::Cow::Borrowed("PENDING"),
+                3 => std::borrow::Cow::Borrowed("LOADING"),
+                4 => std::borrow::Cow::Borrowed("LOADED"),
+                5 => std::borrow::Cow::Borrowed("UNLOADING"),
+                6 => std::borrow::Cow::Borrowed("UNLOADED"),
+                7 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "LOADING" => std::option::Option::Some(Self::LOADING),
+                "LOADED" => std::option::Option::Some(Self::LOADED),
+                "UNLOADING" => std::option::Option::Some(Self::UNLOADING),
+                "UNLOADED" => std::option::Option::Some(Self::UNLOADED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1057,47 +1088,74 @@ pub mod forecast_params {
     use super::*;
 
     /// A time period of a fixed interval.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Period(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Period(i32);
 
     impl Period {
+        /// Unknown or simply not given.
+        pub const PERIOD_UNSPECIFIED: Period = Period::new(0);
+
+        /// 1 hour
+        pub const HOURLY: Period = Period::new(5);
+
+        /// 24 hours
+        pub const DAILY: Period = Period::new(1);
+
+        /// 7 days
+        pub const WEEKLY: Period = Period::new(2);
+
+        /// 30 days
+        pub const MONTHLY: Period = Period::new(3);
+
+        /// 365 days
+        pub const YEARLY: Period = Period::new(4);
+
         /// Creates a new Period instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PERIOD_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DAILY"),
+                2 => std::borrow::Cow::Borrowed("WEEKLY"),
+                3 => std::borrow::Cow::Borrowed("MONTHLY"),
+                4 => std::borrow::Cow::Borrowed("YEARLY"),
+                5 => std::borrow::Cow::Borrowed("HOURLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PERIOD_UNSPECIFIED" => std::option::Option::Some(Self::PERIOD_UNSPECIFIED),
+                "HOURLY" => std::option::Option::Some(Self::HOURLY),
+                "DAILY" => std::option::Option::Some(Self::DAILY),
+                "WEEKLY" => std::option::Option::Some(Self::WEEKLY),
+                "MONTHLY" => std::option::Option::Some(Self::MONTHLY),
+                "YEARLY" => std::option::Option::Some(Self::YEARLY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Period](Period)
-    pub mod period {
-        use super::Period;
-
-        /// Unknown or simply not given.
-        pub const PERIOD_UNSPECIFIED: Period = Period::new("PERIOD_UNSPECIFIED");
-
-        /// 1 hour
-        pub const HOURLY: Period = Period::new("HOURLY");
-
-        /// 24 hours
-        pub const DAILY: Period = Period::new("DAILY");
-
-        /// 7 days
-        pub const WEEKLY: Period = Period::new("WEEKLY");
-
-        /// 30 days
-        pub const MONTHLY: Period = Period::new("MONTHLY");
-
-        /// 365 days
-        pub const YEARLY: Period = Period::new("YEARLY");
+    impl std::convert::From<i32> for Period {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Period {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Period {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1691,45 +1749,67 @@ pub mod timeseries_params {
     /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric].
     ///
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationMethod(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AggregationMethod(i32);
 
     impl AggregationMethod {
-        /// Creates a new AggregationMethod instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [AggregationMethod](AggregationMethod)
-    pub mod aggregation_method {
-        use super::AggregationMethod;
-
         /// Unspecified.
-        pub const AGGREGATION_METHOD_UNSPECIFIED: AggregationMethod =
-            AggregationMethod::new("AGGREGATION_METHOD_UNSPECIFIED");
+        pub const AGGREGATION_METHOD_UNSPECIFIED: AggregationMethod = AggregationMethod::new(0);
 
         /// Aggregate multiple events by summing up the values found in the
         /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric] dimension.
         ///
         /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
-        pub const SUM: AggregationMethod = AggregationMethod::new("SUM");
+        pub const SUM: AggregationMethod = AggregationMethod::new(1);
 
         /// Aggregate multiple events by averaging out the values found in the
         /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric] dimension.
         ///
         /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
-        pub const AVERAGE: AggregationMethod = AggregationMethod::new("AVERAGE");
+        pub const AVERAGE: AggregationMethod = AggregationMethod::new(2);
+
+        /// Creates a new AggregationMethod instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("AGGREGATION_METHOD_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SUM"),
+                2 => std::borrow::Cow::Borrowed("AVERAGE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "AGGREGATION_METHOD_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::AGGREGATION_METHOD_UNSPECIFIED)
+                }
+                "SUM" => std::option::Option::Some(Self::SUM),
+                "AVERAGE" => std::option::Option::Some(Self::AVERAGE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for AggregationMethod {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AggregationMethod {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for AggregationMethod {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

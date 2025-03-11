@@ -83,7 +83,7 @@ mod test {
         ));
         let got = serde_json::to_value(&input)?;
         let want = json!({
-            "durationValue": "123.456000000s"
+            "durationValue": "123.456s"
         });
         assert_eq!(got, want);
 

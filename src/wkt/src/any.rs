@@ -84,6 +84,19 @@ type BoxedError = Box<dyn std::error::Error + Send + Sync>;
 type Error = AnyError;
 
 impl Any {
+    /// Returns the name of the contained type.
+    ///
+    /// An any may contain any message type. The name of the message is a URL,
+    /// usually with the `https://` scheme elided. All types in Google Cloud
+    /// APIs are of the form
+    /// `https://type.googleapis.com/${fully-qualified-name}`.
+    ///
+    /// Note that this is not an available URL where you can download data (such
+    /// as the message schema) from.
+    pub fn type_url(&self) -> Option<&str> {
+        self.0.get("@type").and_then(serde_json::Value::as_str)
+    }
+
     /// Creates a new [Any] from any [Message][crate::message::Message] that
     /// also supports serialization to JSON.
     pub fn try_from<T>(message: &T) -> Result<Self, Error>
@@ -188,6 +201,10 @@ mod test {
     fn serialize_duration() -> Result {
         let d = Duration::clamp(60, 0);
         let any = Any::try_from(&d)?;
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.Duration")
+        );
         let got = serde_json::to_value(any)?;
         let want = json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value": "60s"});
         assert_eq!(got, want);
@@ -199,6 +216,10 @@ mod test {
         let input =
             json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value": "60s"});
         let any = Any(input.as_object().unwrap().clone());
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.Duration")
+        );
         let d = any.try_into_message::<Duration>()?;
         assert_eq!(d, Duration::clamp(60, 0));
         Ok(())
@@ -208,6 +229,10 @@ mod test {
     fn serialize_empty() -> Result {
         let empty = Empty::default();
         let any = Any::try_from(&empty)?;
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.Empty")
+        );
         let got = serde_json::to_value(any)?;
         let want = json!({"@type": "type.googleapis.com/google.protobuf.Empty"});
         assert_eq!(got, want);
@@ -218,6 +243,10 @@ mod test {
     fn deserialize_empty() -> Result {
         let input = json!({"@type": "type.googleapis.com/google.protobuf.Empty"});
         let any = Any(input.as_object().unwrap().clone());
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.Empty")
+        );
         let empty = any.try_into_message::<Empty>()?;
         assert_eq!(empty, Empty::default());
         Ok(())
@@ -227,6 +256,10 @@ mod test {
     fn serialize_field_mask() -> Result {
         let d = FieldMask::default().set_paths(["a", "b"].map(str::to_string).to_vec());
         let any = Any::try_from(&d)?;
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.FieldMask")
+        );
         let got = serde_json::to_value(any)?;
         let want =
             json!({"@type": "type.googleapis.com/google.protobuf.FieldMask", "paths": "a,b"});
@@ -239,6 +272,10 @@ mod test {
         let input =
             json!({"@type": "type.googleapis.com/google.protobuf.FieldMask", "paths": "a,b"});
         let any = Any(input.as_object().unwrap().clone());
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.FieldMask")
+        );
         let d = any.try_into_message::<FieldMask>()?;
         assert_eq!(
             d,
@@ -251,6 +288,10 @@ mod test {
     fn serialize_timestamp() -> Result {
         let d = Timestamp::clamp(123, 0);
         let any = Any::try_from(&d)?;
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.Timestamp")
+        );
         let got = serde_json::to_value(any)?;
         let want = json!({"@type": "type.googleapis.com/google.protobuf.Timestamp", "value": "1970-01-01T00:02:03Z"});
         assert_eq!(got, want);
@@ -261,6 +302,10 @@ mod test {
     fn deserialize_timestamp() -> Result {
         let input = json!({"@type": "type.googleapis.com/google.protobuf.Timestamp", "value": "1970-01-01T00:02:03Z"});
         let any = Any(input.as_object().unwrap().clone());
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.Timestamp")
+        );
         let d = any.try_into_message::<Timestamp>()?;
         assert_eq!(d, Timestamp::clamp(123, 0));
         Ok(())
@@ -273,6 +318,7 @@ mod test {
             id: "id".to_string(),
         };
         let any = Any::try_from(&d)?;
+        assert_eq!(any.type_url(), Some("type.googleapis.com/wkt.test.Stored"));
         let got = serde_json::to_value(any)?;
         let want =
             json!({"@type": "type.googleapis.com/wkt.test.Stored", "parent": "parent", "id": "id"});
@@ -285,6 +331,7 @@ mod test {
         let input =
             json!({"@type": "type.googleapis.com/wkt.test.Stored", "parent": "parent", "id": "id"});
         let any = Any(input.as_object().unwrap().clone());
+        assert_eq!(any.type_url(), Some("type.googleapis.com/wkt.test.Stored"));
         let d = any.try_into_message::<Stored>()?;
         assert_eq!(
             d,

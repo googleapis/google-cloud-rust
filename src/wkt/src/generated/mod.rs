@@ -381,6 +381,4002 @@ impl wkt::message::Message for Mixin {
     }
 }
 
+/// The protocol compiler can output a FileDescriptorSet containing the .proto
+/// files it parses.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FileDescriptorSet {
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub file: std::vec::Vec<crate::FileDescriptorProto>,
+}
+
+impl FileDescriptorSet {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [file][crate::FileDescriptorSet::file].
+    pub fn set_file<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::FileDescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.file = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FileDescriptorSet {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.FileDescriptorSet"
+    }
+}
+
+/// Describes a complete .proto file.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FileDescriptorProto {
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub package: std::string::String,
+
+    /// Names of files imported by this file.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub dependency: std::vec::Vec<std::string::String>,
+
+    /// Indexes of the public imported files in the dependency list above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub public_dependency: std::vec::Vec<i32>,
+
+    /// Indexes of the weak imported files in the dependency list.
+    /// For Google-internal migration only. Do not use.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub weak_dependency: std::vec::Vec<i32>,
+
+    /// All top-level definitions in this file.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub message_type: std::vec::Vec<crate::DescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub enum_type: std::vec::Vec<crate::EnumDescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub service: std::vec::Vec<crate::ServiceDescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub extension: std::vec::Vec<crate::FieldDescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub options: std::option::Option<crate::FileOptions>,
+
+    /// This field contains optional information about the original source code.
+    /// You may safely remove this entire field without harming runtime
+    /// functionality of the descriptors -- the information is needed only by
+    /// development tools.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub source_code_info: std::option::Option<crate::SourceCodeInfo>,
+
+    /// The syntax of the proto file.
+    /// The supported values are "proto2", "proto3", and "editions".
+    ///
+    /// If `edition` is present, this value must be "editions".
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub syntax: std::string::String,
+
+    /// The edition of the proto file.
+    pub edition: crate::Edition,
+}
+
+impl FileDescriptorProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::FileDescriptorProto::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [package][crate::FileDescriptorProto::package].
+    pub fn set_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.package = v.into();
+        self
+    }
+
+    /// Sets the value of [options][crate::FileDescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::FileOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
+        self
+    }
+
+    /// Sets the value of [source_code_info][crate::FileDescriptorProto::source_code_info].
+    pub fn set_source_code_info<
+        T: std::convert::Into<std::option::Option<crate::SourceCodeInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_code_info = v.into();
+        self
+    }
+
+    /// Sets the value of [syntax][crate::FileDescriptorProto::syntax].
+    pub fn set_syntax<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.syntax = v.into();
+        self
+    }
+
+    /// Sets the value of [edition][crate::FileDescriptorProto::edition].
+    pub fn set_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
+        self.edition = v.into();
+        self
+    }
+
+    /// Sets the value of [dependency][crate::FileDescriptorProto::dependency].
+    pub fn set_dependency<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.dependency = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [public_dependency][crate::FileDescriptorProto::public_dependency].
+    pub fn set_public_dependency<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.public_dependency = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [weak_dependency][crate::FileDescriptorProto::weak_dependency].
+    pub fn set_weak_dependency<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.weak_dependency = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [message_type][crate::FileDescriptorProto::message_type].
+    pub fn set_message_type<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::DescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.message_type = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enum_type][crate::FileDescriptorProto::enum_type].
+    pub fn set_enum_type<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::EnumDescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.enum_type = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [service][crate::FileDescriptorProto::service].
+    pub fn set_service<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::ServiceDescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.service = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [extension][crate::FileDescriptorProto::extension].
+    pub fn set_extension<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::FieldDescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.extension = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FileDescriptorProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.FileDescriptorProto"
+    }
+}
+
+/// Describes a message type.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DescriptorProto {
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub field: std::vec::Vec<crate::FieldDescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub extension: std::vec::Vec<crate::FieldDescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub nested_type: std::vec::Vec<crate::DescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub enum_type: std::vec::Vec<crate::EnumDescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub extension_range: std::vec::Vec<crate::descriptor_proto::ExtensionRange>,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub oneof_decl: std::vec::Vec<crate::OneofDescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub options: std::option::Option<crate::MessageOptions>,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub reserved_range: std::vec::Vec<crate::descriptor_proto::ReservedRange>,
+
+    /// Reserved field names, which may not be used by fields in the same message.
+    /// A given name may only be reserved once.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub reserved_name: std::vec::Vec<std::string::String>,
+}
+
+impl DescriptorProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::DescriptorProto::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [options][crate::DescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::MessageOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
+        self
+    }
+
+    /// Sets the value of [field][crate::DescriptorProto::field].
+    pub fn set_field<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::FieldDescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.field = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [extension][crate::DescriptorProto::extension].
+    pub fn set_extension<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::FieldDescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.extension = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [nested_type][crate::DescriptorProto::nested_type].
+    pub fn set_nested_type<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::DescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.nested_type = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enum_type][crate::DescriptorProto::enum_type].
+    pub fn set_enum_type<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::EnumDescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.enum_type = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [extension_range][crate::DescriptorProto::extension_range].
+    pub fn set_extension_range<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::descriptor_proto::ExtensionRange>,
+    {
+        use std::iter::Iterator;
+        self.extension_range = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [oneof_decl][crate::DescriptorProto::oneof_decl].
+    pub fn set_oneof_decl<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::OneofDescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.oneof_decl = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [reserved_range][crate::DescriptorProto::reserved_range].
+    pub fn set_reserved_range<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::descriptor_proto::ReservedRange>,
+    {
+        use std::iter::Iterator;
+        self.reserved_range = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [reserved_name][crate::DescriptorProto::reserved_name].
+    pub fn set_reserved_name<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.reserved_name = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DescriptorProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.DescriptorProto"
+    }
+}
+
+/// Defines additional types related to DescriptorProto
+pub mod descriptor_proto {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ExtensionRange {
+        pub start: i32,
+
+        pub end: i32,
+
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub options: std::option::Option<crate::ExtensionRangeOptions>,
+    }
+
+    impl ExtensionRange {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start][crate::descriptor_proto::ExtensionRange::start].
+        pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.start = v.into();
+            self
+        }
+
+        /// Sets the value of [end][crate::descriptor_proto::ExtensionRange::end].
+        pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.end = v.into();
+            self
+        }
+
+        /// Sets the value of [options][crate::descriptor_proto::ExtensionRange::options].
+        pub fn set_options<
+            T: std::convert::Into<std::option::Option<crate::ExtensionRangeOptions>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.options = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ExtensionRange {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.protobuf.DescriptorProto.ExtensionRange"
+        }
+    }
+
+    /// Range of reserved tag numbers. Reserved tag numbers may not be used by
+    /// fields or extension ranges in the same message. Reserved ranges may
+    /// not overlap.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ReservedRange {
+        pub start: i32,
+
+        pub end: i32,
+    }
+
+    impl ReservedRange {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start][crate::descriptor_proto::ReservedRange::start].
+        pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.start = v.into();
+            self
+        }
+
+        /// Sets the value of [end][crate::descriptor_proto::ReservedRange::end].
+        pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.end = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ReservedRange {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.protobuf.DescriptorProto.ReservedRange"
+        }
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExtensionRangeOptions {
+    /// The parser stores options it doesn't recognize here. See above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+
+    /// For external users: DO NOT USE. We are in the process of open sourcing
+    /// extension declaration and executing internal cleanups before it can be
+    /// used externally.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub declaration: std::vec::Vec<crate::extension_range_options::Declaration>,
+
+    /// Any features defined in the specific edition.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub features: std::option::Option<crate::FeatureSet>,
+
+    /// The verification state of the range.
+    /// TODO: flip the default to DECLARATION once all empty ranges
+    /// are marked as UNVERIFIED.
+    pub verification: crate::extension_range_options::VerificationState,
+}
+
+impl ExtensionRangeOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [features][crate::ExtensionRangeOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [verification][crate::ExtensionRangeOptions::verification].
+    pub fn set_verification<
+        T: std::convert::Into<crate::extension_range_options::VerificationState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.verification = v.into();
+        self
+    }
+
+    /// Sets the value of [uninterpreted_option][crate::ExtensionRangeOptions::uninterpreted_option].
+    pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::UninterpretedOption>,
+    {
+        use std::iter::Iterator;
+        self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [declaration][crate::ExtensionRangeOptions::declaration].
+    pub fn set_declaration<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::extension_range_options::Declaration>,
+    {
+        use std::iter::Iterator;
+        self.declaration = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ExtensionRangeOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.ExtensionRangeOptions"
+    }
+}
+
+/// Defines additional types related to ExtensionRangeOptions
+pub mod extension_range_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Declaration {
+        /// The extension number declared within the extension range.
+        pub number: i32,
+
+        /// The fully-qualified name of the extension field. There must be a leading
+        /// dot in front of the full name.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub full_name: std::string::String,
+
+        /// The fully-qualified type name of the extension field. Unlike
+        /// Metadata.type, Declaration.type must have a leading dot for messages
+        /// and enums.
+        #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub r#type: std::string::String,
+
+        /// If true, indicates that the number is reserved in the extension range,
+        /// and any extension field with the number will fail to compile. Set this
+        /// when a declared extension field is deleted.
+        pub reserved: bool,
+
+        /// If true, indicates that the extension must be defined as repeated.
+        /// Otherwise the extension must be defined as optional.
+        pub repeated: bool,
+    }
+
+    impl Declaration {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [number][crate::extension_range_options::Declaration::number].
+        pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.number = v.into();
+            self
+        }
+
+        /// Sets the value of [full_name][crate::extension_range_options::Declaration::full_name].
+        pub fn set_full_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.full_name = v.into();
+            self
+        }
+
+        /// Sets the value of [r#type][crate::extension_range_options::Declaration::type].
+        pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.r#type = v.into();
+            self
+        }
+
+        /// Sets the value of [reserved][crate::extension_range_options::Declaration::reserved].
+        pub fn set_reserved<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.reserved = v.into();
+            self
+        }
+
+        /// Sets the value of [repeated][crate::extension_range_options::Declaration::repeated].
+        pub fn set_repeated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.repeated = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Declaration {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.protobuf.ExtensionRangeOptions.Declaration"
+        }
+    }
+
+    /// The verification state of the extension range.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct VerificationState(i32);
+
+    impl VerificationState {
+        /// All the extensions of the range must be declared.
+        pub const DECLARATION: VerificationState = VerificationState::new(0);
+
+        pub const UNVERIFIED: VerificationState = VerificationState::new(1);
+
+        /// Creates a new VerificationState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DECLARATION"),
+                1 => std::borrow::Cow::Borrowed("UNVERIFIED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DECLARATION" => std::option::Option::Some(Self::DECLARATION),
+                "UNVERIFIED" => std::option::Option::Some(Self::UNVERIFIED),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for VerificationState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for VerificationState {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+}
+
+/// Describes a field within a message.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FieldDescriptorProto {
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    pub number: i32,
+
+    pub label: crate::field_descriptor_proto::Label,
+
+    /// If type_name is set, this need not be set.  If both this and type_name
+    /// are set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.
+    #[serde(rename = "type")]
+    pub r#type: crate::field_descriptor_proto::Type,
+
+    /// For message and enum types, this is the name of the type.  If the name
+    /// starts with a '.', it is fully-qualified.  Otherwise, C++-like scoping
+    /// rules are used to find the type (i.e. first the nested types within this
+    /// message are searched, then within the parent, on up to the root
+    /// namespace).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub type_name: std::string::String,
+
+    /// For extensions, this is the name of the type being extended.  It is
+    /// resolved in the same manner as type_name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub extendee: std::string::String,
+
+    /// For numeric types, contains the original text representation of the value.
+    /// For booleans, "true" or "false".
+    /// For strings, contains the default text contents (not escaped in any way).
+    /// For bytes, contains the C escaped value.  All bytes >= 128 are escaped.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub default_value: std::string::String,
+
+    /// If set, gives the index of a oneof in the containing type's oneof_decl
+    /// list.  This field is a member of that oneof.
+    pub oneof_index: i32,
+
+    /// JSON name of this field. The value is set by protocol compiler. If the
+    /// user has set a "json_name" option on this field, that option's value
+    /// will be used. Otherwise, it's deduced from the field's name by converting
+    /// it to camelCase.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub json_name: std::string::String,
+
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub options: std::option::Option<crate::FieldOptions>,
+
+    /// If true, this is a proto3 "optional". When a proto3 field is optional, it
+    /// tracks presence regardless of field type.
+    ///
+    /// When proto3_optional is true, this field must belong to a oneof to signal
+    /// to old proto3 clients that presence is tracked for this field. This oneof
+    /// is known as a "synthetic" oneof, and this field must be its sole member
+    /// (each proto3 optional field gets its own synthetic oneof). Synthetic oneofs
+    /// exist in the descriptor only, and do not generate any API. Synthetic oneofs
+    /// must be ordered after all "real" oneofs.
+    ///
+    /// For message fields, proto3_optional doesn't create any semantic change,
+    /// since non-repeated message fields always track presence. However it still
+    /// indicates the semantic detail of whether the user wrote "optional" or not.
+    /// This can be useful for round-tripping the .proto file. For consistency we
+    /// give message fields a synthetic oneof also, even though it is not required
+    /// to track presence. This is especially important because the parser can't
+    /// tell if a field is a message or an enum, so it must always create a
+    /// synthetic oneof.
+    ///
+    /// Proto2 optional fields do not set this flag, because they already indicate
+    /// optional with `LABEL_OPTIONAL`.
+    pub proto3_optional: bool,
+}
+
+impl FieldDescriptorProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::FieldDescriptorProto::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [number][crate::FieldDescriptorProto::number].
+    pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.number = v.into();
+        self
+    }
+
+    /// Sets the value of [label][crate::FieldDescriptorProto::label].
+    pub fn set_label<T: std::convert::Into<crate::field_descriptor_proto::Label>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.label = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::FieldDescriptorProto::type].
+    pub fn set_type<T: std::convert::Into<crate::field_descriptor_proto::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [type_name][crate::FieldDescriptorProto::type_name].
+    pub fn set_type_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.type_name = v.into();
+        self
+    }
+
+    /// Sets the value of [extendee][crate::FieldDescriptorProto::extendee].
+    pub fn set_extendee<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.extendee = v.into();
+        self
+    }
+
+    /// Sets the value of [default_value][crate::FieldDescriptorProto::default_value].
+    pub fn set_default_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.default_value = v.into();
+        self
+    }
+
+    /// Sets the value of [oneof_index][crate::FieldDescriptorProto::oneof_index].
+    pub fn set_oneof_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.oneof_index = v.into();
+        self
+    }
+
+    /// Sets the value of [json_name][crate::FieldDescriptorProto::json_name].
+    pub fn set_json_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.json_name = v.into();
+        self
+    }
+
+    /// Sets the value of [options][crate::FieldDescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::FieldOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
+        self
+    }
+
+    /// Sets the value of [proto3_optional][crate::FieldDescriptorProto::proto3_optional].
+    pub fn set_proto3_optional<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.proto3_optional = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FieldDescriptorProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.FieldDescriptorProto"
+    }
+}
+
+/// Defines additional types related to FieldDescriptorProto
+pub mod field_descriptor_proto {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
+
+    impl Type {
+        /// 0 is reserved for errors.
+        /// Order is weird for historical reasons.
+        pub const TYPE_DOUBLE: Type = Type::new(1);
+
+        pub const TYPE_FLOAT: Type = Type::new(2);
+
+        /// Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if
+        /// negative values are likely.
+        pub const TYPE_INT64: Type = Type::new(3);
+
+        pub const TYPE_UINT64: Type = Type::new(4);
+
+        /// Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if
+        /// negative values are likely.
+        pub const TYPE_INT32: Type = Type::new(5);
+
+        pub const TYPE_FIXED64: Type = Type::new(6);
+
+        pub const TYPE_FIXED32: Type = Type::new(7);
+
+        pub const TYPE_BOOL: Type = Type::new(8);
+
+        pub const TYPE_STRING: Type = Type::new(9);
+
+        /// Tag-delimited aggregate.
+        /// Group type is deprecated and not supported after google.protobuf. However, Proto3
+        /// implementations should still be able to parse the group wire format and
+        /// treat group fields as unknown fields.  In Editions, the group wire format
+        /// can be enabled via the `message_encoding` feature.
+        pub const TYPE_GROUP: Type = Type::new(10);
+
+        pub const TYPE_MESSAGE: Type = Type::new(11);
+
+        /// New in version 2.
+        pub const TYPE_BYTES: Type = Type::new(12);
+
+        pub const TYPE_UINT32: Type = Type::new(13);
+
+        pub const TYPE_ENUM: Type = Type::new(14);
+
+        pub const TYPE_SFIXED32: Type = Type::new(15);
+
+        pub const TYPE_SFIXED64: Type = Type::new(16);
+
+        pub const TYPE_SINT32: Type = Type::new(17);
+
+        pub const TYPE_SINT64: Type = Type::new(18);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                1 => std::borrow::Cow::Borrowed("TYPE_DOUBLE"),
+                2 => std::borrow::Cow::Borrowed("TYPE_FLOAT"),
+                3 => std::borrow::Cow::Borrowed("TYPE_INT64"),
+                4 => std::borrow::Cow::Borrowed("TYPE_UINT64"),
+                5 => std::borrow::Cow::Borrowed("TYPE_INT32"),
+                6 => std::borrow::Cow::Borrowed("TYPE_FIXED64"),
+                7 => std::borrow::Cow::Borrowed("TYPE_FIXED32"),
+                8 => std::borrow::Cow::Borrowed("TYPE_BOOL"),
+                9 => std::borrow::Cow::Borrowed("TYPE_STRING"),
+                10 => std::borrow::Cow::Borrowed("TYPE_GROUP"),
+                11 => std::borrow::Cow::Borrowed("TYPE_MESSAGE"),
+                12 => std::borrow::Cow::Borrowed("TYPE_BYTES"),
+                13 => std::borrow::Cow::Borrowed("TYPE_UINT32"),
+                14 => std::borrow::Cow::Borrowed("TYPE_ENUM"),
+                15 => std::borrow::Cow::Borrowed("TYPE_SFIXED32"),
+                16 => std::borrow::Cow::Borrowed("TYPE_SFIXED64"),
+                17 => std::borrow::Cow::Borrowed("TYPE_SINT32"),
+                18 => std::borrow::Cow::Borrowed("TYPE_SINT64"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_DOUBLE" => std::option::Option::Some(Self::TYPE_DOUBLE),
+                "TYPE_FLOAT" => std::option::Option::Some(Self::TYPE_FLOAT),
+                "TYPE_INT64" => std::option::Option::Some(Self::TYPE_INT64),
+                "TYPE_UINT64" => std::option::Option::Some(Self::TYPE_UINT64),
+                "TYPE_INT32" => std::option::Option::Some(Self::TYPE_INT32),
+                "TYPE_FIXED64" => std::option::Option::Some(Self::TYPE_FIXED64),
+                "TYPE_FIXED32" => std::option::Option::Some(Self::TYPE_FIXED32),
+                "TYPE_BOOL" => std::option::Option::Some(Self::TYPE_BOOL),
+                "TYPE_STRING" => std::option::Option::Some(Self::TYPE_STRING),
+                "TYPE_GROUP" => std::option::Option::Some(Self::TYPE_GROUP),
+                "TYPE_MESSAGE" => std::option::Option::Some(Self::TYPE_MESSAGE),
+                "TYPE_BYTES" => std::option::Option::Some(Self::TYPE_BYTES),
+                "TYPE_UINT32" => std::option::Option::Some(Self::TYPE_UINT32),
+                "TYPE_ENUM" => std::option::Option::Some(Self::TYPE_ENUM),
+                "TYPE_SFIXED32" => std::option::Option::Some(Self::TYPE_SFIXED32),
+                "TYPE_SFIXED64" => std::option::Option::Some(Self::TYPE_SFIXED64),
+                "TYPE_SINT32" => std::option::Option::Some(Self::TYPE_SINT32),
+                "TYPE_SINT64" => std::option::Option::Some(Self::TYPE_SINT64),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Label(i32);
+
+    impl Label {
+        /// 0 is reserved for errors
+        pub const LABEL_OPTIONAL: Label = Label::new(1);
+
+        pub const LABEL_REPEATED: Label = Label::new(3);
+
+        /// The required label is only allowed in google.protobuf.  In proto3 and Editions
+        /// it's explicitly prohibited.  In Editions, the `field_presence` feature
+        /// can be used to get this behavior.
+        pub const LABEL_REQUIRED: Label = Label::new(2);
+
+        /// Creates a new Label instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                1 => std::borrow::Cow::Borrowed("LABEL_OPTIONAL"),
+                2 => std::borrow::Cow::Borrowed("LABEL_REQUIRED"),
+                3 => std::borrow::Cow::Borrowed("LABEL_REPEATED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LABEL_OPTIONAL" => std::option::Option::Some(Self::LABEL_OPTIONAL),
+                "LABEL_REPEATED" => std::option::Option::Some(Self::LABEL_REPEATED),
+                "LABEL_REQUIRED" => std::option::Option::Some(Self::LABEL_REQUIRED),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Label {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Label {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+}
+
+/// Describes a oneof.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct OneofDescriptorProto {
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub options: std::option::Option<crate::OneofOptions>,
+}
+
+impl OneofDescriptorProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::OneofDescriptorProto::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [options][crate::OneofDescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::OneofOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for OneofDescriptorProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.OneofDescriptorProto"
+    }
+}
+
+/// Describes an enum type.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct EnumDescriptorProto {
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub value: std::vec::Vec<crate::EnumValueDescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub options: std::option::Option<crate::EnumOptions>,
+
+    /// Range of reserved numeric values. Reserved numeric values may not be used
+    /// by enum values in the same enum declaration. Reserved ranges may not
+    /// overlap.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub reserved_range: std::vec::Vec<crate::enum_descriptor_proto::EnumReservedRange>,
+
+    /// Reserved enum value names, which may not be reused. A given name may only
+    /// be reserved once.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub reserved_name: std::vec::Vec<std::string::String>,
+}
+
+impl EnumDescriptorProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::EnumDescriptorProto::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [options][crate::EnumDescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::EnumOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::EnumDescriptorProto::value].
+    pub fn set_value<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::EnumValueDescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.value = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [reserved_range][crate::EnumDescriptorProto::reserved_range].
+    pub fn set_reserved_range<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::enum_descriptor_proto::EnumReservedRange>,
+    {
+        use std::iter::Iterator;
+        self.reserved_range = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [reserved_name][crate::EnumDescriptorProto::reserved_name].
+    pub fn set_reserved_name<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.reserved_name = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for EnumDescriptorProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.EnumDescriptorProto"
+    }
+}
+
+/// Defines additional types related to EnumDescriptorProto
+pub mod enum_descriptor_proto {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Range of reserved numeric values. Reserved values may not be used by
+    /// entries in the same enum. Reserved ranges may not overlap.
+    ///
+    /// Note that this is distinct from DescriptorProto.ReservedRange in that it
+    /// is inclusive such that it can appropriately represent the entire int32
+    /// domain.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct EnumReservedRange {
+        pub start: i32,
+
+        pub end: i32,
+    }
+
+    impl EnumReservedRange {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start][crate::enum_descriptor_proto::EnumReservedRange::start].
+        pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.start = v.into();
+            self
+        }
+
+        /// Sets the value of [end][crate::enum_descriptor_proto::EnumReservedRange::end].
+        pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.end = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for EnumReservedRange {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.protobuf.EnumDescriptorProto.EnumReservedRange"
+        }
+    }
+}
+
+/// Describes a value within an enum.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct EnumValueDescriptorProto {
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    pub number: i32,
+
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub options: std::option::Option<crate::EnumValueOptions>,
+}
+
+impl EnumValueDescriptorProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::EnumValueDescriptorProto::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [number][crate::EnumValueDescriptorProto::number].
+    pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.number = v.into();
+        self
+    }
+
+    /// Sets the value of [options][crate::EnumValueDescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::EnumValueOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EnumValueDescriptorProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.EnumValueDescriptorProto"
+    }
+}
+
+/// Describes a service.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ServiceDescriptorProto {
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub method: std::vec::Vec<crate::MethodDescriptorProto>,
+
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub options: std::option::Option<crate::ServiceOptions>,
+}
+
+impl ServiceDescriptorProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::ServiceDescriptorProto::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [options][crate::ServiceDescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::ServiceOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
+        self
+    }
+
+    /// Sets the value of [method][crate::ServiceDescriptorProto::method].
+    pub fn set_method<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::MethodDescriptorProto>,
+    {
+        use std::iter::Iterator;
+        self.method = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ServiceDescriptorProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.ServiceDescriptorProto"
+    }
+}
+
+/// Describes a method of a service.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MethodDescriptorProto {
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Input and output type names.  These are resolved in the same way as
+    /// FieldDescriptorProto.type_name, but must refer to a message type.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub input_type: std::string::String,
+
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub output_type: std::string::String,
+
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub options: std::option::Option<crate::MethodOptions>,
+
+    /// Identifies if client streams multiple client messages
+    pub client_streaming: bool,
+
+    /// Identifies if server streams multiple server messages
+    pub server_streaming: bool,
+}
+
+impl MethodDescriptorProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::MethodDescriptorProto::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [input_type][crate::MethodDescriptorProto::input_type].
+    pub fn set_input_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input_type = v.into();
+        self
+    }
+
+    /// Sets the value of [output_type][crate::MethodDescriptorProto::output_type].
+    pub fn set_output_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.output_type = v.into();
+        self
+    }
+
+    /// Sets the value of [options][crate::MethodDescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::MethodOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
+        self
+    }
+
+    /// Sets the value of [client_streaming][crate::MethodDescriptorProto::client_streaming].
+    pub fn set_client_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.client_streaming = v.into();
+        self
+    }
+
+    /// Sets the value of [server_streaming][crate::MethodDescriptorProto::server_streaming].
+    pub fn set_server_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.server_streaming = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MethodDescriptorProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.MethodDescriptorProto"
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FileOptions {
+    /// Sets the Java package where classes generated from this .proto will be
+    /// placed.  By default, the proto package is used, but this is often
+    /// inappropriate because proto packages do not normally start with backwards
+    /// domain names.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub java_package: std::string::String,
+
+    /// Controls the name of the wrapper Java class generated for the .proto file.
+    /// That class will always contain the .proto file's getDescriptor() method as
+    /// well as any top-level extensions defined in the .proto file.
+    /// If java_multiple_files is disabled, then all the other classes from the
+    /// .proto file will be nested inside the single wrapper outer class.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub java_outer_classname: std::string::String,
+
+    /// If enabled, then the Java code generator will generate a separate .java
+    /// file for each top-level message, enum, and service defined in the .proto
+    /// file.  Thus, these types will *not* be nested inside the wrapper class
+    /// named by java_outer_classname.  However, the wrapper class will still be
+    /// generated to contain the file's getDescriptor() method as well as any
+    /// top-level extensions defined in the file.
+    pub java_multiple_files: bool,
+
+    /// This option does nothing.
+    pub java_generate_equals_and_hash: bool,
+
+    /// A proto2 file can set this to true to opt in to UTF-8 checking for Java,
+    /// which will throw an exception if invalid UTF-8 is parsed from the wire or
+    /// assigned to a string field.
+    ///
+    /// TODO: clarify exactly what kinds of field types this option
+    /// applies to, and update these docs accordingly.
+    ///
+    /// Proto3 files already perform these checks. Setting the option explicitly to
+    /// false has no effect: it cannot be used to opt proto3 files out of UTF-8
+    /// checks.
+    pub java_string_check_utf8: bool,
+
+    pub optimize_for: crate::file_options::OptimizeMode,
+
+    /// Sets the Go package where structs generated from this .proto will be
+    /// placed. If omitted, the Go package will be derived from the following:
+    ///
+    /// - The basename of the package import path, if provided.
+    /// - Otherwise, the package statement in the .proto file, if present.
+    /// - Otherwise, the basename of the .proto file, without extension.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub go_package: std::string::String,
+
+    /// Should generic services be generated in each language?  "Generic" services
+    /// are not specific to any particular RPC system.  They are generated by the
+    /// main code generators in each language (without additional plugins).
+    /// Generic services were the only kind of service generation supported by
+    /// early versions of google.protobuf.
+    ///
+    /// Generic services are now considered deprecated in favor of using plugins
+    /// that generate code specific to your particular RPC system.  Therefore,
+    /// these default to false.  Old code which depends on generic services should
+    /// explicitly set them to true.
+    pub cc_generic_services: bool,
+
+    pub java_generic_services: bool,
+
+    pub py_generic_services: bool,
+
+    /// Is this file deprecated?
+    /// Depending on the target platform, this can emit Deprecated annotations
+    /// for everything in the file, or it will be completely ignored; in the very
+    /// least, this is a formalization for deprecating files.
+    pub deprecated: bool,
+
+    /// Enables the use of arenas for the proto messages in this file. This applies
+    /// only to generated classes for C++.
+    pub cc_enable_arenas: bool,
+
+    /// Sets the objective c class prefix which is prepended to all objective c
+    /// generated classes from this .proto. There is no default.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub objc_class_prefix: std::string::String,
+
+    /// Namespace for generated classes; defaults to the package.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub csharp_namespace: std::string::String,
+
+    /// By default Swift generators will take the proto package and CamelCase it
+    /// replacing '.' with underscore and use that to prefix the types/symbols
+    /// defined. When this options is provided, they will use this value instead
+    /// to prefix the types/symbols defined.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub swift_prefix: std::string::String,
+
+    /// Sets the php class prefix which is prepended to all php generated classes
+    /// from this .proto. Default is empty.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub php_class_prefix: std::string::String,
+
+    /// Use this option to change the namespace of php generated classes. Default
+    /// is empty. When this option is empty, the package name will be used for
+    /// determining the namespace.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub php_namespace: std::string::String,
+
+    /// Use this option to change the namespace of php generated metadata classes.
+    /// Default is empty. When this option is empty, the proto file name will be
+    /// used for determining the namespace.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub php_metadata_namespace: std::string::String,
+
+    /// Use this option to change the package of ruby generated classes. Default
+    /// is empty. When this option is not set, the package name will be used for
+    /// determining the ruby package.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub ruby_package: std::string::String,
+
+    /// Any features defined in the specific edition.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub features: std::option::Option<crate::FeatureSet>,
+
+    /// The parser stores options it doesn't recognize here.
+    /// See the documentation for the "Options" section above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+}
+
+impl FileOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [java_package][crate::FileOptions::java_package].
+    pub fn set_java_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.java_package = v.into();
+        self
+    }
+
+    /// Sets the value of [java_outer_classname][crate::FileOptions::java_outer_classname].
+    pub fn set_java_outer_classname<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.java_outer_classname = v.into();
+        self
+    }
+
+    /// Sets the value of [java_multiple_files][crate::FileOptions::java_multiple_files].
+    pub fn set_java_multiple_files<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.java_multiple_files = v.into();
+        self
+    }
+
+    /// Sets the value of [java_generate_equals_and_hash][crate::FileOptions::java_generate_equals_and_hash].
+    pub fn set_java_generate_equals_and_hash<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.java_generate_equals_and_hash = v.into();
+        self
+    }
+
+    /// Sets the value of [java_string_check_utf8][crate::FileOptions::java_string_check_utf8].
+    pub fn set_java_string_check_utf8<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.java_string_check_utf8 = v.into();
+        self
+    }
+
+    /// Sets the value of [optimize_for][crate::FileOptions::optimize_for].
+    pub fn set_optimize_for<T: std::convert::Into<crate::file_options::OptimizeMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.optimize_for = v.into();
+        self
+    }
+
+    /// Sets the value of [go_package][crate::FileOptions::go_package].
+    pub fn set_go_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.go_package = v.into();
+        self
+    }
+
+    /// Sets the value of [cc_generic_services][crate::FileOptions::cc_generic_services].
+    pub fn set_cc_generic_services<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.cc_generic_services = v.into();
+        self
+    }
+
+    /// Sets the value of [java_generic_services][crate::FileOptions::java_generic_services].
+    pub fn set_java_generic_services<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.java_generic_services = v.into();
+        self
+    }
+
+    /// Sets the value of [py_generic_services][crate::FileOptions::py_generic_services].
+    pub fn set_py_generic_services<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.py_generic_services = v.into();
+        self
+    }
+
+    /// Sets the value of [deprecated][crate::FileOptions::deprecated].
+    pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deprecated = v.into();
+        self
+    }
+
+    /// Sets the value of [cc_enable_arenas][crate::FileOptions::cc_enable_arenas].
+    pub fn set_cc_enable_arenas<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.cc_enable_arenas = v.into();
+        self
+    }
+
+    /// Sets the value of [objc_class_prefix][crate::FileOptions::objc_class_prefix].
+    pub fn set_objc_class_prefix<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.objc_class_prefix = v.into();
+        self
+    }
+
+    /// Sets the value of [csharp_namespace][crate::FileOptions::csharp_namespace].
+    pub fn set_csharp_namespace<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.csharp_namespace = v.into();
+        self
+    }
+
+    /// Sets the value of [swift_prefix][crate::FileOptions::swift_prefix].
+    pub fn set_swift_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.swift_prefix = v.into();
+        self
+    }
+
+    /// Sets the value of [php_class_prefix][crate::FileOptions::php_class_prefix].
+    pub fn set_php_class_prefix<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.php_class_prefix = v.into();
+        self
+    }
+
+    /// Sets the value of [php_namespace][crate::FileOptions::php_namespace].
+    pub fn set_php_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.php_namespace = v.into();
+        self
+    }
+
+    /// Sets the value of [php_metadata_namespace][crate::FileOptions::php_metadata_namespace].
+    pub fn set_php_metadata_namespace<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.php_metadata_namespace = v.into();
+        self
+    }
+
+    /// Sets the value of [ruby_package][crate::FileOptions::ruby_package].
+    pub fn set_ruby_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ruby_package = v.into();
+        self
+    }
+
+    /// Sets the value of [features][crate::FileOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [uninterpreted_option][crate::FileOptions::uninterpreted_option].
+    pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::UninterpretedOption>,
+    {
+        use std::iter::Iterator;
+        self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FileOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.FileOptions"
+    }
+}
+
+/// Defines additional types related to FileOptions
+pub mod file_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Generated classes can be optimized for speed or code size.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct OptimizeMode(i32);
+
+    impl OptimizeMode {
+        pub const SPEED: OptimizeMode = OptimizeMode::new(1);
+
+        /// etc.
+        pub const CODE_SIZE: OptimizeMode = OptimizeMode::new(2);
+
+        pub const LITE_RUNTIME: OptimizeMode = OptimizeMode::new(3);
+
+        /// Creates a new OptimizeMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                1 => std::borrow::Cow::Borrowed("SPEED"),
+                2 => std::borrow::Cow::Borrowed("CODE_SIZE"),
+                3 => std::borrow::Cow::Borrowed("LITE_RUNTIME"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SPEED" => std::option::Option::Some(Self::SPEED),
+                "CODE_SIZE" => std::option::Option::Some(Self::CODE_SIZE),
+                "LITE_RUNTIME" => std::option::Option::Some(Self::LITE_RUNTIME),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for OptimizeMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for OptimizeMode {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageOptions {
+    /// Set true to use the old proto1 MessageSet wire format for extensions.
+    /// This is provided for backwards-compatibility with the MessageSet wire
+    /// format.  You should not use this for any other reason:  It's less
+    /// efficient, has fewer features, and is more complicated.
+    ///
+    /// The message must be defined exactly as follows:
+    /// message Foo {
+    /// option message_set_wire_format = true;
+    /// extensions 4 to max;
+    /// }
+    /// Note that the message cannot have any defined fields; MessageSets only
+    /// have extensions.
+    ///
+    /// All extensions of your type must be singular messages; e.g. they cannot
+    /// be int32s, enums, or repeated messages.
+    ///
+    /// Because this is an option, the above two restrictions are not enforced by
+    /// the protocol compiler.
+    pub message_set_wire_format: bool,
+
+    /// Disables the generation of the standard "descriptor()" accessor, which can
+    /// conflict with a field of the same name.  This is meant to make migration
+    /// from proto1 easier; new code should avoid fields named "descriptor".
+    pub no_standard_descriptor_accessor: bool,
+
+    /// Is this message deprecated?
+    /// Depending on the target platform, this can emit Deprecated annotations
+    /// for the message, or it will be completely ignored; in the very least,
+    /// this is a formalization for deprecating messages.
+    pub deprecated: bool,
+
+    /// Whether the message is an automatically generated map entry type for the
+    /// maps field.
+    ///
+    /// For maps fields:
+    /// map<KeyType, ValueType> map_field = 1;
+    /// The parsed descriptor looks like:
+    /// message MapFieldEntry {
+    /// option map_entry = true;
+    /// optional KeyType key = 1;
+    /// optional ValueType value = 2;
+    /// }
+    /// repeated MapFieldEntry map_field = 1;
+    ///
+    /// Implementations may choose not to generate the map_entry=true message, but
+    /// use a native map in the target language to hold the keys and values.
+    /// The reflection APIs in such implementations still need to work as
+    /// if the field is a repeated message field.
+    ///
+    /// NOTE: Do not set the option in .proto files. Always use the maps syntax
+    /// instead. The option should only be implicitly set by the proto compiler
+    /// parser.
+    pub map_entry: bool,
+
+    /// Enable the legacy handling of JSON field name conflicts.  This lowercases
+    /// and strips underscored from the fields before comparison in proto3 only.
+    /// The new behavior takes `json_name` into account and applies to proto2 as
+    /// well.
+    ///
+    /// This should only be used as a temporary measure against broken builds due
+    /// to the change in behavior for JSON field name conflicts.
+    ///
+    /// TODO This is legacy behavior we plan to remove once downstream
+    /// teams have had time to migrate.
+    pub deprecated_legacy_json_field_conflicts: bool,
+
+    /// Any features defined in the specific edition.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub features: std::option::Option<crate::FeatureSet>,
+
+    /// The parser stores options it doesn't recognize here. See above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+}
+
+impl MessageOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [message_set_wire_format][crate::MessageOptions::message_set_wire_format].
+    pub fn set_message_set_wire_format<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.message_set_wire_format = v.into();
+        self
+    }
+
+    /// Sets the value of [no_standard_descriptor_accessor][crate::MessageOptions::no_standard_descriptor_accessor].
+    pub fn set_no_standard_descriptor_accessor<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.no_standard_descriptor_accessor = v.into();
+        self
+    }
+
+    /// Sets the value of [deprecated][crate::MessageOptions::deprecated].
+    pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deprecated = v.into();
+        self
+    }
+
+    /// Sets the value of [map_entry][crate::MessageOptions::map_entry].
+    pub fn set_map_entry<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.map_entry = v.into();
+        self
+    }
+
+    /// Sets the value of [deprecated_legacy_json_field_conflicts][crate::MessageOptions::deprecated_legacy_json_field_conflicts].
+    pub fn set_deprecated_legacy_json_field_conflicts<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deprecated_legacy_json_field_conflicts = v.into();
+        self
+    }
+
+    /// Sets the value of [features][crate::MessageOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [uninterpreted_option][crate::MessageOptions::uninterpreted_option].
+    pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::UninterpretedOption>,
+    {
+        use std::iter::Iterator;
+        self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.MessageOptions"
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FieldOptions {
+    /// NOTE: ctype is deprecated. Use `features.(pb.cpp).string_type` instead.
+    /// The ctype option instructs the C++ code generator to use a different
+    /// representation of the field than it normally would.  See the specific
+    /// options below.  This option is only implemented to support use of
+    /// [ctype=CORD] and [ctype=STRING] (the default) on non-repeated fields of
+    /// type "bytes" in the open source release.
+    /// TODO: make ctype actually deprecated.
+    pub ctype: crate::field_options::CType,
+
+    /// The packed option can be enabled for repeated primitive fields to enable
+    /// a more efficient representation on the wire. Rather than repeatedly
+    /// writing the tag and type for each element, the entire array is encoded as
+    /// a single length-delimited blob. In proto3, only explicit setting it to
+    /// false will avoid using packed encoding.  This option is prohibited in
+    /// Editions, but the `repeated_field_encoding` feature can be used to control
+    /// the behavior.
+    pub packed: bool,
+
+    /// The jstype option determines the JavaScript type used for values of the
+    /// field.  The option is permitted only for 64 bit integral and fixed types
+    /// (int64, uint64, sint64, fixed64, sfixed64).  A field with jstype JS_STRING
+    /// is represented as JavaScript string, which avoids loss of precision that
+    /// can happen when a large value is converted to a floating point JavaScript.
+    /// Specifying JS_NUMBER for the jstype causes the generated JavaScript code to
+    /// use the JavaScript "number" type.  The behavior of the default option
+    /// JS_NORMAL is implementation dependent.
+    ///
+    /// This option is an enum to permit additional types to be added, e.g.
+    /// goog.math.Integer.
+    pub jstype: crate::field_options::JSType,
+
+    /// Should this field be parsed lazily?  Lazy applies only to message-type
+    /// fields.  It means that when the outer message is initially parsed, the
+    /// inner message's contents will not be parsed but instead stored in encoded
+    /// form.  The inner message will actually be parsed when it is first accessed.
+    ///
+    /// This is only a hint.  Implementations are free to choose whether to use
+    /// eager or lazy parsing regardless of the value of this option.  However,
+    /// setting this option true suggests that the protocol author believes that
+    /// using lazy parsing on this field is worth the additional bookkeeping
+    /// overhead typically needed to implement it.
+    ///
+    /// This option does not affect the public interface of any generated code;
+    /// all method signatures remain the same.  Furthermore, thread-safety of the
+    /// interface is not affected by this option; const methods remain safe to
+    /// call from multiple threads concurrently, while non-const methods continue
+    /// to require exclusive access.
+    ///
+    /// Note that lazy message fields are still eagerly verified to check
+    /// ill-formed wireformat or missing required fields. Calling IsInitialized()
+    /// on the outer message would fail if the inner message has missing required
+    /// fields. Failed verification would result in parsing failure (except when
+    /// uninitialized messages are acceptable).
+    pub lazy: bool,
+
+    /// unverified_lazy does no correctness checks on the byte stream. This should
+    /// only be used where lazy with verification is prohibitive for performance
+    /// reasons.
+    pub unverified_lazy: bool,
+
+    /// Is this field deprecated?
+    /// Depending on the target platform, this can emit Deprecated annotations
+    /// for accessors, or it will be completely ignored; in the very least, this
+    /// is a formalization for deprecating fields.
+    pub deprecated: bool,
+
+    /// For Google-internal migration only. Do not use.
+    pub weak: bool,
+
+    /// Indicate that the field value should not be printed out when using debug
+    /// formats, e.g. when the field contains sensitive credentials.
+    pub debug_redact: bool,
+
+    pub retention: crate::field_options::OptionRetention,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub targets: std::vec::Vec<crate::field_options::OptionTargetType>,
+
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub edition_defaults: std::vec::Vec<crate::field_options::EditionDefault>,
+
+    /// Any features defined in the specific edition.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub features: std::option::Option<crate::FeatureSet>,
+
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub feature_support: std::option::Option<crate::field_options::FeatureSupport>,
+
+    /// The parser stores options it doesn't recognize here. See above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+}
+
+impl FieldOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ctype][crate::FieldOptions::ctype].
+    pub fn set_ctype<T: std::convert::Into<crate::field_options::CType>>(mut self, v: T) -> Self {
+        self.ctype = v.into();
+        self
+    }
+
+    /// Sets the value of [packed][crate::FieldOptions::packed].
+    pub fn set_packed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.packed = v.into();
+        self
+    }
+
+    /// Sets the value of [jstype][crate::FieldOptions::jstype].
+    pub fn set_jstype<T: std::convert::Into<crate::field_options::JSType>>(mut self, v: T) -> Self {
+        self.jstype = v.into();
+        self
+    }
+
+    /// Sets the value of [lazy][crate::FieldOptions::lazy].
+    pub fn set_lazy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.lazy = v.into();
+        self
+    }
+
+    /// Sets the value of [unverified_lazy][crate::FieldOptions::unverified_lazy].
+    pub fn set_unverified_lazy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.unverified_lazy = v.into();
+        self
+    }
+
+    /// Sets the value of [deprecated][crate::FieldOptions::deprecated].
+    pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deprecated = v.into();
+        self
+    }
+
+    /// Sets the value of [weak][crate::FieldOptions::weak].
+    pub fn set_weak<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.weak = v.into();
+        self
+    }
+
+    /// Sets the value of [debug_redact][crate::FieldOptions::debug_redact].
+    pub fn set_debug_redact<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.debug_redact = v.into();
+        self
+    }
+
+    /// Sets the value of [retention][crate::FieldOptions::retention].
+    pub fn set_retention<T: std::convert::Into<crate::field_options::OptionRetention>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.retention = v.into();
+        self
+    }
+
+    /// Sets the value of [features][crate::FieldOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [feature_support][crate::FieldOptions::feature_support].
+    pub fn set_feature_support<
+        T: std::convert::Into<std::option::Option<crate::field_options::FeatureSupport>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.feature_support = v.into();
+        self
+    }
+
+    /// Sets the value of [targets][crate::FieldOptions::targets].
+    pub fn set_targets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::field_options::OptionTargetType>,
+    {
+        use std::iter::Iterator;
+        self.targets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [edition_defaults][crate::FieldOptions::edition_defaults].
+    pub fn set_edition_defaults<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::field_options::EditionDefault>,
+    {
+        use std::iter::Iterator;
+        self.edition_defaults = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [uninterpreted_option][crate::FieldOptions::uninterpreted_option].
+    pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::UninterpretedOption>,
+    {
+        use std::iter::Iterator;
+        self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FieldOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.FieldOptions"
+    }
+}
+
+/// Defines additional types related to FieldOptions
+pub mod field_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct EditionDefault {
+        pub edition: crate::Edition,
+
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub value: std::string::String,
+    }
+
+    impl EditionDefault {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [edition][crate::field_options::EditionDefault::edition].
+        pub fn set_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
+            self.edition = v.into();
+            self
+        }
+
+        /// Sets the value of [value][crate::field_options::EditionDefault::value].
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.value = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for EditionDefault {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.protobuf.FieldOptions.EditionDefault"
+        }
+    }
+
+    /// Information about the support window of a feature.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct FeatureSupport {
+        /// The edition that this feature was first available in.  In editions
+        /// earlier than this one, the default assigned to EDITION_LEGACY will be
+        /// used, and proto files will not be able to override it.
+        pub edition_introduced: crate::Edition,
+
+        /// The edition this feature becomes deprecated in.  Using this after this
+        /// edition may trigger warnings.
+        pub edition_deprecated: crate::Edition,
+
+        /// The deprecation warning text if this feature is used after the edition it
+        /// was marked deprecated in.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub deprecation_warning: std::string::String,
+
+        /// The edition this feature is no longer available in.  In editions after
+        /// this one, the last default assigned will be used, and proto files will
+        /// not be able to override it.
+        pub edition_removed: crate::Edition,
+    }
+
+    impl FeatureSupport {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [edition_introduced][crate::field_options::FeatureSupport::edition_introduced].
+        pub fn set_edition_introduced<T: std::convert::Into<crate::Edition>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.edition_introduced = v.into();
+            self
+        }
+
+        /// Sets the value of [edition_deprecated][crate::field_options::FeatureSupport::edition_deprecated].
+        pub fn set_edition_deprecated<T: std::convert::Into<crate::Edition>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.edition_deprecated = v.into();
+            self
+        }
+
+        /// Sets the value of [deprecation_warning][crate::field_options::FeatureSupport::deprecation_warning].
+        pub fn set_deprecation_warning<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.deprecation_warning = v.into();
+            self
+        }
+
+        /// Sets the value of [edition_removed][crate::field_options::FeatureSupport::edition_removed].
+        pub fn set_edition_removed<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
+            self.edition_removed = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for FeatureSupport {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.protobuf.FieldOptions.FeatureSupport"
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct CType(i32);
+
+    impl CType {
+        /// Default mode.
+        pub const STRING: CType = CType::new(0);
+
+        /// The option [ctype=CORD] may be applied to a non-repeated field of type
+        /// "bytes". It indicates that in C++, the data should be stored in a Cord
+        /// instead of a string.  For very large strings, this may reduce memory
+        /// fragmentation. It may also allow better performance when parsing from a
+        /// Cord, or when parsing with aliasing enabled, as the parsed Cord may then
+        /// alias the original buffer.
+        pub const CORD: CType = CType::new(1);
+
+        pub const STRING_PIECE: CType = CType::new(2);
+
+        /// Creates a new CType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STRING"),
+                1 => std::borrow::Cow::Borrowed("CORD"),
+                2 => std::borrow::Cow::Borrowed("STRING_PIECE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STRING" => std::option::Option::Some(Self::STRING),
+                "CORD" => std::option::Option::Some(Self::CORD),
+                "STRING_PIECE" => std::option::Option::Some(Self::STRING_PIECE),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for CType {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct JSType(i32);
+
+    impl JSType {
+        /// Use the default type.
+        pub const JS_NORMAL: JSType = JSType::new(0);
+
+        /// Use JavaScript strings.
+        pub const JS_STRING: JSType = JSType::new(1);
+
+        /// Use JavaScript numbers.
+        pub const JS_NUMBER: JSType = JSType::new(2);
+
+        /// Creates a new JSType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("JS_NORMAL"),
+                1 => std::borrow::Cow::Borrowed("JS_STRING"),
+                2 => std::borrow::Cow::Borrowed("JS_NUMBER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "JS_NORMAL" => std::option::Option::Some(Self::JS_NORMAL),
+                "JS_STRING" => std::option::Option::Some(Self::JS_STRING),
+                "JS_NUMBER" => std::option::Option::Some(Self::JS_NUMBER),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for JSType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for JSType {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    /// If set to RETENTION_SOURCE, the option will be omitted from the binary.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct OptionRetention(i32);
+
+    impl OptionRetention {
+        pub const RETENTION_UNKNOWN: OptionRetention = OptionRetention::new(0);
+
+        pub const RETENTION_RUNTIME: OptionRetention = OptionRetention::new(1);
+
+        pub const RETENTION_SOURCE: OptionRetention = OptionRetention::new(2);
+
+        /// Creates a new OptionRetention instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RETENTION_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("RETENTION_RUNTIME"),
+                2 => std::borrow::Cow::Borrowed("RETENTION_SOURCE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RETENTION_UNKNOWN" => std::option::Option::Some(Self::RETENTION_UNKNOWN),
+                "RETENTION_RUNTIME" => std::option::Option::Some(Self::RETENTION_RUNTIME),
+                "RETENTION_SOURCE" => std::option::Option::Some(Self::RETENTION_SOURCE),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for OptionRetention {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for OptionRetention {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    /// This indicates the types of entities that the field may apply to when used
+    /// as an option. If it is unset, then the field may be freely used as an
+    /// option on any kind of entity.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct OptionTargetType(i32);
+
+    impl OptionTargetType {
+        pub const TARGET_TYPE_UNKNOWN: OptionTargetType = OptionTargetType::new(0);
+
+        pub const TARGET_TYPE_FILE: OptionTargetType = OptionTargetType::new(1);
+
+        pub const TARGET_TYPE_EXTENSION_RANGE: OptionTargetType = OptionTargetType::new(2);
+
+        pub const TARGET_TYPE_MESSAGE: OptionTargetType = OptionTargetType::new(3);
+
+        pub const TARGET_TYPE_FIELD: OptionTargetType = OptionTargetType::new(4);
+
+        pub const TARGET_TYPE_ONEOF: OptionTargetType = OptionTargetType::new(5);
+
+        pub const TARGET_TYPE_ENUM: OptionTargetType = OptionTargetType::new(6);
+
+        pub const TARGET_TYPE_ENUM_ENTRY: OptionTargetType = OptionTargetType::new(7);
+
+        pub const TARGET_TYPE_SERVICE: OptionTargetType = OptionTargetType::new(8);
+
+        pub const TARGET_TYPE_METHOD: OptionTargetType = OptionTargetType::new(9);
+
+        /// Creates a new OptionTargetType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TARGET_TYPE_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("TARGET_TYPE_FILE"),
+                2 => std::borrow::Cow::Borrowed("TARGET_TYPE_EXTENSION_RANGE"),
+                3 => std::borrow::Cow::Borrowed("TARGET_TYPE_MESSAGE"),
+                4 => std::borrow::Cow::Borrowed("TARGET_TYPE_FIELD"),
+                5 => std::borrow::Cow::Borrowed("TARGET_TYPE_ONEOF"),
+                6 => std::borrow::Cow::Borrowed("TARGET_TYPE_ENUM"),
+                7 => std::borrow::Cow::Borrowed("TARGET_TYPE_ENUM_ENTRY"),
+                8 => std::borrow::Cow::Borrowed("TARGET_TYPE_SERVICE"),
+                9 => std::borrow::Cow::Borrowed("TARGET_TYPE_METHOD"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TARGET_TYPE_UNKNOWN" => std::option::Option::Some(Self::TARGET_TYPE_UNKNOWN),
+                "TARGET_TYPE_FILE" => std::option::Option::Some(Self::TARGET_TYPE_FILE),
+                "TARGET_TYPE_EXTENSION_RANGE" => {
+                    std::option::Option::Some(Self::TARGET_TYPE_EXTENSION_RANGE)
+                }
+                "TARGET_TYPE_MESSAGE" => std::option::Option::Some(Self::TARGET_TYPE_MESSAGE),
+                "TARGET_TYPE_FIELD" => std::option::Option::Some(Self::TARGET_TYPE_FIELD),
+                "TARGET_TYPE_ONEOF" => std::option::Option::Some(Self::TARGET_TYPE_ONEOF),
+                "TARGET_TYPE_ENUM" => std::option::Option::Some(Self::TARGET_TYPE_ENUM),
+                "TARGET_TYPE_ENUM_ENTRY" => std::option::Option::Some(Self::TARGET_TYPE_ENUM_ENTRY),
+                "TARGET_TYPE_SERVICE" => std::option::Option::Some(Self::TARGET_TYPE_SERVICE),
+                "TARGET_TYPE_METHOD" => std::option::Option::Some(Self::TARGET_TYPE_METHOD),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for OptionTargetType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for OptionTargetType {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct OneofOptions {
+    /// Any features defined in the specific edition.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub features: std::option::Option<crate::FeatureSet>,
+
+    /// The parser stores options it doesn't recognize here. See above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+}
+
+impl OneofOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [features][crate::OneofOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [uninterpreted_option][crate::OneofOptions::uninterpreted_option].
+    pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::UninterpretedOption>,
+    {
+        use std::iter::Iterator;
+        self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for OneofOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.OneofOptions"
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct EnumOptions {
+    /// Set this option to true to allow mapping different tag names to the same
+    /// value.
+    pub allow_alias: bool,
+
+    /// Is this enum deprecated?
+    /// Depending on the target platform, this can emit Deprecated annotations
+    /// for the enum, or it will be completely ignored; in the very least, this
+    /// is a formalization for deprecating enums.
+    pub deprecated: bool,
+
+    /// Enable the legacy handling of JSON field name conflicts.  This lowercases
+    /// and strips underscored from the fields before comparison in proto3 only.
+    /// The new behavior takes `json_name` into account and applies to proto2 as
+    /// well.
+    /// TODO Remove this legacy behavior once downstream teams have
+    /// had time to migrate.
+    pub deprecated_legacy_json_field_conflicts: bool,
+
+    /// Any features defined in the specific edition.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub features: std::option::Option<crate::FeatureSet>,
+
+    /// The parser stores options it doesn't recognize here. See above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+}
+
+impl EnumOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [allow_alias][crate::EnumOptions::allow_alias].
+    pub fn set_allow_alias<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.allow_alias = v.into();
+        self
+    }
+
+    /// Sets the value of [deprecated][crate::EnumOptions::deprecated].
+    pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deprecated = v.into();
+        self
+    }
+
+    /// Sets the value of [deprecated_legacy_json_field_conflicts][crate::EnumOptions::deprecated_legacy_json_field_conflicts].
+    pub fn set_deprecated_legacy_json_field_conflicts<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deprecated_legacy_json_field_conflicts = v.into();
+        self
+    }
+
+    /// Sets the value of [features][crate::EnumOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [uninterpreted_option][crate::EnumOptions::uninterpreted_option].
+    pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::UninterpretedOption>,
+    {
+        use std::iter::Iterator;
+        self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for EnumOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.EnumOptions"
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct EnumValueOptions {
+    /// Is this enum value deprecated?
+    /// Depending on the target platform, this can emit Deprecated annotations
+    /// for the enum value, or it will be completely ignored; in the very least,
+    /// this is a formalization for deprecating enum values.
+    pub deprecated: bool,
+
+    /// Any features defined in the specific edition.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub features: std::option::Option<crate::FeatureSet>,
+
+    /// Indicate that fields annotated with this enum value should not be printed
+    /// out when using debug formats, e.g. when the field contains sensitive
+    /// credentials.
+    pub debug_redact: bool,
+
+    /// Information about the support window of a feature value.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub feature_support: std::option::Option<crate::field_options::FeatureSupport>,
+
+    /// The parser stores options it doesn't recognize here. See above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+}
+
+impl EnumValueOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [deprecated][crate::EnumValueOptions::deprecated].
+    pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deprecated = v.into();
+        self
+    }
+
+    /// Sets the value of [features][crate::EnumValueOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [debug_redact][crate::EnumValueOptions::debug_redact].
+    pub fn set_debug_redact<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.debug_redact = v.into();
+        self
+    }
+
+    /// Sets the value of [feature_support][crate::EnumValueOptions::feature_support].
+    pub fn set_feature_support<
+        T: std::convert::Into<std::option::Option<crate::field_options::FeatureSupport>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.feature_support = v.into();
+        self
+    }
+
+    /// Sets the value of [uninterpreted_option][crate::EnumValueOptions::uninterpreted_option].
+    pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::UninterpretedOption>,
+    {
+        use std::iter::Iterator;
+        self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for EnumValueOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.EnumValueOptions"
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ServiceOptions {
+    /// Any features defined in the specific edition.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub features: std::option::Option<crate::FeatureSet>,
+
+    /// Is this service deprecated?
+    /// Depending on the target platform, this can emit Deprecated annotations
+    /// for the service, or it will be completely ignored; in the very least,
+    /// this is a formalization for deprecating services.
+    pub deprecated: bool,
+
+    /// The parser stores options it doesn't recognize here. See above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+}
+
+impl ServiceOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [features][crate::ServiceOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [deprecated][crate::ServiceOptions::deprecated].
+    pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deprecated = v.into();
+        self
+    }
+
+    /// Sets the value of [uninterpreted_option][crate::ServiceOptions::uninterpreted_option].
+    pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::UninterpretedOption>,
+    {
+        use std::iter::Iterator;
+        self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ServiceOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.ServiceOptions"
+    }
+}
+
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MethodOptions {
+    /// Is this method deprecated?
+    /// Depending on the target platform, this can emit Deprecated annotations
+    /// for the method, or it will be completely ignored; in the very least,
+    /// this is a formalization for deprecating methods.
+    pub deprecated: bool,
+
+    pub idempotency_level: crate::method_options::IdempotencyLevel,
+
+    /// Any features defined in the specific edition.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub features: std::option::Option<crate::FeatureSet>,
+
+    /// The parser stores options it doesn't recognize here. See above.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+}
+
+impl MethodOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [deprecated][crate::MethodOptions::deprecated].
+    pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deprecated = v.into();
+        self
+    }
+
+    /// Sets the value of [idempotency_level][crate::MethodOptions::idempotency_level].
+    pub fn set_idempotency_level<T: std::convert::Into<crate::method_options::IdempotencyLevel>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.idempotency_level = v.into();
+        self
+    }
+
+    /// Sets the value of [features][crate::MethodOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [uninterpreted_option][crate::MethodOptions::uninterpreted_option].
+    pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::UninterpretedOption>,
+    {
+        use std::iter::Iterator;
+        self.uninterpreted_option = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MethodOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.MethodOptions"
+    }
+}
+
+/// Defines additional types related to MethodOptions
+pub mod method_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Is this method side-effect-free (or safe in HTTP parlance), or idempotent,
+    /// or neither? HTTP based RPC implementation may choose GET verb for safe
+    /// methods, and PUT verb for idempotent methods instead of the default POST.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct IdempotencyLevel(i32);
+
+    impl IdempotencyLevel {
+        pub const IDEMPOTENCY_UNKNOWN: IdempotencyLevel = IdempotencyLevel::new(0);
+
+        pub const NO_SIDE_EFFECTS: IdempotencyLevel = IdempotencyLevel::new(1);
+
+        pub const IDEMPOTENT: IdempotencyLevel = IdempotencyLevel::new(2);
+
+        /// Creates a new IdempotencyLevel instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("IDEMPOTENCY_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("NO_SIDE_EFFECTS"),
+                2 => std::borrow::Cow::Borrowed("IDEMPOTENT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "IDEMPOTENCY_UNKNOWN" => std::option::Option::Some(Self::IDEMPOTENCY_UNKNOWN),
+                "NO_SIDE_EFFECTS" => std::option::Option::Some(Self::NO_SIDE_EFFECTS),
+                "IDEMPOTENT" => std::option::Option::Some(Self::IDEMPOTENT),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for IdempotencyLevel {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for IdempotencyLevel {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+}
+
+/// A message representing a option the parser does not recognize. This only
+/// appears in options protos created by the compiler::Parser class.
+/// DescriptorPool resolves these when building Descriptor objects. Therefore,
+/// options protos in descriptor objects (e.g. returned by Descriptor::options(),
+/// or produced by Descriptor::CopyTo()) will never have UninterpretedOptions
+/// in them.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UninterpretedOption {
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub name: std::vec::Vec<crate::uninterpreted_option::NamePart>,
+
+    /// The value of the uninterpreted option, in whatever type the tokenizer
+    /// identified it as during parsing. Exactly one of these should be set.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub identifier_value: std::string::String,
+
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub positive_int_value: u64,
+
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub negative_int_value: i64,
+
+    pub double_value: f64,
+
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
+    #[serde_as(as = "serde_with::base64::Base64")]
+    pub string_value: ::bytes::Bytes,
+
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub aggregate_value: std::string::String,
+}
+
+impl UninterpretedOption {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [identifier_value][crate::UninterpretedOption::identifier_value].
+    pub fn set_identifier_value<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identifier_value = v.into();
+        self
+    }
+
+    /// Sets the value of [positive_int_value][crate::UninterpretedOption::positive_int_value].
+    pub fn set_positive_int_value<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
+        self.positive_int_value = v.into();
+        self
+    }
+
+    /// Sets the value of [negative_int_value][crate::UninterpretedOption::negative_int_value].
+    pub fn set_negative_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.negative_int_value = v.into();
+        self
+    }
+
+    /// Sets the value of [double_value][crate::UninterpretedOption::double_value].
+    pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.double_value = v.into();
+        self
+    }
+
+    /// Sets the value of [string_value][crate::UninterpretedOption::string_value].
+    pub fn set_string_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.string_value = v.into();
+        self
+    }
+
+    /// Sets the value of [aggregate_value][crate::UninterpretedOption::aggregate_value].
+    pub fn set_aggregate_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.aggregate_value = v.into();
+        self
+    }
+
+    /// Sets the value of [name][crate::UninterpretedOption::name].
+    pub fn set_name<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::uninterpreted_option::NamePart>,
+    {
+        use std::iter::Iterator;
+        self.name = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for UninterpretedOption {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.UninterpretedOption"
+    }
+}
+
+/// Defines additional types related to UninterpretedOption
+pub mod uninterpreted_option {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The name of the uninterpreted option.  Each string represents a segment in
+    /// a dot-separated name.  is_extension is true iff a segment represents an
+    /// extension (denoted with parentheses in options specs in .proto files).
+    /// E.g.,{ ["foo", false], ["bar.baz", true], ["moo", false] } represents
+    /// "foo.(bar.baz).moo".
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct NamePart {
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub name_part: std::string::String,
+
+        pub is_extension: bool,
+    }
+
+    impl NamePart {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name_part][crate::uninterpreted_option::NamePart::name_part].
+        pub fn set_name_part<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name_part = v.into();
+            self
+        }
+
+        /// Sets the value of [is_extension][crate::uninterpreted_option::NamePart::is_extension].
+        pub fn set_is_extension<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.is_extension = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for NamePart {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.protobuf.UninterpretedOption.NamePart"
+        }
+    }
+}
+
+/// TODO Enums in C++ gencode (and potentially other languages) are
+/// not well scoped.  This means that each of the feature enums below can clash
+/// with each other.  The short names we've chosen maximize call-site
+/// readability, but leave us very open to this scenario.  A future feature will
+/// be designed and implemented to handle this, hopefully before we ever hit a
+/// conflict here.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FeatureSet {
+    pub field_presence: crate::feature_set::FieldPresence,
+
+    pub enum_type: crate::feature_set::EnumType,
+
+    pub repeated_field_encoding: crate::feature_set::RepeatedFieldEncoding,
+
+    pub utf8_validation: crate::feature_set::Utf8Validation,
+
+    pub message_encoding: crate::feature_set::MessageEncoding,
+
+    pub json_format: crate::feature_set::JsonFormat,
+}
+
+impl FeatureSet {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [field_presence][crate::FeatureSet::field_presence].
+    pub fn set_field_presence<T: std::convert::Into<crate::feature_set::FieldPresence>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.field_presence = v.into();
+        self
+    }
+
+    /// Sets the value of [enum_type][crate::FeatureSet::enum_type].
+    pub fn set_enum_type<T: std::convert::Into<crate::feature_set::EnumType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enum_type = v.into();
+        self
+    }
+
+    /// Sets the value of [repeated_field_encoding][crate::FeatureSet::repeated_field_encoding].
+    pub fn set_repeated_field_encoding<
+        T: std::convert::Into<crate::feature_set::RepeatedFieldEncoding>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.repeated_field_encoding = v.into();
+        self
+    }
+
+    /// Sets the value of [utf8_validation][crate::FeatureSet::utf8_validation].
+    pub fn set_utf8_validation<T: std::convert::Into<crate::feature_set::Utf8Validation>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.utf8_validation = v.into();
+        self
+    }
+
+    /// Sets the value of [message_encoding][crate::FeatureSet::message_encoding].
+    pub fn set_message_encoding<T: std::convert::Into<crate::feature_set::MessageEncoding>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message_encoding = v.into();
+        self
+    }
+
+    /// Sets the value of [json_format][crate::FeatureSet::json_format].
+    pub fn set_json_format<T: std::convert::Into<crate::feature_set::JsonFormat>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.json_format = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FeatureSet {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.FeatureSet"
+    }
+}
+
+/// Defines additional types related to FeatureSet
+pub mod feature_set {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct FieldPresence(i32);
+
+    impl FieldPresence {
+        pub const FIELD_PRESENCE_UNKNOWN: FieldPresence = FieldPresence::new(0);
+
+        pub const EXPLICIT: FieldPresence = FieldPresence::new(1);
+
+        pub const IMPLICIT: FieldPresence = FieldPresence::new(2);
+
+        pub const LEGACY_REQUIRED: FieldPresence = FieldPresence::new(3);
+
+        /// Creates a new FieldPresence instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FIELD_PRESENCE_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("EXPLICIT"),
+                2 => std::borrow::Cow::Borrowed("IMPLICIT"),
+                3 => std::borrow::Cow::Borrowed("LEGACY_REQUIRED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FIELD_PRESENCE_UNKNOWN" => std::option::Option::Some(Self::FIELD_PRESENCE_UNKNOWN),
+                "EXPLICIT" => std::option::Option::Some(Self::EXPLICIT),
+                "IMPLICIT" => std::option::Option::Some(Self::IMPLICIT),
+                "LEGACY_REQUIRED" => std::option::Option::Some(Self::LEGACY_REQUIRED),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FieldPresence {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for FieldPresence {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct EnumType(i32);
+
+    impl EnumType {
+        pub const ENUM_TYPE_UNKNOWN: EnumType = EnumType::new(0);
+
+        pub const OPEN: EnumType = EnumType::new(1);
+
+        pub const CLOSED: EnumType = EnumType::new(2);
+
+        /// Creates a new EnumType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ENUM_TYPE_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("OPEN"),
+                2 => std::borrow::Cow::Borrowed("CLOSED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ENUM_TYPE_UNKNOWN" => std::option::Option::Some(Self::ENUM_TYPE_UNKNOWN),
+                "OPEN" => std::option::Option::Some(Self::OPEN),
+                "CLOSED" => std::option::Option::Some(Self::CLOSED),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EnumType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for EnumType {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RepeatedFieldEncoding(i32);
+
+    impl RepeatedFieldEncoding {
+        pub const REPEATED_FIELD_ENCODING_UNKNOWN: RepeatedFieldEncoding =
+            RepeatedFieldEncoding::new(0);
+
+        pub const PACKED: RepeatedFieldEncoding = RepeatedFieldEncoding::new(1);
+
+        pub const EXPANDED: RepeatedFieldEncoding = RepeatedFieldEncoding::new(2);
+
+        /// Creates a new RepeatedFieldEncoding instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REPEATED_FIELD_ENCODING_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("PACKED"),
+                2 => std::borrow::Cow::Borrowed("EXPANDED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REPEATED_FIELD_ENCODING_UNKNOWN" => {
+                    std::option::Option::Some(Self::REPEATED_FIELD_ENCODING_UNKNOWN)
+                }
+                "PACKED" => std::option::Option::Some(Self::PACKED),
+                "EXPANDED" => std::option::Option::Some(Self::EXPANDED),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RepeatedFieldEncoding {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RepeatedFieldEncoding {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Utf8Validation(i32);
+
+    impl Utf8Validation {
+        pub const UTF8_VALIDATION_UNKNOWN: Utf8Validation = Utf8Validation::new(0);
+
+        pub const VERIFY: Utf8Validation = Utf8Validation::new(2);
+
+        pub const NONE: Utf8Validation = Utf8Validation::new(3);
+
+        /// Creates a new Utf8Validation instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UTF8_VALIDATION_UNKNOWN"),
+                2 => std::borrow::Cow::Borrowed("VERIFY"),
+                3 => std::borrow::Cow::Borrowed("NONE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UTF8_VALIDATION_UNKNOWN" => {
+                    std::option::Option::Some(Self::UTF8_VALIDATION_UNKNOWN)
+                }
+                "VERIFY" => std::option::Option::Some(Self::VERIFY),
+                "NONE" => std::option::Option::Some(Self::NONE),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Utf8Validation {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Utf8Validation {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct MessageEncoding(i32);
+
+    impl MessageEncoding {
+        pub const MESSAGE_ENCODING_UNKNOWN: MessageEncoding = MessageEncoding::new(0);
+
+        pub const LENGTH_PREFIXED: MessageEncoding = MessageEncoding::new(1);
+
+        pub const DELIMITED: MessageEncoding = MessageEncoding::new(2);
+
+        /// Creates a new MessageEncoding instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MESSAGE_ENCODING_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("LENGTH_PREFIXED"),
+                2 => std::borrow::Cow::Borrowed("DELIMITED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MESSAGE_ENCODING_UNKNOWN" => {
+                    std::option::Option::Some(Self::MESSAGE_ENCODING_UNKNOWN)
+                }
+                "LENGTH_PREFIXED" => std::option::Option::Some(Self::LENGTH_PREFIXED),
+                "DELIMITED" => std::option::Option::Some(Self::DELIMITED),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for MessageEncoding {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for MessageEncoding {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct JsonFormat(i32);
+
+    impl JsonFormat {
+        pub const JSON_FORMAT_UNKNOWN: JsonFormat = JsonFormat::new(0);
+
+        pub const ALLOW: JsonFormat = JsonFormat::new(1);
+
+        pub const LEGACY_BEST_EFFORT: JsonFormat = JsonFormat::new(2);
+
+        /// Creates a new JsonFormat instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("JSON_FORMAT_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("ALLOW"),
+                2 => std::borrow::Cow::Borrowed("LEGACY_BEST_EFFORT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "JSON_FORMAT_UNKNOWN" => std::option::Option::Some(Self::JSON_FORMAT_UNKNOWN),
+                "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                "LEGACY_BEST_EFFORT" => std::option::Option::Some(Self::LEGACY_BEST_EFFORT),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for JsonFormat {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for JsonFormat {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+}
+
+/// A compiled specification for the defaults of a set of features.  These
+/// messages are generated from FeatureSet extensions and can be used to seed
+/// feature resolution. The resolution with this object becomes a simple search
+/// for the closest matching edition, followed by proto merges.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FeatureSetDefaults {
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub defaults: std::vec::Vec<crate::feature_set_defaults::FeatureSetEditionDefault>,
+
+    /// The minimum supported edition (inclusive) when this was constructed.
+    /// Editions before this will not have defaults.
+    pub minimum_edition: crate::Edition,
+
+    /// The maximum known edition (inclusive) when this was constructed. Editions
+    /// after this will not have reliable defaults.
+    pub maximum_edition: crate::Edition,
+}
+
+impl FeatureSetDefaults {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [minimum_edition][crate::FeatureSetDefaults::minimum_edition].
+    pub fn set_minimum_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
+        self.minimum_edition = v.into();
+        self
+    }
+
+    /// Sets the value of [maximum_edition][crate::FeatureSetDefaults::maximum_edition].
+    pub fn set_maximum_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
+        self.maximum_edition = v.into();
+        self
+    }
+
+    /// Sets the value of [defaults][crate::FeatureSetDefaults::defaults].
+    pub fn set_defaults<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::feature_set_defaults::FeatureSetEditionDefault>,
+    {
+        use std::iter::Iterator;
+        self.defaults = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for FeatureSetDefaults {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.FeatureSetDefaults"
+    }
+}
+
+/// Defines additional types related to FeatureSetDefaults
+pub mod feature_set_defaults {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A map from every known edition with a unique set of defaults to its
+    /// defaults. Not all editions may be contained here.  For a given edition,
+    /// the defaults at the closest matching edition ordered at or before it should
+    /// be used.  This field must be in strict ascending order by edition.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct FeatureSetEditionDefault {
+        pub edition: crate::Edition,
+
+        /// Defaults of features that can be overridden in this edition.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub overridable_features: std::option::Option<crate::FeatureSet>,
+
+        /// Defaults of features that can't be overridden in this edition.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub fixed_features: std::option::Option<crate::FeatureSet>,
+    }
+
+    impl FeatureSetEditionDefault {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [edition][crate::feature_set_defaults::FeatureSetEditionDefault::edition].
+        pub fn set_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
+            self.edition = v.into();
+            self
+        }
+
+        /// Sets the value of [overridable_features][crate::feature_set_defaults::FeatureSetEditionDefault::overridable_features].
+        pub fn set_overridable_features<
+            T: std::convert::Into<std::option::Option<crate::FeatureSet>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.overridable_features = v.into();
+            self
+        }
+
+        /// Sets the value of [fixed_features][crate::feature_set_defaults::FeatureSetEditionDefault::fixed_features].
+        pub fn set_fixed_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.fixed_features = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for FeatureSetEditionDefault {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.protobuf.FeatureSetDefaults.FeatureSetEditionDefault"
+        }
+    }
+}
+
+/// Encapsulates information about the original source file from which a
+/// FileDescriptorProto was generated.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SourceCodeInfo {
+    /// A Location identifies a piece of source code in a .proto file which
+    /// corresponds to a particular definition.  This information is intended
+    /// to be useful to IDEs, code indexers, documentation generators, and similar
+    /// tools.
+    ///
+    /// For example, say we have a file like:
+    /// message Foo {
+    /// optional string foo = 1;
+    /// }
+    /// Let's look at just the field definition:
+    /// optional string foo = 1;
+    /// ^       ^^     ^^  ^  ^^^
+    /// a       bc     de  f  ghi
+    /// We have the following locations:
+    /// span   path               represents
+    /// [a,i)  [ 4, 0, 2, 0 ]     The whole field definition.
+    /// [a,b)  [ 4, 0, 2, 0, 4 ]  The label (optional).
+    /// [c,d)  [ 4, 0, 2, 0, 5 ]  The type (string).
+    /// [e,f)  [ 4, 0, 2, 0, 1 ]  The name (foo).
+    /// [g,h)  [ 4, 0, 2, 0, 3 ]  The number (1).
+    ///
+    /// Notes:
+    ///
+    /// - A location may refer to a repeated field itself (i.e. not to any
+    ///   particular index within it).  This is used whenever a set of elements are
+    ///   logically enclosed in a single code segment.  For example, an entire
+    ///   extend block (possibly containing multiple extension definitions) will
+    ///   have an outer location whose path refers to the "extensions" repeated
+    ///   field without an index.
+    /// - Multiple locations may have the same path.  This happens when a single
+    ///   logical declaration is spread out across multiple places.  The most
+    ///   obvious example is the "extend" block again -- there may be multiple
+    ///   extend blocks in the same scope, each of which will have the same path.
+    /// - A location's span is not always a subset of its parent's span.  For
+    ///   example, the "extendee" of an extension declaration appears at the
+    ///   beginning of the "extend" block and is shared by all extensions within
+    ///   the block.
+    /// - Just because a location's span is a subset of some other location's span
+    ///   does not mean that it is a descendant.  For example, a "group" defines
+    ///   both a type and a field in a single declaration.  Thus, the locations
+    ///   corresponding to the type and field and their components will overlap.
+    /// - Code which tries to interpret locations should probably be designed to
+    ///   ignore those that it doesn't understand, as more types of locations could
+    ///   be recorded in the future.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub location: std::vec::Vec<crate::source_code_info::Location>,
+}
+
+impl SourceCodeInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [location][crate::SourceCodeInfo::location].
+    pub fn set_location<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::source_code_info::Location>,
+    {
+        use std::iter::Iterator;
+        self.location = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SourceCodeInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.SourceCodeInfo"
+    }
+}
+
+/// Defines additional types related to SourceCodeInfo
+pub mod source_code_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Location {
+        /// Identifies which part of the FileDescriptorProto was defined at this
+        /// location.
+        ///
+        /// Each element is a field number or an index.  They form a path from
+        /// the root FileDescriptorProto to the place where the definition appears.
+        /// For example, this path:
+        /// [ 4, 3, 2, 7, 1 ]
+        /// refers to:
+        /// file.message_type(3)  // 4, 3
+        /// .field(7)         // 2, 7
+        /// .name()           // 1
+        /// This is because FileDescriptorProto.message_type has field number 4:
+        /// repeated DescriptorProto message_type = 4;
+        /// and DescriptorProto.field has field number 2:
+        /// repeated FieldDescriptorProto field = 2;
+        /// and FieldDescriptorProto.name has field number 1:
+        /// optional string name = 1;
+        ///
+        /// Thus, the above path gives the location of a field name.  If we removed
+        /// the last element:
+        /// [ 4, 3, 2, 7 ]
+        /// this path refers to the whole field declaration (from the beginning
+        /// of the label to the terminating semicolon).
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub path: std::vec::Vec<i32>,
+
+        /// Always has exactly three or four elements: start line, start column,
+        /// end line (optional, otherwise assumed same as start line), end column.
+        /// These are packed into a single field for efficiency.  Note that line
+        /// and column numbers are zero-based -- typically you will want to add
+        /// 1 to each before displaying to a user.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub span: std::vec::Vec<i32>,
+
+        /// If this SourceCodeInfo represents a complete declaration, these are any
+        /// comments appearing before and after the declaration which appear to be
+        /// attached to the declaration.
+        ///
+        /// A series of line comments appearing on consecutive lines, with no other
+        /// tokens appearing on those lines, will be treated as a single comment.
+        ///
+        /// leading_detached_comments will keep paragraphs of comments that appear
+        /// before (but not connected to) the current element. Each paragraph,
+        /// separated by empty lines, will be one comment element in the repeated
+        /// field.
+        ///
+        /// Only the comment content is provided; comment markers (e.g. //) are
+        /// stripped out.  For block comments, leading whitespace and an asterisk
+        /// will be stripped from the beginning of each line other than the first.
+        /// Newlines are included in the output.
+        ///
+        /// Examples:
+        ///
+        /// optional int32 foo = 1;  // Comment attached to foo.
+        /// // Comment attached to bar.
+        /// optional int32 bar = 2;
+        ///
+        /// optional string baz = 3;
+        /// // Comment attached to baz.
+        /// // Another line attached to baz.
+        ///
+        /// // Comment attached to moo.
+        /// //
+        /// // Another line attached to moo.
+        /// optional double moo = 4;
+        ///
+        /// // Detached comment for corge. This is not leading or trailing comments
+        /// // to moo or corge because there are blank lines separating it from
+        /// // both.
+        ///
+        /// // Detached comment for corge paragraph 2.
+        ///
+        /// optional string corge = 5;
+        /// /* Block comment attached
+        ///
+        /// * to corge.  Leading asterisks
+        /// * will be removed. */
+        ///   /* Block comment attached to
+        /// * grault. */
+        ///   optional int32 grault = 6;
+        ///
+        /// // ignored detached comments.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub leading_comments: std::string::String,
+
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub trailing_comments: std::string::String,
+
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub leading_detached_comments: std::vec::Vec<std::string::String>,
+    }
+
+    impl Location {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [leading_comments][crate::source_code_info::Location::leading_comments].
+        pub fn set_leading_comments<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.leading_comments = v.into();
+            self
+        }
+
+        /// Sets the value of [trailing_comments][crate::source_code_info::Location::trailing_comments].
+        pub fn set_trailing_comments<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.trailing_comments = v.into();
+            self
+        }
+
+        /// Sets the value of [path][crate::source_code_info::Location::path].
+        pub fn set_path<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<i32>,
+        {
+            use std::iter::Iterator;
+            self.path = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [span][crate::source_code_info::Location::span].
+        pub fn set_span<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<i32>,
+        {
+            use std::iter::Iterator;
+            self.span = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [leading_detached_comments][crate::source_code_info::Location::leading_detached_comments].
+        pub fn set_leading_detached_comments<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.leading_detached_comments = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Location {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.protobuf.SourceCodeInfo.Location"
+        }
+    }
+}
+
+/// Describes the relationship between generated code and its original source
+/// file. A GeneratedCodeInfo message is associated with only one generated
+/// source file, but may contain references to different source .proto files.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GeneratedCodeInfo {
+    /// An Annotation connects some span of text in generated code to an element
+    /// of its generating .proto file.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub annotation: std::vec::Vec<crate::generated_code_info::Annotation>,
+}
+
+impl GeneratedCodeInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [annotation][crate::GeneratedCodeInfo::annotation].
+    pub fn set_annotation<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::generated_code_info::Annotation>,
+    {
+        use std::iter::Iterator;
+        self.annotation = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for GeneratedCodeInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.GeneratedCodeInfo"
+    }
+}
+
+/// Defines additional types related to GeneratedCodeInfo
+pub mod generated_code_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Annotation {
+        /// Identifies the element in the original source .proto file. This field
+        /// is formatted the same as SourceCodeInfo.Location.path.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub path: std::vec::Vec<i32>,
+
+        /// Identifies the filesystem path to the original source .proto.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub source_file: std::string::String,
+
+        /// Identifies the starting offset in bytes in the generated code
+        /// that relates to the identified object.
+        pub begin: i32,
+
+        /// Identifies the ending offset in bytes in the generated code that
+        /// relates to the identified object. The end offset should be one past
+        /// the last relevant byte (so the length of the text = end - begin).
+        pub end: i32,
+
+        pub semantic: crate::generated_code_info::annotation::Semantic,
+    }
+
+    impl Annotation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [source_file][crate::generated_code_info::Annotation::source_file].
+        pub fn set_source_file<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.source_file = v.into();
+            self
+        }
+
+        /// Sets the value of [begin][crate::generated_code_info::Annotation::begin].
+        pub fn set_begin<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.begin = v.into();
+            self
+        }
+
+        /// Sets the value of [end][crate::generated_code_info::Annotation::end].
+        pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.end = v.into();
+            self
+        }
+
+        /// Sets the value of [semantic][crate::generated_code_info::Annotation::semantic].
+        pub fn set_semantic<
+            T: std::convert::Into<crate::generated_code_info::annotation::Semantic>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.semantic = v.into();
+            self
+        }
+
+        /// Sets the value of [path][crate::generated_code_info::Annotation::path].
+        pub fn set_path<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<i32>,
+        {
+            use std::iter::Iterator;
+            self.path = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Annotation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.protobuf.GeneratedCodeInfo.Annotation"
+        }
+    }
+
+    /// Defines additional types related to Annotation
+    pub mod annotation {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Represents the identified object's effect on the element in the original
+        /// .proto file.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Semantic(i32);
+
+        impl Semantic {
+            /// There is no effect or the effect is indescribable.
+            pub const NONE: Semantic = Semantic::new(0);
+
+            /// The element is set or otherwise mutated.
+            pub const SET: Semantic = Semantic::new(1);
+
+            /// An alias to the element is returned.
+            pub const ALIAS: Semantic = Semantic::new(2);
+
+            /// Creates a new Semantic instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("NONE"),
+                    1 => std::borrow::Cow::Borrowed("SET"),
+                    2 => std::borrow::Cow::Borrowed("ALIAS"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "NONE" => std::option::Option::Some(Self::NONE),
+                    "SET" => std::option::Option::Some(Self::SET),
+                    "ALIAS" => std::option::Option::Some(Self::ALIAS),
+                    _ => std::option::Option::None,
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Semantic {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for Semantic {
+            fn default() -> Self {
+                Self::new(0)
+            }
+        }
+    }
+}
+
 /// `SourceContext` represents information about the source of a
 /// protobuf element, like the file in which it is defined.
 #[serde_with::serde_as]
@@ -648,125 +4644,201 @@ pub mod field {
     use super::*;
 
     /// Basic field types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Kind(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Kind(i32);
 
     impl Kind {
+        /// Field type unknown.
+        pub const TYPE_UNKNOWN: Kind = Kind::new(0);
+
+        /// Field type double.
+        pub const TYPE_DOUBLE: Kind = Kind::new(1);
+
+        /// Field type float.
+        pub const TYPE_FLOAT: Kind = Kind::new(2);
+
+        /// Field type int64.
+        pub const TYPE_INT64: Kind = Kind::new(3);
+
+        /// Field type uint64.
+        pub const TYPE_UINT64: Kind = Kind::new(4);
+
+        /// Field type int32.
+        pub const TYPE_INT32: Kind = Kind::new(5);
+
+        /// Field type fixed64.
+        pub const TYPE_FIXED64: Kind = Kind::new(6);
+
+        /// Field type fixed32.
+        pub const TYPE_FIXED32: Kind = Kind::new(7);
+
+        /// Field type bool.
+        pub const TYPE_BOOL: Kind = Kind::new(8);
+
+        /// Field type string.
+        pub const TYPE_STRING: Kind = Kind::new(9);
+
+        /// Field type group. Proto2 syntax only, and deprecated.
+        pub const TYPE_GROUP: Kind = Kind::new(10);
+
+        /// Field type message.
+        pub const TYPE_MESSAGE: Kind = Kind::new(11);
+
+        /// Field type bytes.
+        pub const TYPE_BYTES: Kind = Kind::new(12);
+
+        /// Field type uint32.
+        pub const TYPE_UINT32: Kind = Kind::new(13);
+
+        /// Field type enum.
+        pub const TYPE_ENUM: Kind = Kind::new(14);
+
+        /// Field type sfixed32.
+        pub const TYPE_SFIXED32: Kind = Kind::new(15);
+
+        /// Field type sfixed64.
+        pub const TYPE_SFIXED64: Kind = Kind::new(16);
+
+        /// Field type sint32.
+        pub const TYPE_SINT32: Kind = Kind::new(17);
+
+        /// Field type sint64.
+        pub const TYPE_SINT64: Kind = Kind::new(18);
+
         /// Creates a new Kind instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("TYPE_DOUBLE"),
+                2 => std::borrow::Cow::Borrowed("TYPE_FLOAT"),
+                3 => std::borrow::Cow::Borrowed("TYPE_INT64"),
+                4 => std::borrow::Cow::Borrowed("TYPE_UINT64"),
+                5 => std::borrow::Cow::Borrowed("TYPE_INT32"),
+                6 => std::borrow::Cow::Borrowed("TYPE_FIXED64"),
+                7 => std::borrow::Cow::Borrowed("TYPE_FIXED32"),
+                8 => std::borrow::Cow::Borrowed("TYPE_BOOL"),
+                9 => std::borrow::Cow::Borrowed("TYPE_STRING"),
+                10 => std::borrow::Cow::Borrowed("TYPE_GROUP"),
+                11 => std::borrow::Cow::Borrowed("TYPE_MESSAGE"),
+                12 => std::borrow::Cow::Borrowed("TYPE_BYTES"),
+                13 => std::borrow::Cow::Borrowed("TYPE_UINT32"),
+                14 => std::borrow::Cow::Borrowed("TYPE_ENUM"),
+                15 => std::borrow::Cow::Borrowed("TYPE_SFIXED32"),
+                16 => std::borrow::Cow::Borrowed("TYPE_SFIXED64"),
+                17 => std::borrow::Cow::Borrowed("TYPE_SINT32"),
+                18 => std::borrow::Cow::Borrowed("TYPE_SINT64"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNKNOWN" => std::option::Option::Some(Self::TYPE_UNKNOWN),
+                "TYPE_DOUBLE" => std::option::Option::Some(Self::TYPE_DOUBLE),
+                "TYPE_FLOAT" => std::option::Option::Some(Self::TYPE_FLOAT),
+                "TYPE_INT64" => std::option::Option::Some(Self::TYPE_INT64),
+                "TYPE_UINT64" => std::option::Option::Some(Self::TYPE_UINT64),
+                "TYPE_INT32" => std::option::Option::Some(Self::TYPE_INT32),
+                "TYPE_FIXED64" => std::option::Option::Some(Self::TYPE_FIXED64),
+                "TYPE_FIXED32" => std::option::Option::Some(Self::TYPE_FIXED32),
+                "TYPE_BOOL" => std::option::Option::Some(Self::TYPE_BOOL),
+                "TYPE_STRING" => std::option::Option::Some(Self::TYPE_STRING),
+                "TYPE_GROUP" => std::option::Option::Some(Self::TYPE_GROUP),
+                "TYPE_MESSAGE" => std::option::Option::Some(Self::TYPE_MESSAGE),
+                "TYPE_BYTES" => std::option::Option::Some(Self::TYPE_BYTES),
+                "TYPE_UINT32" => std::option::Option::Some(Self::TYPE_UINT32),
+                "TYPE_ENUM" => std::option::Option::Some(Self::TYPE_ENUM),
+                "TYPE_SFIXED32" => std::option::Option::Some(Self::TYPE_SFIXED32),
+                "TYPE_SFIXED64" => std::option::Option::Some(Self::TYPE_SFIXED64),
+                "TYPE_SINT32" => std::option::Option::Some(Self::TYPE_SINT32),
+                "TYPE_SINT64" => std::option::Option::Some(Self::TYPE_SINT64),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Kind](Kind)
-    pub mod kind {
-        use super::Kind;
-
-        /// Field type unknown.
-        pub const TYPE_UNKNOWN: Kind = Kind::new("TYPE_UNKNOWN");
-
-        /// Field type double.
-        pub const TYPE_DOUBLE: Kind = Kind::new("TYPE_DOUBLE");
-
-        /// Field type float.
-        pub const TYPE_FLOAT: Kind = Kind::new("TYPE_FLOAT");
-
-        /// Field type int64.
-        pub const TYPE_INT64: Kind = Kind::new("TYPE_INT64");
-
-        /// Field type uint64.
-        pub const TYPE_UINT64: Kind = Kind::new("TYPE_UINT64");
-
-        /// Field type int32.
-        pub const TYPE_INT32: Kind = Kind::new("TYPE_INT32");
-
-        /// Field type fixed64.
-        pub const TYPE_FIXED64: Kind = Kind::new("TYPE_FIXED64");
-
-        /// Field type fixed32.
-        pub const TYPE_FIXED32: Kind = Kind::new("TYPE_FIXED32");
-
-        /// Field type bool.
-        pub const TYPE_BOOL: Kind = Kind::new("TYPE_BOOL");
-
-        /// Field type string.
-        pub const TYPE_STRING: Kind = Kind::new("TYPE_STRING");
-
-        /// Field type group. Proto2 syntax only, and deprecated.
-        pub const TYPE_GROUP: Kind = Kind::new("TYPE_GROUP");
-
-        /// Field type message.
-        pub const TYPE_MESSAGE: Kind = Kind::new("TYPE_MESSAGE");
-
-        /// Field type bytes.
-        pub const TYPE_BYTES: Kind = Kind::new("TYPE_BYTES");
-
-        /// Field type uint32.
-        pub const TYPE_UINT32: Kind = Kind::new("TYPE_UINT32");
-
-        /// Field type enum.
-        pub const TYPE_ENUM: Kind = Kind::new("TYPE_ENUM");
-
-        /// Field type sfixed32.
-        pub const TYPE_SFIXED32: Kind = Kind::new("TYPE_SFIXED32");
-
-        /// Field type sfixed64.
-        pub const TYPE_SFIXED64: Kind = Kind::new("TYPE_SFIXED64");
-
-        /// Field type sint32.
-        pub const TYPE_SINT32: Kind = Kind::new("TYPE_SINT32");
-
-        /// Field type sint64.
-        pub const TYPE_SINT64: Kind = Kind::new("TYPE_SINT64");
+    impl std::convert::From<i32> for Kind {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Kind {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Kind {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Whether a field is optional, required, or repeated.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Cardinality(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Cardinality(i32);
 
     impl Cardinality {
+        /// For fields with unknown cardinality.
+        pub const CARDINALITY_UNKNOWN: Cardinality = Cardinality::new(0);
+
+        /// For optional fields.
+        pub const CARDINALITY_OPTIONAL: Cardinality = Cardinality::new(1);
+
+        /// For required fields. Proto2 syntax only.
+        pub const CARDINALITY_REQUIRED: Cardinality = Cardinality::new(2);
+
+        /// For repeated fields.
+        pub const CARDINALITY_REPEATED: Cardinality = Cardinality::new(3);
+
         /// Creates a new Cardinality instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CARDINALITY_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("CARDINALITY_OPTIONAL"),
+                2 => std::borrow::Cow::Borrowed("CARDINALITY_REQUIRED"),
+                3 => std::borrow::Cow::Borrowed("CARDINALITY_REPEATED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CARDINALITY_UNKNOWN" => std::option::Option::Some(Self::CARDINALITY_UNKNOWN),
+                "CARDINALITY_OPTIONAL" => std::option::Option::Some(Self::CARDINALITY_OPTIONAL),
+                "CARDINALITY_REQUIRED" => std::option::Option::Some(Self::CARDINALITY_REQUIRED),
+                "CARDINALITY_REPEATED" => std::option::Option::Some(Self::CARDINALITY_REPEATED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Cardinality](Cardinality)
-    pub mod cardinality {
-        use super::Cardinality;
-
-        /// For fields with unknown cardinality.
-        pub const CARDINALITY_UNKNOWN: Cardinality = Cardinality::new("CARDINALITY_UNKNOWN");
-
-        /// For optional fields.
-        pub const CARDINALITY_OPTIONAL: Cardinality = Cardinality::new("CARDINALITY_OPTIONAL");
-
-        /// For required fields. Proto2 syntax only.
-        pub const CARDINALITY_REQUIRED: Cardinality = Cardinality::new("CARDINALITY_REQUIRED");
-
-        /// For repeated fields.
-        pub const CARDINALITY_REPEATED: Cardinality = Cardinality::new("CARDINALITY_REPEATED");
+    impl std::convert::From<i32> for Cardinality {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Cardinality {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Cardinality {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -964,38 +5036,164 @@ impl wkt::message::Message for Option {
     }
 }
 
-/// The syntax in which a protocol buffer element is defined.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Syntax(std::borrow::Cow<'static, str>);
+/// The full set of known editions.
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct Edition(i32);
 
-impl Syntax {
-    /// Creates a new Syntax instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+impl Edition {
+    /// A placeholder for an unknown edition value.
+    pub const EDITION_UNKNOWN: Edition = Edition::new(0);
+
+    /// A placeholder edition for specifying default behaviors *before* a feature
+    /// was first introduced.  This is effectively an "infinite past".
+    pub const EDITION_LEGACY: Edition = Edition::new(900);
+
+    /// Legacy syntax "editions".  These pre-date editions, but behave much like
+    /// distinct editions.  These can't be used to specify the edition of proto
+    /// files, but feature definitions must supply proto2/proto3 defaults for
+    /// backwards compatibility.
+    pub const EDITION_PROTO2: Edition = Edition::new(998);
+
+    pub const EDITION_PROTO3: Edition = Edition::new(999);
+
+    /// Editions that have been released.  The specific values are arbitrary and
+    /// should not be depended on, but they will always be time-ordered for easy
+    /// comparison.
+    pub const EDITION_2023: Edition = Edition::new(1000);
+
+    pub const EDITION_2024: Edition = Edition::new(1001);
+
+    /// Placeholder editions for testing feature resolution.  These should not be
+    /// used or relied on outside of tests.
+    pub const EDITION_1_TEST_ONLY: Edition = Edition::new(1);
+
+    pub const EDITION_2_TEST_ONLY: Edition = Edition::new(2);
+
+    pub const EDITION_99997_TEST_ONLY: Edition = Edition::new(99997);
+
+    pub const EDITION_99998_TEST_ONLY: Edition = Edition::new(99998);
+
+    pub const EDITION_99999_TEST_ONLY: Edition = Edition::new(99999);
+
+    /// Placeholder for specifying unbounded edition support.  This should only
+    /// ever be used by plugins that can expect to never require any changes to
+    /// support a new edition.
+    pub const EDITION_MAX: Edition = Edition::new(2147483647);
+
+    /// Creates a new Edition instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("EDITION_UNKNOWN"),
+            1 => std::borrow::Cow::Borrowed("EDITION_1_TEST_ONLY"),
+            2 => std::borrow::Cow::Borrowed("EDITION_2_TEST_ONLY"),
+            900 => std::borrow::Cow::Borrowed("EDITION_LEGACY"),
+            998 => std::borrow::Cow::Borrowed("EDITION_PROTO2"),
+            999 => std::borrow::Cow::Borrowed("EDITION_PROTO3"),
+            1000 => std::borrow::Cow::Borrowed("EDITION_2023"),
+            1001 => std::borrow::Cow::Borrowed("EDITION_2024"),
+            99997 => std::borrow::Cow::Borrowed("EDITION_99997_TEST_ONLY"),
+            99998 => std::borrow::Cow::Borrowed("EDITION_99998_TEST_ONLY"),
+            99999 => std::borrow::Cow::Borrowed("EDITION_99999_TEST_ONLY"),
+            2147483647 => std::borrow::Cow::Borrowed("EDITION_MAX"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "EDITION_UNKNOWN" => std::option::Option::Some(Self::EDITION_UNKNOWN),
+            "EDITION_LEGACY" => std::option::Option::Some(Self::EDITION_LEGACY),
+            "EDITION_PROTO2" => std::option::Option::Some(Self::EDITION_PROTO2),
+            "EDITION_PROTO3" => std::option::Option::Some(Self::EDITION_PROTO3),
+            "EDITION_2023" => std::option::Option::Some(Self::EDITION_2023),
+            "EDITION_2024" => std::option::Option::Some(Self::EDITION_2024),
+            "EDITION_1_TEST_ONLY" => std::option::Option::Some(Self::EDITION_1_TEST_ONLY),
+            "EDITION_2_TEST_ONLY" => std::option::Option::Some(Self::EDITION_2_TEST_ONLY),
+            "EDITION_99997_TEST_ONLY" => std::option::Option::Some(Self::EDITION_99997_TEST_ONLY),
+            "EDITION_99998_TEST_ONLY" => std::option::Option::Some(Self::EDITION_99998_TEST_ONLY),
+            "EDITION_99999_TEST_ONLY" => std::option::Option::Some(Self::EDITION_99999_TEST_ONLY),
+            "EDITION_MAX" => std::option::Option::Some(Self::EDITION_MAX),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [Syntax](Syntax)
-pub mod syntax {
-    use super::Syntax;
-
-    /// Syntax `proto2`.
-    pub const SYNTAX_PROTO2: Syntax = Syntax::new("SYNTAX_PROTO2");
-
-    /// Syntax `proto3`.
-    pub const SYNTAX_PROTO3: Syntax = Syntax::new("SYNTAX_PROTO3");
-
-    /// Syntax `editions`.
-    pub const SYNTAX_EDITIONS: Syntax = Syntax::new("SYNTAX_EDITIONS");
+impl std::convert::From<i32> for Edition {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for Syntax {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for Edition {
+    fn default() -> Self {
+        Self::new(0)
+    }
+}
+
+/// The syntax in which a protocol buffer element is defined.
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct Syntax(i32);
+
+impl Syntax {
+    /// Syntax `proto2`.
+    pub const SYNTAX_PROTO2: Syntax = Syntax::new(0);
+
+    /// Syntax `proto3`.
+    pub const SYNTAX_PROTO3: Syntax = Syntax::new(1);
+
+    /// Syntax `editions`.
+    pub const SYNTAX_EDITIONS: Syntax = Syntax::new(2);
+
+    /// Creates a new Syntax instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SYNTAX_PROTO2"),
+            1 => std::borrow::Cow::Borrowed("SYNTAX_PROTO3"),
+            2 => std::borrow::Cow::Borrowed("SYNTAX_EDITIONS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SYNTAX_PROTO2" => std::option::Option::Some(Self::SYNTAX_PROTO2),
+            "SYNTAX_PROTO3" => std::option::Option::Some(Self::SYNTAX_PROTO3),
+            "SYNTAX_EDITIONS" => std::option::Option::Some(Self::SYNTAX_EDITIONS),
+            _ => std::option::Option::None,
+        }
+    }
+}
+
+impl std::convert::From<i32> for Syntax {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for Syntax {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

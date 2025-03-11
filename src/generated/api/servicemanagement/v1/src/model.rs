@@ -197,48 +197,75 @@ pub mod operation_metadata {
     }
 
     /// Code describes the status of the operation (or one of its steps).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Status(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Status(i32);
 
     impl Status {
-        /// Creates a new Status instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Status](Status)
-    pub mod status {
-        use super::Status;
-
         /// Unspecifed code.
-        pub const STATUS_UNSPECIFIED: Status = Status::new("STATUS_UNSPECIFIED");
+        pub const STATUS_UNSPECIFIED: Status = Status::new(0);
 
         /// The operation or step has completed without errors.
-        pub const DONE: Status = Status::new("DONE");
+        pub const DONE: Status = Status::new(1);
 
         /// The operation or step has not started yet.
-        pub const NOT_STARTED: Status = Status::new("NOT_STARTED");
+        pub const NOT_STARTED: Status = Status::new(2);
 
         /// The operation or step is in progress.
-        pub const IN_PROGRESS: Status = Status::new("IN_PROGRESS");
+        pub const IN_PROGRESS: Status = Status::new(3);
 
         /// The operation or step has completed with errors. If the operation is
         /// rollbackable, the rollback completed with errors too.
-        pub const FAILED: Status = Status::new("FAILED");
+        pub const FAILED: Status = Status::new(4);
 
         /// The operation or step has completed with cancellation.
-        pub const CANCELLED: Status = Status::new("CANCELLED");
+        pub const CANCELLED: Status = Status::new(5);
+
+        /// Creates a new Status instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATUS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DONE"),
+                2 => std::borrow::Cow::Borrowed("NOT_STARTED"),
+                3 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                5 => std::borrow::Cow::Borrowed("CANCELLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATUS_UNSPECIFIED" => std::option::Option::Some(Self::STATUS_UNSPECIFIED),
+                "DONE" => std::option::Option::Some(Self::DONE),
+                "NOT_STARTED" => std::option::Option::Some(Self::NOT_STARTED),
+                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Status {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -297,35 +324,54 @@ pub mod diagnostic {
     use super::*;
 
     /// The kind of diagnostic information possible.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Kind(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Kind(i32);
 
     impl Kind {
+        /// Warnings and errors
+        pub const WARNING: Kind = Kind::new(0);
+
+        /// Only errors
+        pub const ERROR: Kind = Kind::new(1);
+
         /// Creates a new Kind instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("WARNING"),
+                1 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Kind](Kind)
-    pub mod kind {
-        use super::Kind;
-
-        /// Warnings and errors
-        pub const WARNING: Kind = Kind::new("WARNING");
-
-        /// Only errors
-        pub const ERROR: Kind = Kind::new("ERROR");
+    impl std::convert::From<i32> for Kind {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Kind {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Kind {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -389,9 +435,9 @@ pub struct ConfigFile {
     pub file_path: std::string::String,
 
     /// The bytes that constitute the file.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub file_contents: bytes::Bytes,
+    pub file_contents: ::bytes::Bytes,
 
     /// The type of configuration file this represents.
     pub file_type: crate::model::config_file::FileType,
@@ -409,7 +455,7 @@ impl ConfigFile {
     }
 
     /// Sets the value of [file_contents][crate::model::ConfigFile::file_contents].
-    pub fn set_file_contents<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_file_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.file_contents = v.into();
         self
     }
@@ -435,36 +481,21 @@ pub mod config_file {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FileType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct FileType(i32);
 
     impl FileType {
-        /// Creates a new FileType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FileType](FileType)
-    pub mod file_type {
-        use super::FileType;
-
         /// Unknown file type.
-        pub const FILE_TYPE_UNSPECIFIED: FileType = FileType::new("FILE_TYPE_UNSPECIFIED");
+        pub const FILE_TYPE_UNSPECIFIED: FileType = FileType::new(0);
 
         /// YAML-specification of service.
-        pub const SERVICE_CONFIG_YAML: FileType = FileType::new("SERVICE_CONFIG_YAML");
+        pub const SERVICE_CONFIG_YAML: FileType = FileType::new(1);
 
         /// OpenAPI specification, serialized in JSON.
-        pub const OPEN_API_JSON: FileType = FileType::new("OPEN_API_JSON");
+        pub const OPEN_API_JSON: FileType = FileType::new(2);
 
         /// OpenAPI specification, serialized in YAML.
-        pub const OPEN_API_YAML: FileType = FileType::new("OPEN_API_YAML");
+        pub const OPEN_API_YAML: FileType = FileType::new(3);
 
         /// FileDescriptorSet, generated by protoc.
         ///
@@ -473,19 +504,63 @@ pub mod config_file {
         /// in a new file named out.pb.
         ///
         /// $protoc --include_imports --include_source_info test.proto -o out.pb
-        pub const FILE_DESCRIPTOR_SET_PROTO: FileType = FileType::new("FILE_DESCRIPTOR_SET_PROTO");
+        pub const FILE_DESCRIPTOR_SET_PROTO: FileType = FileType::new(4);
 
         /// Uncompiled Proto file. Used for storage and display purposes only,
         /// currently server-side compilation is not supported. Should match the
         /// inputs to 'protoc' command used to generated FILE_DESCRIPTOR_SET_PROTO. A
         /// file of this type can only be included if at least one file of type
         /// FILE_DESCRIPTOR_SET_PROTO is included.
-        pub const PROTO_FILE: FileType = FileType::new("PROTO_FILE");
+        pub const PROTO_FILE: FileType = FileType::new(6);
+
+        /// Creates a new FileType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FILE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SERVICE_CONFIG_YAML"),
+                2 => std::borrow::Cow::Borrowed("OPEN_API_JSON"),
+                3 => std::borrow::Cow::Borrowed("OPEN_API_YAML"),
+                4 => std::borrow::Cow::Borrowed("FILE_DESCRIPTOR_SET_PROTO"),
+                6 => std::borrow::Cow::Borrowed("PROTO_FILE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FILE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::FILE_TYPE_UNSPECIFIED),
+                "SERVICE_CONFIG_YAML" => std::option::Option::Some(Self::SERVICE_CONFIG_YAML),
+                "OPEN_API_JSON" => std::option::Option::Some(Self::OPEN_API_JSON),
+                "OPEN_API_YAML" => std::option::Option::Some(Self::OPEN_API_YAML),
+                "FILE_DESCRIPTOR_SET_PROTO" => {
+                    std::option::Option::Some(Self::FILE_DESCRIPTOR_SET_PROTO)
+                }
+                "PROTO_FILE" => std::option::Option::Some(Self::PROTO_FILE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FileType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FileType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for FileType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -824,53 +899,83 @@ pub mod rollout {
     }
 
     /// Status of a Rollout.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RolloutStatus(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RolloutStatus(i32);
 
     impl RolloutStatus {
-        /// Creates a new RolloutStatus instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RolloutStatus](RolloutStatus)
-    pub mod rollout_status {
-        use super::RolloutStatus;
-
         /// No status specified.
-        pub const ROLLOUT_STATUS_UNSPECIFIED: RolloutStatus =
-            RolloutStatus::new("ROLLOUT_STATUS_UNSPECIFIED");
+        pub const ROLLOUT_STATUS_UNSPECIFIED: RolloutStatus = RolloutStatus::new(0);
 
         /// The Rollout is in progress.
-        pub const IN_PROGRESS: RolloutStatus = RolloutStatus::new("IN_PROGRESS");
+        pub const IN_PROGRESS: RolloutStatus = RolloutStatus::new(1);
 
         /// The Rollout has completed successfully.
-        pub const SUCCESS: RolloutStatus = RolloutStatus::new("SUCCESS");
+        pub const SUCCESS: RolloutStatus = RolloutStatus::new(2);
 
         /// The Rollout has been cancelled. This can happen if you have overlapping
         /// Rollout pushes, and the previous ones will be cancelled.
-        pub const CANCELLED: RolloutStatus = RolloutStatus::new("CANCELLED");
+        pub const CANCELLED: RolloutStatus = RolloutStatus::new(3);
 
         /// The Rollout has failed and the rollback attempt has failed too.
-        pub const FAILED: RolloutStatus = RolloutStatus::new("FAILED");
+        pub const FAILED: RolloutStatus = RolloutStatus::new(4);
 
         /// The Rollout has not started yet and is pending for execution.
-        pub const PENDING: RolloutStatus = RolloutStatus::new("PENDING");
+        pub const PENDING: RolloutStatus = RolloutStatus::new(5);
 
         /// The Rollout has failed and rolled back to the previous successful
         /// Rollout.
-        pub const FAILED_ROLLED_BACK: RolloutStatus = RolloutStatus::new("FAILED_ROLLED_BACK");
+        pub const FAILED_ROLLED_BACK: RolloutStatus = RolloutStatus::new(6);
+
+        /// Creates a new RolloutStatus instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROLLOUT_STATUS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                2 => std::borrow::Cow::Borrowed("SUCCESS"),
+                3 => std::borrow::Cow::Borrowed("CANCELLED"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                5 => std::borrow::Cow::Borrowed("PENDING"),
+                6 => std::borrow::Cow::Borrowed("FAILED_ROLLED_BACK"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROLLOUT_STATUS_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ROLLOUT_STATUS_UNSPECIFIED)
+                }
+                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                "SUCCESS" => std::option::Option::Some(Self::SUCCESS),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "FAILED_ROLLED_BACK" => std::option::Option::Some(Self::FAILED_ROLLED_BACK),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RolloutStatus {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RolloutStatus {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RolloutStatus {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -1233,38 +1338,57 @@ pub mod get_service_config_request {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConfigView(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ConfigView(i32);
 
     impl ConfigView {
-        /// Creates a new ConfigView instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ConfigView](ConfigView)
-    pub mod config_view {
-        use super::ConfigView;
-
         /// Server response includes all fields except SourceInfo.
-        pub const BASIC: ConfigView = ConfigView::new("BASIC");
+        pub const BASIC: ConfigView = ConfigView::new(0);
 
         /// Server response includes all fields including SourceInfo.
         /// SourceFiles are of type 'google.api.servicemanagement.v1.ConfigFile'
         /// and are only available for configs created using the
         /// SubmitConfigSource method.
-        pub const FULL: ConfigView = ConfigView::new("FULL");
+        pub const FULL: ConfigView = ConfigView::new(1);
+
+        /// Creates a new ConfigView instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("BASIC"),
+                1 => std::borrow::Cow::Borrowed("FULL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "BASIC" => std::option::Option::Some(Self::BASIC),
+                "FULL" => std::option::Option::Some(Self::FULL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ConfigView {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ConfigView {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ConfigView {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

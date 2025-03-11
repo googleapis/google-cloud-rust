@@ -445,6 +445,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn ingest_context_references(
+        &self,
+        req: crate::model::IngestContextReferencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::IngestContextReferencesResponse> {
+        self.inner.ingest_context_references(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_messages(
         &self,
         req: crate::model::ListMessagesRequest,
@@ -487,6 +496,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::SearchKnowledgeResponse> {
         self.inner.search_knowledge(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn generate_suggestions(
+        &self,
+        req: crate::model::GenerateSuggestionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::GenerateSuggestionsResponse> {
+        self.inner.generate_suggestions(req, options).await
     }
 
     #[tracing::instrument(ret)]

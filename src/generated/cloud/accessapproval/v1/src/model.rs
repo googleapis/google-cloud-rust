@@ -147,27 +147,12 @@ pub mod access_reason {
     use super::*;
 
     /// Type of access justification.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// Default value for proto, shouldn't be used.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
         /// Customer made a request or raised an issue that required the principal to
         /// access customer data. `detail` is of the form ("#####" is the issue ID):
@@ -178,32 +163,83 @@ pub mod access_reason {
         /// * "E-PIN Reference: #####"
         /// * "Google-#####"
         /// * "T-#####"
-        pub const CUSTOMER_INITIATED_SUPPORT: Type = Type::new("CUSTOMER_INITIATED_SUPPORT");
+        pub const CUSTOMER_INITIATED_SUPPORT: Type = Type::new(1);
 
         /// The principal accessed customer data in order to diagnose or resolve a
         /// suspected issue in services. Often this access is used to confirm that
         /// customers are not affected by a suspected service issue or to remediate a
         /// reversible system issue.
-        pub const GOOGLE_INITIATED_SERVICE: Type = Type::new("GOOGLE_INITIATED_SERVICE");
+        pub const GOOGLE_INITIATED_SERVICE: Type = Type::new(2);
 
         /// Google initiated service for security, fraud, abuse, or compliance
         /// purposes.
-        pub const GOOGLE_INITIATED_REVIEW: Type = Type::new("GOOGLE_INITIATED_REVIEW");
+        pub const GOOGLE_INITIATED_REVIEW: Type = Type::new(3);
 
         /// The principal was compelled to access customer data in order to respond
         /// to a legal third party data request or process, including legal processes
         /// from customers themselves.
-        pub const THIRD_PARTY_DATA_REQUEST: Type = Type::new("THIRD_PARTY_DATA_REQUEST");
+        pub const THIRD_PARTY_DATA_REQUEST: Type = Type::new(4);
 
         /// The principal accessed customer data in order to diagnose or resolve a
         /// suspected issue in services or a known outage.
-        pub const GOOGLE_RESPONSE_TO_PRODUCTION_ALERT: Type =
-            Type::new("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT");
+        pub const GOOGLE_RESPONSE_TO_PRODUCTION_ALERT: Type = Type::new(5);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CUSTOMER_INITIATED_SUPPORT"),
+                2 => std::borrow::Cow::Borrowed("GOOGLE_INITIATED_SERVICE"),
+                3 => std::borrow::Cow::Borrowed("GOOGLE_INITIATED_REVIEW"),
+                4 => std::borrow::Cow::Borrowed("THIRD_PARTY_DATA_REQUEST"),
+                5 => std::borrow::Cow::Borrowed("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "CUSTOMER_INITIATED_SUPPORT" => {
+                    std::option::Option::Some(Self::CUSTOMER_INITIATED_SUPPORT)
+                }
+                "GOOGLE_INITIATED_SERVICE" => {
+                    std::option::Option::Some(Self::GOOGLE_INITIATED_SERVICE)
+                }
+                "GOOGLE_INITIATED_REVIEW" => {
+                    std::option::Option::Some(Self::GOOGLE_INITIATED_REVIEW)
+                }
+                "THIRD_PARTY_DATA_REQUEST" => {
+                    std::option::Option::Some(Self::THIRD_PARTY_DATA_REQUEST)
+                }
+                "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT" => {
+                    std::option::Option::Some(Self::GOOGLE_RESPONSE_TO_PRODUCTION_ALERT)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -215,9 +251,9 @@ pub mod access_reason {
 #[non_exhaustive]
 pub struct SignatureInfo {
     /// The digital signature.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub signature: bytes::Bytes,
+    pub signature: ::bytes::Bytes,
 
     /// How this signature may be verified.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -230,7 +266,7 @@ impl SignatureInfo {
     }
 
     /// Sets the value of [signature][crate::model::SignatureInfo::signature].
-    pub fn set_signature<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }
@@ -1372,35 +1408,55 @@ impl wkt::message::Message for GetAccessApprovalServiceAccountMessage {
 }
 
 /// Represents the type of enrollment for a given service to Access Approval.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EnrollmentLevel(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct EnrollmentLevel(i32);
 
 impl EnrollmentLevel {
+    /// Default value for proto, shouldn't be used.
+    pub const ENROLLMENT_LEVEL_UNSPECIFIED: EnrollmentLevel = EnrollmentLevel::new(0);
+
+    /// Service is enrolled in Access Approval for all requests
+    pub const BLOCK_ALL: EnrollmentLevel = EnrollmentLevel::new(1);
+
     /// Creates a new EnrollmentLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("ENROLLMENT_LEVEL_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BLOCK_ALL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "ENROLLMENT_LEVEL_UNSPECIFIED" => {
+                std::option::Option::Some(Self::ENROLLMENT_LEVEL_UNSPECIFIED)
+            }
+            "BLOCK_ALL" => std::option::Option::Some(Self::BLOCK_ALL),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [EnrollmentLevel](EnrollmentLevel)
-pub mod enrollment_level {
-    use super::EnrollmentLevel;
-
-    /// Default value for proto, shouldn't be used.
-    pub const ENROLLMENT_LEVEL_UNSPECIFIED: EnrollmentLevel =
-        EnrollmentLevel::new("ENROLLMENT_LEVEL_UNSPECIFIED");
-
-    /// Service is enrolled in Access Approval for all requests
-    pub const BLOCK_ALL: EnrollmentLevel = EnrollmentLevel::new("BLOCK_ALL");
+impl std::convert::From<i32> for EnrollmentLevel {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for EnrollmentLevel {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for EnrollmentLevel {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

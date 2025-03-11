@@ -179,27 +179,12 @@ pub mod replica_info {
     /// Indicates the type of replica.  See the [replica types
     /// documentation](https://cloud.google.com/spanner/docs/replication#replica_types)
     /// for more details.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ReplicaType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ReplicaType(i32);
 
     impl ReplicaType {
-        /// Creates a new ReplicaType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ReplicaType](ReplicaType)
-    pub mod replica_type {
-        use super::ReplicaType;
-
         /// Not specified.
-        pub const TYPE_UNSPECIFIED: ReplicaType = ReplicaType::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: ReplicaType = ReplicaType::new(0);
 
         /// Read-write replicas support both reads and writes. These replicas:
         ///
@@ -208,7 +193,7 @@ pub mod replica_info {
         /// * Can vote whether to commit a write.
         /// * Participate in leadership election.
         /// * Are eligible to become a leader.
-        pub const READ_WRITE: ReplicaType = ReplicaType::new("READ_WRITE");
+        pub const READ_WRITE: ReplicaType = ReplicaType::new(1);
 
         /// Read-only replicas only support reads (not writes). Read-only replicas:
         ///
@@ -216,7 +201,7 @@ pub mod replica_info {
         /// * Serve reads.
         /// * Do not participate in voting to commit writes.
         /// * Are not eligible to become a leader.
-        pub const READ_ONLY: ReplicaType = ReplicaType::new("READ_ONLY");
+        pub const READ_ONLY: ReplicaType = ReplicaType::new(2);
 
         /// Witness replicas don't support reads but do participate in voting to
         /// commit writes. Witness replicas:
@@ -225,12 +210,50 @@ pub mod replica_info {
         /// * Do not serve reads.
         /// * Vote whether to commit writes.
         /// * Participate in leader election but are not eligible to become leader.
-        pub const WITNESS: ReplicaType = ReplicaType::new("WITNESS");
+        pub const WITNESS: ReplicaType = ReplicaType::new(3);
+
+        /// Creates a new ReplicaType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("READ_WRITE"),
+                2 => std::borrow::Cow::Borrowed("READ_ONLY"),
+                3 => std::borrow::Cow::Borrowed("WITNESS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "READ_WRITE" => std::option::Option::Some(Self::READ_WRITE),
+                "READ_ONLY" => std::option::Option::Some(Self::READ_ONLY),
+                "WITNESS" => std::option::Option::Some(Self::WITNESS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ReplicaType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ReplicaType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ReplicaType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -484,155 +507,207 @@ pub mod instance_config {
     use super::*;
 
     /// The type of this configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
+        /// Unspecified.
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+        /// Google-managed configuration.
+        pub const GOOGLE_MANAGED: Type = Type::new(1);
+
+        /// User-managed configuration.
+        pub const USER_MANAGED: Type = Type::new(2);
+
         /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED"),
+                2 => std::borrow::Cow::Borrowed("USER_MANAGED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "GOOGLE_MANAGED" => std::option::Option::Some(Self::GOOGLE_MANAGED),
+                "USER_MANAGED" => std::option::Option::Some(Self::USER_MANAGED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        /// Unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-        /// Google-managed configuration.
-        pub const GOOGLE_MANAGED: Type = Type::new("GOOGLE_MANAGED");
-
-        /// User-managed configuration.
-        pub const USER_MANAGED: Type = Type::new("USER_MANAGED");
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Indicates the current state of the instance configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The instance configuration is still being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The instance configuration is fully created and ready to be used to
         /// create instances.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Describes the availability for free instances to be created in an instance
     /// configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FreeInstanceAvailability(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct FreeInstanceAvailability(i32);
 
     impl FreeInstanceAvailability {
-        /// Creates a new FreeInstanceAvailability instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FreeInstanceAvailability](FreeInstanceAvailability)
-    pub mod free_instance_availability {
-        use super::FreeInstanceAvailability;
-
         /// Not specified.
         pub const FREE_INSTANCE_AVAILABILITY_UNSPECIFIED: FreeInstanceAvailability =
-            FreeInstanceAvailability::new("FREE_INSTANCE_AVAILABILITY_UNSPECIFIED");
+            FreeInstanceAvailability::new(0);
 
         /// Indicates that free instances are available to be created in this
         /// instance configuration.
-        pub const AVAILABLE: FreeInstanceAvailability = FreeInstanceAvailability::new("AVAILABLE");
+        pub const AVAILABLE: FreeInstanceAvailability = FreeInstanceAvailability::new(1);
 
         /// Indicates that free instances are not supported in this instance
         /// configuration.
-        pub const UNSUPPORTED: FreeInstanceAvailability =
-            FreeInstanceAvailability::new("UNSUPPORTED");
+        pub const UNSUPPORTED: FreeInstanceAvailability = FreeInstanceAvailability::new(2);
 
         /// Indicates that free instances are currently not available to be created
         /// in this instance configuration.
-        pub const DISABLED: FreeInstanceAvailability = FreeInstanceAvailability::new("DISABLED");
+        pub const DISABLED: FreeInstanceAvailability = FreeInstanceAvailability::new(3);
 
         /// Indicates that additional free instances cannot be created in this
         /// instance configuration because the project has reached its limit of free
         /// instances.
-        pub const QUOTA_EXCEEDED: FreeInstanceAvailability =
-            FreeInstanceAvailability::new("QUOTA_EXCEEDED");
+        pub const QUOTA_EXCEEDED: FreeInstanceAvailability = FreeInstanceAvailability::new(4);
+
+        /// Creates a new FreeInstanceAvailability instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FREE_INSTANCE_AVAILABILITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AVAILABLE"),
+                2 => std::borrow::Cow::Borrowed("UNSUPPORTED"),
+                3 => std::borrow::Cow::Borrowed("DISABLED"),
+                4 => std::borrow::Cow::Borrowed("QUOTA_EXCEEDED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FREE_INSTANCE_AVAILABILITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FREE_INSTANCE_AVAILABILITY_UNSPECIFIED)
+                }
+                "AVAILABLE" => std::option::Option::Some(Self::AVAILABLE),
+                "UNSUPPORTED" => std::option::Option::Some(Self::UNSUPPORTED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                "QUOTA_EXCEEDED" => std::option::Option::Some(Self::QUOTA_EXCEEDED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FreeInstanceAvailability {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FreeInstanceAvailability {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for FreeInstanceAvailability {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Indicates the quorum type of this instance configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct QuorumType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct QuorumType(i32);
 
     impl QuorumType {
-        /// Creates a new QuorumType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [QuorumType](QuorumType)
-    pub mod quorum_type {
-        use super::QuorumType;
-
         /// Quorum type not specified.
-        pub const QUORUM_TYPE_UNSPECIFIED: QuorumType = QuorumType::new("QUORUM_TYPE_UNSPECIFIED");
+        pub const QUORUM_TYPE_UNSPECIFIED: QuorumType = QuorumType::new(0);
 
         /// An instance configuration tagged with `REGION` quorum type forms a write
         /// quorum in a single region.
-        pub const REGION: QuorumType = QuorumType::new("REGION");
+        pub const REGION: QuorumType = QuorumType::new(1);
 
         /// An instance configuration tagged with the `DUAL_REGION` quorum type forms
         /// a write quorum with exactly two read-write regions in a multi-region
@@ -640,17 +715,57 @@ pub mod instance_config {
         ///
         /// This instance configuration requires failover in the event of
         /// regional failures.
-        pub const DUAL_REGION: QuorumType = QuorumType::new("DUAL_REGION");
+        pub const DUAL_REGION: QuorumType = QuorumType::new(2);
 
         /// An instance configuration tagged with the `MULTI_REGION` quorum type
         /// forms a write quorum from replicas that are spread across more than one
         /// region in a multi-region configuration.
-        pub const MULTI_REGION: QuorumType = QuorumType::new("MULTI_REGION");
+        pub const MULTI_REGION: QuorumType = QuorumType::new(3);
+
+        /// Creates a new QuorumType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("QUORUM_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("REGION"),
+                2 => std::borrow::Cow::Borrowed("DUAL_REGION"),
+                3 => std::borrow::Cow::Borrowed("MULTI_REGION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "QUORUM_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::QUORUM_TYPE_UNSPECIFIED)
+                }
+                "REGION" => std::option::Option::Some(Self::REGION),
+                "DUAL_REGION" => std::option::Option::Some(Self::DUAL_REGION),
+                "MULTI_REGION" => std::option::Option::Some(Self::MULTI_REGION),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for QuorumType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for QuorumType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for QuorumType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1530,41 +1645,62 @@ pub mod instance {
     use super::*;
 
     /// Indicates the current state of the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The instance is still being created. Resources may not be
         /// available yet, and operations such as database creation may not
         /// work.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The instance is fully created and ready to do work such as
         /// creating databases.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -1572,82 +1708,127 @@ pub mod instance {
     /// variants, that can affect aspects like: usage restrictions, quotas and
     /// billing. Currently this is used to distinguish FREE_INSTANCE vs PROVISIONED
     /// instances.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct InstanceType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct InstanceType(i32);
 
     impl InstanceType {
-        /// Creates a new InstanceType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [InstanceType](InstanceType)
-    pub mod instance_type {
-        use super::InstanceType;
-
         /// Not specified.
-        pub const INSTANCE_TYPE_UNSPECIFIED: InstanceType =
-            InstanceType::new("INSTANCE_TYPE_UNSPECIFIED");
+        pub const INSTANCE_TYPE_UNSPECIFIED: InstanceType = InstanceType::new(0);
 
         /// Provisioned instances have dedicated resources, standard usage limits and
         /// support.
-        pub const PROVISIONED: InstanceType = InstanceType::new("PROVISIONED");
+        pub const PROVISIONED: InstanceType = InstanceType::new(1);
 
         /// Free instances provide no guarantee for dedicated resources,
         /// [node_count, processing_units] should be 0. They come
         /// with stricter usage limits and limited support.
-        pub const FREE_INSTANCE: InstanceType = InstanceType::new("FREE_INSTANCE");
+        pub const FREE_INSTANCE: InstanceType = InstanceType::new(2);
+
+        /// Creates a new InstanceType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INSTANCE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PROVISIONED"),
+                2 => std::borrow::Cow::Borrowed("FREE_INSTANCE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INSTANCE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::INSTANCE_TYPE_UNSPECIFIED)
+                }
+                "PROVISIONED" => std::option::Option::Some(Self::PROVISIONED),
+                "FREE_INSTANCE" => std::option::Option::Some(Self::FREE_INSTANCE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for InstanceType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for InstanceType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for InstanceType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The edition selected for this instance. Different editions provide
     /// different capabilities at different price points.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Edition(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Edition(i32);
 
     impl Edition {
+        /// Edition not specified.
+        pub const EDITION_UNSPECIFIED: Edition = Edition::new(0);
+
+        /// Standard edition.
+        pub const STANDARD: Edition = Edition::new(1);
+
+        /// Enterprise edition.
+        pub const ENTERPRISE: Edition = Edition::new(2);
+
+        /// Enterprise Plus edition.
+        pub const ENTERPRISE_PLUS: Edition = Edition::new(3);
+
         /// Creates a new Edition instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EDITION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STANDARD"),
+                2 => std::borrow::Cow::Borrowed("ENTERPRISE"),
+                3 => std::borrow::Cow::Borrowed("ENTERPRISE_PLUS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EDITION_UNSPECIFIED" => std::option::Option::Some(Self::EDITION_UNSPECIFIED),
+                "STANDARD" => std::option::Option::Some(Self::STANDARD),
+                "ENTERPRISE" => std::option::Option::Some(Self::ENTERPRISE),
+                "ENTERPRISE_PLUS" => std::option::Option::Some(Self::ENTERPRISE_PLUS),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Edition](Edition)
-    pub mod edition {
-        use super::Edition;
-
-        /// Edition not specified.
-        pub const EDITION_UNSPECIFIED: Edition = Edition::new("EDITION_UNSPECIFIED");
-
-        /// Standard edition.
-        pub const STANDARD: Edition = Edition::new("STANDARD");
-
-        /// Enterprise edition.
-        pub const ENTERPRISE: Edition = Edition::new("ENTERPRISE");
-
-        /// Enterprise Plus edition.
-        pub const ENTERPRISE_PLUS: Edition = Edition::new("ENTERPRISE_PLUS");
+    impl std::convert::From<i32> for Edition {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Edition {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Edition {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -1655,44 +1836,66 @@ pub mod instance {
     /// [default backup
     /// schedule](https://cloud.google.com/spanner/docs/backup#default-backup-schedules)
     /// behavior for new databases within the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DefaultBackupScheduleType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DefaultBackupScheduleType(i32);
 
     impl DefaultBackupScheduleType {
-        /// Creates a new DefaultBackupScheduleType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DefaultBackupScheduleType](DefaultBackupScheduleType)
-    pub mod default_backup_schedule_type {
-        use super::DefaultBackupScheduleType;
-
         /// Not specified.
         pub const DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED: DefaultBackupScheduleType =
-            DefaultBackupScheduleType::new("DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED");
+            DefaultBackupScheduleType::new(0);
 
         /// A default backup schedule isn't created automatically when a new database
         /// is created in the instance.
-        pub const NONE: DefaultBackupScheduleType = DefaultBackupScheduleType::new("NONE");
+        pub const NONE: DefaultBackupScheduleType = DefaultBackupScheduleType::new(1);
 
         /// A default backup schedule is created automatically when a new database
         /// is created in the instance. The default backup schedule creates a full
         /// backup every 24 hours. These full backups are retained for 7 days.
         /// You can edit or delete the default backup schedule once it's created.
-        pub const AUTOMATIC: DefaultBackupScheduleType =
-            DefaultBackupScheduleType::new("AUTOMATIC");
+        pub const AUTOMATIC: DefaultBackupScheduleType = DefaultBackupScheduleType::new(2);
+
+        /// Creates a new DefaultBackupScheduleType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NONE"),
+                2 => std::borrow::Cow::Borrowed("AUTOMATIC"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED)
+                }
+                "NONE" => std::option::Option::Some(Self::NONE),
+                "AUTOMATIC" => std::option::Option::Some(Self::AUTOMATIC),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DefaultBackupScheduleType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DefaultBackupScheduleType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DefaultBackupScheduleType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2903,42 +3106,65 @@ pub mod free_instance_metadata {
     use super::*;
 
     /// Allows users to change behavior when a free instance expires.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExpireBehavior(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ExpireBehavior(i32);
 
     impl ExpireBehavior {
-        /// Creates a new ExpireBehavior instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ExpireBehavior](ExpireBehavior)
-    pub mod expire_behavior {
-        use super::ExpireBehavior;
-
         /// Not specified.
-        pub const EXPIRE_BEHAVIOR_UNSPECIFIED: ExpireBehavior =
-            ExpireBehavior::new("EXPIRE_BEHAVIOR_UNSPECIFIED");
+        pub const EXPIRE_BEHAVIOR_UNSPECIFIED: ExpireBehavior = ExpireBehavior::new(0);
 
         /// When the free instance expires, upgrade the instance to a provisioned
         /// instance.
-        pub const FREE_TO_PROVISIONED: ExpireBehavior = ExpireBehavior::new("FREE_TO_PROVISIONED");
+        pub const FREE_TO_PROVISIONED: ExpireBehavior = ExpireBehavior::new(1);
 
         /// When the free instance expires, disable the instance, and delete it
         /// after the grace period passes if it has not been upgraded.
-        pub const REMOVE_AFTER_GRACE_PERIOD: ExpireBehavior =
-            ExpireBehavior::new("REMOVE_AFTER_GRACE_PERIOD");
+        pub const REMOVE_AFTER_GRACE_PERIOD: ExpireBehavior = ExpireBehavior::new(2);
+
+        /// Creates a new ExpireBehavior instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EXPIRE_BEHAVIOR_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("FREE_TO_PROVISIONED"),
+                2 => std::borrow::Cow::Borrowed("REMOVE_AFTER_GRACE_PERIOD"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EXPIRE_BEHAVIOR_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::EXPIRE_BEHAVIOR_UNSPECIFIED)
+                }
+                "FREE_TO_PROVISIONED" => std::option::Option::Some(Self::FREE_TO_PROVISIONED),
+                "REMOVE_AFTER_GRACE_PERIOD" => {
+                    std::option::Option::Some(Self::REMOVE_AFTER_GRACE_PERIOD)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ExpireBehavior {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ExpireBehavior {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ExpireBehavior {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3314,41 +3540,62 @@ pub mod instance_partition {
     use super::*;
 
     /// Indicates the current state of the instance partition.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The instance partition is still being created. Resources may not be
         /// available yet, and operations such as creating placements using this
         /// instance partition may not work.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The instance partition is fully created and ready to do work such as
         /// creating placements and using in databases.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -4281,42 +4528,66 @@ impl wkt::message::Message for MoveInstanceMetadata {
 }
 
 /// Indicates the expected fulfillment period of an operation.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FulfillmentPeriod(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct FulfillmentPeriod(i32);
 
 impl FulfillmentPeriod {
-    /// Creates a new FulfillmentPeriod instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [FulfillmentPeriod](FulfillmentPeriod)
-pub mod fulfillment_period {
-    use super::FulfillmentPeriod;
-
     /// Not specified.
-    pub const FULFILLMENT_PERIOD_UNSPECIFIED: FulfillmentPeriod =
-        FulfillmentPeriod::new("FULFILLMENT_PERIOD_UNSPECIFIED");
+    pub const FULFILLMENT_PERIOD_UNSPECIFIED: FulfillmentPeriod = FulfillmentPeriod::new(0);
 
     /// Normal fulfillment period. The operation is expected to complete within
     /// minutes.
-    pub const FULFILLMENT_PERIOD_NORMAL: FulfillmentPeriod =
-        FulfillmentPeriod::new("FULFILLMENT_PERIOD_NORMAL");
+    pub const FULFILLMENT_PERIOD_NORMAL: FulfillmentPeriod = FulfillmentPeriod::new(1);
 
     /// Extended fulfillment period. It can take up to an hour for the operation
     /// to complete.
-    pub const FULFILLMENT_PERIOD_EXTENDED: FulfillmentPeriod =
-        FulfillmentPeriod::new("FULFILLMENT_PERIOD_EXTENDED");
+    pub const FULFILLMENT_PERIOD_EXTENDED: FulfillmentPeriod = FulfillmentPeriod::new(2);
+
+    /// Creates a new FulfillmentPeriod instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("FULFILLMENT_PERIOD_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("FULFILLMENT_PERIOD_NORMAL"),
+            2 => std::borrow::Cow::Borrowed("FULFILLMENT_PERIOD_EXTENDED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "FULFILLMENT_PERIOD_UNSPECIFIED" => {
+                std::option::Option::Some(Self::FULFILLMENT_PERIOD_UNSPECIFIED)
+            }
+            "FULFILLMENT_PERIOD_NORMAL" => {
+                std::option::Option::Some(Self::FULFILLMENT_PERIOD_NORMAL)
+            }
+            "FULFILLMENT_PERIOD_EXTENDED" => {
+                std::option::Option::Some(Self::FULFILLMENT_PERIOD_EXTENDED)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for FulfillmentPeriod {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for FulfillmentPeriod {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for FulfillmentPeriod {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod api_key_credential;
+// Export API Key factory function and options
+pub use api_key_credential::create_api_key_credential;
+pub use api_key_credential::ApiKeyOptions;
+
 pub(crate) mod mds_credential;
 mod service_account_credential;
 pub(crate) mod user_credential;
@@ -388,6 +393,32 @@ mod test {
     use super::*;
     use scoped_env::ScopedEnv;
     use std::error::Error;
+
+    // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
+    #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
+    pub struct HV {
+        pub header: String,
+        pub value: String,
+        pub is_sensitive: bool,
+    }
+
+    impl HV {
+        pub fn from(headers: Vec<(HeaderName, HeaderValue)>) -> Vec<HV> {
+            let mut hvs: Vec<HV> = headers
+                .into_iter()
+                .map(|(h, v)| HV {
+                    header: h.to_string(),
+                    value: v.to_str().unwrap().to_string(),
+                    is_sensitive: v.is_sensitive(),
+                })
+                .collect();
+
+            // We want to verify the contents of the headers. We do not care
+            // what order they are in.
+            hvs.sort();
+            hvs
+        }
+    }
 
     #[cfg(target_os = "windows")]
     #[test]

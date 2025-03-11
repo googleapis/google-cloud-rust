@@ -216,39 +216,61 @@ impl wkt::message::Message for SshPublicKey {
 }
 
 /// The operating system options for account entries.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OperatingSystemType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct OperatingSystemType(i32);
 
 impl OperatingSystemType {
+    /// The operating system type associated with the user account information is
+    /// unspecified.
+    pub const OPERATING_SYSTEM_TYPE_UNSPECIFIED: OperatingSystemType = OperatingSystemType::new(0);
+
+    /// Linux user account information.
+    pub const LINUX: OperatingSystemType = OperatingSystemType::new(1);
+
+    /// Windows user account information.
+    pub const WINDOWS: OperatingSystemType = OperatingSystemType::new(2);
+
     /// Creates a new OperatingSystemType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("OPERATING_SYSTEM_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("LINUX"),
+            2 => std::borrow::Cow::Borrowed("WINDOWS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "OPERATING_SYSTEM_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::OPERATING_SYSTEM_TYPE_UNSPECIFIED)
+            }
+            "LINUX" => std::option::Option::Some(Self::LINUX),
+            "WINDOWS" => std::option::Option::Some(Self::WINDOWS),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [OperatingSystemType](OperatingSystemType)
-pub mod operating_system_type {
-    use super::OperatingSystemType;
-
-    /// The operating system type associated with the user account information is
-    /// unspecified.
-    pub const OPERATING_SYSTEM_TYPE_UNSPECIFIED: OperatingSystemType =
-        OperatingSystemType::new("OPERATING_SYSTEM_TYPE_UNSPECIFIED");
-
-    /// Linux user account information.
-    pub const LINUX: OperatingSystemType = OperatingSystemType::new("LINUX");
-
-    /// Windows user account information.
-    pub const WINDOWS: OperatingSystemType = OperatingSystemType::new("WINDOWS");
+impl std::convert::From<i32> for OperatingSystemType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for OperatingSystemType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for OperatingSystemType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

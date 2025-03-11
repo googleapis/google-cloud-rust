@@ -241,54 +241,85 @@ pub mod data_source_parameter {
     use super::*;
 
     /// Parameter type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// Type unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
         /// String parameter.
-        pub const STRING: Type = Type::new("STRING");
+        pub const STRING: Type = Type::new(1);
 
         /// Integer parameter (64-bits).
         /// Will be serialized to json as string.
-        pub const INTEGER: Type = Type::new("INTEGER");
+        pub const INTEGER: Type = Type::new(2);
 
         /// Double precision floating point parameter.
-        pub const DOUBLE: Type = Type::new("DOUBLE");
+        pub const DOUBLE: Type = Type::new(3);
 
         /// Boolean parameter.
-        pub const BOOLEAN: Type = Type::new("BOOLEAN");
+        pub const BOOLEAN: Type = Type::new(4);
 
         /// Deprecated. This field has no effect.
-        pub const RECORD: Type = Type::new("RECORD");
+        pub const RECORD: Type = Type::new(5);
 
         /// Page ID for a Google+ Page.
-        pub const PLUS_PAGE: Type = Type::new("PLUS_PAGE");
+        pub const PLUS_PAGE: Type = Type::new(6);
 
         /// List of strings parameter.
-        pub const LIST: Type = Type::new("LIST");
+        pub const LIST: Type = Type::new(7);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STRING"),
+                2 => std::borrow::Cow::Borrowed("INTEGER"),
+                3 => std::borrow::Cow::Borrowed("DOUBLE"),
+                4 => std::borrow::Cow::Borrowed("BOOLEAN"),
+                5 => std::borrow::Cow::Borrowed("RECORD"),
+                6 => std::borrow::Cow::Borrowed("PLUS_PAGE"),
+                7 => std::borrow::Cow::Borrowed("LIST"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "STRING" => std::option::Option::Some(Self::STRING),
+                "INTEGER" => std::option::Option::Some(Self::INTEGER),
+                "DOUBLE" => std::option::Option::Some(Self::DOUBLE),
+                "BOOLEAN" => std::option::Option::Some(Self::BOOLEAN),
+                "RECORD" => std::option::Option::Some(Self::RECORD),
+                "PLUS_PAGE" => std::option::Option::Some(Self::PLUS_PAGE),
+                "LIST" => std::option::Option::Some(Self::LIST),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -538,89 +569,133 @@ pub mod data_source {
     use super::*;
 
     /// The type of authorization needed for this data source.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AuthorizationType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AuthorizationType(i32);
 
     impl AuthorizationType {
-        /// Creates a new AuthorizationType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [AuthorizationType](AuthorizationType)
-    pub mod authorization_type {
-        use super::AuthorizationType;
-
         /// Type unspecified.
-        pub const AUTHORIZATION_TYPE_UNSPECIFIED: AuthorizationType =
-            AuthorizationType::new("AUTHORIZATION_TYPE_UNSPECIFIED");
+        pub const AUTHORIZATION_TYPE_UNSPECIFIED: AuthorizationType = AuthorizationType::new(0);
 
         /// Use OAuth 2 authorization codes that can be exchanged
         /// for a refresh token on the backend.
-        pub const AUTHORIZATION_CODE: AuthorizationType =
-            AuthorizationType::new("AUTHORIZATION_CODE");
+        pub const AUTHORIZATION_CODE: AuthorizationType = AuthorizationType::new(1);
 
         /// Return an authorization code for a given Google+ page that can then be
         /// exchanged for a refresh token on the backend.
-        pub const GOOGLE_PLUS_AUTHORIZATION_CODE: AuthorizationType =
-            AuthorizationType::new("GOOGLE_PLUS_AUTHORIZATION_CODE");
+        pub const GOOGLE_PLUS_AUTHORIZATION_CODE: AuthorizationType = AuthorizationType::new(2);
 
         /// Use First Party OAuth.
-        pub const FIRST_PARTY_OAUTH: AuthorizationType =
-            AuthorizationType::new("FIRST_PARTY_OAUTH");
+        pub const FIRST_PARTY_OAUTH: AuthorizationType = AuthorizationType::new(3);
+
+        /// Creates a new AuthorizationType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("AUTHORIZATION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AUTHORIZATION_CODE"),
+                2 => std::borrow::Cow::Borrowed("GOOGLE_PLUS_AUTHORIZATION_CODE"),
+                3 => std::borrow::Cow::Borrowed("FIRST_PARTY_OAUTH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "AUTHORIZATION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::AUTHORIZATION_TYPE_UNSPECIFIED)
+                }
+                "AUTHORIZATION_CODE" => std::option::Option::Some(Self::AUTHORIZATION_CODE),
+                "GOOGLE_PLUS_AUTHORIZATION_CODE" => {
+                    std::option::Option::Some(Self::GOOGLE_PLUS_AUTHORIZATION_CODE)
+                }
+                "FIRST_PARTY_OAUTH" => std::option::Option::Some(Self::FIRST_PARTY_OAUTH),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for AuthorizationType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AuthorizationType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for AuthorizationType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Represents how the data source supports data auto refresh.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DataRefreshType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DataRefreshType(i32);
 
     impl DataRefreshType {
-        /// Creates a new DataRefreshType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DataRefreshType](DataRefreshType)
-    pub mod data_refresh_type {
-        use super::DataRefreshType;
-
         /// The data source won't support data auto refresh, which is default value.
-        pub const DATA_REFRESH_TYPE_UNSPECIFIED: DataRefreshType =
-            DataRefreshType::new("DATA_REFRESH_TYPE_UNSPECIFIED");
+        pub const DATA_REFRESH_TYPE_UNSPECIFIED: DataRefreshType = DataRefreshType::new(0);
 
         /// The data source supports data auto refresh, and runs will be scheduled
         /// for the past few days. Does not allow custom values to be set for each
         /// transfer config.
-        pub const SLIDING_WINDOW: DataRefreshType = DataRefreshType::new("SLIDING_WINDOW");
+        pub const SLIDING_WINDOW: DataRefreshType = DataRefreshType::new(1);
 
         /// The data source supports data auto refresh, and runs will be scheduled
         /// for the past few days. Allows custom values to be set for each transfer
         /// config.
-        pub const CUSTOM_SLIDING_WINDOW: DataRefreshType =
-            DataRefreshType::new("CUSTOM_SLIDING_WINDOW");
+        pub const CUSTOM_SLIDING_WINDOW: DataRefreshType = DataRefreshType::new(2);
+
+        /// Creates a new DataRefreshType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DATA_REFRESH_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SLIDING_WINDOW"),
+                2 => std::borrow::Cow::Borrowed("CUSTOM_SLIDING_WINDOW"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DATA_REFRESH_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DATA_REFRESH_TYPE_UNSPECIFIED)
+                }
+                "SLIDING_WINDOW" => std::option::Option::Some(Self::SLIDING_WINDOW),
+                "CUSTOM_SLIDING_WINDOW" => std::option::Option::Some(Self::CUSTOM_SLIDING_WINDOW),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DataRefreshType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DataRefreshType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DataRefreshType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1369,35 +1444,56 @@ pub mod list_transfer_runs_request {
     use super::*;
 
     /// Represents which runs should be pulled.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RunAttempt(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RunAttempt(i32);
 
     impl RunAttempt {
+        /// All runs should be returned.
+        pub const RUN_ATTEMPT_UNSPECIFIED: RunAttempt = RunAttempt::new(0);
+
+        /// Only latest run per day should be returned.
+        pub const LATEST: RunAttempt = RunAttempt::new(1);
+
         /// Creates a new RunAttempt instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RUN_ATTEMPT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LATEST"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RUN_ATTEMPT_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RUN_ATTEMPT_UNSPECIFIED)
+                }
+                "LATEST" => std::option::Option::Some(Self::LATEST),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RunAttempt](RunAttempt)
-    pub mod run_attempt {
-        use super::RunAttempt;
-
-        /// All runs should be returned.
-        pub const RUN_ATTEMPT_UNSPECIFIED: RunAttempt = RunAttempt::new("RUN_ATTEMPT_UNSPECIFIED");
-
-        /// Only latest run per day should be returned.
-        pub const LATEST: RunAttempt = RunAttempt::new("LATEST");
+    impl std::convert::From<i32> for RunAttempt {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for RunAttempt {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for RunAttempt {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3183,127 +3279,201 @@ pub mod transfer_message {
     use super::*;
 
     /// Represents data transfer user facing message severity.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MessageSeverity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct MessageSeverity(i32);
 
     impl MessageSeverity {
+        /// No severity specified.
+        pub const MESSAGE_SEVERITY_UNSPECIFIED: MessageSeverity = MessageSeverity::new(0);
+
+        /// Informational message.
+        pub const INFO: MessageSeverity = MessageSeverity::new(1);
+
+        /// Warning message.
+        pub const WARNING: MessageSeverity = MessageSeverity::new(2);
+
+        /// Error message.
+        pub const ERROR: MessageSeverity = MessageSeverity::new(3);
+
         /// Creates a new MessageSeverity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MESSAGE_SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INFO"),
+                2 => std::borrow::Cow::Borrowed("WARNING"),
+                3 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MESSAGE_SEVERITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::MESSAGE_SEVERITY_UNSPECIFIED)
+                }
+                "INFO" => std::option::Option::Some(Self::INFO),
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [MessageSeverity](MessageSeverity)
-    pub mod message_severity {
-        use super::MessageSeverity;
-
-        /// No severity specified.
-        pub const MESSAGE_SEVERITY_UNSPECIFIED: MessageSeverity =
-            MessageSeverity::new("MESSAGE_SEVERITY_UNSPECIFIED");
-
-        /// Informational message.
-        pub const INFO: MessageSeverity = MessageSeverity::new("INFO");
-
-        /// Warning message.
-        pub const WARNING: MessageSeverity = MessageSeverity::new("WARNING");
-
-        /// Error message.
-        pub const ERROR: MessageSeverity = MessageSeverity::new("ERROR");
+    impl std::convert::From<i32> for MessageSeverity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for MessageSeverity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for MessageSeverity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
 
 /// DEPRECATED. Represents data transfer type.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TransferType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct TransferType(i32);
 
 impl TransferType {
-    /// Creates a new TransferType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [TransferType](TransferType)
-pub mod transfer_type {
-    use super::TransferType;
-
     /// Invalid or Unknown transfer type placeholder.
-    pub const TRANSFER_TYPE_UNSPECIFIED: TransferType =
-        TransferType::new("TRANSFER_TYPE_UNSPECIFIED");
+    pub const TRANSFER_TYPE_UNSPECIFIED: TransferType = TransferType::new(0);
 
     /// Batch data transfer.
-    pub const BATCH: TransferType = TransferType::new("BATCH");
+    pub const BATCH: TransferType = TransferType::new(1);
 
     /// Streaming data transfer. Streaming data source currently doesn't
     /// support multiple transfer configs per project.
-    pub const STREAMING: TransferType = TransferType::new("STREAMING");
+    pub const STREAMING: TransferType = TransferType::new(2);
+
+    /// Creates a new TransferType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TRANSFER_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BATCH"),
+            2 => std::borrow::Cow::Borrowed("STREAMING"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TRANSFER_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::TRANSFER_TYPE_UNSPECIFIED)
+            }
+            "BATCH" => std::option::Option::Some(Self::BATCH),
+            "STREAMING" => std::option::Option::Some(Self::STREAMING),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for TransferType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for TransferType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for TransferType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Represents data transfer run state.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TransferState(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct TransferState(i32);
 
 impl TransferState {
-    /// Creates a new TransferState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [TransferState](TransferState)
-pub mod transfer_state {
-    use super::TransferState;
-
     /// State placeholder (0).
-    pub const TRANSFER_STATE_UNSPECIFIED: TransferState =
-        TransferState::new("TRANSFER_STATE_UNSPECIFIED");
+    pub const TRANSFER_STATE_UNSPECIFIED: TransferState = TransferState::new(0);
 
     /// Data transfer is scheduled and is waiting to be picked up by
     /// data transfer backend (2).
-    pub const PENDING: TransferState = TransferState::new("PENDING");
+    pub const PENDING: TransferState = TransferState::new(2);
 
     /// Data transfer is in progress (3).
-    pub const RUNNING: TransferState = TransferState::new("RUNNING");
+    pub const RUNNING: TransferState = TransferState::new(3);
 
     /// Data transfer completed successfully (4).
-    pub const SUCCEEDED: TransferState = TransferState::new("SUCCEEDED");
+    pub const SUCCEEDED: TransferState = TransferState::new(4);
 
     /// Data transfer failed (5).
-    pub const FAILED: TransferState = TransferState::new("FAILED");
+    pub const FAILED: TransferState = TransferState::new(5);
 
     /// Data transfer is cancelled (6).
-    pub const CANCELLED: TransferState = TransferState::new("CANCELLED");
+    pub const CANCELLED: TransferState = TransferState::new(6);
+
+    /// Creates a new TransferState instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TRANSFER_STATE_UNSPECIFIED"),
+            2 => std::borrow::Cow::Borrowed("PENDING"),
+            3 => std::borrow::Cow::Borrowed("RUNNING"),
+            4 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+            5 => std::borrow::Cow::Borrowed("FAILED"),
+            6 => std::borrow::Cow::Borrowed("CANCELLED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TRANSFER_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::TRANSFER_STATE_UNSPECIFIED)
+            }
+            "PENDING" => std::option::Option::Some(Self::PENDING),
+            "RUNNING" => std::option::Option::Some(Self::RUNNING),
+            "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+            "FAILED" => std::option::Option::Some(Self::FAILED),
+            "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for TransferState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for TransferState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for TransferState {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

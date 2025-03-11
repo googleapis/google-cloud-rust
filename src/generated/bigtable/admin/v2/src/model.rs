@@ -59,7 +59,6 @@ pub struct CreateInstanceRequest {
     /// cluster ID, e.g., just `mycluster` rather than
     /// `projects/myproject/instances/myinstance/clusters/mycluster`.
     /// Fields marked `OutputOnly` must be left blank.
-    /// Currently, at most four clusters can be specified.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub clusters: std::collections::HashMap<std::string::String, crate::model::Cluster>,
 }
@@ -811,45 +810,70 @@ pub mod create_cluster_metadata {
         #[allow(unused_imports)]
         use super::*;
 
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct State(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct State(i32);
 
         impl State {
-            /// Creates a new State instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [State](State)
-        pub mod state {
-            use super::State;
-
-            pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+            pub const STATE_UNSPECIFIED: State = State::new(0);
 
             /// The table has not yet begun copying to the new cluster.
-            pub const PENDING: State = State::new("PENDING");
+            pub const PENDING: State = State::new(1);
 
             /// The table is actively being copied to the new cluster.
-            pub const COPYING: State = State::new("COPYING");
+            pub const COPYING: State = State::new(2);
 
             /// The table has been fully copied to the new cluster.
-            pub const COMPLETED: State = State::new("COMPLETED");
+            pub const COMPLETED: State = State::new(3);
 
             /// The table was deleted before it finished copying to the new cluster.
             /// Note that tables deleted after completion will stay marked as
             /// COMPLETED, not CANCELLED.
-            pub const CANCELLED: State = State::new("CANCELLED");
+            pub const CANCELLED: State = State::new(4);
+
+            /// Creates a new State instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("PENDING"),
+                    2 => std::borrow::Cow::Borrowed("COPYING"),
+                    3 => std::borrow::Cow::Borrowed("COMPLETED"),
+                    4 => std::borrow::Cow::Borrowed("CANCELLED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                    "PENDING" => std::option::Option::Some(Self::PENDING),
+                    "COPYING" => std::option::Option::Some(Self::COPYING),
+                    "COMPLETED" => std::option::Option::Some(Self::COMPLETED),
+                    "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for State {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -1519,6 +1543,355 @@ impl gax::paginator::PageableResponse for ListHotTabletsResponse {
     }
 }
 
+/// Request message for BigtableInstanceAdmin.CreateLogicalView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateLogicalViewRequest {
+    /// Required. The parent instance where this logical view will be created.
+    /// Format: `projects/{project}/instances/{instance}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the logical view, which will become the final
+    /// component of the logical view's resource name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub logical_view_id: std::string::String,
+
+    /// Required. The logical view to create.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub logical_view: std::option::Option<crate::model::LogicalView>,
+}
+
+impl CreateLogicalViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [logical_view_id][crate::model::CreateLogicalViewRequest::logical_view_id].
+    pub fn set_logical_view_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.logical_view_id = v.into();
+        self
+    }
+
+    /// Sets the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
+    pub fn set_logical_view<
+        T: std::convert::Into<std::option::Option<crate::model::LogicalView>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.logical_view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateLogicalViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.CreateLogicalViewRequest"
+    }
+}
+
+/// The metadata for the Operation returned by CreateLogicalView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateLogicalViewMetadata {
+    /// The request that prompted the initiation of this CreateLogicalView
+    /// operation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub original_request: std::option::Option<crate::model::CreateLogicalViewRequest>,
+
+    /// The time at which this operation started.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// If set, the time at which this operation finished or was canceled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl CreateLogicalViewMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [original_request][crate::model::CreateLogicalViewMetadata::original_request].
+    pub fn set_original_request<
+        T: std::convert::Into<std::option::Option<crate::model::CreateLogicalViewRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.original_request = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::CreateLogicalViewMetadata::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::CreateLogicalViewMetadata::end_time].
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateLogicalViewMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.CreateLogicalViewMetadata"
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.UpdateLogicalView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateLogicalViewRequest {
+    /// Required. The logical view to update.
+    ///
+    /// The logical view's `name` field is used to identify the view to update.
+    /// Format:
+    /// `projects/{project}/instances/{instance}/logicalViews/{logical_view}`.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub logical_view: std::option::Option<crate::model::LogicalView>,
+
+    /// Optional. The list of fields to update.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+}
+
+impl UpdateLogicalViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
+    pub fn set_logical_view<
+        T: std::convert::Into<std::option::Option<crate::model::LogicalView>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.logical_view = v.into();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateLogicalViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.UpdateLogicalViewRequest"
+    }
+}
+
+/// The metadata for the Operation returned by UpdateLogicalView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateLogicalViewMetadata {
+    /// The request that prompted the initiation of this UpdateLogicalView
+    /// operation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub original_request: std::option::Option<crate::model::UpdateLogicalViewRequest>,
+
+    /// The time at which this operation was started.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// If set, the time at which this operation finished or was canceled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl UpdateLogicalViewMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [original_request][crate::model::UpdateLogicalViewMetadata::original_request].
+    pub fn set_original_request<
+        T: std::convert::Into<std::option::Option<crate::model::UpdateLogicalViewRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.original_request = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::UpdateLogicalViewMetadata::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::UpdateLogicalViewMetadata::end_time].
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateLogicalViewMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.UpdateLogicalViewMetadata"
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.CreateMaterializedView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateMaterializedViewRequest {
+    /// Required. The parent instance where this materialized view will be created.
+    /// Format: `projects/{project}/instances/{instance}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the materialized view, which will become the
+    /// final component of the materialized view's resource name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub materialized_view_id: std::string::String,
+
+    /// Required. The materialized view to create.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub materialized_view: std::option::Option<crate::model::MaterializedView>,
+}
+
+impl CreateMaterializedViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [materialized_view_id][crate::model::CreateMaterializedViewRequest::materialized_view_id].
+    pub fn set_materialized_view_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.materialized_view_id = v.into();
+        self
+    }
+
+    /// Sets the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
+    pub fn set_materialized_view<
+        T: std::convert::Into<std::option::Option<crate::model::MaterializedView>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.materialized_view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMaterializedViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.CreateMaterializedViewRequest"
+    }
+}
+
+/// The metadata for the Operation returned by CreateMaterializedView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateMaterializedViewMetadata {
+    /// The request that prompted the initiation of this CreateMaterializedView
+    /// operation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub original_request: std::option::Option<crate::model::CreateMaterializedViewRequest>,
+
+    /// The time at which this operation started.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// If set, the time at which this operation finished or was canceled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl CreateMaterializedViewMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [original_request][crate::model::CreateMaterializedViewMetadata::original_request].
+    pub fn set_original_request<
+        T: std::convert::Into<std::option::Option<crate::model::CreateMaterializedViewRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.original_request = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::CreateMaterializedViewMetadata::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::CreateMaterializedViewMetadata::end_time].
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMaterializedViewMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.CreateMaterializedViewMetadata"
+    }
+}
+
 /// The request for
 /// [RestoreTable][google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable].
 ///
@@ -1919,9 +2292,9 @@ pub mod create_table_request {
     #[non_exhaustive]
     pub struct Split {
         /// Row key to use as an initial tablet boundary.
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub key: bytes::Bytes,
+        pub key: ::bytes::Bytes,
     }
 
     impl Split {
@@ -1930,7 +2303,7 @@ pub mod create_table_request {
         }
 
         /// Sets the value of [key][crate::model::create_table_request::Split::key].
-        pub fn set_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
@@ -2050,7 +2423,7 @@ impl DropRowRangeRequest {
     /// The value of [target][crate::model::DropRowRangeRequest::target]
     /// if it holds a `RowKeyPrefix`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_row_key_prefix(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_row_key_prefix(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::drop_row_range_request::Target::RowKeyPrefix(v) => {
@@ -2078,7 +2451,7 @@ impl DropRowRangeRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    pub fn set_row_key_prefix<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_row_key_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.target = std::option::Option::Some(
             crate::model::drop_row_range_request::Target::RowKeyPrefix(v.into()),
         );
@@ -2116,7 +2489,7 @@ pub mod drop_row_range_request {
     pub enum Target {
         /// Delete all rows that start with this row key prefix. Prefix cannot be
         /// zero length.
-        RowKeyPrefix(bytes::Bytes),
+        RowKeyPrefix(::bytes::Bytes),
         /// Delete all rows in the table. Setting this to false is a no-op.
         DeleteAllDataFromTable(bool),
     }
@@ -2321,11 +2694,15 @@ pub struct UpdateTableRequest {
     /// * `change_stream_config`
     /// * `change_stream_config.retention_period`
     /// * `deletion_protection`
+    /// * `row_key_schema`
     ///
     /// If `column_families` is set in `update_mask`, it will return an
     /// UNIMPLEMENTED error.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. If true, ignore safety checks when updating the table.
+    pub ignore_warnings: bool,
 }
 
 impl UpdateTableRequest {
@@ -2348,6 +2725,12 @@ impl UpdateTableRequest {
         v: T,
     ) -> Self {
         self.update_mask = v.into();
+        self
+    }
+
+    /// Sets the value of [ignore_warnings][crate::model::UpdateTableRequest::ignore_warnings].
+    pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.ignore_warnings = v.into();
         self
     }
 }
@@ -4670,8 +5053,7 @@ pub struct Instance {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
 
-    /// (`OutputOnly`)
-    /// The current state of the instance.
+    /// Output only. The current state of the instance.
     pub state: crate::model::instance::State,
 
     /// The type of the instance. Defaults to `PRODUCTION`.
@@ -4692,15 +5074,19 @@ pub struct Instance {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Output only. A server-assigned timestamp representing when this Instance
-    /// was created. For instances created before this field was added (August
-    /// 2021), this value is `seconds: 0, nanos: 1`.
+    /// Output only. A commit timestamp representing when this Instance was
+    /// created. For instances created before this field was added (August 2021),
+    /// this value is `seconds: 0, nanos: 1`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Reserved for future use.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub satisfies_pzi: std::option::Option<bool>,
 }
 
 impl Instance {
@@ -4750,6 +5136,15 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+    pub fn set_satisfies_pzi<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.satisfies_pzi = v.into();
+        self
+    }
+
     /// Sets the value of [labels][crate::model::Instance::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -4775,80 +5170,122 @@ pub mod instance {
     use super::*;
 
     /// Possible states of an instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The state of the instance could not be determined.
-        pub const STATE_NOT_KNOWN: State = State::new("STATE_NOT_KNOWN");
+        pub const STATE_NOT_KNOWN: State = State::new(0);
 
         /// The instance has been successfully created and can serve requests
         /// to its tables.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(1);
 
         /// The instance is currently being created, and may be destroyed
         /// if the creation process encounters an error.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_NOT_KNOWN"),
+                1 => std::borrow::Cow::Borrowed("READY"),
+                2 => std::borrow::Cow::Borrowed("CREATING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_NOT_KNOWN" => std::option::Option::Some(Self::STATE_NOT_KNOWN),
+                "READY" => std::option::Option::Some(Self::READY),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The type of the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// The type of the instance is unspecified. If set when creating an
         /// instance, a `PRODUCTION` instance will be created. If set when updating
         /// an instance, the type will be left unchanged.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
         /// An instance meant for production use. `serve_nodes` must be set
         /// on the cluster.
-        pub const PRODUCTION: Type = Type::new("PRODUCTION");
+        pub const PRODUCTION: Type = Type::new(1);
 
         /// DEPRECATED: Prefer PRODUCTION for all use cases, as it no longer enforces
         /// a higher minimum node count than DEVELOPMENT.
-        pub const DEVELOPMENT: Type = Type::new("DEVELOPMENT");
+        pub const DEVELOPMENT: Type = Type::new(2);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PRODUCTION"),
+                2 => std::borrow::Cow::Borrowed("DEVELOPMENT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "PRODUCTION" => std::option::Option::Some(Self::PRODUCTION),
+                "DEVELOPMENT" => std::option::Option::Some(Self::DEVELOPMENT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4964,8 +5401,9 @@ pub struct Cluster {
     /// Output only. The current state of the cluster.
     pub state: crate::model::cluster::State,
 
-    /// The number of nodes allocated to this cluster. More nodes enable higher
-    /// throughput and more consistent performance.
+    /// The number of nodes in the cluster. If no value is set,
+    /// Cloud Bigtable automatically allocates nodes based on your data footprint
+    /// and optimized for 50% storage utilization.
     pub serve_nodes: i32,
 
     /// Immutable. The node scaling factor of this cluster.
@@ -5194,7 +5632,6 @@ pub mod cluster {
         ///   `cloudkms.cryptoKeyEncrypterDecrypter` role on the CMEK key.
         /// ) Only regional keys can be used and the region of the CMEK key must
         ///   match the region of the cluster.
-        /// ) All clusters within an instance must use the same CMEK key.
         ///   Values are of the form
         ///   `projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -5223,93 +5660,138 @@ pub mod cluster {
     }
 
     /// Possible states of a cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The state of the cluster could not be determined.
-        pub const STATE_NOT_KNOWN: State = State::new("STATE_NOT_KNOWN");
+        pub const STATE_NOT_KNOWN: State = State::new(0);
 
         /// The cluster has been successfully created and is ready to serve requests.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(1);
 
         /// The cluster is currently being created, and may be destroyed
         /// if the creation process encounters an error.
         /// A cluster may not be able to serve requests while being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(2);
 
         /// The cluster is currently being resized, and may revert to its previous
         /// node count if the process encounters an error.
         /// A cluster is still capable of serving requests while being resized,
         /// but may exhibit performance as if its number of allocated nodes is
         /// between the starting and requested states.
-        pub const RESIZING: State = State::new("RESIZING");
+        pub const RESIZING: State = State::new(3);
 
         /// The cluster has no backing nodes. The data (tables) still
         /// exist, but no operations can be performed on the cluster.
-        pub const DISABLED: State = State::new("DISABLED");
+        pub const DISABLED: State = State::new(4);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_NOT_KNOWN"),
+                1 => std::borrow::Cow::Borrowed("READY"),
+                2 => std::borrow::Cow::Borrowed("CREATING"),
+                3 => std::borrow::Cow::Borrowed("RESIZING"),
+                4 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_NOT_KNOWN" => std::option::Option::Some(Self::STATE_NOT_KNOWN),
+                "READY" => std::option::Option::Some(Self::READY),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "RESIZING" => std::option::Option::Some(Self::RESIZING),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Possible node scaling factors of the clusters. Node scaling delivers better
     /// latency and more throughput by removing node boundaries.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NodeScalingFactor(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct NodeScalingFactor(i32);
 
     impl NodeScalingFactor {
-        /// Creates a new NodeScalingFactor instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [NodeScalingFactor](NodeScalingFactor)
-    pub mod node_scaling_factor {
-        use super::NodeScalingFactor;
-
         /// No node scaling specified. Defaults to NODE_SCALING_FACTOR_1X.
-        pub const NODE_SCALING_FACTOR_UNSPECIFIED: NodeScalingFactor =
-            NodeScalingFactor::new("NODE_SCALING_FACTOR_UNSPECIFIED");
+        pub const NODE_SCALING_FACTOR_UNSPECIFIED: NodeScalingFactor = NodeScalingFactor::new(0);
 
         /// The cluster is running with a scaling factor of 1.
-        pub const NODE_SCALING_FACTOR_1X: NodeScalingFactor =
-            NodeScalingFactor::new("NODE_SCALING_FACTOR_1X");
+        pub const NODE_SCALING_FACTOR_1X: NodeScalingFactor = NodeScalingFactor::new(1);
 
         /// The cluster is running with a scaling factor of 2.
         /// All node count values must be in increments of 2 with this scaling factor
         /// enabled, otherwise an INVALID_ARGUMENT error will be returned.
-        pub const NODE_SCALING_FACTOR_2X: NodeScalingFactor =
-            NodeScalingFactor::new("NODE_SCALING_FACTOR_2X");
+        pub const NODE_SCALING_FACTOR_2X: NodeScalingFactor = NodeScalingFactor::new(2);
+
+        /// Creates a new NodeScalingFactor instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("NODE_SCALING_FACTOR_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NODE_SCALING_FACTOR_1X"),
+                2 => std::borrow::Cow::Borrowed("NODE_SCALING_FACTOR_2X"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "NODE_SCALING_FACTOR_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::NODE_SCALING_FACTOR_UNSPECIFIED)
+                }
+                "NODE_SCALING_FACTOR_1X" => std::option::Option::Some(Self::NODE_SCALING_FACTOR_1X),
+                "NODE_SCALING_FACTOR_2X" => std::option::Option::Some(Self::NODE_SCALING_FACTOR_2X),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for NodeScalingFactor {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for NodeScalingFactor {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for NodeScalingFactor {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -5807,17 +6289,10 @@ pub mod app_profile {
     }
 
     /// Data Boost is a serverless compute capability that lets you run
-    /// high-throughput read jobs on your Bigtable data, without impacting the
-    /// performance of the clusters that handle your application traffic.
-    /// Currently, Data Boost exclusively supports read-only use-cases with
-    /// single-cluster routing.
-    ///
-    /// Data Boost reads are only guaranteed to see the results of writes that
-    /// were written at least 30 minutes ago. This means newly written values may
-    /// not become visible for up to 30m, and also means that old values may
-    /// remain visible for up to 30m after being deleted or overwritten. To
-    /// mitigate the staleness of the data, users may either wait 30m, or use
-    /// CheckConsistency.
+    /// high-throughput read jobs and queries on your Bigtable data, without
+    /// impacting the performance of the clusters that handle your application
+    /// traffic. Data Boost supports read-only use cases with single-cluster
+    /// routing.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -5865,37 +6340,58 @@ pub mod app_profile {
         /// Compute Billing Owner specifies how usage should be accounted when using
         /// Data Boost. Compute Billing Owner also configures which Cloud Project is
         /// charged for relevant quota.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ComputeBillingOwner(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct ComputeBillingOwner(i32);
 
         impl ComputeBillingOwner {
-            /// Creates a new ComputeBillingOwner instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [ComputeBillingOwner](ComputeBillingOwner)
-        pub mod compute_billing_owner {
-            use super::ComputeBillingOwner;
-
             /// Unspecified value.
             pub const COMPUTE_BILLING_OWNER_UNSPECIFIED: ComputeBillingOwner =
-                ComputeBillingOwner::new("COMPUTE_BILLING_OWNER_UNSPECIFIED");
+                ComputeBillingOwner::new(0);
 
             /// The host Cloud Project containing the targeted Bigtable Instance /
             /// Table pays for compute.
-            pub const HOST_PAYS: ComputeBillingOwner = ComputeBillingOwner::new("HOST_PAYS");
+            pub const HOST_PAYS: ComputeBillingOwner = ComputeBillingOwner::new(1);
+
+            /// Creates a new ComputeBillingOwner instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("COMPUTE_BILLING_OWNER_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("HOST_PAYS"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "COMPUTE_BILLING_OWNER_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::COMPUTE_BILLING_OWNER_UNSPECIFIED)
+                    }
+                    "HOST_PAYS" => std::option::Option::Some(Self::HOST_PAYS),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for ComputeBillingOwner {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for ComputeBillingOwner {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for ComputeBillingOwner {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -5903,38 +6399,61 @@ pub mod app_profile {
     /// Possible priorities for an app profile. Note that higher priority writes
     /// can sometimes queue behind lower priority writes to the same tablet, as
     /// writes must be strictly sequenced in the durability log.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Priority(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Priority(i32);
 
     impl Priority {
+        /// Default value. Mapped to PRIORITY_HIGH (the legacy behavior) on creation.
+        pub const PRIORITY_UNSPECIFIED: Priority = Priority::new(0);
+
+        pub const PRIORITY_LOW: Priority = Priority::new(1);
+
+        pub const PRIORITY_MEDIUM: Priority = Priority::new(2);
+
+        pub const PRIORITY_HIGH: Priority = Priority::new(3);
+
         /// Creates a new Priority instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PRIORITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PRIORITY_LOW"),
+                2 => std::borrow::Cow::Borrowed("PRIORITY_MEDIUM"),
+                3 => std::borrow::Cow::Borrowed("PRIORITY_HIGH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PRIORITY_UNSPECIFIED" => std::option::Option::Some(Self::PRIORITY_UNSPECIFIED),
+                "PRIORITY_LOW" => std::option::Option::Some(Self::PRIORITY_LOW),
+                "PRIORITY_MEDIUM" => std::option::Option::Some(Self::PRIORITY_MEDIUM),
+                "PRIORITY_HIGH" => std::option::Option::Some(Self::PRIORITY_HIGH),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Priority](Priority)
-    pub mod priority {
-        use super::Priority;
-
-        /// Default value. Mapped to PRIORITY_HIGH (the legacy behavior) on creation.
-        pub const PRIORITY_UNSPECIFIED: Priority = Priority::new("PRIORITY_UNSPECIFIED");
-
-        pub const PRIORITY_LOW: Priority = Priority::new("PRIORITY_LOW");
-
-        pub const PRIORITY_MEDIUM: Priority = Priority::new("PRIORITY_MEDIUM");
-
-        pub const PRIORITY_HIGH: Priority = Priority::new("PRIORITY_HIGH");
+    impl std::convert::From<i32> for Priority {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Priority {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Priority {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -6073,6 +6592,123 @@ impl HotTablet {
 impl wkt::message::Message for HotTablet {
     fn typename() -> &'static str {
         "type.googleapis.com/google.bigtable.admin.v2.HotTablet"
+    }
+}
+
+/// A SQL logical view object that can be referenced in SQL queries.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct LogicalView {
+    /// Identifier. The unique name of the logical view.
+    /// Format:
+    /// `projects/{project}/instances/{instance}/logicalViews/{logical_view}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. The logical view's select query.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub query: std::string::String,
+
+    /// Optional. The etag for this logical view.
+    /// This may be sent on update requests to ensure that the client has an
+    /// up-to-date value before proceeding. The server returns an ABORTED error on
+    /// a mismatched etag.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+}
+
+impl LogicalView {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::LogicalView::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::LogicalView::query].
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::LogicalView::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for LogicalView {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.LogicalView"
+    }
+}
+
+/// A materialized view object that can be referenced in SQL queries.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MaterializedView {
+    /// Identifier. The unique name of the materialized view.
+    /// Format:
+    /// `projects/{project}/instances/{instance}/materializedViews/{materialized_view}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. Immutable. The materialized view's select query.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub query: std::string::String,
+
+    /// Optional. The etag for this materialized view.
+    /// This may be sent on update requests to ensure that the client has an
+    /// up-to-date value before proceeding. The server returns an ABORTED error on
+    /// a mismatched etag.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    /// Set to true to make the MaterializedView protected against deletion.
+    pub deletion_protection: bool,
+}
+
+impl MaterializedView {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MaterializedView::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::MaterializedView::query].
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::MaterializedView::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [deletion_protection][crate::model::MaterializedView::deletion_protection].
+    pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deletion_protection = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MaterializedView {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.MaterializedView"
     }
 }
 
@@ -6255,6 +6891,66 @@ pub struct Table {
     /// Note one can still delete the data stored in the table through Data APIs.
     pub deletion_protection: bool,
 
+    /// The row key schema for this table. The schema is used to decode the raw row
+    /// key bytes into a structured format. The order of field declarations in this
+    /// schema is important, as it reflects how the raw row key bytes are
+    /// structured. Currently, this only affects how the key is read via a
+    /// GoogleSQL query from the ExecuteQuery API.
+    ///
+    /// For a SQL query, the _key column is still read as raw bytes. But queries
+    /// can reference the key fields by name, which will be decoded from _key using
+    /// provided type and encoding. Queries that reference key fields will fail if
+    /// they encounter an invalid row key.
+    ///
+    /// For example, if _key = "some_id#2024-04-30#\x00\x13\x00\xf3" with the
+    /// following schema:
+    /// {
+    /// fields {
+    /// field_name: "id"
+    /// type { string { encoding: utf8_bytes {} } }
+    /// }
+    /// fields {
+    /// field_name: "date"
+    /// type { string { encoding: utf8_bytes {} } }
+    /// }
+    /// fields {
+    /// field_name: "product_code"
+    /// type { int64 { encoding: big_endian_bytes {} } }
+    /// }
+    /// encoding { delimited_bytes { delimiter: "#" } }
+    /// }
+    ///
+    /// The decoded key parts would be:
+    /// id = "some_id", date = "2024-04-30", product_code = 1245427
+    /// The query "SELECT _key, product_code FROM table" will return two columns:
+    /// /------------------------------------------------------\
+    /// |              _key                     | product_code |
+    /// | --------------------------------------|--------------|
+    /// | "some_id#2024-04-30#\x00\x13\x00\xf3" |   1245427    |
+    /// \------------------------------------------------------/
+    ///
+    /// The schema has the following invariants:
+    /// (1) The decoded field values are order-preserved. For read, the field
+    /// values will be decoded in sorted mode from the raw bytes.
+    /// (2) Every field in the schema must specify a non-empty name.
+    /// (3) Every field must specify a type with an associated encoding. The type
+    /// is limited to scalar types only: Array, Map, Aggregate, and Struct are not
+    /// allowed.
+    /// (4) The field names must not collide with existing column family
+    /// names and reserved keywords "_key" and "_timestamp".
+    ///
+    /// The following update operations are allowed for row_key_schema:
+    ///
+    /// - Update from an empty schema to a new schema.
+    /// - Remove the existing schema. This operation requires setting the
+    ///   `ignore_warnings` flag to `true`, since it might be a backward
+    ///   incompatible change. Without the flag, the update request will fail with
+    ///   an INVALID_ARGUMENT error.
+    ///   Any other row key schema update operation (e.g. update existing schema
+    ///   columns names or types) is currently unsupported.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub row_key_schema: std::option::Option<crate::model::r#type::Struct>,
+
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub automated_backup_config: std::option::Option<crate::model::table::AutomatedBackupConfig>,
 }
@@ -6304,6 +7000,17 @@ impl Table {
     /// Sets the value of [deletion_protection][crate::model::Table::deletion_protection].
     pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection = v.into();
+        self
+    }
+
+    /// Sets the value of [row_key_schema][crate::model::Table::row_key_schema].
+    pub fn set_row_key_schema<
+        T: std::convert::Into<std::option::Option<crate::model::r#type::Struct>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.row_key_schema = v.into();
         self
     }
 
@@ -6444,58 +7151,84 @@ pub mod table {
         use super::*;
 
         /// Table replication states.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ReplicationState(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct ReplicationState(i32);
 
         impl ReplicationState {
-            /// Creates a new ReplicationState instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [ReplicationState](ReplicationState)
-        pub mod replication_state {
-            use super::ReplicationState;
-
             /// The replication state of the table is unknown in this cluster.
-            pub const STATE_NOT_KNOWN: ReplicationState = ReplicationState::new("STATE_NOT_KNOWN");
+            pub const STATE_NOT_KNOWN: ReplicationState = ReplicationState::new(0);
 
             /// The cluster was recently created, and the table must finish copying
             /// over pre-existing data from other clusters before it can begin
             /// receiving live replication updates and serving Data API requests.
-            pub const INITIALIZING: ReplicationState = ReplicationState::new("INITIALIZING");
+            pub const INITIALIZING: ReplicationState = ReplicationState::new(1);
 
             /// The table is temporarily unable to serve Data API requests from this
             /// cluster due to planned internal maintenance.
-            pub const PLANNED_MAINTENANCE: ReplicationState =
-                ReplicationState::new("PLANNED_MAINTENANCE");
+            pub const PLANNED_MAINTENANCE: ReplicationState = ReplicationState::new(2);
 
             /// The table is temporarily unable to serve Data API requests from this
             /// cluster due to unplanned or emergency maintenance.
-            pub const UNPLANNED_MAINTENANCE: ReplicationState =
-                ReplicationState::new("UNPLANNED_MAINTENANCE");
+            pub const UNPLANNED_MAINTENANCE: ReplicationState = ReplicationState::new(3);
 
             /// The table can serve Data API requests from this cluster. Depending on
             /// replication delay, reads may not immediately reflect the state of the
             /// table in other clusters.
-            pub const READY: ReplicationState = ReplicationState::new("READY");
+            pub const READY: ReplicationState = ReplicationState::new(4);
 
             /// The table is fully created and ready for use after a restore, and is
             /// being optimized for performance. When optimizations are complete, the
             /// table will transition to `READY` state.
-            pub const READY_OPTIMIZING: ReplicationState =
-                ReplicationState::new("READY_OPTIMIZING");
+            pub const READY_OPTIMIZING: ReplicationState = ReplicationState::new(5);
+
+            /// Creates a new ReplicationState instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("STATE_NOT_KNOWN"),
+                    1 => std::borrow::Cow::Borrowed("INITIALIZING"),
+                    2 => std::borrow::Cow::Borrowed("PLANNED_MAINTENANCE"),
+                    3 => std::borrow::Cow::Borrowed("UNPLANNED_MAINTENANCE"),
+                    4 => std::borrow::Cow::Borrowed("READY"),
+                    5 => std::borrow::Cow::Borrowed("READY_OPTIMIZING"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "STATE_NOT_KNOWN" => std::option::Option::Some(Self::STATE_NOT_KNOWN),
+                    "INITIALIZING" => std::option::Option::Some(Self::INITIALIZING),
+                    "PLANNED_MAINTENANCE" => std::option::Option::Some(Self::PLANNED_MAINTENANCE),
+                    "UNPLANNED_MAINTENANCE" => {
+                        std::option::Option::Some(Self::UNPLANNED_MAINTENANCE)
+                    }
+                    "READY" => std::option::Option::Some(Self::READY),
+                    "READY_OPTIMIZING" => std::option::Option::Some(Self::READY_OPTIMIZING),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for ReplicationState {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for ReplicationState {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for ReplicationState {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -6549,83 +7282,131 @@ pub mod table {
 
     /// Possible timestamp granularities to use when keeping multiple versions
     /// of data in a table.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TimestampGranularity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TimestampGranularity(i32);
 
     impl TimestampGranularity {
-        /// Creates a new TimestampGranularity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [TimestampGranularity](TimestampGranularity)
-    pub mod timestamp_granularity {
-        use super::TimestampGranularity;
-
         /// The user did not specify a granularity. Should not be returned.
         /// When specified during table creation, MILLIS will be used.
         pub const TIMESTAMP_GRANULARITY_UNSPECIFIED: TimestampGranularity =
-            TimestampGranularity::new("TIMESTAMP_GRANULARITY_UNSPECIFIED");
+            TimestampGranularity::new(0);
 
         /// The table keeps data versioned at a granularity of 1ms.
-        pub const MILLIS: TimestampGranularity = TimestampGranularity::new("MILLIS");
+        pub const MILLIS: TimestampGranularity = TimestampGranularity::new(1);
+
+        /// Creates a new TimestampGranularity instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TIMESTAMP_GRANULARITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MILLIS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TIMESTAMP_GRANULARITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TIMESTAMP_GRANULARITY_UNSPECIFIED)
+                }
+                "MILLIS" => std::option::Option::Some(Self::MILLIS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for TimestampGranularity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for TimestampGranularity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for TimestampGranularity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Defines a view over a table's fields.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct View(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct View(i32);
 
     impl View {
-        /// Creates a new View instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [View](View)
-    pub mod view {
-        use super::View;
-
         /// Uses the default view for each method as documented in its request.
-        pub const VIEW_UNSPECIFIED: View = View::new("VIEW_UNSPECIFIED");
+        pub const VIEW_UNSPECIFIED: View = View::new(0);
 
         /// Only populates `name`.
-        pub const NAME_ONLY: View = View::new("NAME_ONLY");
+        pub const NAME_ONLY: View = View::new(1);
 
         /// Only populates `name` and fields related to the table's schema.
-        pub const SCHEMA_VIEW: View = View::new("SCHEMA_VIEW");
+        pub const SCHEMA_VIEW: View = View::new(2);
 
         /// Only populates `name` and fields related to the table's replication
         /// state.
-        pub const REPLICATION_VIEW: View = View::new("REPLICATION_VIEW");
+        pub const REPLICATION_VIEW: View = View::new(3);
 
         /// Only populates `name` and fields related to the table's encryption state.
-        pub const ENCRYPTION_VIEW: View = View::new("ENCRYPTION_VIEW");
+        pub const ENCRYPTION_VIEW: View = View::new(5);
 
         /// Populates all fields.
-        pub const FULL: View = View::new("FULL");
+        pub const FULL: View = View::new(4);
+
+        /// Creates a new View instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("VIEW_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NAME_ONLY"),
+                2 => std::borrow::Cow::Borrowed("SCHEMA_VIEW"),
+                3 => std::borrow::Cow::Borrowed("REPLICATION_VIEW"),
+                4 => std::borrow::Cow::Borrowed("FULL"),
+                5 => std::borrow::Cow::Borrowed("ENCRYPTION_VIEW"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "VIEW_UNSPECIFIED" => std::option::Option::Some(Self::VIEW_UNSPECIFIED),
+                "NAME_ONLY" => std::option::Option::Some(Self::NAME_ONLY),
+                "SCHEMA_VIEW" => std::option::Option::Some(Self::SCHEMA_VIEW),
+                "REPLICATION_VIEW" => std::option::Option::Some(Self::REPLICATION_VIEW),
+                "ENCRYPTION_VIEW" => std::option::Option::Some(Self::ENCRYPTION_VIEW),
+                "FULL" => std::option::Option::Some(Self::FULL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for View {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for View {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for View {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -6756,7 +7537,7 @@ pub mod authorized_view {
         /// Individual exact column qualifiers to be included in the AuthorizedView.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-        pub qualifiers: std::vec::Vec<bytes::Bytes>,
+        pub qualifiers: std::vec::Vec<::bytes::Bytes>,
 
         /// Prefixes for qualifiers to be included in the AuthorizedView. Every
         /// qualifier starting with one of these prefixes is included in the
@@ -6765,7 +7546,7 @@ pub mod authorized_view {
         /// ("").
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-        pub qualifier_prefixes: std::vec::Vec<bytes::Bytes>,
+        pub qualifier_prefixes: std::vec::Vec<::bytes::Bytes>,
     }
 
     impl FamilySubsets {
@@ -6777,7 +7558,7 @@ pub mod authorized_view {
         pub fn set_qualifiers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<bytes::Bytes>,
+            V: std::convert::Into<::bytes::Bytes>,
         {
             use std::iter::Iterator;
             self.qualifiers = v.into_iter().map(|i| i.into()).collect();
@@ -6788,7 +7569,7 @@ pub mod authorized_view {
         pub fn set_qualifier_prefixes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<bytes::Bytes>,
+            V: std::convert::Into<::bytes::Bytes>,
         {
             use std::iter::Iterator;
             self.qualifier_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -6812,7 +7593,7 @@ pub mod authorized_view {
         /// To provide access to all rows, include the empty string as a prefix ("").
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-        pub row_prefixes: std::vec::Vec<bytes::Bytes>,
+        pub row_prefixes: std::vec::Vec<::bytes::Bytes>,
 
         /// Map from column family name to the columns in this family to be included
         /// in the AuthorizedView.
@@ -6832,7 +7613,7 @@ pub mod authorized_view {
         pub fn set_row_prefixes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<bytes::Bytes>,
+            V: std::convert::Into<::bytes::Bytes>,
         {
             use std::iter::Iterator;
             self.row_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -6859,43 +7640,67 @@ pub mod authorized_view {
     }
 
     /// Defines a subset of an AuthorizedView's fields.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResponseView(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ResponseView(i32);
 
     impl ResponseView {
-        /// Creates a new ResponseView instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ResponseView](ResponseView)
-    pub mod response_view {
-        use super::ResponseView;
-
         /// Uses the default view for each method as documented in the request.
-        pub const RESPONSE_VIEW_UNSPECIFIED: ResponseView =
-            ResponseView::new("RESPONSE_VIEW_UNSPECIFIED");
+        pub const RESPONSE_VIEW_UNSPECIFIED: ResponseView = ResponseView::new(0);
 
         /// Only populates `name`.
-        pub const NAME_ONLY: ResponseView = ResponseView::new("NAME_ONLY");
+        pub const NAME_ONLY: ResponseView = ResponseView::new(1);
 
         /// Only populates the AuthorizedView's basic metadata. This includes:
         /// name, deletion_protection, etag.
-        pub const BASIC: ResponseView = ResponseView::new("BASIC");
+        pub const BASIC: ResponseView = ResponseView::new(2);
 
         /// Populates every fields.
-        pub const FULL: ResponseView = ResponseView::new("FULL");
+        pub const FULL: ResponseView = ResponseView::new(3);
+
+        /// Creates a new ResponseView instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESPONSE_VIEW_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NAME_ONLY"),
+                2 => std::borrow::Cow::Borrowed("BASIC"),
+                3 => std::borrow::Cow::Borrowed("FULL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESPONSE_VIEW_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RESPONSE_VIEW_UNSPECIFIED)
+                }
+                "NAME_ONLY" => std::option::Option::Some(Self::NAME_ONLY),
+                "BASIC" => std::option::Option::Some(Self::BASIC),
+                "FULL" => std::option::Option::Some(Self::FULL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ResponseView {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ResponseView {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ResponseView {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -7257,34 +8062,17 @@ pub mod encryption_info {
     use super::*;
 
     /// Possible encryption types for a resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct EncryptionType(i32);
 
     impl EncryptionType {
-        /// Creates a new EncryptionType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [EncryptionType](EncryptionType)
-    pub mod encryption_type {
-        use super::EncryptionType;
-
         /// Encryption type was not specified, though data at rest remains encrypted.
-        pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
-            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
+        pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType = EncryptionType::new(0);
 
         /// The data backing this resource is encrypted at rest with a key that is
         /// fully managed by Google. No key version or status will be populated.
         /// This is the default state.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
-            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
+        pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType = EncryptionType::new(1);
 
         /// The data backing this resource is encrypted at rest with a key that is
         /// managed by the customer.
@@ -7293,13 +8081,54 @@ pub mod encryption_info {
         /// CMEK-protected backups are pinned to the key version that was in use at
         /// the time the backup was taken. This key version is populated but its
         /// status is not tracked and is reported as `UNKNOWN`.
-        pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
-            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+        pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType = EncryptionType::new(2);
+
+        /// Creates a new EncryptionType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ENCRYPTION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GOOGLE_DEFAULT_ENCRYPTION"),
+                2 => std::borrow::Cow::Borrowed("CUSTOMER_MANAGED_ENCRYPTION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ENCRYPTION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ENCRYPTION_TYPE_UNSPECIFIED)
+                }
+                "GOOGLE_DEFAULT_ENCRYPTION" => {
+                    std::option::Option::Some(Self::GOOGLE_DEFAULT_ENCRYPTION)
+                }
+                "CUSTOMER_MANAGED_ENCRYPTION" => {
+                    std::option::Option::Some(Self::CUSTOMER_MANAGED_ENCRYPTION)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for EncryptionType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for EncryptionType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for EncryptionType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7420,40 +8249,61 @@ pub mod snapshot {
     use super::*;
 
     /// Possible states of a snapshot.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The state of the snapshot could not be determined.
-        pub const STATE_NOT_KNOWN: State = State::new("STATE_NOT_KNOWN");
+        pub const STATE_NOT_KNOWN: State = State::new(0);
 
         /// The snapshot has been successfully created and can serve all requests.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(1);
 
         /// The snapshot is currently being created, and may be destroyed if the
         /// creation process encounters an error. A snapshot may not be restored to a
         /// table while it is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_NOT_KNOWN"),
+                1 => std::borrow::Cow::Borrowed("READY"),
+                2 => std::borrow::Cow::Borrowed("CREATING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_NOT_KNOWN" => std::option::Option::Some(Self::STATE_NOT_KNOWN),
+                "READY" => std::option::Option::Some(Self::READY),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7647,80 +8497,124 @@ pub mod backup {
     use super::*;
 
     /// Indicates the current state of the backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The pending backup is still being created. Operations on the
         /// backup may fail with `FAILED_PRECONDITION` in this state.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The backup is complete and ready for use.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The type of the backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BackupType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct BackupType(i32);
 
     impl BackupType {
-        /// Creates a new BackupType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [BackupType](BackupType)
-    pub mod backup_type {
-        use super::BackupType;
-
         /// Not specified.
-        pub const BACKUP_TYPE_UNSPECIFIED: BackupType = BackupType::new("BACKUP_TYPE_UNSPECIFIED");
+        pub const BACKUP_TYPE_UNSPECIFIED: BackupType = BackupType::new(0);
 
         /// The default type for Cloud Bigtable managed backups. Supported for
         /// backups created in both HDD and SSD instances. Requires optimization when
         /// restored to a table in an SSD instance.
-        pub const STANDARD: BackupType = BackupType::new("STANDARD");
+        pub const STANDARD: BackupType = BackupType::new(1);
 
         /// A backup type with faster restore to SSD performance. Only supported for
         /// backups created in SSD instances. A new SSD table restored from a hot
         /// backup reaches production performance more quickly than a standard
         /// backup.
-        pub const HOT: BackupType = BackupType::new("HOT");
+        pub const HOT: BackupType = BackupType::new(2);
+
+        /// Creates a new BackupType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("BACKUP_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STANDARD"),
+                2 => std::borrow::Cow::Borrowed("HOT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "BACKUP_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::BACKUP_TYPE_UNSPECIFIED)
+                }
+                "STANDARD" => std::option::Option::Some(Self::STANDARD),
+                "HOT" => std::option::Option::Some(Self::HOT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for BackupType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for BackupType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for BackupType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7810,25 +8704,23 @@ impl wkt::message::Message for BackupInfo {
 /// familiarity and consistency across products and features.
 ///
 /// For compatibility with Bigtable's existing untyped APIs, each `Type` includes
-/// an `Encoding` which describes how to convert to/from the underlying data.
+/// an `Encoding` which describes how to convert to or from the underlying data.
 ///
-/// Each encoding also defines the following properties:
+/// Each encoding can operate in one of two modes:
 ///
-/// * Order-preserving: Does the encoded value sort consistently with the
-///   original typed value? Note that Bigtable will always sort data based on
-///   the raw encoded value, *not* the decoded type.
-///   - Example: BYTES values sort in the same order as their raw encodings.
-///   - Counterexample: Encoding INT64 as a fixed-width decimal string does
-///     *not* preserve sort order when dealing with negative numbers.
-///     `INT64(1) > INT64(-1)`, but `STRING("-00001") > STRING("00001)`.
-/// * Self-delimiting: If we concatenate two encoded values, can we always tell
-///   where the first one ends and the second one begins?
-///   - Example: If we encode INT64s to fixed-width STRINGs, the first value
-///     will always contain exactly N digits, possibly preceded by a sign.
-///   - Counterexample: If we concatenate two UTF-8 encoded STRINGs, we have
-///     no way to tell where the first one ends.
-/// * Compatibility: Which other systems have matching encoding schemes? For
-///   example, does this encoding have a GoogleSQL equivalent? HBase? Java?
+/// - Sorted: In this mode, Bigtable guarantees that `Encode(X) <= Encode(Y)`
+///   if and only if `X <= Y`. This is useful anywhere sort order is important,
+///   for example when encoding keys.
+/// - Distinct: In this mode, Bigtable guarantees that if `X != Y` then
+///   `Encode(X) != Encode(Y)`. However, the converse is not guaranteed. For
+///   example, both "{'foo': '1', 'bar': '2'}" and "{'bar': '2', 'foo': '1'}"
+///   are valid encodings of the same JSON value.
+///
+/// The API clearly documents which mode is used wherever an encoding can be
+/// configured. Each encoding also documents which values are supported in which
+/// modes. For example, when encoding INT64 as a numeric STRING, negative numbers
+/// cannot be encoded in sorted mode. This is because `INT64(1) > INT64(-1)`, but
+/// `STRING("-00001") > STRING("00001")`.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8190,7 +9082,7 @@ pub mod r#type {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Bytes {
-        /// The encoding to use when converting to/from lower level types.
+        /// The encoding to use when converting to or from lower level types.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub encoding: std::option::Option<crate::model::r#type::bytes::Encoding>,
     }
@@ -8223,7 +9115,7 @@ pub mod r#type {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Rules used to convert to/from lower level types.
+        /// Rules used to convert to or from lower level types.
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -8297,11 +9189,11 @@ pub mod r#type {
             #[allow(unused_imports)]
             use super::*;
 
-            /// Leaves the value "as-is"
+            /// Leaves the value as-is.
             ///
-            /// * Order-preserving? Yes
-            /// * Self-delimiting? No
-            /// * Compatibility? N/A
+            /// Sorted mode: all values are supported.
+            ///
+            /// Distinct mode: all values are supported.
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -8338,7 +9230,7 @@ pub mod r#type {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct String {
-        /// The encoding to use when converting to/from lower level types.
+        /// The encoding to use when converting to or from lower level types.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub encoding: std::option::Option<crate::model::r#type::string::Encoding>,
     }
@@ -8371,7 +9263,7 @@ pub mod r#type {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Rules used to convert to/from lower level types.
+        /// Rules used to convert to or from lower level types.
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -8503,14 +9395,20 @@ pub mod r#type {
                 }
             }
 
-            /// UTF-8 encoding
+            /// UTF-8 encoding.
             ///
-            /// * Order-preserving? Yes (code point order)
-            /// * Self-delimiting? No
-            /// * Compatibility?
-            ///   - BigQuery Federation `TEXT` encoding
-            ///   - HBase `Bytes.toBytes`
-            ///   - Java `String#getBytes(StandardCharsets.UTF_8)`
+            /// Sorted mode:
+            ///
+            /// - All values are supported.
+            /// - Code point order is preserved.
+            ///
+            /// Distinct mode: all values are supported.
+            ///
+            /// Compatible with:
+            ///
+            /// - BigQuery `TEXT` encoding
+            /// - HBase `Bytes.toBytes`
+            /// - Java `String#getBytes(StandardCharsets.UTF_8)`
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -8549,7 +9447,7 @@ pub mod r#type {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Int64 {
-        /// The encoding to use when converting to/from lower level types.
+        /// The encoding to use when converting to or from lower level types.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub encoding: std::option::Option<crate::model::r#type::int_64::Encoding>,
     }
@@ -8582,7 +9480,7 @@ pub mod r#type {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Rules used to convert to/from lower level types.
+        /// Rules used to convert to or from lower level types.
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -8628,6 +9526,23 @@ pub mod r#type {
                 })
             }
 
+            /// The value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
+            /// if it holds a `OrderedCodeBytes`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_ordered_code_bytes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::int_64::encoding::Encoding::OrderedCodeBytes(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
             /// to hold a `BigEndianBytes`.
             ///
@@ -8646,6 +9561,25 @@ pub mod r#type {
                 );
                 self
             }
+
+            /// Sets the value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
+            /// to hold a `OrderedCodeBytes`.
+            ///
+            /// Note that all the setters affecting `encoding` are
+            /// mutually exclusive.
+            pub fn set_ordered_code_bytes<
+                T: std::convert::Into<
+                    std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = std::option::Option::Some(
+                    crate::model::r#type::int_64::encoding::Encoding::OrderedCodeBytes(v.into()),
+                );
+                self
+            }
         }
 
         impl wkt::message::Message for Encoding {
@@ -8659,15 +9593,17 @@ pub mod r#type {
             #[allow(unused_imports)]
             use super::*;
 
-            /// Encodes the value as an 8-byte big endian twos complement `Bytes`
-            /// value.
+            /// Encodes the value as an 8-byte big-endian two's complement value.
             ///
-            /// * Order-preserving? No (positive values only)
-            /// * Self-delimiting? Yes
-            /// * Compatibility?
-            ///   - BigQuery Federation `BINARY` encoding
-            ///   - HBase `Bytes.toBytes`
-            ///   - Java `ByteBuffer.putLong()` with `ByteOrder.BIG_ENDIAN`
+            /// Sorted mode: non-negative values are supported.
+            ///
+            /// Distinct mode: all values are supported.
+            ///
+            /// Compatible with:
+            ///
+            /// - BigQuery `BINARY` encoding
+            /// - HBase `Bytes.toBytes`
+            /// - Java `ByteBuffer.putLong()` with `ByteOrder.BIG_ENDIAN`
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -8701,6 +9637,30 @@ pub mod r#type {
                 }
             }
 
+            /// Encodes the value in a variable length binary format of up to 10 bytes.
+            /// Values that are closer to zero use fewer bytes.
+            ///
+            /// Sorted mode: all values are supported.
+            ///
+            /// Distinct mode: all values are supported.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct OrderedCodeBytes {}
+
+            impl OrderedCodeBytes {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+            }
+
+            impl wkt::message::Message for OrderedCodeBytes {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.bigtable.admin.v2.Type.Int64.Encoding.OrderedCodeBytes"
+                }
+            }
+
             /// Which encoding to use.
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
@@ -8709,6 +9669,10 @@ pub mod r#type {
                 /// Use `BigEndianBytes` encoding.
                 BigEndianBytes(
                     std::boxed::Box<crate::model::r#type::int_64::encoding::BigEndianBytes>,
+                ),
+                /// Use `OrderedCodeBytes` encoding.
+                OrderedCodeBytes(
+                    std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
                 ),
             }
         }
@@ -8780,17 +9744,127 @@ pub mod r#type {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Timestamp {}
+    pub struct Timestamp {
+        /// The encoding to use when converting to or from lower level types.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub encoding: std::option::Option<crate::model::r#type::timestamp::Encoding>,
+    }
 
     impl Timestamp {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [encoding][crate::model::r#type::Timestamp::encoding].
+        pub fn set_encoding<
+            T: std::convert::Into<std::option::Option<crate::model::r#type::timestamp::Encoding>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.encoding = v.into();
+            self
         }
     }
 
     impl wkt::message::Message for Timestamp {
         fn typename() -> &'static str {
             "type.googleapis.com/google.bigtable.admin.v2.Type.Timestamp"
+        }
+    }
+
+    /// Defines additional types related to Timestamp
+    pub mod timestamp {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Rules used to convert to or from lower level types.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct Encoding {
+            /// Which encoding to use.
+            #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+            pub encoding: std::option::Option<crate::model::r#type::timestamp::encoding::Encoding>,
+        }
+
+        impl Encoding {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of `encoding`.
+            pub fn set_encoding<
+                T: std::convert::Into<
+                    std::option::Option<crate::model::r#type::timestamp::encoding::Encoding>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = v.into();
+                self
+            }
+
+            /// The value of [encoding][crate::model::r#type::timestamp::Encoding::encoding]
+            /// if it holds a `UnixMicrosInt64`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_unix_micros_int64(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::int_64::Encoding>>
+            {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::timestamp::encoding::Encoding::UnixMicrosInt64(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [encoding][crate::model::r#type::timestamp::Encoding::encoding]
+            /// to hold a `UnixMicrosInt64`.
+            ///
+            /// Note that all the setters affecting `encoding` are
+            /// mutually exclusive.
+            pub fn set_unix_micros_int64<
+                T: std::convert::Into<std::boxed::Box<crate::model::r#type::int_64::Encoding>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = std::option::Option::Some(
+                    crate::model::r#type::timestamp::encoding::Encoding::UnixMicrosInt64(v.into()),
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for Encoding {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.bigtable.admin.v2.Type.Timestamp.Encoding"
+            }
+        }
+
+        /// Defines additional types related to Encoding
+        pub mod encoding {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Which encoding to use.
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub enum Encoding {
+                /// Encodes the number of microseconds since the Unix epoch using the
+                /// given `Int64` encoding. Values must be microsecond-aligned.
+                ///
+                /// Compatible with:
+                ///
+                /// - Java `Instant.truncatedTo()` with `ChronoUnit.MICROS`
+                UnixMicrosInt64(std::boxed::Box<crate::model::r#type::int_64::Encoding>),
+            }
         }
     }
 
@@ -8826,11 +9900,26 @@ pub mod r#type {
         /// The names and types of the fields in this struct.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub fields: std::vec::Vec<crate::model::r#type::r#struct::Field>,
+
+        /// The encoding to use when converting to or from lower level types.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub encoding: std::option::Option<crate::model::r#type::r#struct::Encoding>,
     }
 
     impl Struct {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [encoding][crate::model::r#type::Struct::encoding].
+        pub fn set_encoding<
+            T: std::convert::Into<std::option::Option<crate::model::r#type::r#struct::Encoding>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.encoding = v.into();
+            self
         }
 
         /// Sets the value of [fields][crate::model::r#type::Struct::fields].
@@ -8902,6 +9991,300 @@ pub mod r#type {
         impl wkt::message::Message for Field {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.bigtable.admin.v2.Type.Struct.Field"
+            }
+        }
+
+        /// Rules used to convert to or from lower level types.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct Encoding {
+            /// Which encoding to use.
+            #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+            pub encoding: std::option::Option<crate::model::r#type::r#struct::encoding::Encoding>,
+        }
+
+        impl Encoding {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of `encoding`.
+            pub fn set_encoding<
+                T: std::convert::Into<
+                    std::option::Option<crate::model::r#type::r#struct::encoding::Encoding>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = v.into();
+                self
+            }
+
+            /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// if it holds a `Singleton`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_singleton(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::r#struct::encoding::Singleton>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::r#struct::encoding::Encoding::Singleton(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// if it holds a `DelimitedBytes`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_delimited_bytes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::r#struct::encoding::Encoding::DelimitedBytes(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// if it holds a `OrderedCodeBytes`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_ordered_code_bytes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::r#struct::encoding::Encoding::OrderedCodeBytes(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// to hold a `Singleton`.
+            ///
+            /// Note that all the setters affecting `encoding` are
+            /// mutually exclusive.
+            pub fn set_singleton<
+                T: std::convert::Into<
+                    std::boxed::Box<crate::model::r#type::r#struct::encoding::Singleton>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = std::option::Option::Some(
+                    crate::model::r#type::r#struct::encoding::Encoding::Singleton(v.into()),
+                );
+                self
+            }
+
+            /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// to hold a `DelimitedBytes`.
+            ///
+            /// Note that all the setters affecting `encoding` are
+            /// mutually exclusive.
+            pub fn set_delimited_bytes<
+                T: std::convert::Into<
+                    std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = std::option::Option::Some(
+                    crate::model::r#type::r#struct::encoding::Encoding::DelimitedBytes(v.into()),
+                );
+                self
+            }
+
+            /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// to hold a `OrderedCodeBytes`.
+            ///
+            /// Note that all the setters affecting `encoding` are
+            /// mutually exclusive.
+            pub fn set_ordered_code_bytes<
+                T: std::convert::Into<
+                    std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = std::option::Option::Some(
+                    crate::model::r#type::r#struct::encoding::Encoding::OrderedCodeBytes(v.into()),
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for Encoding {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.bigtable.admin.v2.Type.Struct.Encoding"
+            }
+        }
+
+        /// Defines additional types related to Encoding
+        pub mod encoding {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Uses the encoding of `fields[0].type` as-is.
+            /// Only valid if `fields.size == 1`.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct Singleton {}
+
+            impl Singleton {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+            }
+
+            impl wkt::message::Message for Singleton {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.bigtable.admin.v2.Type.Struct.Encoding.Singleton"
+                }
+            }
+
+            /// Fields are encoded independently and concatenated with a configurable
+            /// `delimiter` in between.
+            ///
+            /// A struct with no fields defined is encoded as a single `delimiter`.
+            ///
+            /// Sorted mode:
+            ///
+            /// - Fields are encoded in sorted mode.
+            /// - Encoded field values must not contain any bytes <= `delimiter[0]`
+            /// - Element-wise order is preserved: `A < B` if `A[0] < B[0]`, or if
+            ///   `A[0] == B[0] && A[1] < B[1]`, etc. Strict prefixes sort first.
+            ///
+            /// Distinct mode:
+            ///
+            /// - Fields are encoded in distinct mode.
+            /// - Encoded field values must not contain `delimiter[0]`.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct DelimitedBytes {
+                /// Byte sequence used to delimit concatenated fields. The delimiter must
+                /// contain at least 1 character and at most 50 characters.
+                #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
+                #[serde_as(as = "serde_with::base64::Base64")]
+                pub delimiter: ::bytes::Bytes,
+            }
+
+            impl DelimitedBytes {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [delimiter][crate::model::r#type::r#struct::encoding::DelimitedBytes::delimiter].
+                pub fn set_delimiter<T: std::convert::Into<::bytes::Bytes>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.delimiter = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for DelimitedBytes {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.bigtable.admin.v2.Type.Struct.Encoding.DelimitedBytes"
+                }
+            }
+
+            /// Fields are encoded independently and concatenated with the fixed byte
+            /// pair {0x00, 0x01} in between.
+            ///
+            /// Any null (0x00) byte in an encoded field is replaced by the fixed byte
+            /// pair {0x00, 0xFF}.
+            ///
+            /// Fields that encode to the empty string "" have special handling:
+            ///
+            /// - If *every* field encodes to "", or if the STRUCT has no fields
+            ///   defined, then the STRUCT is encoded as the fixed byte pair
+            ///   {0x00, 0x00}.
+            /// - Otherwise, the STRUCT only encodes until the last non-empty field,
+            ///   omitting any trailing empty fields. Any empty fields that aren't
+            ///   omitted are replaced with the fixed byte pair {0x00, 0x00}.
+            ///
+            /// Examples:
+            ///
+            /// - STRUCT()             -> "\00\00"
+            /// - STRUCT("")           -> "\00\00"
+            /// - STRUCT("", "")       -> "\00\00"
+            /// - STRUCT("", "B")      -> "\00\00" + "\00\01" + "B"
+            /// - STRUCT("A", "")      -> "A"
+            /// - STRUCT("", "B", "")  -> "\00\00" + "\00\01" + "B"
+            /// - STRUCT("A", "", "C") -> "A" + "\00\01" + "\00\00" + "\00\01" + "C"
+            ///
+            /// Since null bytes are always escaped, this encoding can cause size
+            /// blowup for encodings like `Int64.BigEndianBytes` that are likely to
+            /// produce many such bytes.
+            ///
+            /// Sorted mode:
+            ///
+            /// - Fields are encoded in sorted mode.
+            /// - All values supported by the field encodings are allowed
+            /// - Element-wise order is preserved: `A < B` if `A[0] < B[0]`, or if
+            ///   `A[0] == B[0] && A[1] < B[1]`, etc. Strict prefixes sort first.
+            ///
+            /// Distinct mode:
+            ///
+            /// - Fields are encoded in distinct mode.
+            /// - All values supported by the field encodings are allowed.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct OrderedCodeBytes {}
+
+            impl OrderedCodeBytes {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+            }
+
+            impl wkt::message::Message for OrderedCodeBytes {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.bigtable.admin.v2.Type.Struct.Encoding.OrderedCodeBytes"
+                }
+            }
+
+            /// Which encoding to use.
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub enum Encoding {
+                /// Use `Singleton` encoding.
+                Singleton(std::boxed::Box<crate::model::r#type::r#struct::encoding::Singleton>),
+                /// Use `DelimitedBytes` encoding.
+                DelimitedBytes(
+                    std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
+                ),
+                /// User `OrderedCodeBytes` encoding.
+                OrderedCodeBytes(
+                    std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
+                ),
             }
         }
     }
@@ -9339,71 +10722,112 @@ pub mod r#type {
 }
 
 /// Storage media types for persisting Bigtable data.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct StorageType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct StorageType(i32);
 
 impl StorageType {
+    /// The user did not specify a storage type.
+    pub const STORAGE_TYPE_UNSPECIFIED: StorageType = StorageType::new(0);
+
+    /// Flash (SSD) storage should be used.
+    pub const SSD: StorageType = StorageType::new(1);
+
+    /// Magnetic drive (HDD) storage should be used.
+    pub const HDD: StorageType = StorageType::new(2);
+
     /// Creates a new StorageType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("STORAGE_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SSD"),
+            2 => std::borrow::Cow::Borrowed("HDD"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "STORAGE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::STORAGE_TYPE_UNSPECIFIED),
+            "SSD" => std::option::Option::Some(Self::SSD),
+            "HDD" => std::option::Option::Some(Self::HDD),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [StorageType](StorageType)
-pub mod storage_type {
-    use super::StorageType;
-
-    /// The user did not specify a storage type.
-    pub const STORAGE_TYPE_UNSPECIFIED: StorageType = StorageType::new("STORAGE_TYPE_UNSPECIFIED");
-
-    /// Flash (SSD) storage should be used.
-    pub const SSD: StorageType = StorageType::new("SSD");
-
-    /// Magnetic drive (HDD) storage should be used.
-    pub const HDD: StorageType = StorageType::new("HDD");
+impl std::convert::From<i32> for StorageType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for StorageType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for StorageType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Indicates the type of the restore source.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RestoreSourceType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct RestoreSourceType(i32);
 
 impl RestoreSourceType {
+    /// No restore associated.
+    pub const RESTORE_SOURCE_TYPE_UNSPECIFIED: RestoreSourceType = RestoreSourceType::new(0);
+
+    /// A backup was used as the source of the restore.
+    pub const BACKUP: RestoreSourceType = RestoreSourceType::new(1);
+
     /// Creates a new RestoreSourceType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("RESTORE_SOURCE_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BACKUP"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "RESTORE_SOURCE_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::RESTORE_SOURCE_TYPE_UNSPECIFIED)
+            }
+            "BACKUP" => std::option::Option::Some(Self::BACKUP),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [RestoreSourceType](RestoreSourceType)
-pub mod restore_source_type {
-    use super::RestoreSourceType;
-
-    /// No restore associated.
-    pub const RESTORE_SOURCE_TYPE_UNSPECIFIED: RestoreSourceType =
-        RestoreSourceType::new("RESTORE_SOURCE_TYPE_UNSPECIFIED");
-
-    /// A backup was used as the source of the restore.
-    pub const BACKUP: RestoreSourceType = RestoreSourceType::new("BACKUP");
+impl std::convert::From<i32> for RestoreSourceType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for RestoreSourceType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for RestoreSourceType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

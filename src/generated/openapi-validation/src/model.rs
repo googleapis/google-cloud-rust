@@ -890,7 +890,7 @@ pub struct SecretPayload {
     /// The secret data. Must be no larger than 64KiB.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]
-    pub data: std::option::Option<bytes::Bytes>,
+    pub data: std::option::Option<::bytes::Bytes>,
 
     /// Optional. If specified, SecretManagerService will verify the integrity of the
     /// received data on SecretManagerService.AddSecretVersion calls using
@@ -914,7 +914,7 @@ impl SecretPayload {
     }
 
     /// Sets the value of [data][crate::model::SecretPayload::data].
-    pub fn set_data<T: std::convert::Into<std::option::Option<bytes::Bytes>>>(
+    pub fn set_data<T: std::convert::Into<std::option::Option<::bytes::Bytes>>>(
         mut self,
         v: T,
     ) -> Self {
@@ -1905,7 +1905,7 @@ pub struct Policy {
     /// the conditions in the version `3` policy are lost.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]
-    pub etag: std::option::Option<bytes::Bytes>,
+    pub etag: std::option::Option<::bytes::Bytes>,
 }
 
 impl Policy {
@@ -1920,7 +1920,7 @@ impl Policy {
     }
 
     /// Sets the value of [etag][crate::model::Policy::etag].
-    pub fn set_etag<T: std::convert::Into<std::option::Option<bytes::Bytes>>>(
+    pub fn set_etag<T: std::convert::Into<std::option::Option<::bytes::Bytes>>>(
         mut self,
         v: T,
     ) -> Self {

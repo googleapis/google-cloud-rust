@@ -55,9 +55,9 @@ pub struct Policy {
     /// read-modify-write loop for concurrency control. Not setting the `etag`in a
     /// `SetOrgPolicy` request will result in an unconditional write of the
     /// `Policy`.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 
     /// The time stamp the `Policy` was previously updated. This is set by the
     /// server, not specified by the caller, and represents the last time a call to
@@ -100,7 +100,7 @@ impl Policy {
     }
 
     /// Sets the value of [etag][crate::model::Policy::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -444,38 +444,61 @@ pub mod policy {
         /// set to either `ALLOW` or `DENY,  `allowed_values` and `denied_values`
         /// must be unset. Setting this to `ALL_VALUES_UNSPECIFIED` allows for
         /// setting `allowed_values` and `denied_values`.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct AllValues(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct AllValues(i32);
 
         impl AllValues {
+            /// Indicates that allowed_values or denied_values must be set.
+            pub const ALL_VALUES_UNSPECIFIED: AllValues = AllValues::new(0);
+
+            /// A policy with this set allows all values.
+            pub const ALLOW: AllValues = AllValues::new(1);
+
+            /// A policy with this set denies all values.
+            pub const DENY: AllValues = AllValues::new(2);
+
             /// Creates a new AllValues instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("ALL_VALUES_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("ALLOW"),
+                    2 => std::borrow::Cow::Borrowed("DENY"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "ALL_VALUES_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::ALL_VALUES_UNSPECIFIED)
+                    }
+                    "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                    "DENY" => std::option::Option::Some(Self::DENY),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [AllValues](AllValues)
-        pub mod all_values {
-            use super::AllValues;
-
-            /// Indicates that allowed_values or denied_values must be set.
-            pub const ALL_VALUES_UNSPECIFIED: AllValues = AllValues::new("ALL_VALUES_UNSPECIFIED");
-
-            /// A policy with this set allows all values.
-            pub const ALLOW: AllValues = AllValues::new("ALLOW");
-
-            /// A policy with this set denies all values.
-            pub const DENY: AllValues = AllValues::new("DENY");
+        impl std::convert::From<i32> for AllValues {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for AllValues {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for AllValues {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }

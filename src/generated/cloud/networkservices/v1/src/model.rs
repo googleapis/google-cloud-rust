@@ -378,43 +378,64 @@ pub mod endpoint_matcher {
         }
 
         /// Possible criteria values that define logic of how matching is made.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct MetadataLabelMatchCriteria(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct MetadataLabelMatchCriteria(i32);
 
         impl MetadataLabelMatchCriteria {
-            /// Creates a new MetadataLabelMatchCriteria instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [MetadataLabelMatchCriteria](MetadataLabelMatchCriteria)
-        pub mod metadata_label_match_criteria {
-            use super::MetadataLabelMatchCriteria;
-
             /// Default value. Should not be used.
             pub const METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED: MetadataLabelMatchCriteria =
-                MetadataLabelMatchCriteria::new("METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED");
+                MetadataLabelMatchCriteria::new(0);
 
             /// At least one of the Labels specified in the matcher should match the
             /// metadata presented by xDS client.
-            pub const MATCH_ANY: MetadataLabelMatchCriteria =
-                MetadataLabelMatchCriteria::new("MATCH_ANY");
+            pub const MATCH_ANY: MetadataLabelMatchCriteria = MetadataLabelMatchCriteria::new(1);
 
             /// The metadata presented by the xDS client should contain all of the
             /// labels specified here.
-            pub const MATCH_ALL: MetadataLabelMatchCriteria =
-                MetadataLabelMatchCriteria::new("MATCH_ALL");
+            pub const MATCH_ALL: MetadataLabelMatchCriteria = MetadataLabelMatchCriteria::new(2);
+
+            /// Creates a new MetadataLabelMatchCriteria instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("MATCH_ANY"),
+                    2 => std::borrow::Cow::Borrowed("MATCH_ALL"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED)
+                    }
+                    "MATCH_ANY" => std::option::Option::Some(Self::MATCH_ANY),
+                    "MATCH_ALL" => std::option::Option::Some(Self::MATCH_ALL),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for MetadataLabelMatchCriteria {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for MetadataLabelMatchCriteria {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for MetadataLabelMatchCriteria {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -1958,39 +1979,61 @@ pub mod endpoint_policy {
     use super::*;
 
     /// The type of endpoint policy.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EndpointPolicyType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct EndpointPolicyType(i32);
 
     impl EndpointPolicyType {
+        /// Default value. Must not be used.
+        pub const ENDPOINT_POLICY_TYPE_UNSPECIFIED: EndpointPolicyType = EndpointPolicyType::new(0);
+
+        /// Represents a proxy deployed as a sidecar.
+        pub const SIDECAR_PROXY: EndpointPolicyType = EndpointPolicyType::new(1);
+
+        /// Represents a proxyless gRPC backend.
+        pub const GRPC_SERVER: EndpointPolicyType = EndpointPolicyType::new(2);
+
         /// Creates a new EndpointPolicyType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ENDPOINT_POLICY_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SIDECAR_PROXY"),
+                2 => std::borrow::Cow::Borrowed("GRPC_SERVER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ENDPOINT_POLICY_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ENDPOINT_POLICY_TYPE_UNSPECIFIED)
+                }
+                "SIDECAR_PROXY" => std::option::Option::Some(Self::SIDECAR_PROXY),
+                "GRPC_SERVER" => std::option::Option::Some(Self::GRPC_SERVER),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [EndpointPolicyType](EndpointPolicyType)
-    pub mod endpoint_policy_type {
-        use super::EndpointPolicyType;
-
-        /// Default value. Must not be used.
-        pub const ENDPOINT_POLICY_TYPE_UNSPECIFIED: EndpointPolicyType =
-            EndpointPolicyType::new("ENDPOINT_POLICY_TYPE_UNSPECIFIED");
-
-        /// Represents a proxy deployed as a sidecar.
-        pub const SIDECAR_PROXY: EndpointPolicyType = EndpointPolicyType::new("SIDECAR_PROXY");
-
-        /// Represents a proxyless gRPC backend.
-        pub const GRPC_SERVER: EndpointPolicyType = EndpointPolicyType::new("GRPC_SERVER");
+    impl std::convert::From<i32> for EndpointPolicyType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for EndpointPolicyType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for EndpointPolicyType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2441,39 +2484,60 @@ pub mod gateway {
     ///
     /// * OPEN_MESH
     /// * SECURE_WEB_GATEWAY
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// The type of the customer managed gateway is unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
         /// The type of the customer managed gateway is TrafficDirector Open
         /// Mesh.
-        pub const OPEN_MESH: Type = Type::new("OPEN_MESH");
+        pub const OPEN_MESH: Type = Type::new(1);
 
         /// The type of the customer managed gateway is SecureWebGateway (SWG).
-        pub const SECURE_WEB_GATEWAY: Type = Type::new("SECURE_WEB_GATEWAY");
+        pub const SECURE_WEB_GATEWAY: Type = Type::new(2);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("OPEN_MESH"),
+                2 => std::borrow::Cow::Borrowed("SECURE_WEB_GATEWAY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "OPEN_MESH" => std::option::Option::Some(Self::OPEN_MESH),
+                "SECURE_WEB_GATEWAY" => std::option::Option::Some(Self::SECURE_WEB_GATEWAY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3032,39 +3096,60 @@ pub mod grpc_route {
         use super::*;
 
         /// The type of the match.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Type(i32);
 
         impl Type {
-            /// Creates a new Type instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [Type](Type)
-        pub mod r#type {
-            use super::Type;
-
             /// Unspecified.
-            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+            pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
             /// Will only match the exact name provided.
-            pub const EXACT: Type = Type::new("EXACT");
+            pub const EXACT: Type = Type::new(1);
 
             /// Will interpret grpc_method and grpc_service as regexes. RE2 syntax is
             /// supported.
-            pub const REGULAR_EXPRESSION: Type = Type::new("REGULAR_EXPRESSION");
+            pub const REGULAR_EXPRESSION: Type = Type::new(2);
+
+            /// Creates a new Type instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("EXACT"),
+                    2 => std::borrow::Cow::Borrowed("REGULAR_EXPRESSION"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                    "EXACT" => std::option::Option::Some(Self::EXACT),
+                    "REGULAR_EXPRESSION" => std::option::Option::Some(Self::REGULAR_EXPRESSION),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for Type {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -3128,39 +3213,60 @@ pub mod grpc_route {
         use super::*;
 
         /// The type of match.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Type(i32);
 
         impl Type {
-            /// Creates a new Type instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [Type](Type)
-        pub mod r#type {
-            use super::Type;
-
             /// Unspecified.
-            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+            pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
             /// Will only match the exact value provided.
-            pub const EXACT: Type = Type::new("EXACT");
+            pub const EXACT: Type = Type::new(1);
 
             /// Will match paths conforming to the prefix specified by value. RE2
             /// syntax is supported.
-            pub const REGULAR_EXPRESSION: Type = Type::new("REGULAR_EXPRESSION");
+            pub const REGULAR_EXPRESSION: Type = Type::new(2);
+
+            /// Creates a new Type instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("EXACT"),
+                    2 => std::borrow::Cow::Borrowed("REGULAR_EXPRESSION"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                    "EXACT" => std::option::Option::Some(Self::EXACT),
+                    "REGULAR_EXPRESSION" => std::option::Option::Some(Self::REGULAR_EXPRESSION),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for Type {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -4963,49 +5069,78 @@ pub mod http_route {
         use super::*;
 
         /// Supported HTTP response code.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ResponseCode(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct ResponseCode(i32);
 
         impl ResponseCode {
+            /// Default value
+            pub const RESPONSE_CODE_UNSPECIFIED: ResponseCode = ResponseCode::new(0);
+
+            /// Corresponds to 301.
+            pub const MOVED_PERMANENTLY_DEFAULT: ResponseCode = ResponseCode::new(1);
+
+            /// Corresponds to 302.
+            pub const FOUND: ResponseCode = ResponseCode::new(2);
+
+            /// Corresponds to 303.
+            pub const SEE_OTHER: ResponseCode = ResponseCode::new(3);
+
+            /// Corresponds to 307. In this case, the request method will be retained.
+            pub const TEMPORARY_REDIRECT: ResponseCode = ResponseCode::new(4);
+
+            /// Corresponds to 308. In this case, the request method will be retained.
+            pub const PERMANENT_REDIRECT: ResponseCode = ResponseCode::new(5);
+
             /// Creates a new ResponseCode instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("RESPONSE_CODE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("MOVED_PERMANENTLY_DEFAULT"),
+                    2 => std::borrow::Cow::Borrowed("FOUND"),
+                    3 => std::borrow::Cow::Borrowed("SEE_OTHER"),
+                    4 => std::borrow::Cow::Borrowed("TEMPORARY_REDIRECT"),
+                    5 => std::borrow::Cow::Borrowed("PERMANENT_REDIRECT"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "RESPONSE_CODE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::RESPONSE_CODE_UNSPECIFIED)
+                    }
+                    "MOVED_PERMANENTLY_DEFAULT" => {
+                        std::option::Option::Some(Self::MOVED_PERMANENTLY_DEFAULT)
+                    }
+                    "FOUND" => std::option::Option::Some(Self::FOUND),
+                    "SEE_OTHER" => std::option::Option::Some(Self::SEE_OTHER),
+                    "TEMPORARY_REDIRECT" => std::option::Option::Some(Self::TEMPORARY_REDIRECT),
+                    "PERMANENT_REDIRECT" => std::option::Option::Some(Self::PERMANENT_REDIRECT),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [ResponseCode](ResponseCode)
-        pub mod response_code {
-            use super::ResponseCode;
-
-            /// Default value
-            pub const RESPONSE_CODE_UNSPECIFIED: ResponseCode =
-                ResponseCode::new("RESPONSE_CODE_UNSPECIFIED");
-
-            /// Corresponds to 301.
-            pub const MOVED_PERMANENTLY_DEFAULT: ResponseCode =
-                ResponseCode::new("MOVED_PERMANENTLY_DEFAULT");
-
-            /// Corresponds to 302.
-            pub const FOUND: ResponseCode = ResponseCode::new("FOUND");
-
-            /// Corresponds to 303.
-            pub const SEE_OTHER: ResponseCode = ResponseCode::new("SEE_OTHER");
-
-            /// Corresponds to 307. In this case, the request method will be retained.
-            pub const TEMPORARY_REDIRECT: ResponseCode = ResponseCode::new("TEMPORARY_REDIRECT");
-
-            /// Corresponds to 308. In this case, the request method will be retained.
-            pub const PERMANENT_REDIRECT: ResponseCode = ResponseCode::new("PERMANENT_REDIRECT");
+        impl std::convert::From<i32> for ResponseCode {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for ResponseCode {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for ResponseCode {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -7991,56 +8126,85 @@ impl wkt::message::Message for DeleteTlsRouteRequest {
 }
 
 /// The part of the request or response for which the extension is called.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EventType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct EventType(i32);
 
 impl EventType {
-    /// Creates a new EventType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [EventType](EventType)
-pub mod event_type {
-    use super::EventType;
-
     /// Unspecified value. Do not use.
-    pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new("EVENT_TYPE_UNSPECIFIED");
+    pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new(0);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP request headers arrive.
-    pub const REQUEST_HEADERS: EventType = EventType::new("REQUEST_HEADERS");
+    pub const REQUEST_HEADERS: EventType = EventType::new(1);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP request body arrives.
-    pub const REQUEST_BODY: EventType = EventType::new("REQUEST_BODY");
+    pub const REQUEST_BODY: EventType = EventType::new(2);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP response headers arrive.
-    pub const RESPONSE_HEADERS: EventType = EventType::new("RESPONSE_HEADERS");
+    pub const RESPONSE_HEADERS: EventType = EventType::new(3);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP response body arrives.
-    pub const RESPONSE_BODY: EventType = EventType::new("RESPONSE_BODY");
+    pub const RESPONSE_BODY: EventType = EventType::new(4);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP request trailers arrives.
-    pub const REQUEST_TRAILERS: EventType = EventType::new("REQUEST_TRAILERS");
+    pub const REQUEST_TRAILERS: EventType = EventType::new(5);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP response trailers arrives.
-    pub const RESPONSE_TRAILERS: EventType = EventType::new("RESPONSE_TRAILERS");
+    pub const RESPONSE_TRAILERS: EventType = EventType::new(6);
+
+    /// Creates a new EventType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("EVENT_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("REQUEST_HEADERS"),
+            2 => std::borrow::Cow::Borrowed("REQUEST_BODY"),
+            3 => std::borrow::Cow::Borrowed("RESPONSE_HEADERS"),
+            4 => std::borrow::Cow::Borrowed("RESPONSE_BODY"),
+            5 => std::borrow::Cow::Borrowed("REQUEST_TRAILERS"),
+            6 => std::borrow::Cow::Borrowed("RESPONSE_TRAILERS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "EVENT_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::EVENT_TYPE_UNSPECIFIED),
+            "REQUEST_HEADERS" => std::option::Option::Some(Self::REQUEST_HEADERS),
+            "REQUEST_BODY" => std::option::Option::Some(Self::REQUEST_BODY),
+            "RESPONSE_HEADERS" => std::option::Option::Some(Self::RESPONSE_HEADERS),
+            "RESPONSE_BODY" => std::option::Option::Some(Self::RESPONSE_BODY),
+            "REQUEST_TRAILERS" => std::option::Option::Some(Self::REQUEST_TRAILERS),
+            "RESPONSE_TRAILERS" => std::option::Option::Some(Self::RESPONSE_TRAILERS),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for EventType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for EventType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for EventType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
@@ -8048,39 +8212,61 @@ impl std::convert::From<std::string::String> for EventType {
 /// `LbRouteExtension` resource.
 /// For more information, refer to [Choosing a load
 /// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LoadBalancingScheme(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct LoadBalancingScheme(i32);
 
 impl LoadBalancingScheme {
-    /// Creates a new LoadBalancingScheme instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [LoadBalancingScheme](LoadBalancingScheme)
-pub mod load_balancing_scheme {
-    use super::LoadBalancingScheme;
-
     /// Default value. Do not use.
-    pub const LOAD_BALANCING_SCHEME_UNSPECIFIED: LoadBalancingScheme =
-        LoadBalancingScheme::new("LOAD_BALANCING_SCHEME_UNSPECIFIED");
+    pub const LOAD_BALANCING_SCHEME_UNSPECIFIED: LoadBalancingScheme = LoadBalancingScheme::new(0);
 
     /// Signifies that this is used for Internal HTTP(S) Load Balancing.
-    pub const INTERNAL_MANAGED: LoadBalancingScheme = LoadBalancingScheme::new("INTERNAL_MANAGED");
+    pub const INTERNAL_MANAGED: LoadBalancingScheme = LoadBalancingScheme::new(1);
 
     /// Signifies that this is used for External Managed HTTP(S) Load
     /// Balancing.
-    pub const EXTERNAL_MANAGED: LoadBalancingScheme = LoadBalancingScheme::new("EXTERNAL_MANAGED");
+    pub const EXTERNAL_MANAGED: LoadBalancingScheme = LoadBalancingScheme::new(2);
+
+    /// Creates a new LoadBalancingScheme instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("LOAD_BALANCING_SCHEME_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("INTERNAL_MANAGED"),
+            2 => std::borrow::Cow::Borrowed("EXTERNAL_MANAGED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "LOAD_BALANCING_SCHEME_UNSPECIFIED" => {
+                std::option::Option::Some(Self::LOAD_BALANCING_SCHEME_UNSPECIFIED)
+            }
+            "INTERNAL_MANAGED" => std::option::Option::Some(Self::INTERNAL_MANAGED),
+            "EXTERNAL_MANAGED" => std::option::Option::Some(Self::EXTERNAL_MANAGED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for LoadBalancingScheme {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for LoadBalancingScheme {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for LoadBalancingScheme {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

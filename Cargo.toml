@@ -15,11 +15,25 @@
 [workspace]
 resolver = "2"
 
+default-members = [
+  "guide/samples",
+  "src/auth",
+  "src/auth/integration-tests",
+  "src/base",
+  "src/firestore",
+  "src/gax",
+  "src/integration-tests",
+  "src/lro",
+  "src/root",
+  "src/wkt",
+  "tools/check-copyright",
+]
 members = [
   "guide/samples",
   "src/auth",
   "src/auth/integration-tests",
   "src/base",
+  "src/firestore",
   "src/gax",
   "src/generated/api/apikeys/v2",
   "src/generated/api/servicecontrol/v1",
@@ -88,6 +102,7 @@ members = [
   "src/generated/cloud/essentialcontacts/v1",
   "src/generated/cloud/eventarc/v1",
   "src/generated/cloud/filestore/v1",
+  "src/generated/cloud/financialservices/v1",
   "src/generated/cloud/functions/v2",
   "src/generated/cloud/gkebackup/v1",
   "src/generated/cloud/gkeconnect/gateway/v1",
@@ -122,6 +137,7 @@ members = [
   "src/generated/cloud/osconfig/v1",
   "src/generated/cloud/oslogin/v1",
   "src/generated/cloud/parallelstore/v1",
+  "src/generated/cloud/parametermanager/v1",
   "src/generated/cloud/policysimulator/v1",
   "src/generated/cloud/policytroubleshooter/iam/v3",
   "src/generated/cloud/policytroubleshooter/v1",

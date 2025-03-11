@@ -1307,72 +1307,117 @@ pub mod aggregation_info {
     /// The level at which usage is aggregated to compute cost.
     /// Example: "ACCOUNT" aggregation level indicates that usage for tiered
     /// pricing is aggregated across all projects in a single account.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationLevel(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AggregationLevel(i32);
 
     impl AggregationLevel {
+        pub const AGGREGATION_LEVEL_UNSPECIFIED: AggregationLevel = AggregationLevel::new(0);
+
+        pub const ACCOUNT: AggregationLevel = AggregationLevel::new(1);
+
+        pub const PROJECT: AggregationLevel = AggregationLevel::new(2);
+
         /// Creates a new AggregationLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("AGGREGATION_LEVEL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACCOUNT"),
+                2 => std::borrow::Cow::Borrowed("PROJECT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "AGGREGATION_LEVEL_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::AGGREGATION_LEVEL_UNSPECIFIED)
+                }
+                "ACCOUNT" => std::option::Option::Some(Self::ACCOUNT),
+                "PROJECT" => std::option::Option::Some(Self::PROJECT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [AggregationLevel](AggregationLevel)
-    pub mod aggregation_level {
-        use super::AggregationLevel;
-
-        pub const AGGREGATION_LEVEL_UNSPECIFIED: AggregationLevel =
-            AggregationLevel::new("AGGREGATION_LEVEL_UNSPECIFIED");
-
-        pub const ACCOUNT: AggregationLevel = AggregationLevel::new("ACCOUNT");
-
-        pub const PROJECT: AggregationLevel = AggregationLevel::new("PROJECT");
+    impl std::convert::From<i32> for AggregationLevel {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for AggregationLevel {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for AggregationLevel {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The interval at which usage is aggregated to compute cost.
     /// Example: "MONTHLY" aggregation interval indicates that usage for tiered
     /// pricing is aggregated every month.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationInterval(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AggregationInterval(i32);
 
     impl AggregationInterval {
+        pub const AGGREGATION_INTERVAL_UNSPECIFIED: AggregationInterval =
+            AggregationInterval::new(0);
+
+        pub const DAILY: AggregationInterval = AggregationInterval::new(1);
+
+        pub const MONTHLY: AggregationInterval = AggregationInterval::new(2);
+
         /// Creates a new AggregationInterval instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("AGGREGATION_INTERVAL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DAILY"),
+                2 => std::borrow::Cow::Borrowed("MONTHLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "AGGREGATION_INTERVAL_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::AGGREGATION_INTERVAL_UNSPECIFIED)
+                }
+                "DAILY" => std::option::Option::Some(Self::DAILY),
+                "MONTHLY" => std::option::Option::Some(Self::MONTHLY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [AggregationInterval](AggregationInterval)
-    pub mod aggregation_interval {
-        use super::AggregationInterval;
-
-        pub const AGGREGATION_INTERVAL_UNSPECIFIED: AggregationInterval =
-            AggregationInterval::new("AGGREGATION_INTERVAL_UNSPECIFIED");
-
-        pub const DAILY: AggregationInterval = AggregationInterval::new("DAILY");
-
-        pub const MONTHLY: AggregationInterval = AggregationInterval::new("MONTHLY");
+    impl std::convert::From<i32> for AggregationInterval {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for AggregationInterval {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for AggregationInterval {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1431,43 +1476,66 @@ pub mod geo_taxonomy {
     use super::*;
 
     /// The type of Geo Taxonomy: GLOBAL, REGIONAL, or MULTI_REGIONAL.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// The type is not specified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
         /// The sku is global in nature, e.g. a license sku. Global skus are
         /// available in all regions, and so have an empty region list.
-        pub const GLOBAL: Type = Type::new("GLOBAL");
+        pub const GLOBAL: Type = Type::new(1);
 
         /// The sku is available in a specific region, e.g. "us-west2".
-        pub const REGIONAL: Type = Type::new("REGIONAL");
+        pub const REGIONAL: Type = Type::new(2);
 
         /// The sku is associated with multiple regions, e.g. "us-west2" and
         /// "us-east1".
-        pub const MULTI_REGIONAL: Type = Type::new("MULTI_REGIONAL");
+        pub const MULTI_REGIONAL: Type = Type::new(3);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GLOBAL"),
+                2 => std::borrow::Cow::Borrowed("REGIONAL"),
+                3 => std::borrow::Cow::Borrowed("MULTI_REGIONAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "GLOBAL" => std::option::Option::Some(Self::GLOBAL),
+                "REGIONAL" => std::option::Option::Some(Self::REGIONAL),
+                "MULTI_REGIONAL" => std::option::Option::Some(Self::MULTI_REGIONAL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

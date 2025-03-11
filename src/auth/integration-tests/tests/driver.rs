@@ -14,66 +14,16 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
-    use auth::credentials::create_access_token_credential;
-    use gax::error::Error;
-    use gax::options::ClientConfig as Config;
-    use scoped_env::ScopedEnv;
-    use secretmanager::client::SecretManagerService;
-
-    type Result<T> = std::result::Result<T, gax::error::Error>;
+    use auth_integration_tests::Result;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
-    async fn service_account() -> Result<()> {
-        let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+    async fn run_service_account() -> Result<()> {
+        auth_integration_tests::service_account().await
+    }
 
-        // Create a SecretManager client. When running on GCB, this loads MDS
-        // credentials for our `integration-test-runner` service account.
-        let client = SecretManagerService::new().await?;
-
-        // Load the ADC json for the principal under test, in this case, a
-        // service account.
-        let response = client
-            .access_secret_version(format!(
-                "projects/{}/secrets/test-sa-creds-json/versions/latest",
-                project
-            ))
-            .send()
-            .await?;
-        let adc_json = response
-            .payload
-            .expect("missing payload in test-sa-creds-json response")
-            .data;
-
-        // Write the ADC to a temporary file
-        let file = tempfile::NamedTempFile::new().unwrap();
-        let path = file.into_temp_path();
-        std::fs::write(&path, adc_json).expect("Unable to write to temporary file.");
-
-        // Create credentials for the principal under test.
-        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
-        let creds = create_access_token_credential()
-            .await
-            .map_err(Error::authentication)?;
-
-        // Construct a new SecretManager client using the credentials.
-        let config = Config::new().set_credential(creds);
-        let client = SecretManagerService::new_with_config(config).await?;
-
-        // Access a secret, which only this principal has permissions to do.
-        let response = client
-            .access_secret_version(format!(
-                "projects/{}/secrets/test-sa-creds-secret/versions/latest",
-                project
-            ))
-            .send()
-            .await?;
-        let secret = response
-            .payload
-            .expect("missing payload in test-sa-creds-secret response")
-            .data;
-        assert_eq!(secret, "service_account");
-
-        Ok(())
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_api_key() -> Result<()> {
+        auth_integration_tests::api_key().await
     }
 }

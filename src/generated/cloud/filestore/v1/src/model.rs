@@ -147,75 +147,117 @@ pub mod network_config {
     use super::*;
 
     /// Internet protocol versions supported by Filestore.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AddressMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AddressMode(i32);
 
     impl AddressMode {
+        /// Internet protocol not set.
+        pub const ADDRESS_MODE_UNSPECIFIED: AddressMode = AddressMode::new(0);
+
+        /// Use the IPv4 internet protocol.
+        pub const MODE_IPV4: AddressMode = AddressMode::new(1);
+
         /// Creates a new AddressMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ADDRESS_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MODE_IPV4"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ADDRESS_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ADDRESS_MODE_UNSPECIFIED)
+                }
+                "MODE_IPV4" => std::option::Option::Some(Self::MODE_IPV4),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [AddressMode](AddressMode)
-    pub mod address_mode {
-        use super::AddressMode;
-
-        /// Internet protocol not set.
-        pub const ADDRESS_MODE_UNSPECIFIED: AddressMode =
-            AddressMode::new("ADDRESS_MODE_UNSPECIFIED");
-
-        /// Use the IPv4 internet protocol.
-        pub const MODE_IPV4: AddressMode = AddressMode::new("MODE_IPV4");
+    impl std::convert::From<i32> for AddressMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for AddressMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for AddressMode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Available connection modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConnectMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ConnectMode(i32);
 
     impl ConnectMode {
-        /// Creates a new ConnectMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ConnectMode](ConnectMode)
-    pub mod connect_mode {
-        use super::ConnectMode;
-
         /// Not set.
-        pub const CONNECT_MODE_UNSPECIFIED: ConnectMode =
-            ConnectMode::new("CONNECT_MODE_UNSPECIFIED");
+        pub const CONNECT_MODE_UNSPECIFIED: ConnectMode = ConnectMode::new(0);
 
         /// Connect via direct peering to the Filestore service.
-        pub const DIRECT_PEERING: ConnectMode = ConnectMode::new("DIRECT_PEERING");
+        pub const DIRECT_PEERING: ConnectMode = ConnectMode::new(1);
 
         /// Connect to your Filestore instance using Private Service
         /// Access. Private services access provides an IP address range for multiple
         /// Google Cloud services, including Filestore.
-        pub const PRIVATE_SERVICE_ACCESS: ConnectMode = ConnectMode::new("PRIVATE_SERVICE_ACCESS");
+        pub const PRIVATE_SERVICE_ACCESS: ConnectMode = ConnectMode::new(2);
+
+        /// Creates a new ConnectMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CONNECT_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DIRECT_PEERING"),
+                2 => std::borrow::Cow::Borrowed("PRIVATE_SERVICE_ACCESS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CONNECT_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CONNECT_MODE_UNSPECIFIED)
+                }
+                "DIRECT_PEERING" => std::option::Option::Some(Self::DIRECT_PEERING),
+                "PRIVATE_SERVICE_ACCESS" => std::option::Option::Some(Self::PRIVATE_SERVICE_ACCESS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ConnectMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ConnectMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ConnectMode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -439,74 +481,439 @@ pub mod nfs_export_options {
     use super::*;
 
     /// The access mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AccessMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AccessMode(i32);
 
     impl AccessMode {
+        /// AccessMode not set.
+        pub const ACCESS_MODE_UNSPECIFIED: AccessMode = AccessMode::new(0);
+
+        /// The client can only read the file share.
+        pub const READ_ONLY: AccessMode = AccessMode::new(1);
+
+        /// The client can read and write the file share (default).
+        pub const READ_WRITE: AccessMode = AccessMode::new(2);
+
         /// Creates a new AccessMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACCESS_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("READ_ONLY"),
+                2 => std::borrow::Cow::Borrowed("READ_WRITE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACCESS_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ACCESS_MODE_UNSPECIFIED)
+                }
+                "READ_ONLY" => std::option::Option::Some(Self::READ_ONLY),
+                "READ_WRITE" => std::option::Option::Some(Self::READ_WRITE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [AccessMode](AccessMode)
-    pub mod access_mode {
-        use super::AccessMode;
-
-        /// AccessMode not set.
-        pub const ACCESS_MODE_UNSPECIFIED: AccessMode = AccessMode::new("ACCESS_MODE_UNSPECIFIED");
-
-        /// The client can only read the file share.
-        pub const READ_ONLY: AccessMode = AccessMode::new("READ_ONLY");
-
-        /// The client can read and write the file share (default).
-        pub const READ_WRITE: AccessMode = AccessMode::new("READ_WRITE");
+    impl std::convert::From<i32> for AccessMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for AccessMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for AccessMode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The squash mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SquashMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct SquashMode(i32);
 
     impl SquashMode {
+        /// SquashMode not set.
+        pub const SQUASH_MODE_UNSPECIFIED: SquashMode = SquashMode::new(0);
+
+        /// The Root user has root access to the file share (default).
+        pub const NO_ROOT_SQUASH: SquashMode = SquashMode::new(1);
+
+        /// The Root user has squashed access to the anonymous uid/gid.
+        pub const ROOT_SQUASH: SquashMode = SquashMode::new(2);
+
         /// Creates a new SquashMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SQUASH_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NO_ROOT_SQUASH"),
+                2 => std::borrow::Cow::Borrowed("ROOT_SQUASH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SQUASH_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SQUASH_MODE_UNSPECIFIED)
+                }
+                "NO_ROOT_SQUASH" => std::option::Option::Some(Self::NO_ROOT_SQUASH),
+                "ROOT_SQUASH" => std::option::Option::Some(Self::ROOT_SQUASH),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SquashMode](SquashMode)
-    pub mod squash_mode {
-        use super::SquashMode;
-
-        /// SquashMode not set.
-        pub const SQUASH_MODE_UNSPECIFIED: SquashMode = SquashMode::new("SQUASH_MODE_UNSPECIFIED");
-
-        /// The Root user has root access to the file share (default).
-        pub const NO_ROOT_SQUASH: SquashMode = SquashMode::new("NO_ROOT_SQUASH");
-
-        /// The Root user has squashed access to the anonymous uid/gid.
-        pub const ROOT_SQUASH: SquashMode = SquashMode::new("ROOT_SQUASH");
+    impl std::convert::From<i32> for SquashMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for SquashMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for SquashMode {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+}
+
+/// Replica configuration for the instance.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ReplicaConfig {
+    /// Output only. The replica state.
+    pub state: crate::model::replica_config::State,
+
+    /// Output only. Additional information about the replication state, if
+    /// available.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub state_reasons: std::vec::Vec<crate::model::replica_config::StateReason>,
+
+    /// Optional. The peer instance.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub peer_instance: std::string::String,
+
+    /// Output only. The timestamp of the latest replication snapshot taken on the
+    /// active instance and is already replicated safely.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub last_active_sync_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl ReplicaConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::ReplicaConfig::state].
+    pub fn set_state<T: std::convert::Into<crate::model::replica_config::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [peer_instance][crate::model::ReplicaConfig::peer_instance].
+    pub fn set_peer_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.peer_instance = v.into();
+        self
+    }
+
+    /// Sets the value of [last_active_sync_time][crate::model::ReplicaConfig::last_active_sync_time].
+    pub fn set_last_active_sync_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_active_sync_time = v.into();
+        self
+    }
+
+    /// Sets the value of [state_reasons][crate::model::ReplicaConfig::state_reasons].
+    pub fn set_state_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::replica_config::StateReason>,
+    {
+        use std::iter::Iterator;
+        self.state_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ReplicaConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.filestore.v1.ReplicaConfig"
+    }
+}
+
+/// Defines additional types related to ReplicaConfig
+pub mod replica_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The replica state.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
+
+    impl State {
+        /// State not set.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The replica is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The replica is ready.
+        pub const READY: State = State::new(3);
+
+        /// The replica is being removed.
+        pub const REMOVING: State = State::new(4);
+
+        /// The replica is experiencing an issue and might be unusable. You can get
+        /// further details from the `stateReasons` field of the `ReplicaConfig`
+        /// object.
+        pub const FAILED: State = State::new(5);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                3 => std::borrow::Cow::Borrowed("READY"),
+                4 => std::borrow::Cow::Borrowed("REMOVING"),
+                5 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "REMOVING" => std::option::Option::Some(Self::REMOVING),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    /// Additional information about the replication state, if available.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct StateReason(i32);
+
+    impl StateReason {
+        /// Reason not specified.
+        pub const STATE_REASON_UNSPECIFIED: StateReason = StateReason::new(0);
+
+        /// The peer instance is unreachable.
+        pub const PEER_INSTANCE_UNREACHABLE: StateReason = StateReason::new(1);
+
+        /// The remove replica peer instance operation failed.
+        pub const REMOVE_FAILED: StateReason = StateReason::new(2);
+
+        /// Creates a new StateReason instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_REASON_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PEER_INSTANCE_UNREACHABLE"),
+                2 => std::borrow::Cow::Borrowed("REMOVE_FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_REASON_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::STATE_REASON_UNSPECIFIED)
+                }
+                "PEER_INSTANCE_UNREACHABLE" => {
+                    std::option::Option::Some(Self::PEER_INSTANCE_UNREACHABLE)
+                }
+                "REMOVE_FAILED" => std::option::Option::Some(Self::REMOVE_FAILED),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for StateReason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for StateReason {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+}
+
+/// Replication specifications.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Replication {
+    /// Optional. The replication role.
+    pub role: crate::model::replication::Role,
+
+    /// Optional. Replication configuration for the replica instance associated
+    /// with this instance. Only a single replica is supported.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub replicas: std::vec::Vec<crate::model::ReplicaConfig>,
+}
+
+impl Replication {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [role][crate::model::Replication::role].
+    pub fn set_role<T: std::convert::Into<crate::model::replication::Role>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.role = v.into();
+        self
+    }
+
+    /// Sets the value of [replicas][crate::model::Replication::replicas].
+    pub fn set_replicas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReplicaConfig>,
+    {
+        use std::iter::Iterator;
+        self.replicas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Replication {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.filestore.v1.Replication"
+    }
+}
+
+/// Defines additional types related to Replication
+pub mod replication {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Replication role.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Role(i32);
+
+    impl Role {
+        /// Role not set.
+        pub const ROLE_UNSPECIFIED: Role = Role::new(0);
+
+        /// The instance is the `ACTIVE` replication member, functions as
+        /// the replication source instance.
+        pub const ACTIVE: Role = Role::new(1);
+
+        /// The instance is the `STANDBY` replication member, functions as
+        /// the replication destination instance.
+        pub const STANDBY: Role = Role::new(2);
+
+        /// Creates a new Role instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROLE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("STANDBY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROLE_UNSPECIFIED" => std::option::Option::Some(Self::ROLE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "STANDBY" => std::option::Option::Some(Self::STANDBY),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Role {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Role {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -574,6 +981,49 @@ pub struct Instance {
     /// state.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub suspension_reasons: std::vec::Vec<crate::model::instance::SuspensionReason>,
+
+    /// Optional. Replication configuration.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub replication: std::option::Option<crate::model::Replication>,
+
+    /// Optional. Input only. Immutable. Tag key-value pairs bound to this
+    /// resource. Each key must be a namespaced name and each value a short name.
+    /// Example:
+    /// "123456789012/environment" : "production",
+    /// "123456789013/costCenter" : "marketing"
+    /// See the documentation for more information:
+    ///
+    /// - Namespaced name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_key>
+    /// - Short name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_value>
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Immutable. The protocol indicates the access protocol for all shares in the
+    /// instance. This field is immutable and it cannot be changed after the
+    /// instance has been created. Default value: `NFS_V3`.
+    pub protocol: crate::model::instance::FileProtocol,
+
+    /// Output only. Indicates whether this instance supports configuring its
+    /// performance. If true, the user can configure the instance's performance by
+    /// using the 'performance_config' field.
+    pub custom_performance_supported: bool,
+
+    /// Optional. Used to configure performance.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub performance_config: std::option::Option<crate::model::instance::PerformanceConfig>,
+
+    /// Output only. Used for getting performance limits.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub performance_limits: std::option::Option<crate::model::instance::PerformanceLimits>,
+
+    /// Optional. Indicates whether the instance is protected against deletion.
+    pub deletion_protection_enabled: bool,
+
+    /// Optional. The reason for enabling deletion protection.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub deletion_protection_reason: std::string::String,
 }
 
 impl Instance {
@@ -647,6 +1097,69 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [replication][crate::model::Instance::replication].
+    pub fn set_replication<
+        T: std::convert::Into<std::option::Option<crate::model::Replication>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.replication = v.into();
+        self
+    }
+
+    /// Sets the value of [protocol][crate::model::Instance::protocol].
+    pub fn set_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.protocol = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_performance_supported][crate::model::Instance::custom_performance_supported].
+    pub fn set_custom_performance_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.custom_performance_supported = v.into();
+        self
+    }
+
+    /// Sets the value of [performance_config][crate::model::Instance::performance_config].
+    pub fn set_performance_config<
+        T: std::convert::Into<std::option::Option<crate::model::instance::PerformanceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.performance_config = v.into();
+        self
+    }
+
+    /// Sets the value of [performance_limits][crate::model::Instance::performance_limits].
+    pub fn set_performance_limits<
+        T: std::convert::Into<std::option::Option<crate::model::instance::PerformanceLimits>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.performance_limits = v.into();
+        self
+    }
+
+    /// Sets the value of [deletion_protection_enabled][crate::model::Instance::deletion_protection_enabled].
+    pub fn set_deletion_protection_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deletion_protection_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [deletion_protection_reason][crate::model::Instance::deletion_protection_reason].
+    pub fn set_deletion_protection_reason<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deletion_protection_reason = v.into();
+        self
+    }
+
     /// Sets the value of [file_shares][crate::model::Instance::file_shares].
     pub fn set_file_shares<T, V>(mut self, v: T) -> Self
     where
@@ -691,6 +1204,18 @@ impl Instance {
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [tags][crate::model::Instance::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Instance {
@@ -704,164 +1229,587 @@ pub mod instance {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The instance state.
+    /// IOPS per TB.
+    /// Filestore defines TB as 1024^4 bytes (TiB).
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct IOPSPerTB {
+        /// Required. Maximum IOPS per TiB.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_iops_per_tb: i64,
+    }
 
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+    impl IOPSPerTB {
+        pub fn new() -> Self {
+            std::default::Default::default()
         }
 
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        /// Sets the value of [max_iops_per_tb][crate::model::instance::IOPSPerTB::max_iops_per_tb].
+        pub fn set_max_iops_per_tb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_iops_per_tb = v.into();
+            self
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
+    impl wkt::message::Message for IOPSPerTB {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.filestore.v1.Instance.IOPSPerTB"
+        }
+    }
 
+    /// Fixed IOPS (input/output operations per second) parameters.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct FixedIOPS {
+        /// Required. Maximum IOPS.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_iops: i64,
+    }
+
+    impl FixedIOPS {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [max_iops][crate::model::instance::FixedIOPS::max_iops].
+        pub fn set_max_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_iops = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for FixedIOPS {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.filestore.v1.Instance.FixedIOPS"
+        }
+    }
+
+    /// Used for setting the performance configuration.
+    /// If the user doesn't specify PerformanceConfig, automatically provision
+    /// the default performance settings as described in
+    /// <https://cloud.google.com/filestore/docs/performance>. Larger instances will
+    /// be linearly set to more IOPS. If the instance's capacity is increased or
+    /// decreased, its performance will be automatically adjusted upwards or
+    /// downwards accordingly (respectively).
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PerformanceConfig {
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub mode: std::option::Option<crate::model::instance::performance_config::Mode>,
+    }
+
+    impl PerformanceConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of `mode`.
+        pub fn set_mode<
+            T: std::convert::Into<
+                std::option::Option<crate::model::instance::performance_config::Mode>,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = v.into();
+            self
+        }
+
+        /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
+        /// if it holds a `IopsPerTb`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_iops_per_tb(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::instance::IOPSPerTB>> {
+            #[allow(unreachable_patterns)]
+            self.mode.as_ref().and_then(|v| match v {
+                crate::model::instance::performance_config::Mode::IopsPerTb(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
+        /// if it holds a `FixedIops`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_fixed_iops(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::instance::FixedIOPS>> {
+            #[allow(unreachable_patterns)]
+            self.mode.as_ref().and_then(|v| match v {
+                crate::model::instance::performance_config::Mode::FixedIops(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [mode][crate::model::instance::PerformanceConfig::mode]
+        /// to hold a `IopsPerTb`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_iops_per_tb<
+            T: std::convert::Into<std::boxed::Box<crate::model::instance::IOPSPerTB>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = std::option::Option::Some(
+                crate::model::instance::performance_config::Mode::IopsPerTb(v.into()),
+            );
+            self
+        }
+
+        /// Sets the value of [mode][crate::model::instance::PerformanceConfig::mode]
+        /// to hold a `FixedIops`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_fixed_iops<
+            T: std::convert::Into<std::boxed::Box<crate::model::instance::FixedIOPS>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = std::option::Option::Some(
+                crate::model::instance::performance_config::Mode::FixedIops(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for PerformanceConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.filestore.v1.Instance.PerformanceConfig"
+        }
+    }
+
+    /// Defines additional types related to PerformanceConfig
+    pub mod performance_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum Mode {
+            /// Provision IOPS dynamically based on the capacity of the instance.
+            /// Provisioned IOPS will be calculated by multiplying the capacity of the
+            /// instance in TiB by the `iops_per_tb` value. For example, for a 2 TiB
+            /// instance with an `iops_per_tb` value of 17000 the provisioned IOPS will
+            /// be 34000.
+            ///
+            /// If the calculated value is outside the supported range for the
+            /// instance's capacity during instance creation, instance creation will
+            /// fail with an `InvalidArgument` error. Similarly, if an instance
+            /// capacity update would result in a value outside the supported range,
+            /// the update will fail with an `InvalidArgument` error.
+            IopsPerTb(std::boxed::Box<crate::model::instance::IOPSPerTB>),
+            /// Choose a fixed provisioned IOPS value for the instance, which will
+            /// remain constant regardless of instance capacity. Value must be a
+            /// multiple of 1000.
+            ///
+            /// If the chosen value is outside the supported range for the instance's
+            /// capacity during instance creation, instance creation will fail with an
+            /// `InvalidArgument` error. Similarly, if an instance capacity update
+            /// would result in a value outside the supported range, the update will
+            /// fail with an `InvalidArgument` error.
+            FixedIops(std::boxed::Box<crate::model::instance::FixedIOPS>),
+        }
+    }
+
+    /// The enforced performance limits, calculated from the instance's performance
+    /// configuration.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PerformanceLimits {
+        /// Output only. The max IOPS.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_iops: i64,
+
+        /// Output only. The max read IOPS.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_read_iops: i64,
+
+        /// Output only. The max write IOPS.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_write_iops: i64,
+
+        /// Output only. The max read throughput in bytes per second.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_read_throughput_bps: i64,
+
+        /// Output only. The max write throughput in bytes per second.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_write_throughput_bps: i64,
+    }
+
+    impl PerformanceLimits {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [max_iops][crate::model::instance::PerformanceLimits::max_iops].
+        pub fn set_max_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_iops = v.into();
+            self
+        }
+
+        /// Sets the value of [max_read_iops][crate::model::instance::PerformanceLimits::max_read_iops].
+        pub fn set_max_read_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_read_iops = v.into();
+            self
+        }
+
+        /// Sets the value of [max_write_iops][crate::model::instance::PerformanceLimits::max_write_iops].
+        pub fn set_max_write_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_write_iops = v.into();
+            self
+        }
+
+        /// Sets the value of [max_read_throughput_bps][crate::model::instance::PerformanceLimits::max_read_throughput_bps].
+        pub fn set_max_read_throughput_bps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_read_throughput_bps = v.into();
+            self
+        }
+
+        /// Sets the value of [max_write_throughput_bps][crate::model::instance::PerformanceLimits::max_write_throughput_bps].
+        pub fn set_max_write_throughput_bps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_write_throughput_bps = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PerformanceLimits {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.filestore.v1.Instance.PerformanceLimits"
+        }
+    }
+
+    /// The instance state.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
+
+    impl State {
         /// State not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The instance is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The instance is available for use.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(2);
 
         /// Work is being done on the instance. You can get further details from the
         /// `statusMessage` field of the `Instance` resource.
-        pub const REPAIRING: State = State::new("REPAIRING");
+        pub const REPAIRING: State = State::new(3);
 
         /// The instance is shutting down.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// The instance is experiencing an issue and might be unusable. You can get
         /// further details from the `statusMessage` field of the `Instance`
         /// resource.
-        pub const ERROR: State = State::new("ERROR");
+        pub const ERROR: State = State::new(6);
 
         /// The instance is restoring a backup to an existing file share and may be
         /// unusable during this time.
-        pub const RESTORING: State = State::new("RESTORING");
+        pub const RESTORING: State = State::new(7);
 
         /// The instance is suspended. You can get further details from
         /// the `suspension_reasons` field of the `Instance` resource.
-        pub const SUSPENDED: State = State::new("SUSPENDED");
+        pub const SUSPENDED: State = State::new(8);
 
         /// The instance is in the process of becoming suspended.
-        pub const SUSPENDING: State = State::new("SUSPENDING");
+        pub const SUSPENDING: State = State::new(9);
 
         /// The instance is in the process of becoming active.
-        pub const RESUMING: State = State::new("RESUMING");
+        pub const RESUMING: State = State::new(10);
 
         /// The instance is reverting to a snapshot.
-        pub const REVERTING: State = State::new("REVERTING");
+        pub const REVERTING: State = State::new(12);
+
+        /// The replica instance is being promoted.
+        pub const PROMOTING: State = State::new(13);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("REPAIRING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                6 => std::borrow::Cow::Borrowed("ERROR"),
+                7 => std::borrow::Cow::Borrowed("RESTORING"),
+                8 => std::borrow::Cow::Borrowed("SUSPENDED"),
+                9 => std::borrow::Cow::Borrowed("SUSPENDING"),
+                10 => std::borrow::Cow::Borrowed("RESUMING"),
+                12 => std::borrow::Cow::Borrowed("REVERTING"),
+                13 => std::borrow::Cow::Borrowed("PROMOTING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "REPAIRING" => std::option::Option::Some(Self::REPAIRING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "RESTORING" => std::option::Option::Some(Self::RESTORING),
+                "SUSPENDED" => std::option::Option::Some(Self::SUSPENDED),
+                "SUSPENDING" => std::option::Option::Some(Self::SUSPENDING),
+                "RESUMING" => std::option::Option::Some(Self::RESUMING),
+                "REVERTING" => std::option::Option::Some(Self::REVERTING),
+                "PROMOTING" => std::option::Option::Some(Self::PROMOTING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Available service tiers.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Tier(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Tier(i32);
 
     impl Tier {
-        /// Creates a new Tier instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Tier](Tier)
-    pub mod tier {
-        use super::Tier;
-
         /// Not set.
-        pub const TIER_UNSPECIFIED: Tier = Tier::new("TIER_UNSPECIFIED");
+        pub const TIER_UNSPECIFIED: Tier = Tier::new(0);
 
         /// STANDARD tier. BASIC_HDD is the preferred term for this tier.
-        pub const STANDARD: Tier = Tier::new("STANDARD");
+        pub const STANDARD: Tier = Tier::new(1);
 
         /// PREMIUM tier. BASIC_SSD is the preferred term for this tier.
-        pub const PREMIUM: Tier = Tier::new("PREMIUM");
+        pub const PREMIUM: Tier = Tier::new(2);
 
         /// BASIC instances offer a maximum capacity of 63.9 TB.
         /// BASIC_HDD is an alias for STANDARD Tier, offering economical
         /// performance backed by HDD.
-        pub const BASIC_HDD: Tier = Tier::new("BASIC_HDD");
+        pub const BASIC_HDD: Tier = Tier::new(3);
 
         /// BASIC instances offer a maximum capacity of 63.9 TB.
         /// BASIC_SSD is an alias for PREMIUM Tier, and offers improved
         /// performance backed by SSD.
-        pub const BASIC_SSD: Tier = Tier::new("BASIC_SSD");
+        pub const BASIC_SSD: Tier = Tier::new(4);
 
         /// HIGH_SCALE instances offer expanded capacity and performance scaling
         /// capabilities.
-        pub const HIGH_SCALE_SSD: Tier = Tier::new("HIGH_SCALE_SSD");
+        pub const HIGH_SCALE_SSD: Tier = Tier::new(5);
 
         /// ENTERPRISE instances offer the features and availability needed for
         /// mission-critical workloads.
-        pub const ENTERPRISE: Tier = Tier::new("ENTERPRISE");
+        pub const ENTERPRISE: Tier = Tier::new(6);
 
         /// ZONAL instances offer expanded capacity and performance scaling
         /// capabilities.
-        pub const ZONAL: Tier = Tier::new("ZONAL");
+        pub const ZONAL: Tier = Tier::new(7);
 
         /// REGIONAL instances offer the features and availability needed for
         /// mission-critical workloads.
-        pub const REGIONAL: Tier = Tier::new("REGIONAL");
+        pub const REGIONAL: Tier = Tier::new(8);
+
+        /// Creates a new Tier instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TIER_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STANDARD"),
+                2 => std::borrow::Cow::Borrowed("PREMIUM"),
+                3 => std::borrow::Cow::Borrowed("BASIC_HDD"),
+                4 => std::borrow::Cow::Borrowed("BASIC_SSD"),
+                5 => std::borrow::Cow::Borrowed("HIGH_SCALE_SSD"),
+                6 => std::borrow::Cow::Borrowed("ENTERPRISE"),
+                7 => std::borrow::Cow::Borrowed("ZONAL"),
+                8 => std::borrow::Cow::Borrowed("REGIONAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TIER_UNSPECIFIED" => std::option::Option::Some(Self::TIER_UNSPECIFIED),
+                "STANDARD" => std::option::Option::Some(Self::STANDARD),
+                "PREMIUM" => std::option::Option::Some(Self::PREMIUM),
+                "BASIC_HDD" => std::option::Option::Some(Self::BASIC_HDD),
+                "BASIC_SSD" => std::option::Option::Some(Self::BASIC_SSD),
+                "HIGH_SCALE_SSD" => std::option::Option::Some(Self::HIGH_SCALE_SSD),
+                "ENTERPRISE" => std::option::Option::Some(Self::ENTERPRISE),
+                "ZONAL" => std::option::Option::Some(Self::ZONAL),
+                "REGIONAL" => std::option::Option::Some(Self::REGIONAL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Tier {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Tier {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Tier {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// SuspensionReason contains the possible reasons for a suspension.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SuspensionReason(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct SuspensionReason(i32);
 
     impl SuspensionReason {
+        /// Not set.
+        pub const SUSPENSION_REASON_UNSPECIFIED: SuspensionReason = SuspensionReason::new(0);
+
+        /// The KMS key used by the instance is either revoked or denied access to.
+        pub const KMS_KEY_ISSUE: SuspensionReason = SuspensionReason::new(1);
+
         /// Creates a new SuspensionReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SUSPENSION_REASON_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("KMS_KEY_ISSUE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SUSPENSION_REASON_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SUSPENSION_REASON_UNSPECIFIED)
+                }
+                "KMS_KEY_ISSUE" => std::option::Option::Some(Self::KMS_KEY_ISSUE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SuspensionReason](SuspensionReason)
-    pub mod suspension_reason {
-        use super::SuspensionReason;
-
-        /// Not set.
-        pub const SUSPENSION_REASON_UNSPECIFIED: SuspensionReason =
-            SuspensionReason::new("SUSPENSION_REASON_UNSPECIFIED");
-
-        /// The KMS key used by the instance is either revoked or denied access to.
-        pub const KMS_KEY_ISSUE: SuspensionReason = SuspensionReason::new("KMS_KEY_ISSUE");
+    impl std::convert::From<i32> for SuspensionReason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for SuspensionReason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for SuspensionReason {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    /// File access protocol.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct FileProtocol(i32);
+
+    impl FileProtocol {
+        /// FILE_PROTOCOL_UNSPECIFIED serves a "not set" default value when
+        /// a FileProtocol is a separate field in a message.
+        pub const FILE_PROTOCOL_UNSPECIFIED: FileProtocol = FileProtocol::new(0);
+
+        /// NFS 3.0.
+        pub const NFS_V3: FileProtocol = FileProtocol::new(1);
+
+        /// NFS 4.1.
+        pub const NFS_V4_1: FileProtocol = FileProtocol::new(2);
+
+        /// Creates a new FileProtocol instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FILE_PROTOCOL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NFS_V3"),
+                2 => std::borrow::Cow::Borrowed("NFS_V4_1"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FILE_PROTOCOL_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FILE_PROTOCOL_UNSPECIFIED)
+                }
+                "NFS_V3" => std::option::Option::Some(Self::NFS_V3),
+                "NFS_V4_1" => std::option::Option::Some(Self::NFS_V4_1),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FileProtocol {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for FileProtocol {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -966,6 +1914,9 @@ pub struct UpdateInstanceRequest {
     /// * "description"
     /// * "file_shares"
     /// * "labels"
+    /// * "performance_config"
+    /// * "deletion_protection_enabled"
+    /// * "deletion_protection_reason"
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
@@ -1107,9 +2058,8 @@ pub mod restore_instance_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RevertInstanceRequest {
-    /// Required.
+    /// Required. The resource name of the instance, in the format
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`.
-    /// The resource name of the instance, in the format
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -1281,7 +2231,7 @@ pub struct ListInstancesResponse {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
-    /// Locations that could not be reached.
+    /// Unordered list. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
 }
@@ -1370,6 +2320,20 @@ pub struct Snapshot {
     /// snapshot content
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub filesystem_used_bytes: i64,
+
+    /// Optional. Input only. Immutable. Tag key-value pairs bound to this
+    /// resource. Each key must be a namespaced name and each value a short name.
+    /// Example:
+    /// "123456789012/environment" : "production",
+    /// "123456789013/costCenter" : "marketing"
+    /// See the documentation for more information:
+    ///
+    /// - Namespaced name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_key>
+    /// - Short name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_value>
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 }
 
 impl Snapshot {
@@ -1421,6 +2385,18 @@ impl Snapshot {
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [tags][crate::model::Snapshot::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Snapshot {
@@ -1435,41 +2411,64 @@ pub mod snapshot {
     use super::*;
 
     /// The snapshot state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// State not set.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Snapshot is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// Snapshot is available for use.
+        pub const READY: State = State::new(2);
+
+        /// Snapshot is being deleted.
+        pub const DELETING: State = State::new(3);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Snapshot is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// Snapshot is available for use.
-        pub const READY: State = State::new("READY");
-
-        /// Snapshot is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1664,6 +2663,10 @@ pub struct ListSnapshotsRequest {
     /// List filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    /// Optional. If true, allow partial responses for multi-regional Aggregated
+    /// List requests.
+    pub return_partial_success: bool,
 }
 
 impl ListSnapshotsRequest {
@@ -1700,6 +2703,12 @@ impl ListSnapshotsRequest {
         self.filter = v.into();
         self
     }
+
+    /// Sets the value of [return_partial_success][crate::model::ListSnapshotsRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ListSnapshotsRequest {
@@ -1722,6 +2731,10 @@ pub struct ListSnapshotsResponse {
     /// if there are no more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
 }
 
 impl ListSnapshotsResponse {
@@ -1743,6 +2756,17 @@ impl ListSnapshotsResponse {
     {
         use std::iter::Iterator;
         self.snapshots = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListSnapshotsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1833,6 +2857,24 @@ pub struct Backup {
     /// Immutable. KMS key name used for data encryption.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key: std::string::String,
+
+    /// Optional. Input only. Immutable. Tag key-value pairs bound to this
+    /// resource. Each key must be a namespaced name and each value a short name.
+    /// Example:
+    /// "123456789012/environment" : "production",
+    /// "123456789013/costCenter" : "marketing"
+    /// See the documentation for more information:
+    ///
+    /// - Namespaced name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_key>
+    /// - Short name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_value>
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The file system protocol of the source Filestore instance that
+    /// this backup is created from.
+    pub file_system_protocol: crate::model::instance::FileProtocol,
 }
 
 impl Backup {
@@ -1930,6 +2972,15 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [file_system_protocol][crate::model::Backup::file_system_protocol].
+    pub fn set_file_system_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.file_system_protocol = v.into();
+        self
+    }
+
     /// Sets the value of [labels][crate::model::Backup::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -1939,6 +2990,18 @@ impl Backup {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::Backup::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1955,49 +3018,76 @@ pub mod backup {
     use super::*;
 
     /// The backup state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// State not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Backup is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// Backup has been taken and the operation is being finalized. At this
         /// point, changes to the file share will not be reflected in the backup.
-        pub const FINALIZING: State = State::new("FINALIZING");
+        pub const FINALIZING: State = State::new(2);
 
         /// Backup is available for use.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(3);
 
         /// Backup is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// Backup is not valid and cannot be used for creating new instances or
         /// restoring existing instances.
-        pub const INVALID: State = State::new("INVALID");
+        pub const INVALID: State = State::new(5);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("FINALIZING"),
+                3 => std::borrow::Cow::Borrowed("READY"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("INVALID"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "FINALIZING" => std::option::Option::Some(Self::FINALIZING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "INVALID" => std::option::Option::Some(Self::INVALID),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2142,6 +3232,49 @@ impl wkt::message::Message for UpdateBackupRequest {
     }
 }
 
+/// PromoteReplicaRequest promotes a Filestore standby instance (replica).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PromoteReplicaRequest {
+    /// Required. The resource name of the instance, in the format
+    /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. The resource name of the peer instance to promote, in the format
+    /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`.
+    /// The peer instance is required if the operation is called on an active
+    /// instance.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub peer_instance: std::string::String,
+}
+
+impl PromoteReplicaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::PromoteReplicaRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [peer_instance][crate::model::PromoteReplicaRequest::peer_instance].
+    pub fn set_peer_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.peer_instance = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PromoteReplicaRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.filestore.v1.PromoteReplicaRequest"
+    }
+}
+
 /// GetBackupRequest gets the state of a backup.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2267,7 +3400,7 @@ pub struct ListBackupsResponse {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
-    /// Locations that could not be reached.
+    /// Unordered list. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
 }

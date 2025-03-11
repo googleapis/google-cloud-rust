@@ -52,7 +52,7 @@ impl crate::stubs::EssentialContactsService for EssentialContactsService {
                 reqwest::Method::POST,
                 format!("/v1/{}/contacts", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -80,7 +80,7 @@ impl crate::stubs::EssentialContactsService for EssentialContactsService {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -109,7 +109,7 @@ impl crate::stubs::EssentialContactsService for EssentialContactsService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/contacts", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -130,7 +130,7 @@ impl crate::stubs::EssentialContactsService for EssentialContactsService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -149,7 +149,7 @@ impl crate::stubs::EssentialContactsService for EssentialContactsService {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -171,7 +171,7 @@ impl crate::stubs::EssentialContactsService for EssentialContactsService {
                 reqwest::Method::GET,
                 format!("/v1/{}/contacts:compute", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -201,7 +201,7 @@ impl crate::stubs::EssentialContactsService for EssentialContactsService {
                 reqwest::Method::POST,
                 format!("/v1/{}/contacts:sendTestMessage", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

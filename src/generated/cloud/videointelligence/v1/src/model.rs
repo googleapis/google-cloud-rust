@@ -55,9 +55,9 @@ pub struct AnnotateVideoRequest {
     /// The video data bytes.
     /// If unset, the input video(s) should be specified via the `input_uri`.
     /// If set, `input_uri` must be unset.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub input_content: bytes::Bytes,
+    pub input_content: ::bytes::Bytes,
 
     /// Required. Requested video annotation features.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -97,7 +97,7 @@ impl AnnotateVideoRequest {
     }
 
     /// Sets the value of [input_content][crate::model::AnnotateVideoRequest::input_content].
-    pub fn set_input_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_input_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.input_content = v.into();
         self
     }
@@ -1058,9 +1058,9 @@ pub struct FaceDetectionAnnotation {
     pub tracks: std::vec::Vec<crate::model::Track>,
 
     /// The thumbnail of a person's face.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub thumbnail: bytes::Bytes,
+    pub thumbnail: ::bytes::Bytes,
 
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -1073,7 +1073,7 @@ impl FaceDetectionAnnotation {
     }
 
     /// Sets the value of [thumbnail][crate::model::FaceDetectionAnnotation::thumbnail].
-    pub fn set_thumbnail<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_thumbnail<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.thumbnail = v.into();
         self
     }
@@ -1235,9 +1235,9 @@ impl wkt::message::Message for FaceFrame {
 #[non_exhaustive]
 pub struct FaceAnnotation {
     /// Thumbnail of a representative face view (in JPEG format).
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub thumbnail: bytes::Bytes,
+    pub thumbnail: ::bytes::Bytes,
 
     /// All video segments where a face was detected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -1254,7 +1254,7 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [thumbnail][crate::model::FaceAnnotation::thumbnail].
-    pub fn set_thumbnail<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_thumbnail<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.thumbnail = v.into();
         self
     }
@@ -2892,144 +2892,231 @@ impl wkt::message::Message for LogoRecognitionAnnotation {
 }
 
 /// Video annotation feature.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Feature(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct Feature(i32);
 
 impl Feature {
+    /// Unspecified.
+    pub const FEATURE_UNSPECIFIED: Feature = Feature::new(0);
+
+    /// Label detection. Detect objects, such as dog or flower.
+    pub const LABEL_DETECTION: Feature = Feature::new(1);
+
+    /// Shot change detection.
+    pub const SHOT_CHANGE_DETECTION: Feature = Feature::new(2);
+
+    /// Explicit content detection.
+    pub const EXPLICIT_CONTENT_DETECTION: Feature = Feature::new(3);
+
+    /// Human face detection.
+    pub const FACE_DETECTION: Feature = Feature::new(4);
+
+    /// Speech transcription.
+    pub const SPEECH_TRANSCRIPTION: Feature = Feature::new(6);
+
+    /// OCR text detection and tracking.
+    pub const TEXT_DETECTION: Feature = Feature::new(7);
+
+    /// Object detection and tracking.
+    pub const OBJECT_TRACKING: Feature = Feature::new(9);
+
+    /// Logo detection, tracking, and recognition.
+    pub const LOGO_RECOGNITION: Feature = Feature::new(12);
+
+    /// Person detection.
+    pub const PERSON_DETECTION: Feature = Feature::new(14);
+
     /// Creates a new Feature instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("FEATURE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("LABEL_DETECTION"),
+            2 => std::borrow::Cow::Borrowed("SHOT_CHANGE_DETECTION"),
+            3 => std::borrow::Cow::Borrowed("EXPLICIT_CONTENT_DETECTION"),
+            4 => std::borrow::Cow::Borrowed("FACE_DETECTION"),
+            6 => std::borrow::Cow::Borrowed("SPEECH_TRANSCRIPTION"),
+            7 => std::borrow::Cow::Borrowed("TEXT_DETECTION"),
+            9 => std::borrow::Cow::Borrowed("OBJECT_TRACKING"),
+            12 => std::borrow::Cow::Borrowed("LOGO_RECOGNITION"),
+            14 => std::borrow::Cow::Borrowed("PERSON_DETECTION"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "FEATURE_UNSPECIFIED" => std::option::Option::Some(Self::FEATURE_UNSPECIFIED),
+            "LABEL_DETECTION" => std::option::Option::Some(Self::LABEL_DETECTION),
+            "SHOT_CHANGE_DETECTION" => std::option::Option::Some(Self::SHOT_CHANGE_DETECTION),
+            "EXPLICIT_CONTENT_DETECTION" => {
+                std::option::Option::Some(Self::EXPLICIT_CONTENT_DETECTION)
+            }
+            "FACE_DETECTION" => std::option::Option::Some(Self::FACE_DETECTION),
+            "SPEECH_TRANSCRIPTION" => std::option::Option::Some(Self::SPEECH_TRANSCRIPTION),
+            "TEXT_DETECTION" => std::option::Option::Some(Self::TEXT_DETECTION),
+            "OBJECT_TRACKING" => std::option::Option::Some(Self::OBJECT_TRACKING),
+            "LOGO_RECOGNITION" => std::option::Option::Some(Self::LOGO_RECOGNITION),
+            "PERSON_DETECTION" => std::option::Option::Some(Self::PERSON_DETECTION),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [Feature](Feature)
-pub mod feature {
-    use super::Feature;
-
-    /// Unspecified.
-    pub const FEATURE_UNSPECIFIED: Feature = Feature::new("FEATURE_UNSPECIFIED");
-
-    /// Label detection. Detect objects, such as dog or flower.
-    pub const LABEL_DETECTION: Feature = Feature::new("LABEL_DETECTION");
-
-    /// Shot change detection.
-    pub const SHOT_CHANGE_DETECTION: Feature = Feature::new("SHOT_CHANGE_DETECTION");
-
-    /// Explicit content detection.
-    pub const EXPLICIT_CONTENT_DETECTION: Feature = Feature::new("EXPLICIT_CONTENT_DETECTION");
-
-    /// Human face detection.
-    pub const FACE_DETECTION: Feature = Feature::new("FACE_DETECTION");
-
-    /// Speech transcription.
-    pub const SPEECH_TRANSCRIPTION: Feature = Feature::new("SPEECH_TRANSCRIPTION");
-
-    /// OCR text detection and tracking.
-    pub const TEXT_DETECTION: Feature = Feature::new("TEXT_DETECTION");
-
-    /// Object detection and tracking.
-    pub const OBJECT_TRACKING: Feature = Feature::new("OBJECT_TRACKING");
-
-    /// Logo detection, tracking, and recognition.
-    pub const LOGO_RECOGNITION: Feature = Feature::new("LOGO_RECOGNITION");
-
-    /// Person detection.
-    pub const PERSON_DETECTION: Feature = Feature::new("PERSON_DETECTION");
+impl std::convert::From<i32> for Feature {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for Feature {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for Feature {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Label detection mode.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LabelDetectionMode(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct LabelDetectionMode(i32);
 
 impl LabelDetectionMode {
+    /// Unspecified.
+    pub const LABEL_DETECTION_MODE_UNSPECIFIED: LabelDetectionMode = LabelDetectionMode::new(0);
+
+    /// Detect shot-level labels.
+    pub const SHOT_MODE: LabelDetectionMode = LabelDetectionMode::new(1);
+
+    /// Detect frame-level labels.
+    pub const FRAME_MODE: LabelDetectionMode = LabelDetectionMode::new(2);
+
+    /// Detect both shot-level and frame-level labels.
+    pub const SHOT_AND_FRAME_MODE: LabelDetectionMode = LabelDetectionMode::new(3);
+
     /// Creates a new LabelDetectionMode instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("LABEL_DETECTION_MODE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SHOT_MODE"),
+            2 => std::borrow::Cow::Borrowed("FRAME_MODE"),
+            3 => std::borrow::Cow::Borrowed("SHOT_AND_FRAME_MODE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "LABEL_DETECTION_MODE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::LABEL_DETECTION_MODE_UNSPECIFIED)
+            }
+            "SHOT_MODE" => std::option::Option::Some(Self::SHOT_MODE),
+            "FRAME_MODE" => std::option::Option::Some(Self::FRAME_MODE),
+            "SHOT_AND_FRAME_MODE" => std::option::Option::Some(Self::SHOT_AND_FRAME_MODE),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [LabelDetectionMode](LabelDetectionMode)
-pub mod label_detection_mode {
-    use super::LabelDetectionMode;
-
-    /// Unspecified.
-    pub const LABEL_DETECTION_MODE_UNSPECIFIED: LabelDetectionMode =
-        LabelDetectionMode::new("LABEL_DETECTION_MODE_UNSPECIFIED");
-
-    /// Detect shot-level labels.
-    pub const SHOT_MODE: LabelDetectionMode = LabelDetectionMode::new("SHOT_MODE");
-
-    /// Detect frame-level labels.
-    pub const FRAME_MODE: LabelDetectionMode = LabelDetectionMode::new("FRAME_MODE");
-
-    /// Detect both shot-level and frame-level labels.
-    pub const SHOT_AND_FRAME_MODE: LabelDetectionMode =
-        LabelDetectionMode::new("SHOT_AND_FRAME_MODE");
+impl std::convert::From<i32> for LabelDetectionMode {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for LabelDetectionMode {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for LabelDetectionMode {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Bucketized representation of likelihood.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Likelihood(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct Likelihood(i32);
 
 impl Likelihood {
+    /// Unspecified likelihood.
+    pub const LIKELIHOOD_UNSPECIFIED: Likelihood = Likelihood::new(0);
+
+    /// Very unlikely.
+    pub const VERY_UNLIKELY: Likelihood = Likelihood::new(1);
+
+    /// Unlikely.
+    pub const UNLIKELY: Likelihood = Likelihood::new(2);
+
+    /// Possible.
+    pub const POSSIBLE: Likelihood = Likelihood::new(3);
+
+    /// Likely.
+    pub const LIKELY: Likelihood = Likelihood::new(4);
+
+    /// Very likely.
+    pub const VERY_LIKELY: Likelihood = Likelihood::new(5);
+
     /// Creates a new Likelihood instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("LIKELIHOOD_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("VERY_UNLIKELY"),
+            2 => std::borrow::Cow::Borrowed("UNLIKELY"),
+            3 => std::borrow::Cow::Borrowed("POSSIBLE"),
+            4 => std::borrow::Cow::Borrowed("LIKELY"),
+            5 => std::borrow::Cow::Borrowed("VERY_LIKELY"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "LIKELIHOOD_UNSPECIFIED" => std::option::Option::Some(Self::LIKELIHOOD_UNSPECIFIED),
+            "VERY_UNLIKELY" => std::option::Option::Some(Self::VERY_UNLIKELY),
+            "UNLIKELY" => std::option::Option::Some(Self::UNLIKELY),
+            "POSSIBLE" => std::option::Option::Some(Self::POSSIBLE),
+            "LIKELY" => std::option::Option::Some(Self::LIKELY),
+            "VERY_LIKELY" => std::option::Option::Some(Self::VERY_LIKELY),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [Likelihood](Likelihood)
-pub mod likelihood {
-    use super::Likelihood;
-
-    /// Unspecified likelihood.
-    pub const LIKELIHOOD_UNSPECIFIED: Likelihood = Likelihood::new("LIKELIHOOD_UNSPECIFIED");
-
-    /// Very unlikely.
-    pub const VERY_UNLIKELY: Likelihood = Likelihood::new("VERY_UNLIKELY");
-
-    /// Unlikely.
-    pub const UNLIKELY: Likelihood = Likelihood::new("UNLIKELY");
-
-    /// Possible.
-    pub const POSSIBLE: Likelihood = Likelihood::new("POSSIBLE");
-
-    /// Likely.
-    pub const LIKELY: Likelihood = Likelihood::new("LIKELY");
-
-    /// Very likely.
-    pub const VERY_LIKELY: Likelihood = Likelihood::new("VERY_LIKELY");
+impl std::convert::From<i32> for Likelihood {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for Likelihood {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for Likelihood {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

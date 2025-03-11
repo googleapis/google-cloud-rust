@@ -909,38 +909,59 @@ pub mod frequency_options {
     use super::*;
 
     /// This ENUM specifies possible frequencies of report generation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Frequency(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Frequency(i32);
 
     impl Frequency {
+        /// Unspecified.
+        pub const FREQUENCY_UNSPECIFIED: Frequency = Frequency::new(0);
+
+        /// Report will be generated daily.
+        pub const DAILY: Frequency = Frequency::new(1);
+
+        /// Report will be generated weekly.
+        pub const WEEKLY: Frequency = Frequency::new(2);
+
         /// Creates a new Frequency instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FREQUENCY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DAILY"),
+                2 => std::borrow::Cow::Borrowed("WEEKLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FREQUENCY_UNSPECIFIED" => std::option::Option::Some(Self::FREQUENCY_UNSPECIFIED),
+                "DAILY" => std::option::Option::Some(Self::DAILY),
+                "WEEKLY" => std::option::Option::Some(Self::WEEKLY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Frequency](Frequency)
-    pub mod frequency {
-        use super::Frequency;
-
-        /// Unspecified.
-        pub const FREQUENCY_UNSPECIFIED: Frequency = Frequency::new("FREQUENCY_UNSPECIFIED");
-
-        /// Report will be generated daily.
-        pub const DAILY: Frequency = Frequency::new("DAILY");
-
-        /// Report will be generated weekly.
-        pub const WEEKLY: Frequency = Frequency::new("WEEKLY");
+    impl std::convert::From<i32> for Frequency {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Frequency {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Frequency {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

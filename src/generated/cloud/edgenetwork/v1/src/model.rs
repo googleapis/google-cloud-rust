@@ -371,43 +371,65 @@ pub mod subnet {
     use super::*;
 
     /// Bonding type in the subnet.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BondingType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct BondingType(i32);
 
     impl BondingType {
-        /// Creates a new BondingType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [BondingType](BondingType)
-    pub mod bonding_type {
-        use super::BondingType;
-
         /// Unspecified
         /// Bonding type will be unspecified by default and if the user chooses to
         /// not specify a bonding type at time of creating the VLAN. This will be
         /// treated as mixed bonding where the VLAN will have both bonded and
         /// non-bonded connectivity to machines.
-        pub const BONDING_TYPE_UNSPECIFIED: BondingType =
-            BondingType::new("BONDING_TYPE_UNSPECIFIED");
+        pub const BONDING_TYPE_UNSPECIFIED: BondingType = BondingType::new(0);
 
         /// Multi homed.
-        pub const BONDED: BondingType = BondingType::new("BONDED");
+        pub const BONDED: BondingType = BondingType::new(1);
 
         /// Single homed.
-        pub const NON_BONDED: BondingType = BondingType::new("NON_BONDED");
+        pub const NON_BONDED: BondingType = BondingType::new(2);
+
+        /// Creates a new BondingType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("BONDING_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BONDED"),
+                2 => std::borrow::Cow::Borrowed("NON_BONDED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "BONDING_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::BONDING_TYPE_UNSPECIFIED)
+                }
+                "BONDED" => std::option::Option::Some(Self::BONDED),
+                "NON_BONDED" => std::option::Option::Some(Self::NON_BONDED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for BondingType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for BondingType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for BondingType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -554,36 +576,56 @@ pub mod interconnect {
     use super::*;
 
     /// Type of interconnect.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct InterconnectType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct InterconnectType(i32);
 
     impl InterconnectType {
+        /// Unspecified.
+        pub const INTERCONNECT_TYPE_UNSPECIFIED: InterconnectType = InterconnectType::new(0);
+
+        /// Dedicated Interconnect.
+        pub const DEDICATED: InterconnectType = InterconnectType::new(1);
+
         /// Creates a new InterconnectType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INTERCONNECT_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DEDICATED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INTERCONNECT_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::INTERCONNECT_TYPE_UNSPECIFIED)
+                }
+                "DEDICATED" => std::option::Option::Some(Self::DEDICATED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [InterconnectType](InterconnectType)
-    pub mod interconnect_type {
-        use super::InterconnectType;
-
-        /// Unspecified.
-        pub const INTERCONNECT_TYPE_UNSPECIFIED: InterconnectType =
-            InterconnectType::new("INTERCONNECT_TYPE_UNSPECIFIED");
-
-        /// Dedicated Interconnect.
-        pub const DEDICATED: InterconnectType = InterconnectType::new("DEDICATED");
+    impl std::convert::From<i32> for InterconnectType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for InterconnectType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for InterconnectType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1555,39 +1597,60 @@ pub mod interconnect_diagnostics {
         use super::*;
 
         /// State enum for LACP link.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct State(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct State(i32);
 
         impl State {
-            /// Creates a new State instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [State](State)
-        pub mod state {
-            use super::State;
-
             /// The default state indicating state is in unknown state.
-            pub const UNKNOWN: State = State::new("UNKNOWN");
+            pub const UNKNOWN: State = State::new(0);
 
             /// The link is configured and active within the bundle.
-            pub const ACTIVE: State = State::new("ACTIVE");
+            pub const ACTIVE: State = State::new(1);
 
             /// The link is not configured within the bundle, this means the rest of
             /// the object should be empty.
-            pub const DETACHED: State = State::new("DETACHED");
+            pub const DETACHED: State = State::new(2);
+
+            /// Creates a new State instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                    1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                    2 => std::borrow::Cow::Borrowed("DETACHED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                    "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                    "DETACHED" => std::option::Option::Some(Self::DETACHED),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for State {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -1862,38 +1925,59 @@ pub mod router_status {
         use super::*;
 
         /// Status of the BGP peer: {UP, DOWN}
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct BgpStatus(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct BgpStatus(i32);
 
         impl BgpStatus {
+            /// The default status indicating BGP session is in unknown state.
+            pub const UNKNOWN: BgpStatus = BgpStatus::new(0);
+
+            /// The UP status indicating BGP session is established.
+            pub const UP: BgpStatus = BgpStatus::new(1);
+
+            /// The DOWN state indicating BGP session is not established yet.
+            pub const DOWN: BgpStatus = BgpStatus::new(2);
+
             /// Creates a new BgpStatus instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                    1 => std::borrow::Cow::Borrowed("UP"),
+                    2 => std::borrow::Cow::Borrowed("DOWN"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                    "UP" => std::option::Option::Some(Self::UP),
+                    "DOWN" => std::option::Option::Some(Self::DOWN),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [BgpStatus](BgpStatus)
-        pub mod bgp_status {
-            use super::BgpStatus;
-
-            /// The default status indicating BGP session is in unknown state.
-            pub const UNKNOWN: BgpStatus = BgpStatus::new("UNKNOWN");
-
-            /// The UP status indicating BGP session is established.
-            pub const UP: BgpStatus = BgpStatus::new("UP");
-
-            /// The DOWN state indicating BGP session is not established yet.
-            pub const DOWN: BgpStatus = BgpStatus::new("DOWN");
+        impl std::convert::From<i32> for BgpStatus {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for BgpStatus {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for BgpStatus {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -3897,39 +3981,61 @@ pub mod diagnose_network_response {
         use super::*;
 
         /// Denotes the status of MACsec sessions for the links of a zone.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct MacsecStatus(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct MacsecStatus(i32);
 
         impl MacsecStatus {
+            /// MACsec status not specified, likely due to missing metrics.
+            pub const MACSEC_STATUS_UNSPECIFIED: MacsecStatus = MacsecStatus::new(0);
+
+            /// All relevant links have at least one MACsec session up.
+            pub const SECURE: MacsecStatus = MacsecStatus::new(1);
+
+            /// At least one relevant link does not have any MACsec sessions up.
+            pub const UNSECURE: MacsecStatus = MacsecStatus::new(2);
+
             /// Creates a new MacsecStatus instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("MACSEC_STATUS_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("SECURE"),
+                    2 => std::borrow::Cow::Borrowed("UNSECURE"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "MACSEC_STATUS_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::MACSEC_STATUS_UNSPECIFIED)
+                    }
+                    "SECURE" => std::option::Option::Some(Self::SECURE),
+                    "UNSECURE" => std::option::Option::Some(Self::UNSECURE),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [MacsecStatus](MacsecStatus)
-        pub mod macsec_status {
-            use super::MacsecStatus;
-
-            /// MACsec status not specified, likely due to missing metrics.
-            pub const MACSEC_STATUS_UNSPECIFIED: MacsecStatus =
-                MacsecStatus::new("MACSEC_STATUS_UNSPECIFIED");
-
-            /// All relevant links have at least one MACsec session up.
-            pub const SECURE: MacsecStatus = MacsecStatus::new("SECURE");
-
-            /// At least one relevant link does not have any MACsec sessions up.
-            pub const UNSECURE: MacsecStatus = MacsecStatus::new("UNSECURE");
+        impl std::convert::From<i32> for MacsecStatus {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for MacsecStatus {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for MacsecStatus {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -4140,46 +4246,73 @@ impl wkt::message::Message for InitializeZoneResponse {
 /// PROVISIONING -> RUNNING. A normal lifecycle of an existing resource being
 /// deleted would be: RUNNING -> DELETING. Any failures during processing will
 /// result the resource to be in a SUSPENDED state.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ResourceState(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ResourceState(i32);
 
 impl ResourceState {
+    /// Unspecified state.
+    pub const STATE_UNKNOWN: ResourceState = ResourceState::new(0);
+
+    /// The resource is being prepared to be applied to the rack.
+    pub const STATE_PENDING: ResourceState = ResourceState::new(1);
+
+    /// The resource has started being applied to the rack.
+    pub const STATE_PROVISIONING: ResourceState = ResourceState::new(2);
+
+    /// The resource has been pushed to the rack.
+    pub const STATE_RUNNING: ResourceState = ResourceState::new(3);
+
+    /// The resource failed to push to the rack.
+    pub const STATE_SUSPENDED: ResourceState = ResourceState::new(4);
+
+    /// The resource is under deletion.
+    pub const STATE_DELETING: ResourceState = ResourceState::new(5);
+
     /// Creates a new ResourceState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("STATE_UNKNOWN"),
+            1 => std::borrow::Cow::Borrowed("STATE_PENDING"),
+            2 => std::borrow::Cow::Borrowed("STATE_PROVISIONING"),
+            3 => std::borrow::Cow::Borrowed("STATE_RUNNING"),
+            4 => std::borrow::Cow::Borrowed("STATE_SUSPENDED"),
+            5 => std::borrow::Cow::Borrowed("STATE_DELETING"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "STATE_UNKNOWN" => std::option::Option::Some(Self::STATE_UNKNOWN),
+            "STATE_PENDING" => std::option::Option::Some(Self::STATE_PENDING),
+            "STATE_PROVISIONING" => std::option::Option::Some(Self::STATE_PROVISIONING),
+            "STATE_RUNNING" => std::option::Option::Some(Self::STATE_RUNNING),
+            "STATE_SUSPENDED" => std::option::Option::Some(Self::STATE_SUSPENDED),
+            "STATE_DELETING" => std::option::Option::Some(Self::STATE_DELETING),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ResourceState](ResourceState)
-pub mod resource_state {
-    use super::ResourceState;
-
-    /// Unspecified state.
-    pub const STATE_UNKNOWN: ResourceState = ResourceState::new("STATE_UNKNOWN");
-
-    /// The resource is being prepared to be applied to the rack.
-    pub const STATE_PENDING: ResourceState = ResourceState::new("STATE_PENDING");
-
-    /// The resource has started being applied to the rack.
-    pub const STATE_PROVISIONING: ResourceState = ResourceState::new("STATE_PROVISIONING");
-
-    /// The resource has been pushed to the rack.
-    pub const STATE_RUNNING: ResourceState = ResourceState::new("STATE_RUNNING");
-
-    /// The resource failed to push to the rack.
-    pub const STATE_SUSPENDED: ResourceState = ResourceState::new("STATE_SUSPENDED");
-
-    /// The resource is under deletion.
-    pub const STATE_DELETING: ResourceState = ResourceState::new("STATE_DELETING");
+impl std::convert::From<i32> for ResourceState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for ResourceState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for ResourceState {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

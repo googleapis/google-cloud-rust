@@ -519,70 +519,82 @@ pub mod binding_explanation {
     }
 
     /// Whether a role includes a specific permission.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RolePermission(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RolePermission(i32);
 
     impl RolePermission {
+        /// Default value. This value is unused.
+        pub const ROLE_PERMISSION_UNSPECIFIED: RolePermission = RolePermission::new(0);
+
+        /// The permission is included in the role.
+        pub const ROLE_PERMISSION_INCLUDED: RolePermission = RolePermission::new(1);
+
+        /// The permission is not included in the role.
+        pub const ROLE_PERMISSION_NOT_INCLUDED: RolePermission = RolePermission::new(2);
+
+        /// The sender of the request is not allowed to access the binding.
+        pub const ROLE_PERMISSION_UNKNOWN_INFO_DENIED: RolePermission = RolePermission::new(3);
+
         /// Creates a new RolePermission instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_INCLUDED"),
+                2 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_NOT_INCLUDED"),
+                3 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_UNKNOWN_INFO_DENIED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROLE_PERMISSION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ROLE_PERMISSION_UNSPECIFIED)
+                }
+                "ROLE_PERMISSION_INCLUDED" => {
+                    std::option::Option::Some(Self::ROLE_PERMISSION_INCLUDED)
+                }
+                "ROLE_PERMISSION_NOT_INCLUDED" => {
+                    std::option::Option::Some(Self::ROLE_PERMISSION_NOT_INCLUDED)
+                }
+                "ROLE_PERMISSION_UNKNOWN_INFO_DENIED" => {
+                    std::option::Option::Some(Self::ROLE_PERMISSION_UNKNOWN_INFO_DENIED)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RolePermission](RolePermission)
-    pub mod role_permission {
-        use super::RolePermission;
-
-        /// Default value. This value is unused.
-        pub const ROLE_PERMISSION_UNSPECIFIED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_UNSPECIFIED");
-
-        /// The permission is included in the role.
-        pub const ROLE_PERMISSION_INCLUDED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_INCLUDED");
-
-        /// The permission is not included in the role.
-        pub const ROLE_PERMISSION_NOT_INCLUDED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_NOT_INCLUDED");
-
-        /// The sender of the request is not allowed to access the binding.
-        pub const ROLE_PERMISSION_UNKNOWN_INFO_DENIED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_UNKNOWN_INFO_DENIED");
+    impl std::convert::From<i32> for RolePermission {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for RolePermission {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for RolePermission {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Whether the binding includes the principal.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Membership(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Membership(i32);
 
     impl Membership {
-        /// Creates a new Membership instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Membership](Membership)
-    pub mod membership {
-        use super::Membership;
-
         /// Default value. This value is unused.
-        pub const MEMBERSHIP_UNSPECIFIED: Membership = Membership::new("MEMBERSHIP_UNSPECIFIED");
+        pub const MEMBERSHIP_UNSPECIFIED: Membership = Membership::new(0);
 
         /// The binding includes the principal. The principal can be included
         /// directly or indirectly. For example:
@@ -591,109 +603,200 @@ pub mod binding_explanation {
         ///   binding.
         /// * A principal is included indirectly if that principal is in a Google
         ///   group or Google Workspace domain that is listed in the binding.
-        pub const MEMBERSHIP_INCLUDED: Membership = Membership::new("MEMBERSHIP_INCLUDED");
+        pub const MEMBERSHIP_INCLUDED: Membership = Membership::new(1);
 
         /// The binding does not include the principal.
-        pub const MEMBERSHIP_NOT_INCLUDED: Membership = Membership::new("MEMBERSHIP_NOT_INCLUDED");
+        pub const MEMBERSHIP_NOT_INCLUDED: Membership = Membership::new(2);
 
         /// The sender of the request is not allowed to access the binding.
-        pub const MEMBERSHIP_UNKNOWN_INFO_DENIED: Membership =
-            Membership::new("MEMBERSHIP_UNKNOWN_INFO_DENIED");
+        pub const MEMBERSHIP_UNKNOWN_INFO_DENIED: Membership = Membership::new(3);
 
         /// The principal is an unsupported type. Only Google Accounts and service
         /// accounts are supported.
-        pub const MEMBERSHIP_UNKNOWN_UNSUPPORTED: Membership =
-            Membership::new("MEMBERSHIP_UNKNOWN_UNSUPPORTED");
+        pub const MEMBERSHIP_UNKNOWN_UNSUPPORTED: Membership = Membership::new(4);
+
+        /// Creates a new Membership instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MEMBERSHIP_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MEMBERSHIP_INCLUDED"),
+                2 => std::borrow::Cow::Borrowed("MEMBERSHIP_NOT_INCLUDED"),
+                3 => std::borrow::Cow::Borrowed("MEMBERSHIP_UNKNOWN_INFO_DENIED"),
+                4 => std::borrow::Cow::Borrowed("MEMBERSHIP_UNKNOWN_UNSUPPORTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MEMBERSHIP_UNSPECIFIED" => std::option::Option::Some(Self::MEMBERSHIP_UNSPECIFIED),
+                "MEMBERSHIP_INCLUDED" => std::option::Option::Some(Self::MEMBERSHIP_INCLUDED),
+                "MEMBERSHIP_NOT_INCLUDED" => {
+                    std::option::Option::Some(Self::MEMBERSHIP_NOT_INCLUDED)
+                }
+                "MEMBERSHIP_UNKNOWN_INFO_DENIED" => {
+                    std::option::Option::Some(Self::MEMBERSHIP_UNKNOWN_INFO_DENIED)
+                }
+                "MEMBERSHIP_UNKNOWN_UNSUPPORTED" => {
+                    std::option::Option::Some(Self::MEMBERSHIP_UNKNOWN_UNSUPPORTED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Membership {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Membership {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Membership {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
 
 /// Whether a principal has a permission for a resource.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AccessState(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct AccessState(i32);
 
 impl AccessState {
-    /// Creates a new AccessState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [AccessState](AccessState)
-pub mod access_state {
-    use super::AccessState;
-
     /// Default value. This value is unused.
-    pub const ACCESS_STATE_UNSPECIFIED: AccessState = AccessState::new("ACCESS_STATE_UNSPECIFIED");
+    pub const ACCESS_STATE_UNSPECIFIED: AccessState = AccessState::new(0);
 
     /// The principal has the permission.
-    pub const GRANTED: AccessState = AccessState::new("GRANTED");
+    pub const GRANTED: AccessState = AccessState::new(1);
 
     /// The principal does not have the permission.
-    pub const NOT_GRANTED: AccessState = AccessState::new("NOT_GRANTED");
+    pub const NOT_GRANTED: AccessState = AccessState::new(2);
 
     /// The principal has the permission only if a condition expression evaluates
     /// to `true`.
-    pub const UNKNOWN_CONDITIONAL: AccessState = AccessState::new("UNKNOWN_CONDITIONAL");
+    pub const UNKNOWN_CONDITIONAL: AccessState = AccessState::new(3);
 
     /// The sender of the request does not have access to all of the policies that
     /// Policy Troubleshooter needs to evaluate.
-    pub const UNKNOWN_INFO_DENIED: AccessState = AccessState::new("UNKNOWN_INFO_DENIED");
+    pub const UNKNOWN_INFO_DENIED: AccessState = AccessState::new(4);
+
+    /// Creates a new AccessState instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("ACCESS_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("GRANTED"),
+            2 => std::borrow::Cow::Borrowed("NOT_GRANTED"),
+            3 => std::borrow::Cow::Borrowed("UNKNOWN_CONDITIONAL"),
+            4 => std::borrow::Cow::Borrowed("UNKNOWN_INFO_DENIED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "ACCESS_STATE_UNSPECIFIED" => std::option::Option::Some(Self::ACCESS_STATE_UNSPECIFIED),
+            "GRANTED" => std::option::Option::Some(Self::GRANTED),
+            "NOT_GRANTED" => std::option::Option::Some(Self::NOT_GRANTED),
+            "UNKNOWN_CONDITIONAL" => std::option::Option::Some(Self::UNKNOWN_CONDITIONAL),
+            "UNKNOWN_INFO_DENIED" => std::option::Option::Some(Self::UNKNOWN_INFO_DENIED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for AccessState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for AccessState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for AccessState {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// The extent to which a single data point, such as the existence of a binding
 /// or whether a binding includes a specific principal, contributes to an overall
 /// determination.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HeuristicRelevance(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct HeuristicRelevance(i32);
 
 impl HeuristicRelevance {
-    /// Creates a new HeuristicRelevance instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [HeuristicRelevance](HeuristicRelevance)
-pub mod heuristic_relevance {
-    use super::HeuristicRelevance;
-
     /// Default value. This value is unused.
-    pub const HEURISTIC_RELEVANCE_UNSPECIFIED: HeuristicRelevance =
-        HeuristicRelevance::new("HEURISTIC_RELEVANCE_UNSPECIFIED");
+    pub const HEURISTIC_RELEVANCE_UNSPECIFIED: HeuristicRelevance = HeuristicRelevance::new(0);
 
     /// The data point has a limited effect on the result. Changing the data point
     /// is unlikely to affect the overall determination.
-    pub const NORMAL: HeuristicRelevance = HeuristicRelevance::new("NORMAL");
+    pub const NORMAL: HeuristicRelevance = HeuristicRelevance::new(1);
 
     /// The data point has a strong effect on the result. Changing the data point
     /// is likely to affect the overall determination.
-    pub const HIGH: HeuristicRelevance = HeuristicRelevance::new("HIGH");
+    pub const HIGH: HeuristicRelevance = HeuristicRelevance::new(2);
+
+    /// Creates a new HeuristicRelevance instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("HEURISTIC_RELEVANCE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("NORMAL"),
+            2 => std::borrow::Cow::Borrowed("HIGH"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "HEURISTIC_RELEVANCE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::HEURISTIC_RELEVANCE_UNSPECIFIED)
+            }
+            "NORMAL" => std::option::Option::Some(Self::NORMAL),
+            "HIGH" => std::option::Option::Some(Self::HIGH),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for HeuristicRelevance {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for HeuristicRelevance {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for HeuristicRelevance {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

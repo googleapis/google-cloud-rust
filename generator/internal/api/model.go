@@ -261,6 +261,9 @@ type Enum struct {
 	ID string
 	// Values associated with the Enum.
 	Values []*EnumValue
+	// The unique integer values, some enums have multiple aliases for the
+	// same number (e.g. `enum X { a = 0, b = 0, c = 1 }`).
+	UniqueNumberValues []*EnumValue
 	// Parent returns the ancestor of this node, if any.
 	Parent *Message
 	// The Protobuf package this enum belongs to.

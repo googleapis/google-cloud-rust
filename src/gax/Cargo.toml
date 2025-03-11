@@ -27,33 +27,33 @@ repository.workspace = true
 
 [dependencies]
 auth        = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
-base64      = "0.22.1"
-bytes       = "1.10.0"
-futures     = { version = "0.3.31", optional = true }
-http        = "1.1.0"
-pin-project = { version = "1.1.9", optional = true }
+base64      = "0.22"
+bytes       = "1"
+futures     = { version = "0.3", optional = true }
+http        = "1"
+pin-project = { version = "1", optional = true }
 rand        = "0.9"
-reqwest     = { version = "0.12.11", optional = true }
+reqwest     = { version = "0.12", optional = true }
 rpc         = { version = "0.1", path = "../generated/rpc/types", package = "google-cloud-rpc" }
-serde       = "1.0.216"
+serde       = "1"
 serde_json  = "1"
-serde_with  = { version = "3.12.0", default-features = false, features = ["base64", "macros"] }
-thiserror   = "2.0.11"
-tokio       = { version = "1.42", features = ["macros", "rt-multi-thread"] }
+serde_with  = { version = "3", default-features = false, features = ["base64", "macros"] }
+thiserror   = "2"
+tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
 wkt         = { version = "0.1", path = "../wkt", package = "google-cloud-wkt" }
 
 [dev-dependencies]
 echo-server = { path = "echo-server" }
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
-axum        = "0.8.1"
+axum        = "0.8"
 gax         = { path = ".", package = "google-cloud-gax", features = ["unstable-sdk-client", "unstable-stream"] }
-mockall     = "0.13.1"
-serde       = { version = "1.0.216", features = ["serde_derive"] }
-serial_test = "3.2.0"
-tempfile    = "3.17.0"
-test-case   = "3.3.1"
-tokio       = { version = "1.42", features = ["test-util"] }
+mockall     = "0.13"
+serde       = { version = "1", features = ["serde_derive"] }
+serial_test = "3"
+tempfile    = "3"
+test-case   = "3"
+tokio       = { version = "1", features = ["test-util"] }
 
 [build-dependencies]
 built = "0.7"

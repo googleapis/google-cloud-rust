@@ -186,9 +186,9 @@ pub struct SignBlobRequest {
     pub delegates: std::vec::Vec<std::string::String>,
 
     /// Required. The bytes to sign.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub payload: bytes::Bytes,
+    pub payload: ::bytes::Bytes,
 }
 
 impl SignBlobRequest {
@@ -203,7 +203,7 @@ impl SignBlobRequest {
     }
 
     /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
-    pub fn set_payload<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
     }
@@ -236,9 +236,9 @@ pub struct SignBlobResponse {
     pub key_id: std::string::String,
 
     /// The signed blob.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub signed_blob: bytes::Bytes,
+    pub signed_blob: ::bytes::Bytes,
 }
 
 impl SignBlobResponse {
@@ -253,7 +253,7 @@ impl SignBlobResponse {
     }
 
     /// Sets the value of [signed_blob][crate::model::SignBlobResponse::signed_blob].
-    pub fn set_signed_blob<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_signed_blob<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signed_blob = v.into();
         self
     }

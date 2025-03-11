@@ -22,6 +22,7 @@ import (
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/iancoleman/strcase"
 )
@@ -29,8 +30,15 @@ import (
 //go:embed templates
 var dartTemplates embed.FS
 
-func Generate(model *api.API, outdir string, options map[string]string) error {
-	_, err := annotateModel(model, options)
+var typedDataImport = "dart:typed_data"
+var httpImport = "package:http/http.dart"
+
+var needsCtorValidation = map[string]string{
+	".google.protobuf.Duration": ".google.protobuf.Duration",
+}
+
+func Generate(model *api.API, outdir string, cfg *config.Config) error {
+	_, err := annotateModel(model, cfg.Codec)
 	if err != nil {
 		return err
 	}
@@ -58,47 +66,43 @@ func generatedFiles(model *api.API) []language.GeneratedFile {
 	return files
 }
 
-func loadWellKnownTypes(s *api.APIState) {
-	// TODO(#1034): Create a WKT for google.protobuf.Timestamp.
-	timestamp := &api.Message{
-		ID:      ".google.protobuf.Timestamp",
-		Name:    "DateTime",
-		Package: "google.protobuf",
-	}
-	// TODO(#1034): Create a WKT for google.protobuf.Duration.
-	duration := &api.Message{
-		ID:      ".google.protobuf.Duration",
-		Name:    "Duration",
-		Package: "google.protobuf",
-	}
-	s.MessageByID[timestamp.ID] = timestamp
-	s.MessageByID[duration.ID] = duration
-}
-
-func fieldType(f *api.Field, state *api.APIState) string {
+func fieldType(f *api.Field, state *api.APIState, packageMapping map[string]string, imports map[string]string) string {
 	var out string
+
 	switch f.Typez {
-	case api.STRING_TYPE:
-		out = "String"
-	case api.INT64_TYPE:
-		out = "int"
-	case api.INT32_TYPE:
-		out = "int"
 	case api.BOOL_TYPE:
 		out = "bool"
+	case api.INT32_TYPE:
+		out = "int"
+	case api.INT64_TYPE:
+		out = "int"
+	case api.UINT32_TYPE:
+		out = "int"
+	case api.UINT64_TYPE:
+		out = "int"
+	case api.FLOAT_TYPE:
+		out = "double"
+	case api.DOUBLE_TYPE:
+		out = "double"
+	case api.STRING_TYPE:
+		out = "String"
 	case api.BYTES_TYPE:
+		// TODO(#1034): We should instead reference a custom type (ProtoBuffer or
+		// similar), encode/decode to it, and add Uint8List related utility methods.
+		imports["typed_data"] = typedDataImport
 		out = "Uint8List"
 	case api.MESSAGE_TYPE:
-		// TODO(#1034): Handle MESSAGE_TYPE conversion.
-		m, ok := state.MessageByID[f.TypezID]
+		message, ok := state.MessageByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
-		if m.IsMap {
-			out = "Map"
+		if message.IsMap {
+			key := fieldType(message.Fields[0], state, packageMapping, imports)
+			val := fieldType(message.Fields[1], state, packageMapping, imports)
+			out = "Map<" + key + ", " + val + ">"
 		} else {
-			out = messageName(m)
+			out = resolveTypeName(message, packageMapping, imports)
 		}
 	case api.ENUM_TYPE:
 		e, ok := state.EnumByID[f.TypezID]
@@ -110,9 +114,11 @@ func fieldType(f *api.Field, state *api.APIState) string {
 	default:
 		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
 	}
+
 	if f.Repeated {
 		out = "List<" + out + ">"
 	}
+
 	return out
 }
 
@@ -126,19 +132,23 @@ func templatesProvider() language.TemplateProvider {
 	}
 }
 
-func methodInOutTypeName(id string, s *api.APIState) string {
-	if id == "" {
+func resolveTypeName(message *api.Message, packageMapping map[string]string, imports map[string]string) string {
+	if message == nil {
+		slog.Error("unable to lookup type")
 		return ""
 	}
-	if id == ".google.protobuf.Empty" {
+
+	if message.ID == ".google.protobuf.Empty" {
 		return "void"
 	}
-	m, ok := s.MessageByID[id]
-	if !ok {
-		slog.Error("unable to lookup type", "id", id)
-		return ""
+
+	// Use the packageMapping info to add any necessary import.
+	dartImport, ok := packageMapping[message.Package]
+	if ok {
+		imports[message.Package] = dartImport
 	}
-	return strcase.ToCamel(m.Name)
+
+	return messageName(message)
 }
 
 func messageName(m *api.Message) string {
@@ -180,11 +190,25 @@ func httpPathArgs(_ *api.PathInfo) []string {
 }
 
 func formatDocComments(documentation string, _ *api.APIState) []string {
-	ss := strings.Split(documentation, "\n")
-	for i := range ss {
-		ss[i] = strings.TrimRightFunc(ss[i], unicode.IsSpace)
+	lines := strings.Split(documentation, "\n")
+
+	for i, line := range lines {
+		lines[i] = strings.TrimRightFunc(line, unicode.IsSpace)
 	}
-	return ss
+
+	for len(lines) > 0 && len(lines[len(lines)-1]) == 0 {
+		lines = lines[:len(lines)-1]
+	}
+
+	for i, line := range lines {
+		if len(line) == 0 {
+			lines[i] = "///"
+		} else {
+			lines[i] = "/// " + line
+		}
+	}
+
+	return lines
 }
 
 func modelPackageName(api *api.API, packageNameOverride string) string {
@@ -195,8 +219,8 @@ func modelPackageName(api *api.API, packageNameOverride string) string {
 }
 
 func generateMethod(m *api.Method) bool {
-	// Ignore methods without HTTP annotations, we cannot generate working
-	// RPCs for them.
+	// Ignore methods without HTTP annotations; we cannot generate working RPCs
+	// for them.
 	// TODO(#499) - switch to explicitly excluding such functions. Easier to
 	//     find them and fix them that way.
 	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0

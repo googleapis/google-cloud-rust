@@ -1125,27 +1125,12 @@ pub mod queue {
     use super::*;
 
     /// State of the queue.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The queue is running. Tasks can be dispatched.
         ///
@@ -1155,12 +1140,12 @@ pub mod queue {
         /// calls may return [NOT_FOUND][google.rpc.Code.NOT_FOUND] and
         /// tasks may not be dispatched for a few minutes until the queue
         /// has been re-activated.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::new(1);
 
         /// Tasks are paused by the user. If the queue is paused then Cloud
         /// Tasks will stop delivering tasks from it, but more tasks can
         /// still be added to it by the user.
-        pub const PAUSED: State = State::new("PAUSED");
+        pub const PAUSED: State = State::new(2);
 
         /// The queue is disabled.
         ///
@@ -1178,12 +1163,50 @@ pub mod queue {
         /// [DeleteQueue][google.cloud.tasks.v2.CloudTasks.DeleteQueue].
         ///
         /// [google.cloud.tasks.v2.CloudTasks.DeleteQueue]: crate::client::CloudTasks::delete_queue
-        pub const DISABLED: State = State::new("DISABLED");
+        pub const DISABLED: State = State::new(3);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RUNNING"),
+                2 => std::borrow::Cow::Borrowed("PAUSED"),
+                3 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "PAUSED" => std::option::Option::Some(Self::PAUSED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1606,9 +1629,9 @@ pub struct HttpRequest {
     ///
     /// [google.cloud.tasks.v2.HttpMethod]: crate::model::HttpMethod
     /// [google.cloud.tasks.v2.HttpRequest.http_method]: crate::model::HttpRequest::http_method
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub body: bytes::Bytes,
+    pub body: ::bytes::Bytes,
 
     /// The mode for generating an `Authorization` header for HTTP requests.
     ///
@@ -1642,7 +1665,7 @@ impl HttpRequest {
     }
 
     /// Sets the value of [body][crate::model::HttpRequest::body].
-    pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
@@ -1937,9 +1960,9 @@ pub struct AppEngineHttpRequest {
     /// [HttpMethod][google.cloud.tasks.v2.HttpMethod].
     ///
     /// [google.cloud.tasks.v2.HttpMethod]: crate::model::HttpMethod
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub body: bytes::Bytes,
+    pub body: ::bytes::Bytes,
 }
 
 impl AppEngineHttpRequest {
@@ -1974,7 +1997,7 @@ impl AppEngineHttpRequest {
     }
 
     /// Sets the value of [body][crate::model::AppEngineHttpRequest::body].
-    pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
@@ -2536,27 +2559,12 @@ pub mod task {
     /// contains.
     ///
     /// [google.cloud.tasks.v2.Task]: crate::model::Task
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct View(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct View(i32);
 
     impl View {
-        /// Creates a new View instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [View](View)
-    pub mod view {
-        use super::View;
-
         /// Unspecified. Defaults to BASIC.
-        pub const VIEW_UNSPECIFIED: View = View::new("VIEW_UNSPECIFIED");
+        pub const VIEW_UNSPECIFIED: View = View::new(0);
 
         /// The basic view omits fields which can be large or can contain
         /// sensitive data.
@@ -2569,7 +2577,7 @@ pub mod task {
         /// choose to store in it.
         ///
         /// [google.cloud.tasks.v2.AppEngineHttpRequest.body]: crate::model::AppEngineHttpRequest::body
-        pub const BASIC: View = View::new("BASIC");
+        pub const BASIC: View = View::new(1);
 
         /// All information is returned.
         ///
@@ -2579,12 +2587,48 @@ pub mod task {
         ///
         /// [google.cloud.tasks.v2.Queue]: crate::model::Queue
         /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::view::FULL
-        pub const FULL: View = View::new("FULL");
+        pub const FULL: View = View::new(2);
+
+        /// Creates a new View instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("VIEW_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BASIC"),
+                2 => std::borrow::Cow::Borrowed("FULL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "VIEW_UNSPECIFIED" => std::option::Option::Some(Self::VIEW_UNSPECIFIED),
+                "BASIC" => std::option::Option::Some(Self::BASIC),
+                "FULL" => std::option::Option::Some(Self::FULL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for View {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for View {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for View {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -2691,52 +2735,83 @@ impl wkt::message::Message for Attempt {
 }
 
 /// The HTTP method used to deliver the task.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HttpMethod(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct HttpMethod(i32);
 
 impl HttpMethod {
+    /// HTTP method unspecified
+    pub const HTTP_METHOD_UNSPECIFIED: HttpMethod = HttpMethod::new(0);
+
+    /// HTTP POST
+    pub const POST: HttpMethod = HttpMethod::new(1);
+
+    /// HTTP GET
+    pub const GET: HttpMethod = HttpMethod::new(2);
+
+    /// HTTP HEAD
+    pub const HEAD: HttpMethod = HttpMethod::new(3);
+
+    /// HTTP PUT
+    pub const PUT: HttpMethod = HttpMethod::new(4);
+
+    /// HTTP DELETE
+    pub const DELETE: HttpMethod = HttpMethod::new(5);
+
+    /// HTTP PATCH
+    pub const PATCH: HttpMethod = HttpMethod::new(6);
+
+    /// HTTP OPTIONS
+    pub const OPTIONS: HttpMethod = HttpMethod::new(7);
+
     /// Creates a new HttpMethod instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("HTTP_METHOD_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("POST"),
+            2 => std::borrow::Cow::Borrowed("GET"),
+            3 => std::borrow::Cow::Borrowed("HEAD"),
+            4 => std::borrow::Cow::Borrowed("PUT"),
+            5 => std::borrow::Cow::Borrowed("DELETE"),
+            6 => std::borrow::Cow::Borrowed("PATCH"),
+            7 => std::borrow::Cow::Borrowed("OPTIONS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "HTTP_METHOD_UNSPECIFIED" => std::option::Option::Some(Self::HTTP_METHOD_UNSPECIFIED),
+            "POST" => std::option::Option::Some(Self::POST),
+            "GET" => std::option::Option::Some(Self::GET),
+            "HEAD" => std::option::Option::Some(Self::HEAD),
+            "PUT" => std::option::Option::Some(Self::PUT),
+            "DELETE" => std::option::Option::Some(Self::DELETE),
+            "PATCH" => std::option::Option::Some(Self::PATCH),
+            "OPTIONS" => std::option::Option::Some(Self::OPTIONS),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [HttpMethod](HttpMethod)
-pub mod http_method {
-    use super::HttpMethod;
-
-    /// HTTP method unspecified
-    pub const HTTP_METHOD_UNSPECIFIED: HttpMethod = HttpMethod::new("HTTP_METHOD_UNSPECIFIED");
-
-    /// HTTP POST
-    pub const POST: HttpMethod = HttpMethod::new("POST");
-
-    /// HTTP GET
-    pub const GET: HttpMethod = HttpMethod::new("GET");
-
-    /// HTTP HEAD
-    pub const HEAD: HttpMethod = HttpMethod::new("HEAD");
-
-    /// HTTP PUT
-    pub const PUT: HttpMethod = HttpMethod::new("PUT");
-
-    /// HTTP DELETE
-    pub const DELETE: HttpMethod = HttpMethod::new("DELETE");
-
-    /// HTTP PATCH
-    pub const PATCH: HttpMethod = HttpMethod::new("PATCH");
-
-    /// HTTP OPTIONS
-    pub const OPTIONS: HttpMethod = HttpMethod::new("OPTIONS");
+impl std::convert::From<i32> for HttpMethod {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for HttpMethod {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for HttpMethod {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

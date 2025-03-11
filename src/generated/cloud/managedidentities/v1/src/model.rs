@@ -903,54 +903,85 @@ pub mod domain {
     use super::*;
 
     /// Represents the different states of a managed domain.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The domain is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The domain has been created and is fully usable.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(2);
 
         /// The domain's configuration is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(3);
 
         /// The domain is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// The domain is being repaired and may be unusable. Details
         /// can be found in the `status_message` field.
-        pub const REPAIRING: State = State::new("REPAIRING");
+        pub const REPAIRING: State = State::new(5);
 
         /// The domain is undergoing maintenance.
-        pub const PERFORMING_MAINTENANCE: State = State::new("PERFORMING_MAINTENANCE");
+        pub const PERFORMING_MAINTENANCE: State = State::new(6);
 
         /// The domain is not serving requests.
-        pub const UNAVAILABLE: State = State::new("UNAVAILABLE");
+        pub const UNAVAILABLE: State = State::new(7);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("REPAIRING"),
+                6 => std::borrow::Cow::Borrowed("PERFORMING_MAINTENANCE"),
+                7 => std::borrow::Cow::Borrowed("UNAVAILABLE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "REPAIRING" => std::option::Option::Some(Self::REPAIRING),
+                "PERFORMING_MAINTENANCE" => std::option::Option::Some(Self::PERFORMING_MAINTENANCE),
+                "UNAVAILABLE" => std::option::Option::Some(Self::UNAVAILABLE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1124,83 +1155,131 @@ pub mod trust {
     use super::*;
 
     /// Represents the different states of a domain trust.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Not set.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The domain trust is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The domain trust is being updated.
+        pub const UPDATING: State = State::new(2);
+
+        /// The domain trust is being deleted.
+        pub const DELETING: State = State::new(3);
+
+        /// The domain trust is connected.
+        pub const CONNECTED: State = State::new(4);
+
+        /// The domain trust is disconnected.
+        pub const DISCONNECTED: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("UPDATING"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("CONNECTED"),
+                5 => std::borrow::Cow::Borrowed("DISCONNECTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "CONNECTED" => std::option::Option::Some(Self::CONNECTED),
+                "DISCONNECTED" => std::option::Option::Some(Self::DISCONNECTED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The domain trust is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The domain trust is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
-
-        /// The domain trust is being deleted.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// The domain trust is connected.
-        pub const CONNECTED: State = State::new("CONNECTED");
-
-        /// The domain trust is disconnected.
-        pub const DISCONNECTED: State = State::new("DISCONNECTED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Represents the different inter-forest trust types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TrustType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TrustType(i32);
 
     impl TrustType {
+        /// Not set.
+        pub const TRUST_TYPE_UNSPECIFIED: TrustType = TrustType::new(0);
+
+        /// The forest trust.
+        pub const FOREST: TrustType = TrustType::new(1);
+
+        /// The external domain trust.
+        pub const EXTERNAL: TrustType = TrustType::new(2);
+
         /// Creates a new TrustType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TRUST_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("FOREST"),
+                2 => std::borrow::Cow::Borrowed("EXTERNAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TRUST_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TRUST_TYPE_UNSPECIFIED),
+                "FOREST" => std::option::Option::Some(Self::FOREST),
+                "EXTERNAL" => std::option::Option::Some(Self::EXTERNAL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [TrustType](TrustType)
-    pub mod trust_type {
-        use super::TrustType;
-
-        /// Not set.
-        pub const TRUST_TYPE_UNSPECIFIED: TrustType = TrustType::new("TRUST_TYPE_UNSPECIFIED");
-
-        /// The forest trust.
-        pub const FOREST: TrustType = TrustType::new("FOREST");
-
-        /// The external domain trust.
-        pub const EXTERNAL: TrustType = TrustType::new("EXTERNAL");
+    impl std::convert::From<i32> for TrustType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for TrustType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for TrustType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -1208,42 +1287,66 @@ pub mod trust {
     /// See
     /// [System.DirectoryServices.ActiveDirectory.TrustDirection](https://docs.microsoft.com/en-us/dotnet/api/system.directoryservices.activedirectory.trustdirection?view=netframework-4.7.2)
     /// for more information.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TrustDirection(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TrustDirection(i32);
 
     impl TrustDirection {
+        /// Not set.
+        pub const TRUST_DIRECTION_UNSPECIFIED: TrustDirection = TrustDirection::new(0);
+
+        /// The inbound direction represents the trusting side.
+        pub const INBOUND: TrustDirection = TrustDirection::new(1);
+
+        /// The outboud direction represents the trusted side.
+        pub const OUTBOUND: TrustDirection = TrustDirection::new(2);
+
+        /// The bidirectional direction represents the trusted / trusting side.
+        pub const BIDIRECTIONAL: TrustDirection = TrustDirection::new(3);
+
         /// Creates a new TrustDirection instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TRUST_DIRECTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INBOUND"),
+                2 => std::borrow::Cow::Borrowed("OUTBOUND"),
+                3 => std::borrow::Cow::Borrowed("BIDIRECTIONAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TRUST_DIRECTION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TRUST_DIRECTION_UNSPECIFIED)
+                }
+                "INBOUND" => std::option::Option::Some(Self::INBOUND),
+                "OUTBOUND" => std::option::Option::Some(Self::OUTBOUND),
+                "BIDIRECTIONAL" => std::option::Option::Some(Self::BIDIRECTIONAL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [TrustDirection](TrustDirection)
-    pub mod trust_direction {
-        use super::TrustDirection;
-
-        /// Not set.
-        pub const TRUST_DIRECTION_UNSPECIFIED: TrustDirection =
-            TrustDirection::new("TRUST_DIRECTION_UNSPECIFIED");
-
-        /// The inbound direction represents the trusting side.
-        pub const INBOUND: TrustDirection = TrustDirection::new("INBOUND");
-
-        /// The outboud direction represents the trusted side.
-        pub const OUTBOUND: TrustDirection = TrustDirection::new("OUTBOUND");
-
-        /// The bidirectional direction represents the trusted / trusting side.
-        pub const BIDIRECTIONAL: TrustDirection = TrustDirection::new("BIDIRECTIONAL");
+    impl std::convert::From<i32> for TrustDirection {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for TrustDirection {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for TrustDirection {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

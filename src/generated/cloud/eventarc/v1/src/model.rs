@@ -208,38 +208,23 @@ pub mod channel {
     use super::*;
 
     /// State lists all the possible states of a Channel
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The PENDING state indicates that a Channel has been created successfully
         /// and there is a new activation token available for the subscriber to use
         /// to convey the Channel to the provider in order to create a Connection.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::new(1);
 
         /// The ACTIVE state indicates that a Channel has been successfully
         /// connected with the event provider.
         /// An ACTIVE Channel is ready to receive and route events from the
         /// event provider.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// The INACTIVE state indicates that the Channel cannot receive events
         /// permanently. There are two possible cases this state can happen:
@@ -250,12 +235,50 @@ pub mod channel {
         ///
         /// To re-establish a Connection with a provider, the subscriber
         /// should create a new Channel and give it to the provider.
-        pub const INACTIVE: State = State::new("INACTIVE");
+        pub const INACTIVE: State = State::new(3);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("INACTIVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "INACTIVE" => std::option::Option::Some(Self::INACTIVE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -3883,64 +3906,100 @@ pub mod logging_config {
     /// resources.
     /// This enum is an exhaustive list of log severities and is FROZEN. Do not
     /// expect new values to be added.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogSeverity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct LogSeverity(i32);
 
     impl LogSeverity {
-        /// Creates a new LogSeverity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [LogSeverity](LogSeverity)
-    pub mod log_severity {
-        use super::LogSeverity;
-
         /// Log severity is not specified. This value is treated the same as NONE,
         /// but is used to distinguish between no update and update to NONE in
         /// update_masks.
-        pub const LOG_SEVERITY_UNSPECIFIED: LogSeverity =
-            LogSeverity::new("LOG_SEVERITY_UNSPECIFIED");
+        pub const LOG_SEVERITY_UNSPECIFIED: LogSeverity = LogSeverity::new(0);
 
         /// Default value at resource creation, presence of this value must be
         /// treated as no logging/disable logging.
-        pub const NONE: LogSeverity = LogSeverity::new("NONE");
+        pub const NONE: LogSeverity = LogSeverity::new(1);
 
         /// Debug or trace level logging.
-        pub const DEBUG: LogSeverity = LogSeverity::new("DEBUG");
+        pub const DEBUG: LogSeverity = LogSeverity::new(2);
 
         /// Routine information, such as ongoing status or performance.
-        pub const INFO: LogSeverity = LogSeverity::new("INFO");
+        pub const INFO: LogSeverity = LogSeverity::new(3);
 
         /// Normal but significant events, such as start up, shut down, or a
         /// configuration change.
-        pub const NOTICE: LogSeverity = LogSeverity::new("NOTICE");
+        pub const NOTICE: LogSeverity = LogSeverity::new(4);
 
         /// Warning events might cause problems.
-        pub const WARNING: LogSeverity = LogSeverity::new("WARNING");
+        pub const WARNING: LogSeverity = LogSeverity::new(5);
 
         /// Error events are likely to cause problems.
-        pub const ERROR: LogSeverity = LogSeverity::new("ERROR");
+        pub const ERROR: LogSeverity = LogSeverity::new(6);
 
         /// Critical events cause more severe problems or outages.
-        pub const CRITICAL: LogSeverity = LogSeverity::new("CRITICAL");
+        pub const CRITICAL: LogSeverity = LogSeverity::new(7);
 
         /// A person must take action immediately.
-        pub const ALERT: LogSeverity = LogSeverity::new("ALERT");
+        pub const ALERT: LogSeverity = LogSeverity::new(8);
 
         /// One or more systems are unusable.
-        pub const EMERGENCY: LogSeverity = LogSeverity::new("EMERGENCY");
+        pub const EMERGENCY: LogSeverity = LogSeverity::new(9);
+
+        /// Creates a new LogSeverity instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LOG_SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NONE"),
+                2 => std::borrow::Cow::Borrowed("DEBUG"),
+                3 => std::borrow::Cow::Borrowed("INFO"),
+                4 => std::borrow::Cow::Borrowed("NOTICE"),
+                5 => std::borrow::Cow::Borrowed("WARNING"),
+                6 => std::borrow::Cow::Borrowed("ERROR"),
+                7 => std::borrow::Cow::Borrowed("CRITICAL"),
+                8 => std::borrow::Cow::Borrowed("ALERT"),
+                9 => std::borrow::Cow::Borrowed("EMERGENCY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LOG_SEVERITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::LOG_SEVERITY_UNSPECIFIED)
+                }
+                "NONE" => std::option::Option::Some(Self::NONE),
+                "DEBUG" => std::option::Option::Some(Self::DEBUG),
+                "INFO" => std::option::Option::Some(Self::INFO),
+                "NOTICE" => std::option::Option::Some(Self::NOTICE),
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
+                "ALERT" => std::option::Option::Some(Self::ALERT),
+                "EMERGENCY" => std::option::Option::Some(Self::EMERGENCY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for LogSeverity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for LogSeverity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for LogSeverity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

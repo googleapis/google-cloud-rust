@@ -301,41 +301,62 @@ pub mod compose_trigger {
     use super::*;
 
     /// An enum defining the level of data access this compose trigger requires.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DraftAccess(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DraftAccess(i32);
 
     impl DraftAccess {
-        /// Creates a new DraftAccess instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DraftAccess](DraftAccess)
-    pub mod draft_access {
-        use super::DraftAccess;
-
         /// Default value when nothing is set for DraftAccess.
-        pub const UNSPECIFIED: DraftAccess = DraftAccess::new("UNSPECIFIED");
+        pub const UNSPECIFIED: DraftAccess = DraftAccess::new(0);
 
         /// NONE means compose trigger won't be able to access any data of the draft
         /// when a compose addon is triggered.
-        pub const NONE: DraftAccess = DraftAccess::new("NONE");
+        pub const NONE: DraftAccess = DraftAccess::new(1);
 
         /// METADATA gives compose trigger the permission to access the metadata of
         /// the draft when a compose addon is triggered. This includes the audience
         /// list (To/cc list) of a draft message.
-        pub const METADATA: DraftAccess = DraftAccess::new("METADATA");
+        pub const METADATA: DraftAccess = DraftAccess::new(2);
+
+        /// Creates a new DraftAccess instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NONE"),
+                2 => std::borrow::Cow::Borrowed("METADATA"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "NONE" => std::option::Option::Some(Self::NONE),
+                "METADATA" => std::option::Option::Some(Self::METADATA),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DraftAccess {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DraftAccess {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DraftAccess {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

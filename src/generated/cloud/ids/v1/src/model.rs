@@ -183,86 +183,136 @@ pub mod endpoint {
     use super::*;
 
     /// Threat severity levels.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Severity(i32);
 
     impl Severity {
+        /// Not set.
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new(0);
+
+        /// Informational alerts.
+        pub const INFORMATIONAL: Severity = Severity::new(1);
+
+        /// Low severity alerts.
+        pub const LOW: Severity = Severity::new(2);
+
+        /// Medium severity alerts.
+        pub const MEDIUM: Severity = Severity::new(3);
+
+        /// High severity alerts.
+        pub const HIGH: Severity = Severity::new(4);
+
+        /// Critical severity alerts.
+        pub const CRITICAL: Severity = Severity::new(5);
+
         /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INFORMATIONAL"),
+                2 => std::borrow::Cow::Borrowed("LOW"),
+                3 => std::borrow::Cow::Borrowed("MEDIUM"),
+                4 => std::borrow::Cow::Borrowed("HIGH"),
+                5 => std::borrow::Cow::Borrowed("CRITICAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SEVERITY_UNSPECIFIED" => std::option::Option::Some(Self::SEVERITY_UNSPECIFIED),
+                "INFORMATIONAL" => std::option::Option::Some(Self::INFORMATIONAL),
+                "LOW" => std::option::Option::Some(Self::LOW),
+                "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
+                "HIGH" => std::option::Option::Some(Self::HIGH),
+                "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Severity](Severity)
-    pub mod severity {
-        use super::Severity;
-
-        /// Not set.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
-
-        /// Informational alerts.
-        pub const INFORMATIONAL: Severity = Severity::new("INFORMATIONAL");
-
-        /// Low severity alerts.
-        pub const LOW: Severity = Severity::new("LOW");
-
-        /// Medium severity alerts.
-        pub const MEDIUM: Severity = Severity::new("MEDIUM");
-
-        /// High severity alerts.
-        pub const HIGH: Severity = Severity::new("HIGH");
-
-        /// Critical severity alerts.
-        pub const CRITICAL: Severity = Severity::new("CRITICAL");
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Severity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Endpoint state
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Not set.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Being created.
+        pub const CREATING: State = State::new(1);
+
+        /// Active and ready for traffic.
+        pub const READY: State = State::new(2);
+
+        /// Being deleted.
+        pub const DELETING: State = State::new(3);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// Active and ready for traffic.
-        pub const READY: State = State::new("READY");
-
-        /// Being deleted.
-        pub const DELETING: State = State::new("DELETING");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

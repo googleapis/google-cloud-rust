@@ -348,44 +348,69 @@ pub mod async_model_metadata {
     use super::*;
 
     /// Possible states of the operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// The default value. This value is used if the state is omitted.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Request is being processed.
+        pub const RUNNING: State = State::new(1);
+
+        /// The operation completed successfully.
+        pub const SUCCEEDED: State = State::new(2);
+
+        /// The operation was cancelled.
+        pub const CANCELLED: State = State::new(3);
+
+        /// The operation has failed.
+        pub const FAILED: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RUNNING"),
+                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                3 => std::borrow::Cow::Borrowed("CANCELLED"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Request is being processed.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// The operation completed successfully.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// The operation was cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
-
-        /// The operation has failed.
-        pub const FAILED: State = State::new("FAILED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -814,34 +839,19 @@ pub mod optimize_tours_request {
     /// to cap the number of errors returned.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.max_validation_errors]: crate::model::OptimizeToursRequest::max_validation_errors
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SolvingMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct SolvingMode(i32);
 
     impl SolvingMode {
-        /// Creates a new SolvingMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [SolvingMode](SolvingMode)
-    pub mod solving_mode {
-        use super::SolvingMode;
-
         /// Solve the model.
-        pub const DEFAULT_SOLVE: SolvingMode = SolvingMode::new("DEFAULT_SOLVE");
+        pub const DEFAULT_SOLVE: SolvingMode = SolvingMode::new(0);
 
         /// Only validates the model without solving it: populates as many
         /// [OptimizeToursResponse.validation_errors][google.cloud.optimization.v1.OptimizeToursResponse.validation_errors]
         /// as possible.
         ///
         /// [google.cloud.optimization.v1.OptimizeToursResponse.validation_errors]: crate::model::OptimizeToursResponse::validation_errors
-        pub const VALIDATE_ONLY: SolvingMode = SolvingMode::new("VALIDATE_ONLY");
+        pub const VALIDATE_ONLY: SolvingMode = SolvingMode::new(1);
 
         /// Only populates
         /// [OptimizeToursResponse.validation_errors][google.cloud.optimization.v1.OptimizeToursResponse.validation_errors]
@@ -861,51 +871,112 @@ pub mod optimize_tours_request {
         ///
         /// [google.cloud.optimization.v1.OptimizeToursResponse.skipped_shipments]: crate::model::OptimizeToursResponse::skipped_shipments
         /// [google.cloud.optimization.v1.OptimizeToursResponse.validation_errors]: crate::model::OptimizeToursResponse::validation_errors
-        pub const DETECT_SOME_INFEASIBLE_SHIPMENTS: SolvingMode =
-            SolvingMode::new("DETECT_SOME_INFEASIBLE_SHIPMENTS");
+        pub const DETECT_SOME_INFEASIBLE_SHIPMENTS: SolvingMode = SolvingMode::new(2);
+
+        /// Creates a new SolvingMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DEFAULT_SOLVE"),
+                1 => std::borrow::Cow::Borrowed("VALIDATE_ONLY"),
+                2 => std::borrow::Cow::Borrowed("DETECT_SOME_INFEASIBLE_SHIPMENTS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DEFAULT_SOLVE" => std::option::Option::Some(Self::DEFAULT_SOLVE),
+                "VALIDATE_ONLY" => std::option::Option::Some(Self::VALIDATE_ONLY),
+                "DETECT_SOME_INFEASIBLE_SHIPMENTS" => {
+                    std::option::Option::Some(Self::DETECT_SOME_INFEASIBLE_SHIPMENTS)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for SolvingMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SolvingMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for SolvingMode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Mode defining the behavior of the search, trading off latency versus
     /// solution quality. In all modes, the global request deadline is enforced.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SearchMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct SearchMode(i32);
 
     impl SearchMode {
+        /// Unspecified search mode, equivalent to `RETURN_FAST`.
+        pub const SEARCH_MODE_UNSPECIFIED: SearchMode = SearchMode::new(0);
+
+        /// Stop the search after finding the first good solution.
+        pub const RETURN_FAST: SearchMode = SearchMode::new(1);
+
+        /// Spend all the available time to search for better solutions.
+        pub const CONSUME_ALL_AVAILABLE_TIME: SearchMode = SearchMode::new(2);
+
         /// Creates a new SearchMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SEARCH_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RETURN_FAST"),
+                2 => std::borrow::Cow::Borrowed("CONSUME_ALL_AVAILABLE_TIME"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SEARCH_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SEARCH_MODE_UNSPECIFIED)
+                }
+                "RETURN_FAST" => std::option::Option::Some(Self::RETURN_FAST),
+                "CONSUME_ALL_AVAILABLE_TIME" => {
+                    std::option::Option::Some(Self::CONSUME_ALL_AVAILABLE_TIME)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SearchMode](SearchMode)
-    pub mod search_mode {
-        use super::SearchMode;
-
-        /// Unspecified search mode, equivalent to `RETURN_FAST`.
-        pub const SEARCH_MODE_UNSPECIFIED: SearchMode = SearchMode::new("SEARCH_MODE_UNSPECIFIED");
-
-        /// Stop the search after finding the first good solution.
-        pub const RETURN_FAST: SearchMode = SearchMode::new("RETURN_FAST");
-
-        /// Spend all the available time to search for better solutions.
-        pub const CONSUME_ALL_AVAILABLE_TIME: SearchMode =
-            SearchMode::new("CONSUME_ALL_AVAILABLE_TIME");
+    impl std::convert::From<i32> for SearchMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for SearchMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for SearchMode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2780,33 +2851,17 @@ pub mod shipment_type_incompatibility {
 
     /// Modes defining how the appearance of incompatible shipments are restricted
     /// on the same route.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IncompatibilityMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct IncompatibilityMode(i32);
 
     impl IncompatibilityMode {
-        /// Creates a new IncompatibilityMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [IncompatibilityMode](IncompatibilityMode)
-    pub mod incompatibility_mode {
-        use super::IncompatibilityMode;
-
         /// Unspecified incompatibility mode. This value should never be used.
         pub const INCOMPATIBILITY_MODE_UNSPECIFIED: IncompatibilityMode =
-            IncompatibilityMode::new("INCOMPATIBILITY_MODE_UNSPECIFIED");
+            IncompatibilityMode::new(0);
 
         /// In this mode, two shipments with incompatible types can never share the
         /// same vehicle.
-        pub const NOT_PERFORMED_BY_SAME_VEHICLE: IncompatibilityMode =
-            IncompatibilityMode::new("NOT_PERFORMED_BY_SAME_VEHICLE");
+        pub const NOT_PERFORMED_BY_SAME_VEHICLE: IncompatibilityMode = IncompatibilityMode::new(1);
 
         /// For two shipments with incompatible types with the
         /// `NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY` incompatibility mode:
@@ -2817,12 +2872,54 @@ pub mod shipment_type_incompatibility {
         ///   shipments can share the same vehicle iff the former shipment is
         ///   delivered before the latter is picked up.
         pub const NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY: IncompatibilityMode =
-            IncompatibilityMode::new("NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY");
+            IncompatibilityMode::new(2);
+
+        /// Creates a new IncompatibilityMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INCOMPATIBILITY_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NOT_PERFORMED_BY_SAME_VEHICLE"),
+                2 => std::borrow::Cow::Borrowed("NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INCOMPATIBILITY_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::INCOMPATIBILITY_MODE_UNSPECIFIED)
+                }
+                "NOT_PERFORMED_BY_SAME_VEHICLE" => {
+                    std::option::Option::Some(Self::NOT_PERFORMED_BY_SAME_VEHICLE)
+                }
+                "NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY" => {
+                    std::option::Option::Some(Self::NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for IncompatibilityMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for IncompatibilityMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for IncompatibilityMode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2903,33 +3000,16 @@ pub mod shipment_type_requirement {
     use super::*;
 
     /// Modes defining the appearance of dependent shipments on a route.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RequirementMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RequirementMode(i32);
 
     impl RequirementMode {
-        /// Creates a new RequirementMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RequirementMode](RequirementMode)
-    pub mod requirement_mode {
-        use super::RequirementMode;
-
         /// Unspecified requirement mode. This value should never be used.
-        pub const REQUIREMENT_MODE_UNSPECIFIED: RequirementMode =
-            RequirementMode::new("REQUIREMENT_MODE_UNSPECIFIED");
+        pub const REQUIREMENT_MODE_UNSPECIFIED: RequirementMode = RequirementMode::new(0);
 
         /// In this mode, all "dependent" shipments must share the same vehicle as at
         /// least one of their "required" shipments.
-        pub const PERFORMED_BY_SAME_VEHICLE: RequirementMode =
-            RequirementMode::new("PERFORMED_BY_SAME_VEHICLE");
+        pub const PERFORMED_BY_SAME_VEHICLE: RequirementMode = RequirementMode::new(1);
 
         /// With the `IN_SAME_VEHICLE_AT_PICKUP_TIME` mode, all "dependent"
         /// shipments need to have at least one "required" shipment on their vehicle
@@ -2941,18 +3021,62 @@ pub mod shipment_type_requirement {
         /// * A "required" shipment picked up on the route before it, and if the
         ///   "required" shipment has a delivery, this delivery must be performed
         ///   after the "dependent" shipment's pickup.
-        pub const IN_SAME_VEHICLE_AT_PICKUP_TIME: RequirementMode =
-            RequirementMode::new("IN_SAME_VEHICLE_AT_PICKUP_TIME");
+        pub const IN_SAME_VEHICLE_AT_PICKUP_TIME: RequirementMode = RequirementMode::new(2);
 
         /// Same as before, except the "dependent" shipments need to have a
         /// "required" shipment on their vehicle at the time of their *delivery*.
-        pub const IN_SAME_VEHICLE_AT_DELIVERY_TIME: RequirementMode =
-            RequirementMode::new("IN_SAME_VEHICLE_AT_DELIVERY_TIME");
+        pub const IN_SAME_VEHICLE_AT_DELIVERY_TIME: RequirementMode = RequirementMode::new(3);
+
+        /// Creates a new RequirementMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REQUIREMENT_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PERFORMED_BY_SAME_VEHICLE"),
+                2 => std::borrow::Cow::Borrowed("IN_SAME_VEHICLE_AT_PICKUP_TIME"),
+                3 => std::borrow::Cow::Borrowed("IN_SAME_VEHICLE_AT_DELIVERY_TIME"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REQUIREMENT_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::REQUIREMENT_MODE_UNSPECIFIED)
+                }
+                "PERFORMED_BY_SAME_VEHICLE" => {
+                    std::option::Option::Some(Self::PERFORMED_BY_SAME_VEHICLE)
+                }
+                "IN_SAME_VEHICLE_AT_PICKUP_TIME" => {
+                    std::option::Option::Some(Self::IN_SAME_VEHICLE_AT_PICKUP_TIME)
+                }
+                "IN_SAME_VEHICLE_AT_DELIVERY_TIME" => {
+                    std::option::Option::Some(Self::IN_SAME_VEHICLE_AT_DELIVERY_TIME)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RequirementMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RequirementMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RequirementMode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3883,38 +4007,61 @@ pub mod vehicle {
     /// These should be a subset of the Google Maps Platform Routes Preferred API
     /// travel modes, see:
     /// <https://developers.google.com/maps/documentation/routes_preferred/reference/rest/Shared.Types/RouteTravelMode>.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TravelMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TravelMode(i32);
 
     impl TravelMode {
+        /// Unspecified travel mode, equivalent to `DRIVING`.
+        pub const TRAVEL_MODE_UNSPECIFIED: TravelMode = TravelMode::new(0);
+
+        /// Travel mode corresponding to driving directions (car, ...).
+        pub const DRIVING: TravelMode = TravelMode::new(1);
+
+        /// Travel mode corresponding to walking directions.
+        pub const WALKING: TravelMode = TravelMode::new(2);
+
         /// Creates a new TravelMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TRAVEL_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DRIVING"),
+                2 => std::borrow::Cow::Borrowed("WALKING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TRAVEL_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TRAVEL_MODE_UNSPECIFIED)
+                }
+                "DRIVING" => std::option::Option::Some(Self::DRIVING),
+                "WALKING" => std::option::Option::Some(Self::WALKING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [TravelMode](TravelMode)
-    pub mod travel_mode {
-        use super::TravelMode;
-
-        /// Unspecified travel mode, equivalent to `DRIVING`.
-        pub const TRAVEL_MODE_UNSPECIFIED: TravelMode = TravelMode::new("TRAVEL_MODE_UNSPECIFIED");
-
-        /// Travel mode corresponding to driving directions (car, ...).
-        pub const DRIVING: TravelMode = TravelMode::new("DRIVING");
-
-        /// Travel mode corresponding to walking directions.
-        pub const WALKING: TravelMode = TravelMode::new("WALKING");
+    impl std::convert::From<i32> for TravelMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for TravelMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for TravelMode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -3923,40 +4070,62 @@ pub mod vehicle {
     ///
     /// Other shipments are free to occur anywhere on the route independent of
     /// `unloading_policy`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct UnloadingPolicy(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct UnloadingPolicy(i32);
 
     impl UnloadingPolicy {
+        /// Unspecified unloading policy; deliveries must just occur after their
+        /// corresponding pickups.
+        pub const UNLOADING_POLICY_UNSPECIFIED: UnloadingPolicy = UnloadingPolicy::new(0);
+
+        /// Deliveries must occur in reverse order of pickups
+        pub const LAST_IN_FIRST_OUT: UnloadingPolicy = UnloadingPolicy::new(1);
+
+        /// Deliveries must occur in the same order as pickups
+        pub const FIRST_IN_FIRST_OUT: UnloadingPolicy = UnloadingPolicy::new(2);
+
         /// Creates a new UnloadingPolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNLOADING_POLICY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LAST_IN_FIRST_OUT"),
+                2 => std::borrow::Cow::Borrowed("FIRST_IN_FIRST_OUT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNLOADING_POLICY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::UNLOADING_POLICY_UNSPECIFIED)
+                }
+                "LAST_IN_FIRST_OUT" => std::option::Option::Some(Self::LAST_IN_FIRST_OUT),
+                "FIRST_IN_FIRST_OUT" => std::option::Option::Some(Self::FIRST_IN_FIRST_OUT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [UnloadingPolicy](UnloadingPolicy)
-    pub mod unloading_policy {
-        use super::UnloadingPolicy;
-
-        /// Unspecified unloading policy; deliveries must just occur after their
-        /// corresponding pickups.
-        pub const UNLOADING_POLICY_UNSPECIFIED: UnloadingPolicy =
-            UnloadingPolicy::new("UNLOADING_POLICY_UNSPECIFIED");
-
-        /// Deliveries must occur in reverse order of pickups
-        pub const LAST_IN_FIRST_OUT: UnloadingPolicy = UnloadingPolicy::new("LAST_IN_FIRST_OUT");
-
-        /// Deliveries must occur in the same order as pickups
-        pub const FIRST_IN_FIRST_OUT: UnloadingPolicy = UnloadingPolicy::new("FIRST_IN_FIRST_OUT");
+    impl std::convert::From<i32> for UnloadingPolicy {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for UnloadingPolicy {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for UnloadingPolicy {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -6066,36 +6235,20 @@ pub mod skipped_shipment {
         /// Code identifying the reason type. The order here is meaningless. In
         /// particular, it gives no indication of whether a given reason will
         /// appear before another in the solution, if both apply.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Code(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Code(i32);
 
         impl Code {
-            /// Creates a new Code instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [Code](Code)
-        pub mod code {
-            use super::Code;
-
             /// This should never be used. If we are unable to understand why a
             /// shipment was skipped, we simply return an empty set of reasons.
-            pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+            pub const CODE_UNSPECIFIED: Code = Code::new(0);
 
             /// There is no vehicle in the model making all shipments infeasible.
-            pub const NO_VEHICLE: Code = Code::new("NO_VEHICLE");
+            pub const NO_VEHICLE: Code = Code::new(1);
 
             /// The demand of the shipment exceeds a vehicle's capacity for some
             /// capacity types, one of which is `example_exceeded_capacity_type`.
-            pub const DEMAND_EXCEEDS_VEHICLE_CAPACITY: Code =
-                Code::new("DEMAND_EXCEEDS_VEHICLE_CAPACITY");
+            pub const DEMAND_EXCEEDS_VEHICLE_CAPACITY: Code = Code::new(2);
 
             /// The minimum distance necessary to perform this shipment, i.e. from
             /// the vehicle's `start_location` to the shipment's pickup and/or delivery
@@ -6103,8 +6256,7 @@ pub mod skipped_shipment {
             /// `route_distance_limit`.
             ///
             /// Note that for this computation we use the geodesic distances.
-            pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT: Code =
-                Code::new("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT");
+            pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT: Code = Code::new(3);
 
             /// The minimum time necessary to perform this shipment, including travel
             /// time, wait time and service time exceeds the vehicle's
@@ -6112,29 +6264,96 @@ pub mod skipped_shipment {
             ///
             /// Note: travel time is computed in the best-case scenario, namely as
             /// geodesic distance x 36 m/s (roughly 130 km/hour).
-            pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT: Code =
-                Code::new("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT");
+            pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT: Code = Code::new(4);
 
             /// Same as above but we only compare minimum travel time and the
             /// vehicle's `travel_duration_limit`.
-            pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT: Code =
-                Code::new("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT");
+            pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT: Code = Code::new(5);
 
             /// The vehicle cannot perform this shipment in the best-case scenario
             /// (see `CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT` for time
             /// computation) if it starts at its earliest start time: the total time
             /// would make the vehicle end after its latest end time.
-            pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS: Code =
-                Code::new("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS");
+            pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS: Code = Code::new(6);
 
             /// The `allowed_vehicle_indices` field of the shipment is not empty and
             /// this vehicle does not belong to it.
-            pub const VEHICLE_NOT_ALLOWED: Code = Code::new("VEHICLE_NOT_ALLOWED");
+            pub const VEHICLE_NOT_ALLOWED: Code = Code::new(7);
+
+            /// Creates a new Code instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("CODE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("NO_VEHICLE"),
+                    2 => std::borrow::Cow::Borrowed("DEMAND_EXCEEDS_VEHICLE_CAPACITY"),
+                    3 => std::borrow::Cow::Borrowed(
+                        "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT",
+                    ),
+                    4 => std::borrow::Cow::Borrowed(
+                        "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT",
+                    ),
+                    5 => std::borrow::Cow::Borrowed(
+                        "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT",
+                    ),
+                    6 => std::borrow::Cow::Borrowed(
+                        "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS",
+                    ),
+                    7 => std::borrow::Cow::Borrowed("VEHICLE_NOT_ALLOWED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
+                    "NO_VEHICLE" => std::option::Option::Some(Self::NO_VEHICLE),
+                    "DEMAND_EXCEEDS_VEHICLE_CAPACITY" => {
+                        std::option::Option::Some(Self::DEMAND_EXCEEDS_VEHICLE_CAPACITY)
+                    }
+                    "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT" => {
+                        std::option::Option::Some(
+                            Self::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT,
+                        )
+                    }
+                    "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT" => {
+                        std::option::Option::Some(
+                            Self::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT,
+                        )
+                    }
+                    "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT" => {
+                        std::option::Option::Some(
+                            Self::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT,
+                        )
+                    }
+                    "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS" => std::option::Option::Some(
+                        Self::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS,
+                    ),
+                    "VEHICLE_NOT_ALLOWED" => std::option::Option::Some(Self::VEHICLE_NOT_ALLOWED),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for Code {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -6593,54 +6812,84 @@ pub mod injected_solution_constraint {
             /// threshold conditions.
             ///
             /// The enumeration below is in order of increasing relaxation.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Level(std::borrow::Cow<'static, str>);
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            pub struct Level(i32);
 
             impl Level {
-                /// Creates a new Level instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
-
-            /// Useful constants to work with [Level](Level)
-            pub mod level {
-                use super::Level;
-
                 /// Implicit default relaxation level: no constraints are relaxed,
                 /// i.e., all visits are fully constrained.
                 ///
                 /// This value must not be explicitly used in `level`.
-                pub const LEVEL_UNSPECIFIED: Level = Level::new("LEVEL_UNSPECIFIED");
+                pub const LEVEL_UNSPECIFIED: Level = Level::new(0);
 
                 /// Visit start times and vehicle start/end times will be relaxed, but
                 /// each visit remains bound to the same vehicle and the visit sequence
                 /// must be observed: no visit can be inserted between them or before
                 /// them.
-                pub const RELAX_VISIT_TIMES_AFTER_THRESHOLD: Level =
-                    Level::new("RELAX_VISIT_TIMES_AFTER_THRESHOLD");
+                pub const RELAX_VISIT_TIMES_AFTER_THRESHOLD: Level = Level::new(1);
 
                 /// Same as `RELAX_VISIT_TIMES_AFTER_THRESHOLD`, but the visit sequence
                 /// is also relaxed: visits can only be performed by this vehicle, but
                 /// can potentially become unperformed.
-                pub const RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD: Level =
-                    Level::new("RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD");
+                pub const RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD: Level = Level::new(2);
 
                 /// Same as `RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD`, but the
                 /// vehicle is also relaxed: visits are completely free at or after the
                 /// threshold time and can potentially become unperformed.
-                pub const RELAX_ALL_AFTER_THRESHOLD: Level =
-                    Level::new("RELAX_ALL_AFTER_THRESHOLD");
+                pub const RELAX_ALL_AFTER_THRESHOLD: Level = Level::new(3);
+
+                /// Creates a new Level instance.
+                pub(crate) const fn new(value: i32) -> Self {
+                    Self(value)
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> i32 {
+                    self.0
+                }
+
+                /// Gets the enum value as a string.
+                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                    match self.0 {
+                        0 => std::borrow::Cow::Borrowed("LEVEL_UNSPECIFIED"),
+                        1 => std::borrow::Cow::Borrowed("RELAX_VISIT_TIMES_AFTER_THRESHOLD"),
+                        2 => std::borrow::Cow::Borrowed(
+                            "RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD",
+                        ),
+                        3 => std::borrow::Cow::Borrowed("RELAX_ALL_AFTER_THRESHOLD"),
+                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                    }
+                }
+
+                /// Creates an enum value from the value name.
+                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                    match name {
+                        "LEVEL_UNSPECIFIED" => std::option::Option::Some(Self::LEVEL_UNSPECIFIED),
+                        "RELAX_VISIT_TIMES_AFTER_THRESHOLD" => {
+                            std::option::Option::Some(Self::RELAX_VISIT_TIMES_AFTER_THRESHOLD)
+                        }
+                        "RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD" => {
+                            std::option::Option::Some(
+                                Self::RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD,
+                            )
+                        }
+                        "RELAX_ALL_AFTER_THRESHOLD" => {
+                            std::option::Option::Some(Self::RELAX_ALL_AFTER_THRESHOLD)
+                        }
+                        _ => std::option::Option::None,
+                    }
+                }
             }
 
-            impl std::convert::From<std::string::String> for Level {
-                fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+            impl std::convert::From<i32> for Level {
+                fn from(value: i32) -> Self {
+                    Self::new(value)
+                }
+            }
+
+            impl std::default::Default for Level {
+                fn default() -> Self {
+                    Self::new(0)
                 }
             }
         }
@@ -7159,37 +7408,58 @@ pub mod optimize_tours_validation_error {
 }
 
 /// Data formats for input and output files.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DataFormat(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct DataFormat(i32);
 
 impl DataFormat {
+    /// Default value.
+    pub const DATA_FORMAT_UNSPECIFIED: DataFormat = DataFormat::new(0);
+
+    /// Input data in json format.
+    pub const JSON: DataFormat = DataFormat::new(1);
+
+    /// Input data in string format.
+    pub const STRING: DataFormat = DataFormat::new(2);
+
     /// Creates a new DataFormat instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DATA_FORMAT_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("JSON"),
+            2 => std::borrow::Cow::Borrowed("STRING"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DATA_FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::DATA_FORMAT_UNSPECIFIED),
+            "JSON" => std::option::Option::Some(Self::JSON),
+            "STRING" => std::option::Option::Some(Self::STRING),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [DataFormat](DataFormat)
-pub mod data_format {
-    use super::DataFormat;
-
-    /// Default value.
-    pub const DATA_FORMAT_UNSPECIFIED: DataFormat = DataFormat::new("DATA_FORMAT_UNSPECIFIED");
-
-    /// Input data in json format.
-    pub const JSON: DataFormat = DataFormat::new("JSON");
-
-    /// Input data in string format.
-    pub const STRING: DataFormat = DataFormat::new("STRING");
+impl std::convert::From<i32> for DataFormat {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for DataFormat {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for DataFormat {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

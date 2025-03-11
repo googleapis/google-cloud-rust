@@ -41,7 +41,7 @@ fn serialize_in_struct() -> Result {
     };
 
     let json = serde_json::to_value(input)?;
-    assert_eq!(json, json!({ "timeToLive": "12.345678900s" }));
+    assert_eq!(json, json!({ "timeToLive": "12.3456789s" }));
     Ok(())
 }
 
@@ -52,7 +52,7 @@ fn deserialize_in_struct() -> Result {
     let got = serde_json::from_value::<Helper>(input)?;
     assert_eq!(want, got);
 
-    let input = json!({ "timeToLive": "12.345678900s" });
+    let input = json!({ "timeToLive": "12.3456789s" });
     let want = Helper {
         time_to_live: Some(Duration::clamp(12, 345678900)),
     };

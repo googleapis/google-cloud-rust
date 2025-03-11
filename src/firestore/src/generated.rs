@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,16 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package parser
-
-import "strings"
-
-func SourceRoots(options map[string]string) []string {
-	var roots []string
-	for name := range options {
-		if strings.HasSuffix(name, "-root") {
-			roots = append(roots, name)
-		}
-	}
-	return roots
-}
+// TODO(#1426) - fix references to the `client::Firestore::*` methods
+#[allow(rustdoc::broken_intra_doc_links)]
+pub mod model;

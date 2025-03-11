@@ -112,100 +112,164 @@ pub mod check_error {
     use super::*;
 
     /// Error codes for Check responses.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Code(i32);
 
     impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Code](Code)
-    pub mod code {
-        use super::Code;
-
         /// This is never used in `CheckResponse`.
-        pub const ERROR_CODE_UNSPECIFIED: Code = Code::new("ERROR_CODE_UNSPECIFIED");
+        pub const ERROR_CODE_UNSPECIFIED: Code = Code::new(0);
 
         /// The consumer's project id, network container, or resource container was
         /// not found. Same as [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND].
-        pub const NOT_FOUND: Code = Code::new("NOT_FOUND");
+        pub const NOT_FOUND: Code = Code::new(5);
 
         /// The consumer doesn't have access to the specified resource.
         /// Same as [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].
-        pub const PERMISSION_DENIED: Code = Code::new("PERMISSION_DENIED");
+        pub const PERMISSION_DENIED: Code = Code::new(7);
 
         /// Quota check failed. Same as [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED].
-        pub const RESOURCE_EXHAUSTED: Code = Code::new("RESOURCE_EXHAUSTED");
+        pub const RESOURCE_EXHAUSTED: Code = Code::new(8);
 
         /// The consumer hasn't activated the service.
-        pub const SERVICE_NOT_ACTIVATED: Code = Code::new("SERVICE_NOT_ACTIVATED");
+        pub const SERVICE_NOT_ACTIVATED: Code = Code::new(104);
 
         /// The consumer cannot access the service because billing is disabled.
-        pub const BILLING_DISABLED: Code = Code::new("BILLING_DISABLED");
+        pub const BILLING_DISABLED: Code = Code::new(107);
 
         /// The consumer's project has been marked as deleted (soft deletion).
-        pub const PROJECT_DELETED: Code = Code::new("PROJECT_DELETED");
+        pub const PROJECT_DELETED: Code = Code::new(108);
 
         /// The consumer's project number or id does not represent a valid project.
-        pub const PROJECT_INVALID: Code = Code::new("PROJECT_INVALID");
+        pub const PROJECT_INVALID: Code = Code::new(114);
 
         /// The input consumer info does not represent a valid consumer folder or
         /// organization.
-        pub const CONSUMER_INVALID: Code = Code::new("CONSUMER_INVALID");
+        pub const CONSUMER_INVALID: Code = Code::new(125);
 
         /// The IP address of the consumer is invalid for the specific consumer
         /// project.
-        pub const IP_ADDRESS_BLOCKED: Code = Code::new("IP_ADDRESS_BLOCKED");
+        pub const IP_ADDRESS_BLOCKED: Code = Code::new(109);
 
         /// The referer address of the consumer request is invalid for the specific
         /// consumer project.
-        pub const REFERER_BLOCKED: Code = Code::new("REFERER_BLOCKED");
+        pub const REFERER_BLOCKED: Code = Code::new(110);
 
         /// The client application of the consumer request is invalid for the
         /// specific consumer project.
-        pub const CLIENT_APP_BLOCKED: Code = Code::new("CLIENT_APP_BLOCKED");
+        pub const CLIENT_APP_BLOCKED: Code = Code::new(111);
 
         /// The API targeted by this request is invalid for the specified consumer
         /// project.
-        pub const API_TARGET_BLOCKED: Code = Code::new("API_TARGET_BLOCKED");
+        pub const API_TARGET_BLOCKED: Code = Code::new(122);
 
         /// The consumer's API key is invalid.
-        pub const API_KEY_INVALID: Code = Code::new("API_KEY_INVALID");
+        pub const API_KEY_INVALID: Code = Code::new(105);
 
         /// The consumer's API Key has expired.
-        pub const API_KEY_EXPIRED: Code = Code::new("API_KEY_EXPIRED");
+        pub const API_KEY_EXPIRED: Code = Code::new(112);
 
         /// The consumer's API Key was not found in config record.
-        pub const API_KEY_NOT_FOUND: Code = Code::new("API_KEY_NOT_FOUND");
+        pub const API_KEY_NOT_FOUND: Code = Code::new(113);
 
         /// The credential in the request can not be verified.
-        pub const INVALID_CREDENTIAL: Code = Code::new("INVALID_CREDENTIAL");
+        pub const INVALID_CREDENTIAL: Code = Code::new(123);
 
         /// The backend server for looking up project id/number is unavailable.
-        pub const NAMESPACE_LOOKUP_UNAVAILABLE: Code = Code::new("NAMESPACE_LOOKUP_UNAVAILABLE");
+        pub const NAMESPACE_LOOKUP_UNAVAILABLE: Code = Code::new(300);
 
         /// The backend server for checking service status is unavailable.
-        pub const SERVICE_STATUS_UNAVAILABLE: Code = Code::new("SERVICE_STATUS_UNAVAILABLE");
+        pub const SERVICE_STATUS_UNAVAILABLE: Code = Code::new(301);
 
         /// The backend server for checking billing status is unavailable.
-        pub const BILLING_STATUS_UNAVAILABLE: Code = Code::new("BILLING_STATUS_UNAVAILABLE");
+        pub const BILLING_STATUS_UNAVAILABLE: Code = Code::new(302);
 
         /// Cloud Resource Manager backend server is unavailable.
-        pub const CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE: Code =
-            Code::new("CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE");
+        pub const CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE: Code = Code::new(305);
+
+        /// Creates a new Code instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ERROR_CODE_UNSPECIFIED"),
+                5 => std::borrow::Cow::Borrowed("NOT_FOUND"),
+                7 => std::borrow::Cow::Borrowed("PERMISSION_DENIED"),
+                8 => std::borrow::Cow::Borrowed("RESOURCE_EXHAUSTED"),
+                104 => std::borrow::Cow::Borrowed("SERVICE_NOT_ACTIVATED"),
+                105 => std::borrow::Cow::Borrowed("API_KEY_INVALID"),
+                107 => std::borrow::Cow::Borrowed("BILLING_DISABLED"),
+                108 => std::borrow::Cow::Borrowed("PROJECT_DELETED"),
+                109 => std::borrow::Cow::Borrowed("IP_ADDRESS_BLOCKED"),
+                110 => std::borrow::Cow::Borrowed("REFERER_BLOCKED"),
+                111 => std::borrow::Cow::Borrowed("CLIENT_APP_BLOCKED"),
+                112 => std::borrow::Cow::Borrowed("API_KEY_EXPIRED"),
+                113 => std::borrow::Cow::Borrowed("API_KEY_NOT_FOUND"),
+                114 => std::borrow::Cow::Borrowed("PROJECT_INVALID"),
+                122 => std::borrow::Cow::Borrowed("API_TARGET_BLOCKED"),
+                123 => std::borrow::Cow::Borrowed("INVALID_CREDENTIAL"),
+                125 => std::borrow::Cow::Borrowed("CONSUMER_INVALID"),
+                300 => std::borrow::Cow::Borrowed("NAMESPACE_LOOKUP_UNAVAILABLE"),
+                301 => std::borrow::Cow::Borrowed("SERVICE_STATUS_UNAVAILABLE"),
+                302 => std::borrow::Cow::Borrowed("BILLING_STATUS_UNAVAILABLE"),
+                305 => std::borrow::Cow::Borrowed("CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ERROR_CODE_UNSPECIFIED" => std::option::Option::Some(Self::ERROR_CODE_UNSPECIFIED),
+                "NOT_FOUND" => std::option::Option::Some(Self::NOT_FOUND),
+                "PERMISSION_DENIED" => std::option::Option::Some(Self::PERMISSION_DENIED),
+                "RESOURCE_EXHAUSTED" => std::option::Option::Some(Self::RESOURCE_EXHAUSTED),
+                "SERVICE_NOT_ACTIVATED" => std::option::Option::Some(Self::SERVICE_NOT_ACTIVATED),
+                "BILLING_DISABLED" => std::option::Option::Some(Self::BILLING_DISABLED),
+                "PROJECT_DELETED" => std::option::Option::Some(Self::PROJECT_DELETED),
+                "PROJECT_INVALID" => std::option::Option::Some(Self::PROJECT_INVALID),
+                "CONSUMER_INVALID" => std::option::Option::Some(Self::CONSUMER_INVALID),
+                "IP_ADDRESS_BLOCKED" => std::option::Option::Some(Self::IP_ADDRESS_BLOCKED),
+                "REFERER_BLOCKED" => std::option::Option::Some(Self::REFERER_BLOCKED),
+                "CLIENT_APP_BLOCKED" => std::option::Option::Some(Self::CLIENT_APP_BLOCKED),
+                "API_TARGET_BLOCKED" => std::option::Option::Some(Self::API_TARGET_BLOCKED),
+                "API_KEY_INVALID" => std::option::Option::Some(Self::API_KEY_INVALID),
+                "API_KEY_EXPIRED" => std::option::Option::Some(Self::API_KEY_EXPIRED),
+                "API_KEY_NOT_FOUND" => std::option::Option::Some(Self::API_KEY_NOT_FOUND),
+                "INVALID_CREDENTIAL" => std::option::Option::Some(Self::INVALID_CREDENTIAL),
+                "NAMESPACE_LOOKUP_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::NAMESPACE_LOOKUP_UNAVAILABLE)
+                }
+                "SERVICE_STATUS_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::SERVICE_STATUS_UNAVAILABLE)
+                }
+                "BILLING_STATUS_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::BILLING_STATUS_UNAVAILABLE)
+                }
+                "CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Code {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1704,38 +1768,57 @@ pub mod operation {
     use super::*;
 
     /// Defines the importance of the data contained in the operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Importance(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Importance(i32);
 
     impl Importance {
-        /// Creates a new Importance instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Importance](Importance)
-    pub mod importance {
-        use super::Importance;
-
         /// Allows data caching, batching, and aggregation. It provides
         /// higher performance with higher data loss risk.
-        pub const LOW: Importance = Importance::new("LOW");
+        pub const LOW: Importance = Importance::new(0);
 
         /// Disables data aggregation to minimize data loss. It is for operations
         /// that contains significant monetary value or audit trail. This feature
         /// only applies to the client libraries.
-        pub const HIGH: Importance = Importance::new("HIGH");
+        pub const HIGH: Importance = Importance::new(1);
+
+        /// Creates a new Importance instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LOW"),
+                1 => std::borrow::Cow::Borrowed("HIGH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LOW" => std::option::Option::Some(Self::LOW),
+                "HIGH" => std::option::Option::Some(Self::HIGH),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Importance {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Importance {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Importance {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1933,27 +2016,12 @@ pub mod quota_operation {
     use super::*;
 
     /// Supported quota modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct QuotaMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct QuotaMode(i32);
 
     impl QuotaMode {
-        /// Creates a new QuotaMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [QuotaMode](QuotaMode)
-    pub mod quota_mode {
-        use super::QuotaMode;
-
         /// Guard against implicit default. Must not be used.
-        pub const UNSPECIFIED: QuotaMode = QuotaMode::new("UNSPECIFIED");
+        pub const UNSPECIFIED: QuotaMode = QuotaMode::new(0);
 
         /// For AllocateQuota request, allocates quota for the amount specified in
         /// the service configuration or specified using the quota metrics. If the
@@ -1961,7 +2029,7 @@ pub mod quota_operation {
         /// returned and no quota will be allocated.
         /// If multiple quotas are part of the request, and one fails, none of the
         /// quotas are allocated or released.
-        pub const NORMAL: QuotaMode = QuotaMode::new("NORMAL");
+        pub const NORMAL: QuotaMode = QuotaMode::new(1);
 
         /// The operation allocates quota for the amount specified in the service
         /// configuration or specified using the quota metrics. If the amount is
@@ -1971,31 +2039,73 @@ pub mod quota_operation {
         /// even if one does not have enough quota. For allocation, it will find the
         /// minimum available amount across all groups and deduct that amount from
         /// all the affected groups.
-        pub const BEST_EFFORT: QuotaMode = QuotaMode::new("BEST_EFFORT");
+        pub const BEST_EFFORT: QuotaMode = QuotaMode::new(2);
 
         /// For AllocateQuota request, only checks if there is enough quota
         /// available and does not change the available quota. No lock is placed on
         /// the available quota either.
-        pub const CHECK_ONLY: QuotaMode = QuotaMode::new("CHECK_ONLY");
+        pub const CHECK_ONLY: QuotaMode = QuotaMode::new(3);
 
         /// Unimplemented. When used in AllocateQuotaRequest, this returns the
         /// effective quota limit(s) in the response, and no quota check will be
         /// performed. Not supported for other requests, and even for
         /// AllocateQuotaRequest, this is currently supported only for allowlisted
         /// services.
-        pub const QUERY_ONLY: QuotaMode = QuotaMode::new("QUERY_ONLY");
+        pub const QUERY_ONLY: QuotaMode = QuotaMode::new(4);
 
         /// The operation allocates quota for the amount specified in the service
         /// configuration or specified using the quota metrics. If the requested
         /// amount is higher than the available quota, request does not fail and
         /// remaining quota would become negative (going over the limit).
         /// Not supported for Rate Quota.
-        pub const ADJUST_ONLY: QuotaMode = QuotaMode::new("ADJUST_ONLY");
+        pub const ADJUST_ONLY: QuotaMode = QuotaMode::new(5);
+
+        /// Creates a new QuotaMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NORMAL"),
+                2 => std::borrow::Cow::Borrowed("BEST_EFFORT"),
+                3 => std::borrow::Cow::Borrowed("CHECK_ONLY"),
+                4 => std::borrow::Cow::Borrowed("QUERY_ONLY"),
+                5 => std::borrow::Cow::Borrowed("ADJUST_ONLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "NORMAL" => std::option::Option::Some(Self::NORMAL),
+                "BEST_EFFORT" => std::option::Option::Some(Self::BEST_EFFORT),
+                "CHECK_ONLY" => std::option::Option::Some(Self::CHECK_ONLY),
+                "QUERY_ONLY" => std::option::Option::Some(Self::QUERY_ONLY),
+                "ADJUST_ONLY" => std::option::Option::Some(Self::ADJUST_ONLY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for QuotaMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for QuotaMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for QuotaMode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2162,49 +2272,76 @@ pub mod quota_error {
     /// have to call the Check method, without quota_properties field, to perform
     /// these validations before calling the quota controller methods. These
     /// methods check only for project deletion to be wipe out compliant.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Code(i32);
 
     impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Code](Code)
-    pub mod code {
-        use super::Code;
-
         /// This is never used.
-        pub const UNSPECIFIED: Code = Code::new("UNSPECIFIED");
+        pub const UNSPECIFIED: Code = Code::new(0);
 
         /// Quota allocation failed.
         /// Same as [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED].
-        pub const RESOURCE_EXHAUSTED: Code = Code::new("RESOURCE_EXHAUSTED");
+        pub const RESOURCE_EXHAUSTED: Code = Code::new(8);
 
         /// Consumer cannot access the service because the service requires active
         /// billing.
-        pub const BILLING_NOT_ACTIVE: Code = Code::new("BILLING_NOT_ACTIVE");
+        pub const BILLING_NOT_ACTIVE: Code = Code::new(107);
 
         /// Consumer's project has been marked as deleted (soft deletion).
-        pub const PROJECT_DELETED: Code = Code::new("PROJECT_DELETED");
+        pub const PROJECT_DELETED: Code = Code::new(108);
 
         /// Specified API key is invalid.
-        pub const API_KEY_INVALID: Code = Code::new("API_KEY_INVALID");
+        pub const API_KEY_INVALID: Code = Code::new(105);
 
         /// Specified API Key has expired.
-        pub const API_KEY_EXPIRED: Code = Code::new("API_KEY_EXPIRED");
+        pub const API_KEY_EXPIRED: Code = Code::new(112);
+
+        /// Creates a new Code instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                8 => std::borrow::Cow::Borrowed("RESOURCE_EXHAUSTED"),
+                105 => std::borrow::Cow::Borrowed("API_KEY_INVALID"),
+                107 => std::borrow::Cow::Borrowed("BILLING_NOT_ACTIVE"),
+                108 => std::borrow::Cow::Borrowed("PROJECT_DELETED"),
+                112 => std::borrow::Cow::Borrowed("API_KEY_EXPIRED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "RESOURCE_EXHAUSTED" => std::option::Option::Some(Self::RESOURCE_EXHAUSTED),
+                "BILLING_NOT_ACTIVE" => std::option::Option::Some(Self::BILLING_NOT_ACTIVE),
+                "PROJECT_DELETED" => std::option::Option::Some(Self::PROJECT_DELETED),
+                "API_KEY_INVALID" => std::option::Option::Some(Self::API_KEY_INVALID),
+                "API_KEY_EXPIRED" => std::option::Option::Some(Self::API_KEY_EXPIRED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Code {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2502,47 +2639,73 @@ pub mod check_response {
 
         /// The type of the consumer as defined in
         /// [Google Resource Manager](https://cloud.google.com/resource-manager/).
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ConsumerType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct ConsumerType(i32);
 
         impl ConsumerType {
-            /// Creates a new ConsumerType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [ConsumerType](ConsumerType)
-        pub mod consumer_type {
-            use super::ConsumerType;
-
             /// This is never used.
-            pub const CONSUMER_TYPE_UNSPECIFIED: ConsumerType =
-                ConsumerType::new("CONSUMER_TYPE_UNSPECIFIED");
+            pub const CONSUMER_TYPE_UNSPECIFIED: ConsumerType = ConsumerType::new(0);
 
             /// The consumer is a Google Cloud Project.
-            pub const PROJECT: ConsumerType = ConsumerType::new("PROJECT");
+            pub const PROJECT: ConsumerType = ConsumerType::new(1);
 
             /// The consumer is a Google Cloud Folder.
-            pub const FOLDER: ConsumerType = ConsumerType::new("FOLDER");
+            pub const FOLDER: ConsumerType = ConsumerType::new(2);
 
             /// The consumer is a Google Cloud Organization.
-            pub const ORGANIZATION: ConsumerType = ConsumerType::new("ORGANIZATION");
+            pub const ORGANIZATION: ConsumerType = ConsumerType::new(3);
 
             /// Service-specific resource container which is defined by the service
             /// producer to offer their users the ability to manage service control
             /// functionalities at a finer level of granularity than the PROJECT.
-            pub const SERVICE_SPECIFIC: ConsumerType = ConsumerType::new("SERVICE_SPECIFIC");
+            pub const SERVICE_SPECIFIC: ConsumerType = ConsumerType::new(4);
+
+            /// Creates a new ConsumerType instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("CONSUMER_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("PROJECT"),
+                    2 => std::borrow::Cow::Borrowed("FOLDER"),
+                    3 => std::borrow::Cow::Borrowed("ORGANIZATION"),
+                    4 => std::borrow::Cow::Borrowed("SERVICE_SPECIFIC"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "CONSUMER_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::CONSUMER_TYPE_UNSPECIFIED)
+                    }
+                    "PROJECT" => std::option::Option::Some(Self::PROJECT),
+                    "FOLDER" => std::option::Option::Some(Self::FOLDER),
+                    "ORGANIZATION" => std::option::Option::Some(Self::ORGANIZATION),
+                    "SERVICE_SPECIFIC" => std::option::Option::Some(Self::SERVICE_SPECIFIC),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for ConsumerType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for ConsumerType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for ConsumerType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }

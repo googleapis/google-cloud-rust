@@ -76,14 +76,6 @@ impl ReqwestClient {
         body: Option<I>,
         options: crate::options::RequestOptions,
     ) -> Result<O> {
-        let auth_headers = self
-            .cred
-            .get_headers()
-            .await
-            .map_err(Error::authentication)?;
-        for header in auth_headers.into_iter() {
-            builder = builder.header(header.0, header.1);
-        }
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
@@ -185,6 +177,14 @@ impl ReqwestClient {
             .map(|t| remaining_time.map(|r| std::cmp::min(t, r)).unwrap_or(t))
         {
             builder = builder.timeout(timeout);
+        }
+        let auth_headers = self
+            .cred
+            .get_headers()
+            .await
+            .map_err(Error::authentication)?;
+        for header in auth_headers.into_iter() {
+            builder = builder.header(header.0, header.1);
         }
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {

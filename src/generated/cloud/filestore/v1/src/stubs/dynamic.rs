@@ -121,6 +121,12 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
+    async fn promote_replica(
+        &self,
+        req: crate::model::PromoteReplicaRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -322,6 +328,15 @@ impl<T: crate::stubs::CloudFilestoreManager> CloudFilestoreManager for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation> {
         T::update_backup(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn promote_replica(
+        &self,
+        req: crate::model::PromoteReplicaRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::promote_replica(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

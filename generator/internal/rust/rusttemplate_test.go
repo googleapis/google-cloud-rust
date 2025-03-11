@@ -28,7 +28,7 @@ func TestPackageNames(t *testing.T) {
 		[]*api.Service{{Name: "Workflows", Package: "google.cloud.workflows.v1"}})
 	// Override the default name for test APIs ("Test").
 	model.Name = "workflows-v1"
-	codec, err := newCodec(map[string]string{})
+	codec, err := newCodec(true, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -89,7 +89,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{message, map_message}, []*api.Enum{}, []*api.Service{})
 	api.CrossReference(model)
-	codec, err := newCodec(map[string]string{})
+	codec, err := newCodec(true, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -173,16 +173,19 @@ func Test_RustEnumAnnotations(t *testing.T) {
 		Name:          "week5",
 		ID:            ".test.v1.TestEnum.week5",
 		Documentation: "week5 is also documented.",
+		Number:        2,
 	}
 	v1 := &api.EnumValue{
 		Name:          "MULTI_WORD_VALUE",
 		ID:            ".test.v1.TestEnum.MULTI_WORD_VALUES",
 		Documentation: "MULTI_WORD_VALUE is also documented.",
+		Number:        1,
 	}
 	v2 := &api.EnumValue{
 		Name:          "VALUE",
 		ID:            ".test.v1.TestEnum.VALUE",
 		Documentation: "VALUE is also documented.",
+		Number:        0,
 	}
 	enum := &api.Enum{
 		Name:          "TestEnum",
@@ -193,16 +196,17 @@ func Test_RustEnumAnnotations(t *testing.T) {
 
 	model := api.NewTestAPI(
 		[]*api.Message{}, []*api.Enum{enum}, []*api.Service{})
-	codec, err := newCodec(map[string]string{})
+	codec, err := newCodec(true, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
 	annotateModel(model, codec, "")
 
 	if diff := cmp.Diff(&enumAnnotation{
-		Name:       "TestEnum",
-		ModuleName: "test_enum",
-		DocLines:   []string{"/// The enum is documented."},
+		Name:             "TestEnum",
+		ModuleName:       "test_enum",
+		DocLines:         []string{"/// The enum is documented."},
+		DefaultValueName: "VALUE",
 	}, enum.Codec); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
@@ -260,7 +264,7 @@ func Test_JsonNameAnnotations(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 	api.CrossReference(model)
-	codec, err := newCodec(map[string]string{})
+	codec, err := newCodec(true, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}

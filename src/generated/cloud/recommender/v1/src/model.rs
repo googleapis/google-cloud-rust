@@ -242,92 +242,146 @@ pub mod insight {
     }
 
     /// Insight category.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Category(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Category(i32);
 
     impl Category {
+        /// Unspecified category.
+        pub const CATEGORY_UNSPECIFIED: Category = Category::new(0);
+
+        /// The insight is related to cost.
+        pub const COST: Category = Category::new(1);
+
+        /// The insight is related to security.
+        pub const SECURITY: Category = Category::new(2);
+
+        /// The insight is related to performance.
+        pub const PERFORMANCE: Category = Category::new(3);
+
+        /// This insight is related to manageability.
+        pub const MANAGEABILITY: Category = Category::new(4);
+
+        /// The insight is related to sustainability.
+        pub const SUSTAINABILITY: Category = Category::new(5);
+
+        /// This insight is related to reliability.
+        pub const RELIABILITY: Category = Category::new(6);
+
         /// Creates a new Category instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CATEGORY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("COST"),
+                2 => std::borrow::Cow::Borrowed("SECURITY"),
+                3 => std::borrow::Cow::Borrowed("PERFORMANCE"),
+                4 => std::borrow::Cow::Borrowed("MANAGEABILITY"),
+                5 => std::borrow::Cow::Borrowed("SUSTAINABILITY"),
+                6 => std::borrow::Cow::Borrowed("RELIABILITY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CATEGORY_UNSPECIFIED" => std::option::Option::Some(Self::CATEGORY_UNSPECIFIED),
+                "COST" => std::option::Option::Some(Self::COST),
+                "SECURITY" => std::option::Option::Some(Self::SECURITY),
+                "PERFORMANCE" => std::option::Option::Some(Self::PERFORMANCE),
+                "MANAGEABILITY" => std::option::Option::Some(Self::MANAGEABILITY),
+                "SUSTAINABILITY" => std::option::Option::Some(Self::SUSTAINABILITY),
+                "RELIABILITY" => std::option::Option::Some(Self::RELIABILITY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Category](Category)
-    pub mod category {
-        use super::Category;
-
-        /// Unspecified category.
-        pub const CATEGORY_UNSPECIFIED: Category = Category::new("CATEGORY_UNSPECIFIED");
-
-        /// The insight is related to cost.
-        pub const COST: Category = Category::new("COST");
-
-        /// The insight is related to security.
-        pub const SECURITY: Category = Category::new("SECURITY");
-
-        /// The insight is related to performance.
-        pub const PERFORMANCE: Category = Category::new("PERFORMANCE");
-
-        /// This insight is related to manageability.
-        pub const MANAGEABILITY: Category = Category::new("MANAGEABILITY");
-
-        /// The insight is related to sustainability.
-        pub const SUSTAINABILITY: Category = Category::new("SUSTAINABILITY");
-
-        /// This insight is related to reliability.
-        pub const RELIABILITY: Category = Category::new("RELIABILITY");
+    impl std::convert::From<i32> for Category {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Category {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Category {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Insight severity levels.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Severity(i32);
 
     impl Severity {
+        /// Insight has unspecified severity.
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new(0);
+
+        /// Insight has low severity.
+        pub const LOW: Severity = Severity::new(1);
+
+        /// Insight has medium severity.
+        pub const MEDIUM: Severity = Severity::new(2);
+
+        /// Insight has high severity.
+        pub const HIGH: Severity = Severity::new(3);
+
+        /// Insight has critical severity.
+        pub const CRITICAL: Severity = Severity::new(4);
+
         /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LOW"),
+                2 => std::borrow::Cow::Borrowed("MEDIUM"),
+                3 => std::borrow::Cow::Borrowed("HIGH"),
+                4 => std::borrow::Cow::Borrowed("CRITICAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SEVERITY_UNSPECIFIED" => std::option::Option::Some(Self::SEVERITY_UNSPECIFIED),
+                "LOW" => std::option::Option::Some(Self::LOW),
+                "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
+                "HIGH" => std::option::Option::Some(Self::HIGH),
+                "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Severity](Severity)
-    pub mod severity {
-        use super::Severity;
-
-        /// Insight has unspecified severity.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
-
-        /// Insight has low severity.
-        pub const LOW: Severity = Severity::new("LOW");
-
-        /// Insight has medium severity.
-        pub const MEDIUM: Severity = Severity::new("MEDIUM");
-
-        /// Insight has high severity.
-        pub const HIGH: Severity = Severity::new("HIGH");
-
-        /// Insight has critical severity.
-        pub const CRITICAL: Severity = Severity::new("CRITICAL");
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Severity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -385,47 +439,70 @@ pub mod insight_state_info {
     use super::*;
 
     /// Represents insight state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Insight is active. Content for ACTIVE insights can be updated by Google.
         /// ACTIVE insights can be marked DISMISSED OR ACCEPTED.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(1);
 
         /// Some action has been taken based on this insight. Insights become
         /// accepted when a recommendation derived from the insight has been marked
         /// CLAIMED, SUCCEEDED, or FAILED. ACTIVE insights can also be marked
         /// ACCEPTED explicitly. Content for ACCEPTED insights is immutable. ACCEPTED
         /// insights can only be marked ACCEPTED (which may update state metadata).
-        pub const ACCEPTED: State = State::new("ACCEPTED");
+        pub const ACCEPTED: State = State::new(2);
 
         /// Insight is dismissed. Content for DISMISSED insights can be updated by
         /// Google. DISMISSED insights can be marked as ACTIVE.
-        pub const DISMISSED: State = State::new("DISMISSED");
+        pub const DISMISSED: State = State::new(3);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("ACCEPTED"),
+                3 => std::borrow::Cow::Borrowed("DISMISSED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "ACCEPTED" => std::option::Option::Some(Self::ACCEPTED),
+                "DISMISSED" => std::option::Option::Some(Self::DISMISSED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -807,44 +884,69 @@ pub mod recommendation {
     }
 
     /// Recommendation priority levels.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Priority(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Priority(i32);
 
     impl Priority {
+        /// Recommendation has unspecified priority.
+        pub const PRIORITY_UNSPECIFIED: Priority = Priority::new(0);
+
+        /// Recommendation has P4 priority (lowest priority).
+        pub const P4: Priority = Priority::new(1);
+
+        /// Recommendation has P3 priority (second lowest priority).
+        pub const P3: Priority = Priority::new(2);
+
+        /// Recommendation has P2 priority (second highest priority).
+        pub const P2: Priority = Priority::new(3);
+
+        /// Recommendation has P1 priority (highest priority).
+        pub const P1: Priority = Priority::new(4);
+
         /// Creates a new Priority instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PRIORITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("P4"),
+                2 => std::borrow::Cow::Borrowed("P3"),
+                3 => std::borrow::Cow::Borrowed("P2"),
+                4 => std::borrow::Cow::Borrowed("P1"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PRIORITY_UNSPECIFIED" => std::option::Option::Some(Self::PRIORITY_UNSPECIFIED),
+                "P4" => std::option::Option::Some(Self::P4),
+                "P3" => std::option::Option::Some(Self::P3),
+                "P2" => std::option::Option::Some(Self::P2),
+                "P1" => std::option::Option::Some(Self::P1),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Priority](Priority)
-    pub mod priority {
-        use super::Priority;
-
-        /// Recommendation has unspecified priority.
-        pub const PRIORITY_UNSPECIFIED: Priority = Priority::new("PRIORITY_UNSPECIFIED");
-
-        /// Recommendation has P4 priority (lowest priority).
-        pub const P4: Priority = Priority::new("P4");
-
-        /// Recommendation has P3 priority (second lowest priority).
-        pub const P3: Priority = Priority::new("P3");
-
-        /// Recommendation has P2 priority (second highest priority).
-        pub const P2: Priority = Priority::new("P2");
-
-        /// Recommendation has P1 priority (highest priority).
-        pub const P1: Priority = Priority::new("P1");
+    impl std::convert::From<i32> for Priority {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Priority {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Priority {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1456,42 +1558,65 @@ pub mod reliability_projection {
     use super::*;
 
     /// The risk associated with the reliability issue.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RiskType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RiskType(i32);
 
     impl RiskType {
-        /// Creates a new RiskType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RiskType](RiskType)
-    pub mod risk_type {
-        use super::RiskType;
-
         /// Default unspecified risk. Don't use directly.
-        pub const RISK_TYPE_UNSPECIFIED: RiskType = RiskType::new("RISK_TYPE_UNSPECIFIED");
+        pub const RISK_TYPE_UNSPECIFIED: RiskType = RiskType::new(0);
 
         /// Potential service downtime.
-        pub const SERVICE_DISRUPTION: RiskType = RiskType::new("SERVICE_DISRUPTION");
+        pub const SERVICE_DISRUPTION: RiskType = RiskType::new(1);
 
         /// Potential data loss.
-        pub const DATA_LOSS: RiskType = RiskType::new("DATA_LOSS");
+        pub const DATA_LOSS: RiskType = RiskType::new(2);
 
         /// Potential access denial. The service is still up but some or all clients
         /// can't access it.
-        pub const ACCESS_DENY: RiskType = RiskType::new("ACCESS_DENY");
+        pub const ACCESS_DENY: RiskType = RiskType::new(3);
+
+        /// Creates a new RiskType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RISK_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SERVICE_DISRUPTION"),
+                2 => std::borrow::Cow::Borrowed("DATA_LOSS"),
+                3 => std::borrow::Cow::Borrowed("ACCESS_DENY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RISK_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::RISK_TYPE_UNSPECIFIED),
+                "SERVICE_DISRUPTION" => std::option::Option::Some(Self::SERVICE_DISRUPTION),
+                "DATA_LOSS" => std::option::Option::Some(Self::DATA_LOSS),
+                "ACCESS_DENY" => std::option::Option::Some(Self::ACCESS_DENY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RiskType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RiskType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RiskType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1671,50 +1796,79 @@ pub mod impact {
     use super::*;
 
     /// The category of the impact.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Category(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Category(i32);
 
     impl Category {
+        /// Default unspecified category. Don't use directly.
+        pub const CATEGORY_UNSPECIFIED: Category = Category::new(0);
+
+        /// Indicates a potential increase or decrease in cost.
+        pub const COST: Category = Category::new(1);
+
+        /// Indicates a potential increase or decrease in security.
+        pub const SECURITY: Category = Category::new(2);
+
+        /// Indicates a potential increase or decrease in performance.
+        pub const PERFORMANCE: Category = Category::new(3);
+
+        /// Indicates a potential increase or decrease in manageability.
+        pub const MANAGEABILITY: Category = Category::new(4);
+
+        /// Indicates a potential increase or decrease in sustainability.
+        pub const SUSTAINABILITY: Category = Category::new(5);
+
+        /// Indicates a potential increase or decrease in reliability.
+        pub const RELIABILITY: Category = Category::new(6);
+
         /// Creates a new Category instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CATEGORY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("COST"),
+                2 => std::borrow::Cow::Borrowed("SECURITY"),
+                3 => std::borrow::Cow::Borrowed("PERFORMANCE"),
+                4 => std::borrow::Cow::Borrowed("MANAGEABILITY"),
+                5 => std::borrow::Cow::Borrowed("SUSTAINABILITY"),
+                6 => std::borrow::Cow::Borrowed("RELIABILITY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CATEGORY_UNSPECIFIED" => std::option::Option::Some(Self::CATEGORY_UNSPECIFIED),
+                "COST" => std::option::Option::Some(Self::COST),
+                "SECURITY" => std::option::Option::Some(Self::SECURITY),
+                "PERFORMANCE" => std::option::Option::Some(Self::PERFORMANCE),
+                "MANAGEABILITY" => std::option::Option::Some(Self::MANAGEABILITY),
+                "SUSTAINABILITY" => std::option::Option::Some(Self::SUSTAINABILITY),
+                "RELIABILITY" => std::option::Option::Some(Self::RELIABILITY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Category](Category)
-    pub mod category {
-        use super::Category;
-
-        /// Default unspecified category. Don't use directly.
-        pub const CATEGORY_UNSPECIFIED: Category = Category::new("CATEGORY_UNSPECIFIED");
-
-        /// Indicates a potential increase or decrease in cost.
-        pub const COST: Category = Category::new("COST");
-
-        /// Indicates a potential increase or decrease in security.
-        pub const SECURITY: Category = Category::new("SECURITY");
-
-        /// Indicates a potential increase or decrease in performance.
-        pub const PERFORMANCE: Category = Category::new("PERFORMANCE");
-
-        /// Indicates a potential increase or decrease in manageability.
-        pub const MANAGEABILITY: Category = Category::new("MANAGEABILITY");
-
-        /// Indicates a potential increase or decrease in sustainability.
-        pub const SUSTAINABILITY: Category = Category::new("SUSTAINABILITY");
-
-        /// Indicates a potential increase or decrease in reliability.
-        pub const RELIABILITY: Category = Category::new("RELIABILITY");
+    impl std::convert::From<i32> for Category {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Category {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Category {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -1787,62 +1941,89 @@ pub mod recommendation_state_info {
     use super::*;
 
     /// Represents Recommendation State.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Default state. Don't use directly.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Recommendation is active and can be applied. Recommendations content can
         /// be updated by Google.
         ///
         /// ACTIVE recommendations can be marked as CLAIMED, SUCCEEDED, or FAILED.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(1);
 
         /// Recommendation is in claimed state. Recommendations content is
         /// immutable and cannot be updated by Google.
         ///
         /// CLAIMED recommendations can be marked as CLAIMED, SUCCEEDED, or FAILED.
-        pub const CLAIMED: State = State::new("CLAIMED");
+        pub const CLAIMED: State = State::new(6);
 
         /// Recommendation is in succeeded state. Recommendations content is
         /// immutable and cannot be updated by Google.
         ///
         /// SUCCEEDED recommendations can be marked as SUCCEEDED, or FAILED.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::new(3);
 
         /// Recommendation is in failed state. Recommendations content is immutable
         /// and cannot be updated by Google.
         ///
         /// FAILED recommendations can be marked as SUCCEEDED, or FAILED.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(4);
 
         /// Recommendation is in dismissed state. Recommendation content can be
         /// updated by Google.
         ///
         /// DISMISSED recommendations can be marked as ACTIVE.
-        pub const DISMISSED: State = State::new("DISMISSED");
+        pub const DISMISSED: State = State::new(5);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                5 => std::borrow::Cow::Borrowed("DISMISSED"),
+                6 => std::borrow::Cow::Borrowed("CLAIMED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "CLAIMED" => std::option::Option::Some(Self::CLAIMED),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "DISMISSED" => std::option::Option::Some(Self::DISMISSED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

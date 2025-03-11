@@ -210,7 +210,7 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
-        pub fn set_payload<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_payload<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.payload = v.into();
             self
         }

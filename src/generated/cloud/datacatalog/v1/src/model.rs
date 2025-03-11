@@ -131,36 +131,56 @@ pub mod big_query_connection_spec {
     use super::*;
 
     /// The type of the BigQuery connection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConnectionType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ConnectionType(i32);
 
     impl ConnectionType {
+        /// Unspecified type.
+        pub const CONNECTION_TYPE_UNSPECIFIED: ConnectionType = ConnectionType::new(0);
+
+        /// Cloud SQL connection.
+        pub const CLOUD_SQL: ConnectionType = ConnectionType::new(1);
+
         /// Creates a new ConnectionType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CONNECTION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_SQL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CONNECTION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CONNECTION_TYPE_UNSPECIFIED)
+                }
+                "CLOUD_SQL" => std::option::Option::Some(Self::CLOUD_SQL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ConnectionType](ConnectionType)
-    pub mod connection_type {
-        use super::ConnectionType;
-
-        /// Unspecified type.
-        pub const CONNECTION_TYPE_UNSPECIFIED: ConnectionType =
-            ConnectionType::new("CONNECTION_TYPE_UNSPECIFIED");
-
-        /// Cloud SQL connection.
-        pub const CLOUD_SQL: ConnectionType = ConnectionType::new("CLOUD_SQL");
+    impl std::convert::From<i32> for ConnectionType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ConnectionType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ConnectionType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -233,39 +253,61 @@ pub mod cloud_sql_big_query_connection_spec {
     use super::*;
 
     /// Supported Cloud SQL database types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DatabaseType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DatabaseType(i32);
 
     impl DatabaseType {
+        /// Unspecified database type.
+        pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType = DatabaseType::new(0);
+
+        /// Cloud SQL for PostgreSQL.
+        pub const POSTGRES: DatabaseType = DatabaseType::new(1);
+
+        /// Cloud SQL for MySQL.
+        pub const MYSQL: DatabaseType = DatabaseType::new(2);
+
         /// Creates a new DatabaseType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DATABASE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("POSTGRES"),
+                2 => std::borrow::Cow::Borrowed("MYSQL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DATABASE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DATABASE_TYPE_UNSPECIFIED)
+                }
+                "POSTGRES" => std::option::Option::Some(Self::POSTGRES),
+                "MYSQL" => std::option::Option::Some(Self::MYSQL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [DatabaseType](DatabaseType)
-    pub mod database_type {
-        use super::DatabaseType;
-
-        /// Unspecified database type.
-        pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType =
-            DatabaseType::new("DATABASE_TYPE_UNSPECIFIED");
-
-        /// Cloud SQL for PostgreSQL.
-        pub const POSTGRES: DatabaseType = DatabaseType::new("POSTGRES");
-
-        /// Cloud SQL for MySQL.
-        pub const MYSQL: DatabaseType = DatabaseType::new("MYSQL");
+    impl std::convert::From<i32> for DatabaseType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for DatabaseType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for DatabaseType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -450,38 +492,59 @@ pub mod data_source {
     use super::*;
 
     /// Name of a service that stores the data.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Service(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Service(i32);
 
     impl Service {
+        /// Default unknown service.
+        pub const SERVICE_UNSPECIFIED: Service = Service::new(0);
+
+        /// Google Cloud Storage service.
+        pub const CLOUD_STORAGE: Service = Service::new(1);
+
+        /// BigQuery service.
+        pub const BIGQUERY: Service = Service::new(2);
+
         /// Creates a new Service instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SERVICE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_STORAGE"),
+                2 => std::borrow::Cow::Borrowed("BIGQUERY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SERVICE_UNSPECIFIED" => std::option::Option::Some(Self::SERVICE_UNSPECIFIED),
+                "CLOUD_STORAGE" => std::option::Option::Some(Self::CLOUD_STORAGE),
+                "BIGQUERY" => std::option::Option::Some(Self::BIGQUERY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Service](Service)
-    pub mod service {
-        use super::Service;
-
-        /// Default unknown service.
-        pub const SERVICE_UNSPECIFIED: Service = Service::new("SERVICE_UNSPECIFIED");
-
-        /// Google Cloud Storage service.
-        pub const CLOUD_STORAGE: Service = Service::new("CLOUD_STORAGE");
-
-        /// BigQuery service.
-        pub const BIGQUERY: Service = Service::new("BIGQUERY");
+    impl std::convert::From<i32> for Service {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Service {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Service {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -2728,38 +2791,61 @@ pub mod database_table_spec {
         use super::*;
 
         /// Concrete type of the view.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ViewType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct ViewType(i32);
 
         impl ViewType {
+            /// Default unknown view type.
+            pub const VIEW_TYPE_UNSPECIFIED: ViewType = ViewType::new(0);
+
+            /// Standard view.
+            pub const STANDARD_VIEW: ViewType = ViewType::new(1);
+
+            /// Materialized view.
+            pub const MATERIALIZED_VIEW: ViewType = ViewType::new(2);
+
             /// Creates a new ViewType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("VIEW_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("STANDARD_VIEW"),
+                    2 => std::borrow::Cow::Borrowed("MATERIALIZED_VIEW"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "VIEW_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::VIEW_TYPE_UNSPECIFIED)
+                    }
+                    "STANDARD_VIEW" => std::option::Option::Some(Self::STANDARD_VIEW),
+                    "MATERIALIZED_VIEW" => std::option::Option::Some(Self::MATERIALIZED_VIEW),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [ViewType](ViewType)
-        pub mod view_type {
-            use super::ViewType;
-
-            /// Default unknown view type.
-            pub const VIEW_TYPE_UNSPECIFIED: ViewType = ViewType::new("VIEW_TYPE_UNSPECIFIED");
-
-            /// Standard view.
-            pub const STANDARD_VIEW: ViewType = ViewType::new("STANDARD_VIEW");
-
-            /// Materialized view.
-            pub const MATERIALIZED_VIEW: ViewType = ViewType::new("MATERIALIZED_VIEW");
+        impl std::convert::From<i32> for ViewType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for ViewType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for ViewType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
 
@@ -2776,38 +2862,59 @@ pub mod database_table_spec {
     }
 
     /// Type of the table.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TableType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TableType(i32);
 
     impl TableType {
+        /// Default unknown table type.
+        pub const TABLE_TYPE_UNSPECIFIED: TableType = TableType::new(0);
+
+        /// Native table.
+        pub const NATIVE: TableType = TableType::new(1);
+
+        /// External table.
+        pub const EXTERNAL: TableType = TableType::new(2);
+
         /// Creates a new TableType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TABLE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NATIVE"),
+                2 => std::borrow::Cow::Borrowed("EXTERNAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TABLE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TABLE_TYPE_UNSPECIFIED),
+                "NATIVE" => std::option::Option::Some(Self::NATIVE),
+                "EXTERNAL" => std::option::Option::Some(Self::EXTERNAL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [TableType](TableType)
-    pub mod table_type {
-        use super::TableType;
-
-        /// Default unknown table type.
-        pub const TABLE_TYPE_UNSPECIFIED: TableType = TableType::new("TABLE_TYPE_UNSPECIFIED");
-
-        /// Native table.
-        pub const NATIVE: TableType = TableType::new("NATIVE");
-
-        /// External table.
-        pub const EXTERNAL: TableType = TableType::new("EXTERNAL");
+    impl std::convert::From<i32> for TableType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for TableType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for TableType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3079,79 +3186,124 @@ pub mod routine_spec {
         use super::*;
 
         /// The input or output mode of the argument.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Mode(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Mode(i32);
 
         impl Mode {
+            /// Unspecified mode.
+            pub const MODE_UNSPECIFIED: Mode = Mode::new(0);
+
+            /// The argument is input-only.
+            pub const IN: Mode = Mode::new(1);
+
+            /// The argument is output-only.
+            pub const OUT: Mode = Mode::new(2);
+
+            /// The argument is both an input and an output.
+            pub const INOUT: Mode = Mode::new(3);
+
             /// Creates a new Mode instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("MODE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("IN"),
+                    2 => std::borrow::Cow::Borrowed("OUT"),
+                    3 => std::borrow::Cow::Borrowed("INOUT"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "MODE_UNSPECIFIED" => std::option::Option::Some(Self::MODE_UNSPECIFIED),
+                    "IN" => std::option::Option::Some(Self::IN),
+                    "OUT" => std::option::Option::Some(Self::OUT),
+                    "INOUT" => std::option::Option::Some(Self::INOUT),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Mode](Mode)
-        pub mod mode {
-            use super::Mode;
-
-            /// Unspecified mode.
-            pub const MODE_UNSPECIFIED: Mode = Mode::new("MODE_UNSPECIFIED");
-
-            /// The argument is input-only.
-            pub const IN: Mode = Mode::new("IN");
-
-            /// The argument is output-only.
-            pub const OUT: Mode = Mode::new("OUT");
-
-            /// The argument is both an input and an output.
-            pub const INOUT: Mode = Mode::new("INOUT");
+        impl std::convert::From<i32> for Mode {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for Mode {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for Mode {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
 
     /// The fine-grained type of the routine.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RoutineType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RoutineType(i32);
 
     impl RoutineType {
+        /// Unspecified type.
+        pub const ROUTINE_TYPE_UNSPECIFIED: RoutineType = RoutineType::new(0);
+
+        /// Non-builtin permanent scalar function.
+        pub const SCALAR_FUNCTION: RoutineType = RoutineType::new(1);
+
+        /// Stored procedure.
+        pub const PROCEDURE: RoutineType = RoutineType::new(2);
+
         /// Creates a new RoutineType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROUTINE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SCALAR_FUNCTION"),
+                2 => std::borrow::Cow::Borrowed("PROCEDURE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROUTINE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ROUTINE_TYPE_UNSPECIFIED)
+                }
+                "SCALAR_FUNCTION" => std::option::Option::Some(Self::SCALAR_FUNCTION),
+                "PROCEDURE" => std::option::Option::Some(Self::PROCEDURE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RoutineType](RoutineType)
-    pub mod routine_type {
-        use super::RoutineType;
-
-        /// Unspecified type.
-        pub const ROUTINE_TYPE_UNSPECIFIED: RoutineType =
-            RoutineType::new("ROUTINE_TYPE_UNSPECIFIED");
-
-        /// Non-builtin permanent scalar function.
-        pub const SCALAR_FUNCTION: RoutineType = RoutineType::new("SCALAR_FUNCTION");
-
-        /// Stored procedure.
-        pub const PROCEDURE: RoutineType = RoutineType::new("PROCEDURE");
+    impl std::convert::From<i32> for RoutineType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for RoutineType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for RoutineType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -3689,55 +3841,86 @@ pub mod vertex_model_source_info {
     use super::*;
 
     /// Source of the model.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ModelSourceType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ModelSourceType(i32);
 
     impl ModelSourceType {
+        /// Should not be used.
+        pub const MODEL_SOURCE_TYPE_UNSPECIFIED: ModelSourceType = ModelSourceType::new(0);
+
+        /// The Model is uploaded by automl training pipeline.
+        pub const AUTOML: ModelSourceType = ModelSourceType::new(1);
+
+        /// The Model is uploaded by user or custom training pipeline.
+        pub const CUSTOM: ModelSourceType = ModelSourceType::new(2);
+
+        /// The Model is registered and sync'ed from BigQuery ML.
+        pub const BQML: ModelSourceType = ModelSourceType::new(3);
+
+        /// The Model is saved or tuned from Model Garden.
+        pub const MODEL_GARDEN: ModelSourceType = ModelSourceType::new(4);
+
+        /// The Model is saved or tuned from Genie.
+        pub const GENIE: ModelSourceType = ModelSourceType::new(5);
+
+        /// The Model is uploaded by text embedding finetuning pipeline.
+        pub const CUSTOM_TEXT_EMBEDDING: ModelSourceType = ModelSourceType::new(6);
+
+        /// The Model is saved or tuned from Marketplace.
+        pub const MARKETPLACE: ModelSourceType = ModelSourceType::new(7);
+
         /// Creates a new ModelSourceType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MODEL_SOURCE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AUTOML"),
+                2 => std::borrow::Cow::Borrowed("CUSTOM"),
+                3 => std::borrow::Cow::Borrowed("BQML"),
+                4 => std::borrow::Cow::Borrowed("MODEL_GARDEN"),
+                5 => std::borrow::Cow::Borrowed("GENIE"),
+                6 => std::borrow::Cow::Borrowed("CUSTOM_TEXT_EMBEDDING"),
+                7 => std::borrow::Cow::Borrowed("MARKETPLACE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MODEL_SOURCE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::MODEL_SOURCE_TYPE_UNSPECIFIED)
+                }
+                "AUTOML" => std::option::Option::Some(Self::AUTOML),
+                "CUSTOM" => std::option::Option::Some(Self::CUSTOM),
+                "BQML" => std::option::Option::Some(Self::BQML),
+                "MODEL_GARDEN" => std::option::Option::Some(Self::MODEL_GARDEN),
+                "GENIE" => std::option::Option::Some(Self::GENIE),
+                "CUSTOM_TEXT_EMBEDDING" => std::option::Option::Some(Self::CUSTOM_TEXT_EMBEDDING),
+                "MARKETPLACE" => std::option::Option::Some(Self::MARKETPLACE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ModelSourceType](ModelSourceType)
-    pub mod model_source_type {
-        use super::ModelSourceType;
-
-        /// Should not be used.
-        pub const MODEL_SOURCE_TYPE_UNSPECIFIED: ModelSourceType =
-            ModelSourceType::new("MODEL_SOURCE_TYPE_UNSPECIFIED");
-
-        /// The Model is uploaded by automl training pipeline.
-        pub const AUTOML: ModelSourceType = ModelSourceType::new("AUTOML");
-
-        /// The Model is uploaded by user or custom training pipeline.
-        pub const CUSTOM: ModelSourceType = ModelSourceType::new("CUSTOM");
-
-        /// The Model is registered and sync'ed from BigQuery ML.
-        pub const BQML: ModelSourceType = ModelSourceType::new("BQML");
-
-        /// The Model is saved or tuned from Model Garden.
-        pub const MODEL_GARDEN: ModelSourceType = ModelSourceType::new("MODEL_GARDEN");
-
-        /// The Model is saved or tuned from Genie.
-        pub const GENIE: ModelSourceType = ModelSourceType::new("GENIE");
-
-        /// The Model is uploaded by text embedding finetuning pipeline.
-        pub const CUSTOM_TEXT_EMBEDDING: ModelSourceType =
-            ModelSourceType::new("CUSTOM_TEXT_EMBEDDING");
-
-        /// The Model is saved or tuned from Marketplace.
-        pub const MARKETPLACE: ModelSourceType = ModelSourceType::new("MARKETPLACE");
+    impl std::convert::From<i32> for ModelSourceType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ModelSourceType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ModelSourceType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3877,73 +4060,115 @@ pub mod vertex_dataset_spec {
     use super::*;
 
     /// Type of data stored in the dataset.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DataType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DataType(i32);
 
     impl DataType {
-        /// Creates a new DataType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DataType](DataType)
-    pub mod data_type {
-        use super::DataType;
-
         /// Should not be used.
-        pub const DATA_TYPE_UNSPECIFIED: DataType = DataType::new("DATA_TYPE_UNSPECIFIED");
+        pub const DATA_TYPE_UNSPECIFIED: DataType = DataType::new(0);
 
         /// Structured data dataset.
-        pub const TABLE: DataType = DataType::new("TABLE");
+        pub const TABLE: DataType = DataType::new(1);
 
         /// Image dataset which supports ImageClassification, ImageObjectDetection
         /// and ImageSegmentation problems.
-        pub const IMAGE: DataType = DataType::new("IMAGE");
+        pub const IMAGE: DataType = DataType::new(2);
 
         /// Document dataset which supports TextClassification, TextExtraction and
         /// TextSentiment problems.
-        pub const TEXT: DataType = DataType::new("TEXT");
+        pub const TEXT: DataType = DataType::new(3);
 
         /// Video dataset which supports VideoClassification, VideoObjectTracking and
         /// VideoActionRecognition problems.
-        pub const VIDEO: DataType = DataType::new("VIDEO");
+        pub const VIDEO: DataType = DataType::new(4);
 
         /// Conversation dataset which supports conversation problems.
-        pub const CONVERSATION: DataType = DataType::new("CONVERSATION");
+        pub const CONVERSATION: DataType = DataType::new(5);
 
         /// TimeSeries dataset.
-        pub const TIME_SERIES: DataType = DataType::new("TIME_SERIES");
+        pub const TIME_SERIES: DataType = DataType::new(6);
 
         /// Document dataset which supports DocumentAnnotation problems.
-        pub const DOCUMENT: DataType = DataType::new("DOCUMENT");
+        pub const DOCUMENT: DataType = DataType::new(7);
 
         /// TextToSpeech dataset which supports TextToSpeech problems.
-        pub const TEXT_TO_SPEECH: DataType = DataType::new("TEXT_TO_SPEECH");
+        pub const TEXT_TO_SPEECH: DataType = DataType::new(8);
 
         /// Translation dataset which supports Translation problems.
-        pub const TRANSLATION: DataType = DataType::new("TRANSLATION");
+        pub const TRANSLATION: DataType = DataType::new(9);
 
         /// Store Vision dataset which is used for HITL integration.
-        pub const STORE_VISION: DataType = DataType::new("STORE_VISION");
+        pub const STORE_VISION: DataType = DataType::new(10);
 
         /// Enterprise Knowledge Graph dataset which is used for HITL labeling
         /// integration.
-        pub const ENTERPRISE_KNOWLEDGE_GRAPH: DataType =
-            DataType::new("ENTERPRISE_KNOWLEDGE_GRAPH");
+        pub const ENTERPRISE_KNOWLEDGE_GRAPH: DataType = DataType::new(11);
 
         /// Text prompt dataset which supports Large Language Models.
-        pub const TEXT_PROMPT: DataType = DataType::new("TEXT_PROMPT");
+        pub const TEXT_PROMPT: DataType = DataType::new(12);
+
+        /// Creates a new DataType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DATA_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("TABLE"),
+                2 => std::borrow::Cow::Borrowed("IMAGE"),
+                3 => std::borrow::Cow::Borrowed("TEXT"),
+                4 => std::borrow::Cow::Borrowed("VIDEO"),
+                5 => std::borrow::Cow::Borrowed("CONVERSATION"),
+                6 => std::borrow::Cow::Borrowed("TIME_SERIES"),
+                7 => std::borrow::Cow::Borrowed("DOCUMENT"),
+                8 => std::borrow::Cow::Borrowed("TEXT_TO_SPEECH"),
+                9 => std::borrow::Cow::Borrowed("TRANSLATION"),
+                10 => std::borrow::Cow::Borrowed("STORE_VISION"),
+                11 => std::borrow::Cow::Borrowed("ENTERPRISE_KNOWLEDGE_GRAPH"),
+                12 => std::borrow::Cow::Borrowed("TEXT_PROMPT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DATA_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::DATA_TYPE_UNSPECIFIED),
+                "TABLE" => std::option::Option::Some(Self::TABLE),
+                "IMAGE" => std::option::Option::Some(Self::IMAGE),
+                "TEXT" => std::option::Option::Some(Self::TEXT),
+                "VIDEO" => std::option::Option::Some(Self::VIDEO),
+                "CONVERSATION" => std::option::Option::Some(Self::CONVERSATION),
+                "TIME_SERIES" => std::option::Option::Some(Self::TIME_SERIES),
+                "DOCUMENT" => std::option::Option::Some(Self::DOCUMENT),
+                "TEXT_TO_SPEECH" => std::option::Option::Some(Self::TEXT_TO_SPEECH),
+                "TRANSLATION" => std::option::Option::Some(Self::TRANSLATION),
+                "STORE_VISION" => std::option::Option::Some(Self::STORE_VISION),
+                "ENTERPRISE_KNOWLEDGE_GRAPH" => {
+                    std::option::Option::Some(Self::ENTERPRISE_KNOWLEDGE_GRAPH)
+                }
+                "TEXT_PROMPT" => std::option::Option::Some(Self::TEXT_PROMPT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DataType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DataType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DataType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4070,39 +4295,61 @@ pub mod feature_online_store_spec {
     use super::*;
 
     /// Type of underlaying storage type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StorageType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct StorageType(i32);
 
     impl StorageType {
+        /// Should not be used.
+        pub const STORAGE_TYPE_UNSPECIFIED: StorageType = StorageType::new(0);
+
+        /// Underlsying storgae is Bigtable.
+        pub const BIGTABLE: StorageType = StorageType::new(1);
+
+        /// Underlaying is optimized online server (Lightning).
+        pub const OPTIMIZED: StorageType = StorageType::new(2);
+
         /// Creates a new StorageType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STORAGE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BIGTABLE"),
+                2 => std::borrow::Cow::Borrowed("OPTIMIZED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STORAGE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::STORAGE_TYPE_UNSPECIFIED)
+                }
+                "BIGTABLE" => std::option::Option::Some(Self::BIGTABLE),
+                "OPTIMIZED" => std::option::Option::Some(Self::OPTIMIZED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [StorageType](StorageType)
-    pub mod storage_type {
-        use super::StorageType;
-
-        /// Should not be used.
-        pub const STORAGE_TYPE_UNSPECIFIED: StorageType =
-            StorageType::new("STORAGE_TYPE_UNSPECIFIED");
-
-        /// Underlsying storgae is Bigtable.
-        pub const BIGTABLE: StorageType = StorageType::new("BIGTABLE");
-
-        /// Underlaying is optimized online server (Lightning).
-        pub const OPTIMIZED: StorageType = StorageType::new("OPTIMIZED");
+    impl std::convert::From<i32> for StorageType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for StorageType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for StorageType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -5278,45 +5525,69 @@ pub mod reconcile_tags_metadata {
     use super::*;
 
     /// Enum holding possible states of the reconciliation operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ReconciliationState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ReconciliationState(i32);
 
     impl ReconciliationState {
+        /// Default value. This value is unused.
+        pub const RECONCILIATION_STATE_UNSPECIFIED: ReconciliationState =
+            ReconciliationState::new(0);
+
+        /// The reconciliation has been queued and awaits for execution.
+        pub const RECONCILIATION_QUEUED: ReconciliationState = ReconciliationState::new(1);
+
+        /// The reconciliation is in progress.
+        pub const RECONCILIATION_IN_PROGRESS: ReconciliationState = ReconciliationState::new(2);
+
+        /// The reconciliation has been finished.
+        pub const RECONCILIATION_DONE: ReconciliationState = ReconciliationState::new(3);
+
         /// Creates a new ReconciliationState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RECONCILIATION_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RECONCILIATION_QUEUED"),
+                2 => std::borrow::Cow::Borrowed("RECONCILIATION_IN_PROGRESS"),
+                3 => std::borrow::Cow::Borrowed("RECONCILIATION_DONE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RECONCILIATION_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RECONCILIATION_STATE_UNSPECIFIED)
+                }
+                "RECONCILIATION_QUEUED" => std::option::Option::Some(Self::RECONCILIATION_QUEUED),
+                "RECONCILIATION_IN_PROGRESS" => {
+                    std::option::Option::Some(Self::RECONCILIATION_IN_PROGRESS)
+                }
+                "RECONCILIATION_DONE" => std::option::Option::Some(Self::RECONCILIATION_DONE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ReconciliationState](ReconciliationState)
-    pub mod reconciliation_state {
-        use super::ReconciliationState;
-
-        /// Default value. This value is unused.
-        pub const RECONCILIATION_STATE_UNSPECIFIED: ReconciliationState =
-            ReconciliationState::new("RECONCILIATION_STATE_UNSPECIFIED");
-
-        /// The reconciliation has been queued and awaits for execution.
-        pub const RECONCILIATION_QUEUED: ReconciliationState =
-            ReconciliationState::new("RECONCILIATION_QUEUED");
-
-        /// The reconciliation is in progress.
-        pub const RECONCILIATION_IN_PROGRESS: ReconciliationState =
-            ReconciliationState::new("RECONCILIATION_IN_PROGRESS");
-
-        /// The reconciliation has been finished.
-        pub const RECONCILIATION_DONE: ReconciliationState =
-            ReconciliationState::new("RECONCILIATION_DONE");
+    impl std::convert::From<i32> for ReconciliationState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ReconciliationState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ReconciliationState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -5776,45 +6047,71 @@ pub mod import_entries_metadata {
     use super::*;
 
     /// Enum holding possible states of the import operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ImportState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ImportState(i32);
 
     impl ImportState {
+        /// Default value. This value is unused.
+        pub const IMPORT_STATE_UNSPECIFIED: ImportState = ImportState::new(0);
+
+        /// The dump with entries has been queued for import.
+        pub const IMPORT_QUEUED: ImportState = ImportState::new(1);
+
+        /// The import of entries is in progress.
+        pub const IMPORT_IN_PROGRESS: ImportState = ImportState::new(2);
+
+        /// The import of entries has been finished.
+        pub const IMPORT_DONE: ImportState = ImportState::new(3);
+
+        /// The import of entries has been abandoned in favor of a newer request.
+        pub const IMPORT_OBSOLETE: ImportState = ImportState::new(4);
+
         /// Creates a new ImportState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("IMPORT_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IMPORT_QUEUED"),
+                2 => std::borrow::Cow::Borrowed("IMPORT_IN_PROGRESS"),
+                3 => std::borrow::Cow::Borrowed("IMPORT_DONE"),
+                4 => std::borrow::Cow::Borrowed("IMPORT_OBSOLETE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "IMPORT_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::IMPORT_STATE_UNSPECIFIED)
+                }
+                "IMPORT_QUEUED" => std::option::Option::Some(Self::IMPORT_QUEUED),
+                "IMPORT_IN_PROGRESS" => std::option::Option::Some(Self::IMPORT_IN_PROGRESS),
+                "IMPORT_DONE" => std::option::Option::Some(Self::IMPORT_DONE),
+                "IMPORT_OBSOLETE" => std::option::Option::Some(Self::IMPORT_OBSOLETE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ImportState](ImportState)
-    pub mod import_state {
-        use super::ImportState;
-
-        /// Default value. This value is unused.
-        pub const IMPORT_STATE_UNSPECIFIED: ImportState =
-            ImportState::new("IMPORT_STATE_UNSPECIFIED");
-
-        /// The dump with entries has been queued for import.
-        pub const IMPORT_QUEUED: ImportState = ImportState::new("IMPORT_QUEUED");
-
-        /// The import of entries is in progress.
-        pub const IMPORT_IN_PROGRESS: ImportState = ImportState::new("IMPORT_IN_PROGRESS");
-
-        /// The import of entries has been finished.
-        pub const IMPORT_DONE: ImportState = ImportState::new("IMPORT_DONE");
-
-        /// The import of entries has been abandoned in favor of a newer request.
-        pub const IMPORT_OBSOLETE: ImportState = ImportState::new("IMPORT_OBSOLETE");
+    impl std::convert::From<i32> for ImportState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ImportState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ImportState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7308,37 +7605,59 @@ pub mod taxonomy {
     }
 
     /// Defines policy types where the policy tags can be used for.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PolicyType(i32);
 
     impl PolicyType {
-        /// Creates a new PolicyType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PolicyType](PolicyType)
-    pub mod policy_type {
-        use super::PolicyType;
-
         /// Unspecified policy type.
-        pub const POLICY_TYPE_UNSPECIFIED: PolicyType = PolicyType::new("POLICY_TYPE_UNSPECIFIED");
+        pub const POLICY_TYPE_UNSPECIFIED: PolicyType = PolicyType::new(0);
 
         /// Fine-grained access control policy that enables access control on
         /// tagged sub-resources.
-        pub const FINE_GRAINED_ACCESS_CONTROL: PolicyType =
-            PolicyType::new("FINE_GRAINED_ACCESS_CONTROL");
+        pub const FINE_GRAINED_ACCESS_CONTROL: PolicyType = PolicyType::new(1);
+
+        /// Creates a new PolicyType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("POLICY_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("FINE_GRAINED_ACCESS_CONTROL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "POLICY_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::POLICY_TYPE_UNSPECIFIED)
+                }
+                "FINE_GRAINED_ACCESS_CONTROL" => {
+                    std::option::Option::Some(Self::FINE_GRAINED_ACCESS_CONTROL)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PolicyType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PolicyType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for PolicyType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -8863,48 +9182,76 @@ pub mod column_schema {
         use super::*;
 
         /// Column type in Looker.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct LookerColumnType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct LookerColumnType(i32);
 
         impl LookerColumnType {
+            /// Unspecified.
+            pub const LOOKER_COLUMN_TYPE_UNSPECIFIED: LookerColumnType = LookerColumnType::new(0);
+
+            /// Dimension.
+            pub const DIMENSION: LookerColumnType = LookerColumnType::new(1);
+
+            /// Dimension group - parent for Dimension.
+            pub const DIMENSION_GROUP: LookerColumnType = LookerColumnType::new(2);
+
+            /// Filter.
+            pub const FILTER: LookerColumnType = LookerColumnType::new(3);
+
+            /// Measure.
+            pub const MEASURE: LookerColumnType = LookerColumnType::new(4);
+
+            /// Parameter.
+            pub const PARAMETER: LookerColumnType = LookerColumnType::new(5);
+
             /// Creates a new LookerColumnType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("LOOKER_COLUMN_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("DIMENSION"),
+                    2 => std::borrow::Cow::Borrowed("DIMENSION_GROUP"),
+                    3 => std::borrow::Cow::Borrowed("FILTER"),
+                    4 => std::borrow::Cow::Borrowed("MEASURE"),
+                    5 => std::borrow::Cow::Borrowed("PARAMETER"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "LOOKER_COLUMN_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::LOOKER_COLUMN_TYPE_UNSPECIFIED)
+                    }
+                    "DIMENSION" => std::option::Option::Some(Self::DIMENSION),
+                    "DIMENSION_GROUP" => std::option::Option::Some(Self::DIMENSION_GROUP),
+                    "FILTER" => std::option::Option::Some(Self::FILTER),
+                    "MEASURE" => std::option::Option::Some(Self::MEASURE),
+                    "PARAMETER" => std::option::Option::Some(Self::PARAMETER),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [LookerColumnType](LookerColumnType)
-        pub mod looker_column_type {
-            use super::LookerColumnType;
-
-            /// Unspecified.
-            pub const LOOKER_COLUMN_TYPE_UNSPECIFIED: LookerColumnType =
-                LookerColumnType::new("LOOKER_COLUMN_TYPE_UNSPECIFIED");
-
-            /// Dimension.
-            pub const DIMENSION: LookerColumnType = LookerColumnType::new("DIMENSION");
-
-            /// Dimension group - parent for Dimension.
-            pub const DIMENSION_GROUP: LookerColumnType = LookerColumnType::new("DIMENSION_GROUP");
-
-            /// Filter.
-            pub const FILTER: LookerColumnType = LookerColumnType::new("FILTER");
-
-            /// Measure.
-            pub const MEASURE: LookerColumnType = LookerColumnType::new("MEASURE");
-
-            /// Parameter.
-            pub const PARAMETER: LookerColumnType = LookerColumnType::new("PARAMETER");
+        impl std::convert::From<i32> for LookerColumnType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for LookerColumnType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for LookerColumnType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -8943,47 +9290,75 @@ pub mod column_schema {
     }
 
     /// Specifies inclusion of the column in an index
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IndexingType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct IndexingType(i32);
 
     impl IndexingType {
+        /// Unspecified.
+        pub const INDEXING_TYPE_UNSPECIFIED: IndexingType = IndexingType::new(0);
+
+        /// Column not a part of an index.
+        pub const INDEXING_TYPE_NONE: IndexingType = IndexingType::new(1);
+
+        /// Column Part of non unique index.
+        pub const INDEXING_TYPE_NON_UNIQUE: IndexingType = IndexingType::new(2);
+
+        /// Column part of unique index.
+        pub const INDEXING_TYPE_UNIQUE: IndexingType = IndexingType::new(3);
+
+        /// Column part of the primary key.
+        pub const INDEXING_TYPE_PRIMARY_KEY: IndexingType = IndexingType::new(4);
+
         /// Creates a new IndexingType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INDEXING_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INDEXING_TYPE_NONE"),
+                2 => std::borrow::Cow::Borrowed("INDEXING_TYPE_NON_UNIQUE"),
+                3 => std::borrow::Cow::Borrowed("INDEXING_TYPE_UNIQUE"),
+                4 => std::borrow::Cow::Borrowed("INDEXING_TYPE_PRIMARY_KEY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INDEXING_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::INDEXING_TYPE_UNSPECIFIED)
+                }
+                "INDEXING_TYPE_NONE" => std::option::Option::Some(Self::INDEXING_TYPE_NONE),
+                "INDEXING_TYPE_NON_UNIQUE" => {
+                    std::option::Option::Some(Self::INDEXING_TYPE_NON_UNIQUE)
+                }
+                "INDEXING_TYPE_UNIQUE" => std::option::Option::Some(Self::INDEXING_TYPE_UNIQUE),
+                "INDEXING_TYPE_PRIMARY_KEY" => {
+                    std::option::Option::Some(Self::INDEXING_TYPE_PRIMARY_KEY)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [IndexingType](IndexingType)
-    pub mod indexing_type {
-        use super::IndexingType;
-
-        /// Unspecified.
-        pub const INDEXING_TYPE_UNSPECIFIED: IndexingType =
-            IndexingType::new("INDEXING_TYPE_UNSPECIFIED");
-
-        /// Column not a part of an index.
-        pub const INDEXING_TYPE_NONE: IndexingType = IndexingType::new("INDEXING_TYPE_NONE");
-
-        /// Column Part of non unique index.
-        pub const INDEXING_TYPE_NON_UNIQUE: IndexingType =
-            IndexingType::new("INDEXING_TYPE_NON_UNIQUE");
-
-        /// Column part of unique index.
-        pub const INDEXING_TYPE_UNIQUE: IndexingType = IndexingType::new("INDEXING_TYPE_UNIQUE");
-
-        /// Column part of the primary key.
-        pub const INDEXING_TYPE_PRIMARY_KEY: IndexingType =
-            IndexingType::new("INDEXING_TYPE_PRIMARY_KEY");
+    impl std::convert::From<i32> for IndexingType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for IndexingType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for IndexingType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -10042,44 +10417,67 @@ pub mod tag_template {
     use super::*;
 
     /// This enum describes TagTemplate transfer status to Dataplex service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DataplexTransferStatus(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DataplexTransferStatus(i32);
 
     impl DataplexTransferStatus {
-        /// Creates a new DataplexTransferStatus instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DataplexTransferStatus](DataplexTransferStatus)
-    pub mod dataplex_transfer_status {
-        use super::DataplexTransferStatus;
-
         /// Default value. TagTemplate and its tags are only visible and editable in
         /// DataCatalog.
         pub const DATAPLEX_TRANSFER_STATUS_UNSPECIFIED: DataplexTransferStatus =
-            DataplexTransferStatus::new("DATAPLEX_TRANSFER_STATUS_UNSPECIFIED");
+            DataplexTransferStatus::new(0);
 
         /// TagTemplate and its tags are auto-copied to Dataplex service.
         /// Visible in both services. Editable in DataCatalog, read-only in Dataplex.
         /// Deprecated: Individual TagTemplate migration is deprecated in favor of
         /// organization or project wide TagTemplate migration opt-in.
-        pub const MIGRATED: DataplexTransferStatus = DataplexTransferStatus::new("MIGRATED");
+        pub const MIGRATED: DataplexTransferStatus = DataplexTransferStatus::new(1);
 
         /// TagTemplate and its tags are auto-copied to Dataplex service.
         /// Visible in both services. Editable in Dataplex, read-only in DataCatalog.
-        pub const TRANSFERRED: DataplexTransferStatus = DataplexTransferStatus::new("TRANSFERRED");
+        pub const TRANSFERRED: DataplexTransferStatus = DataplexTransferStatus::new(2);
+
+        /// Creates a new DataplexTransferStatus instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DATAPLEX_TRANSFER_STATUS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MIGRATED"),
+                2 => std::borrow::Cow::Borrowed("TRANSFERRED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DATAPLEX_TRANSFER_STATUS_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DATAPLEX_TRANSFER_STATUS_UNSPECIFIED)
+                }
+                "MIGRATED" => std::option::Option::Some(Self::MIGRATED),
+                "TRANSFERRED" => std::option::Option::Some(Self::TRANSFERRED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DataplexTransferStatus {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DataplexTransferStatus {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DataplexTransferStatus {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -10361,48 +10759,76 @@ pub mod field_type {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PrimitiveType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PrimitiveType(i32);
 
     impl PrimitiveType {
+        /// The default invalid value for a type.
+        pub const PRIMITIVE_TYPE_UNSPECIFIED: PrimitiveType = PrimitiveType::new(0);
+
+        /// A double precision number.
+        pub const DOUBLE: PrimitiveType = PrimitiveType::new(1);
+
+        /// An UTF-8 string.
+        pub const STRING: PrimitiveType = PrimitiveType::new(2);
+
+        /// A boolean value.
+        pub const BOOL: PrimitiveType = PrimitiveType::new(3);
+
+        /// A timestamp.
+        pub const TIMESTAMP: PrimitiveType = PrimitiveType::new(4);
+
+        /// A Richtext description.
+        pub const RICHTEXT: PrimitiveType = PrimitiveType::new(5);
+
         /// Creates a new PrimitiveType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PRIMITIVE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DOUBLE"),
+                2 => std::borrow::Cow::Borrowed("STRING"),
+                3 => std::borrow::Cow::Borrowed("BOOL"),
+                4 => std::borrow::Cow::Borrowed("TIMESTAMP"),
+                5 => std::borrow::Cow::Borrowed("RICHTEXT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PRIMITIVE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PRIMITIVE_TYPE_UNSPECIFIED)
+                }
+                "DOUBLE" => std::option::Option::Some(Self::DOUBLE),
+                "STRING" => std::option::Option::Some(Self::STRING),
+                "BOOL" => std::option::Option::Some(Self::BOOL),
+                "TIMESTAMP" => std::option::Option::Some(Self::TIMESTAMP),
+                "RICHTEXT" => std::option::Option::Some(Self::RICHTEXT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [PrimitiveType](PrimitiveType)
-    pub mod primitive_type {
-        use super::PrimitiveType;
-
-        /// The default invalid value for a type.
-        pub const PRIMITIVE_TYPE_UNSPECIFIED: PrimitiveType =
-            PrimitiveType::new("PRIMITIVE_TYPE_UNSPECIFIED");
-
-        /// A double precision number.
-        pub const DOUBLE: PrimitiveType = PrimitiveType::new("DOUBLE");
-
-        /// An UTF-8 string.
-        pub const STRING: PrimitiveType = PrimitiveType::new("STRING");
-
-        /// A boolean value.
-        pub const BOOL: PrimitiveType = PrimitiveType::new("BOOL");
-
-        /// A timestamp.
-        pub const TIMESTAMP: PrimitiveType = PrimitiveType::new("TIMESTAMP");
-
-        /// A Richtext description.
-        pub const RICHTEXT: PrimitiveType = PrimitiveType::new("RICHTEXT");
+    impl std::convert::From<i32> for PrimitiveType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for PrimitiveType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for PrimitiveType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -10673,99 +11099,156 @@ impl wkt::message::Message for UsageSignal {
 }
 
 /// This enum lists all the systems that Data Catalog integrates with.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct IntegratedSystem(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct IntegratedSystem(i32);
 
 impl IntegratedSystem {
+    /// Default unknown system.
+    pub const INTEGRATED_SYSTEM_UNSPECIFIED: IntegratedSystem = IntegratedSystem::new(0);
+
+    /// BigQuery.
+    pub const BIGQUERY: IntegratedSystem = IntegratedSystem::new(1);
+
+    /// Cloud Pub/Sub.
+    pub const CLOUD_PUBSUB: IntegratedSystem = IntegratedSystem::new(2);
+
+    /// Dataproc Metastore.
+    pub const DATAPROC_METASTORE: IntegratedSystem = IntegratedSystem::new(3);
+
+    /// Dataplex.
+    pub const DATAPLEX: IntegratedSystem = IntegratedSystem::new(4);
+
+    /// Cloud Spanner
+    pub const CLOUD_SPANNER: IntegratedSystem = IntegratedSystem::new(6);
+
+    /// Cloud Bigtable
+    pub const CLOUD_BIGTABLE: IntegratedSystem = IntegratedSystem::new(7);
+
+    /// Cloud Sql
+    pub const CLOUD_SQL: IntegratedSystem = IntegratedSystem::new(8);
+
+    /// Looker
+    pub const LOOKER: IntegratedSystem = IntegratedSystem::new(9);
+
+    /// Vertex AI
+    pub const VERTEX_AI: IntegratedSystem = IntegratedSystem::new(10);
+
     /// Creates a new IntegratedSystem instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("INTEGRATED_SYSTEM_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BIGQUERY"),
+            2 => std::borrow::Cow::Borrowed("CLOUD_PUBSUB"),
+            3 => std::borrow::Cow::Borrowed("DATAPROC_METASTORE"),
+            4 => std::borrow::Cow::Borrowed("DATAPLEX"),
+            6 => std::borrow::Cow::Borrowed("CLOUD_SPANNER"),
+            7 => std::borrow::Cow::Borrowed("CLOUD_BIGTABLE"),
+            8 => std::borrow::Cow::Borrowed("CLOUD_SQL"),
+            9 => std::borrow::Cow::Borrowed("LOOKER"),
+            10 => std::borrow::Cow::Borrowed("VERTEX_AI"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "INTEGRATED_SYSTEM_UNSPECIFIED" => {
+                std::option::Option::Some(Self::INTEGRATED_SYSTEM_UNSPECIFIED)
+            }
+            "BIGQUERY" => std::option::Option::Some(Self::BIGQUERY),
+            "CLOUD_PUBSUB" => std::option::Option::Some(Self::CLOUD_PUBSUB),
+            "DATAPROC_METASTORE" => std::option::Option::Some(Self::DATAPROC_METASTORE),
+            "DATAPLEX" => std::option::Option::Some(Self::DATAPLEX),
+            "CLOUD_SPANNER" => std::option::Option::Some(Self::CLOUD_SPANNER),
+            "CLOUD_BIGTABLE" => std::option::Option::Some(Self::CLOUD_BIGTABLE),
+            "CLOUD_SQL" => std::option::Option::Some(Self::CLOUD_SQL),
+            "LOOKER" => std::option::Option::Some(Self::LOOKER),
+            "VERTEX_AI" => std::option::Option::Some(Self::VERTEX_AI),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [IntegratedSystem](IntegratedSystem)
-pub mod integrated_system {
-    use super::IntegratedSystem;
-
-    /// Default unknown system.
-    pub const INTEGRATED_SYSTEM_UNSPECIFIED: IntegratedSystem =
-        IntegratedSystem::new("INTEGRATED_SYSTEM_UNSPECIFIED");
-
-    /// BigQuery.
-    pub const BIGQUERY: IntegratedSystem = IntegratedSystem::new("BIGQUERY");
-
-    /// Cloud Pub/Sub.
-    pub const CLOUD_PUBSUB: IntegratedSystem = IntegratedSystem::new("CLOUD_PUBSUB");
-
-    /// Dataproc Metastore.
-    pub const DATAPROC_METASTORE: IntegratedSystem = IntegratedSystem::new("DATAPROC_METASTORE");
-
-    /// Dataplex.
-    pub const DATAPLEX: IntegratedSystem = IntegratedSystem::new("DATAPLEX");
-
-    /// Cloud Spanner
-    pub const CLOUD_SPANNER: IntegratedSystem = IntegratedSystem::new("CLOUD_SPANNER");
-
-    /// Cloud Bigtable
-    pub const CLOUD_BIGTABLE: IntegratedSystem = IntegratedSystem::new("CLOUD_BIGTABLE");
-
-    /// Cloud Sql
-    pub const CLOUD_SQL: IntegratedSystem = IntegratedSystem::new("CLOUD_SQL");
-
-    /// Looker
-    pub const LOOKER: IntegratedSystem = IntegratedSystem::new("LOOKER");
-
-    /// Vertex AI
-    pub const VERTEX_AI: IntegratedSystem = IntegratedSystem::new("VERTEX_AI");
+impl std::convert::From<i32> for IntegratedSystem {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for IntegratedSystem {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for IntegratedSystem {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// This enum describes all the systems that manage
 /// Taxonomy and PolicyTag resources in DataCatalog.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ManagingSystem(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ManagingSystem(i32);
 
 impl ManagingSystem {
+    /// Default value
+    pub const MANAGING_SYSTEM_UNSPECIFIED: ManagingSystem = ManagingSystem::new(0);
+
+    /// Dataplex.
+    pub const MANAGING_SYSTEM_DATAPLEX: ManagingSystem = ManagingSystem::new(1);
+
+    /// Other
+    pub const MANAGING_SYSTEM_OTHER: ManagingSystem = ManagingSystem::new(2);
+
     /// Creates a new ManagingSystem instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("MANAGING_SYSTEM_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("MANAGING_SYSTEM_DATAPLEX"),
+            2 => std::borrow::Cow::Borrowed("MANAGING_SYSTEM_OTHER"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "MANAGING_SYSTEM_UNSPECIFIED" => {
+                std::option::Option::Some(Self::MANAGING_SYSTEM_UNSPECIFIED)
+            }
+            "MANAGING_SYSTEM_DATAPLEX" => std::option::Option::Some(Self::MANAGING_SYSTEM_DATAPLEX),
+            "MANAGING_SYSTEM_OTHER" => std::option::Option::Some(Self::MANAGING_SYSTEM_OTHER),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ManagingSystem](ManagingSystem)
-pub mod managing_system {
-    use super::ManagingSystem;
-
-    /// Default value
-    pub const MANAGING_SYSTEM_UNSPECIFIED: ManagingSystem =
-        ManagingSystem::new("MANAGING_SYSTEM_UNSPECIFIED");
-
-    /// Dataplex.
-    pub const MANAGING_SYSTEM_DATAPLEX: ManagingSystem =
-        ManagingSystem::new("MANAGING_SYSTEM_DATAPLEX");
-
-    /// Other
-    pub const MANAGING_SYSTEM_OTHER: ManagingSystem = ManagingSystem::new("MANAGING_SYSTEM_OTHER");
+impl std::convert::From<i32> for ManagingSystem {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for ManagingSystem {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for ManagingSystem {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
@@ -10781,264 +11264,415 @@ impl std::convert::From<std::string::String> for ManagingSystem {
 /// [Surface files from Cloud Storage with fileset
 /// entries](/data-catalog/docs/how-to/filesets) or [Create custom entries for
 /// your data sources](/data-catalog/docs/how-to/custom-entries).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EntryType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct EntryType(i32);
 
 impl EntryType {
-    /// Creates a new EntryType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [EntryType](EntryType)
-pub mod entry_type {
-    use super::EntryType;
-
     /// Default unknown type.
-    pub const ENTRY_TYPE_UNSPECIFIED: EntryType = EntryType::new("ENTRY_TYPE_UNSPECIFIED");
+    pub const ENTRY_TYPE_UNSPECIFIED: EntryType = EntryType::new(0);
 
     /// The entry type that has a GoogleSQL schema, including
     /// logical views.
-    pub const TABLE: EntryType = EntryType::new("TABLE");
+    pub const TABLE: EntryType = EntryType::new(2);
 
     /// The type of models.
     ///
     /// For more information, see [Supported models in BigQuery
     /// ML](/bigquery/docs/bqml-introduction#supported_models).
-    pub const MODEL: EntryType = EntryType::new("MODEL");
+    pub const MODEL: EntryType = EntryType::new(5);
 
     /// An entry type for streaming entries. For example, a Pub/Sub topic.
-    pub const DATA_STREAM: EntryType = EntryType::new("DATA_STREAM");
+    pub const DATA_STREAM: EntryType = EntryType::new(3);
 
     /// An entry type for a set of files or objects. For example, a
     /// Cloud Storage fileset.
-    pub const FILESET: EntryType = EntryType::new("FILESET");
+    pub const FILESET: EntryType = EntryType::new(4);
 
     /// A group of servers that work together. For example, a Kafka cluster.
-    pub const CLUSTER: EntryType = EntryType::new("CLUSTER");
+    pub const CLUSTER: EntryType = EntryType::new(6);
 
     /// A database.
-    pub const DATABASE: EntryType = EntryType::new("DATABASE");
+    pub const DATABASE: EntryType = EntryType::new(7);
 
     /// Connection to a data source. For example, a BigQuery
     /// connection.
-    pub const DATA_SOURCE_CONNECTION: EntryType = EntryType::new("DATA_SOURCE_CONNECTION");
+    pub const DATA_SOURCE_CONNECTION: EntryType = EntryType::new(8);
 
     /// Routine, for example, a BigQuery routine.
-    pub const ROUTINE: EntryType = EntryType::new("ROUTINE");
+    pub const ROUTINE: EntryType = EntryType::new(9);
 
     /// A Dataplex lake.
-    pub const LAKE: EntryType = EntryType::new("LAKE");
+    pub const LAKE: EntryType = EntryType::new(10);
 
     /// A Dataplex zone.
-    pub const ZONE: EntryType = EntryType::new("ZONE");
+    pub const ZONE: EntryType = EntryType::new(11);
 
     /// A service, for example, a Dataproc Metastore service.
-    pub const SERVICE: EntryType = EntryType::new("SERVICE");
+    pub const SERVICE: EntryType = EntryType::new(14);
 
     /// Schema within a relational database.
-    pub const DATABASE_SCHEMA: EntryType = EntryType::new("DATABASE_SCHEMA");
+    pub const DATABASE_SCHEMA: EntryType = EntryType::new(15);
 
     /// A Dashboard, for example from Looker.
-    pub const DASHBOARD: EntryType = EntryType::new("DASHBOARD");
+    pub const DASHBOARD: EntryType = EntryType::new(16);
 
     /// A Looker Explore.
     ///
     /// For more information, see [Looker Explore API]
     /// (<https://developers.looker.com/api/explorer/4.0/methods/LookmlModel/lookml_model_explore>).
-    pub const EXPLORE: EntryType = EntryType::new("EXPLORE");
+    pub const EXPLORE: EntryType = EntryType::new(17);
 
     /// A Looker Look.
     ///
     /// For more information, see [Looker Look API]
     /// (<https://developers.looker.com/api/explorer/4.0/methods/Look>).
-    pub const LOOK: EntryType = EntryType::new("LOOK");
+    pub const LOOK: EntryType = EntryType::new(18);
 
     /// Feature Online Store resource in Vertex AI Feature Store.
-    pub const FEATURE_ONLINE_STORE: EntryType = EntryType::new("FEATURE_ONLINE_STORE");
+    pub const FEATURE_ONLINE_STORE: EntryType = EntryType::new(19);
 
     /// Feature View resource in Vertex AI Feature Store.
-    pub const FEATURE_VIEW: EntryType = EntryType::new("FEATURE_VIEW");
+    pub const FEATURE_VIEW: EntryType = EntryType::new(20);
 
     /// Feature Group resource in Vertex AI Feature Store.
-    pub const FEATURE_GROUP: EntryType = EntryType::new("FEATURE_GROUP");
+    pub const FEATURE_GROUP: EntryType = EntryType::new(21);
+
+    /// Creates a new EntryType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("ENTRY_TYPE_UNSPECIFIED"),
+            2 => std::borrow::Cow::Borrowed("TABLE"),
+            3 => std::borrow::Cow::Borrowed("DATA_STREAM"),
+            4 => std::borrow::Cow::Borrowed("FILESET"),
+            5 => std::borrow::Cow::Borrowed("MODEL"),
+            6 => std::borrow::Cow::Borrowed("CLUSTER"),
+            7 => std::borrow::Cow::Borrowed("DATABASE"),
+            8 => std::borrow::Cow::Borrowed("DATA_SOURCE_CONNECTION"),
+            9 => std::borrow::Cow::Borrowed("ROUTINE"),
+            10 => std::borrow::Cow::Borrowed("LAKE"),
+            11 => std::borrow::Cow::Borrowed("ZONE"),
+            14 => std::borrow::Cow::Borrowed("SERVICE"),
+            15 => std::borrow::Cow::Borrowed("DATABASE_SCHEMA"),
+            16 => std::borrow::Cow::Borrowed("DASHBOARD"),
+            17 => std::borrow::Cow::Borrowed("EXPLORE"),
+            18 => std::borrow::Cow::Borrowed("LOOK"),
+            19 => std::borrow::Cow::Borrowed("FEATURE_ONLINE_STORE"),
+            20 => std::borrow::Cow::Borrowed("FEATURE_VIEW"),
+            21 => std::borrow::Cow::Borrowed("FEATURE_GROUP"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "ENTRY_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::ENTRY_TYPE_UNSPECIFIED),
+            "TABLE" => std::option::Option::Some(Self::TABLE),
+            "MODEL" => std::option::Option::Some(Self::MODEL),
+            "DATA_STREAM" => std::option::Option::Some(Self::DATA_STREAM),
+            "FILESET" => std::option::Option::Some(Self::FILESET),
+            "CLUSTER" => std::option::Option::Some(Self::CLUSTER),
+            "DATABASE" => std::option::Option::Some(Self::DATABASE),
+            "DATA_SOURCE_CONNECTION" => std::option::Option::Some(Self::DATA_SOURCE_CONNECTION),
+            "ROUTINE" => std::option::Option::Some(Self::ROUTINE),
+            "LAKE" => std::option::Option::Some(Self::LAKE),
+            "ZONE" => std::option::Option::Some(Self::ZONE),
+            "SERVICE" => std::option::Option::Some(Self::SERVICE),
+            "DATABASE_SCHEMA" => std::option::Option::Some(Self::DATABASE_SCHEMA),
+            "DASHBOARD" => std::option::Option::Some(Self::DASHBOARD),
+            "EXPLORE" => std::option::Option::Some(Self::EXPLORE),
+            "LOOK" => std::option::Option::Some(Self::LOOK),
+            "FEATURE_ONLINE_STORE" => std::option::Option::Some(Self::FEATURE_ONLINE_STORE),
+            "FEATURE_VIEW" => std::option::Option::Some(Self::FEATURE_VIEW),
+            "FEATURE_GROUP" => std::option::Option::Some(Self::FEATURE_GROUP),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for EntryType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for EntryType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for EntryType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Configuration related to the opt-in status for the migration of TagTemplates
 /// to Dataplex.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TagTemplateMigration(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct TagTemplateMigration(i32);
 
 impl TagTemplateMigration {
-    /// Creates a new TagTemplateMigration instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [TagTemplateMigration](TagTemplateMigration)
-pub mod tag_template_migration {
-    use super::TagTemplateMigration;
-
     /// Default value. Migration of Tag Templates from Data Catalog to Dataplex is
     /// not performed.
     pub const TAG_TEMPLATE_MIGRATION_UNSPECIFIED: TagTemplateMigration =
-        TagTemplateMigration::new("TAG_TEMPLATE_MIGRATION_UNSPECIFIED");
+        TagTemplateMigration::new(0);
 
     /// Migration of Tag Templates from Data Catalog to Dataplex is enabled.
-    pub const TAG_TEMPLATE_MIGRATION_ENABLED: TagTemplateMigration =
-        TagTemplateMigration::new("TAG_TEMPLATE_MIGRATION_ENABLED");
+    pub const TAG_TEMPLATE_MIGRATION_ENABLED: TagTemplateMigration = TagTemplateMigration::new(1);
 
     /// Migration of Tag Templates from Data Catalog to Dataplex is disabled.
-    pub const TAG_TEMPLATE_MIGRATION_DISABLED: TagTemplateMigration =
-        TagTemplateMigration::new("TAG_TEMPLATE_MIGRATION_DISABLED");
+    pub const TAG_TEMPLATE_MIGRATION_DISABLED: TagTemplateMigration = TagTemplateMigration::new(2);
+
+    /// Creates a new TagTemplateMigration instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TAG_TEMPLATE_MIGRATION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("TAG_TEMPLATE_MIGRATION_ENABLED"),
+            2 => std::borrow::Cow::Borrowed("TAG_TEMPLATE_MIGRATION_DISABLED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TAG_TEMPLATE_MIGRATION_UNSPECIFIED" => {
+                std::option::Option::Some(Self::TAG_TEMPLATE_MIGRATION_UNSPECIFIED)
+            }
+            "TAG_TEMPLATE_MIGRATION_ENABLED" => {
+                std::option::Option::Some(Self::TAG_TEMPLATE_MIGRATION_ENABLED)
+            }
+            "TAG_TEMPLATE_MIGRATION_DISABLED" => {
+                std::option::Option::Some(Self::TAG_TEMPLATE_MIGRATION_DISABLED)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for TagTemplateMigration {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for TagTemplateMigration {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for TagTemplateMigration {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Configuration related to the opt-in status for the UI switch to Dataplex.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CatalogUIExperience(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct CatalogUIExperience(i32);
 
 impl CatalogUIExperience {
+    /// Default value. The default UI is Dataplex.
+    pub const CATALOG_UI_EXPERIENCE_UNSPECIFIED: CatalogUIExperience = CatalogUIExperience::new(0);
+
+    /// The UI is Dataplex.
+    pub const CATALOG_UI_EXPERIENCE_ENABLED: CatalogUIExperience = CatalogUIExperience::new(1);
+
+    /// The UI is Data Catalog.
+    pub const CATALOG_UI_EXPERIENCE_DISABLED: CatalogUIExperience = CatalogUIExperience::new(2);
+
     /// Creates a new CatalogUIExperience instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("CATALOG_UI_EXPERIENCE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("CATALOG_UI_EXPERIENCE_ENABLED"),
+            2 => std::borrow::Cow::Borrowed("CATALOG_UI_EXPERIENCE_DISABLED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "CATALOG_UI_EXPERIENCE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::CATALOG_UI_EXPERIENCE_UNSPECIFIED)
+            }
+            "CATALOG_UI_EXPERIENCE_ENABLED" => {
+                std::option::Option::Some(Self::CATALOG_UI_EXPERIENCE_ENABLED)
+            }
+            "CATALOG_UI_EXPERIENCE_DISABLED" => {
+                std::option::Option::Some(Self::CATALOG_UI_EXPERIENCE_DISABLED)
+            }
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [CatalogUIExperience](CatalogUIExperience)
-pub mod catalog_ui_experience {
-    use super::CatalogUIExperience;
-
-    /// Default value. The default UI is Dataplex.
-    pub const CATALOG_UI_EXPERIENCE_UNSPECIFIED: CatalogUIExperience =
-        CatalogUIExperience::new("CATALOG_UI_EXPERIENCE_UNSPECIFIED");
-
-    /// The UI is Dataplex.
-    pub const CATALOG_UI_EXPERIENCE_ENABLED: CatalogUIExperience =
-        CatalogUIExperience::new("CATALOG_UI_EXPERIENCE_ENABLED");
-
-    /// The UI is Data Catalog.
-    pub const CATALOG_UI_EXPERIENCE_DISABLED: CatalogUIExperience =
-        CatalogUIExperience::new("CATALOG_UI_EXPERIENCE_DISABLED");
+impl std::convert::From<i32> for CatalogUIExperience {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for CatalogUIExperience {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for CatalogUIExperience {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// The resource types that can be returned in search results.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SearchResultType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct SearchResultType(i32);
 
 impl SearchResultType {
-    /// Creates a new SearchResultType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SearchResultType](SearchResultType)
-pub mod search_result_type {
-    use super::SearchResultType;
-
     /// Default unknown type.
-    pub const SEARCH_RESULT_TYPE_UNSPECIFIED: SearchResultType =
-        SearchResultType::new("SEARCH_RESULT_TYPE_UNSPECIFIED");
+    pub const SEARCH_RESULT_TYPE_UNSPECIFIED: SearchResultType = SearchResultType::new(0);
 
     /// An [Entry][google.cloud.datacatalog.v1.Entry].
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
-    pub const ENTRY: SearchResultType = SearchResultType::new("ENTRY");
+    pub const ENTRY: SearchResultType = SearchResultType::new(1);
 
     /// A [TagTemplate][google.cloud.datacatalog.v1.TagTemplate].
     ///
     /// [google.cloud.datacatalog.v1.TagTemplate]: crate::model::TagTemplate
-    pub const TAG_TEMPLATE: SearchResultType = SearchResultType::new("TAG_TEMPLATE");
+    pub const TAG_TEMPLATE: SearchResultType = SearchResultType::new(2);
 
     /// An [EntryGroup][google.cloud.datacatalog.v1.EntryGroup].
     ///
     /// [google.cloud.datacatalog.v1.EntryGroup]: crate::model::EntryGroup
-    pub const ENTRY_GROUP: SearchResultType = SearchResultType::new("ENTRY_GROUP");
+    pub const ENTRY_GROUP: SearchResultType = SearchResultType::new(3);
+
+    /// Creates a new SearchResultType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SEARCH_RESULT_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("ENTRY"),
+            2 => std::borrow::Cow::Borrowed("TAG_TEMPLATE"),
+            3 => std::borrow::Cow::Borrowed("ENTRY_GROUP"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SEARCH_RESULT_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::SEARCH_RESULT_TYPE_UNSPECIFIED)
+            }
+            "ENTRY" => std::option::Option::Some(Self::ENTRY),
+            "TAG_TEMPLATE" => std::option::Option::Some(Self::TAG_TEMPLATE),
+            "ENTRY_GROUP" => std::option::Option::Some(Self::ENTRY_GROUP),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SearchResultType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for SearchResultType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for SearchResultType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Table source type.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TableSourceType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct TableSourceType(i32);
 
 impl TableSourceType {
+    /// Default unknown type.
+    pub const TABLE_SOURCE_TYPE_UNSPECIFIED: TableSourceType = TableSourceType::new(0);
+
+    /// Table view.
+    pub const BIGQUERY_VIEW: TableSourceType = TableSourceType::new(2);
+
+    /// BigQuery native table.
+    pub const BIGQUERY_TABLE: TableSourceType = TableSourceType::new(5);
+
+    /// BigQuery materialized view.
+    pub const BIGQUERY_MATERIALIZED_VIEW: TableSourceType = TableSourceType::new(7);
+
     /// Creates a new TableSourceType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TABLE_SOURCE_TYPE_UNSPECIFIED"),
+            2 => std::borrow::Cow::Borrowed("BIGQUERY_VIEW"),
+            5 => std::borrow::Cow::Borrowed("BIGQUERY_TABLE"),
+            7 => std::borrow::Cow::Borrowed("BIGQUERY_MATERIALIZED_VIEW"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TABLE_SOURCE_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::TABLE_SOURCE_TYPE_UNSPECIFIED)
+            }
+            "BIGQUERY_VIEW" => std::option::Option::Some(Self::BIGQUERY_VIEW),
+            "BIGQUERY_TABLE" => std::option::Option::Some(Self::BIGQUERY_TABLE),
+            "BIGQUERY_MATERIALIZED_VIEW" => {
+                std::option::Option::Some(Self::BIGQUERY_MATERIALIZED_VIEW)
+            }
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [TableSourceType](TableSourceType)
-pub mod table_source_type {
-    use super::TableSourceType;
-
-    /// Default unknown type.
-    pub const TABLE_SOURCE_TYPE_UNSPECIFIED: TableSourceType =
-        TableSourceType::new("TABLE_SOURCE_TYPE_UNSPECIFIED");
-
-    /// Table view.
-    pub const BIGQUERY_VIEW: TableSourceType = TableSourceType::new("BIGQUERY_VIEW");
-
-    /// BigQuery native table.
-    pub const BIGQUERY_TABLE: TableSourceType = TableSourceType::new("BIGQUERY_TABLE");
-
-    /// BigQuery materialized view.
-    pub const BIGQUERY_MATERIALIZED_VIEW: TableSourceType =
-        TableSourceType::new("BIGQUERY_MATERIALIZED_VIEW");
+impl std::convert::From<i32> for TableSourceType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for TableSourceType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for TableSourceType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

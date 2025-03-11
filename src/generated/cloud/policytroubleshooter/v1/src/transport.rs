@@ -49,7 +49,7 @@ impl crate::stubs::IamChecker for IamChecker {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, "/v1/iam:troubleshoot".to_string())
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

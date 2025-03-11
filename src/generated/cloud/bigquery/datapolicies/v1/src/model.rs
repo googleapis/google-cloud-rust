@@ -502,41 +502,64 @@ pub mod data_policy {
     use super::*;
 
     /// A list of supported data policy types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DataPolicyType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DataPolicyType(i32);
 
     impl DataPolicyType {
-        /// Creates a new DataPolicyType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DataPolicyType](DataPolicyType)
-    pub mod data_policy_type {
-        use super::DataPolicyType;
-
         /// Default value for the data policy type. This should not be used.
-        pub const DATA_POLICY_TYPE_UNSPECIFIED: DataPolicyType =
-            DataPolicyType::new("DATA_POLICY_TYPE_UNSPECIFIED");
+        pub const DATA_POLICY_TYPE_UNSPECIFIED: DataPolicyType = DataPolicyType::new(0);
 
         /// Used to create a data policy for column-level security, without data
         /// masking.
-        pub const COLUMN_LEVEL_SECURITY_POLICY: DataPolicyType =
-            DataPolicyType::new("COLUMN_LEVEL_SECURITY_POLICY");
+        pub const COLUMN_LEVEL_SECURITY_POLICY: DataPolicyType = DataPolicyType::new(3);
 
         /// Used to create a data policy for data masking.
-        pub const DATA_MASKING_POLICY: DataPolicyType = DataPolicyType::new("DATA_MASKING_POLICY");
+        pub const DATA_MASKING_POLICY: DataPolicyType = DataPolicyType::new(2);
+
+        /// Creates a new DataPolicyType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DATA_POLICY_TYPE_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("DATA_MASKING_POLICY"),
+                3 => std::borrow::Cow::Borrowed("COLUMN_LEVEL_SECURITY_POLICY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DATA_POLICY_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DATA_POLICY_TYPE_UNSPECIFIED)
+                }
+                "COLUMN_LEVEL_SECURITY_POLICY" => {
+                    std::option::Option::Some(Self::COLUMN_LEVEL_SECURITY_POLICY)
+                }
+                "DATA_MASKING_POLICY" => std::option::Option::Some(Self::DATA_MASKING_POLICY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DataPolicyType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DataPolicyType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DataPolicyType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -661,35 +684,20 @@ pub mod data_masking_policy {
 
     /// The available masking rules. Learn more here:
     /// <https://cloud.google.com/bigquery/docs/column-data-masking-intro#masking_options>.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PredefinedExpression(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PredefinedExpression(i32);
 
     impl PredefinedExpression {
-        /// Creates a new PredefinedExpression instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PredefinedExpression](PredefinedExpression)
-    pub mod predefined_expression {
-        use super::PredefinedExpression;
-
         /// Default, unspecified predefined expression. No masking will take place
         /// since no expression is specified.
         pub const PREDEFINED_EXPRESSION_UNSPECIFIED: PredefinedExpression =
-            PredefinedExpression::new("PREDEFINED_EXPRESSION_UNSPECIFIED");
+            PredefinedExpression::new(0);
 
         /// Masking expression to replace data with SHA-256 hash.
-        pub const SHA256: PredefinedExpression = PredefinedExpression::new("SHA256");
+        pub const SHA256: PredefinedExpression = PredefinedExpression::new(3);
 
         /// Masking expression to replace data with NULLs.
-        pub const ALWAYS_NULL: PredefinedExpression = PredefinedExpression::new("ALWAYS_NULL");
+        pub const ALWAYS_NULL: PredefinedExpression = PredefinedExpression::new(5);
 
         /// Masking expression to replace data with their default masking values.
         /// The default masking values for each type listed as below:
@@ -709,8 +717,7 @@ pub mod data_masking_policy {
         /// * ARRAY: []
         /// * STRUCT: NOT_APPLICABLE
         /// * JSON: NULL
-        pub const DEFAULT_MASKING_VALUE: PredefinedExpression =
-            PredefinedExpression::new("DEFAULT_MASKING_VALUE");
+        pub const DEFAULT_MASKING_VALUE: PredefinedExpression = PredefinedExpression::new(7);
 
         /// Masking expression shows the last four characters of text.
         /// The masking behavior is as follows:
@@ -718,8 +725,7 @@ pub mod data_masking_policy {
         /// * If text length > 4 characters: Replace text with XXXXX, append last
         ///   four characters of original text.
         /// * If text length <= 4 characters: Apply SHA-256 hash.
-        pub const LAST_FOUR_CHARACTERS: PredefinedExpression =
-            PredefinedExpression::new("LAST_FOUR_CHARACTERS");
+        pub const LAST_FOUR_CHARACTERS: PredefinedExpression = PredefinedExpression::new(9);
 
         /// Masking expression shows the first four characters of text.
         /// The masking behavior is as follows:
@@ -727,8 +733,7 @@ pub mod data_masking_policy {
         /// * If text length > 4 characters: Replace text with XXXXX, prepend first
         ///   four characters of original text.
         /// * If text length <= 4 characters: Apply SHA-256 hash.
-        pub const FIRST_FOUR_CHARACTERS: PredefinedExpression =
-            PredefinedExpression::new("FIRST_FOUR_CHARACTERS");
+        pub const FIRST_FOUR_CHARACTERS: PredefinedExpression = PredefinedExpression::new(10);
 
         /// Masking expression for email addresses.
         /// The masking behavior is as follows:
@@ -739,7 +744,7 @@ pub mod data_masking_policy {
         ///
         /// For more information, see [Email
         /// mask](https://cloud.google.com/bigquery/docs/column-data-masking-intro#masking_options).
-        pub const EMAIL_MASK: PredefinedExpression = PredefinedExpression::new("EMAIL_MASK");
+        pub const EMAIL_MASK: PredefinedExpression = PredefinedExpression::new(12);
 
         /// Masking expression to only show the year of `Date`,
         /// `DateTime` and `TimeStamp`. For example, with the
@@ -754,13 +759,60 @@ pub mod data_masking_policy {
         /// For more information, see the <a
         /// href="https://cloud.google.com/bigquery/docs/reference/system-variables">System
         /// variables reference</a>.
-        pub const DATE_YEAR_MASK: PredefinedExpression =
-            PredefinedExpression::new("DATE_YEAR_MASK");
+        pub const DATE_YEAR_MASK: PredefinedExpression = PredefinedExpression::new(13);
+
+        /// Creates a new PredefinedExpression instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PREDEFINED_EXPRESSION_UNSPECIFIED"),
+                3 => std::borrow::Cow::Borrowed("SHA256"),
+                5 => std::borrow::Cow::Borrowed("ALWAYS_NULL"),
+                7 => std::borrow::Cow::Borrowed("DEFAULT_MASKING_VALUE"),
+                9 => std::borrow::Cow::Borrowed("LAST_FOUR_CHARACTERS"),
+                10 => std::borrow::Cow::Borrowed("FIRST_FOUR_CHARACTERS"),
+                12 => std::borrow::Cow::Borrowed("EMAIL_MASK"),
+                13 => std::borrow::Cow::Borrowed("DATE_YEAR_MASK"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PREDEFINED_EXPRESSION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PREDEFINED_EXPRESSION_UNSPECIFIED)
+                }
+                "SHA256" => std::option::Option::Some(Self::SHA256),
+                "ALWAYS_NULL" => std::option::Option::Some(Self::ALWAYS_NULL),
+                "DEFAULT_MASKING_VALUE" => std::option::Option::Some(Self::DEFAULT_MASKING_VALUE),
+                "LAST_FOUR_CHARACTERS" => std::option::Option::Some(Self::LAST_FOUR_CHARACTERS),
+                "FIRST_FOUR_CHARACTERS" => std::option::Option::Some(Self::FIRST_FOUR_CHARACTERS),
+                "EMAIL_MASK" => std::option::Option::Some(Self::EMAIL_MASK),
+                "DATE_YEAR_MASK" => std::option::Option::Some(Self::DATE_YEAR_MASK),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PredefinedExpression {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PredefinedExpression {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for PredefinedExpression {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 

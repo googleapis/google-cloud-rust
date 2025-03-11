@@ -251,90 +251,106 @@ pub mod registration {
     use super::*;
 
     /// Possible states of a `Registration`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The state is undefined.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The domain is being registered.
-        pub const REGISTRATION_PENDING: State = State::new("REGISTRATION_PENDING");
+        pub const REGISTRATION_PENDING: State = State::new(1);
 
         /// The domain registration failed. You can delete resources in this state
         /// to allow registration to be retried.
-        pub const REGISTRATION_FAILED: State = State::new("REGISTRATION_FAILED");
+        pub const REGISTRATION_FAILED: State = State::new(2);
 
         /// The domain is being transferred from another registrar to Cloud Domains.
-        pub const TRANSFER_PENDING: State = State::new("TRANSFER_PENDING");
+        pub const TRANSFER_PENDING: State = State::new(3);
 
         /// The attempt to transfer the domain from another registrar to
         /// Cloud Domains failed. You can delete resources in this state and retry
         /// the transfer.
-        pub const TRANSFER_FAILED: State = State::new("TRANSFER_FAILED");
+        pub const TRANSFER_FAILED: State = State::new(4);
 
         /// The domain is registered and operational. The domain renews automatically
         /// as long as it remains in this state.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(6);
 
         /// The domain is suspended and inoperative. For more details, see the
         /// `issues` field.
-        pub const SUSPENDED: State = State::new("SUSPENDED");
+        pub const SUSPENDED: State = State::new(7);
 
         /// The domain is no longer managed with Cloud Domains. It may have been
         /// transferred to another registrar or exported for management in
         /// [Google Domains](https://domains.google/). You can no longer update it
         /// with this API, and information shown about it may be stale. Domains in
         /// this state are not automatically renewed by Cloud Domains.
-        pub const EXPORTED: State = State::new("EXPORTED");
+        pub const EXPORTED: State = State::new(8);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("REGISTRATION_PENDING"),
+                2 => std::borrow::Cow::Borrowed("REGISTRATION_FAILED"),
+                3 => std::borrow::Cow::Borrowed("TRANSFER_PENDING"),
+                4 => std::borrow::Cow::Borrowed("TRANSFER_FAILED"),
+                6 => std::borrow::Cow::Borrowed("ACTIVE"),
+                7 => std::borrow::Cow::Borrowed("SUSPENDED"),
+                8 => std::borrow::Cow::Borrowed("EXPORTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "REGISTRATION_PENDING" => std::option::Option::Some(Self::REGISTRATION_PENDING),
+                "REGISTRATION_FAILED" => std::option::Option::Some(Self::REGISTRATION_FAILED),
+                "TRANSFER_PENDING" => std::option::Option::Some(Self::TRANSFER_PENDING),
+                "TRANSFER_FAILED" => std::option::Option::Some(Self::TRANSFER_FAILED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "SUSPENDED" => std::option::Option::Some(Self::SUSPENDED),
+                "EXPORTED" => std::option::Option::Some(Self::EXPORTED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Possible issues with a `Registration` that require attention.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Issue(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Issue(i32);
 
     impl Issue {
-        /// Creates a new Issue instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Issue](Issue)
-    pub mod issue {
-        use super::Issue;
-
         /// The issue is undefined.
-        pub const ISSUE_UNSPECIFIED: Issue = Issue::new("ISSUE_UNSPECIFIED");
+        pub const ISSUE_UNSPECIFIED: Issue = Issue::new(0);
 
         /// Contact the Cloud Support team to resolve a problem with this domain.
-        pub const CONTACT_SUPPORT: Issue = Issue::new("CONTACT_SUPPORT");
+        pub const CONTACT_SUPPORT: Issue = Issue::new(1);
 
         /// [ICANN](https://icann.org/) requires verification of the email address
         /// in the `Registration`'s `contact_settings.registrant_contact` field. To
@@ -344,12 +360,48 @@ pub mod registration {
         /// 15 days of registration, the domain is suspended. To resend the
         /// verification email, call ConfigureContactSettings and provide the current
         /// `registrant_contact.email`.
-        pub const UNVERIFIED_EMAIL: Issue = Issue::new("UNVERIFIED_EMAIL");
+        pub const UNVERIFIED_EMAIL: Issue = Issue::new(2);
+
+        /// Creates a new Issue instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ISSUE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CONTACT_SUPPORT"),
+                2 => std::borrow::Cow::Borrowed("UNVERIFIED_EMAIL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ISSUE_UNSPECIFIED" => std::option::Option::Some(Self::ISSUE_UNSPECIFIED),
+                "CONTACT_SUPPORT" => std::option::Option::Some(Self::CONTACT_SUPPORT),
+                "UNVERIFIED_EMAIL" => std::option::Option::Some(Self::UNVERIFIED_EMAIL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Issue {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Issue {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Issue {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -405,34 +457,18 @@ pub mod management_settings {
     use super::*;
 
     /// Defines how the `Registration` is renewed.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RenewalMethod(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RenewalMethod(i32);
 
     impl RenewalMethod {
-        /// Creates a new RenewalMethod instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RenewalMethod](RenewalMethod)
-    pub mod renewal_method {
-        use super::RenewalMethod;
-
         /// The renewal method is undefined.
-        pub const RENEWAL_METHOD_UNSPECIFIED: RenewalMethod =
-            RenewalMethod::new("RENEWAL_METHOD_UNSPECIFIED");
+        pub const RENEWAL_METHOD_UNSPECIFIED: RenewalMethod = RenewalMethod::new(0);
 
         /// The domain is automatically renewed each year .
         ///
         /// To disable automatic renewals, delete the resource by calling
         /// `DeleteRegistration` or export it by calling `ExportRegistration`.
-        pub const AUTOMATIC_RENEWAL: RenewalMethod = RenewalMethod::new("AUTOMATIC_RENEWAL");
+        pub const AUTOMATIC_RENEWAL: RenewalMethod = RenewalMethod::new(1);
 
         /// The domain must be explicitly renewed each year before its
         /// `expire_time`. This option is only available when the `Registration`
@@ -440,12 +476,50 @@ pub mod management_settings {
         ///
         /// To manage the domain's current billing and
         /// renewal settings, go to [Google Domains](https://domains.google/).
-        pub const MANUAL_RENEWAL: RenewalMethod = RenewalMethod::new("MANUAL_RENEWAL");
+        pub const MANUAL_RENEWAL: RenewalMethod = RenewalMethod::new(2);
+
+        /// Creates a new RenewalMethod instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RENEWAL_METHOD_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AUTOMATIC_RENEWAL"),
+                2 => std::borrow::Cow::Borrowed("MANUAL_RENEWAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RENEWAL_METHOD_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RENEWAL_METHOD_UNSPECIFIED)
+                }
+                "AUTOMATIC_RENEWAL" => std::option::Option::Some(Self::AUTOMATIC_RENEWAL),
+                "MANUAL_RENEWAL" => std::option::Option::Some(Self::MANUAL_RENEWAL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RenewalMethod {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RenewalMethod {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RenewalMethod {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -764,127 +838,206 @@ pub mod dns_settings {
 
         /// List of algorithms used to create a DNSKEY. Certain
         /// algorithms are not supported for particular domains.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Algorithm(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Algorithm(i32);
 
         impl Algorithm {
+            /// The algorithm is unspecified.
+            pub const ALGORITHM_UNSPECIFIED: Algorithm = Algorithm::new(0);
+
+            /// RSA/MD5. Cannot be used for new deployments.
+            pub const RSAMD5: Algorithm = Algorithm::new(1);
+
+            /// Diffie-Hellman. Cannot be used for new deployments.
+            pub const DH: Algorithm = Algorithm::new(2);
+
+            /// DSA/SHA1. Not recommended for new deployments.
+            pub const DSA: Algorithm = Algorithm::new(3);
+
+            /// ECC. Not recommended for new deployments.
+            pub const ECC: Algorithm = Algorithm::new(4);
+
+            /// RSA/SHA-1. Not recommended for new deployments.
+            pub const RSASHA1: Algorithm = Algorithm::new(5);
+
+            /// DSA-NSEC3-SHA1. Not recommended for new deployments.
+            pub const DSANSEC3SHA1: Algorithm = Algorithm::new(6);
+
+            /// RSA/SHA1-NSEC3-SHA1. Not recommended for new deployments.
+            pub const RSASHA1NSEC3SHA1: Algorithm = Algorithm::new(7);
+
+            /// RSA/SHA-256.
+            pub const RSASHA256: Algorithm = Algorithm::new(8);
+
+            /// RSA/SHA-512.
+            pub const RSASHA512: Algorithm = Algorithm::new(10);
+
+            /// GOST R 34.10-2001.
+            pub const ECCGOST: Algorithm = Algorithm::new(12);
+
+            /// ECDSA Curve P-256 with SHA-256.
+            pub const ECDSAP256SHA256: Algorithm = Algorithm::new(13);
+
+            /// ECDSA Curve P-384 with SHA-384.
+            pub const ECDSAP384SHA384: Algorithm = Algorithm::new(14);
+
+            /// Ed25519.
+            pub const ED25519: Algorithm = Algorithm::new(15);
+
+            /// Ed448.
+            pub const ED448: Algorithm = Algorithm::new(16);
+
+            /// Reserved for Indirect Keys. Cannot be used for new deployments.
+            pub const INDIRECT: Algorithm = Algorithm::new(252);
+
+            /// Private algorithm. Cannot be used for new deployments.
+            pub const PRIVATEDNS: Algorithm = Algorithm::new(253);
+
+            /// Private algorithm OID. Cannot be used for new deployments.
+            pub const PRIVATEOID: Algorithm = Algorithm::new(254);
+
             /// Creates a new Algorithm instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("ALGORITHM_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("RSAMD5"),
+                    2 => std::borrow::Cow::Borrowed("DH"),
+                    3 => std::borrow::Cow::Borrowed("DSA"),
+                    4 => std::borrow::Cow::Borrowed("ECC"),
+                    5 => std::borrow::Cow::Borrowed("RSASHA1"),
+                    6 => std::borrow::Cow::Borrowed("DSANSEC3SHA1"),
+                    7 => std::borrow::Cow::Borrowed("RSASHA1NSEC3SHA1"),
+                    8 => std::borrow::Cow::Borrowed("RSASHA256"),
+                    10 => std::borrow::Cow::Borrowed("RSASHA512"),
+                    12 => std::borrow::Cow::Borrowed("ECCGOST"),
+                    13 => std::borrow::Cow::Borrowed("ECDSAP256SHA256"),
+                    14 => std::borrow::Cow::Borrowed("ECDSAP384SHA384"),
+                    15 => std::borrow::Cow::Borrowed("ED25519"),
+                    16 => std::borrow::Cow::Borrowed("ED448"),
+                    252 => std::borrow::Cow::Borrowed("INDIRECT"),
+                    253 => std::borrow::Cow::Borrowed("PRIVATEDNS"),
+                    254 => std::borrow::Cow::Borrowed("PRIVATEOID"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "ALGORITHM_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::ALGORITHM_UNSPECIFIED)
+                    }
+                    "RSAMD5" => std::option::Option::Some(Self::RSAMD5),
+                    "DH" => std::option::Option::Some(Self::DH),
+                    "DSA" => std::option::Option::Some(Self::DSA),
+                    "ECC" => std::option::Option::Some(Self::ECC),
+                    "RSASHA1" => std::option::Option::Some(Self::RSASHA1),
+                    "DSANSEC3SHA1" => std::option::Option::Some(Self::DSANSEC3SHA1),
+                    "RSASHA1NSEC3SHA1" => std::option::Option::Some(Self::RSASHA1NSEC3SHA1),
+                    "RSASHA256" => std::option::Option::Some(Self::RSASHA256),
+                    "RSASHA512" => std::option::Option::Some(Self::RSASHA512),
+                    "ECCGOST" => std::option::Option::Some(Self::ECCGOST),
+                    "ECDSAP256SHA256" => std::option::Option::Some(Self::ECDSAP256SHA256),
+                    "ECDSAP384SHA384" => std::option::Option::Some(Self::ECDSAP384SHA384),
+                    "ED25519" => std::option::Option::Some(Self::ED25519),
+                    "ED448" => std::option::Option::Some(Self::ED448),
+                    "INDIRECT" => std::option::Option::Some(Self::INDIRECT),
+                    "PRIVATEDNS" => std::option::Option::Some(Self::PRIVATEDNS),
+                    "PRIVATEOID" => std::option::Option::Some(Self::PRIVATEOID),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Algorithm](Algorithm)
-        pub mod algorithm {
-            use super::Algorithm;
-
-            /// The algorithm is unspecified.
-            pub const ALGORITHM_UNSPECIFIED: Algorithm = Algorithm::new("ALGORITHM_UNSPECIFIED");
-
-            /// RSA/MD5. Cannot be used for new deployments.
-            pub const RSAMD5: Algorithm = Algorithm::new("RSAMD5");
-
-            /// Diffie-Hellman. Cannot be used for new deployments.
-            pub const DH: Algorithm = Algorithm::new("DH");
-
-            /// DSA/SHA1. Not recommended for new deployments.
-            pub const DSA: Algorithm = Algorithm::new("DSA");
-
-            /// ECC. Not recommended for new deployments.
-            pub const ECC: Algorithm = Algorithm::new("ECC");
-
-            /// RSA/SHA-1. Not recommended for new deployments.
-            pub const RSASHA1: Algorithm = Algorithm::new("RSASHA1");
-
-            /// DSA-NSEC3-SHA1. Not recommended for new deployments.
-            pub const DSANSEC3SHA1: Algorithm = Algorithm::new("DSANSEC3SHA1");
-
-            /// RSA/SHA1-NSEC3-SHA1. Not recommended for new deployments.
-            pub const RSASHA1NSEC3SHA1: Algorithm = Algorithm::new("RSASHA1NSEC3SHA1");
-
-            /// RSA/SHA-256.
-            pub const RSASHA256: Algorithm = Algorithm::new("RSASHA256");
-
-            /// RSA/SHA-512.
-            pub const RSASHA512: Algorithm = Algorithm::new("RSASHA512");
-
-            /// GOST R 34.10-2001.
-            pub const ECCGOST: Algorithm = Algorithm::new("ECCGOST");
-
-            /// ECDSA Curve P-256 with SHA-256.
-            pub const ECDSAP256SHA256: Algorithm = Algorithm::new("ECDSAP256SHA256");
-
-            /// ECDSA Curve P-384 with SHA-384.
-            pub const ECDSAP384SHA384: Algorithm = Algorithm::new("ECDSAP384SHA384");
-
-            /// Ed25519.
-            pub const ED25519: Algorithm = Algorithm::new("ED25519");
-
-            /// Ed448.
-            pub const ED448: Algorithm = Algorithm::new("ED448");
-
-            /// Reserved for Indirect Keys. Cannot be used for new deployments.
-            pub const INDIRECT: Algorithm = Algorithm::new("INDIRECT");
-
-            /// Private algorithm. Cannot be used for new deployments.
-            pub const PRIVATEDNS: Algorithm = Algorithm::new("PRIVATEDNS");
-
-            /// Private algorithm OID. Cannot be used for new deployments.
-            pub const PRIVATEOID: Algorithm = Algorithm::new("PRIVATEOID");
+        impl std::convert::From<i32> for Algorithm {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for Algorithm {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for Algorithm {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
 
         /// List of hash functions that may have been used to generate a digest of a
         /// DNSKEY.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct DigestType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct DigestType(i32);
 
         impl DigestType {
+            /// The DigestType is unspecified.
+            pub const DIGEST_TYPE_UNSPECIFIED: DigestType = DigestType::new(0);
+
+            /// SHA-1. Not recommended for new deployments.
+            pub const SHA1: DigestType = DigestType::new(1);
+
+            /// SHA-256.
+            pub const SHA256: DigestType = DigestType::new(2);
+
+            /// GOST R 34.11-94.
+            pub const GOST3411: DigestType = DigestType::new(3);
+
+            /// SHA-384.
+            pub const SHA384: DigestType = DigestType::new(4);
+
             /// Creates a new DigestType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("DIGEST_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("SHA1"),
+                    2 => std::borrow::Cow::Borrowed("SHA256"),
+                    3 => std::borrow::Cow::Borrowed("GOST3411"),
+                    4 => std::borrow::Cow::Borrowed("SHA384"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "DIGEST_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::DIGEST_TYPE_UNSPECIFIED)
+                    }
+                    "SHA1" => std::option::Option::Some(Self::SHA1),
+                    "SHA256" => std::option::Option::Some(Self::SHA256),
+                    "GOST3411" => std::option::Option::Some(Self::GOST3411),
+                    "SHA384" => std::option::Option::Some(Self::SHA384),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [DigestType](DigestType)
-        pub mod digest_type {
-            use super::DigestType;
-
-            /// The DigestType is unspecified.
-            pub const DIGEST_TYPE_UNSPECIFIED: DigestType =
-                DigestType::new("DIGEST_TYPE_UNSPECIFIED");
-
-            /// SHA-1. Not recommended for new deployments.
-            pub const SHA1: DigestType = DigestType::new("SHA1");
-
-            /// SHA-256.
-            pub const SHA256: DigestType = DigestType::new("SHA256");
-
-            /// GOST R 34.11-94.
-            pub const GOST3411: DigestType = DigestType::new("GOST3411");
-
-            /// SHA-384.
-            pub const SHA384: DigestType = DigestType::new("SHA384");
+        impl std::convert::From<i32> for DigestType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for DigestType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for DigestType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -958,42 +1111,63 @@ pub mod dns_settings {
     }
 
     /// The publication state of DS records for a `Registration`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DsState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DsState(i32);
 
     impl DsState {
-        /// Creates a new DsState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DsState](DsState)
-    pub mod ds_state {
-        use super::DsState;
-
         /// DS state is unspecified.
-        pub const DS_STATE_UNSPECIFIED: DsState = DsState::new("DS_STATE_UNSPECIFIED");
+        pub const DS_STATE_UNSPECIFIED: DsState = DsState::new(0);
 
         /// DNSSEC is disabled for this domain. No DS records for this domain are
         /// published in the parent DNS zone.
-        pub const DS_RECORDS_UNPUBLISHED: DsState = DsState::new("DS_RECORDS_UNPUBLISHED");
+        pub const DS_RECORDS_UNPUBLISHED: DsState = DsState::new(1);
 
         /// DNSSEC is enabled for this domain. Appropriate DS records for this domain
         /// are published in the parent DNS zone. This option is valid only if the
         /// DNS zone referenced in the `Registration`'s `dns_provider` field is
         /// already DNSSEC-signed.
-        pub const DS_RECORDS_PUBLISHED: DsState = DsState::new("DS_RECORDS_PUBLISHED");
+        pub const DS_RECORDS_PUBLISHED: DsState = DsState::new(2);
+
+        /// Creates a new DsState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DS_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DS_RECORDS_UNPUBLISHED"),
+                2 => std::borrow::Cow::Borrowed("DS_RECORDS_PUBLISHED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DS_STATE_UNSPECIFIED" => std::option::Option::Some(Self::DS_STATE_UNSPECIFIED),
+                "DS_RECORDS_UNPUBLISHED" => std::option::Option::Some(Self::DS_RECORDS_UNPUBLISHED),
+                "DS_RECORDS_PUBLISHED" => std::option::Option::Some(Self::DS_RECORDS_PUBLISHED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DsState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DsState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DsState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -2249,48 +2423,74 @@ pub mod register_parameters {
     use super::*;
 
     /// Possible availability states of a domain name.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Availability(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Availability(i32);
 
     impl Availability {
-        /// Creates a new Availability instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Availability](Availability)
-    pub mod availability {
-        use super::Availability;
-
         /// The availability is unspecified.
-        pub const AVAILABILITY_UNSPECIFIED: Availability =
-            Availability::new("AVAILABILITY_UNSPECIFIED");
+        pub const AVAILABILITY_UNSPECIFIED: Availability = Availability::new(0);
 
         /// The domain is available for registration.
-        pub const AVAILABLE: Availability = Availability::new("AVAILABLE");
+        pub const AVAILABLE: Availability = Availability::new(1);
 
         /// The domain is not available for registration. Generally this means it is
         /// already registered to another party.
-        pub const UNAVAILABLE: Availability = Availability::new("UNAVAILABLE");
+        pub const UNAVAILABLE: Availability = Availability::new(2);
 
         /// The domain is not currently supported by Cloud Domains, but may
         /// be available elsewhere.
-        pub const UNSUPPORTED: Availability = Availability::new("UNSUPPORTED");
+        pub const UNSUPPORTED: Availability = Availability::new(3);
 
         /// Cloud Domains is unable to determine domain availability, generally
         /// due to system maintenance at the domain name registry.
-        pub const UNKNOWN: Availability = Availability::new("UNKNOWN");
+        pub const UNKNOWN: Availability = Availability::new(4);
+
+        /// Creates a new Availability instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("AVAILABILITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AVAILABLE"),
+                2 => std::borrow::Cow::Borrowed("UNAVAILABLE"),
+                3 => std::borrow::Cow::Borrowed("UNSUPPORTED"),
+                4 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "AVAILABILITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::AVAILABILITY_UNSPECIFIED)
+                }
+                "AVAILABLE" => std::option::Option::Some(Self::AVAILABLE),
+                "UNAVAILABLE" => std::option::Option::Some(Self::UNAVAILABLE),
+                "UNSUPPORTED" => std::option::Option::Some(Self::UNSUPPORTED),
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Availability {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Availability {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Availability {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2515,161 +2715,248 @@ impl wkt::message::Message for OperationMetadata {
 /// accessible mapping from domain name to contact information, and requires that
 /// each domain name have an entry. Choose from these options to control how much
 /// information in your `ContactSettings` is published.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ContactPrivacy(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ContactPrivacy(i32);
 
 impl ContactPrivacy {
-    /// Creates a new ContactPrivacy instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [ContactPrivacy](ContactPrivacy)
-pub mod contact_privacy {
-    use super::ContactPrivacy;
-
     /// The contact privacy settings are undefined.
-    pub const CONTACT_PRIVACY_UNSPECIFIED: ContactPrivacy =
-        ContactPrivacy::new("CONTACT_PRIVACY_UNSPECIFIED");
+    pub const CONTACT_PRIVACY_UNSPECIFIED: ContactPrivacy = ContactPrivacy::new(0);
 
     /// All the data from `ContactSettings` is publicly available. When setting
     /// this option, you must also provide a
     /// `PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT` in the `contact_notices` field of the
     /// request.
-    pub const PUBLIC_CONTACT_DATA: ContactPrivacy = ContactPrivacy::new("PUBLIC_CONTACT_DATA");
+    pub const PUBLIC_CONTACT_DATA: ContactPrivacy = ContactPrivacy::new(1);
 
     /// None of the data from `ContactSettings` is publicly available. Instead,
     /// proxy contact data is published for your domain. Email sent to the proxy
     /// email address is forwarded to the registrant's email address. Cloud Domains
     /// provides this privacy proxy service at no additional cost.
-    pub const PRIVATE_CONTACT_DATA: ContactPrivacy = ContactPrivacy::new("PRIVATE_CONTACT_DATA");
+    pub const PRIVATE_CONTACT_DATA: ContactPrivacy = ContactPrivacy::new(2);
 
     /// Some data from `ContactSettings` is publicly available. The actual
     /// information redacted depends on the domain. For details, see [the
     /// registration privacy
     /// article](https://support.google.com/domains/answer/3251242).
-    pub const REDACTED_CONTACT_DATA: ContactPrivacy = ContactPrivacy::new("REDACTED_CONTACT_DATA");
+    pub const REDACTED_CONTACT_DATA: ContactPrivacy = ContactPrivacy::new(3);
+
+    /// Creates a new ContactPrivacy instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("CONTACT_PRIVACY_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("PUBLIC_CONTACT_DATA"),
+            2 => std::borrow::Cow::Borrowed("PRIVATE_CONTACT_DATA"),
+            3 => std::borrow::Cow::Borrowed("REDACTED_CONTACT_DATA"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "CONTACT_PRIVACY_UNSPECIFIED" => {
+                std::option::Option::Some(Self::CONTACT_PRIVACY_UNSPECIFIED)
+            }
+            "PUBLIC_CONTACT_DATA" => std::option::Option::Some(Self::PUBLIC_CONTACT_DATA),
+            "PRIVATE_CONTACT_DATA" => std::option::Option::Some(Self::PRIVATE_CONTACT_DATA),
+            "REDACTED_CONTACT_DATA" => std::option::Option::Some(Self::REDACTED_CONTACT_DATA),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for ContactPrivacy {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ContactPrivacy {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for ContactPrivacy {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Notices about special properties of certain domains.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DomainNotice(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct DomainNotice(i32);
 
 impl DomainNotice {
-    /// Creates a new DomainNotice instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [DomainNotice](DomainNotice)
-pub mod domain_notice {
-    use super::DomainNotice;
-
     /// The notice is undefined.
-    pub const DOMAIN_NOTICE_UNSPECIFIED: DomainNotice =
-        DomainNotice::new("DOMAIN_NOTICE_UNSPECIFIED");
+    pub const DOMAIN_NOTICE_UNSPECIFIED: DomainNotice = DomainNotice::new(0);
 
     /// Indicates that the domain is preloaded on the HTTP Strict Transport
     /// Security list in browsers. Serving a website on such domain requires
     /// an SSL certificate. For details, see
     /// [how to get an SSL
     /// certificate](https://support.google.com/domains/answer/7638036).
-    pub const HSTS_PRELOADED: DomainNotice = DomainNotice::new("HSTS_PRELOADED");
+    pub const HSTS_PRELOADED: DomainNotice = DomainNotice::new(1);
+
+    /// Creates a new DomainNotice instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DOMAIN_NOTICE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("HSTS_PRELOADED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DOMAIN_NOTICE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::DOMAIN_NOTICE_UNSPECIFIED)
+            }
+            "HSTS_PRELOADED" => std::option::Option::Some(Self::HSTS_PRELOADED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for DomainNotice {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DomainNotice {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for DomainNotice {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Notices related to contact information.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ContactNotice(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ContactNotice(i32);
 
 impl ContactNotice {
-    /// Creates a new ContactNotice instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [ContactNotice](ContactNotice)
-pub mod contact_notice {
-    use super::ContactNotice;
-
     /// The notice is undefined.
-    pub const CONTACT_NOTICE_UNSPECIFIED: ContactNotice =
-        ContactNotice::new("CONTACT_NOTICE_UNSPECIFIED");
+    pub const CONTACT_NOTICE_UNSPECIFIED: ContactNotice = ContactNotice::new(0);
 
     /// Required when setting the `privacy` field of `ContactSettings` to
     /// `PUBLIC_CONTACT_DATA`, which exposes contact data publicly.
-    pub const PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT: ContactNotice =
-        ContactNotice::new("PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT");
+    pub const PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT: ContactNotice = ContactNotice::new(1);
+
+    /// Creates a new ContactNotice instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("CONTACT_NOTICE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "CONTACT_NOTICE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::CONTACT_NOTICE_UNSPECIFIED)
+            }
+            "PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT" => {
+                std::option::Option::Some(Self::PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for ContactNotice {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ContactNotice {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for ContactNotice {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Possible states of a `Registration`'s transfer lock.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TransferLockState(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct TransferLockState(i32);
 
 impl TransferLockState {
+    /// The state is unspecified.
+    pub const TRANSFER_LOCK_STATE_UNSPECIFIED: TransferLockState = TransferLockState::new(0);
+
+    /// The domain is unlocked and can be transferred to another registrar.
+    pub const UNLOCKED: TransferLockState = TransferLockState::new(1);
+
+    /// The domain is locked and cannot be transferred to another registrar.
+    pub const LOCKED: TransferLockState = TransferLockState::new(2);
+
     /// Creates a new TransferLockState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TRANSFER_LOCK_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("UNLOCKED"),
+            2 => std::borrow::Cow::Borrowed("LOCKED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TRANSFER_LOCK_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::TRANSFER_LOCK_STATE_UNSPECIFIED)
+            }
+            "UNLOCKED" => std::option::Option::Some(Self::UNLOCKED),
+            "LOCKED" => std::option::Option::Some(Self::LOCKED),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [TransferLockState](TransferLockState)
-pub mod transfer_lock_state {
-    use super::TransferLockState;
-
-    /// The state is unspecified.
-    pub const TRANSFER_LOCK_STATE_UNSPECIFIED: TransferLockState =
-        TransferLockState::new("TRANSFER_LOCK_STATE_UNSPECIFIED");
-
-    /// The domain is unlocked and can be transferred to another registrar.
-    pub const UNLOCKED: TransferLockState = TransferLockState::new("UNLOCKED");
-
-    /// The domain is locked and cannot be transferred to another registrar.
-    pub const LOCKED: TransferLockState = TransferLockState::new("LOCKED");
+impl std::convert::From<i32> for TransferLockState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for TransferLockState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for TransferLockState {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

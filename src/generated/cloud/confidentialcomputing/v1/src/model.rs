@@ -152,7 +152,7 @@ impl wkt::message::Message for CreateChallengeRequest {
 }
 
 /// A request for an OIDC token, providing all the necessary information needed
-/// for this service to verify the plaform state of the requestor.
+/// for this service to verify the platform state of the requestor.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -182,6 +182,11 @@ pub struct VerifyAttestationRequest {
     /// the token output.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub token_options: std::option::Option<crate::model::TokenOptions>,
+
+    /// Optional. An optional indicator of the attester, only applies to certain
+    /// products.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub attester: std::string::String,
 
     /// An optional tee attestation report, used to populate hardware rooted
     /// claims.
@@ -242,6 +247,12 @@ impl VerifyAttestationRequest {
         v: T,
     ) -> Self {
         self.token_options = v.into();
+        self
+    }
+
+    /// Sets the value of [attester][crate::model::VerifyAttestationRequest::attester].
+    pub fn set_attester<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.attester = v.into();
         self
     }
 
@@ -353,26 +364,26 @@ pub mod verify_attestation_request {
 pub struct TdxCcelAttestation {
     /// Optional. The Confidential Computing Event Log (CCEL) ACPI table. Formatted
     /// as described in the ACPI Specification 6.5.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub ccel_acpi_table: bytes::Bytes,
+    pub ccel_acpi_table: ::bytes::Bytes,
 
     /// Optional. The CCEL event log. Formatted as described in the UEFI 2.10.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub ccel_data: bytes::Bytes,
+    pub ccel_data: ::bytes::Bytes,
 
     /// Optional. An Event Log containing additional events measured into the RTMR
     /// that are not already present in the CCEL.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub canonical_event_log: bytes::Bytes,
+    pub canonical_event_log: ::bytes::Bytes,
 
     /// Optional. The TDX attestation quote from the guest. It contains the RTMR
     /// values.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub td_quote: bytes::Bytes,
+    pub td_quote: ::bytes::Bytes,
 }
 
 impl TdxCcelAttestation {
@@ -381,25 +392,25 @@ impl TdxCcelAttestation {
     }
 
     /// Sets the value of [ccel_acpi_table][crate::model::TdxCcelAttestation::ccel_acpi_table].
-    pub fn set_ccel_acpi_table<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_ccel_acpi_table<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ccel_acpi_table = v.into();
         self
     }
 
     /// Sets the value of [ccel_data][crate::model::TdxCcelAttestation::ccel_data].
-    pub fn set_ccel_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_ccel_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ccel_data = v.into();
         self
     }
 
     /// Sets the value of [canonical_event_log][crate::model::TdxCcelAttestation::canonical_event_log].
-    pub fn set_canonical_event_log<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_canonical_event_log<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.canonical_event_log = v.into();
         self
     }
 
     /// Sets the value of [td_quote][crate::model::TdxCcelAttestation::td_quote].
-    pub fn set_td_quote<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_td_quote<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.td_quote = v.into();
         self
     }
@@ -423,17 +434,17 @@ pub struct SevSnpAttestation {
     /// Format is in revision 1.55, §7.3 Attestation, Table 22. ATTESTATION_REPORT
     /// Structure in this document:
     /// <https://www.amd.com/content/dam/amd/en/documents/epyc-technical-docs/specifications/56860.pdf>
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub report: bytes::Bytes,
+    pub report: ::bytes::Bytes,
 
     /// Optional. Certificate bundle defined in the GHCB protocol definition
     /// Format is documented in GHCB revision 2.03, section 4.1.8.1 struct
     /// cert_table in this document:
     /// <https://www.amd.com/content/dam/amd/en/documents/epyc-technical-docs/specifications/56421.pdf>
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub aux_blob: bytes::Bytes,
+    pub aux_blob: ::bytes::Bytes,
 }
 
 impl SevSnpAttestation {
@@ -442,13 +453,13 @@ impl SevSnpAttestation {
     }
 
     /// Sets the value of [report][crate::model::SevSnpAttestation::report].
-    pub fn set_report<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_report<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.report = v.into();
         self
     }
 
     /// Sets the value of [aux_blob][crate::model::SevSnpAttestation::aux_blob].
-    pub fn set_aux_blob<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_aux_blob<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.aux_blob = v.into();
         self
     }
@@ -799,28 +810,28 @@ pub struct TpmAttestation {
     /// The binary TCG Event Log containing events measured into the TPM by the
     /// platform firmware and operating system. Formatted as described in the
     /// "TCG PC Client Platform Firmware Profile Specification".
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub tcg_event_log: bytes::Bytes,
+    pub tcg_event_log: ::bytes::Bytes,
 
     /// An Event Log containing additional events measured into the TPM that are
     /// not already present in the tcg_event_log. Formatted as described in the
     /// "Canonical Event Log Format" TCG Specification.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub canonical_event_log: bytes::Bytes,
+    pub canonical_event_log: ::bytes::Bytes,
 
     /// DER-encoded X.509 certificate of the Attestation Key (otherwise known as
     /// an AK or a TPM restricted signing key) used to generate the quotes.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub ak_cert: bytes::Bytes,
+    pub ak_cert: ::bytes::Bytes,
 
     /// List of DER-encoded X.509 certificates which, together with the ak_cert,
     /// chain back to a trusted Root Certificate.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-    pub cert_chain: std::vec::Vec<bytes::Bytes>,
+    pub cert_chain: std::vec::Vec<::bytes::Bytes>,
 }
 
 impl TpmAttestation {
@@ -829,19 +840,19 @@ impl TpmAttestation {
     }
 
     /// Sets the value of [tcg_event_log][crate::model::TpmAttestation::tcg_event_log].
-    pub fn set_tcg_event_log<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_tcg_event_log<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.tcg_event_log = v.into();
         self
     }
 
     /// Sets the value of [canonical_event_log][crate::model::TpmAttestation::canonical_event_log].
-    pub fn set_canonical_event_log<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_canonical_event_log<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.canonical_event_log = v.into();
         self
     }
 
     /// Sets the value of [ak_cert][crate::model::TpmAttestation::ak_cert].
-    pub fn set_ak_cert<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_ak_cert<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ak_cert = v.into();
         self
     }
@@ -861,7 +872,7 @@ impl TpmAttestation {
     pub fn set_cert_chain<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>,
     {
         use std::iter::Iterator;
         self.cert_chain = v.into_iter().map(|i| i.into()).collect();
@@ -893,17 +904,17 @@ pub mod tpm_attestation {
         /// Raw binary values of each PCRs being quoted.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
         #[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]
-        pub pcr_values: std::collections::HashMap<i32, bytes::Bytes>,
+        pub pcr_values: std::collections::HashMap<i32, ::bytes::Bytes>,
 
         /// TPM2 quote, encoded as a TPMS_ATTEST
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub raw_quote: bytes::Bytes,
+        pub raw_quote: ::bytes::Bytes,
 
         /// TPM2 signature, encoded as a TPMT_SIGNATURE
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub raw_signature: bytes::Bytes,
+        pub raw_signature: ::bytes::Bytes,
     }
 
     impl Quote {
@@ -918,13 +929,13 @@ pub mod tpm_attestation {
         }
 
         /// Sets the value of [raw_quote][crate::model::tpm_attestation::Quote::raw_quote].
-        pub fn set_raw_quote<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_raw_quote<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.raw_quote = v.into();
             self
         }
 
         /// Sets the value of [raw_signature][crate::model::tpm_attestation::Quote::raw_signature].
-        pub fn set_raw_signature<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_raw_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.raw_signature = v.into();
             self
         }
@@ -934,7 +945,7 @@ pub mod tpm_attestation {
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
             K: std::convert::Into<i32>,
-            V: std::convert::Into<bytes::Bytes>,
+            V: std::convert::Into<::bytes::Bytes>,
         {
             use std::iter::Iterator;
             self.pcr_values = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
@@ -1031,9 +1042,9 @@ pub struct ContainerImageSignature {
     /// Optional. The binary signature payload following the SimpleSigning format
     /// <https://github.com/sigstore/cosign/blob/main/specs/SIGNATURE_SPEC.md#simple-signing>.
     /// This payload includes the container image digest.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub payload: bytes::Bytes,
+    pub payload: ::bytes::Bytes,
 
     /// Optional. A signature over the payload.
     /// The container image digest is incorporated into the signature as follows:
@@ -1043,14 +1054,14 @@ pub struct ContainerImageSignature {
     /// . Generate a signature over SHA256 digest of the payload.
     ///   The signature generation process can be represented as follows:
     ///   `Sign(sha256(SimpleSigningPayload(sha256(Image Manifest))))`
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub signature: bytes::Bytes,
+    pub signature: ::bytes::Bytes,
 
     /// Optional. Reserved for future use.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub public_key: bytes::Bytes,
+    pub public_key: ::bytes::Bytes,
 
     /// Optional. Reserved for future use.
     pub sig_alg: crate::model::SigningAlgorithm,
@@ -1062,19 +1073,19 @@ impl ContainerImageSignature {
     }
 
     /// Sets the value of [payload][crate::model::ContainerImageSignature::payload].
-    pub fn set_payload<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
     }
 
     /// Sets the value of [signature][crate::model::ContainerImageSignature::signature].
-    pub fn set_signature<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }
 
     /// Sets the value of [public_key][crate::model::ContainerImageSignature::public_key].
-    pub fn set_public_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_public_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.public_key = v.into();
         self
     }
@@ -1096,86 +1107,135 @@ impl wkt::message::Message for ContainerImageSignature {
 }
 
 /// SigningAlgorithm enumerates all the supported signing algorithms.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SigningAlgorithm(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct SigningAlgorithm(i32);
 
 impl SigningAlgorithm {
+    /// Unspecified signing algorithm.
+    pub const SIGNING_ALGORITHM_UNSPECIFIED: SigningAlgorithm = SigningAlgorithm::new(0);
+
+    /// RSASSA-PSS with a SHA256 digest.
+    pub const RSASSA_PSS_SHA256: SigningAlgorithm = SigningAlgorithm::new(1);
+
+    /// RSASSA-PKCS1 v1.5 with a SHA256 digest.
+    pub const RSASSA_PKCS1V15_SHA256: SigningAlgorithm = SigningAlgorithm::new(2);
+
+    /// ECDSA on the P-256 Curve with a SHA256 digest.
+    pub const ECDSA_P256_SHA256: SigningAlgorithm = SigningAlgorithm::new(3);
+
     /// Creates a new SigningAlgorithm instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SIGNING_ALGORITHM_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("RSASSA_PSS_SHA256"),
+            2 => std::borrow::Cow::Borrowed("RSASSA_PKCS1V15_SHA256"),
+            3 => std::borrow::Cow::Borrowed("ECDSA_P256_SHA256"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SIGNING_ALGORITHM_UNSPECIFIED" => {
+                std::option::Option::Some(Self::SIGNING_ALGORITHM_UNSPECIFIED)
+            }
+            "RSASSA_PSS_SHA256" => std::option::Option::Some(Self::RSASSA_PSS_SHA256),
+            "RSASSA_PKCS1V15_SHA256" => std::option::Option::Some(Self::RSASSA_PKCS1V15_SHA256),
+            "ECDSA_P256_SHA256" => std::option::Option::Some(Self::ECDSA_P256_SHA256),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SigningAlgorithm](SigningAlgorithm)
-pub mod signing_algorithm {
-    use super::SigningAlgorithm;
-
-    /// Unspecified signing algorithm.
-    pub const SIGNING_ALGORITHM_UNSPECIFIED: SigningAlgorithm =
-        SigningAlgorithm::new("SIGNING_ALGORITHM_UNSPECIFIED");
-
-    /// RSASSA-PSS with a SHA256 digest.
-    pub const RSASSA_PSS_SHA256: SigningAlgorithm = SigningAlgorithm::new("RSASSA_PSS_SHA256");
-
-    /// RSASSA-PKCS1 v1.5 with a SHA256 digest.
-    pub const RSASSA_PKCS1V15_SHA256: SigningAlgorithm =
-        SigningAlgorithm::new("RSASSA_PKCS1V15_SHA256");
-
-    /// ECDSA on the P-256 Curve with a SHA256 digest.
-    pub const ECDSA_P256_SHA256: SigningAlgorithm = SigningAlgorithm::new("ECDSA_P256_SHA256");
+impl std::convert::From<i32> for SigningAlgorithm {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for SigningAlgorithm {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for SigningAlgorithm {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Token type enum contains the different types of token responses Confidential
 /// Space supports
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TokenType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct TokenType(i32);
 
 impl TokenType {
+    /// Unspecified token type
+    pub const TOKEN_TYPE_UNSPECIFIED: TokenType = TokenType::new(0);
+
+    /// OpenID Connect (OIDC) token type
+    pub const TOKEN_TYPE_OIDC: TokenType = TokenType::new(1);
+
+    /// Public Key Infrastructure (PKI) token type
+    pub const TOKEN_TYPE_PKI: TokenType = TokenType::new(2);
+
+    /// Limited claim token type for AWS integration
+    pub const TOKEN_TYPE_LIMITED_AWS: TokenType = TokenType::new(3);
+
+    /// Principal-tag-based token for AWS integration
+    pub const TOKEN_TYPE_AWS_PRINCIPALTAGS: TokenType = TokenType::new(4);
+
     /// Creates a new TokenType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TOKEN_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("TOKEN_TYPE_OIDC"),
+            2 => std::borrow::Cow::Borrowed("TOKEN_TYPE_PKI"),
+            3 => std::borrow::Cow::Borrowed("TOKEN_TYPE_LIMITED_AWS"),
+            4 => std::borrow::Cow::Borrowed("TOKEN_TYPE_AWS_PRINCIPALTAGS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TOKEN_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TOKEN_TYPE_UNSPECIFIED),
+            "TOKEN_TYPE_OIDC" => std::option::Option::Some(Self::TOKEN_TYPE_OIDC),
+            "TOKEN_TYPE_PKI" => std::option::Option::Some(Self::TOKEN_TYPE_PKI),
+            "TOKEN_TYPE_LIMITED_AWS" => std::option::Option::Some(Self::TOKEN_TYPE_LIMITED_AWS),
+            "TOKEN_TYPE_AWS_PRINCIPALTAGS" => {
+                std::option::Option::Some(Self::TOKEN_TYPE_AWS_PRINCIPALTAGS)
+            }
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [TokenType](TokenType)
-pub mod token_type {
-    use super::TokenType;
-
-    /// Unspecified token type
-    pub const TOKEN_TYPE_UNSPECIFIED: TokenType = TokenType::new("TOKEN_TYPE_UNSPECIFIED");
-
-    /// OpenID Connect (OIDC) token type
-    pub const TOKEN_TYPE_OIDC: TokenType = TokenType::new("TOKEN_TYPE_OIDC");
-
-    /// Public Key Infrastructure (PKI) token type
-    pub const TOKEN_TYPE_PKI: TokenType = TokenType::new("TOKEN_TYPE_PKI");
-
-    /// Limited claim token type for AWS integration
-    pub const TOKEN_TYPE_LIMITED_AWS: TokenType = TokenType::new("TOKEN_TYPE_LIMITED_AWS");
-
-    /// Principal-tag-based token for AWS integration
-    pub const TOKEN_TYPE_AWS_PRINCIPALTAGS: TokenType =
-        TokenType::new("TOKEN_TYPE_AWS_PRINCIPALTAGS");
+impl std::convert::From<i32> for TokenType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for TokenType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for TokenType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

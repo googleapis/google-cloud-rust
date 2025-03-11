@@ -916,7 +916,7 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [proxy][crate::model::GenerateConnectManifestRequest::proxy].
-        pub fn set_proxy<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_proxy<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.proxy = v.into();
             self
         }
@@ -940,7 +940,7 @@ pub mod gke_hub {
         }
 
         /// Sets the value of [image_pull_secret_content][crate::model::GenerateConnectManifestRequest::image_pull_secret_content].
-        pub fn set_image_pull_secret_content<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_image_pull_secret_content<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.image_pull_secret_content = v.into();
             self
         }

@@ -22,6 +22,7 @@ import (
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/iancoleman/strcase"
 )
@@ -34,8 +35,8 @@ type goImport struct {
 	name string
 }
 
-func Generate(model *api.API, outdir string, options map[string]string) error {
-	_, err := annotateModel(model, options)
+func Generate(model *api.API, outdir string, cfg *config.Config) error {
+	_, err := annotateModel(model, cfg.Codec)
 	if err != nil {
 		return err
 	}

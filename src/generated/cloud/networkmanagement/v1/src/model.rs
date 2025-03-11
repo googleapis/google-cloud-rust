@@ -649,87 +649,136 @@ pub mod endpoint {
 
     /// The type definition of an endpoint's network. Use one of the
     /// following choices:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NetworkType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct NetworkType(i32);
 
     impl NetworkType {
-        /// Creates a new NetworkType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [NetworkType](NetworkType)
-    pub mod network_type {
-        use super::NetworkType;
-
         /// Default type if unspecified.
-        pub const NETWORK_TYPE_UNSPECIFIED: NetworkType =
-            NetworkType::new("NETWORK_TYPE_UNSPECIFIED");
+        pub const NETWORK_TYPE_UNSPECIFIED: NetworkType = NetworkType::new(0);
 
         /// A network hosted within Google Cloud.
         /// To receive more detailed output, specify the URI for the source or
         /// destination network.
-        pub const GCP_NETWORK: NetworkType = NetworkType::new("GCP_NETWORK");
+        pub const GCP_NETWORK: NetworkType = NetworkType::new(1);
 
         /// A network hosted outside of Google Cloud.
         /// This can be an on-premises network, or a network hosted by another cloud
         /// provider.
-        pub const NON_GCP_NETWORK: NetworkType = NetworkType::new("NON_GCP_NETWORK");
+        pub const NON_GCP_NETWORK: NetworkType = NetworkType::new(2);
+
+        /// Creates a new NetworkType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("NETWORK_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GCP_NETWORK"),
+                2 => std::borrow::Cow::Borrowed("NON_GCP_NETWORK"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "NETWORK_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::NETWORK_TYPE_UNSPECIFIED)
+                }
+                "GCP_NETWORK" => std::option::Option::Some(Self::GCP_NETWORK),
+                "NON_GCP_NETWORK" => std::option::Option::Some(Self::NON_GCP_NETWORK),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for NetworkType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for NetworkType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for NetworkType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Type of the target of a forwarding rule.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ForwardingRuleTarget(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ForwardingRuleTarget(i32);
 
     impl ForwardingRuleTarget {
-        /// Creates a new ForwardingRuleTarget instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ForwardingRuleTarget](ForwardingRuleTarget)
-    pub mod forwarding_rule_target {
-        use super::ForwardingRuleTarget;
-
         /// Forwarding rule target is unknown.
         pub const FORWARDING_RULE_TARGET_UNSPECIFIED: ForwardingRuleTarget =
-            ForwardingRuleTarget::new("FORWARDING_RULE_TARGET_UNSPECIFIED");
+            ForwardingRuleTarget::new(0);
 
         /// Compute Engine instance for protocol forwarding.
-        pub const INSTANCE: ForwardingRuleTarget = ForwardingRuleTarget::new("INSTANCE");
+        pub const INSTANCE: ForwardingRuleTarget = ForwardingRuleTarget::new(1);
 
         /// Load Balancer. The specific type can be found from [load_balancer_type]
         /// [google.cloud.networkmanagement.v1.Endpoint.load_balancer_type].
-        pub const LOAD_BALANCER: ForwardingRuleTarget = ForwardingRuleTarget::new("LOAD_BALANCER");
+        pub const LOAD_BALANCER: ForwardingRuleTarget = ForwardingRuleTarget::new(2);
 
         /// Classic Cloud VPN Gateway.
-        pub const VPN_GATEWAY: ForwardingRuleTarget = ForwardingRuleTarget::new("VPN_GATEWAY");
+        pub const VPN_GATEWAY: ForwardingRuleTarget = ForwardingRuleTarget::new(3);
 
         /// Forwarding Rule is a Private Service Connect endpoint.
-        pub const PSC: ForwardingRuleTarget = ForwardingRuleTarget::new("PSC");
+        pub const PSC: ForwardingRuleTarget = ForwardingRuleTarget::new(4);
+
+        /// Creates a new ForwardingRuleTarget instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FORWARDING_RULE_TARGET_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INSTANCE"),
+                2 => std::borrow::Cow::Borrowed("LOAD_BALANCER"),
+                3 => std::borrow::Cow::Borrowed("VPN_GATEWAY"),
+                4 => std::borrow::Cow::Borrowed("PSC"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FORWARDING_RULE_TARGET_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FORWARDING_RULE_TARGET_UNSPECIFIED)
+                }
+                "INSTANCE" => std::option::Option::Some(Self::INSTANCE),
+                "LOAD_BALANCER" => std::option::Option::Some(Self::LOAD_BALANCER),
+                "VPN_GATEWAY" => std::option::Option::Some(Self::VPN_GATEWAY),
+                "PSC" => std::option::Option::Some(Self::PSC),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ForwardingRuleTarget {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ForwardingRuleTarget {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ForwardingRuleTarget {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -814,27 +863,12 @@ pub mod reachability_details {
     use super::*;
 
     /// The overall result of the test's configuration analysis.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Result(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Result(i32);
 
     impl Result {
-        /// Creates a new Result instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Result](Result)
-    pub mod result {
-        use super::Result;
-
         /// No result was specified.
-        pub const RESULT_UNSPECIFIED: Result = Result::new("RESULT_UNSPECIFIED");
+        pub const RESULT_UNSPECIFIED: Result = Result::new(0);
 
         /// Possible scenarios are:
         ///
@@ -843,11 +877,11 @@ pub mod reachability_details {
         /// * The analysis didn't complete because the user lacks permission for
         ///   some of the resources in the trace. However, at the time the user's
         ///   permission became insufficient, the trace had been successful so far.
-        pub const REACHABLE: Result = Result::new("REACHABLE");
+        pub const REACHABLE: Result = Result::new(1);
 
         /// A packet originating from the source is expected to be dropped before
         /// reaching the destination.
-        pub const UNREACHABLE: Result = Result::new("UNREACHABLE");
+        pub const UNREACHABLE: Result = Result::new(2);
 
         /// The source and destination endpoints do not uniquely identify
         /// the test location in the network, and the reachability result contains
@@ -855,7 +889,7 @@ pub mod reachability_details {
         /// others, it would not be. This result is also assigned to
         /// configuration analysis of return path if on its own it should be
         /// REACHABLE, but configuration analysis of forward path is AMBIGUOUS.
-        pub const AMBIGUOUS: Result = Result::new("AMBIGUOUS");
+        pub const AMBIGUOUS: Result = Result::new(4);
 
         /// The configuration analysis did not complete. Possible reasons are:
         ///
@@ -864,12 +898,52 @@ pub mod reachability_details {
         /// * An internal error occurred.
         /// * The analyzer received an invalid or unsupported argument or was unable
         ///   to identify a known endpoint.
-        pub const UNDETERMINED: Result = Result::new("UNDETERMINED");
+        pub const UNDETERMINED: Result = Result::new(5);
+
+        /// Creates a new Result instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESULT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("REACHABLE"),
+                2 => std::borrow::Cow::Borrowed("UNREACHABLE"),
+                4 => std::borrow::Cow::Borrowed("AMBIGUOUS"),
+                5 => std::borrow::Cow::Borrowed("UNDETERMINED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESULT_UNSPECIFIED" => std::option::Option::Some(Self::RESULT_UNSPECIFIED),
+                "REACHABLE" => std::option::Option::Some(Self::REACHABLE),
+                "UNREACHABLE" => std::option::Option::Some(Self::UNREACHABLE),
+                "AMBIGUOUS" => std::option::Option::Some(Self::AMBIGUOUS),
+                "UNDETERMINED" => std::option::Option::Some(Self::UNDETERMINED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Result {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Result {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Result {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1129,38 +1203,21 @@ pub mod probing_details {
     }
 
     /// Overall probing result of the test.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProbingResult(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ProbingResult(i32);
 
     impl ProbingResult {
-        /// Creates a new ProbingResult instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ProbingResult](ProbingResult)
-    pub mod probing_result {
-        use super::ProbingResult;
-
         /// No result was specified.
-        pub const PROBING_RESULT_UNSPECIFIED: ProbingResult =
-            ProbingResult::new("PROBING_RESULT_UNSPECIFIED");
+        pub const PROBING_RESULT_UNSPECIFIED: ProbingResult = ProbingResult::new(0);
 
         /// At least 95% of packets reached the destination.
-        pub const REACHABLE: ProbingResult = ProbingResult::new("REACHABLE");
+        pub const REACHABLE: ProbingResult = ProbingResult::new(1);
 
         /// No packets reached the destination.
-        pub const UNREACHABLE: ProbingResult = ProbingResult::new("UNREACHABLE");
+        pub const UNREACHABLE: ProbingResult = ProbingResult::new(2);
 
         /// Less than 95% of packets reached the destination.
-        pub const REACHABILITY_INCONSISTENT: ProbingResult =
-            ProbingResult::new("REACHABILITY_INCONSISTENT");
+        pub const REACHABILITY_INCONSISTENT: ProbingResult = ProbingResult::new(3);
 
         /// Reachability could not be determined. Possible reasons are:
         ///
@@ -1168,52 +1225,116 @@ pub mod probing_details {
         ///   required to run the test.
         /// * No valid source endpoint could be derived from the request.
         /// * An internal error occurred.
-        pub const UNDETERMINED: ProbingResult = ProbingResult::new("UNDETERMINED");
+        pub const UNDETERMINED: ProbingResult = ProbingResult::new(4);
+
+        /// Creates a new ProbingResult instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PROBING_RESULT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("REACHABLE"),
+                2 => std::borrow::Cow::Borrowed("UNREACHABLE"),
+                3 => std::borrow::Cow::Borrowed("REACHABILITY_INCONSISTENT"),
+                4 => std::borrow::Cow::Borrowed("UNDETERMINED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PROBING_RESULT_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PROBING_RESULT_UNSPECIFIED)
+                }
+                "REACHABLE" => std::option::Option::Some(Self::REACHABLE),
+                "UNREACHABLE" => std::option::Option::Some(Self::UNREACHABLE),
+                "REACHABILITY_INCONSISTENT" => {
+                    std::option::Option::Some(Self::REACHABILITY_INCONSISTENT)
+                }
+                "UNDETERMINED" => std::option::Option::Some(Self::UNDETERMINED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ProbingResult {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ProbingResult {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ProbingResult {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Abort cause types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProbingAbortCause(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ProbingAbortCause(i32);
 
     impl ProbingAbortCause {
-        /// Creates a new ProbingAbortCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ProbingAbortCause](ProbingAbortCause)
-    pub mod probing_abort_cause {
-        use super::ProbingAbortCause;
-
         /// No reason was specified.
-        pub const PROBING_ABORT_CAUSE_UNSPECIFIED: ProbingAbortCause =
-            ProbingAbortCause::new("PROBING_ABORT_CAUSE_UNSPECIFIED");
+        pub const PROBING_ABORT_CAUSE_UNSPECIFIED: ProbingAbortCause = ProbingAbortCause::new(0);
 
         /// The user lacks permission to access some of the
         /// network resources required to run the test.
-        pub const PERMISSION_DENIED: ProbingAbortCause =
-            ProbingAbortCause::new("PERMISSION_DENIED");
+        pub const PERMISSION_DENIED: ProbingAbortCause = ProbingAbortCause::new(1);
 
         /// No valid source endpoint could be derived from the request.
-        pub const NO_SOURCE_LOCATION: ProbingAbortCause =
-            ProbingAbortCause::new("NO_SOURCE_LOCATION");
+        pub const NO_SOURCE_LOCATION: ProbingAbortCause = ProbingAbortCause::new(2);
+
+        /// Creates a new ProbingAbortCause instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PROBING_ABORT_CAUSE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PERMISSION_DENIED"),
+                2 => std::borrow::Cow::Borrowed("NO_SOURCE_LOCATION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PROBING_ABORT_CAUSE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PROBING_ABORT_CAUSE_UNSPECIFIED)
+                }
+                "PERMISSION_DENIED" => std::option::Option::Some(Self::PERMISSION_DENIED),
+                "NO_SOURCE_LOCATION" => std::option::Option::Some(Self::NO_SOURCE_LOCATION),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ProbingAbortCause {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ProbingAbortCause {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ProbingAbortCause {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2577,160 +2698,272 @@ pub mod step {
 
     /// Type of states that are defined in the network state machine.
     /// Each step in the packet trace is in a specific state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Initial state: packet originating from a Compute Engine instance.
         /// An InstanceInfo is populated with starting instance information.
-        pub const START_FROM_INSTANCE: State = State::new("START_FROM_INSTANCE");
+        pub const START_FROM_INSTANCE: State = State::new(1);
 
         /// Initial state: packet originating from the internet.
         /// The endpoint information is populated.
-        pub const START_FROM_INTERNET: State = State::new("START_FROM_INTERNET");
+        pub const START_FROM_INTERNET: State = State::new(2);
 
         /// Initial state: packet originating from a Google service.
         /// The google_service information is populated.
-        pub const START_FROM_GOOGLE_SERVICE: State = State::new("START_FROM_GOOGLE_SERVICE");
+        pub const START_FROM_GOOGLE_SERVICE: State = State::new(27);
 
         /// Initial state: packet originating from a VPC or on-premises network
         /// with internal source IP.
         /// If the source is a VPC network visible to the user, a NetworkInfo
         /// is populated with details of the network.
-        pub const START_FROM_PRIVATE_NETWORK: State = State::new("START_FROM_PRIVATE_NETWORK");
+        pub const START_FROM_PRIVATE_NETWORK: State = State::new(3);
 
         /// Initial state: packet originating from a Google Kubernetes Engine cluster
         /// master. A GKEMasterInfo is populated with starting instance information.
-        pub const START_FROM_GKE_MASTER: State = State::new("START_FROM_GKE_MASTER");
+        pub const START_FROM_GKE_MASTER: State = State::new(21);
 
         /// Initial state: packet originating from a Cloud SQL instance.
         /// A CloudSQLInstanceInfo is populated with starting instance information.
-        pub const START_FROM_CLOUD_SQL_INSTANCE: State =
-            State::new("START_FROM_CLOUD_SQL_INSTANCE");
+        pub const START_FROM_CLOUD_SQL_INSTANCE: State = State::new(22);
 
         /// Initial state: packet originating from a Redis instance.
         /// A RedisInstanceInfo is populated with starting instance information.
-        pub const START_FROM_REDIS_INSTANCE: State = State::new("START_FROM_REDIS_INSTANCE");
+        pub const START_FROM_REDIS_INSTANCE: State = State::new(32);
 
         /// Initial state: packet originating from a Redis Cluster.
         /// A RedisClusterInfo is populated with starting Cluster information.
-        pub const START_FROM_REDIS_CLUSTER: State = State::new("START_FROM_REDIS_CLUSTER");
+        pub const START_FROM_REDIS_CLUSTER: State = State::new(33);
 
         /// Initial state: packet originating from a Cloud Function.
         /// A CloudFunctionInfo is populated with starting function information.
-        pub const START_FROM_CLOUD_FUNCTION: State = State::new("START_FROM_CLOUD_FUNCTION");
+        pub const START_FROM_CLOUD_FUNCTION: State = State::new(23);
 
         /// Initial state: packet originating from an App Engine service version.
         /// An AppEngineVersionInfo is populated with starting version information.
-        pub const START_FROM_APP_ENGINE_VERSION: State =
-            State::new("START_FROM_APP_ENGINE_VERSION");
+        pub const START_FROM_APP_ENGINE_VERSION: State = State::new(25);
 
         /// Initial state: packet originating from a Cloud Run revision.
         /// A CloudRunRevisionInfo is populated with starting revision information.
-        pub const START_FROM_CLOUD_RUN_REVISION: State =
-            State::new("START_FROM_CLOUD_RUN_REVISION");
+        pub const START_FROM_CLOUD_RUN_REVISION: State = State::new(26);
 
         /// Initial state: packet originating from a Storage Bucket. Used only for
         /// return traces.
         /// The storage_bucket information is populated.
-        pub const START_FROM_STORAGE_BUCKET: State = State::new("START_FROM_STORAGE_BUCKET");
+        pub const START_FROM_STORAGE_BUCKET: State = State::new(29);
 
         /// Initial state: packet originating from a published service that uses
         /// Private Service Connect. Used only for return traces.
-        pub const START_FROM_PSC_PUBLISHED_SERVICE: State =
-            State::new("START_FROM_PSC_PUBLISHED_SERVICE");
+        pub const START_FROM_PSC_PUBLISHED_SERVICE: State = State::new(30);
 
         /// Initial state: packet originating from a serverless network endpoint
         /// group backend. Used only for return traces.
         /// The serverless_neg information is populated.
-        pub const START_FROM_SERVERLESS_NEG: State = State::new("START_FROM_SERVERLESS_NEG");
+        pub const START_FROM_SERVERLESS_NEG: State = State::new(31);
 
         /// Config checking state: verify ingress firewall rule.
-        pub const APPLY_INGRESS_FIREWALL_RULE: State = State::new("APPLY_INGRESS_FIREWALL_RULE");
+        pub const APPLY_INGRESS_FIREWALL_RULE: State = State::new(4);
 
         /// Config checking state: verify egress firewall rule.
-        pub const APPLY_EGRESS_FIREWALL_RULE: State = State::new("APPLY_EGRESS_FIREWALL_RULE");
+        pub const APPLY_EGRESS_FIREWALL_RULE: State = State::new(5);
 
         /// Config checking state: verify route.
-        pub const APPLY_ROUTE: State = State::new("APPLY_ROUTE");
+        pub const APPLY_ROUTE: State = State::new(6);
 
         /// Config checking state: match forwarding rule.
-        pub const APPLY_FORWARDING_RULE: State = State::new("APPLY_FORWARDING_RULE");
+        pub const APPLY_FORWARDING_RULE: State = State::new(7);
 
         /// Config checking state: verify load balancer backend configuration.
-        pub const ANALYZE_LOAD_BALANCER_BACKEND: State =
-            State::new("ANALYZE_LOAD_BALANCER_BACKEND");
+        pub const ANALYZE_LOAD_BALANCER_BACKEND: State = State::new(28);
 
         /// Config checking state: packet sent or received under foreign IP
         /// address and allowed.
-        pub const SPOOFING_APPROVED: State = State::new("SPOOFING_APPROVED");
+        pub const SPOOFING_APPROVED: State = State::new(8);
 
         /// Forwarding state: arriving at a Compute Engine instance.
-        pub const ARRIVE_AT_INSTANCE: State = State::new("ARRIVE_AT_INSTANCE");
+        pub const ARRIVE_AT_INSTANCE: State = State::new(9);
 
         /// Forwarding state: arriving at a Compute Engine internal load balancer.
-        pub const ARRIVE_AT_INTERNAL_LOAD_BALANCER: State =
-            State::new("ARRIVE_AT_INTERNAL_LOAD_BALANCER");
+        pub const ARRIVE_AT_INTERNAL_LOAD_BALANCER: State = State::new(10);
 
         /// Forwarding state: arriving at a Compute Engine external load balancer.
-        pub const ARRIVE_AT_EXTERNAL_LOAD_BALANCER: State =
-            State::new("ARRIVE_AT_EXTERNAL_LOAD_BALANCER");
+        pub const ARRIVE_AT_EXTERNAL_LOAD_BALANCER: State = State::new(11);
 
         /// Forwarding state: arriving at a Cloud VPN gateway.
-        pub const ARRIVE_AT_VPN_GATEWAY: State = State::new("ARRIVE_AT_VPN_GATEWAY");
+        pub const ARRIVE_AT_VPN_GATEWAY: State = State::new(12);
 
         /// Forwarding state: arriving at a Cloud VPN tunnel.
-        pub const ARRIVE_AT_VPN_TUNNEL: State = State::new("ARRIVE_AT_VPN_TUNNEL");
+        pub const ARRIVE_AT_VPN_TUNNEL: State = State::new(13);
 
         /// Forwarding state: arriving at a VPC connector.
-        pub const ARRIVE_AT_VPC_CONNECTOR: State = State::new("ARRIVE_AT_VPC_CONNECTOR");
+        pub const ARRIVE_AT_VPC_CONNECTOR: State = State::new(24);
 
         /// Transition state: packet header translated.
-        pub const NAT: State = State::new("NAT");
+        pub const NAT: State = State::new(14);
 
         /// Transition state: original connection is terminated and a new proxied
         /// connection is initiated.
-        pub const PROXY_CONNECTION: State = State::new("PROXY_CONNECTION");
+        pub const PROXY_CONNECTION: State = State::new(15);
 
         /// Final state: packet could be delivered.
-        pub const DELIVER: State = State::new("DELIVER");
+        pub const DELIVER: State = State::new(16);
 
         /// Final state: packet could be dropped.
-        pub const DROP: State = State::new("DROP");
+        pub const DROP: State = State::new(17);
 
         /// Final state: packet could be forwarded to a network with an unknown
         /// configuration.
-        pub const FORWARD: State = State::new("FORWARD");
+        pub const FORWARD: State = State::new(18);
 
         /// Final state: analysis is aborted.
-        pub const ABORT: State = State::new("ABORT");
+        pub const ABORT: State = State::new(19);
 
         /// Special state: viewer of the test result does not have permission to
         /// see the configuration in this step.
-        pub const VIEWER_PERMISSION_MISSING: State = State::new("VIEWER_PERMISSION_MISSING");
+        pub const VIEWER_PERMISSION_MISSING: State = State::new(20);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("START_FROM_INSTANCE"),
+                2 => std::borrow::Cow::Borrowed("START_FROM_INTERNET"),
+                3 => std::borrow::Cow::Borrowed("START_FROM_PRIVATE_NETWORK"),
+                4 => std::borrow::Cow::Borrowed("APPLY_INGRESS_FIREWALL_RULE"),
+                5 => std::borrow::Cow::Borrowed("APPLY_EGRESS_FIREWALL_RULE"),
+                6 => std::borrow::Cow::Borrowed("APPLY_ROUTE"),
+                7 => std::borrow::Cow::Borrowed("APPLY_FORWARDING_RULE"),
+                8 => std::borrow::Cow::Borrowed("SPOOFING_APPROVED"),
+                9 => std::borrow::Cow::Borrowed("ARRIVE_AT_INSTANCE"),
+                10 => std::borrow::Cow::Borrowed("ARRIVE_AT_INTERNAL_LOAD_BALANCER"),
+                11 => std::borrow::Cow::Borrowed("ARRIVE_AT_EXTERNAL_LOAD_BALANCER"),
+                12 => std::borrow::Cow::Borrowed("ARRIVE_AT_VPN_GATEWAY"),
+                13 => std::borrow::Cow::Borrowed("ARRIVE_AT_VPN_TUNNEL"),
+                14 => std::borrow::Cow::Borrowed("NAT"),
+                15 => std::borrow::Cow::Borrowed("PROXY_CONNECTION"),
+                16 => std::borrow::Cow::Borrowed("DELIVER"),
+                17 => std::borrow::Cow::Borrowed("DROP"),
+                18 => std::borrow::Cow::Borrowed("FORWARD"),
+                19 => std::borrow::Cow::Borrowed("ABORT"),
+                20 => std::borrow::Cow::Borrowed("VIEWER_PERMISSION_MISSING"),
+                21 => std::borrow::Cow::Borrowed("START_FROM_GKE_MASTER"),
+                22 => std::borrow::Cow::Borrowed("START_FROM_CLOUD_SQL_INSTANCE"),
+                23 => std::borrow::Cow::Borrowed("START_FROM_CLOUD_FUNCTION"),
+                24 => std::borrow::Cow::Borrowed("ARRIVE_AT_VPC_CONNECTOR"),
+                25 => std::borrow::Cow::Borrowed("START_FROM_APP_ENGINE_VERSION"),
+                26 => std::borrow::Cow::Borrowed("START_FROM_CLOUD_RUN_REVISION"),
+                27 => std::borrow::Cow::Borrowed("START_FROM_GOOGLE_SERVICE"),
+                28 => std::borrow::Cow::Borrowed("ANALYZE_LOAD_BALANCER_BACKEND"),
+                29 => std::borrow::Cow::Borrowed("START_FROM_STORAGE_BUCKET"),
+                30 => std::borrow::Cow::Borrowed("START_FROM_PSC_PUBLISHED_SERVICE"),
+                31 => std::borrow::Cow::Borrowed("START_FROM_SERVERLESS_NEG"),
+                32 => std::borrow::Cow::Borrowed("START_FROM_REDIS_INSTANCE"),
+                33 => std::borrow::Cow::Borrowed("START_FROM_REDIS_CLUSTER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "START_FROM_INSTANCE" => std::option::Option::Some(Self::START_FROM_INSTANCE),
+                "START_FROM_INTERNET" => std::option::Option::Some(Self::START_FROM_INTERNET),
+                "START_FROM_GOOGLE_SERVICE" => {
+                    std::option::Option::Some(Self::START_FROM_GOOGLE_SERVICE)
+                }
+                "START_FROM_PRIVATE_NETWORK" => {
+                    std::option::Option::Some(Self::START_FROM_PRIVATE_NETWORK)
+                }
+                "START_FROM_GKE_MASTER" => std::option::Option::Some(Self::START_FROM_GKE_MASTER),
+                "START_FROM_CLOUD_SQL_INSTANCE" => {
+                    std::option::Option::Some(Self::START_FROM_CLOUD_SQL_INSTANCE)
+                }
+                "START_FROM_REDIS_INSTANCE" => {
+                    std::option::Option::Some(Self::START_FROM_REDIS_INSTANCE)
+                }
+                "START_FROM_REDIS_CLUSTER" => {
+                    std::option::Option::Some(Self::START_FROM_REDIS_CLUSTER)
+                }
+                "START_FROM_CLOUD_FUNCTION" => {
+                    std::option::Option::Some(Self::START_FROM_CLOUD_FUNCTION)
+                }
+                "START_FROM_APP_ENGINE_VERSION" => {
+                    std::option::Option::Some(Self::START_FROM_APP_ENGINE_VERSION)
+                }
+                "START_FROM_CLOUD_RUN_REVISION" => {
+                    std::option::Option::Some(Self::START_FROM_CLOUD_RUN_REVISION)
+                }
+                "START_FROM_STORAGE_BUCKET" => {
+                    std::option::Option::Some(Self::START_FROM_STORAGE_BUCKET)
+                }
+                "START_FROM_PSC_PUBLISHED_SERVICE" => {
+                    std::option::Option::Some(Self::START_FROM_PSC_PUBLISHED_SERVICE)
+                }
+                "START_FROM_SERVERLESS_NEG" => {
+                    std::option::Option::Some(Self::START_FROM_SERVERLESS_NEG)
+                }
+                "APPLY_INGRESS_FIREWALL_RULE" => {
+                    std::option::Option::Some(Self::APPLY_INGRESS_FIREWALL_RULE)
+                }
+                "APPLY_EGRESS_FIREWALL_RULE" => {
+                    std::option::Option::Some(Self::APPLY_EGRESS_FIREWALL_RULE)
+                }
+                "APPLY_ROUTE" => std::option::Option::Some(Self::APPLY_ROUTE),
+                "APPLY_FORWARDING_RULE" => std::option::Option::Some(Self::APPLY_FORWARDING_RULE),
+                "ANALYZE_LOAD_BALANCER_BACKEND" => {
+                    std::option::Option::Some(Self::ANALYZE_LOAD_BALANCER_BACKEND)
+                }
+                "SPOOFING_APPROVED" => std::option::Option::Some(Self::SPOOFING_APPROVED),
+                "ARRIVE_AT_INSTANCE" => std::option::Option::Some(Self::ARRIVE_AT_INSTANCE),
+                "ARRIVE_AT_INTERNAL_LOAD_BALANCER" => {
+                    std::option::Option::Some(Self::ARRIVE_AT_INTERNAL_LOAD_BALANCER)
+                }
+                "ARRIVE_AT_EXTERNAL_LOAD_BALANCER" => {
+                    std::option::Option::Some(Self::ARRIVE_AT_EXTERNAL_LOAD_BALANCER)
+                }
+                "ARRIVE_AT_VPN_GATEWAY" => std::option::Option::Some(Self::ARRIVE_AT_VPN_GATEWAY),
+                "ARRIVE_AT_VPN_TUNNEL" => std::option::Option::Some(Self::ARRIVE_AT_VPN_TUNNEL),
+                "ARRIVE_AT_VPC_CONNECTOR" => {
+                    std::option::Option::Some(Self::ARRIVE_AT_VPC_CONNECTOR)
+                }
+                "NAT" => std::option::Option::Some(Self::NAT),
+                "PROXY_CONNECTION" => std::option::Option::Some(Self::PROXY_CONNECTION),
+                "DELIVER" => std::option::Option::Some(Self::DELIVER),
+                "DROP" => std::option::Option::Some(Self::DROP),
+                "FORWARD" => std::option::Option::Some(Self::FORWARD),
+                "ABORT" => std::option::Option::Some(Self::ABORT),
+                "VIEWER_PERMISSION_MISSING" => {
+                    std::option::Option::Some(Self::VIEWER_PERMISSION_MISSING)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -3155,82 +3388,124 @@ pub mod firewall_info {
     use super::*;
 
     /// The firewall rule's type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FirewallRuleType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct FirewallRuleType(i32);
 
     impl FirewallRuleType {
-        /// Creates a new FirewallRuleType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FirewallRuleType](FirewallRuleType)
-    pub mod firewall_rule_type {
-        use super::FirewallRuleType;
-
         /// Unspecified type.
-        pub const FIREWALL_RULE_TYPE_UNSPECIFIED: FirewallRuleType =
-            FirewallRuleType::new("FIREWALL_RULE_TYPE_UNSPECIFIED");
+        pub const FIREWALL_RULE_TYPE_UNSPECIFIED: FirewallRuleType = FirewallRuleType::new(0);
 
         /// Hierarchical firewall policy rule. For details, see
         /// [Hierarchical firewall policies
         /// overview](https://cloud.google.com/vpc/docs/firewall-policies).
-        pub const HIERARCHICAL_FIREWALL_POLICY_RULE: FirewallRuleType =
-            FirewallRuleType::new("HIERARCHICAL_FIREWALL_POLICY_RULE");
+        pub const HIERARCHICAL_FIREWALL_POLICY_RULE: FirewallRuleType = FirewallRuleType::new(1);
 
         /// VPC firewall rule. For details, see
         /// [VPC firewall rules
         /// overview](https://cloud.google.com/vpc/docs/firewalls).
-        pub const VPC_FIREWALL_RULE: FirewallRuleType = FirewallRuleType::new("VPC_FIREWALL_RULE");
+        pub const VPC_FIREWALL_RULE: FirewallRuleType = FirewallRuleType::new(2);
 
         /// Implied VPC firewall rule. For details, see
         /// [Implied
         /// rules](https://cloud.google.com/vpc/docs/firewalls#default_firewall_rules).
-        pub const IMPLIED_VPC_FIREWALL_RULE: FirewallRuleType =
-            FirewallRuleType::new("IMPLIED_VPC_FIREWALL_RULE");
+        pub const IMPLIED_VPC_FIREWALL_RULE: FirewallRuleType = FirewallRuleType::new(3);
 
         /// Implicit firewall rules that are managed by serverless VPC access to
         /// allow ingress access. They are not visible in the Google Cloud console.
         /// For details, see [VPC connector's implicit
         /// rules](https://cloud.google.com/functions/docs/networking/connecting-vpc#restrict-access).
         pub const SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE: FirewallRuleType =
-            FirewallRuleType::new("SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE");
+            FirewallRuleType::new(4);
 
         /// Global network firewall policy rule.
         /// For details, see [Network firewall
         /// policies](https://cloud.google.com/vpc/docs/network-firewall-policies).
-        pub const NETWORK_FIREWALL_POLICY_RULE: FirewallRuleType =
-            FirewallRuleType::new("NETWORK_FIREWALL_POLICY_RULE");
+        pub const NETWORK_FIREWALL_POLICY_RULE: FirewallRuleType = FirewallRuleType::new(5);
 
         /// Regional network firewall policy rule.
         /// For details, see [Regional network firewall
         /// policies](https://cloud.google.com/firewall/docs/regional-firewall-policies).
         pub const NETWORK_REGIONAL_FIREWALL_POLICY_RULE: FirewallRuleType =
-            FirewallRuleType::new("NETWORK_REGIONAL_FIREWALL_POLICY_RULE");
+            FirewallRuleType::new(6);
 
         /// Firewall policy rule containing attributes not yet supported in
         /// Connectivity tests. Firewall analysis is skipped if such a rule can
         /// potentially be matched. Please see the [list of unsupported
         /// configurations](https://cloud.google.com/network-intelligence-center/docs/connectivity-tests/concepts/overview#unsupported-configs).
-        pub const UNSUPPORTED_FIREWALL_POLICY_RULE: FirewallRuleType =
-            FirewallRuleType::new("UNSUPPORTED_FIREWALL_POLICY_RULE");
+        pub const UNSUPPORTED_FIREWALL_POLICY_RULE: FirewallRuleType = FirewallRuleType::new(100);
 
         /// Tracking state for response traffic created when request traffic goes
         /// through allow firewall rule.
         /// For details, see [firewall rules
         /// specifications](https://cloud.google.com/firewall/docs/firewalls#specifications)
-        pub const TRACKING_STATE: FirewallRuleType = FirewallRuleType::new("TRACKING_STATE");
+        pub const TRACKING_STATE: FirewallRuleType = FirewallRuleType::new(101);
+
+        /// Creates a new FirewallRuleType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FIREWALL_RULE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("HIERARCHICAL_FIREWALL_POLICY_RULE"),
+                2 => std::borrow::Cow::Borrowed("VPC_FIREWALL_RULE"),
+                3 => std::borrow::Cow::Borrowed("IMPLIED_VPC_FIREWALL_RULE"),
+                4 => std::borrow::Cow::Borrowed("SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE"),
+                5 => std::borrow::Cow::Borrowed("NETWORK_FIREWALL_POLICY_RULE"),
+                6 => std::borrow::Cow::Borrowed("NETWORK_REGIONAL_FIREWALL_POLICY_RULE"),
+                100 => std::borrow::Cow::Borrowed("UNSUPPORTED_FIREWALL_POLICY_RULE"),
+                101 => std::borrow::Cow::Borrowed("TRACKING_STATE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FIREWALL_RULE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FIREWALL_RULE_TYPE_UNSPECIFIED)
+                }
+                "HIERARCHICAL_FIREWALL_POLICY_RULE" => {
+                    std::option::Option::Some(Self::HIERARCHICAL_FIREWALL_POLICY_RULE)
+                }
+                "VPC_FIREWALL_RULE" => std::option::Option::Some(Self::VPC_FIREWALL_RULE),
+                "IMPLIED_VPC_FIREWALL_RULE" => {
+                    std::option::Option::Some(Self::IMPLIED_VPC_FIREWALL_RULE)
+                }
+                "SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE" => {
+                    std::option::Option::Some(Self::SERVERLESS_VPC_ACCESS_MANAGED_FIREWALL_RULE)
+                }
+                "NETWORK_FIREWALL_POLICY_RULE" => {
+                    std::option::Option::Some(Self::NETWORK_FIREWALL_POLICY_RULE)
+                }
+                "NETWORK_REGIONAL_FIREWALL_POLICY_RULE" => {
+                    std::option::Option::Some(Self::NETWORK_REGIONAL_FIREWALL_POLICY_RULE)
+                }
+                "UNSUPPORTED_FIREWALL_POLICY_RULE" => {
+                    std::option::Option::Some(Self::UNSUPPORTED_FIREWALL_POLICY_RULE)
+                }
+                "TRACKING_STATE" => std::option::Option::Some(Self::TRACKING_STATE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FirewallRuleType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FirewallRuleType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for FirewallRuleType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3495,169 +3770,269 @@ pub mod route_info {
     use super::*;
 
     /// Type of route:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RouteType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RouteType(i32);
 
     impl RouteType {
-        /// Creates a new RouteType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RouteType](RouteType)
-    pub mod route_type {
-        use super::RouteType;
-
         /// Unspecified type. Default value.
-        pub const ROUTE_TYPE_UNSPECIFIED: RouteType = RouteType::new("ROUTE_TYPE_UNSPECIFIED");
+        pub const ROUTE_TYPE_UNSPECIFIED: RouteType = RouteType::new(0);
 
         /// Route is a subnet route automatically created by the system.
-        pub const SUBNET: RouteType = RouteType::new("SUBNET");
+        pub const SUBNET: RouteType = RouteType::new(1);
 
         /// Static route created by the user, including the default route to the
         /// internet.
-        pub const STATIC: RouteType = RouteType::new("STATIC");
+        pub const STATIC: RouteType = RouteType::new(2);
 
         /// Dynamic route exchanged between BGP peers.
-        pub const DYNAMIC: RouteType = RouteType::new("DYNAMIC");
+        pub const DYNAMIC: RouteType = RouteType::new(3);
 
         /// A subnet route received from peering network.
-        pub const PEERING_SUBNET: RouteType = RouteType::new("PEERING_SUBNET");
+        pub const PEERING_SUBNET: RouteType = RouteType::new(4);
 
         /// A static route received from peering network.
-        pub const PEERING_STATIC: RouteType = RouteType::new("PEERING_STATIC");
+        pub const PEERING_STATIC: RouteType = RouteType::new(5);
 
         /// A dynamic route received from peering network.
-        pub const PEERING_DYNAMIC: RouteType = RouteType::new("PEERING_DYNAMIC");
+        pub const PEERING_DYNAMIC: RouteType = RouteType::new(6);
 
         /// Policy based route.
-        pub const POLICY_BASED: RouteType = RouteType::new("POLICY_BASED");
+        pub const POLICY_BASED: RouteType = RouteType::new(7);
 
         /// Advertised route. Synthetic route which is used to transition from the
         /// StartFromPrivateNetwork state in Connectivity tests.
-        pub const ADVERTISED: RouteType = RouteType::new("ADVERTISED");
+        pub const ADVERTISED: RouteType = RouteType::new(101);
+
+        /// Creates a new RouteType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROUTE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SUBNET"),
+                2 => std::borrow::Cow::Borrowed("STATIC"),
+                3 => std::borrow::Cow::Borrowed("DYNAMIC"),
+                4 => std::borrow::Cow::Borrowed("PEERING_SUBNET"),
+                5 => std::borrow::Cow::Borrowed("PEERING_STATIC"),
+                6 => std::borrow::Cow::Borrowed("PEERING_DYNAMIC"),
+                7 => std::borrow::Cow::Borrowed("POLICY_BASED"),
+                101 => std::borrow::Cow::Borrowed("ADVERTISED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROUTE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::ROUTE_TYPE_UNSPECIFIED),
+                "SUBNET" => std::option::Option::Some(Self::SUBNET),
+                "STATIC" => std::option::Option::Some(Self::STATIC),
+                "DYNAMIC" => std::option::Option::Some(Self::DYNAMIC),
+                "PEERING_SUBNET" => std::option::Option::Some(Self::PEERING_SUBNET),
+                "PEERING_STATIC" => std::option::Option::Some(Self::PEERING_STATIC),
+                "PEERING_DYNAMIC" => std::option::Option::Some(Self::PEERING_DYNAMIC),
+                "POLICY_BASED" => std::option::Option::Some(Self::POLICY_BASED),
+                "ADVERTISED" => std::option::Option::Some(Self::ADVERTISED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RouteType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RouteType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RouteType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Type of next hop:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NextHopType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct NextHopType(i32);
 
     impl NextHopType {
-        /// Creates a new NextHopType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [NextHopType](NextHopType)
-    pub mod next_hop_type {
-        use super::NextHopType;
-
         /// Unspecified type. Default value.
-        pub const NEXT_HOP_TYPE_UNSPECIFIED: NextHopType =
-            NextHopType::new("NEXT_HOP_TYPE_UNSPECIFIED");
+        pub const NEXT_HOP_TYPE_UNSPECIFIED: NextHopType = NextHopType::new(0);
 
         /// Next hop is an IP address.
-        pub const NEXT_HOP_IP: NextHopType = NextHopType::new("NEXT_HOP_IP");
+        pub const NEXT_HOP_IP: NextHopType = NextHopType::new(1);
 
         /// Next hop is a Compute Engine instance.
-        pub const NEXT_HOP_INSTANCE: NextHopType = NextHopType::new("NEXT_HOP_INSTANCE");
+        pub const NEXT_HOP_INSTANCE: NextHopType = NextHopType::new(2);
 
         /// Next hop is a VPC network gateway.
-        pub const NEXT_HOP_NETWORK: NextHopType = NextHopType::new("NEXT_HOP_NETWORK");
+        pub const NEXT_HOP_NETWORK: NextHopType = NextHopType::new(3);
 
         /// Next hop is a peering VPC.
-        pub const NEXT_HOP_PEERING: NextHopType = NextHopType::new("NEXT_HOP_PEERING");
+        pub const NEXT_HOP_PEERING: NextHopType = NextHopType::new(4);
 
         /// Next hop is an interconnect.
-        pub const NEXT_HOP_INTERCONNECT: NextHopType = NextHopType::new("NEXT_HOP_INTERCONNECT");
+        pub const NEXT_HOP_INTERCONNECT: NextHopType = NextHopType::new(5);
 
         /// Next hop is a VPN tunnel.
-        pub const NEXT_HOP_VPN_TUNNEL: NextHopType = NextHopType::new("NEXT_HOP_VPN_TUNNEL");
+        pub const NEXT_HOP_VPN_TUNNEL: NextHopType = NextHopType::new(6);
 
         /// Next hop is a VPN gateway. This scenario only happens when tracing
         /// connectivity from an on-premises network to Google Cloud through a VPN.
         /// The analysis simulates a packet departing from the on-premises network
         /// through a VPN tunnel and arriving at a Cloud VPN gateway.
-        pub const NEXT_HOP_VPN_GATEWAY: NextHopType = NextHopType::new("NEXT_HOP_VPN_GATEWAY");
+        pub const NEXT_HOP_VPN_GATEWAY: NextHopType = NextHopType::new(7);
 
         /// Next hop is an internet gateway.
-        pub const NEXT_HOP_INTERNET_GATEWAY: NextHopType =
-            NextHopType::new("NEXT_HOP_INTERNET_GATEWAY");
+        pub const NEXT_HOP_INTERNET_GATEWAY: NextHopType = NextHopType::new(8);
 
         /// Next hop is blackhole; that is, the next hop either does not exist or is
         /// not running.
-        pub const NEXT_HOP_BLACKHOLE: NextHopType = NextHopType::new("NEXT_HOP_BLACKHOLE");
+        pub const NEXT_HOP_BLACKHOLE: NextHopType = NextHopType::new(9);
 
         /// Next hop is the forwarding rule of an Internal Load Balancer.
-        pub const NEXT_HOP_ILB: NextHopType = NextHopType::new("NEXT_HOP_ILB");
+        pub const NEXT_HOP_ILB: NextHopType = NextHopType::new(10);
 
         /// Next hop is a
         /// [router appliance
         /// instance](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/ra-overview).
-        pub const NEXT_HOP_ROUTER_APPLIANCE: NextHopType =
-            NextHopType::new("NEXT_HOP_ROUTER_APPLIANCE");
+        pub const NEXT_HOP_ROUTER_APPLIANCE: NextHopType = NextHopType::new(11);
 
         /// Next hop is an NCC hub.
-        pub const NEXT_HOP_NCC_HUB: NextHopType = NextHopType::new("NEXT_HOP_NCC_HUB");
+        pub const NEXT_HOP_NCC_HUB: NextHopType = NextHopType::new(12);
+
+        /// Creates a new NextHopType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("NEXT_HOP_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NEXT_HOP_IP"),
+                2 => std::borrow::Cow::Borrowed("NEXT_HOP_INSTANCE"),
+                3 => std::borrow::Cow::Borrowed("NEXT_HOP_NETWORK"),
+                4 => std::borrow::Cow::Borrowed("NEXT_HOP_PEERING"),
+                5 => std::borrow::Cow::Borrowed("NEXT_HOP_INTERCONNECT"),
+                6 => std::borrow::Cow::Borrowed("NEXT_HOP_VPN_TUNNEL"),
+                7 => std::borrow::Cow::Borrowed("NEXT_HOP_VPN_GATEWAY"),
+                8 => std::borrow::Cow::Borrowed("NEXT_HOP_INTERNET_GATEWAY"),
+                9 => std::borrow::Cow::Borrowed("NEXT_HOP_BLACKHOLE"),
+                10 => std::borrow::Cow::Borrowed("NEXT_HOP_ILB"),
+                11 => std::borrow::Cow::Borrowed("NEXT_HOP_ROUTER_APPLIANCE"),
+                12 => std::borrow::Cow::Borrowed("NEXT_HOP_NCC_HUB"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "NEXT_HOP_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::NEXT_HOP_TYPE_UNSPECIFIED)
+                }
+                "NEXT_HOP_IP" => std::option::Option::Some(Self::NEXT_HOP_IP),
+                "NEXT_HOP_INSTANCE" => std::option::Option::Some(Self::NEXT_HOP_INSTANCE),
+                "NEXT_HOP_NETWORK" => std::option::Option::Some(Self::NEXT_HOP_NETWORK),
+                "NEXT_HOP_PEERING" => std::option::Option::Some(Self::NEXT_HOP_PEERING),
+                "NEXT_HOP_INTERCONNECT" => std::option::Option::Some(Self::NEXT_HOP_INTERCONNECT),
+                "NEXT_HOP_VPN_TUNNEL" => std::option::Option::Some(Self::NEXT_HOP_VPN_TUNNEL),
+                "NEXT_HOP_VPN_GATEWAY" => std::option::Option::Some(Self::NEXT_HOP_VPN_GATEWAY),
+                "NEXT_HOP_INTERNET_GATEWAY" => {
+                    std::option::Option::Some(Self::NEXT_HOP_INTERNET_GATEWAY)
+                }
+                "NEXT_HOP_BLACKHOLE" => std::option::Option::Some(Self::NEXT_HOP_BLACKHOLE),
+                "NEXT_HOP_ILB" => std::option::Option::Some(Self::NEXT_HOP_ILB),
+                "NEXT_HOP_ROUTER_APPLIANCE" => {
+                    std::option::Option::Some(Self::NEXT_HOP_ROUTER_APPLIANCE)
+                }
+                "NEXT_HOP_NCC_HUB" => std::option::Option::Some(Self::NEXT_HOP_NCC_HUB),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for NextHopType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for NextHopType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for NextHopType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Indicates where routes are applicable.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RouteScope(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RouteScope(i32);
 
     impl RouteScope {
+        /// Unspecified scope. Default value.
+        pub const ROUTE_SCOPE_UNSPECIFIED: RouteScope = RouteScope::new(0);
+
+        /// Route is applicable to packets in Network.
+        pub const NETWORK: RouteScope = RouteScope::new(1);
+
+        /// Route is applicable to packets using NCC Hub's routing table.
+        pub const NCC_HUB: RouteScope = RouteScope::new(2);
+
         /// Creates a new RouteScope instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROUTE_SCOPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NETWORK"),
+                2 => std::borrow::Cow::Borrowed("NCC_HUB"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROUTE_SCOPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ROUTE_SCOPE_UNSPECIFIED)
+                }
+                "NETWORK" => std::option::Option::Some(Self::NETWORK),
+                "NCC_HUB" => std::option::Option::Some(Self::NCC_HUB),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RouteScope](RouteScope)
-    pub mod route_scope {
-        use super::RouteScope;
-
-        /// Unspecified scope. Default value.
-        pub const ROUTE_SCOPE_UNSPECIFIED: RouteScope = RouteScope::new("ROUTE_SCOPE_UNSPECIFIED");
-
-        /// Route is applicable to packets in Network.
-        pub const NETWORK: RouteScope = RouteScope::new("NETWORK");
-
-        /// Route is applicable to packets using NCC Hub's routing table.
-        pub const NCC_HUB: RouteScope = RouteScope::new("NCC_HUB");
+    impl std::convert::From<i32> for RouteScope {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for RouteScope {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for RouteScope {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3715,63 +4090,93 @@ pub mod google_service_info {
     use super::*;
 
     /// Recognized type of a Google Service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct GoogleServiceType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct GoogleServiceType(i32);
 
     impl GoogleServiceType {
-        /// Creates a new GoogleServiceType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [GoogleServiceType](GoogleServiceType)
-    pub mod google_service_type {
-        use super::GoogleServiceType;
-
         /// Unspecified Google Service.
-        pub const GOOGLE_SERVICE_TYPE_UNSPECIFIED: GoogleServiceType =
-            GoogleServiceType::new("GOOGLE_SERVICE_TYPE_UNSPECIFIED");
+        pub const GOOGLE_SERVICE_TYPE_UNSPECIFIED: GoogleServiceType = GoogleServiceType::new(0);
 
         /// Identity aware proxy.
         /// <https://cloud.google.com/iap/docs/using-tcp-forwarding>
-        pub const IAP: GoogleServiceType = GoogleServiceType::new("IAP");
+        pub const IAP: GoogleServiceType = GoogleServiceType::new(1);
 
         /// One of two services sharing IP ranges:
         ///
         /// * Load Balancer proxy
         /// * Centralized Health Check prober
         ///   <https://cloud.google.com/load-balancing/docs/firewall-rules>
-        pub const GFE_PROXY_OR_HEALTH_CHECK_PROBER: GoogleServiceType =
-            GoogleServiceType::new("GFE_PROXY_OR_HEALTH_CHECK_PROBER");
+        pub const GFE_PROXY_OR_HEALTH_CHECK_PROBER: GoogleServiceType = GoogleServiceType::new(2);
 
         /// Connectivity from Cloud DNS to forwarding targets or alternate name
         /// servers that use private routing.
         /// <https://cloud.google.com/dns/docs/zones/forwarding-zones#firewall-rules>
         /// <https://cloud.google.com/dns/docs/policies#firewall-rules>
-        pub const CLOUD_DNS: GoogleServiceType = GoogleServiceType::new("CLOUD_DNS");
+        pub const CLOUD_DNS: GoogleServiceType = GoogleServiceType::new(3);
 
         /// private.googleapis.com and restricted.googleapis.com
-        pub const GOOGLE_API: GoogleServiceType = GoogleServiceType::new("GOOGLE_API");
+        pub const GOOGLE_API: GoogleServiceType = GoogleServiceType::new(4);
 
         /// Google API via Private Service Connect.
         /// <https://cloud.google.com/vpc/docs/configure-private-service-connect-apis>
-        pub const GOOGLE_API_PSC: GoogleServiceType = GoogleServiceType::new("GOOGLE_API_PSC");
+        pub const GOOGLE_API_PSC: GoogleServiceType = GoogleServiceType::new(5);
 
         /// Google API via VPC Service Controls.
         /// <https://cloud.google.com/vpc/docs/configure-private-service-connect-apis>
-        pub const GOOGLE_API_VPC_SC: GoogleServiceType =
-            GoogleServiceType::new("GOOGLE_API_VPC_SC");
+        pub const GOOGLE_API_VPC_SC: GoogleServiceType = GoogleServiceType::new(6);
+
+        /// Creates a new GoogleServiceType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("GOOGLE_SERVICE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IAP"),
+                2 => std::borrow::Cow::Borrowed("GFE_PROXY_OR_HEALTH_CHECK_PROBER"),
+                3 => std::borrow::Cow::Borrowed("CLOUD_DNS"),
+                4 => std::borrow::Cow::Borrowed("GOOGLE_API"),
+                5 => std::borrow::Cow::Borrowed("GOOGLE_API_PSC"),
+                6 => std::borrow::Cow::Borrowed("GOOGLE_API_VPC_SC"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "GOOGLE_SERVICE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::GOOGLE_SERVICE_TYPE_UNSPECIFIED)
+                }
+                "IAP" => std::option::Option::Some(Self::IAP),
+                "GFE_PROXY_OR_HEALTH_CHECK_PROBER" => {
+                    std::option::Option::Some(Self::GFE_PROXY_OR_HEALTH_CHECK_PROBER)
+                }
+                "CLOUD_DNS" => std::option::Option::Some(Self::CLOUD_DNS),
+                "GOOGLE_API" => std::option::Option::Some(Self::GOOGLE_API),
+                "GOOGLE_API_PSC" => std::option::Option::Some(Self::GOOGLE_API_PSC),
+                "GOOGLE_API_VPC_SC" => std::option::Option::Some(Self::GOOGLE_API_VPC_SC),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for GoogleServiceType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for GoogleServiceType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for GoogleServiceType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4015,88 +4420,140 @@ pub mod load_balancer_info {
     use super::*;
 
     /// The type definition for a load balancer:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LoadBalancerType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct LoadBalancerType(i32);
 
     impl LoadBalancerType {
+        /// Type is unspecified.
+        pub const LOAD_BALANCER_TYPE_UNSPECIFIED: LoadBalancerType = LoadBalancerType::new(0);
+
+        /// Internal TCP/UDP load balancer.
+        pub const INTERNAL_TCP_UDP: LoadBalancerType = LoadBalancerType::new(1);
+
+        /// Network TCP/UDP load balancer.
+        pub const NETWORK_TCP_UDP: LoadBalancerType = LoadBalancerType::new(2);
+
+        /// HTTP(S) proxy load balancer.
+        pub const HTTP_PROXY: LoadBalancerType = LoadBalancerType::new(3);
+
+        /// TCP proxy load balancer.
+        pub const TCP_PROXY: LoadBalancerType = LoadBalancerType::new(4);
+
+        /// SSL proxy load balancer.
+        pub const SSL_PROXY: LoadBalancerType = LoadBalancerType::new(5);
+
         /// Creates a new LoadBalancerType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LOAD_BALANCER_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INTERNAL_TCP_UDP"),
+                2 => std::borrow::Cow::Borrowed("NETWORK_TCP_UDP"),
+                3 => std::borrow::Cow::Borrowed("HTTP_PROXY"),
+                4 => std::borrow::Cow::Borrowed("TCP_PROXY"),
+                5 => std::borrow::Cow::Borrowed("SSL_PROXY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LOAD_BALANCER_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::LOAD_BALANCER_TYPE_UNSPECIFIED)
+                }
+                "INTERNAL_TCP_UDP" => std::option::Option::Some(Self::INTERNAL_TCP_UDP),
+                "NETWORK_TCP_UDP" => std::option::Option::Some(Self::NETWORK_TCP_UDP),
+                "HTTP_PROXY" => std::option::Option::Some(Self::HTTP_PROXY),
+                "TCP_PROXY" => std::option::Option::Some(Self::TCP_PROXY),
+                "SSL_PROXY" => std::option::Option::Some(Self::SSL_PROXY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [LoadBalancerType](LoadBalancerType)
-    pub mod load_balancer_type {
-        use super::LoadBalancerType;
-
-        /// Type is unspecified.
-        pub const LOAD_BALANCER_TYPE_UNSPECIFIED: LoadBalancerType =
-            LoadBalancerType::new("LOAD_BALANCER_TYPE_UNSPECIFIED");
-
-        /// Internal TCP/UDP load balancer.
-        pub const INTERNAL_TCP_UDP: LoadBalancerType = LoadBalancerType::new("INTERNAL_TCP_UDP");
-
-        /// Network TCP/UDP load balancer.
-        pub const NETWORK_TCP_UDP: LoadBalancerType = LoadBalancerType::new("NETWORK_TCP_UDP");
-
-        /// HTTP(S) proxy load balancer.
-        pub const HTTP_PROXY: LoadBalancerType = LoadBalancerType::new("HTTP_PROXY");
-
-        /// TCP proxy load balancer.
-        pub const TCP_PROXY: LoadBalancerType = LoadBalancerType::new("TCP_PROXY");
-
-        /// SSL proxy load balancer.
-        pub const SSL_PROXY: LoadBalancerType = LoadBalancerType::new("SSL_PROXY");
+    impl std::convert::From<i32> for LoadBalancerType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for LoadBalancerType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for LoadBalancerType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The type definition for a load balancer backend configuration:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BackendType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct BackendType(i32);
 
     impl BackendType {
+        /// Type is unspecified.
+        pub const BACKEND_TYPE_UNSPECIFIED: BackendType = BackendType::new(0);
+
+        /// Backend Service as the load balancer's backend.
+        pub const BACKEND_SERVICE: BackendType = BackendType::new(1);
+
+        /// Target Pool as the load balancer's backend.
+        pub const TARGET_POOL: BackendType = BackendType::new(2);
+
+        /// Target Instance as the load balancer's backend.
+        pub const TARGET_INSTANCE: BackendType = BackendType::new(3);
+
         /// Creates a new BackendType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("BACKEND_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BACKEND_SERVICE"),
+                2 => std::borrow::Cow::Borrowed("TARGET_POOL"),
+                3 => std::borrow::Cow::Borrowed("TARGET_INSTANCE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "BACKEND_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::BACKEND_TYPE_UNSPECIFIED)
+                }
+                "BACKEND_SERVICE" => std::option::Option::Some(Self::BACKEND_SERVICE),
+                "TARGET_POOL" => std::option::Option::Some(Self::TARGET_POOL),
+                "TARGET_INSTANCE" => std::option::Option::Some(Self::TARGET_INSTANCE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [BackendType](BackendType)
-    pub mod backend_type {
-        use super::BackendType;
-
-        /// Type is unspecified.
-        pub const BACKEND_TYPE_UNSPECIFIED: BackendType =
-            BackendType::new("BACKEND_TYPE_UNSPECIFIED");
-
-        /// Backend Service as the load balancer's backend.
-        pub const BACKEND_SERVICE: BackendType = BackendType::new("BACKEND_SERVICE");
-
-        /// Target Pool as the load balancer's backend.
-        pub const TARGET_POOL: BackendType = BackendType::new("TARGET_POOL");
-
-        /// Target Instance as the load balancer's backend.
-        pub const TARGET_INSTANCE: BackendType = BackendType::new("TARGET_INSTANCE");
+    impl std::convert::From<i32> for BackendType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for BackendType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for BackendType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4190,46 +4647,67 @@ pub mod load_balancer_backend {
     use super::*;
 
     /// State of a health check firewall configuration:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct HealthCheckFirewallState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct HealthCheckFirewallState(i32);
 
     impl HealthCheckFirewallState {
-        /// Creates a new HealthCheckFirewallState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [HealthCheckFirewallState](HealthCheckFirewallState)
-    pub mod health_check_firewall_state {
-        use super::HealthCheckFirewallState;
-
         /// State is unspecified. Default state if not populated.
         pub const HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED: HealthCheckFirewallState =
-            HealthCheckFirewallState::new("HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED");
+            HealthCheckFirewallState::new(0);
 
         /// There are configured firewall rules to allow health check probes to the
         /// backend.
-        pub const CONFIGURED: HealthCheckFirewallState =
-            HealthCheckFirewallState::new("CONFIGURED");
+        pub const CONFIGURED: HealthCheckFirewallState = HealthCheckFirewallState::new(1);
 
         /// There are firewall rules configured to allow partial health check ranges
         /// or block all health check ranges.
         /// If a health check probe is sent from denied IP ranges,
         /// the health check to the backend will fail. Then, the backend will be
         /// marked unhealthy and will not receive traffic sent to the load balancer.
-        pub const MISCONFIGURED: HealthCheckFirewallState =
-            HealthCheckFirewallState::new("MISCONFIGURED");
+        pub const MISCONFIGURED: HealthCheckFirewallState = HealthCheckFirewallState::new(2);
+
+        /// Creates a new HealthCheckFirewallState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CONFIGURED"),
+                2 => std::borrow::Cow::Borrowed("MISCONFIGURED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED)
+                }
+                "CONFIGURED" => std::option::Option::Some(Self::CONFIGURED),
+                "MISCONFIGURED" => std::option::Option::Some(Self::MISCONFIGURED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for HealthCheckFirewallState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for HealthCheckFirewallState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for HealthCheckFirewallState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4439,42 +4917,66 @@ pub mod vpn_tunnel_info {
 
     /// Types of VPN routing policy. For details, refer to [Networks and Tunnel
     /// routing](https://cloud.google.com/network-connectivity/docs/vpn/concepts/choosing-networks-routing/).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RoutingType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RoutingType(i32);
 
     impl RoutingType {
+        /// Unspecified type. Default value.
+        pub const ROUTING_TYPE_UNSPECIFIED: RoutingType = RoutingType::new(0);
+
+        /// Route based VPN.
+        pub const ROUTE_BASED: RoutingType = RoutingType::new(1);
+
+        /// Policy based routing.
+        pub const POLICY_BASED: RoutingType = RoutingType::new(2);
+
+        /// Dynamic (BGP) routing.
+        pub const DYNAMIC: RoutingType = RoutingType::new(3);
+
         /// Creates a new RoutingType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROUTING_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ROUTE_BASED"),
+                2 => std::borrow::Cow::Borrowed("POLICY_BASED"),
+                3 => std::borrow::Cow::Borrowed("DYNAMIC"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROUTING_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ROUTING_TYPE_UNSPECIFIED)
+                }
+                "ROUTE_BASED" => std::option::Option::Some(Self::ROUTE_BASED),
+                "POLICY_BASED" => std::option::Option::Some(Self::POLICY_BASED),
+                "DYNAMIC" => std::option::Option::Some(Self::DYNAMIC),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RoutingType](RoutingType)
-    pub mod routing_type {
-        use super::RoutingType;
-
-        /// Unspecified type. Default value.
-        pub const ROUTING_TYPE_UNSPECIFIED: RoutingType =
-            RoutingType::new("ROUTING_TYPE_UNSPECIFIED");
-
-        /// Route based VPN.
-        pub const ROUTE_BASED: RoutingType = RoutingType::new("ROUTE_BASED");
-
-        /// Policy based routing.
-        pub const POLICY_BASED: RoutingType = RoutingType::new("POLICY_BASED");
-
-        /// Dynamic (BGP) routing.
-        pub const DYNAMIC: RoutingType = RoutingType::new("DYNAMIC");
+    impl std::convert::From<i32> for RoutingType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for RoutingType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for RoutingType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4668,86 +5170,137 @@ pub mod deliver_info {
     use super::*;
 
     /// Deliver target types:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Target(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Target(i32);
 
     impl Target {
-        /// Creates a new Target instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Target](Target)
-    pub mod target {
-        use super::Target;
-
         /// Target not specified.
-        pub const TARGET_UNSPECIFIED: Target = Target::new("TARGET_UNSPECIFIED");
+        pub const TARGET_UNSPECIFIED: Target = Target::new(0);
 
         /// Target is a Compute Engine instance.
-        pub const INSTANCE: Target = Target::new("INSTANCE");
+        pub const INSTANCE: Target = Target::new(1);
 
         /// Target is the internet.
-        pub const INTERNET: Target = Target::new("INTERNET");
+        pub const INTERNET: Target = Target::new(2);
 
         /// Target is a Google API.
-        pub const GOOGLE_API: Target = Target::new("GOOGLE_API");
+        pub const GOOGLE_API: Target = Target::new(3);
 
         /// Target is a Google Kubernetes Engine cluster master.
-        pub const GKE_MASTER: Target = Target::new("GKE_MASTER");
+        pub const GKE_MASTER: Target = Target::new(4);
 
         /// Target is a Cloud SQL instance.
-        pub const CLOUD_SQL_INSTANCE: Target = Target::new("CLOUD_SQL_INSTANCE");
+        pub const CLOUD_SQL_INSTANCE: Target = Target::new(5);
 
         /// Target is a published service that uses [Private Service
         /// Connect](https://cloud.google.com/vpc/docs/configure-private-service-connect-services).
-        pub const PSC_PUBLISHED_SERVICE: Target = Target::new("PSC_PUBLISHED_SERVICE");
+        pub const PSC_PUBLISHED_SERVICE: Target = Target::new(6);
 
         /// Target is Google APIs that use [Private Service
         /// Connect](https://cloud.google.com/vpc/docs/configure-private-service-connect-apis).
-        pub const PSC_GOOGLE_API: Target = Target::new("PSC_GOOGLE_API");
+        pub const PSC_GOOGLE_API: Target = Target::new(7);
 
         /// Target is a VPC-SC that uses [Private Service
         /// Connect](https://cloud.google.com/vpc/docs/configure-private-service-connect-apis).
-        pub const PSC_VPC_SC: Target = Target::new("PSC_VPC_SC");
+        pub const PSC_VPC_SC: Target = Target::new(8);
 
         /// Target is a serverless network endpoint group.
-        pub const SERVERLESS_NEG: Target = Target::new("SERVERLESS_NEG");
+        pub const SERVERLESS_NEG: Target = Target::new(9);
 
         /// Target is a Cloud Storage bucket.
-        pub const STORAGE_BUCKET: Target = Target::new("STORAGE_BUCKET");
+        pub const STORAGE_BUCKET: Target = Target::new(10);
 
         /// Target is a private network. Used only for return traces.
-        pub const PRIVATE_NETWORK: Target = Target::new("PRIVATE_NETWORK");
+        pub const PRIVATE_NETWORK: Target = Target::new(11);
 
         /// Target is a Cloud Function. Used only for return traces.
-        pub const CLOUD_FUNCTION: Target = Target::new("CLOUD_FUNCTION");
+        pub const CLOUD_FUNCTION: Target = Target::new(12);
 
         /// Target is a App Engine service version. Used only for return traces.
-        pub const APP_ENGINE_VERSION: Target = Target::new("APP_ENGINE_VERSION");
+        pub const APP_ENGINE_VERSION: Target = Target::new(13);
 
         /// Target is a Cloud Run revision. Used only for return traces.
-        pub const CLOUD_RUN_REVISION: Target = Target::new("CLOUD_RUN_REVISION");
+        pub const CLOUD_RUN_REVISION: Target = Target::new(14);
 
         /// Target is a Google-managed service. Used only for return traces.
-        pub const GOOGLE_MANAGED_SERVICE: Target = Target::new("GOOGLE_MANAGED_SERVICE");
+        pub const GOOGLE_MANAGED_SERVICE: Target = Target::new(15);
 
         /// Target is a Redis Instance.
-        pub const REDIS_INSTANCE: Target = Target::new("REDIS_INSTANCE");
+        pub const REDIS_INSTANCE: Target = Target::new(16);
 
         /// Target is a Redis Cluster.
-        pub const REDIS_CLUSTER: Target = Target::new("REDIS_CLUSTER");
+        pub const REDIS_CLUSTER: Target = Target::new(17);
+
+        /// Creates a new Target instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TARGET_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INSTANCE"),
+                2 => std::borrow::Cow::Borrowed("INTERNET"),
+                3 => std::borrow::Cow::Borrowed("GOOGLE_API"),
+                4 => std::borrow::Cow::Borrowed("GKE_MASTER"),
+                5 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE"),
+                6 => std::borrow::Cow::Borrowed("PSC_PUBLISHED_SERVICE"),
+                7 => std::borrow::Cow::Borrowed("PSC_GOOGLE_API"),
+                8 => std::borrow::Cow::Borrowed("PSC_VPC_SC"),
+                9 => std::borrow::Cow::Borrowed("SERVERLESS_NEG"),
+                10 => std::borrow::Cow::Borrowed("STORAGE_BUCKET"),
+                11 => std::borrow::Cow::Borrowed("PRIVATE_NETWORK"),
+                12 => std::borrow::Cow::Borrowed("CLOUD_FUNCTION"),
+                13 => std::borrow::Cow::Borrowed("APP_ENGINE_VERSION"),
+                14 => std::borrow::Cow::Borrowed("CLOUD_RUN_REVISION"),
+                15 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_SERVICE"),
+                16 => std::borrow::Cow::Borrowed("REDIS_INSTANCE"),
+                17 => std::borrow::Cow::Borrowed("REDIS_CLUSTER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TARGET_UNSPECIFIED" => std::option::Option::Some(Self::TARGET_UNSPECIFIED),
+                "INSTANCE" => std::option::Option::Some(Self::INSTANCE),
+                "INTERNET" => std::option::Option::Some(Self::INTERNET),
+                "GOOGLE_API" => std::option::Option::Some(Self::GOOGLE_API),
+                "GKE_MASTER" => std::option::Option::Some(Self::GKE_MASTER),
+                "CLOUD_SQL_INSTANCE" => std::option::Option::Some(Self::CLOUD_SQL_INSTANCE),
+                "PSC_PUBLISHED_SERVICE" => std::option::Option::Some(Self::PSC_PUBLISHED_SERVICE),
+                "PSC_GOOGLE_API" => std::option::Option::Some(Self::PSC_GOOGLE_API),
+                "PSC_VPC_SC" => std::option::Option::Some(Self::PSC_VPC_SC),
+                "SERVERLESS_NEG" => std::option::Option::Some(Self::SERVERLESS_NEG),
+                "STORAGE_BUCKET" => std::option::Option::Some(Self::STORAGE_BUCKET),
+                "PRIVATE_NETWORK" => std::option::Option::Some(Self::PRIVATE_NETWORK),
+                "CLOUD_FUNCTION" => std::option::Option::Some(Self::CLOUD_FUNCTION),
+                "APP_ENGINE_VERSION" => std::option::Option::Some(Self::APP_ENGINE_VERSION),
+                "CLOUD_RUN_REVISION" => std::option::Option::Some(Self::CLOUD_RUN_REVISION),
+                "GOOGLE_MANAGED_SERVICE" => std::option::Option::Some(Self::GOOGLE_MANAGED_SERVICE),
+                "REDIS_INSTANCE" => std::option::Option::Some(Self::REDIS_INSTANCE),
+                "REDIS_CLUSTER" => std::option::Option::Some(Self::REDIS_CLUSTER),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Target {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Target {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Target {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4809,60 +5362,96 @@ pub mod forward_info {
     use super::*;
 
     /// Forward target types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Target(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Target(i32);
 
     impl Target {
+        /// Target not specified.
+        pub const TARGET_UNSPECIFIED: Target = Target::new(0);
+
+        /// Forwarded to a VPC peering network.
+        pub const PEERING_VPC: Target = Target::new(1);
+
+        /// Forwarded to a Cloud VPN gateway.
+        pub const VPN_GATEWAY: Target = Target::new(2);
+
+        /// Forwarded to a Cloud Interconnect connection.
+        pub const INTERCONNECT: Target = Target::new(3);
+
+        /// Forwarded to a Google Kubernetes Engine Container cluster master.
+        pub const GKE_MASTER: Target = Target::new(4);
+
+        /// Forwarded to the next hop of a custom route imported from a peering VPC.
+        pub const IMPORTED_CUSTOM_ROUTE_NEXT_HOP: Target = Target::new(5);
+
+        /// Forwarded to a Cloud SQL instance.
+        pub const CLOUD_SQL_INSTANCE: Target = Target::new(6);
+
+        /// Forwarded to a VPC network in another project.
+        pub const ANOTHER_PROJECT: Target = Target::new(7);
+
+        /// Forwarded to an NCC Hub.
+        pub const NCC_HUB: Target = Target::new(8);
+
+        /// Forwarded to a router appliance.
+        pub const ROUTER_APPLIANCE: Target = Target::new(9);
+
         /// Creates a new Target instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TARGET_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PEERING_VPC"),
+                2 => std::borrow::Cow::Borrowed("VPN_GATEWAY"),
+                3 => std::borrow::Cow::Borrowed("INTERCONNECT"),
+                4 => std::borrow::Cow::Borrowed("GKE_MASTER"),
+                5 => std::borrow::Cow::Borrowed("IMPORTED_CUSTOM_ROUTE_NEXT_HOP"),
+                6 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE"),
+                7 => std::borrow::Cow::Borrowed("ANOTHER_PROJECT"),
+                8 => std::borrow::Cow::Borrowed("NCC_HUB"),
+                9 => std::borrow::Cow::Borrowed("ROUTER_APPLIANCE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TARGET_UNSPECIFIED" => std::option::Option::Some(Self::TARGET_UNSPECIFIED),
+                "PEERING_VPC" => std::option::Option::Some(Self::PEERING_VPC),
+                "VPN_GATEWAY" => std::option::Option::Some(Self::VPN_GATEWAY),
+                "INTERCONNECT" => std::option::Option::Some(Self::INTERCONNECT),
+                "GKE_MASTER" => std::option::Option::Some(Self::GKE_MASTER),
+                "IMPORTED_CUSTOM_ROUTE_NEXT_HOP" => {
+                    std::option::Option::Some(Self::IMPORTED_CUSTOM_ROUTE_NEXT_HOP)
+                }
+                "CLOUD_SQL_INSTANCE" => std::option::Option::Some(Self::CLOUD_SQL_INSTANCE),
+                "ANOTHER_PROJECT" => std::option::Option::Some(Self::ANOTHER_PROJECT),
+                "NCC_HUB" => std::option::Option::Some(Self::NCC_HUB),
+                "ROUTER_APPLIANCE" => std::option::Option::Some(Self::ROUTER_APPLIANCE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Target](Target)
-    pub mod target {
-        use super::Target;
-
-        /// Target not specified.
-        pub const TARGET_UNSPECIFIED: Target = Target::new("TARGET_UNSPECIFIED");
-
-        /// Forwarded to a VPC peering network.
-        pub const PEERING_VPC: Target = Target::new("PEERING_VPC");
-
-        /// Forwarded to a Cloud VPN gateway.
-        pub const VPN_GATEWAY: Target = Target::new("VPN_GATEWAY");
-
-        /// Forwarded to a Cloud Interconnect connection.
-        pub const INTERCONNECT: Target = Target::new("INTERCONNECT");
-
-        /// Forwarded to a Google Kubernetes Engine Container cluster master.
-        pub const GKE_MASTER: Target = Target::new("GKE_MASTER");
-
-        /// Forwarded to the next hop of a custom route imported from a peering VPC.
-        pub const IMPORTED_CUSTOM_ROUTE_NEXT_HOP: Target =
-            Target::new("IMPORTED_CUSTOM_ROUTE_NEXT_HOP");
-
-        /// Forwarded to a Cloud SQL instance.
-        pub const CLOUD_SQL_INSTANCE: Target = Target::new("CLOUD_SQL_INSTANCE");
-
-        /// Forwarded to a VPC network in another project.
-        pub const ANOTHER_PROJECT: Target = Target::new("ANOTHER_PROJECT");
-
-        /// Forwarded to an NCC Hub.
-        pub const NCC_HUB: Target = Target::new("NCC_HUB");
-
-        /// Forwarded to a router appliance.
-        pub const ROUTER_APPLIANCE: Target = Target::new("ROUTER_APPLIANCE");
+    impl std::convert::From<i32> for Target {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Target {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Target {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4940,98 +5529,76 @@ pub mod abort_info {
     use super::*;
 
     /// Abort cause types:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Cause(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Cause(i32);
 
     impl Cause {
-        /// Creates a new Cause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Cause](Cause)
-    pub mod cause {
-        use super::Cause;
-
         /// Cause is unspecified.
-        pub const CAUSE_UNSPECIFIED: Cause = Cause::new("CAUSE_UNSPECIFIED");
+        pub const CAUSE_UNSPECIFIED: Cause = Cause::new(0);
 
         /// Aborted due to unknown network. Deprecated, not used in the new tests.
-        pub const UNKNOWN_NETWORK: Cause = Cause::new("UNKNOWN_NETWORK");
+        pub const UNKNOWN_NETWORK: Cause = Cause::new(1);
 
         /// Aborted because no project information can be derived from the test
         /// input. Deprecated, not used in the new tests.
-        pub const UNKNOWN_PROJECT: Cause = Cause::new("UNKNOWN_PROJECT");
+        pub const UNKNOWN_PROJECT: Cause = Cause::new(3);
 
         /// Aborted because traffic is sent from a public IP to an instance without
         /// an external IP. Deprecated, not used in the new tests.
-        pub const NO_EXTERNAL_IP: Cause = Cause::new("NO_EXTERNAL_IP");
+        pub const NO_EXTERNAL_IP: Cause = Cause::new(7);
 
         /// Aborted because none of the traces matches destination information
         /// specified in the input test request. Deprecated, not used in the new
         /// tests.
-        pub const UNINTENDED_DESTINATION: Cause = Cause::new("UNINTENDED_DESTINATION");
+        pub const UNINTENDED_DESTINATION: Cause = Cause::new(8);
 
         /// Aborted because the source endpoint could not be found. Deprecated, not
         /// used in the new tests.
-        pub const SOURCE_ENDPOINT_NOT_FOUND: Cause = Cause::new("SOURCE_ENDPOINT_NOT_FOUND");
+        pub const SOURCE_ENDPOINT_NOT_FOUND: Cause = Cause::new(11);
 
         /// Aborted because the source network does not match the source endpoint.
         /// Deprecated, not used in the new tests.
-        pub const MISMATCHED_SOURCE_NETWORK: Cause = Cause::new("MISMATCHED_SOURCE_NETWORK");
+        pub const MISMATCHED_SOURCE_NETWORK: Cause = Cause::new(12);
 
         /// Aborted because the destination endpoint could not be found. Deprecated,
         /// not used in the new tests.
-        pub const DESTINATION_ENDPOINT_NOT_FOUND: Cause =
-            Cause::new("DESTINATION_ENDPOINT_NOT_FOUND");
+        pub const DESTINATION_ENDPOINT_NOT_FOUND: Cause = Cause::new(13);
 
         /// Aborted because the destination network does not match the destination
         /// endpoint. Deprecated, not used in the new tests.
-        pub const MISMATCHED_DESTINATION_NETWORK: Cause =
-            Cause::new("MISMATCHED_DESTINATION_NETWORK");
+        pub const MISMATCHED_DESTINATION_NETWORK: Cause = Cause::new(14);
 
         /// Aborted because no endpoint with the packet's destination IP address is
         /// found.
-        pub const UNKNOWN_IP: Cause = Cause::new("UNKNOWN_IP");
+        pub const UNKNOWN_IP: Cause = Cause::new(2);
 
         /// Aborted because no endpoint with the packet's destination IP is found in
         /// the Google-managed project.
-        pub const GOOGLE_MANAGED_SERVICE_UNKNOWN_IP: Cause =
-            Cause::new("GOOGLE_MANAGED_SERVICE_UNKNOWN_IP");
+        pub const GOOGLE_MANAGED_SERVICE_UNKNOWN_IP: Cause = Cause::new(32);
 
         /// Aborted because the source IP address doesn't belong to any of the
         /// subnets of the source VPC network.
-        pub const SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK: Cause =
-            Cause::new("SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK");
+        pub const SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK: Cause = Cause::new(23);
 
         /// Aborted because user lacks permission to access all or part of the
         /// network configurations required to run the test.
-        pub const PERMISSION_DENIED: Cause = Cause::new("PERMISSION_DENIED");
+        pub const PERMISSION_DENIED: Cause = Cause::new(4);
 
         /// Aborted because user lacks permission to access Cloud NAT configs
         /// required to run the test.
-        pub const PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS: Cause =
-            Cause::new("PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS");
+        pub const PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS: Cause = Cause::new(28);
 
         /// Aborted because user lacks permission to access Network endpoint group
         /// endpoint configs required to run the test.
-        pub const PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS: Cause =
-            Cause::new("PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS");
+        pub const PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS: Cause = Cause::new(29);
 
         /// Aborted because user lacks permission to access Cloud Router configs
         /// required to run the test.
-        pub const PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS: Cause =
-            Cause::new("PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS");
+        pub const PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS: Cause = Cause::new(36);
 
         /// Aborted because no valid source or destination endpoint is derived from
         /// the input test request.
-        pub const NO_SOURCE_LOCATION: Cause = Cause::new("NO_SOURCE_LOCATION");
+        pub const NO_SOURCE_LOCATION: Cause = Cause::new(5);
 
         /// Aborted because the source or destination endpoint specified in
         /// the request is invalid. Some examples:
@@ -5041,84 +5608,222 @@ pub mod abort_info {
         /// - The request might contain inconsistent information (for example, the
         ///   request might include both the instance and the network, but the instance
         ///   might not have a NIC in that network).
-        pub const INVALID_ARGUMENT: Cause = Cause::new("INVALID_ARGUMENT");
+        pub const INVALID_ARGUMENT: Cause = Cause::new(6);
 
         /// Aborted because the number of steps in the trace exceeds a certain
         /// limit. It might be caused by a routing loop.
-        pub const TRACE_TOO_LONG: Cause = Cause::new("TRACE_TOO_LONG");
+        pub const TRACE_TOO_LONG: Cause = Cause::new(9);
 
         /// Aborted due to internal server error.
-        pub const INTERNAL_ERROR: Cause = Cause::new("INTERNAL_ERROR");
+        pub const INTERNAL_ERROR: Cause = Cause::new(10);
 
         /// Aborted because the test scenario is not supported.
-        pub const UNSUPPORTED: Cause = Cause::new("UNSUPPORTED");
+        pub const UNSUPPORTED: Cause = Cause::new(15);
 
         /// Aborted because the source and destination resources have no common IP
         /// version.
-        pub const MISMATCHED_IP_VERSION: Cause = Cause::new("MISMATCHED_IP_VERSION");
+        pub const MISMATCHED_IP_VERSION: Cause = Cause::new(16);
 
         /// Aborted because the connection between the control plane and the node of
         /// the source cluster is initiated by the node and managed by the
         /// Konnectivity proxy.
-        pub const GKE_KONNECTIVITY_PROXY_UNSUPPORTED: Cause =
-            Cause::new("GKE_KONNECTIVITY_PROXY_UNSUPPORTED");
+        pub const GKE_KONNECTIVITY_PROXY_UNSUPPORTED: Cause = Cause::new(17);
 
         /// Aborted because expected resource configuration was missing.
-        pub const RESOURCE_CONFIG_NOT_FOUND: Cause = Cause::new("RESOURCE_CONFIG_NOT_FOUND");
+        pub const RESOURCE_CONFIG_NOT_FOUND: Cause = Cause::new(18);
 
         /// Aborted because expected VM instance configuration was missing.
-        pub const VM_INSTANCE_CONFIG_NOT_FOUND: Cause = Cause::new("VM_INSTANCE_CONFIG_NOT_FOUND");
+        pub const VM_INSTANCE_CONFIG_NOT_FOUND: Cause = Cause::new(24);
 
         /// Aborted because expected network configuration was missing.
-        pub const NETWORK_CONFIG_NOT_FOUND: Cause = Cause::new("NETWORK_CONFIG_NOT_FOUND");
+        pub const NETWORK_CONFIG_NOT_FOUND: Cause = Cause::new(25);
 
         /// Aborted because expected firewall configuration was missing.
-        pub const FIREWALL_CONFIG_NOT_FOUND: Cause = Cause::new("FIREWALL_CONFIG_NOT_FOUND");
+        pub const FIREWALL_CONFIG_NOT_FOUND: Cause = Cause::new(26);
 
         /// Aborted because expected route configuration was missing.
-        pub const ROUTE_CONFIG_NOT_FOUND: Cause = Cause::new("ROUTE_CONFIG_NOT_FOUND");
+        pub const ROUTE_CONFIG_NOT_FOUND: Cause = Cause::new(27);
 
         /// Aborted because a PSC endpoint selection for the Google-managed service
         /// is ambiguous (several PSC endpoints satisfy test input).
-        pub const GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT: Cause =
-            Cause::new("GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT");
+        pub const GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT: Cause = Cause::new(19);
 
         /// Aborted because tests with a PSC-based Cloud SQL instance as a source are
         /// not supported.
-        pub const SOURCE_PSC_CLOUD_SQL_UNSUPPORTED: Cause =
-            Cause::new("SOURCE_PSC_CLOUD_SQL_UNSUPPORTED");
+        pub const SOURCE_PSC_CLOUD_SQL_UNSUPPORTED: Cause = Cause::new(20);
 
         /// Aborted because tests with a Redis Cluster as a source are not supported.
-        pub const SOURCE_REDIS_CLUSTER_UNSUPPORTED: Cause =
-            Cause::new("SOURCE_REDIS_CLUSTER_UNSUPPORTED");
+        pub const SOURCE_REDIS_CLUSTER_UNSUPPORTED: Cause = Cause::new(34);
 
         /// Aborted because tests with a Redis Instance as a source are not
         /// supported.
-        pub const SOURCE_REDIS_INSTANCE_UNSUPPORTED: Cause =
-            Cause::new("SOURCE_REDIS_INSTANCE_UNSUPPORTED");
+        pub const SOURCE_REDIS_INSTANCE_UNSUPPORTED: Cause = Cause::new(35);
 
         /// Aborted because tests with a forwarding rule as a source are not
         /// supported.
-        pub const SOURCE_FORWARDING_RULE_UNSUPPORTED: Cause =
-            Cause::new("SOURCE_FORWARDING_RULE_UNSUPPORTED");
+        pub const SOURCE_FORWARDING_RULE_UNSUPPORTED: Cause = Cause::new(21);
 
         /// Aborted because one of the endpoints is a non-routable IP address
         /// (loopback, link-local, etc).
-        pub const NON_ROUTABLE_IP_ADDRESS: Cause = Cause::new("NON_ROUTABLE_IP_ADDRESS");
+        pub const NON_ROUTABLE_IP_ADDRESS: Cause = Cause::new(22);
 
         /// Aborted due to an unknown issue in the Google-managed project.
-        pub const UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT: Cause =
-            Cause::new("UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT");
+        pub const UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT: Cause = Cause::new(30);
 
         /// Aborted due to an unsupported configuration of the Google-managed
         /// project.
-        pub const UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG: Cause =
-            Cause::new("UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG");
+        pub const UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG: Cause = Cause::new(31);
+
+        /// Creates a new Cause instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CAUSE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UNKNOWN_NETWORK"),
+                2 => std::borrow::Cow::Borrowed("UNKNOWN_IP"),
+                3 => std::borrow::Cow::Borrowed("UNKNOWN_PROJECT"),
+                4 => std::borrow::Cow::Borrowed("PERMISSION_DENIED"),
+                5 => std::borrow::Cow::Borrowed("NO_SOURCE_LOCATION"),
+                6 => std::borrow::Cow::Borrowed("INVALID_ARGUMENT"),
+                7 => std::borrow::Cow::Borrowed("NO_EXTERNAL_IP"),
+                8 => std::borrow::Cow::Borrowed("UNINTENDED_DESTINATION"),
+                9 => std::borrow::Cow::Borrowed("TRACE_TOO_LONG"),
+                10 => std::borrow::Cow::Borrowed("INTERNAL_ERROR"),
+                11 => std::borrow::Cow::Borrowed("SOURCE_ENDPOINT_NOT_FOUND"),
+                12 => std::borrow::Cow::Borrowed("MISMATCHED_SOURCE_NETWORK"),
+                13 => std::borrow::Cow::Borrowed("DESTINATION_ENDPOINT_NOT_FOUND"),
+                14 => std::borrow::Cow::Borrowed("MISMATCHED_DESTINATION_NETWORK"),
+                15 => std::borrow::Cow::Borrowed("UNSUPPORTED"),
+                16 => std::borrow::Cow::Borrowed("MISMATCHED_IP_VERSION"),
+                17 => std::borrow::Cow::Borrowed("GKE_KONNECTIVITY_PROXY_UNSUPPORTED"),
+                18 => std::borrow::Cow::Borrowed("RESOURCE_CONFIG_NOT_FOUND"),
+                19 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT"),
+                20 => std::borrow::Cow::Borrowed("SOURCE_PSC_CLOUD_SQL_UNSUPPORTED"),
+                21 => std::borrow::Cow::Borrowed("SOURCE_FORWARDING_RULE_UNSUPPORTED"),
+                22 => std::borrow::Cow::Borrowed("NON_ROUTABLE_IP_ADDRESS"),
+                23 => std::borrow::Cow::Borrowed("SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK"),
+                24 => std::borrow::Cow::Borrowed("VM_INSTANCE_CONFIG_NOT_FOUND"),
+                25 => std::borrow::Cow::Borrowed("NETWORK_CONFIG_NOT_FOUND"),
+                26 => std::borrow::Cow::Borrowed("FIREWALL_CONFIG_NOT_FOUND"),
+                27 => std::borrow::Cow::Borrowed("ROUTE_CONFIG_NOT_FOUND"),
+                28 => std::borrow::Cow::Borrowed("PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS"),
+                29 => std::borrow::Cow::Borrowed("PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS"),
+                30 => std::borrow::Cow::Borrowed("UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT"),
+                31 => std::borrow::Cow::Borrowed("UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG"),
+                32 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_SERVICE_UNKNOWN_IP"),
+                34 => std::borrow::Cow::Borrowed("SOURCE_REDIS_CLUSTER_UNSUPPORTED"),
+                35 => std::borrow::Cow::Borrowed("SOURCE_REDIS_INSTANCE_UNSUPPORTED"),
+                36 => std::borrow::Cow::Borrowed("PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CAUSE_UNSPECIFIED" => std::option::Option::Some(Self::CAUSE_UNSPECIFIED),
+                "UNKNOWN_NETWORK" => std::option::Option::Some(Self::UNKNOWN_NETWORK),
+                "UNKNOWN_PROJECT" => std::option::Option::Some(Self::UNKNOWN_PROJECT),
+                "NO_EXTERNAL_IP" => std::option::Option::Some(Self::NO_EXTERNAL_IP),
+                "UNINTENDED_DESTINATION" => std::option::Option::Some(Self::UNINTENDED_DESTINATION),
+                "SOURCE_ENDPOINT_NOT_FOUND" => {
+                    std::option::Option::Some(Self::SOURCE_ENDPOINT_NOT_FOUND)
+                }
+                "MISMATCHED_SOURCE_NETWORK" => {
+                    std::option::Option::Some(Self::MISMATCHED_SOURCE_NETWORK)
+                }
+                "DESTINATION_ENDPOINT_NOT_FOUND" => {
+                    std::option::Option::Some(Self::DESTINATION_ENDPOINT_NOT_FOUND)
+                }
+                "MISMATCHED_DESTINATION_NETWORK" => {
+                    std::option::Option::Some(Self::MISMATCHED_DESTINATION_NETWORK)
+                }
+                "UNKNOWN_IP" => std::option::Option::Some(Self::UNKNOWN_IP),
+                "GOOGLE_MANAGED_SERVICE_UNKNOWN_IP" => {
+                    std::option::Option::Some(Self::GOOGLE_MANAGED_SERVICE_UNKNOWN_IP)
+                }
+                "SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK" => {
+                    std::option::Option::Some(Self::SOURCE_IP_ADDRESS_NOT_IN_SOURCE_NETWORK)
+                }
+                "PERMISSION_DENIED" => std::option::Option::Some(Self::PERMISSION_DENIED),
+                "PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS" => {
+                    std::option::Option::Some(Self::PERMISSION_DENIED_NO_CLOUD_NAT_CONFIGS)
+                }
+                "PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS" => {
+                    std::option::Option::Some(Self::PERMISSION_DENIED_NO_NEG_ENDPOINT_CONFIGS)
+                }
+                "PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS" => {
+                    std::option::Option::Some(Self::PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS)
+                }
+                "NO_SOURCE_LOCATION" => std::option::Option::Some(Self::NO_SOURCE_LOCATION),
+                "INVALID_ARGUMENT" => std::option::Option::Some(Self::INVALID_ARGUMENT),
+                "TRACE_TOO_LONG" => std::option::Option::Some(Self::TRACE_TOO_LONG),
+                "INTERNAL_ERROR" => std::option::Option::Some(Self::INTERNAL_ERROR),
+                "UNSUPPORTED" => std::option::Option::Some(Self::UNSUPPORTED),
+                "MISMATCHED_IP_VERSION" => std::option::Option::Some(Self::MISMATCHED_IP_VERSION),
+                "GKE_KONNECTIVITY_PROXY_UNSUPPORTED" => {
+                    std::option::Option::Some(Self::GKE_KONNECTIVITY_PROXY_UNSUPPORTED)
+                }
+                "RESOURCE_CONFIG_NOT_FOUND" => {
+                    std::option::Option::Some(Self::RESOURCE_CONFIG_NOT_FOUND)
+                }
+                "VM_INSTANCE_CONFIG_NOT_FOUND" => {
+                    std::option::Option::Some(Self::VM_INSTANCE_CONFIG_NOT_FOUND)
+                }
+                "NETWORK_CONFIG_NOT_FOUND" => {
+                    std::option::Option::Some(Self::NETWORK_CONFIG_NOT_FOUND)
+                }
+                "FIREWALL_CONFIG_NOT_FOUND" => {
+                    std::option::Option::Some(Self::FIREWALL_CONFIG_NOT_FOUND)
+                }
+                "ROUTE_CONFIG_NOT_FOUND" => std::option::Option::Some(Self::ROUTE_CONFIG_NOT_FOUND),
+                "GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT" => {
+                    std::option::Option::Some(Self::GOOGLE_MANAGED_SERVICE_AMBIGUOUS_PSC_ENDPOINT)
+                }
+                "SOURCE_PSC_CLOUD_SQL_UNSUPPORTED" => {
+                    std::option::Option::Some(Self::SOURCE_PSC_CLOUD_SQL_UNSUPPORTED)
+                }
+                "SOURCE_REDIS_CLUSTER_UNSUPPORTED" => {
+                    std::option::Option::Some(Self::SOURCE_REDIS_CLUSTER_UNSUPPORTED)
+                }
+                "SOURCE_REDIS_INSTANCE_UNSUPPORTED" => {
+                    std::option::Option::Some(Self::SOURCE_REDIS_INSTANCE_UNSUPPORTED)
+                }
+                "SOURCE_FORWARDING_RULE_UNSUPPORTED" => {
+                    std::option::Option::Some(Self::SOURCE_FORWARDING_RULE_UNSUPPORTED)
+                }
+                "NON_ROUTABLE_IP_ADDRESS" => {
+                    std::option::Option::Some(Self::NON_ROUTABLE_IP_ADDRESS)
+                }
+                "UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT" => {
+                    std::option::Option::Some(Self::UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT)
+                }
+                "UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG" => {
+                    std::option::Option::Some(Self::UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Cause {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Cause {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Cause {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -5200,415 +5905,702 @@ pub mod drop_info {
     use super::*;
 
     /// Drop cause types:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Cause(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Cause(i32);
 
     impl Cause {
-        /// Creates a new Cause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Cause](Cause)
-    pub mod cause {
-        use super::Cause;
-
         /// Cause is unspecified.
-        pub const CAUSE_UNSPECIFIED: Cause = Cause::new("CAUSE_UNSPECIFIED");
+        pub const CAUSE_UNSPECIFIED: Cause = Cause::new(0);
 
         /// Destination external address cannot be resolved to a known target. If
         /// the address is used in a Google Cloud project, provide the project ID
         /// as test input.
-        pub const UNKNOWN_EXTERNAL_ADDRESS: Cause = Cause::new("UNKNOWN_EXTERNAL_ADDRESS");
+        pub const UNKNOWN_EXTERNAL_ADDRESS: Cause = Cause::new(1);
 
         /// A Compute Engine instance can only send or receive a packet with a
         /// foreign IP address if ip_forward is enabled.
-        pub const FOREIGN_IP_DISALLOWED: Cause = Cause::new("FOREIGN_IP_DISALLOWED");
+        pub const FOREIGN_IP_DISALLOWED: Cause = Cause::new(2);
 
         /// Dropped due to a firewall rule, unless allowed due to connection
         /// tracking.
-        pub const FIREWALL_RULE: Cause = Cause::new("FIREWALL_RULE");
+        pub const FIREWALL_RULE: Cause = Cause::new(3);
 
         /// Dropped due to no matching routes.
-        pub const NO_ROUTE: Cause = Cause::new("NO_ROUTE");
+        pub const NO_ROUTE: Cause = Cause::new(4);
 
         /// Dropped due to invalid route. Route's next hop is a blackhole.
-        pub const ROUTE_BLACKHOLE: Cause = Cause::new("ROUTE_BLACKHOLE");
+        pub const ROUTE_BLACKHOLE: Cause = Cause::new(5);
 
         /// Packet is sent to a wrong (unintended) network. Example: you trace a
         /// packet from VM1:Network1 to VM2:Network2, however, the route configured
         /// in Network1 sends the packet destined for VM2's IP address to Network3.
-        pub const ROUTE_WRONG_NETWORK: Cause = Cause::new("ROUTE_WRONG_NETWORK");
+        pub const ROUTE_WRONG_NETWORK: Cause = Cause::new(6);
 
         /// Route's next hop IP address cannot be resolved to a GCP resource.
-        pub const ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED: Cause =
-            Cause::new("ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED");
+        pub const ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED: Cause = Cause::new(42);
 
         /// Route's next hop resource is not found.
-        pub const ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND: Cause =
-            Cause::new("ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND");
+        pub const ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND: Cause = Cause::new(43);
 
         /// Route's next hop instance doesn't have a NIC in the route's network.
-        pub const ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK: Cause =
-            Cause::new("ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK");
+        pub const ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK: Cause = Cause::new(49);
 
         /// Route's next hop IP address is not a primary IP address of the next hop
         /// instance.
-        pub const ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP: Cause =
-            Cause::new("ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP");
+        pub const ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP: Cause = Cause::new(50);
 
         /// Route's next hop forwarding rule doesn't match next hop IP address.
-        pub const ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH: Cause =
-            Cause::new("ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH");
+        pub const ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH: Cause = Cause::new(51);
 
         /// Route's next hop VPN tunnel is down (does not have valid IKE SAs).
-        pub const ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED: Cause =
-            Cause::new("ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED");
+        pub const ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED: Cause = Cause::new(52);
 
         /// Route's next hop forwarding rule type is invalid (it's not a forwarding
         /// rule of the internal passthrough load balancer).
-        pub const ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID: Cause =
-            Cause::new("ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID");
+        pub const ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID: Cause = Cause::new(53);
 
         /// Packet is sent from the Internet to the private IPv6 address.
-        pub const NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS: Cause =
-            Cause::new("NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS");
+        pub const NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS: Cause = Cause::new(44);
 
         /// The packet does not match a policy-based VPN tunnel local selector.
-        pub const VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH: Cause =
-            Cause::new("VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH");
+        pub const VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH: Cause = Cause::new(45);
 
         /// The packet does not match a policy-based VPN tunnel remote selector.
-        pub const VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH: Cause =
-            Cause::new("VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH");
+        pub const VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH: Cause = Cause::new(46);
 
         /// Packet with internal destination address sent to the internet gateway.
-        pub const PRIVATE_TRAFFIC_TO_INTERNET: Cause = Cause::new("PRIVATE_TRAFFIC_TO_INTERNET");
+        pub const PRIVATE_TRAFFIC_TO_INTERNET: Cause = Cause::new(7);
 
         /// Instance with only an internal IP address tries to access Google API and
         /// services, but private Google access is not enabled in the subnet.
-        pub const PRIVATE_GOOGLE_ACCESS_DISALLOWED: Cause =
-            Cause::new("PRIVATE_GOOGLE_ACCESS_DISALLOWED");
+        pub const PRIVATE_GOOGLE_ACCESS_DISALLOWED: Cause = Cause::new(8);
 
         /// Source endpoint tries to access Google API and services through the VPN
         /// tunnel to another network, but Private Google Access needs to be enabled
         /// in the source endpoint network.
-        pub const PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED: Cause =
-            Cause::new("PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED");
+        pub const PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED: Cause = Cause::new(47);
 
         /// Instance with only an internal IP address tries to access external hosts,
         /// but Cloud NAT is not enabled in the subnet, unless special configurations
         /// on a VM allow this connection.
-        pub const NO_EXTERNAL_ADDRESS: Cause = Cause::new("NO_EXTERNAL_ADDRESS");
+        pub const NO_EXTERNAL_ADDRESS: Cause = Cause::new(9);
 
         /// Destination internal address cannot be resolved to a known target. If
         /// this is a shared VPC scenario, verify if the service project ID is
         /// provided as test input. Otherwise, verify if the IP address is being
         /// used in the project.
-        pub const UNKNOWN_INTERNAL_ADDRESS: Cause = Cause::new("UNKNOWN_INTERNAL_ADDRESS");
+        pub const UNKNOWN_INTERNAL_ADDRESS: Cause = Cause::new(10);
 
         /// Forwarding rule's protocol and ports do not match the packet header.
-        pub const FORWARDING_RULE_MISMATCH: Cause = Cause::new("FORWARDING_RULE_MISMATCH");
+        pub const FORWARDING_RULE_MISMATCH: Cause = Cause::new(11);
 
         /// Forwarding rule does not have backends configured.
-        pub const FORWARDING_RULE_NO_INSTANCES: Cause = Cause::new("FORWARDING_RULE_NO_INSTANCES");
+        pub const FORWARDING_RULE_NO_INSTANCES: Cause = Cause::new(12);
 
         /// Firewalls block the health check probes to the backends and cause
         /// the backends to be unavailable for traffic from the load balancer.
         /// For more details, see [Health check firewall
         /// rules](https://cloud.google.com/load-balancing/docs/health-checks#firewall_rules).
-        pub const FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK: Cause =
-            Cause::new("FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK");
+        pub const FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK: Cause = Cause::new(13);
 
         /// Packet is sent from or to a Compute Engine instance that is not in a
         /// running state.
-        pub const INSTANCE_NOT_RUNNING: Cause = Cause::new("INSTANCE_NOT_RUNNING");
+        pub const INSTANCE_NOT_RUNNING: Cause = Cause::new(14);
 
         /// Packet sent from or to a GKE cluster that is not in running state.
-        pub const GKE_CLUSTER_NOT_RUNNING: Cause = Cause::new("GKE_CLUSTER_NOT_RUNNING");
+        pub const GKE_CLUSTER_NOT_RUNNING: Cause = Cause::new(27);
 
         /// Packet sent from or to a Cloud SQL instance that is not in running state.
-        pub const CLOUD_SQL_INSTANCE_NOT_RUNNING: Cause =
-            Cause::new("CLOUD_SQL_INSTANCE_NOT_RUNNING");
+        pub const CLOUD_SQL_INSTANCE_NOT_RUNNING: Cause = Cause::new(28);
 
         /// Packet sent from or to a Redis Instance that is not in running state.
-        pub const REDIS_INSTANCE_NOT_RUNNING: Cause = Cause::new("REDIS_INSTANCE_NOT_RUNNING");
+        pub const REDIS_INSTANCE_NOT_RUNNING: Cause = Cause::new(68);
 
         /// Packet sent from or to a Redis Cluster that is not in running state.
-        pub const REDIS_CLUSTER_NOT_RUNNING: Cause = Cause::new("REDIS_CLUSTER_NOT_RUNNING");
+        pub const REDIS_CLUSTER_NOT_RUNNING: Cause = Cause::new(69);
 
         /// The type of traffic is blocked and the user cannot configure a firewall
         /// rule to enable it. See [Always blocked
         /// traffic](https://cloud.google.com/vpc/docs/firewalls#blockedtraffic) for
         /// more details.
-        pub const TRAFFIC_TYPE_BLOCKED: Cause = Cause::new("TRAFFIC_TYPE_BLOCKED");
+        pub const TRAFFIC_TYPE_BLOCKED: Cause = Cause::new(15);
 
         /// Access to Google Kubernetes Engine cluster master's endpoint is not
         /// authorized. See [Access to the cluster
         /// endpoints](https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters#access_to_the_cluster_endpoints)
         /// for more details.
-        pub const GKE_MASTER_UNAUTHORIZED_ACCESS: Cause =
-            Cause::new("GKE_MASTER_UNAUTHORIZED_ACCESS");
+        pub const GKE_MASTER_UNAUTHORIZED_ACCESS: Cause = Cause::new(16);
 
         /// Access to the Cloud SQL instance endpoint is not authorized.
         /// See [Authorizing with authorized
         /// networks](https://cloud.google.com/sql/docs/mysql/authorize-networks) for
         /// more details.
-        pub const CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS: Cause =
-            Cause::new("CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS");
+        pub const CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS: Cause = Cause::new(17);
 
         /// Packet was dropped inside Google Kubernetes Engine Service.
-        pub const DROPPED_INSIDE_GKE_SERVICE: Cause = Cause::new("DROPPED_INSIDE_GKE_SERVICE");
+        pub const DROPPED_INSIDE_GKE_SERVICE: Cause = Cause::new(18);
 
         /// Packet was dropped inside Cloud SQL Service.
-        pub const DROPPED_INSIDE_CLOUD_SQL_SERVICE: Cause =
-            Cause::new("DROPPED_INSIDE_CLOUD_SQL_SERVICE");
+        pub const DROPPED_INSIDE_CLOUD_SQL_SERVICE: Cause = Cause::new(19);
 
         /// Packet was dropped because there is no peering between the originating
         /// network and the Google Managed Services Network.
-        pub const GOOGLE_MANAGED_SERVICE_NO_PEERING: Cause =
-            Cause::new("GOOGLE_MANAGED_SERVICE_NO_PEERING");
+        pub const GOOGLE_MANAGED_SERVICE_NO_PEERING: Cause = Cause::new(20);
 
         /// Packet was dropped because the Google-managed service uses Private
         /// Service Connect (PSC), but the PSC endpoint is not found in the project.
-        pub const GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT: Cause =
-            Cause::new("GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT");
+        pub const GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT: Cause = Cause::new(38);
 
         /// Packet was dropped because the GKE cluster uses Private Service Connect
         /// (PSC), but the PSC endpoint is not found in the project.
-        pub const GKE_PSC_ENDPOINT_MISSING: Cause = Cause::new("GKE_PSC_ENDPOINT_MISSING");
+        pub const GKE_PSC_ENDPOINT_MISSING: Cause = Cause::new(36);
 
         /// Packet was dropped because the Cloud SQL instance has neither a private
         /// nor a public IP address.
-        pub const CLOUD_SQL_INSTANCE_NO_IP_ADDRESS: Cause =
-            Cause::new("CLOUD_SQL_INSTANCE_NO_IP_ADDRESS");
+        pub const CLOUD_SQL_INSTANCE_NO_IP_ADDRESS: Cause = Cause::new(21);
 
         /// Packet was dropped because a GKE cluster private endpoint is
         /// unreachable from a region different from the cluster's region.
-        pub const GKE_CONTROL_PLANE_REGION_MISMATCH: Cause =
-            Cause::new("GKE_CONTROL_PLANE_REGION_MISMATCH");
+        pub const GKE_CONTROL_PLANE_REGION_MISMATCH: Cause = Cause::new(30);
 
         /// Packet sent from a public GKE cluster control plane to a private
         /// IP address.
-        pub const PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION: Cause =
-            Cause::new("PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION");
+        pub const PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION: Cause = Cause::new(31);
 
         /// Packet was dropped because there is no route from a GKE cluster
         /// control plane to a destination network.
-        pub const GKE_CONTROL_PLANE_NO_ROUTE: Cause = Cause::new("GKE_CONTROL_PLANE_NO_ROUTE");
+        pub const GKE_CONTROL_PLANE_NO_ROUTE: Cause = Cause::new(32);
 
         /// Packet sent from a Cloud SQL instance to an external IP address is not
         /// allowed. The Cloud SQL instance is not configured to send packets to
         /// external IP addresses.
-        pub const CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC: Cause =
-            Cause::new("CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC");
+        pub const CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC: Cause = Cause::new(33);
 
         /// Packet sent from a Cloud SQL instance with only a public IP address to a
         /// private IP address.
-        pub const PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION: Cause =
-            Cause::new("PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION");
+        pub const PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION: Cause = Cause::new(34);
 
         /// Packet was dropped because there is no route from a Cloud SQL
         /// instance to a destination network.
-        pub const CLOUD_SQL_INSTANCE_NO_ROUTE: Cause = Cause::new("CLOUD_SQL_INSTANCE_NO_ROUTE");
+        pub const CLOUD_SQL_INSTANCE_NO_ROUTE: Cause = Cause::new(35);
 
         /// Packet was dropped because the Cloud SQL instance requires all
         /// connections to use Cloud SQL connectors and to target the Cloud SQL proxy
         /// port (3307).
-        pub const CLOUD_SQL_CONNECTOR_REQUIRED: Cause = Cause::new("CLOUD_SQL_CONNECTOR_REQUIRED");
+        pub const CLOUD_SQL_CONNECTOR_REQUIRED: Cause = Cause::new(63);
 
         /// Packet could be dropped because the Cloud Function is not in an active
         /// status.
-        pub const CLOUD_FUNCTION_NOT_ACTIVE: Cause = Cause::new("CLOUD_FUNCTION_NOT_ACTIVE");
+        pub const CLOUD_FUNCTION_NOT_ACTIVE: Cause = Cause::new(22);
 
         /// Packet could be dropped because no VPC connector is set.
-        pub const VPC_CONNECTOR_NOT_SET: Cause = Cause::new("VPC_CONNECTOR_NOT_SET");
+        pub const VPC_CONNECTOR_NOT_SET: Cause = Cause::new(23);
 
         /// Packet could be dropped because the VPC connector is not in a running
         /// state.
-        pub const VPC_CONNECTOR_NOT_RUNNING: Cause = Cause::new("VPC_CONNECTOR_NOT_RUNNING");
+        pub const VPC_CONNECTOR_NOT_RUNNING: Cause = Cause::new(24);
 
         /// Packet could be dropped because the traffic from the serverless service
         /// to the VPC connector is not allowed.
-        pub const VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED: Cause =
-            Cause::new("VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED");
+        pub const VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED: Cause = Cause::new(60);
 
         /// Packet could be dropped because the health check traffic to the VPC
         /// connector is not allowed.
-        pub const VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED: Cause =
-            Cause::new("VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED");
+        pub const VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED: Cause = Cause::new(61);
 
         /// Packet could be dropped because it was sent from a different region
         /// to a regional forwarding without global access.
-        pub const FORWARDING_RULE_REGION_MISMATCH: Cause =
-            Cause::new("FORWARDING_RULE_REGION_MISMATCH");
+        pub const FORWARDING_RULE_REGION_MISMATCH: Cause = Cause::new(25);
 
         /// The Private Service Connect endpoint is in a project that is not approved
         /// to connect to the service.
-        pub const PSC_CONNECTION_NOT_ACCEPTED: Cause = Cause::new("PSC_CONNECTION_NOT_ACCEPTED");
+        pub const PSC_CONNECTION_NOT_ACCEPTED: Cause = Cause::new(26);
 
         /// The packet is sent to the Private Service Connect endpoint over the
         /// peering, but [it's not
         /// supported](https://cloud.google.com/vpc/docs/configure-private-service-connect-services#on-premises).
-        pub const PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK: Cause =
-            Cause::new("PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK");
+        pub const PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK: Cause = Cause::new(41);
 
         /// The packet is sent to the Private Service Connect backend (network
         /// endpoint group), but the producer PSC forwarding rule does not have
         /// global access enabled.
-        pub const PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS: Cause =
-            Cause::new("PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS");
+        pub const PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS: Cause = Cause::new(48);
 
         /// The packet is sent to the Private Service Connect backend (network
         /// endpoint group), but the producer PSC forwarding rule has multiple ports
         /// specified.
-        pub const PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS: Cause =
-            Cause::new("PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS");
+        pub const PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS: Cause = Cause::new(54);
 
         /// The packet is sent to the Private Service Connect backend (network
         /// endpoint group) targeting a Cloud SQL service attachment, but this
         /// configuration is not supported.
-        pub const CLOUD_SQL_PSC_NEG_UNSUPPORTED: Cause =
-            Cause::new("CLOUD_SQL_PSC_NEG_UNSUPPORTED");
+        pub const CLOUD_SQL_PSC_NEG_UNSUPPORTED: Cause = Cause::new(58);
 
         /// No NAT subnets are defined for the PSC service attachment.
-        pub const NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT: Cause =
-            Cause::new("NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT");
+        pub const NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT: Cause = Cause::new(57);
 
         /// PSC endpoint is accessed via NCC, but PSC transitivity configuration is
         /// not yet propagated.
-        pub const PSC_TRANSITIVITY_NOT_PROPAGATED: Cause =
-            Cause::new("PSC_TRANSITIVITY_NOT_PROPAGATED");
+        pub const PSC_TRANSITIVITY_NOT_PROPAGATED: Cause = Cause::new(64);
 
         /// The packet sent from the hybrid NEG proxy matches a non-dynamic route,
         /// but such a configuration is not supported.
-        pub const HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED: Cause =
-            Cause::new("HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED");
+        pub const HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED: Cause = Cause::new(55);
 
         /// The packet sent from the hybrid NEG proxy matches a dynamic route with a
         /// next hop in a different region, but such a configuration is not
         /// supported.
-        pub const HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED: Cause =
-            Cause::new("HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED");
+        pub const HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED: Cause = Cause::new(56);
 
         /// Packet sent from a Cloud Run revision that is not ready.
-        pub const CLOUD_RUN_REVISION_NOT_READY: Cause = Cause::new("CLOUD_RUN_REVISION_NOT_READY");
+        pub const CLOUD_RUN_REVISION_NOT_READY: Cause = Cause::new(29);
 
         /// Packet was dropped inside Private Service Connect service producer.
-        pub const DROPPED_INSIDE_PSC_SERVICE_PRODUCER: Cause =
-            Cause::new("DROPPED_INSIDE_PSC_SERVICE_PRODUCER");
+        pub const DROPPED_INSIDE_PSC_SERVICE_PRODUCER: Cause = Cause::new(37);
 
         /// Packet sent to a load balancer, which requires a proxy-only subnet and
         /// the subnet is not found.
-        pub const LOAD_BALANCER_HAS_NO_PROXY_SUBNET: Cause =
-            Cause::new("LOAD_BALANCER_HAS_NO_PROXY_SUBNET");
+        pub const LOAD_BALANCER_HAS_NO_PROXY_SUBNET: Cause = Cause::new(39);
 
         /// Packet sent to Cloud Nat without active NAT IPs.
-        pub const CLOUD_NAT_NO_ADDRESSES: Cause = Cause::new("CLOUD_NAT_NO_ADDRESSES");
+        pub const CLOUD_NAT_NO_ADDRESSES: Cause = Cause::new(40);
 
         /// Packet is stuck in a routing loop.
-        pub const ROUTING_LOOP: Cause = Cause::new("ROUTING_LOOP");
+        pub const ROUTING_LOOP: Cause = Cause::new(59);
 
         /// Packet is dropped inside a Google-managed service due to being delivered
         /// in return trace to an endpoint that doesn't match the endpoint the packet
         /// was sent from in forward trace. Used only for return traces.
-        pub const DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE: Cause =
-            Cause::new("DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE");
+        pub const DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE: Cause = Cause::new(62);
 
         /// Packet is dropped due to a load balancer backend instance not having a
         /// network interface in the network expected by the load balancer.
-        pub const LOAD_BALANCER_BACKEND_INVALID_NETWORK: Cause =
-            Cause::new("LOAD_BALANCER_BACKEND_INVALID_NETWORK");
+        pub const LOAD_BALANCER_BACKEND_INVALID_NETWORK: Cause = Cause::new(65);
 
         /// Packet is dropped due to a backend service named port not being defined
         /// on the instance group level.
-        pub const BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED: Cause =
-            Cause::new("BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED");
+        pub const BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED: Cause = Cause::new(66);
 
         /// Packet is dropped due to a destination IP range being part of a Private
         /// NAT IP range.
-        pub const DESTINATION_IS_PRIVATE_NAT_IP_RANGE: Cause =
-            Cause::new("DESTINATION_IS_PRIVATE_NAT_IP_RANGE");
+        pub const DESTINATION_IS_PRIVATE_NAT_IP_RANGE: Cause = Cause::new(67);
 
         /// Generic drop cause for a packet being dropped inside a Redis Instance
         /// service project.
-        pub const DROPPED_INSIDE_REDIS_INSTANCE_SERVICE: Cause =
-            Cause::new("DROPPED_INSIDE_REDIS_INSTANCE_SERVICE");
+        pub const DROPPED_INSIDE_REDIS_INSTANCE_SERVICE: Cause = Cause::new(70);
 
         /// Packet is dropped due to an unsupported port being used to connect to a
         /// Redis Instance. Port 6379 should be used to connect to a Redis Instance.
-        pub const REDIS_INSTANCE_UNSUPPORTED_PORT: Cause =
-            Cause::new("REDIS_INSTANCE_UNSUPPORTED_PORT");
+        pub const REDIS_INSTANCE_UNSUPPORTED_PORT: Cause = Cause::new(71);
 
         /// Packet is dropped due to connecting from PUPI address to a PSA based
         /// Redis Instance.
-        pub const REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS: Cause =
-            Cause::new("REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS");
+        pub const REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS: Cause = Cause::new(72);
 
         /// Packet is dropped due to no route to the destination network.
-        pub const REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK: Cause =
-            Cause::new("REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK");
+        pub const REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK: Cause = Cause::new(73);
 
         /// Redis Instance does not have an external IP address.
-        pub const REDIS_INSTANCE_NO_EXTERNAL_IP: Cause =
-            Cause::new("REDIS_INSTANCE_NO_EXTERNAL_IP");
+        pub const REDIS_INSTANCE_NO_EXTERNAL_IP: Cause = Cause::new(74);
 
         /// Packet is dropped due to an unsupported protocol being used to connect to
         /// a Redis Instance. Only TCP connections are accepted by a Redis Instance.
-        pub const REDIS_INSTANCE_UNSUPPORTED_PROTOCOL: Cause =
-            Cause::new("REDIS_INSTANCE_UNSUPPORTED_PROTOCOL");
+        pub const REDIS_INSTANCE_UNSUPPORTED_PROTOCOL: Cause = Cause::new(78);
 
         /// Generic drop cause for a packet being dropped inside a Redis Cluster
         /// service project.
-        pub const DROPPED_INSIDE_REDIS_CLUSTER_SERVICE: Cause =
-            Cause::new("DROPPED_INSIDE_REDIS_CLUSTER_SERVICE");
+        pub const DROPPED_INSIDE_REDIS_CLUSTER_SERVICE: Cause = Cause::new(75);
 
         /// Packet is dropped due to an unsupported port being used to connect to a
         /// Redis Cluster. Ports 6379 and 11000 to 13047 should be used to connect to
         /// a Redis Cluster.
-        pub const REDIS_CLUSTER_UNSUPPORTED_PORT: Cause =
-            Cause::new("REDIS_CLUSTER_UNSUPPORTED_PORT");
+        pub const REDIS_CLUSTER_UNSUPPORTED_PORT: Cause = Cause::new(76);
 
         /// Redis Cluster does not have an external IP address.
-        pub const REDIS_CLUSTER_NO_EXTERNAL_IP: Cause = Cause::new("REDIS_CLUSTER_NO_EXTERNAL_IP");
+        pub const REDIS_CLUSTER_NO_EXTERNAL_IP: Cause = Cause::new(77);
 
         /// Packet is dropped due to an unsupported protocol being used to connect to
         /// a Redis Cluster. Only TCP connections are accepted by a Redis Cluster.
-        pub const REDIS_CLUSTER_UNSUPPORTED_PROTOCOL: Cause =
-            Cause::new("REDIS_CLUSTER_UNSUPPORTED_PROTOCOL");
+        pub const REDIS_CLUSTER_UNSUPPORTED_PROTOCOL: Cause = Cause::new(79);
 
         /// Packet from the non-GCP (on-prem) or unknown GCP network is dropped due
         /// to the destination IP address not belonging to any IP prefix advertised
         /// via BGP by the Cloud Router.
-        pub const NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION: Cause =
-            Cause::new("NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION");
+        pub const NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION: Cause = Cause::new(80);
 
         /// Packet from the non-GCP (on-prem) or unknown GCP network is dropped due
         /// to the destination IP address not belonging to any IP prefix included to
         /// the local traffic selector of the VPN tunnel.
-        pub const NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION: Cause =
-            Cause::new("NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION");
+        pub const NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION: Cause = Cause::new(81);
 
         /// Packet from the unknown peered network is dropped due to no known route
         /// from the source network to the destination IP address.
-        pub const NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION: Cause =
-            Cause::new("NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION");
+        pub const NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION: Cause = Cause::new(82);
 
         /// Sending packets processed by the Private NAT Gateways to the Private
         /// Service Connect endpoints is not supported.
-        pub const PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED: Cause =
-            Cause::new("PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED");
+        pub const PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED: Cause = Cause::new(83);
+
+        /// Creates a new Cause instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CAUSE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UNKNOWN_EXTERNAL_ADDRESS"),
+                2 => std::borrow::Cow::Borrowed("FOREIGN_IP_DISALLOWED"),
+                3 => std::borrow::Cow::Borrowed("FIREWALL_RULE"),
+                4 => std::borrow::Cow::Borrowed("NO_ROUTE"),
+                5 => std::borrow::Cow::Borrowed("ROUTE_BLACKHOLE"),
+                6 => std::borrow::Cow::Borrowed("ROUTE_WRONG_NETWORK"),
+                7 => std::borrow::Cow::Borrowed("PRIVATE_TRAFFIC_TO_INTERNET"),
+                8 => std::borrow::Cow::Borrowed("PRIVATE_GOOGLE_ACCESS_DISALLOWED"),
+                9 => std::borrow::Cow::Borrowed("NO_EXTERNAL_ADDRESS"),
+                10 => std::borrow::Cow::Borrowed("UNKNOWN_INTERNAL_ADDRESS"),
+                11 => std::borrow::Cow::Borrowed("FORWARDING_RULE_MISMATCH"),
+                12 => std::borrow::Cow::Borrowed("FORWARDING_RULE_NO_INSTANCES"),
+                13 => std::borrow::Cow::Borrowed(
+                    "FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK",
+                ),
+                14 => std::borrow::Cow::Borrowed("INSTANCE_NOT_RUNNING"),
+                15 => std::borrow::Cow::Borrowed("TRAFFIC_TYPE_BLOCKED"),
+                16 => std::borrow::Cow::Borrowed("GKE_MASTER_UNAUTHORIZED_ACCESS"),
+                17 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS"),
+                18 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_GKE_SERVICE"),
+                19 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_CLOUD_SQL_SERVICE"),
+                20 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_SERVICE_NO_PEERING"),
+                21 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE_NO_IP_ADDRESS"),
+                22 => std::borrow::Cow::Borrowed("CLOUD_FUNCTION_NOT_ACTIVE"),
+                23 => std::borrow::Cow::Borrowed("VPC_CONNECTOR_NOT_SET"),
+                24 => std::borrow::Cow::Borrowed("VPC_CONNECTOR_NOT_RUNNING"),
+                25 => std::borrow::Cow::Borrowed("FORWARDING_RULE_REGION_MISMATCH"),
+                26 => std::borrow::Cow::Borrowed("PSC_CONNECTION_NOT_ACCEPTED"),
+                27 => std::borrow::Cow::Borrowed("GKE_CLUSTER_NOT_RUNNING"),
+                28 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE_NOT_RUNNING"),
+                29 => std::borrow::Cow::Borrowed("CLOUD_RUN_REVISION_NOT_READY"),
+                30 => std::borrow::Cow::Borrowed("GKE_CONTROL_PLANE_REGION_MISMATCH"),
+                31 => std::borrow::Cow::Borrowed("PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION"),
+                32 => std::borrow::Cow::Borrowed("GKE_CONTROL_PLANE_NO_ROUTE"),
+                33 => std::borrow::Cow::Borrowed(
+                    "CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC",
+                ),
+                34 => {
+                    std::borrow::Cow::Borrowed("PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION")
+                }
+                35 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE_NO_ROUTE"),
+                36 => std::borrow::Cow::Borrowed("GKE_PSC_ENDPOINT_MISSING"),
+                37 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_PSC_SERVICE_PRODUCER"),
+                38 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT"),
+                39 => std::borrow::Cow::Borrowed("LOAD_BALANCER_HAS_NO_PROXY_SUBNET"),
+                40 => std::borrow::Cow::Borrowed("CLOUD_NAT_NO_ADDRESSES"),
+                41 => std::borrow::Cow::Borrowed("PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK"),
+                42 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED"),
+                43 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND"),
+                44 => std::borrow::Cow::Borrowed("NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS"),
+                45 => std::borrow::Cow::Borrowed("VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH"),
+                46 => std::borrow::Cow::Borrowed("VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH"),
+                47 => {
+                    std::borrow::Cow::Borrowed("PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED")
+                }
+                48 => std::borrow::Cow::Borrowed("PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS"),
+                49 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK"),
+                50 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP"),
+                51 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH"),
+                52 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED"),
+                53 => std::borrow::Cow::Borrowed("ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID"),
+                54 => std::borrow::Cow::Borrowed("PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS"),
+                55 => std::borrow::Cow::Borrowed("HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED"),
+                56 => std::borrow::Cow::Borrowed("HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED"),
+                57 => std::borrow::Cow::Borrowed("NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT"),
+                58 => std::borrow::Cow::Borrowed("CLOUD_SQL_PSC_NEG_UNSUPPORTED"),
+                59 => std::borrow::Cow::Borrowed("ROUTING_LOOP"),
+                60 => std::borrow::Cow::Borrowed("VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED"),
+                61 => std::borrow::Cow::Borrowed("VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED"),
+                62 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE"),
+                63 => std::borrow::Cow::Borrowed("CLOUD_SQL_CONNECTOR_REQUIRED"),
+                64 => std::borrow::Cow::Borrowed("PSC_TRANSITIVITY_NOT_PROPAGATED"),
+                65 => std::borrow::Cow::Borrowed("LOAD_BALANCER_BACKEND_INVALID_NETWORK"),
+                66 => std::borrow::Cow::Borrowed("BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED"),
+                67 => std::borrow::Cow::Borrowed("DESTINATION_IS_PRIVATE_NAT_IP_RANGE"),
+                68 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_NOT_RUNNING"),
+                69 => std::borrow::Cow::Borrowed("REDIS_CLUSTER_NOT_RUNNING"),
+                70 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_REDIS_INSTANCE_SERVICE"),
+                71 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_UNSUPPORTED_PORT"),
+                72 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS"),
+                73 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK"),
+                74 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_NO_EXTERNAL_IP"),
+                75 => std::borrow::Cow::Borrowed("DROPPED_INSIDE_REDIS_CLUSTER_SERVICE"),
+                76 => std::borrow::Cow::Borrowed("REDIS_CLUSTER_UNSUPPORTED_PORT"),
+                77 => std::borrow::Cow::Borrowed("REDIS_CLUSTER_NO_EXTERNAL_IP"),
+                78 => std::borrow::Cow::Borrowed("REDIS_INSTANCE_UNSUPPORTED_PROTOCOL"),
+                79 => std::borrow::Cow::Borrowed("REDIS_CLUSTER_UNSUPPORTED_PROTOCOL"),
+                80 => std::borrow::Cow::Borrowed("NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION"),
+                81 => std::borrow::Cow::Borrowed("NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION"),
+                82 => {
+                    std::borrow::Cow::Borrowed("NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION")
+                }
+                83 => std::borrow::Cow::Borrowed("PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CAUSE_UNSPECIFIED" => std::option::Option::Some(Self::CAUSE_UNSPECIFIED),
+                "UNKNOWN_EXTERNAL_ADDRESS" => {
+                    std::option::Option::Some(Self::UNKNOWN_EXTERNAL_ADDRESS)
+                }
+                "FOREIGN_IP_DISALLOWED" => std::option::Option::Some(Self::FOREIGN_IP_DISALLOWED),
+                "FIREWALL_RULE" => std::option::Option::Some(Self::FIREWALL_RULE),
+                "NO_ROUTE" => std::option::Option::Some(Self::NO_ROUTE),
+                "ROUTE_BLACKHOLE" => std::option::Option::Some(Self::ROUTE_BLACKHOLE),
+                "ROUTE_WRONG_NETWORK" => std::option::Option::Some(Self::ROUTE_WRONG_NETWORK),
+                "ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED" => {
+                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_IP_ADDRESS_NOT_RESOLVED)
+                }
+                "ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND" => {
+                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_RESOURCE_NOT_FOUND)
+                }
+                "ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK" => {
+                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_INSTANCE_WRONG_NETWORK)
+                }
+                "ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP" => {
+                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_INSTANCE_NON_PRIMARY_IP)
+                }
+                "ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH" => {
+                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_FORWARDING_RULE_IP_MISMATCH)
+                }
+                "ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED" => {
+                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_VPN_TUNNEL_NOT_ESTABLISHED)
+                }
+                "ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID" => {
+                    std::option::Option::Some(Self::ROUTE_NEXT_HOP_FORWARDING_RULE_TYPE_INVALID)
+                }
+                "NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS" => {
+                    std::option::Option::Some(Self::NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS)
+                }
+                "VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH" => {
+                    std::option::Option::Some(Self::VPN_TUNNEL_LOCAL_SELECTOR_MISMATCH)
+                }
+                "VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH" => {
+                    std::option::Option::Some(Self::VPN_TUNNEL_REMOTE_SELECTOR_MISMATCH)
+                }
+                "PRIVATE_TRAFFIC_TO_INTERNET" => {
+                    std::option::Option::Some(Self::PRIVATE_TRAFFIC_TO_INTERNET)
+                }
+                "PRIVATE_GOOGLE_ACCESS_DISALLOWED" => {
+                    std::option::Option::Some(Self::PRIVATE_GOOGLE_ACCESS_DISALLOWED)
+                }
+                "PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED" => std::option::Option::Some(
+                    Self::PRIVATE_GOOGLE_ACCESS_VIA_VPN_TUNNEL_UNSUPPORTED,
+                ),
+                "NO_EXTERNAL_ADDRESS" => std::option::Option::Some(Self::NO_EXTERNAL_ADDRESS),
+                "UNKNOWN_INTERNAL_ADDRESS" => {
+                    std::option::Option::Some(Self::UNKNOWN_INTERNAL_ADDRESS)
+                }
+                "FORWARDING_RULE_MISMATCH" => {
+                    std::option::Option::Some(Self::FORWARDING_RULE_MISMATCH)
+                }
+                "FORWARDING_RULE_NO_INSTANCES" => {
+                    std::option::Option::Some(Self::FORWARDING_RULE_NO_INSTANCES)
+                }
+                "FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK" => {
+                    std::option::Option::Some(
+                        Self::FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK,
+                    )
+                }
+                "INSTANCE_NOT_RUNNING" => std::option::Option::Some(Self::INSTANCE_NOT_RUNNING),
+                "GKE_CLUSTER_NOT_RUNNING" => {
+                    std::option::Option::Some(Self::GKE_CLUSTER_NOT_RUNNING)
+                }
+                "CLOUD_SQL_INSTANCE_NOT_RUNNING" => {
+                    std::option::Option::Some(Self::CLOUD_SQL_INSTANCE_NOT_RUNNING)
+                }
+                "REDIS_INSTANCE_NOT_RUNNING" => {
+                    std::option::Option::Some(Self::REDIS_INSTANCE_NOT_RUNNING)
+                }
+                "REDIS_CLUSTER_NOT_RUNNING" => {
+                    std::option::Option::Some(Self::REDIS_CLUSTER_NOT_RUNNING)
+                }
+                "TRAFFIC_TYPE_BLOCKED" => std::option::Option::Some(Self::TRAFFIC_TYPE_BLOCKED),
+                "GKE_MASTER_UNAUTHORIZED_ACCESS" => {
+                    std::option::Option::Some(Self::GKE_MASTER_UNAUTHORIZED_ACCESS)
+                }
+                "CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS" => {
+                    std::option::Option::Some(Self::CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS)
+                }
+                "DROPPED_INSIDE_GKE_SERVICE" => {
+                    std::option::Option::Some(Self::DROPPED_INSIDE_GKE_SERVICE)
+                }
+                "DROPPED_INSIDE_CLOUD_SQL_SERVICE" => {
+                    std::option::Option::Some(Self::DROPPED_INSIDE_CLOUD_SQL_SERVICE)
+                }
+                "GOOGLE_MANAGED_SERVICE_NO_PEERING" => {
+                    std::option::Option::Some(Self::GOOGLE_MANAGED_SERVICE_NO_PEERING)
+                }
+                "GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT" => {
+                    std::option::Option::Some(Self::GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT)
+                }
+                "GKE_PSC_ENDPOINT_MISSING" => {
+                    std::option::Option::Some(Self::GKE_PSC_ENDPOINT_MISSING)
+                }
+                "CLOUD_SQL_INSTANCE_NO_IP_ADDRESS" => {
+                    std::option::Option::Some(Self::CLOUD_SQL_INSTANCE_NO_IP_ADDRESS)
+                }
+                "GKE_CONTROL_PLANE_REGION_MISMATCH" => {
+                    std::option::Option::Some(Self::GKE_CONTROL_PLANE_REGION_MISMATCH)
+                }
+                "PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION" => {
+                    std::option::Option::Some(Self::PUBLIC_GKE_CONTROL_PLANE_TO_PRIVATE_DESTINATION)
+                }
+                "GKE_CONTROL_PLANE_NO_ROUTE" => {
+                    std::option::Option::Some(Self::GKE_CONTROL_PLANE_NO_ROUTE)
+                }
+                "CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC" => {
+                    std::option::Option::Some(
+                        Self::CLOUD_SQL_INSTANCE_NOT_CONFIGURED_FOR_EXTERNAL_TRAFFIC,
+                    )
+                }
+                "PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION" => std::option::Option::Some(
+                    Self::PUBLIC_CLOUD_SQL_INSTANCE_TO_PRIVATE_DESTINATION,
+                ),
+                "CLOUD_SQL_INSTANCE_NO_ROUTE" => {
+                    std::option::Option::Some(Self::CLOUD_SQL_INSTANCE_NO_ROUTE)
+                }
+                "CLOUD_SQL_CONNECTOR_REQUIRED" => {
+                    std::option::Option::Some(Self::CLOUD_SQL_CONNECTOR_REQUIRED)
+                }
+                "CLOUD_FUNCTION_NOT_ACTIVE" => {
+                    std::option::Option::Some(Self::CLOUD_FUNCTION_NOT_ACTIVE)
+                }
+                "VPC_CONNECTOR_NOT_SET" => std::option::Option::Some(Self::VPC_CONNECTOR_NOT_SET),
+                "VPC_CONNECTOR_NOT_RUNNING" => {
+                    std::option::Option::Some(Self::VPC_CONNECTOR_NOT_RUNNING)
+                }
+                "VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED" => {
+                    std::option::Option::Some(Self::VPC_CONNECTOR_SERVERLESS_TRAFFIC_BLOCKED)
+                }
+                "VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED" => {
+                    std::option::Option::Some(Self::VPC_CONNECTOR_HEALTH_CHECK_TRAFFIC_BLOCKED)
+                }
+                "FORWARDING_RULE_REGION_MISMATCH" => {
+                    std::option::Option::Some(Self::FORWARDING_RULE_REGION_MISMATCH)
+                }
+                "PSC_CONNECTION_NOT_ACCEPTED" => {
+                    std::option::Option::Some(Self::PSC_CONNECTION_NOT_ACCEPTED)
+                }
+                "PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK" => {
+                    std::option::Option::Some(Self::PSC_ENDPOINT_ACCESSED_FROM_PEERED_NETWORK)
+                }
+                "PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS" => {
+                    std::option::Option::Some(Self::PSC_NEG_PRODUCER_ENDPOINT_NO_GLOBAL_ACCESS)
+                }
+                "PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS" => {
+                    std::option::Option::Some(Self::PSC_NEG_PRODUCER_FORWARDING_RULE_MULTIPLE_PORTS)
+                }
+                "CLOUD_SQL_PSC_NEG_UNSUPPORTED" => {
+                    std::option::Option::Some(Self::CLOUD_SQL_PSC_NEG_UNSUPPORTED)
+                }
+                "NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT" => {
+                    std::option::Option::Some(Self::NO_NAT_SUBNETS_FOR_PSC_SERVICE_ATTACHMENT)
+                }
+                "PSC_TRANSITIVITY_NOT_PROPAGATED" => {
+                    std::option::Option::Some(Self::PSC_TRANSITIVITY_NOT_PROPAGATED)
+                }
+                "HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED" => {
+                    std::option::Option::Some(Self::HYBRID_NEG_NON_DYNAMIC_ROUTE_MATCHED)
+                }
+                "HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED" => {
+                    std::option::Option::Some(Self::HYBRID_NEG_NON_LOCAL_DYNAMIC_ROUTE_MATCHED)
+                }
+                "CLOUD_RUN_REVISION_NOT_READY" => {
+                    std::option::Option::Some(Self::CLOUD_RUN_REVISION_NOT_READY)
+                }
+                "DROPPED_INSIDE_PSC_SERVICE_PRODUCER" => {
+                    std::option::Option::Some(Self::DROPPED_INSIDE_PSC_SERVICE_PRODUCER)
+                }
+                "LOAD_BALANCER_HAS_NO_PROXY_SUBNET" => {
+                    std::option::Option::Some(Self::LOAD_BALANCER_HAS_NO_PROXY_SUBNET)
+                }
+                "CLOUD_NAT_NO_ADDRESSES" => std::option::Option::Some(Self::CLOUD_NAT_NO_ADDRESSES),
+                "ROUTING_LOOP" => std::option::Option::Some(Self::ROUTING_LOOP),
+                "DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE" => {
+                    std::option::Option::Some(Self::DROPPED_INSIDE_GOOGLE_MANAGED_SERVICE)
+                }
+                "LOAD_BALANCER_BACKEND_INVALID_NETWORK" => {
+                    std::option::Option::Some(Self::LOAD_BALANCER_BACKEND_INVALID_NETWORK)
+                }
+                "BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED" => {
+                    std::option::Option::Some(Self::BACKEND_SERVICE_NAMED_PORT_NOT_DEFINED)
+                }
+                "DESTINATION_IS_PRIVATE_NAT_IP_RANGE" => {
+                    std::option::Option::Some(Self::DESTINATION_IS_PRIVATE_NAT_IP_RANGE)
+                }
+                "DROPPED_INSIDE_REDIS_INSTANCE_SERVICE" => {
+                    std::option::Option::Some(Self::DROPPED_INSIDE_REDIS_INSTANCE_SERVICE)
+                }
+                "REDIS_INSTANCE_UNSUPPORTED_PORT" => {
+                    std::option::Option::Some(Self::REDIS_INSTANCE_UNSUPPORTED_PORT)
+                }
+                "REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS" => {
+                    std::option::Option::Some(Self::REDIS_INSTANCE_CONNECTING_FROM_PUPI_ADDRESS)
+                }
+                "REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK" => {
+                    std::option::Option::Some(Self::REDIS_INSTANCE_NO_ROUTE_TO_DESTINATION_NETWORK)
+                }
+                "REDIS_INSTANCE_NO_EXTERNAL_IP" => {
+                    std::option::Option::Some(Self::REDIS_INSTANCE_NO_EXTERNAL_IP)
+                }
+                "REDIS_INSTANCE_UNSUPPORTED_PROTOCOL" => {
+                    std::option::Option::Some(Self::REDIS_INSTANCE_UNSUPPORTED_PROTOCOL)
+                }
+                "DROPPED_INSIDE_REDIS_CLUSTER_SERVICE" => {
+                    std::option::Option::Some(Self::DROPPED_INSIDE_REDIS_CLUSTER_SERVICE)
+                }
+                "REDIS_CLUSTER_UNSUPPORTED_PORT" => {
+                    std::option::Option::Some(Self::REDIS_CLUSTER_UNSUPPORTED_PORT)
+                }
+                "REDIS_CLUSTER_NO_EXTERNAL_IP" => {
+                    std::option::Option::Some(Self::REDIS_CLUSTER_NO_EXTERNAL_IP)
+                }
+                "REDIS_CLUSTER_UNSUPPORTED_PROTOCOL" => {
+                    std::option::Option::Some(Self::REDIS_CLUSTER_UNSUPPORTED_PROTOCOL)
+                }
+                "NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION" => {
+                    std::option::Option::Some(Self::NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION)
+                }
+                "NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION" => {
+                    std::option::Option::Some(Self::NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION)
+                }
+                "NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION" => std::option::Option::Some(
+                    Self::NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION,
+                ),
+                "PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED" => {
+                    std::option::Option::Some(Self::PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Cause {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Cause {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Cause {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -6327,44 +7319,71 @@ pub mod nat_info {
     use super::*;
 
     /// Types of NAT.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
+        /// Type is unspecified.
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+        /// From Compute Engine instance's internal address to external address.
+        pub const INTERNAL_TO_EXTERNAL: Type = Type::new(1);
+
+        /// From Compute Engine instance's external address to internal address.
+        pub const EXTERNAL_TO_INTERNAL: Type = Type::new(2);
+
+        /// Cloud NAT Gateway.
+        pub const CLOUD_NAT: Type = Type::new(3);
+
+        /// Private service connect NAT.
+        pub const PRIVATE_SERVICE_CONNECT: Type = Type::new(4);
+
         /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INTERNAL_TO_EXTERNAL"),
+                2 => std::borrow::Cow::Borrowed("EXTERNAL_TO_INTERNAL"),
+                3 => std::borrow::Cow::Borrowed("CLOUD_NAT"),
+                4 => std::borrow::Cow::Borrowed("PRIVATE_SERVICE_CONNECT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "INTERNAL_TO_EXTERNAL" => std::option::Option::Some(Self::INTERNAL_TO_EXTERNAL),
+                "EXTERNAL_TO_INTERNAL" => std::option::Option::Some(Self::EXTERNAL_TO_INTERNAL),
+                "CLOUD_NAT" => std::option::Option::Some(Self::CLOUD_NAT),
+                "PRIVATE_SERVICE_CONNECT" => {
+                    std::option::Option::Some(Self::PRIVATE_SERVICE_CONNECT)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        /// Type is unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-        /// From Compute Engine instance's internal address to external address.
-        pub const INTERNAL_TO_EXTERNAL: Type = Type::new("INTERNAL_TO_EXTERNAL");
-
-        /// From Compute Engine instance's external address to internal address.
-        pub const EXTERNAL_TO_INTERNAL: Type = Type::new("EXTERNAL_TO_INTERNAL");
-
-        /// Cloud NAT Gateway.
-        pub const CLOUD_NAT: Type = Type::new("CLOUD_NAT");
-
-        /// Private service connect NAT.
-        pub const PRIVATE_SERVICE_CONNECT: Type = Type::new("PRIVATE_SERVICE_CONNECT");
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -6665,57 +7684,88 @@ pub mod load_balancer_backend_info {
     use super::*;
 
     /// Health check firewalls configuration state enum.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct HealthCheckFirewallsConfigState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct HealthCheckFirewallsConfigState(i32);
 
     impl HealthCheckFirewallsConfigState {
-        /// Creates a new HealthCheckFirewallsConfigState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [HealthCheckFirewallsConfigState](HealthCheckFirewallsConfigState)
-    pub mod health_check_firewalls_config_state {
-        use super::HealthCheckFirewallsConfigState;
-
         /// Configuration state unspecified. It usually means that the backend has
         /// no health check attached, or there was an unexpected configuration error
         /// preventing Connectivity tests from verifying health check configuration.
         pub const HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED: HealthCheckFirewallsConfigState =
-            HealthCheckFirewallsConfigState::new("HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED");
+            HealthCheckFirewallsConfigState::new(0);
 
         /// Firewall rules (policies) allowing health check traffic from all required
         /// IP ranges to the backend are configured.
         pub const FIREWALLS_CONFIGURED: HealthCheckFirewallsConfigState =
-            HealthCheckFirewallsConfigState::new("FIREWALLS_CONFIGURED");
+            HealthCheckFirewallsConfigState::new(1);
 
         /// Firewall rules (policies) allow health check traffic only from a part of
         /// required IP ranges.
         pub const FIREWALLS_PARTIALLY_CONFIGURED: HealthCheckFirewallsConfigState =
-            HealthCheckFirewallsConfigState::new("FIREWALLS_PARTIALLY_CONFIGURED");
+            HealthCheckFirewallsConfigState::new(2);
 
         /// Firewall rules (policies) deny health check traffic from all required
         /// IP ranges to the backend.
         pub const FIREWALLS_NOT_CONFIGURED: HealthCheckFirewallsConfigState =
-            HealthCheckFirewallsConfigState::new("FIREWALLS_NOT_CONFIGURED");
+            HealthCheckFirewallsConfigState::new(3);
 
         /// The network contains firewall rules of unsupported types, so Connectivity
         /// tests were not able to verify health check configuration status. Please
         /// refer to the documentation for the list of unsupported configurations:
         /// <https://cloud.google.com/network-intelligence-center/docs/connectivity-tests/concepts/overview#unsupported-configs>
         pub const FIREWALLS_UNSUPPORTED: HealthCheckFirewallsConfigState =
-            HealthCheckFirewallsConfigState::new("FIREWALLS_UNSUPPORTED");
+            HealthCheckFirewallsConfigState::new(4);
+
+        /// Creates a new HealthCheckFirewallsConfigState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("FIREWALLS_CONFIGURED"),
+                2 => std::borrow::Cow::Borrowed("FIREWALLS_PARTIALLY_CONFIGURED"),
+                3 => std::borrow::Cow::Borrowed("FIREWALLS_NOT_CONFIGURED"),
+                4 => std::borrow::Cow::Borrowed("FIREWALLS_UNSUPPORTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED)
+                }
+                "FIREWALLS_CONFIGURED" => std::option::Option::Some(Self::FIREWALLS_CONFIGURED),
+                "FIREWALLS_PARTIALLY_CONFIGURED" => {
+                    std::option::Option::Some(Self::FIREWALLS_PARTIALLY_CONFIGURED)
+                }
+                "FIREWALLS_NOT_CONFIGURED" => {
+                    std::option::Option::Some(Self::FIREWALLS_NOT_CONFIGURED)
+                }
+                "FIREWALLS_UNSUPPORTED" => std::option::Option::Some(Self::FIREWALLS_UNSUPPORTED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for HealthCheckFirewallsConfigState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for HealthCheckFirewallsConfigState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for HealthCheckFirewallsConfigState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7369,169 +8419,264 @@ pub mod vpc_flow_logs_config {
 
     /// Determines whether this configuration will be generating logs.
     /// Setting state=DISABLED will pause the log generation for this config.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// If not specified, will default to ENABLED.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// When ENABLED, this configuration will generate logs.
+        pub const ENABLED: State = State::new(1);
+
+        /// When DISABLED, this configuration will not generate logs.
+        pub const DISABLED: State = State::new(2);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// If not specified, will default to ENABLED.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// When ENABLED, this configuration will generate logs.
-        pub const ENABLED: State = State::new("ENABLED");
-
-        /// When DISABLED, this configuration will not generate logs.
-        pub const DISABLED: State = State::new("DISABLED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Toggles the aggregation interval for collecting flow logs by 5-tuple.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationInterval(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AggregationInterval(i32);
 
     impl AggregationInterval {
+        /// If not specified, will default to INTERVAL_5_SEC.
+        pub const AGGREGATION_INTERVAL_UNSPECIFIED: AggregationInterval =
+            AggregationInterval::new(0);
+
+        /// Aggregate logs in 5s intervals.
+        pub const INTERVAL_5_SEC: AggregationInterval = AggregationInterval::new(1);
+
+        /// Aggregate logs in 30s intervals.
+        pub const INTERVAL_30_SEC: AggregationInterval = AggregationInterval::new(2);
+
+        /// Aggregate logs in 1m intervals.
+        pub const INTERVAL_1_MIN: AggregationInterval = AggregationInterval::new(3);
+
+        /// Aggregate logs in 5m intervals.
+        pub const INTERVAL_5_MIN: AggregationInterval = AggregationInterval::new(4);
+
+        /// Aggregate logs in 10m intervals.
+        pub const INTERVAL_10_MIN: AggregationInterval = AggregationInterval::new(5);
+
+        /// Aggregate logs in 15m intervals.
+        pub const INTERVAL_15_MIN: AggregationInterval = AggregationInterval::new(6);
+
         /// Creates a new AggregationInterval instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("AGGREGATION_INTERVAL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INTERVAL_5_SEC"),
+                2 => std::borrow::Cow::Borrowed("INTERVAL_30_SEC"),
+                3 => std::borrow::Cow::Borrowed("INTERVAL_1_MIN"),
+                4 => std::borrow::Cow::Borrowed("INTERVAL_5_MIN"),
+                5 => std::borrow::Cow::Borrowed("INTERVAL_10_MIN"),
+                6 => std::borrow::Cow::Borrowed("INTERVAL_15_MIN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "AGGREGATION_INTERVAL_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::AGGREGATION_INTERVAL_UNSPECIFIED)
+                }
+                "INTERVAL_5_SEC" => std::option::Option::Some(Self::INTERVAL_5_SEC),
+                "INTERVAL_30_SEC" => std::option::Option::Some(Self::INTERVAL_30_SEC),
+                "INTERVAL_1_MIN" => std::option::Option::Some(Self::INTERVAL_1_MIN),
+                "INTERVAL_5_MIN" => std::option::Option::Some(Self::INTERVAL_5_MIN),
+                "INTERVAL_10_MIN" => std::option::Option::Some(Self::INTERVAL_10_MIN),
+                "INTERVAL_15_MIN" => std::option::Option::Some(Self::INTERVAL_15_MIN),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [AggregationInterval](AggregationInterval)
-    pub mod aggregation_interval {
-        use super::AggregationInterval;
-
-        /// If not specified, will default to INTERVAL_5_SEC.
-        pub const AGGREGATION_INTERVAL_UNSPECIFIED: AggregationInterval =
-            AggregationInterval::new("AGGREGATION_INTERVAL_UNSPECIFIED");
-
-        /// Aggregate logs in 5s intervals.
-        pub const INTERVAL_5_SEC: AggregationInterval = AggregationInterval::new("INTERVAL_5_SEC");
-
-        /// Aggregate logs in 30s intervals.
-        pub const INTERVAL_30_SEC: AggregationInterval =
-            AggregationInterval::new("INTERVAL_30_SEC");
-
-        /// Aggregate logs in 1m intervals.
-        pub const INTERVAL_1_MIN: AggregationInterval = AggregationInterval::new("INTERVAL_1_MIN");
-
-        /// Aggregate logs in 5m intervals.
-        pub const INTERVAL_5_MIN: AggregationInterval = AggregationInterval::new("INTERVAL_5_MIN");
-
-        /// Aggregate logs in 10m intervals.
-        pub const INTERVAL_10_MIN: AggregationInterval =
-            AggregationInterval::new("INTERVAL_10_MIN");
-
-        /// Aggregate logs in 15m intervals.
-        pub const INTERVAL_15_MIN: AggregationInterval =
-            AggregationInterval::new("INTERVAL_15_MIN");
+    impl std::convert::From<i32> for AggregationInterval {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for AggregationInterval {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for AggregationInterval {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Configures which log fields would be included.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Metadata(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Metadata(i32);
 
     impl Metadata {
+        /// If not specified, will default to INCLUDE_ALL_METADATA.
+        pub const METADATA_UNSPECIFIED: Metadata = Metadata::new(0);
+
+        /// Include all metadata fields.
+        pub const INCLUDE_ALL_METADATA: Metadata = Metadata::new(1);
+
+        /// Exclude all metadata fields.
+        pub const EXCLUDE_ALL_METADATA: Metadata = Metadata::new(2);
+
+        /// Include only custom fields (specified in metadata_fields).
+        pub const CUSTOM_METADATA: Metadata = Metadata::new(3);
+
         /// Creates a new Metadata instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("METADATA_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INCLUDE_ALL_METADATA"),
+                2 => std::borrow::Cow::Borrowed("EXCLUDE_ALL_METADATA"),
+                3 => std::borrow::Cow::Borrowed("CUSTOM_METADATA"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "METADATA_UNSPECIFIED" => std::option::Option::Some(Self::METADATA_UNSPECIFIED),
+                "INCLUDE_ALL_METADATA" => std::option::Option::Some(Self::INCLUDE_ALL_METADATA),
+                "EXCLUDE_ALL_METADATA" => std::option::Option::Some(Self::EXCLUDE_ALL_METADATA),
+                "CUSTOM_METADATA" => std::option::Option::Some(Self::CUSTOM_METADATA),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Metadata](Metadata)
-    pub mod metadata {
-        use super::Metadata;
-
-        /// If not specified, will default to INCLUDE_ALL_METADATA.
-        pub const METADATA_UNSPECIFIED: Metadata = Metadata::new("METADATA_UNSPECIFIED");
-
-        /// Include all metadata fields.
-        pub const INCLUDE_ALL_METADATA: Metadata = Metadata::new("INCLUDE_ALL_METADATA");
-
-        /// Exclude all metadata fields.
-        pub const EXCLUDE_ALL_METADATA: Metadata = Metadata::new("EXCLUDE_ALL_METADATA");
-
-        /// Include only custom fields (specified in metadata_fields).
-        pub const CUSTOM_METADATA: Metadata = Metadata::new("CUSTOM_METADATA");
+    impl std::convert::From<i32> for Metadata {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Metadata {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Metadata {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Optional states of the target resource that are used as part of the
     /// diagnostic bit.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TargetResourceState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TargetResourceState(i32);
 
     impl TargetResourceState {
+        /// Unspecified target resource state.
+        pub const TARGET_RESOURCE_STATE_UNSPECIFIED: TargetResourceState =
+            TargetResourceState::new(0);
+
+        /// Indicates that the target resource exists.
+        pub const TARGET_RESOURCE_EXISTS: TargetResourceState = TargetResourceState::new(1);
+
+        /// Indicates that the target resource does not exist.
+        pub const TARGET_RESOURCE_DOES_NOT_EXIST: TargetResourceState = TargetResourceState::new(2);
+
         /// Creates a new TargetResourceState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TARGET_RESOURCE_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("TARGET_RESOURCE_EXISTS"),
+                2 => std::borrow::Cow::Borrowed("TARGET_RESOURCE_DOES_NOT_EXIST"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TARGET_RESOURCE_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TARGET_RESOURCE_STATE_UNSPECIFIED)
+                }
+                "TARGET_RESOURCE_EXISTS" => std::option::Option::Some(Self::TARGET_RESOURCE_EXISTS),
+                "TARGET_RESOURCE_DOES_NOT_EXIST" => {
+                    std::option::Option::Some(Self::TARGET_RESOURCE_DOES_NOT_EXIST)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [TargetResourceState](TargetResourceState)
-    pub mod target_resource_state {
-        use super::TargetResourceState;
-
-        /// Unspecified target resource state.
-        pub const TARGET_RESOURCE_STATE_UNSPECIFIED: TargetResourceState =
-            TargetResourceState::new("TARGET_RESOURCE_STATE_UNSPECIFIED");
-
-        /// Indicates that the target resource exists.
-        pub const TARGET_RESOURCE_EXISTS: TargetResourceState =
-            TargetResourceState::new("TARGET_RESOURCE_EXISTS");
-
-        /// Indicates that the target resource does not exist.
-        pub const TARGET_RESOURCE_DOES_NOT_EXIST: TargetResourceState =
-            TargetResourceState::new("TARGET_RESOURCE_DOES_NOT_EXIST");
+    impl std::convert::From<i32> for TargetResourceState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for TargetResourceState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for TargetResourceState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -7555,72 +8700,113 @@ pub mod vpc_flow_logs_config {
 /// Type of a load balancer. For more information, see [Summary of Google Cloud
 /// load
 /// balancers](https://cloud.google.com/load-balancing/docs/load-balancing-overview#summary-of-google-cloud-load-balancers).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LoadBalancerType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct LoadBalancerType(i32);
 
 impl LoadBalancerType {
+    /// Forwarding rule points to a different target than a load balancer or a
+    /// load balancer type is unknown.
+    pub const LOAD_BALANCER_TYPE_UNSPECIFIED: LoadBalancerType = LoadBalancerType::new(0);
+
+    /// Global external HTTP(S) load balancer.
+    pub const HTTPS_ADVANCED_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(1);
+
+    /// Global external HTTP(S) load balancer (classic)
+    pub const HTTPS_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(2);
+
+    /// Regional external HTTP(S) load balancer.
+    pub const REGIONAL_HTTPS_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(3);
+
+    /// Internal HTTP(S) load balancer.
+    pub const INTERNAL_HTTPS_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(4);
+
+    /// External SSL proxy load balancer.
+    pub const SSL_PROXY_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(5);
+
+    /// External TCP proxy load balancer.
+    pub const TCP_PROXY_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(6);
+
+    /// Internal regional TCP proxy load balancer.
+    pub const INTERNAL_TCP_PROXY_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(7);
+
+    /// External TCP/UDP Network load balancer.
+    pub const NETWORK_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(8);
+
+    /// Target-pool based external TCP/UDP Network load balancer.
+    pub const LEGACY_NETWORK_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(9);
+
+    /// Internal TCP/UDP load balancer.
+    pub const TCP_UDP_INTERNAL_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new(10);
+
     /// Creates a new LoadBalancerType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("LOAD_BALANCER_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("HTTPS_ADVANCED_LOAD_BALANCER"),
+            2 => std::borrow::Cow::Borrowed("HTTPS_LOAD_BALANCER"),
+            3 => std::borrow::Cow::Borrowed("REGIONAL_HTTPS_LOAD_BALANCER"),
+            4 => std::borrow::Cow::Borrowed("INTERNAL_HTTPS_LOAD_BALANCER"),
+            5 => std::borrow::Cow::Borrowed("SSL_PROXY_LOAD_BALANCER"),
+            6 => std::borrow::Cow::Borrowed("TCP_PROXY_LOAD_BALANCER"),
+            7 => std::borrow::Cow::Borrowed("INTERNAL_TCP_PROXY_LOAD_BALANCER"),
+            8 => std::borrow::Cow::Borrowed("NETWORK_LOAD_BALANCER"),
+            9 => std::borrow::Cow::Borrowed("LEGACY_NETWORK_LOAD_BALANCER"),
+            10 => std::borrow::Cow::Borrowed("TCP_UDP_INTERNAL_LOAD_BALANCER"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "LOAD_BALANCER_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::LOAD_BALANCER_TYPE_UNSPECIFIED)
+            }
+            "HTTPS_ADVANCED_LOAD_BALANCER" => {
+                std::option::Option::Some(Self::HTTPS_ADVANCED_LOAD_BALANCER)
+            }
+            "HTTPS_LOAD_BALANCER" => std::option::Option::Some(Self::HTTPS_LOAD_BALANCER),
+            "REGIONAL_HTTPS_LOAD_BALANCER" => {
+                std::option::Option::Some(Self::REGIONAL_HTTPS_LOAD_BALANCER)
+            }
+            "INTERNAL_HTTPS_LOAD_BALANCER" => {
+                std::option::Option::Some(Self::INTERNAL_HTTPS_LOAD_BALANCER)
+            }
+            "SSL_PROXY_LOAD_BALANCER" => std::option::Option::Some(Self::SSL_PROXY_LOAD_BALANCER),
+            "TCP_PROXY_LOAD_BALANCER" => std::option::Option::Some(Self::TCP_PROXY_LOAD_BALANCER),
+            "INTERNAL_TCP_PROXY_LOAD_BALANCER" => {
+                std::option::Option::Some(Self::INTERNAL_TCP_PROXY_LOAD_BALANCER)
+            }
+            "NETWORK_LOAD_BALANCER" => std::option::Option::Some(Self::NETWORK_LOAD_BALANCER),
+            "LEGACY_NETWORK_LOAD_BALANCER" => {
+                std::option::Option::Some(Self::LEGACY_NETWORK_LOAD_BALANCER)
+            }
+            "TCP_UDP_INTERNAL_LOAD_BALANCER" => {
+                std::option::Option::Some(Self::TCP_UDP_INTERNAL_LOAD_BALANCER)
+            }
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [LoadBalancerType](LoadBalancerType)
-pub mod load_balancer_type {
-    use super::LoadBalancerType;
-
-    /// Forwarding rule points to a different target than a load balancer or a
-    /// load balancer type is unknown.
-    pub const LOAD_BALANCER_TYPE_UNSPECIFIED: LoadBalancerType =
-        LoadBalancerType::new("LOAD_BALANCER_TYPE_UNSPECIFIED");
-
-    /// Global external HTTP(S) load balancer.
-    pub const HTTPS_ADVANCED_LOAD_BALANCER: LoadBalancerType =
-        LoadBalancerType::new("HTTPS_ADVANCED_LOAD_BALANCER");
-
-    /// Global external HTTP(S) load balancer (classic)
-    pub const HTTPS_LOAD_BALANCER: LoadBalancerType = LoadBalancerType::new("HTTPS_LOAD_BALANCER");
-
-    /// Regional external HTTP(S) load balancer.
-    pub const REGIONAL_HTTPS_LOAD_BALANCER: LoadBalancerType =
-        LoadBalancerType::new("REGIONAL_HTTPS_LOAD_BALANCER");
-
-    /// Internal HTTP(S) load balancer.
-    pub const INTERNAL_HTTPS_LOAD_BALANCER: LoadBalancerType =
-        LoadBalancerType::new("INTERNAL_HTTPS_LOAD_BALANCER");
-
-    /// External SSL proxy load balancer.
-    pub const SSL_PROXY_LOAD_BALANCER: LoadBalancerType =
-        LoadBalancerType::new("SSL_PROXY_LOAD_BALANCER");
-
-    /// External TCP proxy load balancer.
-    pub const TCP_PROXY_LOAD_BALANCER: LoadBalancerType =
-        LoadBalancerType::new("TCP_PROXY_LOAD_BALANCER");
-
-    /// Internal regional TCP proxy load balancer.
-    pub const INTERNAL_TCP_PROXY_LOAD_BALANCER: LoadBalancerType =
-        LoadBalancerType::new("INTERNAL_TCP_PROXY_LOAD_BALANCER");
-
-    /// External TCP/UDP Network load balancer.
-    pub const NETWORK_LOAD_BALANCER: LoadBalancerType =
-        LoadBalancerType::new("NETWORK_LOAD_BALANCER");
-
-    /// Target-pool based external TCP/UDP Network load balancer.
-    pub const LEGACY_NETWORK_LOAD_BALANCER: LoadBalancerType =
-        LoadBalancerType::new("LEGACY_NETWORK_LOAD_BALANCER");
-
-    /// Internal TCP/UDP load balancer.
-    pub const TCP_UDP_INTERNAL_LOAD_BALANCER: LoadBalancerType =
-        LoadBalancerType::new("TCP_UDP_INTERNAL_LOAD_BALANCER");
+impl std::convert::From<i32> for LoadBalancerType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for LoadBalancerType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for LoadBalancerType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

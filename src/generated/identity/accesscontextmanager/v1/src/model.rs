@@ -1684,35 +1684,54 @@ pub mod basic_level {
 
     /// Options for how the `conditions` list should be combined to determine if
     /// this `AccessLevel` is applied. Default is AND.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConditionCombiningFunction(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ConditionCombiningFunction(i32);
 
     impl ConditionCombiningFunction {
+        /// All `Conditions` must be true for the `BasicLevel` to be true.
+        pub const AND: ConditionCombiningFunction = ConditionCombiningFunction::new(0);
+
+        /// If at least one `Condition` is true, then the `BasicLevel` is true.
+        pub const OR: ConditionCombiningFunction = ConditionCombiningFunction::new(1);
+
         /// Creates a new ConditionCombiningFunction instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("AND"),
+                1 => std::borrow::Cow::Borrowed("OR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "AND" => std::option::Option::Some(Self::AND),
+                "OR" => std::option::Option::Some(Self::OR),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ConditionCombiningFunction](ConditionCombiningFunction)
-    pub mod condition_combining_function {
-        use super::ConditionCombiningFunction;
-
-        /// All `Conditions` must be true for the `BasicLevel` to be true.
-        pub const AND: ConditionCombiningFunction = ConditionCombiningFunction::new("AND");
-
-        /// If at least one `Condition` is true, then the `BasicLevel` is true.
-        pub const OR: ConditionCombiningFunction = ConditionCombiningFunction::new("OR");
+    impl std::convert::From<i32> for ConditionCombiningFunction {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ConditionCombiningFunction {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ConditionCombiningFunction {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2408,37 +2427,54 @@ pub mod service_perimeter {
     /// Perimeter Bridges are typically useful when building more complex toplogies
     /// with many independent perimeters that need to share some data with a common
     /// perimeter, but should not be able to share data among themselves.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PerimeterType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PerimeterType(i32);
 
     impl PerimeterType {
+        /// Regular Perimeter.
+        pub const PERIMETER_TYPE_REGULAR: PerimeterType = PerimeterType::new(0);
+
+        /// Perimeter Bridge.
+        pub const PERIMETER_TYPE_BRIDGE: PerimeterType = PerimeterType::new(1);
+
         /// Creates a new PerimeterType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PERIMETER_TYPE_REGULAR"),
+                1 => std::borrow::Cow::Borrowed("PERIMETER_TYPE_BRIDGE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PERIMETER_TYPE_REGULAR" => std::option::Option::Some(Self::PERIMETER_TYPE_REGULAR),
+                "PERIMETER_TYPE_BRIDGE" => std::option::Option::Some(Self::PERIMETER_TYPE_BRIDGE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [PerimeterType](PerimeterType)
-    pub mod perimeter_type {
-        use super::PerimeterType;
-
-        /// Regular Perimeter.
-        pub const PERIMETER_TYPE_REGULAR: PerimeterType =
-            PerimeterType::new("PERIMETER_TYPE_REGULAR");
-
-        /// Perimeter Bridge.
-        pub const PERIMETER_TYPE_BRIDGE: PerimeterType =
-            PerimeterType::new("PERIMETER_TYPE_BRIDGE");
+    impl std::convert::From<i32> for PerimeterType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for PerimeterType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for PerimeterType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3411,80 +3447,125 @@ pub mod service_perimeter_config {
     /// or [EgressFrom]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressFrom]
     /// rules.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IdentityType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct IdentityType(i32);
 
     impl IdentityType {
+        /// No blanket identity group specified.
+        pub const IDENTITY_TYPE_UNSPECIFIED: IdentityType = IdentityType::new(0);
+
+        /// Authorize access from all identities outside the perimeter.
+        pub const ANY_IDENTITY: IdentityType = IdentityType::new(1);
+
+        /// Authorize access from all human users outside the perimeter.
+        pub const ANY_USER_ACCOUNT: IdentityType = IdentityType::new(2);
+
+        /// Authorize access from all service accounts outside the perimeter.
+        pub const ANY_SERVICE_ACCOUNT: IdentityType = IdentityType::new(3);
+
         /// Creates a new IdentityType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("IDENTITY_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ANY_IDENTITY"),
+                2 => std::borrow::Cow::Borrowed("ANY_USER_ACCOUNT"),
+                3 => std::borrow::Cow::Borrowed("ANY_SERVICE_ACCOUNT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "IDENTITY_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::IDENTITY_TYPE_UNSPECIFIED)
+                }
+                "ANY_IDENTITY" => std::option::Option::Some(Self::ANY_IDENTITY),
+                "ANY_USER_ACCOUNT" => std::option::Option::Some(Self::ANY_USER_ACCOUNT),
+                "ANY_SERVICE_ACCOUNT" => std::option::Option::Some(Self::ANY_SERVICE_ACCOUNT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [IdentityType](IdentityType)
-    pub mod identity_type {
-        use super::IdentityType;
-
-        /// No blanket identity group specified.
-        pub const IDENTITY_TYPE_UNSPECIFIED: IdentityType =
-            IdentityType::new("IDENTITY_TYPE_UNSPECIFIED");
-
-        /// Authorize access from all identities outside the perimeter.
-        pub const ANY_IDENTITY: IdentityType = IdentityType::new("ANY_IDENTITY");
-
-        /// Authorize access from all human users outside the perimeter.
-        pub const ANY_USER_ACCOUNT: IdentityType = IdentityType::new("ANY_USER_ACCOUNT");
-
-        /// Authorize access from all service accounts outside the perimeter.
-        pub const ANY_SERVICE_ACCOUNT: IdentityType = IdentityType::new("ANY_SERVICE_ACCOUNT");
+    impl std::convert::From<i32> for IdentityType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for IdentityType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for IdentityType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
 
 /// The format used in an `AccessLevel`.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LevelFormat(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct LevelFormat(i32);
 
 impl LevelFormat {
-    /// Creates a new LevelFormat instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [LevelFormat](LevelFormat)
-pub mod level_format {
-    use super::LevelFormat;
-
     /// The format was not specified.
-    pub const LEVEL_FORMAT_UNSPECIFIED: LevelFormat = LevelFormat::new("LEVEL_FORMAT_UNSPECIFIED");
+    pub const LEVEL_FORMAT_UNSPECIFIED: LevelFormat = LevelFormat::new(0);
 
     /// Uses the format the resource was defined in. BasicLevels are returned as
     /// BasicLevels, CustomLevels are returned as CustomLevels.
-    pub const AS_DEFINED: LevelFormat = LevelFormat::new("AS_DEFINED");
+    pub const AS_DEFINED: LevelFormat = LevelFormat::new(1);
 
     /// Use Cloud Common Expression Language when returning the resource.  Both
     /// BasicLevels and CustomLevels are returned as CustomLevels.
-    pub const CEL: LevelFormat = LevelFormat::new("CEL");
+    pub const CEL: LevelFormat = LevelFormat::new(2);
+
+    /// Creates a new LevelFormat instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("LEVEL_FORMAT_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("AS_DEFINED"),
+            2 => std::borrow::Cow::Borrowed("CEL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "LEVEL_FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::LEVEL_FORMAT_UNSPECIFIED),
+            "AS_DEFINED" => std::option::Option::Some(Self::AS_DEFINED),
+            "CEL" => std::option::Option::Some(Self::CEL),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for LevelFormat {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for LevelFormat {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for LevelFormat {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

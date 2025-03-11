@@ -18,4 +18,3 @@ service-config = 'google/rpc/rpc_publish.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "google_cloud_rpc"

@@ -695,45 +695,70 @@ pub mod spoke {
         use super::*;
 
         /// The Code enum represents the various reasons a state can be `INACTIVE`.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Code(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Code(i32);
 
         impl Code {
-            /// Creates a new Code instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [Code](Code)
-        pub mod code {
-            use super::Code;
-
             /// No information available.
-            pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+            pub const CODE_UNSPECIFIED: Code = Code::new(0);
 
             /// The proposed spoke is pending review.
-            pub const PENDING_REVIEW: Code = Code::new("PENDING_REVIEW");
+            pub const PENDING_REVIEW: Code = Code::new(1);
 
             /// The proposed spoke has been rejected by the hub administrator.
-            pub const REJECTED: Code = Code::new("REJECTED");
+            pub const REJECTED: Code = Code::new(2);
 
             /// The spoke has been deactivated internally.
-            pub const PAUSED: Code = Code::new("PAUSED");
+            pub const PAUSED: Code = Code::new(3);
 
             /// Network Connectivity Center encountered errors while accepting
             /// the spoke.
-            pub const FAILED: Code = Code::new("FAILED");
+            pub const FAILED: Code = Code::new(4);
+
+            /// Creates a new Code instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("CODE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("PENDING_REVIEW"),
+                    2 => std::borrow::Cow::Borrowed("REJECTED"),
+                    3 => std::borrow::Cow::Borrowed("PAUSED"),
+                    4 => std::borrow::Cow::Borrowed("FAILED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
+                    "PENDING_REVIEW" => std::option::Option::Some(Self::PENDING_REVIEW),
+                    "REJECTED" => std::option::Option::Some(Self::REJECTED),
+                    "PAUSED" => std::option::Option::Some(Self::PAUSED),
+                    "FAILED" => std::option::Option::Some(Self::FAILED),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for Code {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -1752,42 +1777,63 @@ pub mod list_hub_spokes_request {
     use super::*;
 
     /// Enum that controls which spoke fields are included in the response.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SpokeView(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct SpokeView(i32);
 
     impl SpokeView {
-        /// Creates a new SpokeView instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [SpokeView](SpokeView)
-    pub mod spoke_view {
-        use super::SpokeView;
-
         /// The spoke view is unspecified. When the spoke view is unspecified, the
         /// API returns the same fields as the `BASIC` view.
-        pub const SPOKE_VIEW_UNSPECIFIED: SpokeView = SpokeView::new("SPOKE_VIEW_UNSPECIFIED");
+        pub const SPOKE_VIEW_UNSPECIFIED: SpokeView = SpokeView::new(0);
 
         /// Includes `name`, `create_time`, `hub`, `unique_id`, `state`, `reasons`,
         /// and `spoke_type`. This is the default value.
-        pub const BASIC: SpokeView = SpokeView::new("BASIC");
+        pub const BASIC: SpokeView = SpokeView::new(1);
 
         /// Includes all spoke fields except `labels`.
         /// You can use the `DETAILED` view only when you set the `spoke_locations`
         /// field to `[global]`.
-        pub const DETAILED: SpokeView = SpokeView::new("DETAILED");
+        pub const DETAILED: SpokeView = SpokeView::new(2);
+
+        /// Creates a new SpokeView instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SPOKE_VIEW_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BASIC"),
+                2 => std::borrow::Cow::Borrowed("DETAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SPOKE_VIEW_UNSPECIFIED" => std::option::Option::Some(Self::SPOKE_VIEW_UNSPECIFIED),
+                "BASIC" => std::option::Option::Some(Self::BASIC),
+                "DETAILED" => std::option::Option::Some(Self::DETAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for SpokeView {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SpokeView {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for SpokeView {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2201,62 +2247,99 @@ pub mod psc_propagation_status {
 
     /// The Code enum represents the state of the Private Service Connect
     /// propagation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Code(i32);
 
     impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Code](Code)
-    pub mod code {
-        use super::Code;
-
         /// The code is unspecified.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+        pub const CODE_UNSPECIFIED: Code = Code::new(0);
 
         /// The propagated Private Service Connect connection is ready.
-        pub const READY: Code = Code::new("READY");
+        pub const READY: Code = Code::new(1);
 
         /// The Private Service Connect connection is propagating. This is a
         /// transient state.
-        pub const PROPAGATING: Code = Code::new("PROPAGATING");
+        pub const PROPAGATING: Code = Code::new(2);
 
         /// The Private Service Connect connection propagation failed because the VPC
         /// network or the project of the target spoke has exceeded the connection
         /// limit set by the producer.
-        pub const ERROR_PRODUCER_PROPAGATED_CONNECTION_LIMIT_EXCEEDED: Code =
-            Code::new("ERROR_PRODUCER_PROPAGATED_CONNECTION_LIMIT_EXCEEDED");
+        pub const ERROR_PRODUCER_PROPAGATED_CONNECTION_LIMIT_EXCEEDED: Code = Code::new(3);
 
         /// The Private Service Connect connection propagation failed because the NAT
         /// IP subnet space has been exhausted. It is equivalent to the `Needs
         /// attention` status of the Private Service Connect connection. See
         /// <https://cloud.google.com/vpc/docs/about-accessing-vpc-hosted-services-endpoints#connection-statuses>.
-        pub const ERROR_PRODUCER_NAT_IP_SPACE_EXHAUSTED: Code =
-            Code::new("ERROR_PRODUCER_NAT_IP_SPACE_EXHAUSTED");
+        pub const ERROR_PRODUCER_NAT_IP_SPACE_EXHAUSTED: Code = Code::new(4);
 
         /// The Private Service Connect connection propagation failed because the
         /// `PSC_ILB_CONSUMER_FORWARDING_RULES_PER_PRODUCER_NETWORK` quota in the
         /// producer VPC network has been exceeded.
-        pub const ERROR_PRODUCER_QUOTA_EXCEEDED: Code = Code::new("ERROR_PRODUCER_QUOTA_EXCEEDED");
+        pub const ERROR_PRODUCER_QUOTA_EXCEEDED: Code = Code::new(5);
 
         /// The Private Service Connect connection propagation failed because the
         /// `PSC_PROPAGATED_CONNECTIONS_PER_VPC_NETWORK` quota in the consumer
         /// VPC network has been exceeded.
-        pub const ERROR_CONSUMER_QUOTA_EXCEEDED: Code = Code::new("ERROR_CONSUMER_QUOTA_EXCEEDED");
+        pub const ERROR_CONSUMER_QUOTA_EXCEEDED: Code = Code::new(6);
+
+        /// Creates a new Code instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("READY"),
+                2 => std::borrow::Cow::Borrowed("PROPAGATING"),
+                3 => std::borrow::Cow::Borrowed(
+                    "ERROR_PRODUCER_PROPAGATED_CONNECTION_LIMIT_EXCEEDED",
+                ),
+                4 => std::borrow::Cow::Borrowed("ERROR_PRODUCER_NAT_IP_SPACE_EXHAUSTED"),
+                5 => std::borrow::Cow::Borrowed("ERROR_PRODUCER_QUOTA_EXCEEDED"),
+                6 => std::borrow::Cow::Borrowed("ERROR_CONSUMER_QUOTA_EXCEEDED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
+                "READY" => std::option::Option::Some(Self::READY),
+                "PROPAGATING" => std::option::Option::Some(Self::PROPAGATING),
+                "ERROR_PRODUCER_PROPAGATED_CONNECTION_LIMIT_EXCEEDED" => std::option::Option::Some(
+                    Self::ERROR_PRODUCER_PROPAGATED_CONNECTION_LIMIT_EXCEEDED,
+                ),
+                "ERROR_PRODUCER_NAT_IP_SPACE_EXHAUSTED" => {
+                    std::option::Option::Some(Self::ERROR_PRODUCER_NAT_IP_SPACE_EXHAUSTED)
+                }
+                "ERROR_PRODUCER_QUOTA_EXCEEDED" => {
+                    std::option::Option::Some(Self::ERROR_PRODUCER_QUOTA_EXCEEDED)
+                }
+                "ERROR_CONSUMER_QUOTA_EXCEEDED" => {
+                    std::option::Option::Some(Self::ERROR_CONSUMER_QUOTA_EXCEEDED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Code {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4807,36 +4890,56 @@ pub mod policy_based_route {
         use super::*;
 
         /// The internet protocol version.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ProtocolVersion(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct ProtocolVersion(i32);
 
         impl ProtocolVersion {
+            /// Default value.
+            pub const PROTOCOL_VERSION_UNSPECIFIED: ProtocolVersion = ProtocolVersion::new(0);
+
+            /// The PBR is for IPv4 internet protocol traffic.
+            pub const IPV4: ProtocolVersion = ProtocolVersion::new(1);
+
             /// Creates a new ProtocolVersion instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("PROTOCOL_VERSION_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("IPV4"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "PROTOCOL_VERSION_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::PROTOCOL_VERSION_UNSPECIFIED)
+                    }
+                    "IPV4" => std::option::Option::Some(Self::IPV4),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [ProtocolVersion](ProtocolVersion)
-        pub mod protocol_version {
-            use super::ProtocolVersion;
-
-            /// Default value.
-            pub const PROTOCOL_VERSION_UNSPECIFIED: ProtocolVersion =
-                ProtocolVersion::new("PROTOCOL_VERSION_UNSPECIFIED");
-
-            /// The PBR is for IPv4 internet protocol traffic.
-            pub const IPV4: ProtocolVersion = ProtocolVersion::new("IPV4");
+        impl std::convert::From<i32> for ProtocolVersion {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for ProtocolVersion {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for ProtocolVersion {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -4913,79 +5016,122 @@ pub mod policy_based_route {
 
         /// Warning code for Policy Based Routing. Expect to add values in the
         /// future.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Code(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Code(i32);
 
         impl Code {
-            /// Creates a new Code instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [Code](Code)
-        pub mod code {
-            use super::Code;
-
             /// Default value.
-            pub const WARNING_UNSPECIFIED: Code = Code::new("WARNING_UNSPECIFIED");
+            pub const WARNING_UNSPECIFIED: Code = Code::new(0);
 
             /// The policy based route is not active and functioning. Common causes are
             /// the dependent network was deleted or the resource project was turned
             /// off.
-            pub const RESOURCE_NOT_ACTIVE: Code = Code::new("RESOURCE_NOT_ACTIVE");
+            pub const RESOURCE_NOT_ACTIVE: Code = Code::new(1);
 
             /// The policy based route is being modified (e.g. created/deleted) at this
             /// time.
-            pub const RESOURCE_BEING_MODIFIED: Code = Code::new("RESOURCE_BEING_MODIFIED");
+            pub const RESOURCE_BEING_MODIFIED: Code = Code::new(2);
+
+            /// Creates a new Code instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("WARNING_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("RESOURCE_NOT_ACTIVE"),
+                    2 => std::borrow::Cow::Borrowed("RESOURCE_BEING_MODIFIED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "WARNING_UNSPECIFIED" => std::option::Option::Some(Self::WARNING_UNSPECIFIED),
+                    "RESOURCE_NOT_ACTIVE" => std::option::Option::Some(Self::RESOURCE_NOT_ACTIVE),
+                    "RESOURCE_BEING_MODIFIED" => {
+                        std::option::Option::Some(Self::RESOURCE_BEING_MODIFIED)
+                    }
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for Code {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
 
     /// The other routing cases.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OtherRoutes(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct OtherRoutes(i32);
 
     impl OtherRoutes {
-        /// Creates a new OtherRoutes instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [OtherRoutes](OtherRoutes)
-    pub mod other_routes {
-        use super::OtherRoutes;
-
         /// Default value.
-        pub const OTHER_ROUTES_UNSPECIFIED: OtherRoutes =
-            OtherRoutes::new("OTHER_ROUTES_UNSPECIFIED");
+        pub const OTHER_ROUTES_UNSPECIFIED: OtherRoutes = OtherRoutes::new(0);
 
         /// Use the routes from the default routing tables (system-generated routes,
         /// custom routes, peering route) to determine the next hop. This will
         /// effectively exclude matching packets being applied on other PBRs with a
         /// lower priority.
-        pub const DEFAULT_ROUTING: OtherRoutes = OtherRoutes::new("DEFAULT_ROUTING");
+        pub const DEFAULT_ROUTING: OtherRoutes = OtherRoutes::new(1);
+
+        /// Creates a new OtherRoutes instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("OTHER_ROUTES_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DEFAULT_ROUTING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "OTHER_ROUTES_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::OTHER_ROUTES_UNSPECIFIED)
+                }
+                "DEFAULT_ROUTING" => std::option::Option::Some(Self::DEFAULT_ROUTING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for OtherRoutes {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for OtherRoutes {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for OtherRoutes {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -5319,258 +5465,404 @@ impl wkt::message::Message for DeletePolicyBasedRouteRequest {
 }
 
 /// Supported features for a location
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LocationFeature(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct LocationFeature(i32);
 
 impl LocationFeature {
+    /// No publicly supported feature in this location
+    pub const LOCATION_FEATURE_UNSPECIFIED: LocationFeature = LocationFeature::new(0);
+
+    /// Site-to-cloud spokes are supported in this location
+    pub const SITE_TO_CLOUD_SPOKES: LocationFeature = LocationFeature::new(1);
+
+    /// Site-to-site spokes are supported in this location
+    pub const SITE_TO_SITE_SPOKES: LocationFeature = LocationFeature::new(2);
+
     /// Creates a new LocationFeature instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("LOCATION_FEATURE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SITE_TO_CLOUD_SPOKES"),
+            2 => std::borrow::Cow::Borrowed("SITE_TO_SITE_SPOKES"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "LOCATION_FEATURE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::LOCATION_FEATURE_UNSPECIFIED)
+            }
+            "SITE_TO_CLOUD_SPOKES" => std::option::Option::Some(Self::SITE_TO_CLOUD_SPOKES),
+            "SITE_TO_SITE_SPOKES" => std::option::Option::Some(Self::SITE_TO_SITE_SPOKES),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [LocationFeature](LocationFeature)
-pub mod location_feature {
-    use super::LocationFeature;
-
-    /// No publicly supported feature in this location
-    pub const LOCATION_FEATURE_UNSPECIFIED: LocationFeature =
-        LocationFeature::new("LOCATION_FEATURE_UNSPECIFIED");
-
-    /// Site-to-cloud spokes are supported in this location
-    pub const SITE_TO_CLOUD_SPOKES: LocationFeature = LocationFeature::new("SITE_TO_CLOUD_SPOKES");
-
-    /// Site-to-site spokes are supported in this location
-    pub const SITE_TO_SITE_SPOKES: LocationFeature = LocationFeature::new("SITE_TO_SITE_SPOKES");
+impl std::convert::From<i32> for LocationFeature {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for LocationFeature {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for LocationFeature {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// The route's type
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RouteType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct RouteType(i32);
 
 impl RouteType {
-    /// Creates a new RouteType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [RouteType](RouteType)
-pub mod route_type {
-    use super::RouteType;
-
     /// No route type information specified
-    pub const ROUTE_TYPE_UNSPECIFIED: RouteType = RouteType::new("ROUTE_TYPE_UNSPECIFIED");
+    pub const ROUTE_TYPE_UNSPECIFIED: RouteType = RouteType::new(0);
 
     /// The route leads to a destination within the primary address range of the
     /// VPC network's subnet.
-    pub const VPC_PRIMARY_SUBNET: RouteType = RouteType::new("VPC_PRIMARY_SUBNET");
+    pub const VPC_PRIMARY_SUBNET: RouteType = RouteType::new(1);
 
     /// The route leads to a destination within the secondary address range of the
     /// VPC network's subnet.
-    pub const VPC_SECONDARY_SUBNET: RouteType = RouteType::new("VPC_SECONDARY_SUBNET");
+    pub const VPC_SECONDARY_SUBNET: RouteType = RouteType::new(2);
 
     /// The route leads to a destination in a dynamic route. Dynamic routes are
     /// derived from Border Gateway Protocol (BGP) advertisements received from an
     /// NCC hybrid spoke.
-    pub const DYNAMIC_ROUTE: RouteType = RouteType::new("DYNAMIC_ROUTE");
+    pub const DYNAMIC_ROUTE: RouteType = RouteType::new(3);
+
+    /// Creates a new RouteType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("ROUTE_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("VPC_PRIMARY_SUBNET"),
+            2 => std::borrow::Cow::Borrowed("VPC_SECONDARY_SUBNET"),
+            3 => std::borrow::Cow::Borrowed("DYNAMIC_ROUTE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "ROUTE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::ROUTE_TYPE_UNSPECIFIED),
+            "VPC_PRIMARY_SUBNET" => std::option::Option::Some(Self::VPC_PRIMARY_SUBNET),
+            "VPC_SECONDARY_SUBNET" => std::option::Option::Some(Self::VPC_SECONDARY_SUBNET),
+            "DYNAMIC_ROUTE" => std::option::Option::Some(Self::DYNAMIC_ROUTE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for RouteType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for RouteType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for RouteType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// The State enum represents the lifecycle stage of a Network Connectivity
 /// Center resource.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct State(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct State(i32);
 
 impl State {
-    /// Creates a new State instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [State](State)
-pub mod state {
-    use super::State;
-
     /// No state information available
-    pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+    pub const STATE_UNSPECIFIED: State = State::new(0);
 
     /// The resource's create operation is in progress.
-    pub const CREATING: State = State::new("CREATING");
+    pub const CREATING: State = State::new(1);
 
     /// The resource is active
-    pub const ACTIVE: State = State::new("ACTIVE");
+    pub const ACTIVE: State = State::new(2);
 
     /// The resource's delete operation is in progress.
-    pub const DELETING: State = State::new("DELETING");
+    pub const DELETING: State = State::new(3);
 
     /// The resource's accept operation is in progress.
-    pub const ACCEPTING: State = State::new("ACCEPTING");
+    pub const ACCEPTING: State = State::new(8);
 
     /// The resource's reject operation is in progress.
-    pub const REJECTING: State = State::new("REJECTING");
+    pub const REJECTING: State = State::new(9);
 
     /// The resource's update operation is in progress.
-    pub const UPDATING: State = State::new("UPDATING");
+    pub const UPDATING: State = State::new(6);
 
     /// The resource is inactive.
-    pub const INACTIVE: State = State::new("INACTIVE");
+    pub const INACTIVE: State = State::new(7);
 
     /// The hub associated with this spoke resource has been deleted.
     /// This state applies to spoke resources only.
-    pub const OBSOLETE: State = State::new("OBSOLETE");
+    pub const OBSOLETE: State = State::new(10);
+
+    /// Creates a new State instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("CREATING"),
+            2 => std::borrow::Cow::Borrowed("ACTIVE"),
+            3 => std::borrow::Cow::Borrowed("DELETING"),
+            6 => std::borrow::Cow::Borrowed("UPDATING"),
+            7 => std::borrow::Cow::Borrowed("INACTIVE"),
+            8 => std::borrow::Cow::Borrowed("ACCEPTING"),
+            9 => std::borrow::Cow::Borrowed("REJECTING"),
+            10 => std::borrow::Cow::Borrowed("OBSOLETE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+            "CREATING" => std::option::Option::Some(Self::CREATING),
+            "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+            "DELETING" => std::option::Option::Some(Self::DELETING),
+            "ACCEPTING" => std::option::Option::Some(Self::ACCEPTING),
+            "REJECTING" => std::option::Option::Some(Self::REJECTING),
+            "UPDATING" => std::option::Option::Some(Self::UPDATING),
+            "INACTIVE" => std::option::Option::Some(Self::INACTIVE),
+            "OBSOLETE" => std::option::Option::Some(Self::OBSOLETE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for State {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for State {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for State {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// The SpokeType enum represents the type of spoke. The type
 /// reflects the kind of resource that a spoke is associated with.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SpokeType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct SpokeType(i32);
 
 impl SpokeType {
+    /// Unspecified spoke type.
+    pub const SPOKE_TYPE_UNSPECIFIED: SpokeType = SpokeType::new(0);
+
+    /// Spokes associated with VPN tunnels.
+    pub const VPN_TUNNEL: SpokeType = SpokeType::new(1);
+
+    /// Spokes associated with VLAN attachments.
+    pub const INTERCONNECT_ATTACHMENT: SpokeType = SpokeType::new(2);
+
+    /// Spokes associated with router appliance instances.
+    pub const ROUTER_APPLIANCE: SpokeType = SpokeType::new(3);
+
+    /// Spokes associated with VPC networks.
+    pub const VPC_NETWORK: SpokeType = SpokeType::new(4);
+
+    /// Spokes that are backed by a producer VPC network.
+    pub const PRODUCER_VPC_NETWORK: SpokeType = SpokeType::new(7);
+
     /// Creates a new SpokeType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SPOKE_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("VPN_TUNNEL"),
+            2 => std::borrow::Cow::Borrowed("INTERCONNECT_ATTACHMENT"),
+            3 => std::borrow::Cow::Borrowed("ROUTER_APPLIANCE"),
+            4 => std::borrow::Cow::Borrowed("VPC_NETWORK"),
+            7 => std::borrow::Cow::Borrowed("PRODUCER_VPC_NETWORK"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SPOKE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SPOKE_TYPE_UNSPECIFIED),
+            "VPN_TUNNEL" => std::option::Option::Some(Self::VPN_TUNNEL),
+            "INTERCONNECT_ATTACHMENT" => std::option::Option::Some(Self::INTERCONNECT_ATTACHMENT),
+            "ROUTER_APPLIANCE" => std::option::Option::Some(Self::ROUTER_APPLIANCE),
+            "VPC_NETWORK" => std::option::Option::Some(Self::VPC_NETWORK),
+            "PRODUCER_VPC_NETWORK" => std::option::Option::Some(Self::PRODUCER_VPC_NETWORK),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SpokeType](SpokeType)
-pub mod spoke_type {
-    use super::SpokeType;
-
-    /// Unspecified spoke type.
-    pub const SPOKE_TYPE_UNSPECIFIED: SpokeType = SpokeType::new("SPOKE_TYPE_UNSPECIFIED");
-
-    /// Spokes associated with VPN tunnels.
-    pub const VPN_TUNNEL: SpokeType = SpokeType::new("VPN_TUNNEL");
-
-    /// Spokes associated with VLAN attachments.
-    pub const INTERCONNECT_ATTACHMENT: SpokeType = SpokeType::new("INTERCONNECT_ATTACHMENT");
-
-    /// Spokes associated with router appliance instances.
-    pub const ROUTER_APPLIANCE: SpokeType = SpokeType::new("ROUTER_APPLIANCE");
-
-    /// Spokes associated with VPC networks.
-    pub const VPC_NETWORK: SpokeType = SpokeType::new("VPC_NETWORK");
-
-    /// Spokes that are backed by a producer VPC network.
-    pub const PRODUCER_VPC_NETWORK: SpokeType = SpokeType::new("PRODUCER_VPC_NETWORK");
+impl std::convert::From<i32> for SpokeType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for SpokeType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for SpokeType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// This enum controls the policy mode used in a hub.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct PolicyMode(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct PolicyMode(i32);
 
 impl PolicyMode {
+    /// Policy mode is unspecified. It defaults to PRESET
+    /// with preset_topology = MESH.
+    pub const POLICY_MODE_UNSPECIFIED: PolicyMode = PolicyMode::new(0);
+
+    /// Hub uses one of the preset topologies.
+    pub const PRESET: PolicyMode = PolicyMode::new(1);
+
     /// Creates a new PolicyMode instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("POLICY_MODE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("PRESET"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "POLICY_MODE_UNSPECIFIED" => std::option::Option::Some(Self::POLICY_MODE_UNSPECIFIED),
+            "PRESET" => std::option::Option::Some(Self::PRESET),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [PolicyMode](PolicyMode)
-pub mod policy_mode {
-    use super::PolicyMode;
-
-    /// Policy mode is unspecified. It defaults to PRESET
-    /// with preset_topology = MESH.
-    pub const POLICY_MODE_UNSPECIFIED: PolicyMode = PolicyMode::new("POLICY_MODE_UNSPECIFIED");
-
-    /// Hub uses one of the preset topologies.
-    pub const PRESET: PolicyMode = PolicyMode::new("PRESET");
+impl std::convert::From<i32> for PolicyMode {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for PolicyMode {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for PolicyMode {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// The list of available preset topologies.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct PresetTopology(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct PresetTopology(i32);
 
 impl PresetTopology {
-    /// Creates a new PresetTopology instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [PresetTopology](PresetTopology)
-pub mod preset_topology {
-    use super::PresetTopology;
-
     /// Preset topology is unspecified. When policy_mode = PRESET,
     /// it defaults to MESH.
-    pub const PRESET_TOPOLOGY_UNSPECIFIED: PresetTopology =
-        PresetTopology::new("PRESET_TOPOLOGY_UNSPECIFIED");
+    pub const PRESET_TOPOLOGY_UNSPECIFIED: PresetTopology = PresetTopology::new(0);
 
     /// Mesh topology is implemented. Group `default` is automatically created.
     /// All spokes in the hub are added to group `default`.
-    pub const MESH: PresetTopology = PresetTopology::new("MESH");
+    pub const MESH: PresetTopology = PresetTopology::new(2);
 
     /// Star topology is implemented. Two groups, `center` and `edge`, are
     /// automatically created along with hub creation. Spokes have to join one of
     /// the groups during creation.
-    pub const STAR: PresetTopology = PresetTopology::new("STAR");
+    pub const STAR: PresetTopology = PresetTopology::new(3);
+
+    /// Creates a new PresetTopology instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("PRESET_TOPOLOGY_UNSPECIFIED"),
+            2 => std::borrow::Cow::Borrowed("MESH"),
+            3 => std::borrow::Cow::Borrowed("STAR"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "PRESET_TOPOLOGY_UNSPECIFIED" => {
+                std::option::Option::Some(Self::PRESET_TOPOLOGY_UNSPECIFIED)
+            }
+            "MESH" => std::option::Option::Some(Self::MESH),
+            "STAR" => std::option::Option::Some(Self::STAR),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for PresetTopology {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for PresetTopology {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for PresetTopology {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

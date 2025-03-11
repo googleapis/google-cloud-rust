@@ -18,14 +18,15 @@ import (
 	"bytes"
 	"fmt"
 	"log/slog"
+	"maps"
 	"os"
 	"os/exec"
-	"path"
-	"path/filepath"
-	"sort"
+	"slices"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
+	"github.com/googleapis/google-cloud-rust/generator/internal/protobuf"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
@@ -63,7 +64,7 @@ func newCodeGeneratorRequest(source string, options map[string]string) (_ *plugi
 		}
 	}()
 
-	files, err := determineInputFiles(source, options)
+	files, err := protobuf.DetermineInputFiles(source, options)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +107,7 @@ func protoc(tempFile string, files []string, options map[string]string) ([]byte,
 		"--retain_options",
 		"--descriptor_set_out", tempFile,
 	}
-	for _, name := range SourceRoots(options) {
+	for _, name := range config.SourceRoots(options) {
 		if path, ok := options[name]; ok {
 			args = append(args, "--proto_path")
 			args = append(args, path)
@@ -124,87 +125,6 @@ func protoc(tempFile string, files []string, options map[string]string) ([]byte,
 	}
 
 	return os.ReadFile(tempFile)
-}
-
-func determineInputFiles(source string, options map[string]string) ([]string, error) {
-	if _, ok := options["include-list"]; ok {
-		if _, ok := options["exclude-list"]; ok {
-			return nil, fmt.Errorf("cannot use both `exclude-list` and `include-list` in the source options")
-		}
-	}
-
-	// `config.Source` is relative to the `googleapis-root`,
-	// or `extra-protos-root`, when that is set. It should always be a directory
-	// and by default all the the files in that directory are used.
-	for _, opt := range SourceRoots(options) {
-		location, ok := options[opt]
-		if !ok {
-			// Ignore options that are not set
-			continue
-		}
-		stat, err := os.Stat(path.Join(location, source))
-		if err == nil && stat.IsDir() {
-			// Found a matching directory, use it.
-			source = path.Join(location, source)
-			break
-		}
-	}
-	files := map[string]bool{}
-	if err := findFiles(files, source); err != nil {
-		return nil, err
-	}
-	applyIncludeList(files, source, options)
-	applyExcludeList(files, source, options)
-	var list []string
-	for name, ok := range files {
-		if ok {
-			list = append(list, name)
-		}
-	}
-	sort.Strings(list)
-	return list, nil
-}
-
-func findFiles(files map[string]bool, source string) error {
-	const maxDepth = 1
-	return filepath.Walk(source, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		depth := strings.Count(filepath.ToSlash(strings.TrimPrefix(path, source)), "/")
-		if info.IsDir() && depth >= maxDepth {
-			return filepath.SkipDir
-		}
-		if depth > maxDepth {
-			return nil
-		}
-		if filepath.Ext(path) == ".proto" {
-			files[path] = true
-		}
-		return nil
-	})
-}
-
-func applyIncludeList(files map[string]bool, sourceDirectory string, options map[string]string) {
-	list, ok := options["include-list"]
-	if !ok {
-		return
-	}
-	// Ignore any discovered paths, only the paths from the include list apply.
-	clear(files)
-	for _, p := range strings.Split(list, ",") {
-		files[path.Join(sourceDirectory, p)] = true
-	}
-}
-
-func applyExcludeList(files map[string]bool, sourceDirectory string, options map[string]string) {
-	list, ok := options["exclude-list"]
-	if !ok {
-		return
-	}
-	for _, p := range strings.Split(list, ",") {
-		delete(files, path.Join(sourceDirectory, p))
-	}
 }
 
 func newCompilerVersion() *pluginpb.Version {
@@ -241,10 +161,13 @@ const (
 	serviceDescriptorProtoOption = 3
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#DescriptorProto
-	messageDescriptorField      = 2
-	messageDescriptorNestedType = 3
-	messageDescriptorEnum       = 4
-	messageDescriptorOneOf      = 8
+	messageDescriptorField          = 2
+	messageDescriptorNestedType     = 3
+	messageDescriptorEnum           = 4
+	messageDescriptorExtensionRange = 5
+	messageDescriptorExtension      = 6
+	messageDescriptorOptions        = 7
+	messageDescriptorOneOf          = 8
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#EnumDescriptorProto
 	enumDescriptorValue = 2
@@ -449,13 +372,13 @@ var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]api.Typez{
 }
 
 func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, field *api.Field) {
-	typ := in.GetType()
+	typez := in.GetType()
 	field.Typez = api.UNDEFINED_TYPE
-	if tz, ok := descriptorpbToTypez[typ]; ok {
+	if tz, ok := descriptorpbToTypez[typez]; ok {
 		field.Typez = tz
 	}
 
-	switch typ {
+	switch typez {
 	case descriptorpb.FieldDescriptorProto_TYPE_GROUP:
 		field.TypezID = in.GetTypeName()
 	case descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:
@@ -611,6 +534,22 @@ func processEnum(state *api.APIState, e *descriptorpb.EnumDescriptorProto, eFQN,
 		}
 		enum.Values = append(enum.Values, enumValue)
 	}
+	numbers := map[int32]*api.EnumValue{}
+	for _, v := range enum.Values {
+		matchesStyle := func(v *api.EnumValue) bool {
+			return strings.ToUpper(v.Name) == v.Name
+		}
+		if ev, ok := numbers[v.Number]; ok {
+			if len(ev.Name) > len(v.Name) || (matchesStyle(v) && !matchesStyle(ev)) {
+				numbers[v.Number] = v
+			}
+		} else {
+			numbers[v.Number] = v
+		}
+	}
+	unique := slices.Collect(maps.Values(numbers))
+	slices.SortFunc(unique, func(a, b *api.EnumValue) int { return int(a.Number - b.Number) })
+	enum.UniqueNumberValues = unique
 	return enum
 }
 
@@ -637,21 +576,27 @@ func addServiceDocumentation(state *api.APIState, p []int32, doc string, sFQN st
 func addMessageDocumentation(state *api.APIState, m *descriptorpb.DescriptorProto, p []int32, doc string, mFQN string) {
 	// Beware of refactoring the calls to `trimLeadingSpacesInDocumentation`.
 	// We should modify `doc` only once, upon assignment to `.Documentation`
-	if len(p) == 0 {
+	switch {
+	case len(p) == 0:
 		// This is a comment for a top level message
 		state.MessageByID[mFQN].Documentation = trimLeadingSpacesInDocumentation(doc)
-	} else if p[0] == messageDescriptorNestedType {
+	case p[0] == messageDescriptorNestedType:
 		nmsg := m.GetNestedType()[p[1]]
 		nmFQN := mFQN + "." + nmsg.GetName()
 		addMessageDocumentation(state, nmsg, p[2:], doc, nmFQN)
-	} else if len(p) == 2 && p[0] == messageDescriptorField {
+	case p[0] == messageDescriptorField && len(p) == 2:
 		state.MessageByID[mFQN].Fields[p[1]].Documentation = trimLeadingSpacesInDocumentation(doc)
-	} else if p[0] == messageDescriptorEnum {
+	case p[0] == messageDescriptorEnum:
 		eFQN := mFQN + "." + m.GetEnumType()[p[1]].GetName()
 		addEnumDocumentation(state, p[2:], doc, eFQN)
-	} else if len(p) == 2 && p[0] == messageDescriptorOneOf {
+	case p[0] == messageDescriptorOneOf && len(p) == 2:
 		state.MessageByID[mFQN].OneOfs[p[1]].Documentation = trimLeadingSpacesInDocumentation(doc)
-	} else {
+	case p[0] == messageDescriptorExtensionRange:
+	case p[0] == messageDescriptorOptions:
+	case p[0] == messageDescriptorExtension:
+		// These comments are ignored, as they refer to Protobuf elements
+		// without corresponding public APIs in the generated code.
+	default:
 		slog.Warn("message dropped documentation", "loc", p, "docs", doc)
 	}
 }

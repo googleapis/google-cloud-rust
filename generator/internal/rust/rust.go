@@ -28,6 +28,7 @@ import (
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/iancoleman/strcase"
 	"github.com/yuin/goldmark"
@@ -56,27 +57,38 @@ var commentUrlRegex = regexp.MustCompile(
 		`[a-zA-Z]{2,63}` + // The root domain is far more strict
 		`(/[-a-zA-Z0-9@:%_\+.~#?&/={}\$]*)?`) // Accept just about anything on the query and URL fragments
 
-func Generate(model *api.API, outdir string, options map[string]string) error {
-	codec, err := newCodec(options)
+func Generate(model *api.API, outdir string, cfg *config.Config) error {
+	codec, err := newCodec(cfg.General.SpecificationFormat == "protobuf", cfg.Codec)
 	if err != nil {
 		return err
 	}
 	annotations := annotateModel(model, codec, outdir)
 	provider := templatesProvider()
-	generatedFiles := generatedFiles(codec.generateModule, annotations.HasServices)
+	generatedFiles := codec.generatedFiles(annotations.HasServices)
 	return language.GenerateFromRoot(outdir, model, provider, generatedFiles)
 }
 
-func newCodec(options map[string]string) (*codec, error) {
+func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
+	var sysParams []systemParameter
+	if protobufSource {
+		sysParams = append(sysParams, systemParameter{
+			Name: "$alt", Value: "json;enum-encoding=int",
+		})
+	} else {
+		sysParams = append(sysParams, systemParameter{
+			Name: "$alt", Value: "json",
+		})
+	}
+
 	year, _, _ := time.Now().Date()
 	codec := &codec{
-		generationYear:           fmt.Sprintf("%04d", year),
-		modulePath:               "crate::model",
-		deserializeWithdDefaults: true,
-		extraPackages:            []*packagez{},
-		packageMapping:           map[string]*packagez{},
-		version:                  "0.0.0",
-		releaseLevel:             "preview",
+		generationYear:   fmt.Sprintf("%04d", year),
+		modulePath:       "crate::model",
+		extraPackages:    []*packagez{},
+		packageMapping:   map[string]*packagez{},
+		version:          "0.0.0",
+		releaseLevel:     "preview",
+		systemParameters: sysParams,
 	}
 
 	for key, definition := range options {
@@ -91,12 +103,6 @@ func newCodec(options map[string]string) (*codec, error) {
 			codec.generateModule = value
 		case key == "module-path":
 			codec.modulePath = definition
-		case key == "deserialize-with-defaults":
-			value, err := strconv.ParseBool(definition)
-			if err != nil {
-				return nil, fmt.Errorf("cannot convert `deserialize-with-defaults` value %q to boolean: %w", definition, err)
-			}
-			codec.deserializeWithdDefaults = value
 		case key == "copyright-year":
 			codec.generationYear = definition
 		case key == "not-for-publication":
@@ -197,9 +203,6 @@ type codec struct {
 	// Note that using `self` does not work, as the generated code may contain
 	// nested modules for nested messages.
 	modulePath string
-	// If true, the deserialization functions will accept default values in
-	// messages. In almost all cases this should be `true`, but
-	deserializeWithdDefaults bool
 	// Additional Rust packages imported by this module. The Mustache template
 	// hardcodes a number of packages, but some are configured via the
 	// command-line.
@@ -220,6 +223,13 @@ type codec struct {
 	hasServices bool
 	// A list of `rustdoc` warnings disabled for specific services.
 	disabledRustdocWarnings []string
+	// The default system parameters included in all requests.
+	systemParameters []systemParameter
+}
+
+type systemParameter struct {
+	Name  string
+	Value string
 }
 
 type packagez struct {
@@ -350,7 +360,7 @@ func scalarFieldType(f *api.Field) string {
 	case api.STRING_TYPE:
 		out = "std::string::String"
 	case api.BYTES_TYPE:
-		out = "bytes::Bytes"
+		out = "::bytes::Bytes"
 	case api.UINT32_TYPE:
 		out = "u32"
 	case api.SFIXED32_TYPE:
@@ -389,7 +399,7 @@ func fieldSkipAttributes(f *api.Field) []string {
 	case api.STRING_TYPE:
 		return []string{`#[serde(skip_serializing_if = "std::string::String::is_empty")]`}
 	case api.BYTES_TYPE:
-		return []string{`#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]`}
+		return []string{`#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]`}
 	default:
 		return []string{}
 	}
@@ -665,10 +675,10 @@ func templatesProvider() language.TemplateProvider {
 	}
 }
 
-func generatedFiles(generateModule, hasServices bool) []language.GeneratedFile {
+func (c *codec) generatedFiles(hasServices bool) []language.GeneratedFile {
 	var root string
 	switch {
-	case generateModule:
+	case c.generateModule:
 		root = "templates/mod"
 	case !hasServices:
 		root = "templates/nosvc"
@@ -690,15 +700,11 @@ func methodInOutTypeName(id string, state *api.APIState, modulePath, sourceSpeci
 	return fullyQualifiedMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping)
 }
 
-func messageAttributes(deserializeWithdDefaults bool) []string {
-	serde := `#[serde(default, rename_all = "camelCase")]`
-	if !deserializeWithdDefaults {
-		serde = `#[serde(rename_all = "camelCase")]`
-	}
+func messageAttributes() []string {
 	return []string{
 		`#[serde_with::serde_as]`,
 		`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
-		serde,
+		`#[serde(default, rename_all = "camelCase")]`,
 		`#[non_exhaustive]`,
 	}
 }
@@ -1529,7 +1535,7 @@ func externPackages(extraPackages []*packagez) []string {
 	return names
 }
 
-func packageName(api *api.API, packageNameOverride string) string {
+func PackageName(api *api.API, packageNameOverride string) string {
 	if len(packageNameOverride) > 0 {
 		return packageNameOverride
 	}

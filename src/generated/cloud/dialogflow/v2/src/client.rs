@@ -788,6 +788,16 @@ impl Conversations {
             .set_name(name.into())
     }
 
+    /// Data ingestion API.
+    /// Ingests context references for an existing conversation.
+    pub fn ingest_context_references(
+        &self,
+        conversation: impl Into<std::string::String>,
+    ) -> crate::builders::conversations::IngestContextReferences {
+        crate::builders::conversations::IngestContextReferences::new(self.inner.clone())
+            .set_conversation(conversation.into())
+    }
+
     /// Lists messages that belong to a given conversation.
     /// `messages` are ordered by `create_time` in descending order. To fetch
     /// updates without duplication, send request with filter
@@ -841,6 +851,17 @@ impl Conversations {
     ) -> crate::builders::conversations::SearchKnowledge {
         crate::builders::conversations::SearchKnowledge::new(self.inner.clone())
             .set_parent(parent.into())
+    }
+
+    /// Generates all the suggestions using generators configured in the
+    /// conversation profile. A generator is used only if its trigger event is
+    /// matched.
+    pub fn generate_suggestions(
+        &self,
+        conversation: impl Into<std::string::String>,
+    ) -> crate::builders::conversations::GenerateSuggestions {
+        crate::builders::conversations::GenerateSuggestions::new(self.inner.clone())
+            .set_conversation(conversation.into())
     }
 
     /// Lists information about the supported locations for this service.

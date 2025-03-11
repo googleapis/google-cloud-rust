@@ -328,84 +328,134 @@ pub mod instance {
     }
 
     /// Secure Source Manager instance state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Not set. This should only be the case for incoming requests.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Instance is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// Instance is ready.
+        pub const ACTIVE: State = State::new(2);
+
+        /// Instance is being deleted.
+        pub const DELETING: State = State::new(3);
+
+        /// Instance is paused.
+        pub const PAUSED: State = State::new(4);
+
+        /// Instance is unknown, we are not sure if it's functioning.
+        pub const UNKNOWN: State = State::new(6);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("PAUSED"),
+                6 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "PAUSED" => std::option::Option::Some(Self::PAUSED),
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Not set. This should only be the case for incoming requests.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Instance is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// Instance is ready.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// Instance is being deleted.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// Instance is paused.
-        pub const PAUSED: State = State::new("PAUSED");
-
-        /// Instance is unknown, we are not sure if it's functioning.
-        pub const UNKNOWN: State = State::new("UNKNOWN");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Provides information about the current instance state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StateNote(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct StateNote(i32);
 
     impl StateNote {
-        /// Creates a new StateNote instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [StateNote](StateNote)
-    pub mod state_note {
-        use super::StateNote;
-
         /// STATE_NOTE_UNSPECIFIED as the first value of State.
-        pub const STATE_NOTE_UNSPECIFIED: StateNote = StateNote::new("STATE_NOTE_UNSPECIFIED");
+        pub const STATE_NOTE_UNSPECIFIED: StateNote = StateNote::new(0);
 
         /// CMEK access is unavailable.
-        pub const PAUSED_CMEK_UNAVAILABLE: StateNote = StateNote::new("PAUSED_CMEK_UNAVAILABLE");
+        pub const PAUSED_CMEK_UNAVAILABLE: StateNote = StateNote::new(1);
 
         /// INSTANCE_RESUMING indicates that the instance was previously paused
         /// and is under the process of being brought back.
-        pub const INSTANCE_RESUMING: StateNote = StateNote::new("INSTANCE_RESUMING");
+        pub const INSTANCE_RESUMING: StateNote = StateNote::new(2);
+
+        /// Creates a new StateNote instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_NOTE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PAUSED_CMEK_UNAVAILABLE"),
+                2 => std::borrow::Cow::Borrowed("INSTANCE_RESUMING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_NOTE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_NOTE_UNSPECIFIED),
+                "PAUSED_CMEK_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::PAUSED_CMEK_UNAVAILABLE)
+                }
+                "INSTANCE_RESUMING" => std::option::Option::Some(Self::INSTANCE_RESUMING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for StateNote {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for StateNote {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for StateNote {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

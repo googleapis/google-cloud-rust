@@ -1216,39 +1216,61 @@ pub mod ingest_conversations_request {
         #[allow(unused_imports)]
         use super::*;
 
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct BucketObjectType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct BucketObjectType(i32);
 
         impl BucketObjectType {
+            /// The object type is unspecified and will default to `TRANSCRIPT`.
+            pub const BUCKET_OBJECT_TYPE_UNSPECIFIED: BucketObjectType = BucketObjectType::new(0);
+
+            /// The object is a transcript.
+            pub const TRANSCRIPT: BucketObjectType = BucketObjectType::new(1);
+
+            /// The object is an audio file.
+            pub const AUDIO: BucketObjectType = BucketObjectType::new(2);
+
             /// Creates a new BucketObjectType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("BUCKET_OBJECT_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("TRANSCRIPT"),
+                    2 => std::borrow::Cow::Borrowed("AUDIO"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "BUCKET_OBJECT_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::BUCKET_OBJECT_TYPE_UNSPECIFIED)
+                    }
+                    "TRANSCRIPT" => std::option::Option::Some(Self::TRANSCRIPT),
+                    "AUDIO" => std::option::Option::Some(Self::AUDIO),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [BucketObjectType](BucketObjectType)
-        pub mod bucket_object_type {
-            use super::BucketObjectType;
-
-            /// The object type is unspecified and will default to `TRANSCRIPT`.
-            pub const BUCKET_OBJECT_TYPE_UNSPECIFIED: BucketObjectType =
-                BucketObjectType::new("BUCKET_OBJECT_TYPE_UNSPECIFIED");
-
-            /// The object is a transcript.
-            pub const TRANSCRIPT: BucketObjectType = BucketObjectType::new("TRANSCRIPT");
-
-            /// The object is an audio file.
-            pub const AUDIO: BucketObjectType = BucketObjectType::new("AUDIO");
+        impl std::convert::From<i32> for BucketObjectType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for BucketObjectType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for BucketObjectType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -2304,40 +2326,62 @@ pub mod export_insights_data_request {
     }
 
     /// Specifies the action that occurs if the destination table already exists.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WriteDisposition(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct WriteDisposition(i32);
 
     impl WriteDisposition {
-        /// Creates a new WriteDisposition instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [WriteDisposition](WriteDisposition)
-    pub mod write_disposition {
-        use super::WriteDisposition;
-
         /// Write disposition is not specified. Defaults to WRITE_TRUNCATE.
-        pub const WRITE_DISPOSITION_UNSPECIFIED: WriteDisposition =
-            WriteDisposition::new("WRITE_DISPOSITION_UNSPECIFIED");
+        pub const WRITE_DISPOSITION_UNSPECIFIED: WriteDisposition = WriteDisposition::new(0);
 
         /// If the table already exists, BigQuery will overwrite the table data and
         /// use the schema from the load.
-        pub const WRITE_TRUNCATE: WriteDisposition = WriteDisposition::new("WRITE_TRUNCATE");
+        pub const WRITE_TRUNCATE: WriteDisposition = WriteDisposition::new(1);
 
         /// If the table already exists, BigQuery will append data to the table.
-        pub const WRITE_APPEND: WriteDisposition = WriteDisposition::new("WRITE_APPEND");
+        pub const WRITE_APPEND: WriteDisposition = WriteDisposition::new(2);
+
+        /// Creates a new WriteDisposition instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("WRITE_DISPOSITION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("WRITE_TRUNCATE"),
+                2 => std::borrow::Cow::Borrowed("WRITE_APPEND"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "WRITE_DISPOSITION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::WRITE_DISPOSITION_UNSPECIFIED)
+                }
+                "WRITE_TRUNCATE" => std::option::Option::Some(Self::WRITE_TRUNCATE),
+                "WRITE_APPEND" => std::option::Option::Some(Self::WRITE_APPEND),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for WriteDisposition {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for WriteDisposition {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for WriteDisposition {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -5094,60 +5138,92 @@ pub mod dimension {
     }
 
     /// The key of the dimension.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DimensionKey(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DimensionKey(i32);
 
     impl DimensionKey {
-        /// Creates a new DimensionKey instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DimensionKey](DimensionKey)
-    pub mod dimension_key {
-        use super::DimensionKey;
-
         /// The key of the dimension is unspecified.
-        pub const DIMENSION_KEY_UNSPECIFIED: DimensionKey =
-            DimensionKey::new("DIMENSION_KEY_UNSPECIFIED");
+        pub const DIMENSION_KEY_UNSPECIFIED: DimensionKey = DimensionKey::new(0);
 
         /// The dimension is keyed by issues.
-        pub const ISSUE: DimensionKey = DimensionKey::new("ISSUE");
+        pub const ISSUE: DimensionKey = DimensionKey::new(1);
 
         /// The dimension is keyed by agents.
-        pub const AGENT: DimensionKey = DimensionKey::new("AGENT");
+        pub const AGENT: DimensionKey = DimensionKey::new(2);
 
         /// The dimension is keyed by agent teams.
-        pub const AGENT_TEAM: DimensionKey = DimensionKey::new("AGENT_TEAM");
+        pub const AGENT_TEAM: DimensionKey = DimensionKey::new(3);
 
         /// The dimension is keyed by QaQuestionIds.
         /// Note that: We only group by the QuestionId and not the revision-id of the
         /// scorecard this question is a part of. This allows for showing stats for
         /// the same question across different scorecard revisions.
-        pub const QA_QUESTION_ID: DimensionKey = DimensionKey::new("QA_QUESTION_ID");
+        pub const QA_QUESTION_ID: DimensionKey = DimensionKey::new(4);
 
         /// The dimension is keyed by QaQuestionIds-Answer value pairs.
         /// Note that: We only group by the QuestionId and not the revision-id of the
         /// scorecard this question is a part of. This allows for showing
         /// distribution of answers per question across different scorecard
         /// revisions.
-        pub const QA_QUESTION_ANSWER_VALUE: DimensionKey =
-            DimensionKey::new("QA_QUESTION_ANSWER_VALUE");
+        pub const QA_QUESTION_ANSWER_VALUE: DimensionKey = DimensionKey::new(5);
 
         /// The dimension is keyed by the conversation profile ID.
-        pub const CONVERSATION_PROFILE_ID: DimensionKey =
-            DimensionKey::new("CONVERSATION_PROFILE_ID");
+        pub const CONVERSATION_PROFILE_ID: DimensionKey = DimensionKey::new(6);
+
+        /// Creates a new DimensionKey instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DIMENSION_KEY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ISSUE"),
+                2 => std::borrow::Cow::Borrowed("AGENT"),
+                3 => std::borrow::Cow::Borrowed("AGENT_TEAM"),
+                4 => std::borrow::Cow::Borrowed("QA_QUESTION_ID"),
+                5 => std::borrow::Cow::Borrowed("QA_QUESTION_ANSWER_VALUE"),
+                6 => std::borrow::Cow::Borrowed("CONVERSATION_PROFILE_ID"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DIMENSION_KEY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DIMENSION_KEY_UNSPECIFIED)
+                }
+                "ISSUE" => std::option::Option::Some(Self::ISSUE),
+                "AGENT" => std::option::Option::Some(Self::AGENT),
+                "AGENT_TEAM" => std::option::Option::Some(Self::AGENT_TEAM),
+                "QA_QUESTION_ID" => std::option::Option::Some(Self::QA_QUESTION_ID),
+                "QA_QUESTION_ANSWER_VALUE" => {
+                    std::option::Option::Some(Self::QA_QUESTION_ANSWER_VALUE)
+                }
+                "CONVERSATION_PROFILE_ID" => {
+                    std::option::Option::Some(Self::CONVERSATION_PROFILE_ID)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DimensionKey {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DimensionKey {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DimensionKey {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -5275,57 +5351,87 @@ pub mod query_metrics_request {
     /// A time granularity divides the time line into discrete time periods.
     /// This is useful for defining buckets over which filtering and aggregation
     /// should be performed.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TimeGranularity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TimeGranularity(i32);
 
     impl TimeGranularity {
-        /// Creates a new TimeGranularity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [TimeGranularity](TimeGranularity)
-    pub mod time_granularity {
-        use super::TimeGranularity;
-
         /// The time granularity is unspecified and will default to NONE.
-        pub const TIME_GRANULARITY_UNSPECIFIED: TimeGranularity =
-            TimeGranularity::new("TIME_GRANULARITY_UNSPECIFIED");
+        pub const TIME_GRANULARITY_UNSPECIFIED: TimeGranularity = TimeGranularity::new(0);
 
         /// No time granularity. The response won't contain a time series.
         /// This is the default value if no time granularity is specified.
-        pub const NONE: TimeGranularity = TimeGranularity::new("NONE");
+        pub const NONE: TimeGranularity = TimeGranularity::new(1);
 
         /// Data points in the time series will aggregate at a daily granularity.
         /// 1 day means [midnight to midnight).
-        pub const DAILY: TimeGranularity = TimeGranularity::new("DAILY");
+        pub const DAILY: TimeGranularity = TimeGranularity::new(2);
 
         /// Data points in the time series will aggregate at a daily granularity.
         /// 1 HOUR means [01:00 to 02:00).
-        pub const HOURLY: TimeGranularity = TimeGranularity::new("HOURLY");
+        pub const HOURLY: TimeGranularity = TimeGranularity::new(3);
 
         /// Data points in the time series will aggregate at a daily granularity.
         /// PER_MINUTE means [01:00 to 01:01).
-        pub const PER_MINUTE: TimeGranularity = TimeGranularity::new("PER_MINUTE");
+        pub const PER_MINUTE: TimeGranularity = TimeGranularity::new(4);
 
         /// Data points in the time series will aggregate at a 1 minute  granularity.
         /// PER_5_MINUTES means [01:00 to 01:05).
-        pub const PER_5_MINUTES: TimeGranularity = TimeGranularity::new("PER_5_MINUTES");
+        pub const PER_5_MINUTES: TimeGranularity = TimeGranularity::new(5);
 
         /// Data points in the time series will aggregate at a monthly granularity.
         /// 1 MONTH means [01st of the month to 1st of the next month).
-        pub const MONTHLY: TimeGranularity = TimeGranularity::new("MONTHLY");
+        pub const MONTHLY: TimeGranularity = TimeGranularity::new(6);
+
+        /// Creates a new TimeGranularity instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TIME_GRANULARITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NONE"),
+                2 => std::borrow::Cow::Borrowed("DAILY"),
+                3 => std::borrow::Cow::Borrowed("HOURLY"),
+                4 => std::borrow::Cow::Borrowed("PER_MINUTE"),
+                5 => std::borrow::Cow::Borrowed("PER_5_MINUTES"),
+                6 => std::borrow::Cow::Borrowed("MONTHLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TIME_GRANULARITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TIME_GRANULARITY_UNSPECIFIED)
+                }
+                "NONE" => std::option::Option::Some(Self::NONE),
+                "DAILY" => std::option::Option::Some(Self::DAILY),
+                "HOURLY" => std::option::Option::Some(Self::HOURLY),
+                "PER_MINUTE" => std::option::Option::Some(Self::PER_MINUTE),
+                "PER_5_MINUTES" => std::option::Option::Some(Self::PER_5_MINUTES),
+                "MONTHLY" => std::option::Option::Some(Self::MONTHLY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for TimeGranularity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for TimeGranularity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for TimeGranularity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7668,38 +7774,59 @@ pub mod bulk_upload_feedback_labels_request {
         use super::*;
 
         /// All permissible file formats.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Format(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Format(i32);
 
         impl Format {
+            /// Unspecified format.
+            pub const FORMAT_UNSPECIFIED: Format = Format::new(0);
+
+            /// CSV format.
+            pub const CSV: Format = Format::new(1);
+
+            /// JSON format.
+            pub const JSON: Format = Format::new(2);
+
             /// Creates a new Format instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("FORMAT_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("CSV"),
+                    2 => std::borrow::Cow::Borrowed("JSON"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::FORMAT_UNSPECIFIED),
+                    "CSV" => std::option::Option::Some(Self::CSV),
+                    "JSON" => std::option::Option::Some(Self::JSON),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Format](Format)
-        pub mod format {
-            use super::Format;
-
-            /// Unspecified format.
-            pub const FORMAT_UNSPECIFIED: Format = Format::new("FORMAT_UNSPECIFIED");
-
-            /// CSV format.
-            pub const CSV: Format = Format::new("CSV");
-
-            /// JSON format.
-            pub const JSON: Format = Format::new("JSON");
+        impl std::convert::From<i32> for Format {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for Format {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for Format {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -8140,79 +8267,122 @@ pub mod bulk_download_feedback_labels_request {
         /// All permissible file formats.
         /// See `records_per_file_count` to override the default number of records
         /// per file.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Format(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Format(i32);
 
         impl Format {
-            /// Creates a new Format instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [Format](Format)
-        pub mod format {
-            use super::Format;
-
             /// Unspecified format.
-            pub const FORMAT_UNSPECIFIED: Format = Format::new("FORMAT_UNSPECIFIED");
+            pub const FORMAT_UNSPECIFIED: Format = Format::new(0);
 
             /// CSV format.
             /// 1,000 labels are stored per CSV file by default.
-            pub const CSV: Format = Format::new("CSV");
+            pub const CSV: Format = Format::new(1);
 
             /// JSON format.
             /// 1 label stored per JSON file by default.
-            pub const JSON: Format = Format::new("JSON");
+            pub const JSON: Format = Format::new(2);
+
+            /// Creates a new Format instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("FORMAT_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("CSV"),
+                    2 => std::borrow::Cow::Borrowed("JSON"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::FORMAT_UNSPECIFIED),
+                    "CSV" => std::option::Option::Some(Self::CSV),
+                    "JSON" => std::option::Option::Some(Self::JSON),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for Format {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Format {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for Format {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
 
     /// Possible feedback label types that will be downloaded.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FeedbackLabelType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct FeedbackLabelType(i32);
 
     impl FeedbackLabelType {
-        /// Creates a new FeedbackLabelType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FeedbackLabelType](FeedbackLabelType)
-    pub mod feedback_label_type {
-        use super::FeedbackLabelType;
-
         /// Unspecified format
-        pub const FEEDBACK_LABEL_TYPE_UNSPECIFIED: FeedbackLabelType =
-            FeedbackLabelType::new("FEEDBACK_LABEL_TYPE_UNSPECIFIED");
+        pub const FEEDBACK_LABEL_TYPE_UNSPECIFIED: FeedbackLabelType = FeedbackLabelType::new(0);
 
         /// Downloaded file will contain all Quality AI labels from the latest
         /// scorecard revision.
-        pub const QUALITY_AI: FeedbackLabelType = FeedbackLabelType::new("QUALITY_AI");
+        pub const QUALITY_AI: FeedbackLabelType = FeedbackLabelType::new(1);
 
         /// Downloaded file will contain only Topic Modeling labels.
-        pub const TOPIC_MODELING: FeedbackLabelType = FeedbackLabelType::new("TOPIC_MODELING");
+        pub const TOPIC_MODELING: FeedbackLabelType = FeedbackLabelType::new(2);
+
+        /// Creates a new FeedbackLabelType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FEEDBACK_LABEL_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("QUALITY_AI"),
+                2 => std::borrow::Cow::Borrowed("TOPIC_MODELING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FEEDBACK_LABEL_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FEEDBACK_LABEL_TYPE_UNSPECIFIED)
+                }
+                "QUALITY_AI" => std::option::Option::Some(Self::QUALITY_AI),
+                "TOPIC_MODELING" => std::option::Option::Some(Self::TOPIC_MODELING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FeedbackLabelType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FeedbackLabelType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for FeedbackLabelType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -9291,38 +9461,59 @@ pub mod conversation {
     }
 
     /// Possible media for the conversation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Medium(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Medium(i32);
 
     impl Medium {
+        /// Default value, if unspecified will default to PHONE_CALL.
+        pub const MEDIUM_UNSPECIFIED: Medium = Medium::new(0);
+
+        /// The format for conversations that took place over the phone.
+        pub const PHONE_CALL: Medium = Medium::new(1);
+
+        /// The format for conversations that took place over chat.
+        pub const CHAT: Medium = Medium::new(2);
+
         /// Creates a new Medium instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MEDIUM_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PHONE_CALL"),
+                2 => std::borrow::Cow::Borrowed("CHAT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MEDIUM_UNSPECIFIED" => std::option::Option::Some(Self::MEDIUM_UNSPECIFIED),
+                "PHONE_CALL" => std::option::Option::Some(Self::PHONE_CALL),
+                "CHAT" => std::option::Option::Some(Self::CHAT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Medium](Medium)
-    pub mod medium {
-        use super::Medium;
-
-        /// Default value, if unspecified will default to PHONE_CALL.
-        pub const MEDIUM_UNSPECIFIED: Medium = Medium::new("MEDIUM_UNSPECIFIED");
-
-        /// The format for conversations that took place over the phone.
-        pub const PHONE_CALL: Medium = Medium::new("PHONE_CALL");
-
-        /// The format for conversations that took place over chat.
-        pub const CHAT: Medium = Medium::new("CHAT");
+    impl std::convert::From<i32> for Medium {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Medium {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Medium {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -10736,48 +10927,33 @@ pub mod entity {
     /// Wikipedia URL (`wikipedia_url`) and Knowledge Graph MID (`mid`). The table
     /// below lists the associated fields for entities that have different
     /// metadata.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// Unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
         /// Person.
-        pub const PERSON: Type = Type::new("PERSON");
+        pub const PERSON: Type = Type::new(1);
 
         /// Location.
-        pub const LOCATION: Type = Type::new("LOCATION");
+        pub const LOCATION: Type = Type::new(2);
 
         /// Organization.
-        pub const ORGANIZATION: Type = Type::new("ORGANIZATION");
+        pub const ORGANIZATION: Type = Type::new(3);
 
         /// Event.
-        pub const EVENT: Type = Type::new("EVENT");
+        pub const EVENT: Type = Type::new(4);
 
         /// Artwork.
-        pub const WORK_OF_ART: Type = Type::new("WORK_OF_ART");
+        pub const WORK_OF_ART: Type = Type::new(5);
 
         /// Consumer product.
-        pub const CONSUMER_GOOD: Type = Type::new("CONSUMER_GOOD");
+        pub const CONSUMER_GOOD: Type = Type::new(6);
 
         /// Other types of entities.
-        pub const OTHER: Type = Type::new("OTHER");
+        pub const OTHER: Type = Type::new(7);
 
         /// Phone number.
         ///
@@ -10790,7 +10966,7 @@ pub mod entity {
         /// * `area_code` - Region or area code, if detected.
         /// * `extension` - Phone extension (to be dialed after connection), if
         ///   detected.
-        pub const PHONE_NUMBER: Type = Type::new("PHONE_NUMBER");
+        pub const PHONE_NUMBER: Type = Type::new(9);
 
         /// Address.
         ///
@@ -10807,7 +10983,7 @@ pub mod entity {
         ///   detected.
         /// * `sublocality` - Used in Asian addresses to demark a district within a
         ///   city, if detected.
-        pub const ADDRESS: Type = Type::new("ADDRESS");
+        pub const ADDRESS: Type = Type::new(10);
 
         /// Date.
         ///
@@ -10816,22 +10992,78 @@ pub mod entity {
         /// * `year` - Four digit year, if detected.
         /// * `month` - Two digit month number, if detected.
         /// * `day` - Two digit day number, if detected.
-        pub const DATE: Type = Type::new("DATE");
+        pub const DATE: Type = Type::new(11);
 
         /// Number.
         ///
         /// The metadata is the number itself.
-        pub const NUMBER: Type = Type::new("NUMBER");
+        pub const NUMBER: Type = Type::new(12);
 
         /// Price.
         ///
         /// The metadata identifies the `value` and `currency`.
-        pub const PRICE: Type = Type::new("PRICE");
+        pub const PRICE: Type = Type::new(13);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PERSON"),
+                2 => std::borrow::Cow::Borrowed("LOCATION"),
+                3 => std::borrow::Cow::Borrowed("ORGANIZATION"),
+                4 => std::borrow::Cow::Borrowed("EVENT"),
+                5 => std::borrow::Cow::Borrowed("WORK_OF_ART"),
+                6 => std::borrow::Cow::Borrowed("CONSUMER_GOOD"),
+                7 => std::borrow::Cow::Borrowed("OTHER"),
+                9 => std::borrow::Cow::Borrowed("PHONE_NUMBER"),
+                10 => std::borrow::Cow::Borrowed("ADDRESS"),
+                11 => std::borrow::Cow::Borrowed("DATE"),
+                12 => std::borrow::Cow::Borrowed("NUMBER"),
+                13 => std::borrow::Cow::Borrowed("PRICE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "PERSON" => std::option::Option::Some(Self::PERSON),
+                "LOCATION" => std::option::Option::Some(Self::LOCATION),
+                "ORGANIZATION" => std::option::Option::Some(Self::ORGANIZATION),
+                "EVENT" => std::option::Option::Some(Self::EVENT),
+                "WORK_OF_ART" => std::option::Option::Some(Self::WORK_OF_ART),
+                "CONSUMER_GOOD" => std::option::Option::Some(Self::CONSUMER_GOOD),
+                "OTHER" => std::option::Option::Some(Self::OTHER),
+                "PHONE_NUMBER" => std::option::Option::Some(Self::PHONE_NUMBER),
+                "ADDRESS" => std::option::Option::Some(Self::ADDRESS),
+                "DATE" => std::option::Option::Some(Self::DATE),
+                "NUMBER" => std::option::Option::Some(Self::NUMBER),
+                "PRICE" => std::option::Option::Some(Self::PRICE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -11071,39 +11303,61 @@ pub mod entity_mention_data {
     use super::*;
 
     /// The supported types of mentions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MentionType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct MentionType(i32);
 
     impl MentionType {
+        /// Unspecified.
+        pub const MENTION_TYPE_UNSPECIFIED: MentionType = MentionType::new(0);
+
+        /// Proper noun.
+        pub const PROPER: MentionType = MentionType::new(1);
+
+        /// Common noun (or noun compound).
+        pub const COMMON: MentionType = MentionType::new(2);
+
         /// Creates a new MentionType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MENTION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PROPER"),
+                2 => std::borrow::Cow::Borrowed("COMMON"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MENTION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::MENTION_TYPE_UNSPECIFIED)
+                }
+                "PROPER" => std::option::Option::Some(Self::PROPER),
+                "COMMON" => std::option::Option::Some(Self::COMMON),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [MentionType](MentionType)
-    pub mod mention_type {
-        use super::MentionType;
-
-        /// Unspecified.
-        pub const MENTION_TYPE_UNSPECIFIED: MentionType =
-            MentionType::new("MENTION_TYPE_UNSPECIFIED");
-
-        /// Proper noun.
-        pub const PROPER: MentionType = MentionType::new("PROPER");
-
-        /// Common noun (or noun compound).
-        pub const COMMON: MentionType = MentionType::new("COMMON");
+    impl std::convert::From<i32> for MentionType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for MentionType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for MentionType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -11421,84 +11675,132 @@ pub mod issue_model {
     }
 
     /// State of the model.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Model is not deployed but is ready to deploy.
-        pub const UNDEPLOYED: State = State::new("UNDEPLOYED");
+        pub const UNDEPLOYED: State = State::new(1);
 
         /// Model is being deployed.
-        pub const DEPLOYING: State = State::new("DEPLOYING");
+        pub const DEPLOYING: State = State::new(2);
 
         /// Model is deployed and is ready to be used. A model can only be used in
         /// analysis if it's in this state.
-        pub const DEPLOYED: State = State::new("DEPLOYED");
+        pub const DEPLOYED: State = State::new(3);
 
         /// Model is being undeployed.
-        pub const UNDEPLOYING: State = State::new("UNDEPLOYING");
+        pub const UNDEPLOYING: State = State::new(4);
 
         /// Model is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(5);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UNDEPLOYED"),
+                2 => std::borrow::Cow::Borrowed("DEPLOYING"),
+                3 => std::borrow::Cow::Borrowed("DEPLOYED"),
+                4 => std::borrow::Cow::Borrowed("UNDEPLOYING"),
+                5 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "UNDEPLOYED" => std::option::Option::Some(Self::UNDEPLOYED),
+                "DEPLOYING" => std::option::Option::Some(Self::DEPLOYING),
+                "DEPLOYED" => std::option::Option::Some(Self::DEPLOYED),
+                "UNDEPLOYING" => std::option::Option::Some(Self::UNDEPLOYING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Type of the model.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ModelType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ModelType(i32);
 
     impl ModelType {
+        /// Unspecified model type.
+        pub const MODEL_TYPE_UNSPECIFIED: ModelType = ModelType::new(0);
+
+        /// Type V1.
+        pub const TYPE_V1: ModelType = ModelType::new(1);
+
+        /// Type V2.
+        pub const TYPE_V2: ModelType = ModelType::new(2);
+
         /// Creates a new ModelType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MODEL_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("TYPE_V1"),
+                2 => std::borrow::Cow::Borrowed("TYPE_V2"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MODEL_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::MODEL_TYPE_UNSPECIFIED),
+                "TYPE_V1" => std::option::Option::Some(Self::TYPE_V1),
+                "TYPE_V2" => std::option::Option::Some(Self::TYPE_V2),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ModelType](ModelType)
-    pub mod model_type {
-        use super::ModelType;
-
-        /// Unspecified model type.
-        pub const MODEL_TYPE_UNSPECIFIED: ModelType = ModelType::new("MODEL_TYPE_UNSPECIFIED");
-
-        /// Type V1.
-        pub const TYPE_V1: ModelType = ModelType::new("TYPE_V1");
-
-        /// Type V2.
-        pub const TYPE_V2: ModelType = ModelType::new("TYPE_V2");
+    impl std::convert::From<i32> for ModelType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ModelType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ModelType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -11887,39 +12189,61 @@ pub mod phrase_matcher {
 
     /// Specifies how to combine each phrase match rule group to determine whether
     /// there is a match.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PhraseMatcherType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PhraseMatcherType(i32);
 
     impl PhraseMatcherType {
+        /// Unspecified.
+        pub const PHRASE_MATCHER_TYPE_UNSPECIFIED: PhraseMatcherType = PhraseMatcherType::new(0);
+
+        /// Must meet all phrase match rule groups or there is no match.
+        pub const ALL_OF: PhraseMatcherType = PhraseMatcherType::new(1);
+
+        /// If any of the phrase match rule groups are met, there is a match.
+        pub const ANY_OF: PhraseMatcherType = PhraseMatcherType::new(2);
+
         /// Creates a new PhraseMatcherType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PHRASE_MATCHER_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALL_OF"),
+                2 => std::borrow::Cow::Borrowed("ANY_OF"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PHRASE_MATCHER_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PHRASE_MATCHER_TYPE_UNSPECIFIED)
+                }
+                "ALL_OF" => std::option::Option::Some(Self::ALL_OF),
+                "ANY_OF" => std::option::Option::Some(Self::ANY_OF),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [PhraseMatcherType](PhraseMatcherType)
-    pub mod phrase_matcher_type {
-        use super::PhraseMatcherType;
-
-        /// Unspecified.
-        pub const PHRASE_MATCHER_TYPE_UNSPECIFIED: PhraseMatcherType =
-            PhraseMatcherType::new("PHRASE_MATCHER_TYPE_UNSPECIFIED");
-
-        /// Must meet all phrase match rule groups or there is no match.
-        pub const ALL_OF: PhraseMatcherType = PhraseMatcherType::new("ALL_OF");
-
-        /// If any of the phrase match rule groups are met, there is a match.
-        pub const ANY_OF: PhraseMatcherType = PhraseMatcherType::new("ANY_OF");
+    impl std::convert::From<i32> for PhraseMatcherType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for PhraseMatcherType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for PhraseMatcherType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -11980,39 +12304,62 @@ pub mod phrase_match_rule_group {
 
     /// Specifies how to combine each phrase match rule for whether there is a
     /// match.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PhraseMatchRuleGroupType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PhraseMatchRuleGroupType(i32);
 
     impl PhraseMatchRuleGroupType {
+        /// Unspecified.
+        pub const PHRASE_MATCH_RULE_GROUP_TYPE_UNSPECIFIED: PhraseMatchRuleGroupType =
+            PhraseMatchRuleGroupType::new(0);
+
+        /// Must meet all phrase match rules or there is no match.
+        pub const ALL_OF: PhraseMatchRuleGroupType = PhraseMatchRuleGroupType::new(1);
+
+        /// If any of the phrase match rules are met, there is a match.
+        pub const ANY_OF: PhraseMatchRuleGroupType = PhraseMatchRuleGroupType::new(2);
+
         /// Creates a new PhraseMatchRuleGroupType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PHRASE_MATCH_RULE_GROUP_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALL_OF"),
+                2 => std::borrow::Cow::Borrowed("ANY_OF"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PHRASE_MATCH_RULE_GROUP_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PHRASE_MATCH_RULE_GROUP_TYPE_UNSPECIFIED)
+                }
+                "ALL_OF" => std::option::Option::Some(Self::ALL_OF),
+                "ANY_OF" => std::option::Option::Some(Self::ANY_OF),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [PhraseMatchRuleGroupType](PhraseMatchRuleGroupType)
-    pub mod phrase_match_rule_group_type {
-        use super::PhraseMatchRuleGroupType;
-
-        /// Unspecified.
-        pub const PHRASE_MATCH_RULE_GROUP_TYPE_UNSPECIFIED: PhraseMatchRuleGroupType =
-            PhraseMatchRuleGroupType::new("PHRASE_MATCH_RULE_GROUP_TYPE_UNSPECIFIED");
-
-        /// Must meet all phrase match rules or there is no match.
-        pub const ALL_OF: PhraseMatchRuleGroupType = PhraseMatchRuleGroupType::new("ALL_OF");
-
-        /// If any of the phrase match rules are met, there is a match.
-        pub const ANY_OF: PhraseMatchRuleGroupType = PhraseMatchRuleGroupType::new("ANY_OF");
+    impl std::convert::From<i32> for PhraseMatchRuleGroupType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for PhraseMatchRuleGroupType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for PhraseMatchRuleGroupType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -13063,40 +13410,62 @@ pub mod runtime_annotation {
         use super::*;
 
         /// The source of the query.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct QuerySource(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct QuerySource(i32);
 
         impl QuerySource {
-            /// Creates a new QuerySource instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [QuerySource](QuerySource)
-        pub mod query_source {
-            use super::QuerySource;
-
             /// Unknown query source.
-            pub const QUERY_SOURCE_UNSPECIFIED: QuerySource =
-                QuerySource::new("QUERY_SOURCE_UNSPECIFIED");
+            pub const QUERY_SOURCE_UNSPECIFIED: QuerySource = QuerySource::new(0);
 
             /// The query is from agents.
-            pub const AGENT_QUERY: QuerySource = QuerySource::new("AGENT_QUERY");
+            pub const AGENT_QUERY: QuerySource = QuerySource::new(1);
 
             /// The query is a query from previous suggestions, e.g. from a preceding
             /// SuggestKnowledgeAssist response.
-            pub const SUGGESTED_QUERY: QuerySource = QuerySource::new("SUGGESTED_QUERY");
+            pub const SUGGESTED_QUERY: QuerySource = QuerySource::new(2);
+
+            /// Creates a new QuerySource instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("QUERY_SOURCE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("AGENT_QUERY"),
+                    2 => std::borrow::Cow::Borrowed("SUGGESTED_QUERY"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "QUERY_SOURCE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::QUERY_SOURCE_UNSPECIFIED)
+                    }
+                    "AGENT_QUERY" => std::option::Option::Some(Self::AGENT_QUERY),
+                    "SUGGESTED_QUERY" => std::option::Option::Some(Self::SUGGESTED_QUERY),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for QuerySource {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for QuerySource {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for QuerySource {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -13182,42 +13551,66 @@ pub mod answer_feedback {
     use super::*;
 
     /// The correctness level of an answer.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CorrectnessLevel(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct CorrectnessLevel(i32);
 
     impl CorrectnessLevel {
+        /// Correctness level unspecified.
+        pub const CORRECTNESS_LEVEL_UNSPECIFIED: CorrectnessLevel = CorrectnessLevel::new(0);
+
+        /// Answer is totally wrong.
+        pub const NOT_CORRECT: CorrectnessLevel = CorrectnessLevel::new(1);
+
+        /// Answer is partially correct.
+        pub const PARTIALLY_CORRECT: CorrectnessLevel = CorrectnessLevel::new(2);
+
+        /// Answer is fully correct.
+        pub const FULLY_CORRECT: CorrectnessLevel = CorrectnessLevel::new(3);
+
         /// Creates a new CorrectnessLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CORRECTNESS_LEVEL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NOT_CORRECT"),
+                2 => std::borrow::Cow::Borrowed("PARTIALLY_CORRECT"),
+                3 => std::borrow::Cow::Borrowed("FULLY_CORRECT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CORRECTNESS_LEVEL_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CORRECTNESS_LEVEL_UNSPECIFIED)
+                }
+                "NOT_CORRECT" => std::option::Option::Some(Self::NOT_CORRECT),
+                "PARTIALLY_CORRECT" => std::option::Option::Some(Self::PARTIALLY_CORRECT),
+                "FULLY_CORRECT" => std::option::Option::Some(Self::FULLY_CORRECT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [CorrectnessLevel](CorrectnessLevel)
-    pub mod correctness_level {
-        use super::CorrectnessLevel;
-
-        /// Correctness level unspecified.
-        pub const CORRECTNESS_LEVEL_UNSPECIFIED: CorrectnessLevel =
-            CorrectnessLevel::new("CORRECTNESS_LEVEL_UNSPECIFIED");
-
-        /// Answer is totally wrong.
-        pub const NOT_CORRECT: CorrectnessLevel = CorrectnessLevel::new("NOT_CORRECT");
-
-        /// Answer is partially correct.
-        pub const PARTIALLY_CORRECT: CorrectnessLevel = CorrectnessLevel::new("PARTIALLY_CORRECT");
-
-        /// Answer is fully correct.
-        pub const FULLY_CORRECT: CorrectnessLevel = CorrectnessLevel::new("FULLY_CORRECT");
+    impl std::convert::From<i32> for CorrectnessLevel {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for CorrectnessLevel {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for CorrectnessLevel {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -13821,44 +14214,69 @@ pub mod conversation_participant {
     use super::*;
 
     /// The role of the participant.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Role(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Role(i32);
 
     impl Role {
+        /// Participant's role is not set.
+        pub const ROLE_UNSPECIFIED: Role = Role::new(0);
+
+        /// Participant is a human agent.
+        pub const HUMAN_AGENT: Role = Role::new(1);
+
+        /// Participant is an automated agent.
+        pub const AUTOMATED_AGENT: Role = Role::new(2);
+
+        /// Participant is an end user who conversed with the contact center.
+        pub const END_USER: Role = Role::new(3);
+
+        /// Participant is either a human or automated agent.
+        pub const ANY_AGENT: Role = Role::new(4);
+
         /// Creates a new Role instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROLE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("HUMAN_AGENT"),
+                2 => std::borrow::Cow::Borrowed("AUTOMATED_AGENT"),
+                3 => std::borrow::Cow::Borrowed("END_USER"),
+                4 => std::borrow::Cow::Borrowed("ANY_AGENT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROLE_UNSPECIFIED" => std::option::Option::Some(Self::ROLE_UNSPECIFIED),
+                "HUMAN_AGENT" => std::option::Option::Some(Self::HUMAN_AGENT),
+                "AUTOMATED_AGENT" => std::option::Option::Some(Self::AUTOMATED_AGENT),
+                "END_USER" => std::option::Option::Some(Self::END_USER),
+                "ANY_AGENT" => std::option::Option::Some(Self::ANY_AGENT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Role](Role)
-    pub mod role {
-        use super::Role;
-
-        /// Participant's role is not set.
-        pub const ROLE_UNSPECIFIED: Role = Role::new("ROLE_UNSPECIFIED");
-
-        /// Participant is a human agent.
-        pub const HUMAN_AGENT: Role = Role::new("HUMAN_AGENT");
-
-        /// Participant is an automated agent.
-        pub const AUTOMATED_AGENT: Role = Role::new("AUTOMATED_AGENT");
-
-        /// Participant is an end user who conversed with the contact center.
-        pub const END_USER: Role = Role::new("END_USER");
-
-        /// Participant is either a human or automated agent.
-        pub const ANY_AGENT: Role = Role::new("ANY_AGENT");
+    impl std::convert::From<i32> for Role {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Role {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Role {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -14239,41 +14657,62 @@ pub mod annotator_selector {
         use super::*;
 
         /// Summarization model to use, if `conversation_profile` is not used.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SummarizationModel(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct SummarizationModel(i32);
 
         impl SummarizationModel {
+            /// Unspecified summarization model.
+            pub const SUMMARIZATION_MODEL_UNSPECIFIED: SummarizationModel =
+                SummarizationModel::new(0);
+
+            /// The CCAI baseline model.
+            pub const BASELINE_MODEL: SummarizationModel = SummarizationModel::new(1);
+
+            /// The CCAI baseline model, V2.0.
+            pub const BASELINE_MODEL_V2_0: SummarizationModel = SummarizationModel::new(2);
+
             /// Creates a new SummarizationModel instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("SUMMARIZATION_MODEL_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("BASELINE_MODEL"),
+                    2 => std::borrow::Cow::Borrowed("BASELINE_MODEL_V2_0"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "SUMMARIZATION_MODEL_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::SUMMARIZATION_MODEL_UNSPECIFIED)
+                    }
+                    "BASELINE_MODEL" => std::option::Option::Some(Self::BASELINE_MODEL),
+                    "BASELINE_MODEL_V2_0" => std::option::Option::Some(Self::BASELINE_MODEL_V2_0),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [SummarizationModel](SummarizationModel)
-        pub mod summarization_model {
-            use super::SummarizationModel;
-
-            /// Unspecified summarization model.
-            pub const SUMMARIZATION_MODEL_UNSPECIFIED: SummarizationModel =
-                SummarizationModel::new("SUMMARIZATION_MODEL_UNSPECIFIED");
-
-            /// The CCAI baseline model.
-            pub const BASELINE_MODEL: SummarizationModel =
-                SummarizationModel::new("BASELINE_MODEL");
-
-            /// The CCAI baseline model, V2.0.
-            pub const BASELINE_MODEL_V2_0: SummarizationModel =
-                SummarizationModel::new("BASELINE_MODEL_V2_0");
+        impl std::convert::From<i32> for SummarizationModel {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for SummarizationModel {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for SummarizationModel {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
 
@@ -15039,50 +15478,79 @@ pub mod qa_scorecard_revision {
     use super::*;
 
     /// Enum representing the set of states a scorecard revision may be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Unspecified.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The scorecard revision can be edited.
+        pub const EDITABLE: State = State::new(12);
+
+        /// Scorecard model training is in progress.
+        pub const TRAINING: State = State::new(2);
+
+        /// Scorecard revision model training failed.
+        pub const TRAINING_FAILED: State = State::new(9);
+
+        /// The revision can be used in analysis.
+        pub const READY: State = State::new(11);
+
+        /// Scorecard is being deleted.
+        pub const DELETING: State = State::new(7);
+
+        /// Scorecard model training was explicitly cancelled by the user.
+        pub const TRAINING_CANCELLED: State = State::new(14);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("TRAINING"),
+                7 => std::borrow::Cow::Borrowed("DELETING"),
+                9 => std::borrow::Cow::Borrowed("TRAINING_FAILED"),
+                11 => std::borrow::Cow::Borrowed("READY"),
+                12 => std::borrow::Cow::Borrowed("EDITABLE"),
+                14 => std::borrow::Cow::Borrowed("TRAINING_CANCELLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "EDITABLE" => std::option::Option::Some(Self::EDITABLE),
+                "TRAINING" => std::option::Option::Some(Self::TRAINING),
+                "TRAINING_FAILED" => std::option::Option::Some(Self::TRAINING_FAILED),
+                "READY" => std::option::Option::Some(Self::READY),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "TRAINING_CANCELLED" => std::option::Option::Some(Self::TRAINING_CANCELLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The scorecard revision can be edited.
-        pub const EDITABLE: State = State::new("EDITABLE");
-
-        /// Scorecard model training is in progress.
-        pub const TRAINING: State = State::new("TRAINING");
-
-        /// Scorecard revision model training failed.
-        pub const TRAINING_FAILED: State = State::new("TRAINING_FAILED");
-
-        /// The revision can be used in analysis.
-        pub const READY: State = State::new("READY");
-
-        /// Scorecard is being deleted.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// Scorecard model training was explicitly cancelled by the user.
-        pub const TRAINING_CANCELLED: State = State::new("TRAINING_CANCELLED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -15453,39 +15921,61 @@ pub mod qa_answer {
         use super::*;
 
         /// What created the answer.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SourceType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct SourceType(i32);
 
         impl SourceType {
+            /// Source type is unspecified.
+            pub const SOURCE_TYPE_UNSPECIFIED: SourceType = SourceType::new(0);
+
+            /// Answer was system-generated; created during an Insights analysis.
+            pub const SYSTEM_GENERATED: SourceType = SourceType::new(1);
+
+            /// Answer was created by a human via manual edit.
+            pub const MANUAL_EDIT: SourceType = SourceType::new(2);
+
             /// Creates a new SourceType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("SOURCE_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("SYSTEM_GENERATED"),
+                    2 => std::borrow::Cow::Borrowed("MANUAL_EDIT"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "SOURCE_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::SOURCE_TYPE_UNSPECIFIED)
+                    }
+                    "SYSTEM_GENERATED" => std::option::Option::Some(Self::SYSTEM_GENERATED),
+                    "MANUAL_EDIT" => std::option::Option::Some(Self::MANUAL_EDIT),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [SourceType](SourceType)
-        pub mod source_type {
-            use super::SourceType;
-
-            /// Source type is unspecified.
-            pub const SOURCE_TYPE_UNSPECIFIED: SourceType =
-                SourceType::new("SOURCE_TYPE_UNSPECIFIED");
-
-            /// Answer was system-generated; created during an Insights analysis.
-            pub const SYSTEM_GENERATED: SourceType = SourceType::new("SYSTEM_GENERATED");
-
-            /// Answer was created by a human via manual edit.
-            pub const MANUAL_EDIT: SourceType = SourceType::new("MANUAL_EDIT");
+        impl std::convert::From<i32> for SourceType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for SourceType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for SourceType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -15816,132 +16306,215 @@ pub mod qa_scorecard_result {
         use super::*;
 
         /// What created the score.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SourceType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct SourceType(i32);
 
         impl SourceType {
-            /// Creates a new SourceType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [SourceType](SourceType)
-        pub mod source_type {
-            use super::SourceType;
-
             /// Source type is unspecified.
-            pub const SOURCE_TYPE_UNSPECIFIED: SourceType =
-                SourceType::new("SOURCE_TYPE_UNSPECIFIED");
+            pub const SOURCE_TYPE_UNSPECIFIED: SourceType = SourceType::new(0);
 
             /// Score is derived only from system-generated answers.
-            pub const SYSTEM_GENERATED_ONLY: SourceType = SourceType::new("SYSTEM_GENERATED_ONLY");
+            pub const SYSTEM_GENERATED_ONLY: SourceType = SourceType::new(1);
 
             /// Score is derived from both system-generated answers, and includes
             /// any manual edits if they exist.
-            pub const INCLUDES_MANUAL_EDITS: SourceType = SourceType::new("INCLUDES_MANUAL_EDITS");
+            pub const INCLUDES_MANUAL_EDITS: SourceType = SourceType::new(2);
+
+            /// Creates a new SourceType instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("SOURCE_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("SYSTEM_GENERATED_ONLY"),
+                    2 => std::borrow::Cow::Borrowed("INCLUDES_MANUAL_EDITS"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "SOURCE_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::SOURCE_TYPE_UNSPECIFIED)
+                    }
+                    "SYSTEM_GENERATED_ONLY" => {
+                        std::option::Option::Some(Self::SYSTEM_GENERATED_ONLY)
+                    }
+                    "INCLUDES_MANUAL_EDITS" => {
+                        std::option::Option::Some(Self::INCLUDES_MANUAL_EDITS)
+                    }
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for SourceType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for SourceType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for SourceType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
 }
 
 /// Represents the options for viewing a conversation.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ConversationView(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ConversationView(i32);
 
 impl ConversationView {
-    /// Creates a new ConversationView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [ConversationView](ConversationView)
-pub mod conversation_view {
-    use super::ConversationView;
-
     /// The conversation view is not specified.
     ///
     /// * Defaults to `FULL` in `GetConversationRequest`.
     /// * Defaults to `BASIC` in `ListConversationsRequest`.
-    pub const CONVERSATION_VIEW_UNSPECIFIED: ConversationView =
-        ConversationView::new("CONVERSATION_VIEW_UNSPECIFIED");
+    pub const CONVERSATION_VIEW_UNSPECIFIED: ConversationView = ConversationView::new(0);
 
     /// Populates all fields in the conversation.
-    pub const FULL: ConversationView = ConversationView::new("FULL");
+    pub const FULL: ConversationView = ConversationView::new(2);
 
     /// Populates all fields in the conversation except the transcript.
-    pub const BASIC: ConversationView = ConversationView::new("BASIC");
+    pub const BASIC: ConversationView = ConversationView::new(1);
+
+    /// Creates a new ConversationView instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("CONVERSATION_VIEW_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BASIC"),
+            2 => std::borrow::Cow::Borrowed("FULL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "CONVERSATION_VIEW_UNSPECIFIED" => {
+                std::option::Option::Some(Self::CONVERSATION_VIEW_UNSPECIFIED)
+            }
+            "FULL" => std::option::Option::Some(Self::FULL),
+            "BASIC" => std::option::Option::Some(Self::BASIC),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for ConversationView {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ConversationView {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for ConversationView {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Enum for the different types of issues a tuning dataset can have.
 /// These warnings are currentlyraised when trying to validate a dataset for
 /// tuning a scorecard.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DatasetValidationWarning(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct DatasetValidationWarning(i32);
 
 impl DatasetValidationWarning {
-    /// Creates a new DatasetValidationWarning instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [DatasetValidationWarning](DatasetValidationWarning)
-pub mod dataset_validation_warning {
-    use super::DatasetValidationWarning;
-
     /// Unspecified data validation warning.
     pub const DATASET_VALIDATION_WARNING_UNSPECIFIED: DatasetValidationWarning =
-        DatasetValidationWarning::new("DATASET_VALIDATION_WARNING_UNSPECIFIED");
+        DatasetValidationWarning::new(0);
 
     /// A non-trivial percentage of the feedback labels are invalid.
     pub const TOO_MANY_INVALID_FEEDBACK_LABELS: DatasetValidationWarning =
-        DatasetValidationWarning::new("TOO_MANY_INVALID_FEEDBACK_LABELS");
+        DatasetValidationWarning::new(1);
 
     /// The quantity of valid feedback labels provided is less than the
     /// recommended minimum.
     pub const INSUFFICIENT_FEEDBACK_LABELS: DatasetValidationWarning =
-        DatasetValidationWarning::new("INSUFFICIENT_FEEDBACK_LABELS");
+        DatasetValidationWarning::new(2);
 
     /// One or more of the answers have less than the recommended minimum of
     /// feedback labels.
     pub const INSUFFICIENT_FEEDBACK_LABELS_PER_ANSWER: DatasetValidationWarning =
-        DatasetValidationWarning::new("INSUFFICIENT_FEEDBACK_LABELS_PER_ANSWER");
+        DatasetValidationWarning::new(3);
 
     /// All the labels in the dataset come from a single answer choice.
     pub const ALL_FEEDBACK_LABELS_HAVE_THE_SAME_ANSWER: DatasetValidationWarning =
-        DatasetValidationWarning::new("ALL_FEEDBACK_LABELS_HAVE_THE_SAME_ANSWER");
+        DatasetValidationWarning::new(4);
+
+    /// Creates a new DatasetValidationWarning instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DATASET_VALIDATION_WARNING_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("TOO_MANY_INVALID_FEEDBACK_LABELS"),
+            2 => std::borrow::Cow::Borrowed("INSUFFICIENT_FEEDBACK_LABELS"),
+            3 => std::borrow::Cow::Borrowed("INSUFFICIENT_FEEDBACK_LABELS_PER_ANSWER"),
+            4 => std::borrow::Cow::Borrowed("ALL_FEEDBACK_LABELS_HAVE_THE_SAME_ANSWER"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DATASET_VALIDATION_WARNING_UNSPECIFIED" => {
+                std::option::Option::Some(Self::DATASET_VALIDATION_WARNING_UNSPECIFIED)
+            }
+            "TOO_MANY_INVALID_FEEDBACK_LABELS" => {
+                std::option::Option::Some(Self::TOO_MANY_INVALID_FEEDBACK_LABELS)
+            }
+            "INSUFFICIENT_FEEDBACK_LABELS" => {
+                std::option::Option::Some(Self::INSUFFICIENT_FEEDBACK_LABELS)
+            }
+            "INSUFFICIENT_FEEDBACK_LABELS_PER_ANSWER" => {
+                std::option::Option::Some(Self::INSUFFICIENT_FEEDBACK_LABELS_PER_ANSWER)
+            }
+            "ALL_FEEDBACK_LABELS_HAVE_THE_SAME_ANSWER" => {
+                std::option::Option::Some(Self::ALL_FEEDBACK_LABELS_HAVE_THE_SAME_ANSWER)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for DatasetValidationWarning {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DatasetValidationWarning {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for DatasetValidationWarning {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

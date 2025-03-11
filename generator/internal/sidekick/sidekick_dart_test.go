@@ -32,13 +32,16 @@ func TestDartFromProtobuf(t *testing.T) {
 		SpecificationSource: specificationSource,
 		Source: map[string]string{
 			"googleapis-root": googleapisRoot,
+			"name-override":   "secretmanager",
 		},
 		ServiceConfig: svcConfig,
 		Language:      "dart",
 		Output:        outDir,
 		Codec: map[string]string{
-			"not-for-publication": "true",
-			"copyright-year":      "2025",
+			"copyright-year":        "2025",
+			"not-for-publication":   "true",
+			"version":               "0.1.0",
+			"proto:google.protobuf": "package:google_cloud_protobuf/protobuf.dart",
 		},
 	}
 	cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})

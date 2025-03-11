@@ -570,38 +570,59 @@ pub mod span {
             use super::*;
 
             /// Indicates whether the message was sent or received.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Type(std::borrow::Cow<'static, str>);
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            pub struct Type(i32);
 
             impl Type {
+                /// Unknown event type.
+                pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+                /// Indicates a sent message.
+                pub const SENT: Type = Type::new(1);
+
+                /// Indicates a received message.
+                pub const RECEIVED: Type = Type::new(2);
+
                 /// Creates a new Type instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
+                pub(crate) const fn new(value: i32) -> Self {
+                    Self(value)
                 }
 
                 /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
+                pub fn value(&self) -> i32 {
+                    self.0
+                }
+
+                /// Gets the enum value as a string.
+                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                    match self.0 {
+                        0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                        1 => std::borrow::Cow::Borrowed("SENT"),
+                        2 => std::borrow::Cow::Borrowed("RECEIVED"),
+                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                    }
+                }
+
+                /// Creates an enum value from the value name.
+                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                    match name {
+                        "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                        "SENT" => std::option::Option::Some(Self::SENT),
+                        "RECEIVED" => std::option::Option::Some(Self::RECEIVED),
+                        _ => std::option::Option::None,
+                    }
                 }
             }
 
-            /// Useful constants to work with [Type](Type)
-            pub mod r#type {
-                use super::Type;
-
-                /// Unknown event type.
-                pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-                /// Indicates a sent message.
-                pub const SENT: Type = Type::new("SENT");
-
-                /// Indicates a received message.
-                pub const RECEIVED: Type = Type::new("RECEIVED");
+            impl std::convert::From<i32> for Type {
+                fn from(value: i32) -> Self {
+                    Self::new(value)
+                }
             }
 
-            impl std::convert::From<std::string::String> for Type {
-                fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+            impl std::default::Default for Type {
+                fn default() -> Self {
+                    Self::new(0)
                 }
             }
         }
@@ -756,38 +777,59 @@ pub mod span {
 
         /// The relationship of the current span relative to the linked span: child,
         /// parent, or unspecified.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Type(i32);
 
         impl Type {
+            /// The relationship of the two spans is unknown.
+            pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+            /// The linked span is a child of the current span.
+            pub const CHILD_LINKED_SPAN: Type = Type::new(1);
+
+            /// The linked span is a parent of the current span.
+            pub const PARENT_LINKED_SPAN: Type = Type::new(2);
+
             /// Creates a new Type instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("CHILD_LINKED_SPAN"),
+                    2 => std::borrow::Cow::Borrowed("PARENT_LINKED_SPAN"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                    "CHILD_LINKED_SPAN" => std::option::Option::Some(Self::CHILD_LINKED_SPAN),
+                    "PARENT_LINKED_SPAN" => std::option::Option::Some(Self::PARENT_LINKED_SPAN),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Type](Type)
-        pub mod r#type {
-            use super::Type;
-
-            /// The relationship of the two spans is unknown.
-            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-            /// The linked span is a child of the current span.
-            pub const CHILD_LINKED_SPAN: Type = Type::new("CHILD_LINKED_SPAN");
-
-            /// The linked span is a parent of the current span.
-            pub const PARENT_LINKED_SPAN: Type = Type::new("PARENT_LINKED_SPAN");
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for Type {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -839,56 +881,83 @@ pub mod span {
 
     /// Type of span. Can be used to specify additional relationships between spans
     /// in addition to a parent/child relationship.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SpanKind(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct SpanKind(i32);
 
     impl SpanKind {
-        /// Creates a new SpanKind instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [SpanKind](SpanKind)
-    pub mod span_kind {
-        use super::SpanKind;
-
         /// Unspecified. Do NOT use as default.
         /// Implementations MAY assume SpanKind.INTERNAL to be default.
-        pub const SPAN_KIND_UNSPECIFIED: SpanKind = SpanKind::new("SPAN_KIND_UNSPECIFIED");
+        pub const SPAN_KIND_UNSPECIFIED: SpanKind = SpanKind::new(0);
 
         /// Indicates that the span is used internally. Default value.
-        pub const INTERNAL: SpanKind = SpanKind::new("INTERNAL");
+        pub const INTERNAL: SpanKind = SpanKind::new(1);
 
         /// Indicates that the span covers server-side handling of an RPC or other
         /// remote network request.
-        pub const SERVER: SpanKind = SpanKind::new("SERVER");
+        pub const SERVER: SpanKind = SpanKind::new(2);
 
         /// Indicates that the span covers the client-side wrapper around an RPC or
         /// other remote request.
-        pub const CLIENT: SpanKind = SpanKind::new("CLIENT");
+        pub const CLIENT: SpanKind = SpanKind::new(3);
 
         /// Indicates that the span describes producer sending a message to a broker.
         /// Unlike client and  server, there is no direct critical path latency
         /// relationship between producer and consumer spans (e.g. publishing a
         /// message to a pubsub service).
-        pub const PRODUCER: SpanKind = SpanKind::new("PRODUCER");
+        pub const PRODUCER: SpanKind = SpanKind::new(4);
 
         /// Indicates that the span describes consumer receiving a message from a
         /// broker. Unlike client and  server, there is no direct critical path
         /// latency relationship between producer and consumer spans (e.g. receiving
         /// a message from a pubsub service subscription).
-        pub const CONSUMER: SpanKind = SpanKind::new("CONSUMER");
+        pub const CONSUMER: SpanKind = SpanKind::new(5);
+
+        /// Creates a new SpanKind instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SPAN_KIND_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INTERNAL"),
+                2 => std::borrow::Cow::Borrowed("SERVER"),
+                3 => std::borrow::Cow::Borrowed("CLIENT"),
+                4 => std::borrow::Cow::Borrowed("PRODUCER"),
+                5 => std::borrow::Cow::Borrowed("CONSUMER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SPAN_KIND_UNSPECIFIED" => std::option::Option::Some(Self::SPAN_KIND_UNSPECIFIED),
+                "INTERNAL" => std::option::Option::Some(Self::INTERNAL),
+                "SERVER" => std::option::Option::Some(Self::SERVER),
+                "CLIENT" => std::option::Option::Some(Self::CLIENT),
+                "PRODUCER" => std::option::Option::Some(Self::PRODUCER),
+                "CONSUMER" => std::option::Option::Some(Self::CONSUMER),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for SpanKind {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SpanKind {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for SpanKind {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

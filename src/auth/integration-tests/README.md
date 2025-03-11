@@ -58,6 +58,7 @@ to a test project.
 terraform plan \
     -var="project=${PROJECT}" \
     -out="/tmp/builds.plan" \
+    -target="module.api_key_test" \
     -target="module.service_account_test"
 
 terraform apply "/tmp/builds.plan"
@@ -68,6 +69,19 @@ Run the tests:
 ```sh
 env GOOGLE_CLOUD_PROJECT=${PROJECT} \
     cargo test --features run-integration-tests -p auth-integration-tests
+```
+
+If you are done with the resources, you can destroy them with:
+
+```sh
+terraform plan \
+    -var="project=${PROJECT}" \
+    -out="/tmp/builds.plan" \
+    -target="module.api_key_test" \
+    -target="module.service_account_test" \
+    -destroy
+
+terraform apply "/tmp/builds.plan"
 ```
 
 ## Test Design

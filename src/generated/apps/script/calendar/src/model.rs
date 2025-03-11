@@ -142,50 +142,75 @@ pub mod calendar_add_on_manifest {
     use super::*;
 
     /// An enum defining the level of data access event triggers require.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventAccess(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct EventAccess(i32);
 
     impl EventAccess {
-        /// Creates a new EventAccess instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [EventAccess](EventAccess)
-    pub mod event_access {
-        use super::EventAccess;
-
         /// Default value when nothing is set for EventAccess.
-        pub const UNSPECIFIED: EventAccess = EventAccess::new("UNSPECIFIED");
+        pub const UNSPECIFIED: EventAccess = EventAccess::new(0);
 
         /// METADATA gives event triggers the permission to access the metadata of
         /// events such as event id and calendar id.
-        pub const METADATA: EventAccess = EventAccess::new("METADATA");
+        pub const METADATA: EventAccess = EventAccess::new(1);
 
         /// READ gives event triggers access to all provided event fields including
         /// the metadata, attendees, and conference data.
-        pub const READ: EventAccess = EventAccess::new("READ");
+        pub const READ: EventAccess = EventAccess::new(3);
 
         /// WRITE gives event triggers access to the metadata of events and the
         /// ability to perform all actions, including adding attendees and setting
         /// conference data.
-        pub const WRITE: EventAccess = EventAccess::new("WRITE");
+        pub const WRITE: EventAccess = EventAccess::new(4);
 
         /// READ_WRITE gives event triggers access to all provided event fields
         /// including the metadata, attendees, and conference data and the ability to
         /// perform all actions.
-        pub const READ_WRITE: EventAccess = EventAccess::new("READ_WRITE");
+        pub const READ_WRITE: EventAccess = EventAccess::new(5);
+
+        /// Creates a new EventAccess instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("METADATA"),
+                3 => std::borrow::Cow::Borrowed("READ"),
+                4 => std::borrow::Cow::Borrowed("WRITE"),
+                5 => std::borrow::Cow::Borrowed("READ_WRITE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "METADATA" => std::option::Option::Some(Self::METADATA),
+                "READ" => std::option::Option::Some(Self::READ),
+                "WRITE" => std::option::Option::Some(Self::WRITE),
+                "READ_WRITE" => std::option::Option::Some(Self::READ_WRITE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for EventAccess {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for EventAccess {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for EventAccess {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

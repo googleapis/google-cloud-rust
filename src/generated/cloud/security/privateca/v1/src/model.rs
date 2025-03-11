@@ -570,42 +570,63 @@ pub mod certificate_authority {
     /// indicating its issuing chain.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// Not specified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
         /// Self-signed CA.
-        pub const SELF_SIGNED: Type = Type::new("SELF_SIGNED");
+        pub const SELF_SIGNED: Type = Type::new(1);
 
         /// Subordinate CA. Could be issued by a Private CA
         /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]
         /// or an unmanaged CA.
         ///
         /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-        pub const SUBORDINATE: Type = Type::new("SUBORDINATE");
+        pub const SUBORDINATE: Type = Type::new(2);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SELF_SIGNED"),
+                2 => std::borrow::Cow::Borrowed("SUBORDINATE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "SELF_SIGNED" => std::option::Option::Some(Self::SELF_SIGNED),
+                "SUBORDINATE" => std::option::Option::Some(Self::SUBORDINATE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -614,27 +635,12 @@ pub mod certificate_authority {
     /// indicating if it can be used.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Certificates can be issued from this CA. CRLs will be generated for this
         /// CA. The CA will be part of the
@@ -643,7 +649,7 @@ pub mod certificate_authority {
         /// [CaPool][google.cloud.security.privateca.v1.CaPool].
         ///
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-        pub const ENABLED: State = State::new("ENABLED");
+        pub const ENABLED: State = State::new(1);
 
         /// Certificates cannot be issued from this CA. CRLs will still be generated.
         /// The CA will be part of the
@@ -652,7 +658,7 @@ pub mod certificate_authority {
         /// [CaPool][google.cloud.security.privateca.v1.CaPool].
         ///
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-        pub const DISABLED: State = State::new("DISABLED");
+        pub const DISABLED: State = State::new(2);
 
         /// Certificates can be issued from this CA. CRLs will be generated for this
         /// CA. The CA will be part of the
@@ -661,7 +667,7 @@ pub mod certificate_authority {
         /// [CaPool][google.cloud.security.privateca.v1.CaPool].
         ///
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-        pub const STAGED: State = State::new("STAGED");
+        pub const STAGED: State = State::new(3);
 
         /// Certificates cannot be issued from this CA. CRLs will not be generated.
         /// The CA will not be part of the
@@ -670,7 +676,7 @@ pub mod certificate_authority {
         /// [CaPool][google.cloud.security.privateca.v1.CaPool].
         ///
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-        pub const AWAITING_USER_ACTIVATION: State = State::new("AWAITING_USER_ACTIVATION");
+        pub const AWAITING_USER_ACTIVATION: State = State::new(4);
 
         /// Certificates cannot be issued from this CA. CRLs will not be generated.
         /// The CA may still be recovered by calling
@@ -685,12 +691,56 @@ pub mod certificate_authority {
         /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
         /// [google.cloud.security.privateca.v1.CertificateAuthority.expire_time]: crate::model::CertificateAuthority::expire_time
         /// [google.cloud.security.privateca.v1.CertificateAuthorityService.UndeleteCertificateAuthority]: crate::client::CertificateAuthorityService::undelete_certificate_authority
-        pub const DELETED: State = State::new("DELETED");
+        pub const DELETED: State = State::new(5);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                3 => std::borrow::Cow::Borrowed("STAGED"),
+                4 => std::borrow::Cow::Borrowed("AWAITING_USER_ACTIVATION"),
+                5 => std::borrow::Cow::Borrowed("DELETED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                "STAGED" => std::option::Option::Some(Self::STAGED),
+                "AWAITING_USER_ACTIVATION" => {
+                    std::option::Option::Some(Self::AWAITING_USER_ACTIVATION)
+                }
+                "DELETED" => std::option::Option::Some(Self::DELETED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -703,63 +753,91 @@ pub mod certificate_authority {
     /// use PKCS1 algorithms if required for compatibility. For further
     /// recommendations, see
     /// <https://cloud.google.com/kms/docs/algorithms#algorithm_recommendations>.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SignHashAlgorithm(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct SignHashAlgorithm(i32);
 
     impl SignHashAlgorithm {
+        /// Not specified.
+        pub const SIGN_HASH_ALGORITHM_UNSPECIFIED: SignHashAlgorithm = SignHashAlgorithm::new(0);
+
+        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_2048_SHA256
+        pub const RSA_PSS_2048_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(1);
+
+        /// maps to CryptoKeyVersionAlgorithm. RSA_SIGN_PSS_3072_SHA256
+        pub const RSA_PSS_3072_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(2);
+
+        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_4096_SHA256
+        pub const RSA_PSS_4096_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(3);
+
+        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_2048_SHA256
+        pub const RSA_PKCS1_2048_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(6);
+
+        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_3072_SHA256
+        pub const RSA_PKCS1_3072_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(7);
+
+        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_4096_SHA256
+        pub const RSA_PKCS1_4096_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(8);
+
+        /// maps to CryptoKeyVersionAlgorithm.EC_SIGN_P256_SHA256
+        pub const EC_P256_SHA256: SignHashAlgorithm = SignHashAlgorithm::new(4);
+
+        /// maps to CryptoKeyVersionAlgorithm.EC_SIGN_P384_SHA384
+        pub const EC_P384_SHA384: SignHashAlgorithm = SignHashAlgorithm::new(5);
+
         /// Creates a new SignHashAlgorithm instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SIGN_HASH_ALGORITHM_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RSA_PSS_2048_SHA256"),
+                2 => std::borrow::Cow::Borrowed("RSA_PSS_3072_SHA256"),
+                3 => std::borrow::Cow::Borrowed("RSA_PSS_4096_SHA256"),
+                4 => std::borrow::Cow::Borrowed("EC_P256_SHA256"),
+                5 => std::borrow::Cow::Borrowed("EC_P384_SHA384"),
+                6 => std::borrow::Cow::Borrowed("RSA_PKCS1_2048_SHA256"),
+                7 => std::borrow::Cow::Borrowed("RSA_PKCS1_3072_SHA256"),
+                8 => std::borrow::Cow::Borrowed("RSA_PKCS1_4096_SHA256"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SIGN_HASH_ALGORITHM_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SIGN_HASH_ALGORITHM_UNSPECIFIED)
+                }
+                "RSA_PSS_2048_SHA256" => std::option::Option::Some(Self::RSA_PSS_2048_SHA256),
+                "RSA_PSS_3072_SHA256" => std::option::Option::Some(Self::RSA_PSS_3072_SHA256),
+                "RSA_PSS_4096_SHA256" => std::option::Option::Some(Self::RSA_PSS_4096_SHA256),
+                "RSA_PKCS1_2048_SHA256" => std::option::Option::Some(Self::RSA_PKCS1_2048_SHA256),
+                "RSA_PKCS1_3072_SHA256" => std::option::Option::Some(Self::RSA_PKCS1_3072_SHA256),
+                "RSA_PKCS1_4096_SHA256" => std::option::Option::Some(Self::RSA_PKCS1_4096_SHA256),
+                "EC_P256_SHA256" => std::option::Option::Some(Self::EC_P256_SHA256),
+                "EC_P384_SHA384" => std::option::Option::Some(Self::EC_P384_SHA384),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SignHashAlgorithm](SignHashAlgorithm)
-    pub mod sign_hash_algorithm {
-        use super::SignHashAlgorithm;
-
-        /// Not specified.
-        pub const SIGN_HASH_ALGORITHM_UNSPECIFIED: SignHashAlgorithm =
-            SignHashAlgorithm::new("SIGN_HASH_ALGORITHM_UNSPECIFIED");
-
-        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_2048_SHA256
-        pub const RSA_PSS_2048_SHA256: SignHashAlgorithm =
-            SignHashAlgorithm::new("RSA_PSS_2048_SHA256");
-
-        /// maps to CryptoKeyVersionAlgorithm. RSA_SIGN_PSS_3072_SHA256
-        pub const RSA_PSS_3072_SHA256: SignHashAlgorithm =
-            SignHashAlgorithm::new("RSA_PSS_3072_SHA256");
-
-        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_4096_SHA256
-        pub const RSA_PSS_4096_SHA256: SignHashAlgorithm =
-            SignHashAlgorithm::new("RSA_PSS_4096_SHA256");
-
-        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_2048_SHA256
-        pub const RSA_PKCS1_2048_SHA256: SignHashAlgorithm =
-            SignHashAlgorithm::new("RSA_PKCS1_2048_SHA256");
-
-        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_3072_SHA256
-        pub const RSA_PKCS1_3072_SHA256: SignHashAlgorithm =
-            SignHashAlgorithm::new("RSA_PKCS1_3072_SHA256");
-
-        /// maps to CryptoKeyVersionAlgorithm.RSA_SIGN_PKCS1_4096_SHA256
-        pub const RSA_PKCS1_4096_SHA256: SignHashAlgorithm =
-            SignHashAlgorithm::new("RSA_PKCS1_4096_SHA256");
-
-        /// maps to CryptoKeyVersionAlgorithm.EC_SIGN_P256_SHA256
-        pub const EC_P256_SHA256: SignHashAlgorithm = SignHashAlgorithm::new("EC_P256_SHA256");
-
-        /// maps to CryptoKeyVersionAlgorithm.EC_SIGN_P384_SHA384
-        pub const EC_P384_SHA384: SignHashAlgorithm = SignHashAlgorithm::new("EC_P384_SHA384");
+    impl std::convert::From<i32> for SignHashAlgorithm {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for SignHashAlgorithm {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for SignHashAlgorithm {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -981,47 +1059,69 @@ pub mod ca_pool {
         use super::*;
 
         /// Supported encoding formats for publishing.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct EncodingFormat(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct EncodingFormat(i32);
 
         impl EncodingFormat {
-            /// Creates a new EncodingFormat instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [EncodingFormat](EncodingFormat)
-        pub mod encoding_format {
-            use super::EncodingFormat;
-
             /// Not specified. By default, PEM format will be used.
-            pub const ENCODING_FORMAT_UNSPECIFIED: EncodingFormat =
-                EncodingFormat::new("ENCODING_FORMAT_UNSPECIFIED");
+            pub const ENCODING_FORMAT_UNSPECIFIED: EncodingFormat = EncodingFormat::new(0);
 
             /// The
             /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]'s
             /// CA certificate and CRLs will be published in PEM format.
             ///
             /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-            pub const PEM: EncodingFormat = EncodingFormat::new("PEM");
+            pub const PEM: EncodingFormat = EncodingFormat::new(1);
 
             /// The
             /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]'s
             /// CA certificate and CRLs will be published in DER format.
             ///
             /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-            pub const DER: EncodingFormat = EncodingFormat::new("DER");
+            pub const DER: EncodingFormat = EncodingFormat::new(2);
+
+            /// Creates a new EncodingFormat instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("ENCODING_FORMAT_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("PEM"),
+                    2 => std::borrow::Cow::Borrowed("DER"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "ENCODING_FORMAT_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::ENCODING_FORMAT_UNSPECIFIED)
+                    }
+                    "PEM" => std::option::Option::Some(Self::PEM),
+                    "DER" => std::option::Option::Some(Self::DER),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for EncodingFormat {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for EncodingFormat {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for EncodingFormat {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -1438,50 +1538,70 @@ pub mod ca_pool {
                 ///
                 /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
                 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-                #[derive(
-                    Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
-                )]
-                pub struct EcSignatureAlgorithm(std::borrow::Cow<'static, str>);
+                #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+                pub struct EcSignatureAlgorithm(i32);
 
                 impl EcSignatureAlgorithm {
-                    /// Creates a new EcSignatureAlgorithm instance.
-                    pub const fn new(v: &'static str) -> Self {
-                        Self(std::borrow::Cow::Borrowed(v))
-                    }
-
-                    /// Gets the enum value.
-                    pub fn value(&self) -> &str {
-                        &self.0
-                    }
-                }
-
-                /// Useful constants to work with [EcSignatureAlgorithm](EcSignatureAlgorithm)
-                pub mod ec_signature_algorithm {
-                    use super::EcSignatureAlgorithm;
-
                     /// Not specified. Signifies that any signature algorithm may be used.
                     pub const EC_SIGNATURE_ALGORITHM_UNSPECIFIED: EcSignatureAlgorithm =
-                        EcSignatureAlgorithm::new("EC_SIGNATURE_ALGORITHM_UNSPECIFIED");
+                        EcSignatureAlgorithm::new(0);
 
                     /// Refers to the Elliptic Curve Digital Signature Algorithm over the
                     /// NIST P-256 curve.
-                    pub const ECDSA_P256: EcSignatureAlgorithm =
-                        EcSignatureAlgorithm::new("ECDSA_P256");
+                    pub const ECDSA_P256: EcSignatureAlgorithm = EcSignatureAlgorithm::new(1);
 
                     /// Refers to the Elliptic Curve Digital Signature Algorithm over the
                     /// NIST P-384 curve.
-                    pub const ECDSA_P384: EcSignatureAlgorithm =
-                        EcSignatureAlgorithm::new("ECDSA_P384");
+                    pub const ECDSA_P384: EcSignatureAlgorithm = EcSignatureAlgorithm::new(2);
 
                     /// Refers to the Edwards-curve Digital Signature Algorithm over curve
                     /// 25519, as described in RFC 8410.
-                    pub const EDDSA_25519: EcSignatureAlgorithm =
-                        EcSignatureAlgorithm::new("EDDSA_25519");
+                    pub const EDDSA_25519: EcSignatureAlgorithm = EcSignatureAlgorithm::new(3);
+
+                    /// Creates a new EcSignatureAlgorithm instance.
+                    pub(crate) const fn new(value: i32) -> Self {
+                        Self(value)
+                    }
+
+                    /// Gets the enum value.
+                    pub fn value(&self) -> i32 {
+                        self.0
+                    }
+
+                    /// Gets the enum value as a string.
+                    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                        match self.0 {
+                            0 => std::borrow::Cow::Borrowed("EC_SIGNATURE_ALGORITHM_UNSPECIFIED"),
+                            1 => std::borrow::Cow::Borrowed("ECDSA_P256"),
+                            2 => std::borrow::Cow::Borrowed("ECDSA_P384"),
+                            3 => std::borrow::Cow::Borrowed("EDDSA_25519"),
+                            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                        }
+                    }
+
+                    /// Creates an enum value from the value name.
+                    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                        match name {
+                            "EC_SIGNATURE_ALGORITHM_UNSPECIFIED" => {
+                                std::option::Option::Some(Self::EC_SIGNATURE_ALGORITHM_UNSPECIFIED)
+                            }
+                            "ECDSA_P256" => std::option::Option::Some(Self::ECDSA_P256),
+                            "ECDSA_P384" => std::option::Option::Some(Self::ECDSA_P384),
+                            "EDDSA_25519" => std::option::Option::Some(Self::EDDSA_25519),
+                            _ => std::option::Option::None,
+                        }
+                    }
                 }
 
-                impl std::convert::From<std::string::String> for EcSignatureAlgorithm {
-                    fn from(value: std::string::String) -> Self {
-                        Self(std::borrow::Cow::Owned(value))
+                impl std::convert::From<i32> for EcSignatureAlgorithm {
+                    fn from(value: i32) -> Self {
+                        Self::new(value)
+                    }
+                }
+
+                impl std::default::Default for EcSignatureAlgorithm {
+                    fn default() -> Self {
+                        Self::new(0)
                     }
                 }
             }
@@ -1570,38 +1690,59 @@ pub mod ca_pool {
     /// indicating its supported functionality and/or billing SKU.
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Tier(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Tier(i32);
 
     impl Tier {
+        /// Not specified.
+        pub const TIER_UNSPECIFIED: Tier = Tier::new(0);
+
+        /// Enterprise tier.
+        pub const ENTERPRISE: Tier = Tier::new(1);
+
+        /// DevOps tier.
+        pub const DEVOPS: Tier = Tier::new(2);
+
         /// Creates a new Tier instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TIER_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENTERPRISE"),
+                2 => std::borrow::Cow::Borrowed("DEVOPS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TIER_UNSPECIFIED" => std::option::Option::Some(Self::TIER_UNSPECIFIED),
+                "ENTERPRISE" => std::option::Option::Some(Self::ENTERPRISE),
+                "DEVOPS" => std::option::Option::Some(Self::DEVOPS),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Tier](Tier)
-    pub mod tier {
-        use super::Tier;
-
-        /// Not specified.
-        pub const TIER_UNSPECIFIED: Tier = Tier::new("TIER_UNSPECIFIED");
-
-        /// Enterprise tier.
-        pub const ENTERPRISE: Tier = Tier::new("ENTERPRISE");
-
-        /// DevOps tier.
-        pub const DEVOPS: Tier = Tier::new("DEVOPS");
+    impl std::convert::From<i32> for Tier {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Tier {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Tier {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1852,46 +1993,67 @@ pub mod certificate_revocation_list {
     /// indicating if it is current.
     ///
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The
         /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList]
         /// is up to date.
         ///
         /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(1);
 
         /// The
         /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList]
         /// is no longer current.
         ///
         /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
-        pub const SUPERSEDED: State = State::new("SUPERSEDED");
+        pub const SUPERSEDED: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("SUPERSEDED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "SUPERSEDED" => std::option::Option::Some(Self::SUPERSEDED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2999,9 +3161,9 @@ pub mod subordinate_config {
 pub struct PublicKey {
     /// Required. A public key. The padding and encoding
     /// must match with the `KeyFormat` value specified for the `format` field.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub key: bytes::Bytes,
+    pub key: ::bytes::Bytes,
 
     /// Required. The format of the public key.
     pub format: crate::model::public_key::KeyFormat,
@@ -3013,7 +3175,7 @@ impl PublicKey {
     }
 
     /// Sets the value of [key][crate::model::PublicKey::key].
-    pub fn set_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
@@ -3041,27 +3203,12 @@ pub mod public_key {
 
     /// Types of public keys formats that are supported. Currently, only `PEM`
     /// format is supported.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KeyFormat(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct KeyFormat(i32);
 
     impl KeyFormat {
-        /// Creates a new KeyFormat instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [KeyFormat](KeyFormat)
-    pub mod key_format {
-        use super::KeyFormat;
-
         /// Default unspecified value.
-        pub const KEY_FORMAT_UNSPECIFIED: KeyFormat = KeyFormat::new("KEY_FORMAT_UNSPECIFIED");
+        pub const KEY_FORMAT_UNSPECIFIED: KeyFormat = KeyFormat::new(0);
 
         /// The key is PEM-encoded as defined in [RFC
         /// 7468](https://tools.ietf.org/html/rfc7468). It can be any of the
@@ -3076,12 +3223,46 @@ pub mod public_key {
         /// generated by the service, it will always be an RFC 5280
         /// [SubjectPublicKeyInfo](https://tools.ietf.org/html/rfc5280#section-4.1)
         /// structure containing an algorithm identifier and a key.
-        pub const PEM: KeyFormat = KeyFormat::new("PEM");
+        pub const PEM: KeyFormat = KeyFormat::new(1);
+
+        /// Creates a new KeyFormat instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("KEY_FORMAT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PEM"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "KEY_FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::KEY_FORMAT_UNSPECIFIED),
+                "PEM" => std::option::Option::Some(Self::PEM),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for KeyFormat {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for KeyFormat {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for KeyFormat {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3651,9 +3832,9 @@ pub struct X509Extension {
     pub critical: bool,
 
     /// Required. The value of this X.509 extension.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub value: bytes::Bytes,
+    pub value: ::bytes::Bytes,
 }
 
 impl X509Extension {
@@ -3677,7 +3858,7 @@ impl X509Extension {
     }
 
     /// Sets the value of [value][crate::model::X509Extension::value].
-    pub fn set_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
@@ -4319,28 +4500,13 @@ pub mod certificate_extension_constraints {
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KnownCertificateExtension(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct KnownCertificateExtension(i32);
 
     impl KnownCertificateExtension {
-        /// Creates a new KnownCertificateExtension instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [KnownCertificateExtension](KnownCertificateExtension)
-    pub mod known_certificate_extension {
-        use super::KnownCertificateExtension;
-
         /// Not specified.
         pub const KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED: KnownCertificateExtension =
-            KnownCertificateExtension::new("KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED");
+            KnownCertificateExtension::new(0);
 
         /// Refers to a certificate's Key Usage extension, as described in [RFC 5280
         /// section 4.2.1.3](https://tools.ietf.org/html/rfc5280#section-4.2.1.3).
@@ -4349,8 +4515,7 @@ pub mod certificate_extension_constraints {
         /// field.
         ///
         /// [google.cloud.security.privateca.v1.KeyUsage.base_key_usage]: crate::model::KeyUsage::base_key_usage
-        pub const BASE_KEY_USAGE: KnownCertificateExtension =
-            KnownCertificateExtension::new("BASE_KEY_USAGE");
+        pub const BASE_KEY_USAGE: KnownCertificateExtension = KnownCertificateExtension::new(1);
 
         /// Refers to a certificate's Extended Key Usage extension, as described in
         /// [RFC 5280
@@ -4360,8 +4525,7 @@ pub mod certificate_extension_constraints {
         /// message.
         ///
         /// [google.cloud.security.privateca.v1.KeyUsage.extended_key_usage]: crate::model::KeyUsage::extended_key_usage
-        pub const EXTENDED_KEY_USAGE: KnownCertificateExtension =
-            KnownCertificateExtension::new("EXTENDED_KEY_USAGE");
+        pub const EXTENDED_KEY_USAGE: KnownCertificateExtension = KnownCertificateExtension::new(2);
 
         /// Refers to a certificate's Basic Constraints extension, as described in
         /// [RFC 5280
@@ -4371,8 +4535,7 @@ pub mod certificate_extension_constraints {
         /// field.
         ///
         /// [google.cloud.security.privateca.v1.X509Parameters.ca_options]: crate::model::X509Parameters::ca_options
-        pub const CA_OPTIONS: KnownCertificateExtension =
-            KnownCertificateExtension::new("CA_OPTIONS");
+        pub const CA_OPTIONS: KnownCertificateExtension = KnownCertificateExtension::new(3);
 
         /// Refers to a certificate's Policy object identifiers, as described in
         /// [RFC 5280
@@ -4382,8 +4545,7 @@ pub mod certificate_extension_constraints {
         /// field.
         ///
         /// [google.cloud.security.privateca.v1.X509Parameters.policy_ids]: crate::model::X509Parameters::policy_ids
-        pub const POLICY_IDS: KnownCertificateExtension =
-            KnownCertificateExtension::new("POLICY_IDS");
+        pub const POLICY_IDS: KnownCertificateExtension = KnownCertificateExtension::new(4);
 
         /// Refers to OCSP servers in a certificate's Authority Information Access
         /// extension, as described in
@@ -4394,19 +4556,63 @@ pub mod certificate_extension_constraints {
         /// field.
         ///
         /// [google.cloud.security.privateca.v1.X509Parameters.aia_ocsp_servers]: crate::model::X509Parameters::aia_ocsp_servers
-        pub const AIA_OCSP_SERVERS: KnownCertificateExtension =
-            KnownCertificateExtension::new("AIA_OCSP_SERVERS");
+        pub const AIA_OCSP_SERVERS: KnownCertificateExtension = KnownCertificateExtension::new(5);
 
         /// Refers to Name Constraints extension as described in
         /// [RFC 5280
         /// section 4.2.1.10](https://tools.ietf.org/html/rfc5280#section-4.2.1.10)
-        pub const NAME_CONSTRAINTS: KnownCertificateExtension =
-            KnownCertificateExtension::new("NAME_CONSTRAINTS");
+        pub const NAME_CONSTRAINTS: KnownCertificateExtension = KnownCertificateExtension::new(6);
+
+        /// Creates a new KnownCertificateExtension instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BASE_KEY_USAGE"),
+                2 => std::borrow::Cow::Borrowed("EXTENDED_KEY_USAGE"),
+                3 => std::borrow::Cow::Borrowed("CA_OPTIONS"),
+                4 => std::borrow::Cow::Borrowed("POLICY_IDS"),
+                5 => std::borrow::Cow::Borrowed("AIA_OCSP_SERVERS"),
+                6 => std::borrow::Cow::Borrowed("NAME_CONSTRAINTS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED)
+                }
+                "BASE_KEY_USAGE" => std::option::Option::Some(Self::BASE_KEY_USAGE),
+                "EXTENDED_KEY_USAGE" => std::option::Option::Some(Self::EXTENDED_KEY_USAGE),
+                "CA_OPTIONS" => std::option::Option::Some(Self::CA_OPTIONS),
+                "POLICY_IDS" => std::option::Option::Some(Self::POLICY_IDS),
+                "AIA_OCSP_SERVERS" => std::option::Option::Some(Self::AIA_OCSP_SERVERS),
+                "NAME_CONSTRAINTS" => std::option::Option::Some(Self::NAME_CONSTRAINTS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for KnownCertificateExtension {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for KnownCertificateExtension {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for KnownCertificateExtension {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7124,89 +7330,124 @@ impl wkt::message::Message for OperationMetadata {
 ///
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.RevocationReason]: crate::model::RevocationReason
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RevocationReason(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct RevocationReason(i32);
 
 impl RevocationReason {
-    /// Creates a new RevocationReason instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [RevocationReason](RevocationReason)
-pub mod revocation_reason {
-    use super::RevocationReason;
-
     /// Default unspecified value. This value does indicate that a
     /// [Certificate][google.cloud.security.privateca.v1.Certificate] has been
     /// revoked, but that a reason has not been recorded.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const REVOCATION_REASON_UNSPECIFIED: RevocationReason =
-        RevocationReason::new("REVOCATION_REASON_UNSPECIFIED");
+    pub const REVOCATION_REASON_UNSPECIFIED: RevocationReason = RevocationReason::new(0);
 
     /// Key material for this
     /// [Certificate][google.cloud.security.privateca.v1.Certificate] may have
     /// leaked.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const KEY_COMPROMISE: RevocationReason = RevocationReason::new("KEY_COMPROMISE");
+    pub const KEY_COMPROMISE: RevocationReason = RevocationReason::new(1);
 
     /// The key material for a certificate authority in the issuing path may have
     /// leaked.
-    pub const CERTIFICATE_AUTHORITY_COMPROMISE: RevocationReason =
-        RevocationReason::new("CERTIFICATE_AUTHORITY_COMPROMISE");
+    pub const CERTIFICATE_AUTHORITY_COMPROMISE: RevocationReason = RevocationReason::new(2);
 
     /// The subject or other attributes in this
     /// [Certificate][google.cloud.security.privateca.v1.Certificate] have changed.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const AFFILIATION_CHANGED: RevocationReason = RevocationReason::new("AFFILIATION_CHANGED");
+    pub const AFFILIATION_CHANGED: RevocationReason = RevocationReason::new(3);
 
     /// This [Certificate][google.cloud.security.privateca.v1.Certificate] has been
     /// superseded.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const SUPERSEDED: RevocationReason = RevocationReason::new("SUPERSEDED");
+    pub const SUPERSEDED: RevocationReason = RevocationReason::new(4);
 
     /// This [Certificate][google.cloud.security.privateca.v1.Certificate] or
     /// entities in the issuing path have ceased to operate.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const CESSATION_OF_OPERATION: RevocationReason =
-        RevocationReason::new("CESSATION_OF_OPERATION");
+    pub const CESSATION_OF_OPERATION: RevocationReason = RevocationReason::new(5);
 
     /// This [Certificate][google.cloud.security.privateca.v1.Certificate] should
     /// not be considered valid, it is expected that it may become valid in the
     /// future.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const CERTIFICATE_HOLD: RevocationReason = RevocationReason::new("CERTIFICATE_HOLD");
+    pub const CERTIFICATE_HOLD: RevocationReason = RevocationReason::new(6);
 
     /// This [Certificate][google.cloud.security.privateca.v1.Certificate] no
     /// longer has permission to assert the listed attributes.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const PRIVILEGE_WITHDRAWN: RevocationReason = RevocationReason::new("PRIVILEGE_WITHDRAWN");
+    pub const PRIVILEGE_WITHDRAWN: RevocationReason = RevocationReason::new(7);
 
     /// The authority which determines appropriate attributes for a
     /// [Certificate][google.cloud.security.privateca.v1.Certificate] may have been
     /// compromised.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-    pub const ATTRIBUTE_AUTHORITY_COMPROMISE: RevocationReason =
-        RevocationReason::new("ATTRIBUTE_AUTHORITY_COMPROMISE");
+    pub const ATTRIBUTE_AUTHORITY_COMPROMISE: RevocationReason = RevocationReason::new(8);
+
+    /// Creates a new RevocationReason instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("REVOCATION_REASON_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("KEY_COMPROMISE"),
+            2 => std::borrow::Cow::Borrowed("CERTIFICATE_AUTHORITY_COMPROMISE"),
+            3 => std::borrow::Cow::Borrowed("AFFILIATION_CHANGED"),
+            4 => std::borrow::Cow::Borrowed("SUPERSEDED"),
+            5 => std::borrow::Cow::Borrowed("CESSATION_OF_OPERATION"),
+            6 => std::borrow::Cow::Borrowed("CERTIFICATE_HOLD"),
+            7 => std::borrow::Cow::Borrowed("PRIVILEGE_WITHDRAWN"),
+            8 => std::borrow::Cow::Borrowed("ATTRIBUTE_AUTHORITY_COMPROMISE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "REVOCATION_REASON_UNSPECIFIED" => {
+                std::option::Option::Some(Self::REVOCATION_REASON_UNSPECIFIED)
+            }
+            "KEY_COMPROMISE" => std::option::Option::Some(Self::KEY_COMPROMISE),
+            "CERTIFICATE_AUTHORITY_COMPROMISE" => {
+                std::option::Option::Some(Self::CERTIFICATE_AUTHORITY_COMPROMISE)
+            }
+            "AFFILIATION_CHANGED" => std::option::Option::Some(Self::AFFILIATION_CHANGED),
+            "SUPERSEDED" => std::option::Option::Some(Self::SUPERSEDED),
+            "CESSATION_OF_OPERATION" => std::option::Option::Some(Self::CESSATION_OF_OPERATION),
+            "CERTIFICATE_HOLD" => std::option::Option::Some(Self::CERTIFICATE_HOLD),
+            "PRIVILEGE_WITHDRAWN" => std::option::Option::Some(Self::PRIVILEGE_WITHDRAWN),
+            "ATTRIBUTE_AUTHORITY_COMPROMISE" => {
+                std::option::Option::Some(Self::ATTRIBUTE_AUTHORITY_COMPROMISE)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for RevocationReason {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for RevocationReason {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for RevocationReason {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
@@ -7219,28 +7460,12 @@ impl std::convert::From<std::string::String> for RevocationReason {
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
 /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SubjectRequestMode(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct SubjectRequestMode(i32);
 
 impl SubjectRequestMode {
-    /// Creates a new SubjectRequestMode instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SubjectRequestMode](SubjectRequestMode)
-pub mod subject_request_mode {
-    use super::SubjectRequestMode;
-
     /// Not specified.
-    pub const SUBJECT_REQUEST_MODE_UNSPECIFIED: SubjectRequestMode =
-        SubjectRequestMode::new("SUBJECT_REQUEST_MODE_UNSPECIFIED");
+    pub const SUBJECT_REQUEST_MODE_UNSPECIFIED: SubjectRequestMode = SubjectRequestMode::new(0);
 
     /// The default mode used in most cases. Indicates that the certificate's
     /// [Subject][google.cloud.security.privateca.v1.Subject] and/or
@@ -7250,7 +7475,7 @@ pub mod subject_request_mode {
     ///
     /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
     /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-    pub const DEFAULT: SubjectRequestMode = SubjectRequestMode::new("DEFAULT");
+    pub const DEFAULT: SubjectRequestMode = SubjectRequestMode::new(1);
 
     /// A mode reserved for special cases. Indicates that the certificate should
     /// have one SPIFFE
@@ -7264,11 +7489,49 @@ pub mod subject_request_mode {
     ///
     /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
     /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-    pub const REFLECTED_SPIFFE: SubjectRequestMode = SubjectRequestMode::new("REFLECTED_SPIFFE");
+    pub const REFLECTED_SPIFFE: SubjectRequestMode = SubjectRequestMode::new(2);
+
+    /// Creates a new SubjectRequestMode instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SUBJECT_REQUEST_MODE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("DEFAULT"),
+            2 => std::borrow::Cow::Borrowed("REFLECTED_SPIFFE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SUBJECT_REQUEST_MODE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::SUBJECT_REQUEST_MODE_UNSPECIFIED)
+            }
+            "DEFAULT" => std::option::Option::Some(Self::DEFAULT),
+            "REFLECTED_SPIFFE" => std::option::Option::Some(Self::REFLECTED_SPIFFE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SubjectRequestMode {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for SubjectRequestMode {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for SubjectRequestMode {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

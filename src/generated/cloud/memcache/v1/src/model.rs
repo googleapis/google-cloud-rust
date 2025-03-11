@@ -453,44 +453,69 @@ pub mod instance {
         use super::*;
 
         /// Different states of a Memcached node.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct State(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct State(i32);
 
         impl State {
+            /// Node state is not set.
+            pub const STATE_UNSPECIFIED: State = State::new(0);
+
+            /// Node is being created.
+            pub const CREATING: State = State::new(1);
+
+            /// Node has been created and ready to be used.
+            pub const READY: State = State::new(2);
+
+            /// Node is being deleted.
+            pub const DELETING: State = State::new(3);
+
+            /// Node is being updated.
+            pub const UPDATING: State = State::new(4);
+
             /// Creates a new State instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("CREATING"),
+                    2 => std::borrow::Cow::Borrowed("READY"),
+                    3 => std::borrow::Cow::Borrowed("DELETING"),
+                    4 => std::borrow::Cow::Borrowed("UPDATING"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                    "CREATING" => std::option::Option::Some(Self::CREATING),
+                    "READY" => std::option::Option::Some(Self::READY),
+                    "DELETING" => std::option::Option::Some(Self::DELETING),
+                    "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [State](State)
-        pub mod state {
-            use super::State;
-
-            /// Node state is not set.
-            pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-            /// Node is being created.
-            pub const CREATING: State = State::new("CREATING");
-
-            /// Node has been created and ready to be used.
-            pub const READY: State = State::new("READY");
-
-            /// Node is being deleted.
-            pub const DELETING: State = State::new("DELETING");
-
-            /// Node is being updated.
-            pub const UPDATING: State = State::new("UPDATING");
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for State {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for State {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -540,83 +565,130 @@ pub mod instance {
         #[allow(unused_imports)]
         use super::*;
 
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Code(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Code(i32);
 
         impl Code {
+            /// Message Code not set.
+            pub const CODE_UNSPECIFIED: Code = Code::new(0);
+
+            /// Memcached nodes are distributed unevenly.
+            pub const ZONE_DISTRIBUTION_UNBALANCED: Code = Code::new(1);
+
             /// Creates a new Code instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("CODE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("ZONE_DISTRIBUTION_UNBALANCED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
+                    "ZONE_DISTRIBUTION_UNBALANCED" => {
+                        std::option::Option::Some(Self::ZONE_DISTRIBUTION_UNBALANCED)
+                    }
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Code](Code)
-        pub mod code {
-            use super::Code;
-
-            /// Message Code not set.
-            pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
-
-            /// Memcached nodes are distributed unevenly.
-            pub const ZONE_DISTRIBUTION_UNBALANCED: Code =
-                Code::new("ZONE_DISTRIBUTION_UNBALANCED");
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for Code {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
 
     /// Different states of a Memcached instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// State not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Memcached instance is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// Memcached instance has been created and ready to be used.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(2);
 
         /// Memcached instance is updating configuration such as maintenance policy
         /// and schedule.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(3);
 
         /// Memcached instance is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// Memcached instance is going through maintenance, e.g. data plane rollout.
-        pub const PERFORMING_MAINTENANCE: State = State::new("PERFORMING_MAINTENANCE");
+        pub const PERFORMING_MAINTENANCE: State = State::new(5);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("PERFORMING_MAINTENANCE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "PERFORMING_MAINTENANCE" => std::option::Option::Some(Self::PERFORMING_MAINTENANCE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -877,44 +949,67 @@ pub mod reschedule_maintenance_request {
     use super::*;
 
     /// Reschedule options.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RescheduleType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RescheduleType(i32);
 
     impl RescheduleType {
-        /// Creates a new RescheduleType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RescheduleType](RescheduleType)
-    pub mod reschedule_type {
-        use super::RescheduleType;
-
         /// Not set.
-        pub const RESCHEDULE_TYPE_UNSPECIFIED: RescheduleType =
-            RescheduleType::new("RESCHEDULE_TYPE_UNSPECIFIED");
+        pub const RESCHEDULE_TYPE_UNSPECIFIED: RescheduleType = RescheduleType::new(0);
 
         /// If the user wants to schedule the maintenance to happen now.
-        pub const IMMEDIATE: RescheduleType = RescheduleType::new("IMMEDIATE");
+        pub const IMMEDIATE: RescheduleType = RescheduleType::new(1);
 
         /// If the user wants to use the existing maintenance policy to find the
         /// next available window.
-        pub const NEXT_AVAILABLE_WINDOW: RescheduleType =
-            RescheduleType::new("NEXT_AVAILABLE_WINDOW");
+        pub const NEXT_AVAILABLE_WINDOW: RescheduleType = RescheduleType::new(2);
 
         /// If the user wants to reschedule the maintenance to a specific time.
-        pub const SPECIFIC_TIME: RescheduleType = RescheduleType::new("SPECIFIC_TIME");
+        pub const SPECIFIC_TIME: RescheduleType = RescheduleType::new(3);
+
+        /// Creates a new RescheduleType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESCHEDULE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IMMEDIATE"),
+                2 => std::borrow::Cow::Borrowed("NEXT_AVAILABLE_WINDOW"),
+                3 => std::borrow::Cow::Borrowed("SPECIFIC_TIME"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESCHEDULE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RESCHEDULE_TYPE_UNSPECIFIED)
+                }
+                "IMMEDIATE" => std::option::Option::Some(Self::IMMEDIATE),
+                "NEXT_AVAILABLE_WINDOW" => std::option::Option::Some(Self::NEXT_AVAILABLE_WINDOW),
+                "SPECIFIC_TIME" => std::option::Option::Some(Self::SPECIFIC_TIME),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RescheduleType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RescheduleType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RescheduleType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1583,34 +1678,54 @@ impl wkt::message::Message for ZoneMetadata {
 }
 
 /// Memcached versions supported by our service.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct MemcacheVersion(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct MemcacheVersion(i32);
 
 impl MemcacheVersion {
+    pub const MEMCACHE_VERSION_UNSPECIFIED: MemcacheVersion = MemcacheVersion::new(0);
+
+    /// Memcached 1.5 version.
+    pub const MEMCACHE_1_5: MemcacheVersion = MemcacheVersion::new(1);
+
     /// Creates a new MemcacheVersion instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("MEMCACHE_VERSION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("MEMCACHE_1_5"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "MEMCACHE_VERSION_UNSPECIFIED" => {
+                std::option::Option::Some(Self::MEMCACHE_VERSION_UNSPECIFIED)
+            }
+            "MEMCACHE_1_5" => std::option::Option::Some(Self::MEMCACHE_1_5),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [MemcacheVersion](MemcacheVersion)
-pub mod memcache_version {
-    use super::MemcacheVersion;
-
-    pub const MEMCACHE_VERSION_UNSPECIFIED: MemcacheVersion =
-        MemcacheVersion::new("MEMCACHE_VERSION_UNSPECIFIED");
-
-    /// Memcached 1.5 version.
-    pub const MEMCACHE_1_5: MemcacheVersion = MemcacheVersion::new("MEMCACHE_1_5");
+impl std::convert::From<i32> for MemcacheVersion {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for MemcacheVersion {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for MemcacheVersion {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

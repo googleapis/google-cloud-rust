@@ -461,45 +461,70 @@ pub mod installation_state {
     use super::*;
 
     /// Stage of the installation process.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Stage(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Stage(i32);
 
     impl Stage {
-        /// Creates a new Stage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Stage](Stage)
-    pub mod stage {
-        use super::Stage;
-
         /// No stage specified.
-        pub const STAGE_UNSPECIFIED: Stage = Stage::new("STAGE_UNSPECIFIED");
+        pub const STAGE_UNSPECIFIED: Stage = Stage::new(0);
 
         /// Only for GitHub Enterprise. An App creation has been requested.
         /// The user needs to confirm the creation in their GitHub enterprise host.
-        pub const PENDING_CREATE_APP: Stage = Stage::new("PENDING_CREATE_APP");
+        pub const PENDING_CREATE_APP: Stage = Stage::new(1);
 
         /// User needs to authorize the GitHub (or Enterprise) App via OAuth.
-        pub const PENDING_USER_OAUTH: Stage = Stage::new("PENDING_USER_OAUTH");
+        pub const PENDING_USER_OAUTH: Stage = Stage::new(2);
 
         /// User needs to follow the link to install the GitHub (or Enterprise) App.
-        pub const PENDING_INSTALL_APP: Stage = Stage::new("PENDING_INSTALL_APP");
+        pub const PENDING_INSTALL_APP: Stage = Stage::new(3);
 
         /// Installation process has been completed.
-        pub const COMPLETE: Stage = Stage::new("COMPLETE");
+        pub const COMPLETE: Stage = Stage::new(10);
+
+        /// Creates a new Stage instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STAGE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING_CREATE_APP"),
+                2 => std::borrow::Cow::Borrowed("PENDING_USER_OAUTH"),
+                3 => std::borrow::Cow::Borrowed("PENDING_INSTALL_APP"),
+                10 => std::borrow::Cow::Borrowed("COMPLETE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STAGE_UNSPECIFIED" => std::option::Option::Some(Self::STAGE_UNSPECIFIED),
+                "PENDING_CREATE_APP" => std::option::Option::Some(Self::PENDING_CREATE_APP),
+                "PENDING_USER_OAUTH" => std::option::Option::Some(Self::PENDING_USER_OAUTH),
+                "PENDING_INSTALL_APP" => std::option::Option::Some(Self::PENDING_INSTALL_APP),
+                "COMPLETE" => std::option::Option::Some(Self::COMPLETE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Stage {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Stage {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Stage {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -584,38 +609,61 @@ pub mod git_hub_config {
 
     /// Represents the various GitHub Applications that can be installed to a
     /// GitHub user or organization and used with Developer Connect.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct GitHubApp(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct GitHubApp(i32);
 
     impl GitHubApp {
+        /// GitHub App not specified.
+        pub const GIT_HUB_APP_UNSPECIFIED: GitHubApp = GitHubApp::new(0);
+
+        /// The Developer Connect GitHub Application.
+        pub const DEVELOPER_CONNECT: GitHubApp = GitHubApp::new(1);
+
+        /// The Firebase GitHub Application.
+        pub const FIREBASE: GitHubApp = GitHubApp::new(2);
+
         /// Creates a new GitHubApp instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("GIT_HUB_APP_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DEVELOPER_CONNECT"),
+                2 => std::borrow::Cow::Borrowed("FIREBASE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "GIT_HUB_APP_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::GIT_HUB_APP_UNSPECIFIED)
+                }
+                "DEVELOPER_CONNECT" => std::option::Option::Some(Self::DEVELOPER_CONNECT),
+                "FIREBASE" => std::option::Option::Some(Self::FIREBASE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [GitHubApp](GitHubApp)
-    pub mod git_hub_app {
-        use super::GitHubApp;
-
-        /// GitHub App not specified.
-        pub const GIT_HUB_APP_UNSPECIFIED: GitHubApp = GitHubApp::new("GIT_HUB_APP_UNSPECIFIED");
-
-        /// The Developer Connect GitHub Application.
-        pub const DEVELOPER_CONNECT: GitHubApp = GitHubApp::new("DEVELOPER_CONNECT");
-
-        /// The Firebase GitHub Application.
-        pub const FIREBASE: GitHubApp = GitHubApp::new("FIREBASE");
+    impl std::convert::From<i32> for GitHubApp {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for GitHubApp {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for GitHubApp {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2589,38 +2637,59 @@ pub mod fetch_git_refs_request {
     use super::*;
 
     /// Type of refs.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RefType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RefType(i32);
 
     impl RefType {
+        /// No type specified.
+        pub const REF_TYPE_UNSPECIFIED: RefType = RefType::new(0);
+
+        /// To fetch tags.
+        pub const TAG: RefType = RefType::new(1);
+
+        /// To fetch branches.
+        pub const BRANCH: RefType = RefType::new(2);
+
         /// Creates a new RefType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REF_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("TAG"),
+                2 => std::borrow::Cow::Borrowed("BRANCH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REF_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::REF_TYPE_UNSPECIFIED),
+                "TAG" => std::option::Option::Some(Self::TAG),
+                "BRANCH" => std::option::Option::Some(Self::BRANCH),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RefType](RefType)
-    pub mod ref_type {
-        use super::RefType;
-
-        /// No type specified.
-        pub const REF_TYPE_UNSPECIFIED: RefType = RefType::new("REF_TYPE_UNSPECIFIED");
-
-        /// To fetch tags.
-        pub const TAG: RefType = RefType::new("TAG");
-
-        /// To fetch branches.
-        pub const BRANCH: RefType = RefType::new("BRANCH");
+    impl std::convert::From<i32> for RefType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for RefType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for RefType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

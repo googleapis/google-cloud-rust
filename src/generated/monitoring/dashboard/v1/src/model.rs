@@ -258,29 +258,14 @@ pub mod aggregation {
     /// example, if you apply a counting operation to boolean values, the data
     /// `value_type` in the original time series is `BOOLEAN`, but the `value_type`
     /// in the aligned result is `INT64`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Aligner(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Aligner(i32);
 
     impl Aligner {
-        /// Creates a new Aligner instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Aligner](Aligner)
-    pub mod aligner {
-        use super::Aligner;
-
         /// No alignment. Raw data is returned. Not valid if cross-series reduction
         /// is requested. The `value_type` of the result is the same as the
         /// `value_type` of the input.
-        pub const ALIGN_NONE: Aligner = Aligner::new("ALIGN_NONE");
+        pub const ALIGN_NONE: Aligner = Aligner::new(0);
 
         /// Align and convert to
         /// [DELTA][google.api.MetricDescriptor.MetricKind.DELTA].
@@ -292,7 +277,7 @@ pub mod aggregation {
         /// with no data, then the aligned value for such a period is created by
         /// interpolation. The `value_type`  of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_DELTA: Aligner = Aligner::new("ALIGN_DELTA");
+        pub const ALIGN_DELTA: Aligner = Aligner::new(1);
 
         /// Align and convert to a rate. The result is computed as
         /// `rate = (y1 - y0)/(t1 - t0)`, or "delta over time".
@@ -307,70 +292,70 @@ pub mod aggregation {
         ///
         /// If, by "rate", you mean "percentage change", see the
         /// `ALIGN_PERCENT_CHANGE` aligner instead.
-        pub const ALIGN_RATE: Aligner = Aligner::new("ALIGN_RATE");
+        pub const ALIGN_RATE: Aligner = Aligner::new(2);
 
         /// Align by interpolating between adjacent points around the alignment
         /// period boundary. This aligner is valid for `GAUGE` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as the
         /// `value_type` of the input.
-        pub const ALIGN_INTERPOLATE: Aligner = Aligner::new("ALIGN_INTERPOLATE");
+        pub const ALIGN_INTERPOLATE: Aligner = Aligner::new(3);
 
         /// Align by moving the most recent data point before the end of the
         /// alignment period to the boundary at the end of the alignment
         /// period. This aligner is valid for `GAUGE` metrics. The `value_type` of
         /// the aligned result is the same as the `value_type` of the input.
-        pub const ALIGN_NEXT_OLDER: Aligner = Aligner::new("ALIGN_NEXT_OLDER");
+        pub const ALIGN_NEXT_OLDER: Aligner = Aligner::new(4);
 
         /// Align the time series by returning the minimum value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_MIN: Aligner = Aligner::new("ALIGN_MIN");
+        pub const ALIGN_MIN: Aligner = Aligner::new(10);
 
         /// Align the time series by returning the maximum value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_MAX: Aligner = Aligner::new("ALIGN_MAX");
+        pub const ALIGN_MAX: Aligner = Aligner::new(11);
 
         /// Align the time series by returning the mean value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is `DOUBLE`.
-        pub const ALIGN_MEAN: Aligner = Aligner::new("ALIGN_MEAN");
+        pub const ALIGN_MEAN: Aligner = Aligner::new(12);
 
         /// Align the time series by returning the number of values in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric or Boolean values. The `value_type` of the aligned result is
         /// `INT64`.
-        pub const ALIGN_COUNT: Aligner = Aligner::new("ALIGN_COUNT");
+        pub const ALIGN_COUNT: Aligner = Aligner::new(13);
 
         /// Align the time series by returning the sum of the values in each
         /// alignment period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with numeric and distribution values. The `value_type` of the
         /// aligned result is the same as the `value_type` of the input.
-        pub const ALIGN_SUM: Aligner = Aligner::new("ALIGN_SUM");
+        pub const ALIGN_SUM: Aligner = Aligner::new(14);
 
         /// Align the time series by returning the standard deviation of the values
         /// in each alignment period. This aligner is valid for `GAUGE` and
         /// `DELTA` metrics with numeric values. The `value_type` of the output is
         /// `DOUBLE`.
-        pub const ALIGN_STDDEV: Aligner = Aligner::new("ALIGN_STDDEV");
+        pub const ALIGN_STDDEV: Aligner = Aligner::new(15);
 
         /// Align the time series by returning the number of `True` values in
         /// each alignment period. This aligner is valid for `GAUGE` metrics with
         /// Boolean values. The `value_type` of the output is `INT64`.
-        pub const ALIGN_COUNT_TRUE: Aligner = Aligner::new("ALIGN_COUNT_TRUE");
+        pub const ALIGN_COUNT_TRUE: Aligner = Aligner::new(16);
 
         /// Align the time series by returning the number of `False` values in
         /// each alignment period. This aligner is valid for `GAUGE` metrics with
         /// Boolean values. The `value_type` of the output is `INT64`.
-        pub const ALIGN_COUNT_FALSE: Aligner = Aligner::new("ALIGN_COUNT_FALSE");
+        pub const ALIGN_COUNT_FALSE: Aligner = Aligner::new(24);
 
         /// Align the time series by returning the ratio of the number of `True`
         /// values to the total number of values in each alignment period. This
         /// aligner is valid for `GAUGE` metrics with Boolean values. The output
         /// value is in the range [0.0, 1.0] and has `value_type` `DOUBLE`.
-        pub const ALIGN_FRACTION_TRUE: Aligner = Aligner::new("ALIGN_FRACTION_TRUE");
+        pub const ALIGN_FRACTION_TRUE: Aligner = Aligner::new(17);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -378,7 +363,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_99: Aligner = Aligner::new("ALIGN_PERCENTILE_99");
+        pub const ALIGN_PERCENTILE_99: Aligner = Aligner::new(18);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -386,7 +371,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_95: Aligner = Aligner::new("ALIGN_PERCENTILE_95");
+        pub const ALIGN_PERCENTILE_95: Aligner = Aligner::new(19);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -394,7 +379,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_50: Aligner = Aligner::new("ALIGN_PERCENTILE_50");
+        pub const ALIGN_PERCENTILE_50: Aligner = Aligner::new(20);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -402,7 +387,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_05: Aligner = Aligner::new("ALIGN_PERCENTILE_05");
+        pub const ALIGN_PERCENTILE_05: Aligner = Aligner::new(21);
 
         /// Align and convert to a percentage change. This aligner is valid for
         /// `GAUGE` and `DELTA` metrics with numeric values. This alignment returns
@@ -420,12 +405,80 @@ pub mod aggregation {
         /// metrics are accepted by this alignment, special care should be taken that
         /// the values for the metric will always be positive. The output is a
         /// `GAUGE` metric with `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENT_CHANGE: Aligner = Aligner::new("ALIGN_PERCENT_CHANGE");
+        pub const ALIGN_PERCENT_CHANGE: Aligner = Aligner::new(23);
+
+        /// Creates a new Aligner instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ALIGN_NONE"),
+                1 => std::borrow::Cow::Borrowed("ALIGN_DELTA"),
+                2 => std::borrow::Cow::Borrowed("ALIGN_RATE"),
+                3 => std::borrow::Cow::Borrowed("ALIGN_INTERPOLATE"),
+                4 => std::borrow::Cow::Borrowed("ALIGN_NEXT_OLDER"),
+                10 => std::borrow::Cow::Borrowed("ALIGN_MIN"),
+                11 => std::borrow::Cow::Borrowed("ALIGN_MAX"),
+                12 => std::borrow::Cow::Borrowed("ALIGN_MEAN"),
+                13 => std::borrow::Cow::Borrowed("ALIGN_COUNT"),
+                14 => std::borrow::Cow::Borrowed("ALIGN_SUM"),
+                15 => std::borrow::Cow::Borrowed("ALIGN_STDDEV"),
+                16 => std::borrow::Cow::Borrowed("ALIGN_COUNT_TRUE"),
+                17 => std::borrow::Cow::Borrowed("ALIGN_FRACTION_TRUE"),
+                18 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_99"),
+                19 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_95"),
+                20 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_50"),
+                21 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_05"),
+                23 => std::borrow::Cow::Borrowed("ALIGN_PERCENT_CHANGE"),
+                24 => std::borrow::Cow::Borrowed("ALIGN_COUNT_FALSE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ALIGN_NONE" => std::option::Option::Some(Self::ALIGN_NONE),
+                "ALIGN_DELTA" => std::option::Option::Some(Self::ALIGN_DELTA),
+                "ALIGN_RATE" => std::option::Option::Some(Self::ALIGN_RATE),
+                "ALIGN_INTERPOLATE" => std::option::Option::Some(Self::ALIGN_INTERPOLATE),
+                "ALIGN_NEXT_OLDER" => std::option::Option::Some(Self::ALIGN_NEXT_OLDER),
+                "ALIGN_MIN" => std::option::Option::Some(Self::ALIGN_MIN),
+                "ALIGN_MAX" => std::option::Option::Some(Self::ALIGN_MAX),
+                "ALIGN_MEAN" => std::option::Option::Some(Self::ALIGN_MEAN),
+                "ALIGN_COUNT" => std::option::Option::Some(Self::ALIGN_COUNT),
+                "ALIGN_SUM" => std::option::Option::Some(Self::ALIGN_SUM),
+                "ALIGN_STDDEV" => std::option::Option::Some(Self::ALIGN_STDDEV),
+                "ALIGN_COUNT_TRUE" => std::option::Option::Some(Self::ALIGN_COUNT_TRUE),
+                "ALIGN_COUNT_FALSE" => std::option::Option::Some(Self::ALIGN_COUNT_FALSE),
+                "ALIGN_FRACTION_TRUE" => std::option::Option::Some(Self::ALIGN_FRACTION_TRUE),
+                "ALIGN_PERCENTILE_99" => std::option::Option::Some(Self::ALIGN_PERCENTILE_99),
+                "ALIGN_PERCENTILE_95" => std::option::Option::Some(Self::ALIGN_PERCENTILE_95),
+                "ALIGN_PERCENTILE_50" => std::option::Option::Some(Self::ALIGN_PERCENTILE_50),
+                "ALIGN_PERCENTILE_05" => std::option::Option::Some(Self::ALIGN_PERCENTILE_05),
+                "ALIGN_PERCENT_CHANGE" => std::option::Option::Some(Self::ALIGN_PERCENT_CHANGE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Aligner {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Aligner {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Aligner {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -433,28 +486,13 @@ pub mod aggregation {
     /// time series into a single time series, where the value of each data point
     /// in the resulting series is a function of all the already aligned values in
     /// the input time series.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Reducer(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Reducer(i32);
 
     impl Reducer {
-        /// Creates a new Reducer instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Reducer](Reducer)
-    pub mod reducer {
-        use super::Reducer;
-
         /// No cross-time series reduction. The output of the `Aligner` is
         /// returned.
-        pub const REDUCE_NONE: Reducer = Reducer::new("REDUCE_NONE");
+        pub const REDUCE_NONE: Reducer = Reducer::new(0);
 
         /// Reduce by computing the mean value across time series for each
         /// alignment period. This reducer is valid for
@@ -462,89 +500,147 @@ pub mod aggregation {
         /// [GAUGE][google.api.MetricDescriptor.MetricKind.GAUGE] metrics with
         /// numeric or distribution values. The `value_type` of the output is
         /// [DOUBLE][google.api.MetricDescriptor.ValueType.DOUBLE].
-        pub const REDUCE_MEAN: Reducer = Reducer::new("REDUCE_MEAN");
+        pub const REDUCE_MEAN: Reducer = Reducer::new(1);
 
         /// Reduce by computing the minimum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric values. The `value_type` of the output is the same as the
         /// `value_type` of the input.
-        pub const REDUCE_MIN: Reducer = Reducer::new("REDUCE_MIN");
+        pub const REDUCE_MIN: Reducer = Reducer::new(2);
 
         /// Reduce by computing the maximum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric values. The `value_type` of the output is the same as the
         /// `value_type` of the input.
-        pub const REDUCE_MAX: Reducer = Reducer::new("REDUCE_MAX");
+        pub const REDUCE_MAX: Reducer = Reducer::new(3);
 
         /// Reduce by computing the sum across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric and distribution values. The `value_type` of the output is
         /// the same as the `value_type` of the input.
-        pub const REDUCE_SUM: Reducer = Reducer::new("REDUCE_SUM");
+        pub const REDUCE_SUM: Reducer = Reducer::new(4);
 
         /// Reduce by computing the standard deviation across time series
         /// for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics with numeric or distribution values. The `value_type`
         /// of the output is `DOUBLE`.
-        pub const REDUCE_STDDEV: Reducer = Reducer::new("REDUCE_STDDEV");
+        pub const REDUCE_STDDEV: Reducer = Reducer::new(5);
 
         /// Reduce by computing the number of data points across time series
         /// for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of numeric, Boolean, distribution, and string
         /// `value_type`. The `value_type` of the output is `INT64`.
-        pub const REDUCE_COUNT: Reducer = Reducer::new("REDUCE_COUNT");
+        pub const REDUCE_COUNT: Reducer = Reducer::new(6);
 
         /// Reduce by computing the number of `True`-valued data points across time
         /// series for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of Boolean `value_type`. The `value_type` of the output
         /// is `INT64`.
-        pub const REDUCE_COUNT_TRUE: Reducer = Reducer::new("REDUCE_COUNT_TRUE");
+        pub const REDUCE_COUNT_TRUE: Reducer = Reducer::new(7);
 
         /// Reduce by computing the number of `False`-valued data points across time
         /// series for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of Boolean `value_type`. The `value_type` of the output
         /// is `INT64`.
-        pub const REDUCE_COUNT_FALSE: Reducer = Reducer::new("REDUCE_COUNT_FALSE");
+        pub const REDUCE_COUNT_FALSE: Reducer = Reducer::new(15);
 
         /// Reduce by computing the ratio of the number of `True`-valued data points
         /// to the total number of data points for each alignment period. This
         /// reducer is valid for `DELTA` and `GAUGE` metrics of Boolean `value_type`.
         /// The output value is in the range [0.0, 1.0] and has `value_type`
         /// `DOUBLE`.
-        pub const REDUCE_FRACTION_TRUE: Reducer = Reducer::new("REDUCE_FRACTION_TRUE");
+        pub const REDUCE_FRACTION_TRUE: Reducer = Reducer::new(8);
 
         /// Reduce by computing the [99th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_99: Reducer = Reducer::new("REDUCE_PERCENTILE_99");
+        pub const REDUCE_PERCENTILE_99: Reducer = Reducer::new(9);
 
         /// Reduce by computing the [95th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_95: Reducer = Reducer::new("REDUCE_PERCENTILE_95");
+        pub const REDUCE_PERCENTILE_95: Reducer = Reducer::new(10);
 
         /// Reduce by computing the [50th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_50: Reducer = Reducer::new("REDUCE_PERCENTILE_50");
+        pub const REDUCE_PERCENTILE_50: Reducer = Reducer::new(11);
 
         /// Reduce by computing the [5th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_05: Reducer = Reducer::new("REDUCE_PERCENTILE_05");
+        pub const REDUCE_PERCENTILE_05: Reducer = Reducer::new(12);
+
+        /// Creates a new Reducer instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REDUCE_NONE"),
+                1 => std::borrow::Cow::Borrowed("REDUCE_MEAN"),
+                2 => std::borrow::Cow::Borrowed("REDUCE_MIN"),
+                3 => std::borrow::Cow::Borrowed("REDUCE_MAX"),
+                4 => std::borrow::Cow::Borrowed("REDUCE_SUM"),
+                5 => std::borrow::Cow::Borrowed("REDUCE_STDDEV"),
+                6 => std::borrow::Cow::Borrowed("REDUCE_COUNT"),
+                7 => std::borrow::Cow::Borrowed("REDUCE_COUNT_TRUE"),
+                8 => std::borrow::Cow::Borrowed("REDUCE_FRACTION_TRUE"),
+                9 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_99"),
+                10 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_95"),
+                11 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_50"),
+                12 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_05"),
+                15 => std::borrow::Cow::Borrowed("REDUCE_COUNT_FALSE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REDUCE_NONE" => std::option::Option::Some(Self::REDUCE_NONE),
+                "REDUCE_MEAN" => std::option::Option::Some(Self::REDUCE_MEAN),
+                "REDUCE_MIN" => std::option::Option::Some(Self::REDUCE_MIN),
+                "REDUCE_MAX" => std::option::Option::Some(Self::REDUCE_MAX),
+                "REDUCE_SUM" => std::option::Option::Some(Self::REDUCE_SUM),
+                "REDUCE_STDDEV" => std::option::Option::Some(Self::REDUCE_STDDEV),
+                "REDUCE_COUNT" => std::option::Option::Some(Self::REDUCE_COUNT),
+                "REDUCE_COUNT_TRUE" => std::option::Option::Some(Self::REDUCE_COUNT_TRUE),
+                "REDUCE_COUNT_FALSE" => std::option::Option::Some(Self::REDUCE_COUNT_FALSE),
+                "REDUCE_FRACTION_TRUE" => std::option::Option::Some(Self::REDUCE_FRACTION_TRUE),
+                "REDUCE_PERCENTILE_99" => std::option::Option::Some(Self::REDUCE_PERCENTILE_99),
+                "REDUCE_PERCENTILE_95" => std::option::Option::Some(Self::REDUCE_PERCENTILE_95),
+                "REDUCE_PERCENTILE_50" => std::option::Option::Some(Self::REDUCE_PERCENTILE_50),
+                "REDUCE_PERCENTILE_05" => std::option::Option::Some(Self::REDUCE_PERCENTILE_05),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Reducer {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Reducer {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Reducer {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -632,85 +728,133 @@ pub mod pick_time_series_filter {
     use super::*;
 
     /// The value reducers that can be applied to a `PickTimeSeriesFilter`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Method(i32);
 
     impl Method {
+        /// Not allowed. You must specify a different `Method` if you specify a
+        /// `PickTimeSeriesFilter`.
+        pub const METHOD_UNSPECIFIED: Method = Method::new(0);
+
+        /// Select the mean of all values.
+        pub const METHOD_MEAN: Method = Method::new(1);
+
+        /// Select the maximum value.
+        pub const METHOD_MAX: Method = Method::new(2);
+
+        /// Select the minimum value.
+        pub const METHOD_MIN: Method = Method::new(3);
+
+        /// Compute the sum of all values.
+        pub const METHOD_SUM: Method = Method::new(4);
+
+        /// Select the most recent value.
+        pub const METHOD_LATEST: Method = Method::new(5);
+
         /// Creates a new Method instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("METHOD_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("METHOD_MEAN"),
+                2 => std::borrow::Cow::Borrowed("METHOD_MAX"),
+                3 => std::borrow::Cow::Borrowed("METHOD_MIN"),
+                4 => std::borrow::Cow::Borrowed("METHOD_SUM"),
+                5 => std::borrow::Cow::Borrowed("METHOD_LATEST"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "METHOD_UNSPECIFIED" => std::option::Option::Some(Self::METHOD_UNSPECIFIED),
+                "METHOD_MEAN" => std::option::Option::Some(Self::METHOD_MEAN),
+                "METHOD_MAX" => std::option::Option::Some(Self::METHOD_MAX),
+                "METHOD_MIN" => std::option::Option::Some(Self::METHOD_MIN),
+                "METHOD_SUM" => std::option::Option::Some(Self::METHOD_SUM),
+                "METHOD_LATEST" => std::option::Option::Some(Self::METHOD_LATEST),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Method](Method)
-    pub mod method {
-        use super::Method;
-
-        /// Not allowed. You must specify a different `Method` if you specify a
-        /// `PickTimeSeriesFilter`.
-        pub const METHOD_UNSPECIFIED: Method = Method::new("METHOD_UNSPECIFIED");
-
-        /// Select the mean of all values.
-        pub const METHOD_MEAN: Method = Method::new("METHOD_MEAN");
-
-        /// Select the maximum value.
-        pub const METHOD_MAX: Method = Method::new("METHOD_MAX");
-
-        /// Select the minimum value.
-        pub const METHOD_MIN: Method = Method::new("METHOD_MIN");
-
-        /// Compute the sum of all values.
-        pub const METHOD_SUM: Method = Method::new("METHOD_SUM");
-
-        /// Select the most recent value.
-        pub const METHOD_LATEST: Method = Method::new("METHOD_LATEST");
+    impl std::convert::From<i32> for Method {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Method {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Method {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Describes the ranking directions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Direction(i32);
 
     impl Direction {
+        /// Not allowed. You must specify a different `Direction` if you specify a
+        /// `PickTimeSeriesFilter`.
+        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new(0);
+
+        /// Pass the highest `num_time_series` ranking inputs.
+        pub const TOP: Direction = Direction::new(1);
+
+        /// Pass the lowest `num_time_series` ranking inputs.
+        pub const BOTTOM: Direction = Direction::new(2);
+
         /// Creates a new Direction instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DIRECTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("TOP"),
+                2 => std::borrow::Cow::Borrowed("BOTTOM"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DIRECTION_UNSPECIFIED" => std::option::Option::Some(Self::DIRECTION_UNSPECIFIED),
+                "TOP" => std::option::Option::Some(Self::TOP),
+                "BOTTOM" => std::option::Option::Some(Self::BOTTOM),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Direction](Direction)
-    pub mod direction {
-        use super::Direction;
-
-        /// Not allowed. You must specify a different `Direction` if you specify a
-        /// `PickTimeSeriesFilter`.
-        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new("DIRECTION_UNSPECIFIED");
-
-        /// Pass the highest `num_time_series` ranking inputs.
-        pub const TOP: Direction = Direction::new("TOP");
-
-        /// Pass the lowest `num_time_series` ranking inputs.
-        pub const BOTTOM: Direction = Direction::new("BOTTOM");
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Direction {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Direction {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -769,35 +913,54 @@ pub mod statistical_time_series_filter {
     use super::*;
 
     /// The filter methods that can be applied to a stream.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Method(i32);
 
     impl Method {
+        /// Not allowed in well-formed requests.
+        pub const METHOD_UNSPECIFIED: Method = Method::new(0);
+
+        /// Compute the outlier score of each stream.
+        pub const METHOD_CLUSTER_OUTLIER: Method = Method::new(1);
+
         /// Creates a new Method instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("METHOD_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("METHOD_CLUSTER_OUTLIER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "METHOD_UNSPECIFIED" => std::option::Option::Some(Self::METHOD_UNSPECIFIED),
+                "METHOD_CLUSTER_OUTLIER" => std::option::Option::Some(Self::METHOD_CLUSTER_OUTLIER),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Method](Method)
-    pub mod method {
-        use super::Method;
-
-        /// Not allowed in well-formed requests.
-        pub const METHOD_UNSPECIFIED: Method = Method::new("METHOD_UNSPECIFIED");
-
-        /// Compute the outlier score of each stream.
-        pub const METHOD_CLUSTER_OUTLIER: Method = Method::new("METHOD_CLUSTER_OUTLIER");
+    impl std::convert::From<i32> for Method {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Method {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Method {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1137,47 +1300,76 @@ pub mod dashboard_filter {
     use super::*;
 
     /// The type for the dashboard filter
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FilterType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct FilterType(i32);
 
     impl FilterType {
+        /// Filter type is unspecified. This is not valid in a well-formed request.
+        pub const FILTER_TYPE_UNSPECIFIED: FilterType = FilterType::new(0);
+
+        /// Filter on a resource label value
+        pub const RESOURCE_LABEL: FilterType = FilterType::new(1);
+
+        /// Filter on a metrics label value
+        pub const METRIC_LABEL: FilterType = FilterType::new(2);
+
+        /// Filter on a user metadata label value
+        pub const USER_METADATA_LABEL: FilterType = FilterType::new(3);
+
+        /// Filter on a system metadata label value
+        pub const SYSTEM_METADATA_LABEL: FilterType = FilterType::new(4);
+
+        /// Filter on a group id
+        pub const GROUP: FilterType = FilterType::new(5);
+
         /// Creates a new FilterType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FILTER_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RESOURCE_LABEL"),
+                2 => std::borrow::Cow::Borrowed("METRIC_LABEL"),
+                3 => std::borrow::Cow::Borrowed("USER_METADATA_LABEL"),
+                4 => std::borrow::Cow::Borrowed("SYSTEM_METADATA_LABEL"),
+                5 => std::borrow::Cow::Borrowed("GROUP"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FILTER_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FILTER_TYPE_UNSPECIFIED)
+                }
+                "RESOURCE_LABEL" => std::option::Option::Some(Self::RESOURCE_LABEL),
+                "METRIC_LABEL" => std::option::Option::Some(Self::METRIC_LABEL),
+                "USER_METADATA_LABEL" => std::option::Option::Some(Self::USER_METADATA_LABEL),
+                "SYSTEM_METADATA_LABEL" => std::option::Option::Some(Self::SYSTEM_METADATA_LABEL),
+                "GROUP" => std::option::Option::Some(Self::GROUP),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [FilterType](FilterType)
-    pub mod filter_type {
-        use super::FilterType;
-
-        /// Filter type is unspecified. This is not valid in a well-formed request.
-        pub const FILTER_TYPE_UNSPECIFIED: FilterType = FilterType::new("FILTER_TYPE_UNSPECIFIED");
-
-        /// Filter on a resource label value
-        pub const RESOURCE_LABEL: FilterType = FilterType::new("RESOURCE_LABEL");
-
-        /// Filter on a metrics label value
-        pub const METRIC_LABEL: FilterType = FilterType::new("METRIC_LABEL");
-
-        /// Filter on a user metadata label value
-        pub const USER_METADATA_LABEL: FilterType = FilterType::new("USER_METADATA_LABEL");
-
-        /// Filter on a system metadata label value
-        pub const SYSTEM_METADATA_LABEL: FilterType = FilterType::new("SYSTEM_METADATA_LABEL");
-
-        /// Filter on a group id
-        pub const GROUP: FilterType = FilterType::new("GROUP");
+    impl std::convert::From<i32> for FilterType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for FilterType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for FilterType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -2672,113 +2864,178 @@ pub mod threshold {
     /// The color suggests an interpretation to the viewer when actual values cross
     /// the threshold. Comments on each color provide UX guidance on how users can
     /// be expected to interpret a given state color.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Color(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Color(i32);
 
     impl Color {
+        /// Color is unspecified. Not allowed in well-formed requests.
+        pub const COLOR_UNSPECIFIED: Color = Color::new(0);
+
+        /// Crossing the threshold is "concerning" behavior.
+        pub const YELLOW: Color = Color::new(4);
+
+        /// Crossing the threshold is "emergency" behavior.
+        pub const RED: Color = Color::new(6);
+
         /// Creates a new Color instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("COLOR_UNSPECIFIED"),
+                4 => std::borrow::Cow::Borrowed("YELLOW"),
+                6 => std::borrow::Cow::Borrowed("RED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "COLOR_UNSPECIFIED" => std::option::Option::Some(Self::COLOR_UNSPECIFIED),
+                "YELLOW" => std::option::Option::Some(Self::YELLOW),
+                "RED" => std::option::Option::Some(Self::RED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Color](Color)
-    pub mod color {
-        use super::Color;
-
-        /// Color is unspecified. Not allowed in well-formed requests.
-        pub const COLOR_UNSPECIFIED: Color = Color::new("COLOR_UNSPECIFIED");
-
-        /// Crossing the threshold is "concerning" behavior.
-        pub const YELLOW: Color = Color::new("YELLOW");
-
-        /// Crossing the threshold is "emergency" behavior.
-        pub const RED: Color = Color::new("RED");
+    impl std::convert::From<i32> for Color {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Color {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Color {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Whether the threshold is considered crossed by an actual value above or
     /// below its threshold value.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Direction(i32);
 
     impl Direction {
-        /// Creates a new Direction instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Direction](Direction)
-    pub mod direction {
-        use super::Direction;
-
         /// Not allowed in well-formed requests.
-        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new("DIRECTION_UNSPECIFIED");
+        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new(0);
 
         /// The threshold will be considered crossed if the actual value is above
         /// the threshold value.
-        pub const ABOVE: Direction = Direction::new("ABOVE");
+        pub const ABOVE: Direction = Direction::new(1);
 
         /// The threshold will be considered crossed if the actual value is below
         /// the threshold value.
-        pub const BELOW: Direction = Direction::new("BELOW");
+        pub const BELOW: Direction = Direction::new(2);
+
+        /// Creates a new Direction instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DIRECTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ABOVE"),
+                2 => std::borrow::Cow::Borrowed("BELOW"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DIRECTION_UNSPECIFIED" => std::option::Option::Some(Self::DIRECTION_UNSPECIFIED),
+                "ABOVE" => std::option::Option::Some(Self::ABOVE),
+                "BELOW" => std::option::Option::Some(Self::BELOW),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Direction {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Direction {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// An axis identifier.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TargetAxis(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TargetAxis(i32);
 
     impl TargetAxis {
+        /// The target axis was not specified. Defaults to Y1.
+        pub const TARGET_AXIS_UNSPECIFIED: TargetAxis = TargetAxis::new(0);
+
+        /// The y_axis (the right axis of chart).
+        pub const Y1: TargetAxis = TargetAxis::new(1);
+
+        /// The y2_axis (the left axis of chart).
+        pub const Y2: TargetAxis = TargetAxis::new(2);
+
         /// Creates a new TargetAxis instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TARGET_AXIS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("Y1"),
+                2 => std::borrow::Cow::Borrowed("Y2"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TARGET_AXIS_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TARGET_AXIS_UNSPECIFIED)
+                }
+                "Y1" => std::option::Option::Some(Self::Y1),
+                "Y2" => std::option::Option::Some(Self::Y2),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [TargetAxis](TargetAxis)
-    pub mod target_axis {
-        use super::TargetAxis;
-
-        /// The target axis was not specified. Defaults to Y1.
-        pub const TARGET_AXIS_UNSPECIFIED: TargetAxis = TargetAxis::new("TARGET_AXIS_UNSPECIFIED");
-
-        /// The y_axis (the right axis of chart).
-        pub const Y1: TargetAxis = TargetAxis::new("Y1");
-
-        /// The y2_axis (the left axis of chart).
-        pub const Y2: TargetAxis = TargetAxis::new("Y2");
+    impl std::convert::From<i32> for TargetAxis {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for TargetAxis {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for TargetAxis {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2916,39 +3173,61 @@ pub mod pie_chart {
     }
 
     /// Types for the pie chart.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PieChartType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PieChartType(i32);
 
     impl PieChartType {
+        /// The zero value. No type specified. Do not use.
+        pub const PIE_CHART_TYPE_UNSPECIFIED: PieChartType = PieChartType::new(0);
+
+        /// A Pie type PieChart.
+        pub const PIE: PieChartType = PieChartType::new(1);
+
+        /// Similar to PIE, but the DONUT type PieChart has a hole in the middle.
+        pub const DONUT: PieChartType = PieChartType::new(2);
+
         /// Creates a new PieChartType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PIE_CHART_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PIE"),
+                2 => std::borrow::Cow::Borrowed("DONUT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PIE_CHART_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PIE_CHART_TYPE_UNSPECIFIED)
+                }
+                "PIE" => std::option::Option::Some(Self::PIE),
+                "DONUT" => std::option::Option::Some(Self::DONUT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [PieChartType](PieChartType)
-    pub mod pie_chart_type {
-        use super::PieChartType;
-
-        /// The zero value. No type specified. Do not use.
-        pub const PIE_CHART_TYPE_UNSPECIFIED: PieChartType =
-            PieChartType::new("PIE_CHART_TYPE_UNSPECIFIED");
-
-        /// A Pie type PieChart.
-        pub const PIE: PieChartType = PieChartType::new("PIE");
-
-        /// Similar to PIE, but the DONUT type PieChart has a hole in the middle.
-        pub const DONUT: PieChartType = PieChartType::new("DONUT");
+    impl std::convert::From<i32> for PieChartType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for PieChartType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for PieChartType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3508,39 +3787,62 @@ pub mod time_series_table {
     }
 
     /// Enum for metric metric_visualization
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MetricVisualization(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct MetricVisualization(i32);
 
     impl MetricVisualization {
+        /// Unspecified state
+        pub const METRIC_VISUALIZATION_UNSPECIFIED: MetricVisualization =
+            MetricVisualization::new(0);
+
+        /// Default text rendering
+        pub const NUMBER: MetricVisualization = MetricVisualization::new(1);
+
+        /// Horizontal bar rendering
+        pub const BAR: MetricVisualization = MetricVisualization::new(2);
+
         /// Creates a new MetricVisualization instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("METRIC_VISUALIZATION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NUMBER"),
+                2 => std::borrow::Cow::Borrowed("BAR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "METRIC_VISUALIZATION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::METRIC_VISUALIZATION_UNSPECIFIED)
+                }
+                "NUMBER" => std::option::Option::Some(Self::NUMBER),
+                "BAR" => std::option::Option::Some(Self::BAR),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [MetricVisualization](MetricVisualization)
-    pub mod metric_visualization {
-        use super::MetricVisualization;
-
-        /// Unspecified state
-        pub const METRIC_VISUALIZATION_UNSPECIFIED: MetricVisualization =
-            MetricVisualization::new("METRIC_VISUALIZATION_UNSPECIFIED");
-
-        /// Default text rendering
-        pub const NUMBER: MetricVisualization = MetricVisualization::new("NUMBER");
-
-        /// Horizontal bar rendering
-        pub const BAR: MetricVisualization = MetricVisualization::new("BAR");
+    impl std::convert::From<i32> for MetricVisualization {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for MetricVisualization {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for MetricVisualization {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3751,278 +4053,447 @@ pub mod text {
         use super::*;
 
         /// The horizontal alignment of both the title and content on a text widget
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct HorizontalAlignment(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct HorizontalAlignment(i32);
 
         impl HorizontalAlignment {
+            /// No horizontal alignment specified, will default to H_LEFT
+            pub const HORIZONTAL_ALIGNMENT_UNSPECIFIED: HorizontalAlignment =
+                HorizontalAlignment::new(0);
+
+            /// Left-align
+            pub const H_LEFT: HorizontalAlignment = HorizontalAlignment::new(1);
+
+            /// Center-align
+            pub const H_CENTER: HorizontalAlignment = HorizontalAlignment::new(2);
+
+            /// Right-align
+            pub const H_RIGHT: HorizontalAlignment = HorizontalAlignment::new(3);
+
             /// Creates a new HorizontalAlignment instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("HORIZONTAL_ALIGNMENT_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("H_LEFT"),
+                    2 => std::borrow::Cow::Borrowed("H_CENTER"),
+                    3 => std::borrow::Cow::Borrowed("H_RIGHT"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "HORIZONTAL_ALIGNMENT_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::HORIZONTAL_ALIGNMENT_UNSPECIFIED)
+                    }
+                    "H_LEFT" => std::option::Option::Some(Self::H_LEFT),
+                    "H_CENTER" => std::option::Option::Some(Self::H_CENTER),
+                    "H_RIGHT" => std::option::Option::Some(Self::H_RIGHT),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [HorizontalAlignment](HorizontalAlignment)
-        pub mod horizontal_alignment {
-            use super::HorizontalAlignment;
-
-            /// No horizontal alignment specified, will default to H_LEFT
-            pub const HORIZONTAL_ALIGNMENT_UNSPECIFIED: HorizontalAlignment =
-                HorizontalAlignment::new("HORIZONTAL_ALIGNMENT_UNSPECIFIED");
-
-            /// Left-align
-            pub const H_LEFT: HorizontalAlignment = HorizontalAlignment::new("H_LEFT");
-
-            /// Center-align
-            pub const H_CENTER: HorizontalAlignment = HorizontalAlignment::new("H_CENTER");
-
-            /// Right-align
-            pub const H_RIGHT: HorizontalAlignment = HorizontalAlignment::new("H_RIGHT");
+        impl std::convert::From<i32> for HorizontalAlignment {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for HorizontalAlignment {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for HorizontalAlignment {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
 
         /// The vertical alignment of both the title and content on a text widget
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct VerticalAlignment(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct VerticalAlignment(i32);
 
         impl VerticalAlignment {
+            /// No vertical alignment specified, will default to V_TOP
+            pub const VERTICAL_ALIGNMENT_UNSPECIFIED: VerticalAlignment = VerticalAlignment::new(0);
+
+            /// Top-align
+            pub const V_TOP: VerticalAlignment = VerticalAlignment::new(1);
+
+            /// Center-align
+            pub const V_CENTER: VerticalAlignment = VerticalAlignment::new(2);
+
+            /// Bottom-align
+            pub const V_BOTTOM: VerticalAlignment = VerticalAlignment::new(3);
+
             /// Creates a new VerticalAlignment instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("VERTICAL_ALIGNMENT_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("V_TOP"),
+                    2 => std::borrow::Cow::Borrowed("V_CENTER"),
+                    3 => std::borrow::Cow::Borrowed("V_BOTTOM"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "VERTICAL_ALIGNMENT_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::VERTICAL_ALIGNMENT_UNSPECIFIED)
+                    }
+                    "V_TOP" => std::option::Option::Some(Self::V_TOP),
+                    "V_CENTER" => std::option::Option::Some(Self::V_CENTER),
+                    "V_BOTTOM" => std::option::Option::Some(Self::V_BOTTOM),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [VerticalAlignment](VerticalAlignment)
-        pub mod vertical_alignment {
-            use super::VerticalAlignment;
-
-            /// No vertical alignment specified, will default to V_TOP
-            pub const VERTICAL_ALIGNMENT_UNSPECIFIED: VerticalAlignment =
-                VerticalAlignment::new("VERTICAL_ALIGNMENT_UNSPECIFIED");
-
-            /// Top-align
-            pub const V_TOP: VerticalAlignment = VerticalAlignment::new("V_TOP");
-
-            /// Center-align
-            pub const V_CENTER: VerticalAlignment = VerticalAlignment::new("V_CENTER");
-
-            /// Bottom-align
-            pub const V_BOTTOM: VerticalAlignment = VerticalAlignment::new("V_BOTTOM");
+        impl std::convert::From<i32> for VerticalAlignment {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for VerticalAlignment {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for VerticalAlignment {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
 
         /// Specifies padding size around a text widget
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PaddingSize(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct PaddingSize(i32);
 
         impl PaddingSize {
+            /// No padding size specified, will default to P_EXTRA_SMALL
+            pub const PADDING_SIZE_UNSPECIFIED: PaddingSize = PaddingSize::new(0);
+
+            /// Extra small padding
+            pub const P_EXTRA_SMALL: PaddingSize = PaddingSize::new(1);
+
+            /// Small padding
+            pub const P_SMALL: PaddingSize = PaddingSize::new(2);
+
+            /// Medium padding
+            pub const P_MEDIUM: PaddingSize = PaddingSize::new(3);
+
+            /// Large padding
+            pub const P_LARGE: PaddingSize = PaddingSize::new(4);
+
+            /// Extra large padding
+            pub const P_EXTRA_LARGE: PaddingSize = PaddingSize::new(5);
+
             /// Creates a new PaddingSize instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("PADDING_SIZE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("P_EXTRA_SMALL"),
+                    2 => std::borrow::Cow::Borrowed("P_SMALL"),
+                    3 => std::borrow::Cow::Borrowed("P_MEDIUM"),
+                    4 => std::borrow::Cow::Borrowed("P_LARGE"),
+                    5 => std::borrow::Cow::Borrowed("P_EXTRA_LARGE"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "PADDING_SIZE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::PADDING_SIZE_UNSPECIFIED)
+                    }
+                    "P_EXTRA_SMALL" => std::option::Option::Some(Self::P_EXTRA_SMALL),
+                    "P_SMALL" => std::option::Option::Some(Self::P_SMALL),
+                    "P_MEDIUM" => std::option::Option::Some(Self::P_MEDIUM),
+                    "P_LARGE" => std::option::Option::Some(Self::P_LARGE),
+                    "P_EXTRA_LARGE" => std::option::Option::Some(Self::P_EXTRA_LARGE),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [PaddingSize](PaddingSize)
-        pub mod padding_size {
-            use super::PaddingSize;
-
-            /// No padding size specified, will default to P_EXTRA_SMALL
-            pub const PADDING_SIZE_UNSPECIFIED: PaddingSize =
-                PaddingSize::new("PADDING_SIZE_UNSPECIFIED");
-
-            /// Extra small padding
-            pub const P_EXTRA_SMALL: PaddingSize = PaddingSize::new("P_EXTRA_SMALL");
-
-            /// Small padding
-            pub const P_SMALL: PaddingSize = PaddingSize::new("P_SMALL");
-
-            /// Medium padding
-            pub const P_MEDIUM: PaddingSize = PaddingSize::new("P_MEDIUM");
-
-            /// Large padding
-            pub const P_LARGE: PaddingSize = PaddingSize::new("P_LARGE");
-
-            /// Extra large padding
-            pub const P_EXTRA_LARGE: PaddingSize = PaddingSize::new("P_EXTRA_LARGE");
+        impl std::convert::From<i32> for PaddingSize {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for PaddingSize {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for PaddingSize {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
 
         /// Specifies a font size for the title and content of a text widget
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct FontSize(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct FontSize(i32);
 
         impl FontSize {
+            /// No font size specified, will default to FS_LARGE
+            pub const FONT_SIZE_UNSPECIFIED: FontSize = FontSize::new(0);
+
+            /// Extra small font size
+            pub const FS_EXTRA_SMALL: FontSize = FontSize::new(1);
+
+            /// Small font size
+            pub const FS_SMALL: FontSize = FontSize::new(2);
+
+            /// Medium font size
+            pub const FS_MEDIUM: FontSize = FontSize::new(3);
+
+            /// Large font size
+            pub const FS_LARGE: FontSize = FontSize::new(4);
+
+            /// Extra large font size
+            pub const FS_EXTRA_LARGE: FontSize = FontSize::new(5);
+
             /// Creates a new FontSize instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("FONT_SIZE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("FS_EXTRA_SMALL"),
+                    2 => std::borrow::Cow::Borrowed("FS_SMALL"),
+                    3 => std::borrow::Cow::Borrowed("FS_MEDIUM"),
+                    4 => std::borrow::Cow::Borrowed("FS_LARGE"),
+                    5 => std::borrow::Cow::Borrowed("FS_EXTRA_LARGE"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "FONT_SIZE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::FONT_SIZE_UNSPECIFIED)
+                    }
+                    "FS_EXTRA_SMALL" => std::option::Option::Some(Self::FS_EXTRA_SMALL),
+                    "FS_SMALL" => std::option::Option::Some(Self::FS_SMALL),
+                    "FS_MEDIUM" => std::option::Option::Some(Self::FS_MEDIUM),
+                    "FS_LARGE" => std::option::Option::Some(Self::FS_LARGE),
+                    "FS_EXTRA_LARGE" => std::option::Option::Some(Self::FS_EXTRA_LARGE),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [FontSize](FontSize)
-        pub mod font_size {
-            use super::FontSize;
-
-            /// No font size specified, will default to FS_LARGE
-            pub const FONT_SIZE_UNSPECIFIED: FontSize = FontSize::new("FONT_SIZE_UNSPECIFIED");
-
-            /// Extra small font size
-            pub const FS_EXTRA_SMALL: FontSize = FontSize::new("FS_EXTRA_SMALL");
-
-            /// Small font size
-            pub const FS_SMALL: FontSize = FontSize::new("FS_SMALL");
-
-            /// Medium font size
-            pub const FS_MEDIUM: FontSize = FontSize::new("FS_MEDIUM");
-
-            /// Large font size
-            pub const FS_LARGE: FontSize = FontSize::new("FS_LARGE");
-
-            /// Extra large font size
-            pub const FS_EXTRA_LARGE: FontSize = FontSize::new("FS_EXTRA_LARGE");
+        impl std::convert::From<i32> for FontSize {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for FontSize {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for FontSize {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
 
         /// Specifies where a visual pointer is placed on a text widget (also
         /// sometimes called a "tail")
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PointerLocation(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct PointerLocation(i32);
 
         impl PointerLocation {
+            /// No visual pointer
+            pub const POINTER_LOCATION_UNSPECIFIED: PointerLocation = PointerLocation::new(0);
+
+            /// Placed in the middle of the top of the widget
+            pub const PL_TOP: PointerLocation = PointerLocation::new(1);
+
+            /// Placed in the middle of the right side of the widget
+            pub const PL_RIGHT: PointerLocation = PointerLocation::new(2);
+
+            /// Placed in the middle of the bottom of the widget
+            pub const PL_BOTTOM: PointerLocation = PointerLocation::new(3);
+
+            /// Placed in the middle of the left side of the widget
+            pub const PL_LEFT: PointerLocation = PointerLocation::new(4);
+
+            /// Placed on the left side of the top of the widget
+            pub const PL_TOP_LEFT: PointerLocation = PointerLocation::new(5);
+
+            /// Placed on the right side of the top of the widget
+            pub const PL_TOP_RIGHT: PointerLocation = PointerLocation::new(6);
+
+            /// Placed on the top of the right side of the widget
+            pub const PL_RIGHT_TOP: PointerLocation = PointerLocation::new(7);
+
+            /// Placed on the bottom of the right side of the widget
+            pub const PL_RIGHT_BOTTOM: PointerLocation = PointerLocation::new(8);
+
+            /// Placed on the right side of the bottom of the widget
+            pub const PL_BOTTOM_RIGHT: PointerLocation = PointerLocation::new(9);
+
+            /// Placed on the left side of the bottom of the widget
+            pub const PL_BOTTOM_LEFT: PointerLocation = PointerLocation::new(10);
+
+            /// Placed on the bottom of the left side of the widget
+            pub const PL_LEFT_BOTTOM: PointerLocation = PointerLocation::new(11);
+
+            /// Placed on the top of the left side of the widget
+            pub const PL_LEFT_TOP: PointerLocation = PointerLocation::new(12);
+
             /// Creates a new PointerLocation instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("POINTER_LOCATION_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("PL_TOP"),
+                    2 => std::borrow::Cow::Borrowed("PL_RIGHT"),
+                    3 => std::borrow::Cow::Borrowed("PL_BOTTOM"),
+                    4 => std::borrow::Cow::Borrowed("PL_LEFT"),
+                    5 => std::borrow::Cow::Borrowed("PL_TOP_LEFT"),
+                    6 => std::borrow::Cow::Borrowed("PL_TOP_RIGHT"),
+                    7 => std::borrow::Cow::Borrowed("PL_RIGHT_TOP"),
+                    8 => std::borrow::Cow::Borrowed("PL_RIGHT_BOTTOM"),
+                    9 => std::borrow::Cow::Borrowed("PL_BOTTOM_RIGHT"),
+                    10 => std::borrow::Cow::Borrowed("PL_BOTTOM_LEFT"),
+                    11 => std::borrow::Cow::Borrowed("PL_LEFT_BOTTOM"),
+                    12 => std::borrow::Cow::Borrowed("PL_LEFT_TOP"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "POINTER_LOCATION_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::POINTER_LOCATION_UNSPECIFIED)
+                    }
+                    "PL_TOP" => std::option::Option::Some(Self::PL_TOP),
+                    "PL_RIGHT" => std::option::Option::Some(Self::PL_RIGHT),
+                    "PL_BOTTOM" => std::option::Option::Some(Self::PL_BOTTOM),
+                    "PL_LEFT" => std::option::Option::Some(Self::PL_LEFT),
+                    "PL_TOP_LEFT" => std::option::Option::Some(Self::PL_TOP_LEFT),
+                    "PL_TOP_RIGHT" => std::option::Option::Some(Self::PL_TOP_RIGHT),
+                    "PL_RIGHT_TOP" => std::option::Option::Some(Self::PL_RIGHT_TOP),
+                    "PL_RIGHT_BOTTOM" => std::option::Option::Some(Self::PL_RIGHT_BOTTOM),
+                    "PL_BOTTOM_RIGHT" => std::option::Option::Some(Self::PL_BOTTOM_RIGHT),
+                    "PL_BOTTOM_LEFT" => std::option::Option::Some(Self::PL_BOTTOM_LEFT),
+                    "PL_LEFT_BOTTOM" => std::option::Option::Some(Self::PL_LEFT_BOTTOM),
+                    "PL_LEFT_TOP" => std::option::Option::Some(Self::PL_LEFT_TOP),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [PointerLocation](PointerLocation)
-        pub mod pointer_location {
-            use super::PointerLocation;
-
-            /// No visual pointer
-            pub const POINTER_LOCATION_UNSPECIFIED: PointerLocation =
-                PointerLocation::new("POINTER_LOCATION_UNSPECIFIED");
-
-            /// Placed in the middle of the top of the widget
-            pub const PL_TOP: PointerLocation = PointerLocation::new("PL_TOP");
-
-            /// Placed in the middle of the right side of the widget
-            pub const PL_RIGHT: PointerLocation = PointerLocation::new("PL_RIGHT");
-
-            /// Placed in the middle of the bottom of the widget
-            pub const PL_BOTTOM: PointerLocation = PointerLocation::new("PL_BOTTOM");
-
-            /// Placed in the middle of the left side of the widget
-            pub const PL_LEFT: PointerLocation = PointerLocation::new("PL_LEFT");
-
-            /// Placed on the left side of the top of the widget
-            pub const PL_TOP_LEFT: PointerLocation = PointerLocation::new("PL_TOP_LEFT");
-
-            /// Placed on the right side of the top of the widget
-            pub const PL_TOP_RIGHT: PointerLocation = PointerLocation::new("PL_TOP_RIGHT");
-
-            /// Placed on the top of the right side of the widget
-            pub const PL_RIGHT_TOP: PointerLocation = PointerLocation::new("PL_RIGHT_TOP");
-
-            /// Placed on the bottom of the right side of the widget
-            pub const PL_RIGHT_BOTTOM: PointerLocation = PointerLocation::new("PL_RIGHT_BOTTOM");
-
-            /// Placed on the right side of the bottom of the widget
-            pub const PL_BOTTOM_RIGHT: PointerLocation = PointerLocation::new("PL_BOTTOM_RIGHT");
-
-            /// Placed on the left side of the bottom of the widget
-            pub const PL_BOTTOM_LEFT: PointerLocation = PointerLocation::new("PL_BOTTOM_LEFT");
-
-            /// Placed on the bottom of the left side of the widget
-            pub const PL_LEFT_BOTTOM: PointerLocation = PointerLocation::new("PL_LEFT_BOTTOM");
-
-            /// Placed on the top of the left side of the widget
-            pub const PL_LEFT_TOP: PointerLocation = PointerLocation::new("PL_LEFT_TOP");
+        impl std::convert::From<i32> for PointerLocation {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for PointerLocation {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for PointerLocation {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
 
     /// The format type of the text content.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Format(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Format(i32);
 
     impl Format {
+        /// Format is unspecified. Defaults to MARKDOWN.
+        pub const FORMAT_UNSPECIFIED: Format = Format::new(0);
+
+        /// The text contains Markdown formatting.
+        pub const MARKDOWN: Format = Format::new(1);
+
+        /// The text contains no special formatting.
+        pub const RAW: Format = Format::new(2);
+
         /// Creates a new Format instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FORMAT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MARKDOWN"),
+                2 => std::borrow::Cow::Borrowed("RAW"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::FORMAT_UNSPECIFIED),
+                "MARKDOWN" => std::option::Option::Some(Self::MARKDOWN),
+                "RAW" => std::option::Option::Some(Self::RAW),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Format](Format)
-    pub mod format {
-        use super::Format;
-
-        /// Format is unspecified. Defaults to MARKDOWN.
-        pub const FORMAT_UNSPECIFIED: Format = Format::new("FORMAT_UNSPECIFIED");
-
-        /// The text contains Markdown formatting.
-        pub const MARKDOWN: Format = Format::new("MARKDOWN");
-
-        /// The text contains no special formatting.
-        pub const RAW: Format = Format::new("RAW");
+    impl std::convert::From<i32> for Format {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Format {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Format {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4692,90 +5163,139 @@ pub mod xy_chart {
         use super::*;
 
         /// The types of plotting strategies for data sets.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PlotType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct PlotType(i32);
 
         impl PlotType {
-            /// Creates a new PlotType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [PlotType](PlotType)
-        pub mod plot_type {
-            use super::PlotType;
-
             /// Plot type is unspecified. The view will default to `LINE`.
-            pub const PLOT_TYPE_UNSPECIFIED: PlotType = PlotType::new("PLOT_TYPE_UNSPECIFIED");
+            pub const PLOT_TYPE_UNSPECIFIED: PlotType = PlotType::new(0);
 
             /// The data is plotted as a set of lines (one line per series).
-            pub const LINE: PlotType = PlotType::new("LINE");
+            pub const LINE: PlotType = PlotType::new(1);
 
             /// The data is plotted as a set of filled areas (one area per series),
             /// with the areas stacked vertically (the base of each area is the top of
             /// its predecessor, and the base of the first area is the x-axis). Since
             /// the areas do not overlap, each is filled with a different opaque color.
-            pub const STACKED_AREA: PlotType = PlotType::new("STACKED_AREA");
+            pub const STACKED_AREA: PlotType = PlotType::new(2);
 
             /// The data is plotted as a set of rectangular boxes (one box per series),
             /// with the boxes stacked vertically (the base of each box is the top of
             /// its predecessor, and the base of the first box is the x-axis). Since
             /// the boxes do not overlap, each is filled with a different opaque color.
-            pub const STACKED_BAR: PlotType = PlotType::new("STACKED_BAR");
+            pub const STACKED_BAR: PlotType = PlotType::new(3);
 
             /// The data is plotted as a heatmap. The series being plotted must have a
             /// `DISTRIBUTION` value type. The value of each bucket in the distribution
             /// is displayed as a color. This type is not currently available in the
             /// Stackdriver Monitoring application.
-            pub const HEATMAP: PlotType = PlotType::new("HEATMAP");
+            pub const HEATMAP: PlotType = PlotType::new(4);
+
+            /// Creates a new PlotType instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("PLOT_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("LINE"),
+                    2 => std::borrow::Cow::Borrowed("STACKED_AREA"),
+                    3 => std::borrow::Cow::Borrowed("STACKED_BAR"),
+                    4 => std::borrow::Cow::Borrowed("HEATMAP"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "PLOT_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::PLOT_TYPE_UNSPECIFIED)
+                    }
+                    "LINE" => std::option::Option::Some(Self::LINE),
+                    "STACKED_AREA" => std::option::Option::Some(Self::STACKED_AREA),
+                    "STACKED_BAR" => std::option::Option::Some(Self::STACKED_BAR),
+                    "HEATMAP" => std::option::Option::Some(Self::HEATMAP),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for PlotType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for PlotType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for PlotType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
 
         /// An axis identifier.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct TargetAxis(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct TargetAxis(i32);
 
         impl TargetAxis {
+            /// The target axis was not specified. Defaults to Y1.
+            pub const TARGET_AXIS_UNSPECIFIED: TargetAxis = TargetAxis::new(0);
+
+            /// The y_axis (the right axis of chart).
+            pub const Y1: TargetAxis = TargetAxis::new(1);
+
+            /// The y2_axis (the left axis of chart).
+            pub const Y2: TargetAxis = TargetAxis::new(2);
+
             /// Creates a new TargetAxis instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("TARGET_AXIS_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("Y1"),
+                    2 => std::borrow::Cow::Borrowed("Y2"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "TARGET_AXIS_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::TARGET_AXIS_UNSPECIFIED)
+                    }
+                    "Y1" => std::option::Option::Some(Self::Y1),
+                    "Y2" => std::option::Option::Some(Self::Y2),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [TargetAxis](TargetAxis)
-        pub mod target_axis {
-            use super::TargetAxis;
-
-            /// The target axis was not specified. Defaults to Y1.
-            pub const TARGET_AXIS_UNSPECIFIED: TargetAxis =
-                TargetAxis::new("TARGET_AXIS_UNSPECIFIED");
-
-            /// The y_axis (the right axis of chart).
-            pub const Y1: TargetAxis = TargetAxis::new("Y1");
-
-            /// The y2_axis (the left axis of chart).
-            pub const Y2: TargetAxis = TargetAxis::new("Y2");
+        impl std::convert::From<i32> for TargetAxis {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for TargetAxis {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for TargetAxis {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -4827,38 +5347,59 @@ pub mod xy_chart {
         use super::*;
 
         /// Types of scales used in axes.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Scale(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Scale(i32);
 
         impl Scale {
+            /// Scale is unspecified. The view will default to `LINEAR`.
+            pub const SCALE_UNSPECIFIED: Scale = Scale::new(0);
+
+            /// Linear scale.
+            pub const LINEAR: Scale = Scale::new(1);
+
+            /// Logarithmic scale (base 10).
+            pub const LOG10: Scale = Scale::new(2);
+
             /// Creates a new Scale instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("SCALE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("LINEAR"),
+                    2 => std::borrow::Cow::Borrowed("LOG10"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "SCALE_UNSPECIFIED" => std::option::Option::Some(Self::SCALE_UNSPECIFIED),
+                    "LINEAR" => std::option::Option::Some(Self::LINEAR),
+                    "LOG10" => std::option::Option::Some(Self::LOG10),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Scale](Scale)
-        pub mod scale {
-            use super::Scale;
-
-            /// Scale is unspecified. The view will default to `LINEAR`.
-            pub const SCALE_UNSPECIFIED: Scale = Scale::new("SCALE_UNSPECIFIED");
-
-            /// Linear scale.
-            pub const LINEAR: Scale = Scale::new("LINEAR");
-
-            /// Logarithmic scale (base 10).
-            pub const LOG10: Scale = Scale::new("LOG10");
+        impl std::convert::From<i32> for Scale {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for Scale {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for Scale {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -4901,81 +5442,126 @@ pub mod chart_options {
     use super::*;
 
     /// Chart mode options.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Mode(i32);
 
     impl Mode {
-        /// Creates a new Mode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Mode](Mode)
-    pub mod mode {
-        use super::Mode;
-
         /// Mode is unspecified. The view will default to `COLOR`.
-        pub const MODE_UNSPECIFIED: Mode = Mode::new("MODE_UNSPECIFIED");
+        pub const MODE_UNSPECIFIED: Mode = Mode::new(0);
 
         /// The chart distinguishes data series using different color. Line
         /// colors may get reused when there are many lines in the chart.
-        pub const COLOR: Mode = Mode::new("COLOR");
+        pub const COLOR: Mode = Mode::new(1);
 
         /// The chart uses the Stackdriver x-ray mode, in which each
         /// data set is plotted using the same semi-transparent color.
-        pub const X_RAY: Mode = Mode::new("X_RAY");
+        pub const X_RAY: Mode = Mode::new(2);
 
         /// The chart displays statistics such as average, median, 95th percentile,
         /// and more.
-        pub const STATS: Mode = Mode::new("STATS");
+        pub const STATS: Mode = Mode::new(3);
+
+        /// Creates a new Mode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("COLOR"),
+                2 => std::borrow::Cow::Borrowed("X_RAY"),
+                3 => std::borrow::Cow::Borrowed("STATS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MODE_UNSPECIFIED" => std::option::Option::Some(Self::MODE_UNSPECIFIED),
+                "COLOR" => std::option::Option::Some(Self::COLOR),
+                "X_RAY" => std::option::Option::Some(Self::X_RAY),
+                "STATS" => std::option::Option::Some(Self::STATS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Mode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
 
 /// Defines the possible types of spark chart supported by the `Scorecard`.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SparkChartType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct SparkChartType(i32);
 
 impl SparkChartType {
+    /// Not allowed in well-formed requests.
+    pub const SPARK_CHART_TYPE_UNSPECIFIED: SparkChartType = SparkChartType::new(0);
+
+    /// The sparkline will be rendered as a small line chart.
+    pub const SPARK_LINE: SparkChartType = SparkChartType::new(1);
+
+    /// The sparkbar will be rendered as a small bar chart.
+    pub const SPARK_BAR: SparkChartType = SparkChartType::new(2);
+
     /// Creates a new SparkChartType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SPARK_CHART_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SPARK_LINE"),
+            2 => std::borrow::Cow::Borrowed("SPARK_BAR"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SPARK_CHART_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::SPARK_CHART_TYPE_UNSPECIFIED)
+            }
+            "SPARK_LINE" => std::option::Option::Some(Self::SPARK_LINE),
+            "SPARK_BAR" => std::option::Option::Some(Self::SPARK_BAR),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SparkChartType](SparkChartType)
-pub mod spark_chart_type {
-    use super::SparkChartType;
-
-    /// Not allowed in well-formed requests.
-    pub const SPARK_CHART_TYPE_UNSPECIFIED: SparkChartType =
-        SparkChartType::new("SPARK_CHART_TYPE_UNSPECIFIED");
-
-    /// The sparkline will be rendered as a small line chart.
-    pub const SPARK_LINE: SparkChartType = SparkChartType::new("SPARK_LINE");
-
-    /// The sparkbar will be rendered as a small bar chart.
-    pub const SPARK_BAR: SparkChartType = SparkChartType::new("SPARK_BAR");
+impl std::convert::From<i32> for SparkChartType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for SparkChartType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for SparkChartType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

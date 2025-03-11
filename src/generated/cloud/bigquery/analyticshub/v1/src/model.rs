@@ -77,9 +77,9 @@ pub struct DataExchange {
     /// only performs validation on size of the encoded data. Note: For byte
     /// fields, the content of the fields are base64-encoded (which increases the
     /// size of the data by 33-36%) when using JSON on the wire.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub icon: bytes::Bytes,
+    pub icon: ::bytes::Bytes,
 
     /// Optional. Configurable data sharing environment option for a data exchange.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -134,7 +134,7 @@ impl DataExchange {
     }
 
     /// Sets the value of [icon][crate::model::DataExchange::icon].
-    pub fn set_icon<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_icon<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.icon = v.into();
         self
     }
@@ -631,9 +631,9 @@ pub struct Listing {
     /// performs validation on size of the encoded data.
     /// Note: For byte fields, the contents of the field are base64-encoded (which
     /// increases the size of the data by 33-36%) when using JSON on the wire.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub icon: bytes::Bytes,
+    pub icon: ::bytes::Bytes,
 
     /// Optional. Details of the data provider who owns the source data.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -711,7 +711,7 @@ impl Listing {
     }
 
     /// Sets the value of [icon][crate::model::Listing::icon].
-    pub fn set_icon<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_icon<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.icon = v.into();
         self
     }
@@ -1100,109 +1100,189 @@ pub mod listing {
     }
 
     /// State of the listing.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Subscribable state. Users with dataexchange.listings.subscribe permission
         /// can subscribe to this listing.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(1);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Listing categories.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Category(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Category(i32);
 
     impl Category {
+        pub const CATEGORY_UNSPECIFIED: Category = Category::new(0);
+
+        pub const CATEGORY_OTHERS: Category = Category::new(1);
+
+        pub const CATEGORY_ADVERTISING_AND_MARKETING: Category = Category::new(2);
+
+        pub const CATEGORY_COMMERCE: Category = Category::new(3);
+
+        pub const CATEGORY_CLIMATE_AND_ENVIRONMENT: Category = Category::new(4);
+
+        pub const CATEGORY_DEMOGRAPHICS: Category = Category::new(5);
+
+        pub const CATEGORY_ECONOMICS: Category = Category::new(6);
+
+        pub const CATEGORY_EDUCATION: Category = Category::new(7);
+
+        pub const CATEGORY_ENERGY: Category = Category::new(8);
+
+        pub const CATEGORY_FINANCIAL: Category = Category::new(9);
+
+        pub const CATEGORY_GAMING: Category = Category::new(10);
+
+        pub const CATEGORY_GEOSPATIAL: Category = Category::new(11);
+
+        pub const CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE: Category = Category::new(12);
+
+        pub const CATEGORY_MEDIA: Category = Category::new(13);
+
+        pub const CATEGORY_PUBLIC_SECTOR: Category = Category::new(14);
+
+        pub const CATEGORY_RETAIL: Category = Category::new(15);
+
+        pub const CATEGORY_SPORTS: Category = Category::new(16);
+
+        pub const CATEGORY_SCIENCE_AND_RESEARCH: Category = Category::new(17);
+
+        pub const CATEGORY_TRANSPORTATION_AND_LOGISTICS: Category = Category::new(18);
+
+        pub const CATEGORY_TRAVEL_AND_TOURISM: Category = Category::new(19);
+
         /// Creates a new Category instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CATEGORY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CATEGORY_OTHERS"),
+                2 => std::borrow::Cow::Borrowed("CATEGORY_ADVERTISING_AND_MARKETING"),
+                3 => std::borrow::Cow::Borrowed("CATEGORY_COMMERCE"),
+                4 => std::borrow::Cow::Borrowed("CATEGORY_CLIMATE_AND_ENVIRONMENT"),
+                5 => std::borrow::Cow::Borrowed("CATEGORY_DEMOGRAPHICS"),
+                6 => std::borrow::Cow::Borrowed("CATEGORY_ECONOMICS"),
+                7 => std::borrow::Cow::Borrowed("CATEGORY_EDUCATION"),
+                8 => std::borrow::Cow::Borrowed("CATEGORY_ENERGY"),
+                9 => std::borrow::Cow::Borrowed("CATEGORY_FINANCIAL"),
+                10 => std::borrow::Cow::Borrowed("CATEGORY_GAMING"),
+                11 => std::borrow::Cow::Borrowed("CATEGORY_GEOSPATIAL"),
+                12 => std::borrow::Cow::Borrowed("CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE"),
+                13 => std::borrow::Cow::Borrowed("CATEGORY_MEDIA"),
+                14 => std::borrow::Cow::Borrowed("CATEGORY_PUBLIC_SECTOR"),
+                15 => std::borrow::Cow::Borrowed("CATEGORY_RETAIL"),
+                16 => std::borrow::Cow::Borrowed("CATEGORY_SPORTS"),
+                17 => std::borrow::Cow::Borrowed("CATEGORY_SCIENCE_AND_RESEARCH"),
+                18 => std::borrow::Cow::Borrowed("CATEGORY_TRANSPORTATION_AND_LOGISTICS"),
+                19 => std::borrow::Cow::Borrowed("CATEGORY_TRAVEL_AND_TOURISM"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CATEGORY_UNSPECIFIED" => std::option::Option::Some(Self::CATEGORY_UNSPECIFIED),
+                "CATEGORY_OTHERS" => std::option::Option::Some(Self::CATEGORY_OTHERS),
+                "CATEGORY_ADVERTISING_AND_MARKETING" => {
+                    std::option::Option::Some(Self::CATEGORY_ADVERTISING_AND_MARKETING)
+                }
+                "CATEGORY_COMMERCE" => std::option::Option::Some(Self::CATEGORY_COMMERCE),
+                "CATEGORY_CLIMATE_AND_ENVIRONMENT" => {
+                    std::option::Option::Some(Self::CATEGORY_CLIMATE_AND_ENVIRONMENT)
+                }
+                "CATEGORY_DEMOGRAPHICS" => std::option::Option::Some(Self::CATEGORY_DEMOGRAPHICS),
+                "CATEGORY_ECONOMICS" => std::option::Option::Some(Self::CATEGORY_ECONOMICS),
+                "CATEGORY_EDUCATION" => std::option::Option::Some(Self::CATEGORY_EDUCATION),
+                "CATEGORY_ENERGY" => std::option::Option::Some(Self::CATEGORY_ENERGY),
+                "CATEGORY_FINANCIAL" => std::option::Option::Some(Self::CATEGORY_FINANCIAL),
+                "CATEGORY_GAMING" => std::option::Option::Some(Self::CATEGORY_GAMING),
+                "CATEGORY_GEOSPATIAL" => std::option::Option::Some(Self::CATEGORY_GEOSPATIAL),
+                "CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE" => {
+                    std::option::Option::Some(Self::CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE)
+                }
+                "CATEGORY_MEDIA" => std::option::Option::Some(Self::CATEGORY_MEDIA),
+                "CATEGORY_PUBLIC_SECTOR" => std::option::Option::Some(Self::CATEGORY_PUBLIC_SECTOR),
+                "CATEGORY_RETAIL" => std::option::Option::Some(Self::CATEGORY_RETAIL),
+                "CATEGORY_SPORTS" => std::option::Option::Some(Self::CATEGORY_SPORTS),
+                "CATEGORY_SCIENCE_AND_RESEARCH" => {
+                    std::option::Option::Some(Self::CATEGORY_SCIENCE_AND_RESEARCH)
+                }
+                "CATEGORY_TRANSPORTATION_AND_LOGISTICS" => {
+                    std::option::Option::Some(Self::CATEGORY_TRANSPORTATION_AND_LOGISTICS)
+                }
+                "CATEGORY_TRAVEL_AND_TOURISM" => {
+                    std::option::Option::Some(Self::CATEGORY_TRAVEL_AND_TOURISM)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Category](Category)
-    pub mod category {
-        use super::Category;
-
-        pub const CATEGORY_UNSPECIFIED: Category = Category::new("CATEGORY_UNSPECIFIED");
-
-        pub const CATEGORY_OTHERS: Category = Category::new("CATEGORY_OTHERS");
-
-        pub const CATEGORY_ADVERTISING_AND_MARKETING: Category =
-            Category::new("CATEGORY_ADVERTISING_AND_MARKETING");
-
-        pub const CATEGORY_COMMERCE: Category = Category::new("CATEGORY_COMMERCE");
-
-        pub const CATEGORY_CLIMATE_AND_ENVIRONMENT: Category =
-            Category::new("CATEGORY_CLIMATE_AND_ENVIRONMENT");
-
-        pub const CATEGORY_DEMOGRAPHICS: Category = Category::new("CATEGORY_DEMOGRAPHICS");
-
-        pub const CATEGORY_ECONOMICS: Category = Category::new("CATEGORY_ECONOMICS");
-
-        pub const CATEGORY_EDUCATION: Category = Category::new("CATEGORY_EDUCATION");
-
-        pub const CATEGORY_ENERGY: Category = Category::new("CATEGORY_ENERGY");
-
-        pub const CATEGORY_FINANCIAL: Category = Category::new("CATEGORY_FINANCIAL");
-
-        pub const CATEGORY_GAMING: Category = Category::new("CATEGORY_GAMING");
-
-        pub const CATEGORY_GEOSPATIAL: Category = Category::new("CATEGORY_GEOSPATIAL");
-
-        pub const CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE: Category =
-            Category::new("CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE");
-
-        pub const CATEGORY_MEDIA: Category = Category::new("CATEGORY_MEDIA");
-
-        pub const CATEGORY_PUBLIC_SECTOR: Category = Category::new("CATEGORY_PUBLIC_SECTOR");
-
-        pub const CATEGORY_RETAIL: Category = Category::new("CATEGORY_RETAIL");
-
-        pub const CATEGORY_SPORTS: Category = Category::new("CATEGORY_SPORTS");
-
-        pub const CATEGORY_SCIENCE_AND_RESEARCH: Category =
-            Category::new("CATEGORY_SCIENCE_AND_RESEARCH");
-
-        pub const CATEGORY_TRANSPORTATION_AND_LOGISTICS: Category =
-            Category::new("CATEGORY_TRANSPORTATION_AND_LOGISTICS");
-
-        pub const CATEGORY_TRAVEL_AND_TOURISM: Category =
-            Category::new("CATEGORY_TRAVEL_AND_TOURISM");
+    impl std::convert::From<i32> for Category {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Category {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Category {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -1490,43 +1570,66 @@ pub mod subscription {
     }
 
     /// State of the subscription.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// This subscription is active and the data is accessible.
-        pub const STATE_ACTIVE: State = State::new("STATE_ACTIVE");
+        pub const STATE_ACTIVE: State = State::new(1);
 
         /// The data referenced by this subscription is out of date and should be
         /// refreshed. This can happen when a data provider adds or removes datasets.
-        pub const STATE_STALE: State = State::new("STATE_STALE");
+        pub const STATE_STALE: State = State::new(2);
 
         /// This subscription has been cancelled or revoked and the data is no longer
         /// accessible.
-        pub const STATE_INACTIVE: State = State::new("STATE_INACTIVE");
+        pub const STATE_INACTIVE: State = State::new(3);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STATE_ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("STATE_STALE"),
+                3 => std::borrow::Cow::Borrowed("STATE_INACTIVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "STATE_ACTIVE" => std::option::Option::Some(Self::STATE_ACTIVE),
+                "STATE_STALE" => std::option::Option::Some(Self::STATE_STALE),
+                "STATE_INACTIVE" => std::option::Option::Some(Self::STATE_INACTIVE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -2955,40 +3058,62 @@ impl wkt::message::Message for OperationMetadata {
 /// Specifies the type of discovery on the discovery page. Note that
 /// this does not control the visibility of the exchange/listing which is
 /// defined by IAM permission.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DiscoveryType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct DiscoveryType(i32);
 
 impl DiscoveryType {
-    /// Creates a new DiscoveryType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [DiscoveryType](DiscoveryType)
-pub mod discovery_type {
-    use super::DiscoveryType;
-
     /// Unspecified. Defaults to DISCOVERY_TYPE_PRIVATE.
-    pub const DISCOVERY_TYPE_UNSPECIFIED: DiscoveryType =
-        DiscoveryType::new("DISCOVERY_TYPE_UNSPECIFIED");
+    pub const DISCOVERY_TYPE_UNSPECIFIED: DiscoveryType = DiscoveryType::new(0);
 
     /// The Data exchange/listing can be discovered in the 'Private' results
     /// list.
-    pub const DISCOVERY_TYPE_PRIVATE: DiscoveryType = DiscoveryType::new("DISCOVERY_TYPE_PRIVATE");
+    pub const DISCOVERY_TYPE_PRIVATE: DiscoveryType = DiscoveryType::new(1);
 
     /// The Data exchange/listing can be discovered in the 'Public' results
     /// list.
-    pub const DISCOVERY_TYPE_PUBLIC: DiscoveryType = DiscoveryType::new("DISCOVERY_TYPE_PUBLIC");
+    pub const DISCOVERY_TYPE_PUBLIC: DiscoveryType = DiscoveryType::new(2);
+
+    /// Creates a new DiscoveryType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DISCOVERY_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("DISCOVERY_TYPE_PRIVATE"),
+            2 => std::borrow::Cow::Borrowed("DISCOVERY_TYPE_PUBLIC"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DISCOVERY_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::DISCOVERY_TYPE_UNSPECIFIED)
+            }
+            "DISCOVERY_TYPE_PRIVATE" => std::option::Option::Some(Self::DISCOVERY_TYPE_PRIVATE),
+            "DISCOVERY_TYPE_PUBLIC" => std::option::Option::Some(Self::DISCOVERY_TYPE_PUBLIC),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for DiscoveryType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DiscoveryType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for DiscoveryType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

@@ -444,36 +444,58 @@ pub mod policy_binding {
     }
 
     /// Different policy kinds supported in this binding.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyKind(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PolicyKind(i32);
 
     impl PolicyKind {
+        /// Unspecified policy kind; Not a valid state
+        pub const POLICY_KIND_UNSPECIFIED: PolicyKind = PolicyKind::new(0);
+
+        /// Principal access boundary policy kind
+        pub const PRINCIPAL_ACCESS_BOUNDARY: PolicyKind = PolicyKind::new(1);
+
         /// Creates a new PolicyKind instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("POLICY_KIND_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PRINCIPAL_ACCESS_BOUNDARY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "POLICY_KIND_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::POLICY_KIND_UNSPECIFIED)
+                }
+                "PRINCIPAL_ACCESS_BOUNDARY" => {
+                    std::option::Option::Some(Self::PRINCIPAL_ACCESS_BOUNDARY)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [PolicyKind](PolicyKind)
-    pub mod policy_kind {
-        use super::PolicyKind;
-
-        /// Unspecified policy kind; Not a valid state
-        pub const POLICY_KIND_UNSPECIFIED: PolicyKind = PolicyKind::new("POLICY_KIND_UNSPECIFIED");
-
-        /// Principal access boundary policy kind
-        pub const PRINCIPAL_ACCESS_BOUNDARY: PolicyKind =
-            PolicyKind::new("PRINCIPAL_ACCESS_BOUNDARY");
+    impl std::convert::From<i32> for PolicyKind {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for PolicyKind {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for PolicyKind {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1727,35 +1749,54 @@ pub mod principal_access_boundary_policy_rule {
     use super::*;
 
     /// An effect to describe the access relationship.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Effect(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Effect(i32);
 
     impl Effect {
+        /// Effect unspecified.
+        pub const EFFECT_UNSPECIFIED: Effect = Effect::new(0);
+
+        /// Allows access to the resources in this rule.
+        pub const ALLOW: Effect = Effect::new(1);
+
         /// Creates a new Effect instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EFFECT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALLOW"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EFFECT_UNSPECIFIED" => std::option::Option::Some(Self::EFFECT_UNSPECIFIED),
+                "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Effect](Effect)
-    pub mod effect {
-        use super::Effect;
-
-        /// Effect unspecified.
-        pub const EFFECT_UNSPECIFIED: Effect = Effect::new("EFFECT_UNSPECIFIED");
-
-        /// Allows access to the resources in this rule.
-        pub const ALLOW: Effect = Effect::new("ALLOW");
+    impl std::convert::From<i32> for Effect {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Effect {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Effect {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

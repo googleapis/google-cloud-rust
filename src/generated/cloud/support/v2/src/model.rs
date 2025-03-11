@@ -490,95 +490,151 @@ pub mod case {
     use super::*;
 
     /// The status of a support case.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Case is in an unknown state.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The case has been created but no one is assigned to work on it yet.
+        pub const NEW: State = State::new(1);
+
+        /// The case is currently being handled by Google support.
+        pub const IN_PROGRESS_GOOGLE_SUPPORT: State = State::new(2);
+
+        /// Google is waiting for a response.
+        pub const ACTION_REQUIRED: State = State::new(3);
+
+        /// A solution has been offered for the case, but it isn't yet closed.
+        pub const SOLUTION_PROVIDED: State = State::new(4);
+
+        /// The case has been resolved.
+        pub const CLOSED: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NEW"),
+                2 => std::borrow::Cow::Borrowed("IN_PROGRESS_GOOGLE_SUPPORT"),
+                3 => std::borrow::Cow::Borrowed("ACTION_REQUIRED"),
+                4 => std::borrow::Cow::Borrowed("SOLUTION_PROVIDED"),
+                5 => std::borrow::Cow::Borrowed("CLOSED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "NEW" => std::option::Option::Some(Self::NEW),
+                "IN_PROGRESS_GOOGLE_SUPPORT" => {
+                    std::option::Option::Some(Self::IN_PROGRESS_GOOGLE_SUPPORT)
+                }
+                "ACTION_REQUIRED" => std::option::Option::Some(Self::ACTION_REQUIRED),
+                "SOLUTION_PROVIDED" => std::option::Option::Some(Self::SOLUTION_PROVIDED),
+                "CLOSED" => std::option::Option::Some(Self::CLOSED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Case is in an unknown state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The case has been created but no one is assigned to work on it yet.
-        pub const NEW: State = State::new("NEW");
-
-        /// The case is currently being handled by Google support.
-        pub const IN_PROGRESS_GOOGLE_SUPPORT: State = State::new("IN_PROGRESS_GOOGLE_SUPPORT");
-
-        /// Google is waiting for a response.
-        pub const ACTION_REQUIRED: State = State::new("ACTION_REQUIRED");
-
-        /// A solution has been offered for the case, but it isn't yet closed.
-        pub const SOLUTION_PROVIDED: State = State::new("SOLUTION_PROVIDED");
-
-        /// The case has been resolved.
-        pub const CLOSED: State = State::new("CLOSED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The case Priority. P0 is most urgent and P4 the least.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Priority(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Priority(i32);
 
     impl Priority {
-        /// Creates a new Priority instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Priority](Priority)
-    pub mod priority {
-        use super::Priority;
-
         /// Priority is undefined or has not been set yet.
-        pub const PRIORITY_UNSPECIFIED: Priority = Priority::new("PRIORITY_UNSPECIFIED");
+        pub const PRIORITY_UNSPECIFIED: Priority = Priority::new(0);
 
         /// Extreme impact on a production service. Service is hard down.
-        pub const P0: Priority = Priority::new("P0");
+        pub const P0: Priority = Priority::new(1);
 
         /// Critical impact on a production service. Service is currently unusable.
-        pub const P1: Priority = Priority::new("P1");
+        pub const P1: Priority = Priority::new(2);
 
         /// Severe impact on a production service. Service is usable but greatly
         /// impaired.
-        pub const P2: Priority = Priority::new("P2");
+        pub const P2: Priority = Priority::new(3);
 
         /// Medium impact on a production service.  Service is available, but
         /// moderately impaired.
-        pub const P3: Priority = Priority::new("P3");
+        pub const P3: Priority = Priority::new(4);
 
         /// General questions or minor issues.  Production service is fully
         /// available.
-        pub const P4: Priority = Priority::new("P4");
+        pub const P4: Priority = Priority::new(5);
+
+        /// Creates a new Priority instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PRIORITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("P0"),
+                2 => std::borrow::Cow::Borrowed("P1"),
+                3 => std::borrow::Cow::Borrowed("P2"),
+                4 => std::borrow::Cow::Borrowed("P3"),
+                5 => std::borrow::Cow::Borrowed("P4"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PRIORITY_UNSPECIFIED" => std::option::Option::Some(Self::PRIORITY_UNSPECIFIED),
+                "P0" => std::option::Option::Some(Self::P0),
+                "P1" => std::option::Option::Some(Self::P1),
+                "P2" => std::option::Option::Some(Self::P2),
+                "P3" => std::option::Option::Some(Self::P3),
+                "P4" => std::option::Option::Some(Self::P4),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Priority {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Priority {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Priority {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1496,42 +1552,65 @@ pub mod escalation {
     use super::*;
 
     /// An enum detailing the possible reasons a case may be escalated.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Reason(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Reason(i32);
 
     impl Reason {
-        /// Creates a new Reason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Reason](Reason)
-    pub mod reason {
-        use super::Reason;
-
         /// The escalation reason is in an unknown state or has not been specified.
-        pub const REASON_UNSPECIFIED: Reason = Reason::new("REASON_UNSPECIFIED");
+        pub const REASON_UNSPECIFIED: Reason = Reason::new(0);
 
         /// The case is taking too long to resolve.
-        pub const RESOLUTION_TIME: Reason = Reason::new("RESOLUTION_TIME");
+        pub const RESOLUTION_TIME: Reason = Reason::new(1);
 
         /// The support agent does not have the expertise required to successfully
         /// resolve the issue.
-        pub const TECHNICAL_EXPERTISE: Reason = Reason::new("TECHNICAL_EXPERTISE");
+        pub const TECHNICAL_EXPERTISE: Reason = Reason::new(2);
 
         /// The issue is having a significant business impact.
-        pub const BUSINESS_IMPACT: Reason = Reason::new("BUSINESS_IMPACT");
+        pub const BUSINESS_IMPACT: Reason = Reason::new(3);
+
+        /// Creates a new Reason instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REASON_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RESOLUTION_TIME"),
+                2 => std::borrow::Cow::Borrowed("TECHNICAL_EXPERTISE"),
+                3 => std::borrow::Cow::Borrowed("BUSINESS_IMPACT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REASON_UNSPECIFIED" => std::option::Option::Some(Self::REASON_UNSPECIFIED),
+                "RESOLUTION_TIME" => std::option::Option::Some(Self::RESOLUTION_TIME),
+                "TECHNICAL_EXPERTISE" => std::option::Option::Some(Self::TECHNICAL_EXPERTISE),
+                "BUSINESS_IMPACT" => std::option::Option::Some(Self::BUSINESS_IMPACT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Reason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Reason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Reason {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

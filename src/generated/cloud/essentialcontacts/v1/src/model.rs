@@ -603,104 +603,160 @@ impl wkt::message::Message for SendTestMessageRequest {
 /// Each notification will be categorized by the sender into one of the following
 /// categories. All contacts that are subscribed to that category will receive
 /// the notification.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct NotificationCategory(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct NotificationCategory(i32);
 
 impl NotificationCategory {
-    /// Creates a new NotificationCategory instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [NotificationCategory](NotificationCategory)
-pub mod notification_category {
-    use super::NotificationCategory;
-
     /// Notification category is unrecognized or unspecified.
     pub const NOTIFICATION_CATEGORY_UNSPECIFIED: NotificationCategory =
-        NotificationCategory::new("NOTIFICATION_CATEGORY_UNSPECIFIED");
+        NotificationCategory::new(0);
 
     /// All notifications related to the resource, including notifications
     /// pertaining to categories added in the future.
-    pub const ALL: NotificationCategory = NotificationCategory::new("ALL");
+    pub const ALL: NotificationCategory = NotificationCategory::new(2);
 
     /// Notifications related to imminent account suspension.
-    pub const SUSPENSION: NotificationCategory = NotificationCategory::new("SUSPENSION");
+    pub const SUSPENSION: NotificationCategory = NotificationCategory::new(3);
 
     /// Notifications related to security/privacy incidents, notifications, and
     /// vulnerabilities.
-    pub const SECURITY: NotificationCategory = NotificationCategory::new("SECURITY");
+    pub const SECURITY: NotificationCategory = NotificationCategory::new(5);
 
     /// Notifications related to technical events and issues such as outages,
     /// errors, or bugs.
-    pub const TECHNICAL: NotificationCategory = NotificationCategory::new("TECHNICAL");
+    pub const TECHNICAL: NotificationCategory = NotificationCategory::new(6);
 
     /// Notifications related to billing and payments notifications, price updates,
     /// errors, or credits.
-    pub const BILLING: NotificationCategory = NotificationCategory::new("BILLING");
+    pub const BILLING: NotificationCategory = NotificationCategory::new(7);
 
     /// Notifications related to enforcement actions, regulatory compliance, or
     /// government notices.
-    pub const LEGAL: NotificationCategory = NotificationCategory::new("LEGAL");
+    pub const LEGAL: NotificationCategory = NotificationCategory::new(8);
 
     /// Notifications related to new versions, product terms updates, or
     /// deprecations.
-    pub const PRODUCT_UPDATES: NotificationCategory = NotificationCategory::new("PRODUCT_UPDATES");
+    pub const PRODUCT_UPDATES: NotificationCategory = NotificationCategory::new(9);
 
     /// Child category of TECHNICAL. If assigned, technical incident notifications
     /// will go to these contacts instead of TECHNICAL.
-    pub const TECHNICAL_INCIDENTS: NotificationCategory =
-        NotificationCategory::new("TECHNICAL_INCIDENTS");
+    pub const TECHNICAL_INCIDENTS: NotificationCategory = NotificationCategory::new(10);
+
+    /// Creates a new NotificationCategory instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("NOTIFICATION_CATEGORY_UNSPECIFIED"),
+            2 => std::borrow::Cow::Borrowed("ALL"),
+            3 => std::borrow::Cow::Borrowed("SUSPENSION"),
+            5 => std::borrow::Cow::Borrowed("SECURITY"),
+            6 => std::borrow::Cow::Borrowed("TECHNICAL"),
+            7 => std::borrow::Cow::Borrowed("BILLING"),
+            8 => std::borrow::Cow::Borrowed("LEGAL"),
+            9 => std::borrow::Cow::Borrowed("PRODUCT_UPDATES"),
+            10 => std::borrow::Cow::Borrowed("TECHNICAL_INCIDENTS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "NOTIFICATION_CATEGORY_UNSPECIFIED" => {
+                std::option::Option::Some(Self::NOTIFICATION_CATEGORY_UNSPECIFIED)
+            }
+            "ALL" => std::option::Option::Some(Self::ALL),
+            "SUSPENSION" => std::option::Option::Some(Self::SUSPENSION),
+            "SECURITY" => std::option::Option::Some(Self::SECURITY),
+            "TECHNICAL" => std::option::Option::Some(Self::TECHNICAL),
+            "BILLING" => std::option::Option::Some(Self::BILLING),
+            "LEGAL" => std::option::Option::Some(Self::LEGAL),
+            "PRODUCT_UPDATES" => std::option::Option::Some(Self::PRODUCT_UPDATES),
+            "TECHNICAL_INCIDENTS" => std::option::Option::Some(Self::TECHNICAL_INCIDENTS),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for NotificationCategory {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for NotificationCategory {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for NotificationCategory {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// A contact's validation state indicates whether or not it is the correct
 /// contact to be receiving notifications for a particular resource.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ValidationState(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ValidationState(i32);
 
 impl ValidationState {
-    /// Creates a new ValidationState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [ValidationState](ValidationState)
-pub mod validation_state {
-    use super::ValidationState;
-
     /// The validation state is unknown or unspecified.
-    pub const VALIDATION_STATE_UNSPECIFIED: ValidationState =
-        ValidationState::new("VALIDATION_STATE_UNSPECIFIED");
+    pub const VALIDATION_STATE_UNSPECIFIED: ValidationState = ValidationState::new(0);
 
     /// The contact is marked as valid. This is usually done manually by the
     /// contact admin. All new contacts begin in the valid state.
-    pub const VALID: ValidationState = ValidationState::new("VALID");
+    pub const VALID: ValidationState = ValidationState::new(1);
 
     /// The contact is considered invalid. This may become the state if the
     /// contact's email is found to be unreachable.
-    pub const INVALID: ValidationState = ValidationState::new("INVALID");
+    pub const INVALID: ValidationState = ValidationState::new(2);
+
+    /// Creates a new ValidationState instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("VALIDATION_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("VALID"),
+            2 => std::borrow::Cow::Borrowed("INVALID"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "VALIDATION_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::VALIDATION_STATE_UNSPECIFIED)
+            }
+            "VALID" => std::option::Option::Some(Self::VALID),
+            "INVALID" => std::option::Option::Some(Self::INVALID),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for ValidationState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ValidationState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for ValidationState {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

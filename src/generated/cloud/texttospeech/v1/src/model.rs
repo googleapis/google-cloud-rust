@@ -350,43 +350,65 @@ pub mod custom_pronunciation_params {
     use super::*;
 
     /// The phonetic encoding of the phrase.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PhoneticEncoding(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PhoneticEncoding(i32);
 
     impl PhoneticEncoding {
-        /// Creates a new PhoneticEncoding instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PhoneticEncoding](PhoneticEncoding)
-    pub mod phonetic_encoding {
-        use super::PhoneticEncoding;
-
         /// Not specified.
-        pub const PHONETIC_ENCODING_UNSPECIFIED: PhoneticEncoding =
-            PhoneticEncoding::new("PHONETIC_ENCODING_UNSPECIFIED");
+        pub const PHONETIC_ENCODING_UNSPECIFIED: PhoneticEncoding = PhoneticEncoding::new(0);
 
         /// IPA. (e.g. apple -> ˈæpəl )
         /// <https://en.wikipedia.org/wiki/International_Phonetic_Alphabet>
-        pub const PHONETIC_ENCODING_IPA: PhoneticEncoding =
-            PhoneticEncoding::new("PHONETIC_ENCODING_IPA");
+        pub const PHONETIC_ENCODING_IPA: PhoneticEncoding = PhoneticEncoding::new(1);
 
         /// X-SAMPA (e.g. apple -> "{p@l" )
         /// <https://en.wikipedia.org/wiki/X-SAMPA>
-        pub const PHONETIC_ENCODING_X_SAMPA: PhoneticEncoding =
-            PhoneticEncoding::new("PHONETIC_ENCODING_X_SAMPA");
+        pub const PHONETIC_ENCODING_X_SAMPA: PhoneticEncoding = PhoneticEncoding::new(2);
+
+        /// Creates a new PhoneticEncoding instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PHONETIC_ENCODING_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PHONETIC_ENCODING_IPA"),
+                2 => std::borrow::Cow::Borrowed("PHONETIC_ENCODING_X_SAMPA"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PHONETIC_ENCODING_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PHONETIC_ENCODING_UNSPECIFIED)
+                }
+                "PHONETIC_ENCODING_IPA" => std::option::Option::Some(Self::PHONETIC_ENCODING_IPA),
+                "PHONETIC_ENCODING_X_SAMPA" => {
+                    std::option::Option::Some(Self::PHONETIC_ENCODING_X_SAMPA)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PhoneticEncoding {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PhoneticEncoding {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for PhoneticEncoding {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -924,42 +946,64 @@ pub mod custom_voice_params {
 
     /// Deprecated. The usage of the synthesized audio. Usage does not affect
     /// billing.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ReportedUsage(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ReportedUsage(i32);
 
     impl ReportedUsage {
-        /// Creates a new ReportedUsage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ReportedUsage](ReportedUsage)
-    pub mod reported_usage {
-        use super::ReportedUsage;
-
         /// Request with reported usage unspecified will be rejected.
-        pub const REPORTED_USAGE_UNSPECIFIED: ReportedUsage =
-            ReportedUsage::new("REPORTED_USAGE_UNSPECIFIED");
+        pub const REPORTED_USAGE_UNSPECIFIED: ReportedUsage = ReportedUsage::new(0);
 
         /// For scenarios where the synthesized audio is not downloadable and can
         /// only be used once. For example, real-time request in IVR system.
-        pub const REALTIME: ReportedUsage = ReportedUsage::new("REALTIME");
+        pub const REALTIME: ReportedUsage = ReportedUsage::new(1);
 
         /// For scenarios where the synthesized audio is downloadable and can be
         /// reused. For example, the synthesized audio is downloaded, stored in
         /// customer service system and played repeatedly.
-        pub const OFFLINE: ReportedUsage = ReportedUsage::new("OFFLINE");
+        pub const OFFLINE: ReportedUsage = ReportedUsage::new(2);
+
+        /// Creates a new ReportedUsage instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REPORTED_USAGE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("REALTIME"),
+                2 => std::borrow::Cow::Borrowed("OFFLINE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REPORTED_USAGE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::REPORTED_USAGE_UNSPECIFIED)
+                }
+                "REALTIME" => std::option::Option::Some(Self::REALTIME),
+                "OFFLINE" => std::option::Option::Some(Self::OFFLINE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ReportedUsage {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ReportedUsage {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ReportedUsage {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1007,9 +1051,9 @@ pub struct SynthesizeSpeechResponse {
     /// For LINEAR16 audio, we include the WAV header. Note: as
     /// with all bytes fields, protobuffers use a pure binary representation,
     /// whereas JSON representations use base64.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub audio_content: bytes::Bytes,
+    pub audio_content: ::bytes::Bytes,
 }
 
 impl SynthesizeSpeechResponse {
@@ -1018,7 +1062,7 @@ impl SynthesizeSpeechResponse {
     }
 
     /// Sets the value of [audio_content][crate::model::SynthesizeSpeechResponse::audio_content].
-    pub fn set_audio_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_audio_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio_content = v.into();
         self
     }
@@ -1334,9 +1378,9 @@ pub mod streaming_synthesize_request {
 pub struct StreamingSynthesizeResponse {
     /// The audio data bytes encoded as specified in the request. This is
     /// headerless LINEAR16 audio with a sample rate of 24000.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub audio_content: bytes::Bytes,
+    pub audio_content: ::bytes::Bytes,
 }
 
 impl StreamingSynthesizeResponse {
@@ -1345,7 +1389,7 @@ impl StreamingSynthesizeResponse {
     }
 
     /// Sets the value of [audio_content][crate::model::StreamingSynthesizeResponse::audio_content].
-    pub fn set_audio_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_audio_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio_content = v.into();
         self
     }
@@ -1518,104 +1562,158 @@ impl wkt::message::Message for SynthesizeLongAudioMetadata {
 
 /// Gender of the voice as described in
 /// [SSML voice element](https://www.w3.org/TR/speech-synthesis11/#edef_voice).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SsmlVoiceGender(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct SsmlVoiceGender(i32);
 
 impl SsmlVoiceGender {
-    /// Creates a new SsmlVoiceGender instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SsmlVoiceGender](SsmlVoiceGender)
-pub mod ssml_voice_gender {
-    use super::SsmlVoiceGender;
-
     /// An unspecified gender.
     /// In VoiceSelectionParams, this means that the client doesn't care which
     /// gender the selected voice will have. In the Voice field of
     /// ListVoicesResponse, this may mean that the voice doesn't fit any of the
     /// other categories in this enum, or that the gender of the voice isn't known.
-    pub const SSML_VOICE_GENDER_UNSPECIFIED: SsmlVoiceGender =
-        SsmlVoiceGender::new("SSML_VOICE_GENDER_UNSPECIFIED");
+    pub const SSML_VOICE_GENDER_UNSPECIFIED: SsmlVoiceGender = SsmlVoiceGender::new(0);
 
     /// A male voice.
-    pub const MALE: SsmlVoiceGender = SsmlVoiceGender::new("MALE");
+    pub const MALE: SsmlVoiceGender = SsmlVoiceGender::new(1);
 
     /// A female voice.
-    pub const FEMALE: SsmlVoiceGender = SsmlVoiceGender::new("FEMALE");
+    pub const FEMALE: SsmlVoiceGender = SsmlVoiceGender::new(2);
 
     /// A gender-neutral voice. This voice is not yet supported.
-    pub const NEUTRAL: SsmlVoiceGender = SsmlVoiceGender::new("NEUTRAL");
+    pub const NEUTRAL: SsmlVoiceGender = SsmlVoiceGender::new(3);
+
+    /// Creates a new SsmlVoiceGender instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SSML_VOICE_GENDER_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("MALE"),
+            2 => std::borrow::Cow::Borrowed("FEMALE"),
+            3 => std::borrow::Cow::Borrowed("NEUTRAL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SSML_VOICE_GENDER_UNSPECIFIED" => {
+                std::option::Option::Some(Self::SSML_VOICE_GENDER_UNSPECIFIED)
+            }
+            "MALE" => std::option::Option::Some(Self::MALE),
+            "FEMALE" => std::option::Option::Some(Self::FEMALE),
+            "NEUTRAL" => std::option::Option::Some(Self::NEUTRAL),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SsmlVoiceGender {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for SsmlVoiceGender {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for SsmlVoiceGender {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Configuration to set up audio encoder. The encoding determines the output
 /// audio format that we'd like.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AudioEncoding(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct AudioEncoding(i32);
 
 impl AudioEncoding {
-    /// Creates a new AudioEncoding instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [AudioEncoding](AudioEncoding)
-pub mod audio_encoding {
-    use super::AudioEncoding;
-
     /// Not specified. Will return result
     /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
-    pub const AUDIO_ENCODING_UNSPECIFIED: AudioEncoding =
-        AudioEncoding::new("AUDIO_ENCODING_UNSPECIFIED");
+    pub const AUDIO_ENCODING_UNSPECIFIED: AudioEncoding = AudioEncoding::new(0);
 
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
     /// Audio content returned as LINEAR16 also contains a WAV header.
-    pub const LINEAR16: AudioEncoding = AudioEncoding::new("LINEAR16");
+    pub const LINEAR16: AudioEncoding = AudioEncoding::new(1);
 
     /// MP3 audio at 32kbps.
-    pub const MP3: AudioEncoding = AudioEncoding::new("MP3");
+    pub const MP3: AudioEncoding = AudioEncoding::new(2);
 
     /// Opus encoded audio wrapped in an ogg container. The result will be a
     /// file which can be played natively on Android, and in browsers (at least
     /// Chrome and Firefox). The quality of the encoding is considerably higher
     /// than MP3 while using approximately the same bitrate.
-    pub const OGG_OPUS: AudioEncoding = AudioEncoding::new("OGG_OPUS");
+    pub const OGG_OPUS: AudioEncoding = AudioEncoding::new(3);
 
     /// 8-bit samples that compand 14-bit audio samples using G.711 PCMU/mu-law.
     /// Audio content returned as MULAW also contains a WAV header.
-    pub const MULAW: AudioEncoding = AudioEncoding::new("MULAW");
+    pub const MULAW: AudioEncoding = AudioEncoding::new(5);
 
     /// 8-bit samples that compand 14-bit audio samples using G.711 PCMU/A-law.
     /// Audio content returned as ALAW also contains a WAV header.
-    pub const ALAW: AudioEncoding = AudioEncoding::new("ALAW");
+    pub const ALAW: AudioEncoding = AudioEncoding::new(6);
 
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
     /// Note that as opposed to LINEAR16, audio will not be wrapped in a WAV (or
     /// any other) header.
-    pub const PCM: AudioEncoding = AudioEncoding::new("PCM");
+    pub const PCM: AudioEncoding = AudioEncoding::new(7);
+
+    /// Creates a new AudioEncoding instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("AUDIO_ENCODING_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("LINEAR16"),
+            2 => std::borrow::Cow::Borrowed("MP3"),
+            3 => std::borrow::Cow::Borrowed("OGG_OPUS"),
+            5 => std::borrow::Cow::Borrowed("MULAW"),
+            6 => std::borrow::Cow::Borrowed("ALAW"),
+            7 => std::borrow::Cow::Borrowed("PCM"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "AUDIO_ENCODING_UNSPECIFIED" => {
+                std::option::Option::Some(Self::AUDIO_ENCODING_UNSPECIFIED)
+            }
+            "LINEAR16" => std::option::Option::Some(Self::LINEAR16),
+            "MP3" => std::option::Option::Some(Self::MP3),
+            "OGG_OPUS" => std::option::Option::Some(Self::OGG_OPUS),
+            "MULAW" => std::option::Option::Some(Self::MULAW),
+            "ALAW" => std::option::Option::Some(Self::ALAW),
+            "PCM" => std::option::Option::Some(Self::PCM),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for AudioEncoding {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for AudioEncoding {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for AudioEncoding {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

@@ -267,73 +267,116 @@ pub mod feature {
     use super::*;
 
     /// Type of Google Cloud Vision API feature to be extracted.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// Unspecified feature type.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
         /// Run face detection.
-        pub const FACE_DETECTION: Type = Type::new("FACE_DETECTION");
+        pub const FACE_DETECTION: Type = Type::new(1);
 
         /// Run landmark detection.
-        pub const LANDMARK_DETECTION: Type = Type::new("LANDMARK_DETECTION");
+        pub const LANDMARK_DETECTION: Type = Type::new(2);
 
         /// Run logo detection.
-        pub const LOGO_DETECTION: Type = Type::new("LOGO_DETECTION");
+        pub const LOGO_DETECTION: Type = Type::new(3);
 
         /// Run label detection.
-        pub const LABEL_DETECTION: Type = Type::new("LABEL_DETECTION");
+        pub const LABEL_DETECTION: Type = Type::new(4);
 
         /// Run text detection / optical character recognition (OCR). Text detection
         /// is optimized for areas of text within a larger image; if the image is
         /// a document, use `DOCUMENT_TEXT_DETECTION` instead.
-        pub const TEXT_DETECTION: Type = Type::new("TEXT_DETECTION");
+        pub const TEXT_DETECTION: Type = Type::new(5);
 
         /// Run dense text document OCR. Takes precedence when both
         /// `DOCUMENT_TEXT_DETECTION` and `TEXT_DETECTION` are present.
-        pub const DOCUMENT_TEXT_DETECTION: Type = Type::new("DOCUMENT_TEXT_DETECTION");
+        pub const DOCUMENT_TEXT_DETECTION: Type = Type::new(11);
 
         /// Run Safe Search to detect potentially unsafe
         /// or undesirable content.
-        pub const SAFE_SEARCH_DETECTION: Type = Type::new("SAFE_SEARCH_DETECTION");
+        pub const SAFE_SEARCH_DETECTION: Type = Type::new(6);
 
         /// Compute a set of image properties, such as the
         /// image's dominant colors.
-        pub const IMAGE_PROPERTIES: Type = Type::new("IMAGE_PROPERTIES");
+        pub const IMAGE_PROPERTIES: Type = Type::new(7);
 
         /// Run crop hints.
-        pub const CROP_HINTS: Type = Type::new("CROP_HINTS");
+        pub const CROP_HINTS: Type = Type::new(9);
 
         /// Run web detection.
-        pub const WEB_DETECTION: Type = Type::new("WEB_DETECTION");
+        pub const WEB_DETECTION: Type = Type::new(10);
 
         /// Run Product Search.
-        pub const PRODUCT_SEARCH: Type = Type::new("PRODUCT_SEARCH");
+        pub const PRODUCT_SEARCH: Type = Type::new(12);
 
         /// Run localizer for object detection.
-        pub const OBJECT_LOCALIZATION: Type = Type::new("OBJECT_LOCALIZATION");
+        pub const OBJECT_LOCALIZATION: Type = Type::new(19);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("FACE_DETECTION"),
+                2 => std::borrow::Cow::Borrowed("LANDMARK_DETECTION"),
+                3 => std::borrow::Cow::Borrowed("LOGO_DETECTION"),
+                4 => std::borrow::Cow::Borrowed("LABEL_DETECTION"),
+                5 => std::borrow::Cow::Borrowed("TEXT_DETECTION"),
+                6 => std::borrow::Cow::Borrowed("SAFE_SEARCH_DETECTION"),
+                7 => std::borrow::Cow::Borrowed("IMAGE_PROPERTIES"),
+                9 => std::borrow::Cow::Borrowed("CROP_HINTS"),
+                10 => std::borrow::Cow::Borrowed("WEB_DETECTION"),
+                11 => std::borrow::Cow::Borrowed("DOCUMENT_TEXT_DETECTION"),
+                12 => std::borrow::Cow::Borrowed("PRODUCT_SEARCH"),
+                19 => std::borrow::Cow::Borrowed("OBJECT_LOCALIZATION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "FACE_DETECTION" => std::option::Option::Some(Self::FACE_DETECTION),
+                "LANDMARK_DETECTION" => std::option::Option::Some(Self::LANDMARK_DETECTION),
+                "LOGO_DETECTION" => std::option::Option::Some(Self::LOGO_DETECTION),
+                "LABEL_DETECTION" => std::option::Option::Some(Self::LABEL_DETECTION),
+                "TEXT_DETECTION" => std::option::Option::Some(Self::TEXT_DETECTION),
+                "DOCUMENT_TEXT_DETECTION" => {
+                    std::option::Option::Some(Self::DOCUMENT_TEXT_DETECTION)
+                }
+                "SAFE_SEARCH_DETECTION" => std::option::Option::Some(Self::SAFE_SEARCH_DETECTION),
+                "IMAGE_PROPERTIES" => std::option::Option::Some(Self::IMAGE_PROPERTIES),
+                "CROP_HINTS" => std::option::Option::Some(Self::CROP_HINTS),
+                "WEB_DETECTION" => std::option::Option::Some(Self::WEB_DETECTION),
+                "PRODUCT_SEARCH" => std::option::Option::Some(Self::PRODUCT_SEARCH),
+                "OBJECT_LOCALIZATION" => std::option::Option::Some(Self::OBJECT_LOCALIZATION),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -411,9 +454,9 @@ pub struct Image {
     ///
     /// Currently, this field only works for BatchAnnotateImages requests. It does
     /// not work for AsyncBatchAnnotateImages requests.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub content: bytes::Bytes,
+    pub content: ::bytes::Bytes,
 
     /// Google Cloud Storage image location, or publicly-accessible image
     /// URL. If both `content` and `source` are provided for an image, `content`
@@ -428,7 +471,7 @@ impl Image {
     }
 
     /// Sets the value of [content][crate::model::Image::content].
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
@@ -717,141 +760,255 @@ pub mod face_annotation {
         /// Left and right are defined from the vantage of the viewer of the image
         /// without considering mirror projections typical of photos. So, `LEFT_EYE`,
         /// typically, is the person's right eye.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Type(i32);
 
         impl Type {
+            /// Unknown face landmark detected. Should not be filled.
+            pub const UNKNOWN_LANDMARK: Type = Type::new(0);
+
+            /// Left eye.
+            pub const LEFT_EYE: Type = Type::new(1);
+
+            /// Right eye.
+            pub const RIGHT_EYE: Type = Type::new(2);
+
+            /// Left of left eyebrow.
+            pub const LEFT_OF_LEFT_EYEBROW: Type = Type::new(3);
+
+            /// Right of left eyebrow.
+            pub const RIGHT_OF_LEFT_EYEBROW: Type = Type::new(4);
+
+            /// Left of right eyebrow.
+            pub const LEFT_OF_RIGHT_EYEBROW: Type = Type::new(5);
+
+            /// Right of right eyebrow.
+            pub const RIGHT_OF_RIGHT_EYEBROW: Type = Type::new(6);
+
+            /// Midpoint between eyes.
+            pub const MIDPOINT_BETWEEN_EYES: Type = Type::new(7);
+
+            /// Nose tip.
+            pub const NOSE_TIP: Type = Type::new(8);
+
+            /// Upper lip.
+            pub const UPPER_LIP: Type = Type::new(9);
+
+            /// Lower lip.
+            pub const LOWER_LIP: Type = Type::new(10);
+
+            /// Mouth left.
+            pub const MOUTH_LEFT: Type = Type::new(11);
+
+            /// Mouth right.
+            pub const MOUTH_RIGHT: Type = Type::new(12);
+
+            /// Mouth center.
+            pub const MOUTH_CENTER: Type = Type::new(13);
+
+            /// Nose, bottom right.
+            pub const NOSE_BOTTOM_RIGHT: Type = Type::new(14);
+
+            /// Nose, bottom left.
+            pub const NOSE_BOTTOM_LEFT: Type = Type::new(15);
+
+            /// Nose, bottom center.
+            pub const NOSE_BOTTOM_CENTER: Type = Type::new(16);
+
+            /// Left eye, top boundary.
+            pub const LEFT_EYE_TOP_BOUNDARY: Type = Type::new(17);
+
+            /// Left eye, right corner.
+            pub const LEFT_EYE_RIGHT_CORNER: Type = Type::new(18);
+
+            /// Left eye, bottom boundary.
+            pub const LEFT_EYE_BOTTOM_BOUNDARY: Type = Type::new(19);
+
+            /// Left eye, left corner.
+            pub const LEFT_EYE_LEFT_CORNER: Type = Type::new(20);
+
+            /// Right eye, top boundary.
+            pub const RIGHT_EYE_TOP_BOUNDARY: Type = Type::new(21);
+
+            /// Right eye, right corner.
+            pub const RIGHT_EYE_RIGHT_CORNER: Type = Type::new(22);
+
+            /// Right eye, bottom boundary.
+            pub const RIGHT_EYE_BOTTOM_BOUNDARY: Type = Type::new(23);
+
+            /// Right eye, left corner.
+            pub const RIGHT_EYE_LEFT_CORNER: Type = Type::new(24);
+
+            /// Left eyebrow, upper midpoint.
+            pub const LEFT_EYEBROW_UPPER_MIDPOINT: Type = Type::new(25);
+
+            /// Right eyebrow, upper midpoint.
+            pub const RIGHT_EYEBROW_UPPER_MIDPOINT: Type = Type::new(26);
+
+            /// Left ear tragion.
+            pub const LEFT_EAR_TRAGION: Type = Type::new(27);
+
+            /// Right ear tragion.
+            pub const RIGHT_EAR_TRAGION: Type = Type::new(28);
+
+            /// Left eye pupil.
+            pub const LEFT_EYE_PUPIL: Type = Type::new(29);
+
+            /// Right eye pupil.
+            pub const RIGHT_EYE_PUPIL: Type = Type::new(30);
+
+            /// Forehead glabella.
+            pub const FOREHEAD_GLABELLA: Type = Type::new(31);
+
+            /// Chin gnathion.
+            pub const CHIN_GNATHION: Type = Type::new(32);
+
+            /// Chin left gonion.
+            pub const CHIN_LEFT_GONION: Type = Type::new(33);
+
+            /// Chin right gonion.
+            pub const CHIN_RIGHT_GONION: Type = Type::new(34);
+
+            /// Left cheek center.
+            pub const LEFT_CHEEK_CENTER: Type = Type::new(35);
+
+            /// Right cheek center.
+            pub const RIGHT_CHEEK_CENTER: Type = Type::new(36);
+
             /// Creates a new Type instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("UNKNOWN_LANDMARK"),
+                    1 => std::borrow::Cow::Borrowed("LEFT_EYE"),
+                    2 => std::borrow::Cow::Borrowed("RIGHT_EYE"),
+                    3 => std::borrow::Cow::Borrowed("LEFT_OF_LEFT_EYEBROW"),
+                    4 => std::borrow::Cow::Borrowed("RIGHT_OF_LEFT_EYEBROW"),
+                    5 => std::borrow::Cow::Borrowed("LEFT_OF_RIGHT_EYEBROW"),
+                    6 => std::borrow::Cow::Borrowed("RIGHT_OF_RIGHT_EYEBROW"),
+                    7 => std::borrow::Cow::Borrowed("MIDPOINT_BETWEEN_EYES"),
+                    8 => std::borrow::Cow::Borrowed("NOSE_TIP"),
+                    9 => std::borrow::Cow::Borrowed("UPPER_LIP"),
+                    10 => std::borrow::Cow::Borrowed("LOWER_LIP"),
+                    11 => std::borrow::Cow::Borrowed("MOUTH_LEFT"),
+                    12 => std::borrow::Cow::Borrowed("MOUTH_RIGHT"),
+                    13 => std::borrow::Cow::Borrowed("MOUTH_CENTER"),
+                    14 => std::borrow::Cow::Borrowed("NOSE_BOTTOM_RIGHT"),
+                    15 => std::borrow::Cow::Borrowed("NOSE_BOTTOM_LEFT"),
+                    16 => std::borrow::Cow::Borrowed("NOSE_BOTTOM_CENTER"),
+                    17 => std::borrow::Cow::Borrowed("LEFT_EYE_TOP_BOUNDARY"),
+                    18 => std::borrow::Cow::Borrowed("LEFT_EYE_RIGHT_CORNER"),
+                    19 => std::borrow::Cow::Borrowed("LEFT_EYE_BOTTOM_BOUNDARY"),
+                    20 => std::borrow::Cow::Borrowed("LEFT_EYE_LEFT_CORNER"),
+                    21 => std::borrow::Cow::Borrowed("RIGHT_EYE_TOP_BOUNDARY"),
+                    22 => std::borrow::Cow::Borrowed("RIGHT_EYE_RIGHT_CORNER"),
+                    23 => std::borrow::Cow::Borrowed("RIGHT_EYE_BOTTOM_BOUNDARY"),
+                    24 => std::borrow::Cow::Borrowed("RIGHT_EYE_LEFT_CORNER"),
+                    25 => std::borrow::Cow::Borrowed("LEFT_EYEBROW_UPPER_MIDPOINT"),
+                    26 => std::borrow::Cow::Borrowed("RIGHT_EYEBROW_UPPER_MIDPOINT"),
+                    27 => std::borrow::Cow::Borrowed("LEFT_EAR_TRAGION"),
+                    28 => std::borrow::Cow::Borrowed("RIGHT_EAR_TRAGION"),
+                    29 => std::borrow::Cow::Borrowed("LEFT_EYE_PUPIL"),
+                    30 => std::borrow::Cow::Borrowed("RIGHT_EYE_PUPIL"),
+                    31 => std::borrow::Cow::Borrowed("FOREHEAD_GLABELLA"),
+                    32 => std::borrow::Cow::Borrowed("CHIN_GNATHION"),
+                    33 => std::borrow::Cow::Borrowed("CHIN_LEFT_GONION"),
+                    34 => std::borrow::Cow::Borrowed("CHIN_RIGHT_GONION"),
+                    35 => std::borrow::Cow::Borrowed("LEFT_CHEEK_CENTER"),
+                    36 => std::borrow::Cow::Borrowed("RIGHT_CHEEK_CENTER"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "UNKNOWN_LANDMARK" => std::option::Option::Some(Self::UNKNOWN_LANDMARK),
+                    "LEFT_EYE" => std::option::Option::Some(Self::LEFT_EYE),
+                    "RIGHT_EYE" => std::option::Option::Some(Self::RIGHT_EYE),
+                    "LEFT_OF_LEFT_EYEBROW" => std::option::Option::Some(Self::LEFT_OF_LEFT_EYEBROW),
+                    "RIGHT_OF_LEFT_EYEBROW" => {
+                        std::option::Option::Some(Self::RIGHT_OF_LEFT_EYEBROW)
+                    }
+                    "LEFT_OF_RIGHT_EYEBROW" => {
+                        std::option::Option::Some(Self::LEFT_OF_RIGHT_EYEBROW)
+                    }
+                    "RIGHT_OF_RIGHT_EYEBROW" => {
+                        std::option::Option::Some(Self::RIGHT_OF_RIGHT_EYEBROW)
+                    }
+                    "MIDPOINT_BETWEEN_EYES" => {
+                        std::option::Option::Some(Self::MIDPOINT_BETWEEN_EYES)
+                    }
+                    "NOSE_TIP" => std::option::Option::Some(Self::NOSE_TIP),
+                    "UPPER_LIP" => std::option::Option::Some(Self::UPPER_LIP),
+                    "LOWER_LIP" => std::option::Option::Some(Self::LOWER_LIP),
+                    "MOUTH_LEFT" => std::option::Option::Some(Self::MOUTH_LEFT),
+                    "MOUTH_RIGHT" => std::option::Option::Some(Self::MOUTH_RIGHT),
+                    "MOUTH_CENTER" => std::option::Option::Some(Self::MOUTH_CENTER),
+                    "NOSE_BOTTOM_RIGHT" => std::option::Option::Some(Self::NOSE_BOTTOM_RIGHT),
+                    "NOSE_BOTTOM_LEFT" => std::option::Option::Some(Self::NOSE_BOTTOM_LEFT),
+                    "NOSE_BOTTOM_CENTER" => std::option::Option::Some(Self::NOSE_BOTTOM_CENTER),
+                    "LEFT_EYE_TOP_BOUNDARY" => {
+                        std::option::Option::Some(Self::LEFT_EYE_TOP_BOUNDARY)
+                    }
+                    "LEFT_EYE_RIGHT_CORNER" => {
+                        std::option::Option::Some(Self::LEFT_EYE_RIGHT_CORNER)
+                    }
+                    "LEFT_EYE_BOTTOM_BOUNDARY" => {
+                        std::option::Option::Some(Self::LEFT_EYE_BOTTOM_BOUNDARY)
+                    }
+                    "LEFT_EYE_LEFT_CORNER" => std::option::Option::Some(Self::LEFT_EYE_LEFT_CORNER),
+                    "RIGHT_EYE_TOP_BOUNDARY" => {
+                        std::option::Option::Some(Self::RIGHT_EYE_TOP_BOUNDARY)
+                    }
+                    "RIGHT_EYE_RIGHT_CORNER" => {
+                        std::option::Option::Some(Self::RIGHT_EYE_RIGHT_CORNER)
+                    }
+                    "RIGHT_EYE_BOTTOM_BOUNDARY" => {
+                        std::option::Option::Some(Self::RIGHT_EYE_BOTTOM_BOUNDARY)
+                    }
+                    "RIGHT_EYE_LEFT_CORNER" => {
+                        std::option::Option::Some(Self::RIGHT_EYE_LEFT_CORNER)
+                    }
+                    "LEFT_EYEBROW_UPPER_MIDPOINT" => {
+                        std::option::Option::Some(Self::LEFT_EYEBROW_UPPER_MIDPOINT)
+                    }
+                    "RIGHT_EYEBROW_UPPER_MIDPOINT" => {
+                        std::option::Option::Some(Self::RIGHT_EYEBROW_UPPER_MIDPOINT)
+                    }
+                    "LEFT_EAR_TRAGION" => std::option::Option::Some(Self::LEFT_EAR_TRAGION),
+                    "RIGHT_EAR_TRAGION" => std::option::Option::Some(Self::RIGHT_EAR_TRAGION),
+                    "LEFT_EYE_PUPIL" => std::option::Option::Some(Self::LEFT_EYE_PUPIL),
+                    "RIGHT_EYE_PUPIL" => std::option::Option::Some(Self::RIGHT_EYE_PUPIL),
+                    "FOREHEAD_GLABELLA" => std::option::Option::Some(Self::FOREHEAD_GLABELLA),
+                    "CHIN_GNATHION" => std::option::Option::Some(Self::CHIN_GNATHION),
+                    "CHIN_LEFT_GONION" => std::option::Option::Some(Self::CHIN_LEFT_GONION),
+                    "CHIN_RIGHT_GONION" => std::option::Option::Some(Self::CHIN_RIGHT_GONION),
+                    "LEFT_CHEEK_CENTER" => std::option::Option::Some(Self::LEFT_CHEEK_CENTER),
+                    "RIGHT_CHEEK_CENTER" => std::option::Option::Some(Self::RIGHT_CHEEK_CENTER),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Type](Type)
-        pub mod r#type {
-            use super::Type;
-
-            /// Unknown face landmark detected. Should not be filled.
-            pub const UNKNOWN_LANDMARK: Type = Type::new("UNKNOWN_LANDMARK");
-
-            /// Left eye.
-            pub const LEFT_EYE: Type = Type::new("LEFT_EYE");
-
-            /// Right eye.
-            pub const RIGHT_EYE: Type = Type::new("RIGHT_EYE");
-
-            /// Left of left eyebrow.
-            pub const LEFT_OF_LEFT_EYEBROW: Type = Type::new("LEFT_OF_LEFT_EYEBROW");
-
-            /// Right of left eyebrow.
-            pub const RIGHT_OF_LEFT_EYEBROW: Type = Type::new("RIGHT_OF_LEFT_EYEBROW");
-
-            /// Left of right eyebrow.
-            pub const LEFT_OF_RIGHT_EYEBROW: Type = Type::new("LEFT_OF_RIGHT_EYEBROW");
-
-            /// Right of right eyebrow.
-            pub const RIGHT_OF_RIGHT_EYEBROW: Type = Type::new("RIGHT_OF_RIGHT_EYEBROW");
-
-            /// Midpoint between eyes.
-            pub const MIDPOINT_BETWEEN_EYES: Type = Type::new("MIDPOINT_BETWEEN_EYES");
-
-            /// Nose tip.
-            pub const NOSE_TIP: Type = Type::new("NOSE_TIP");
-
-            /// Upper lip.
-            pub const UPPER_LIP: Type = Type::new("UPPER_LIP");
-
-            /// Lower lip.
-            pub const LOWER_LIP: Type = Type::new("LOWER_LIP");
-
-            /// Mouth left.
-            pub const MOUTH_LEFT: Type = Type::new("MOUTH_LEFT");
-
-            /// Mouth right.
-            pub const MOUTH_RIGHT: Type = Type::new("MOUTH_RIGHT");
-
-            /// Mouth center.
-            pub const MOUTH_CENTER: Type = Type::new("MOUTH_CENTER");
-
-            /// Nose, bottom right.
-            pub const NOSE_BOTTOM_RIGHT: Type = Type::new("NOSE_BOTTOM_RIGHT");
-
-            /// Nose, bottom left.
-            pub const NOSE_BOTTOM_LEFT: Type = Type::new("NOSE_BOTTOM_LEFT");
-
-            /// Nose, bottom center.
-            pub const NOSE_BOTTOM_CENTER: Type = Type::new("NOSE_BOTTOM_CENTER");
-
-            /// Left eye, top boundary.
-            pub const LEFT_EYE_TOP_BOUNDARY: Type = Type::new("LEFT_EYE_TOP_BOUNDARY");
-
-            /// Left eye, right corner.
-            pub const LEFT_EYE_RIGHT_CORNER: Type = Type::new("LEFT_EYE_RIGHT_CORNER");
-
-            /// Left eye, bottom boundary.
-            pub const LEFT_EYE_BOTTOM_BOUNDARY: Type = Type::new("LEFT_EYE_BOTTOM_BOUNDARY");
-
-            /// Left eye, left corner.
-            pub const LEFT_EYE_LEFT_CORNER: Type = Type::new("LEFT_EYE_LEFT_CORNER");
-
-            /// Right eye, top boundary.
-            pub const RIGHT_EYE_TOP_BOUNDARY: Type = Type::new("RIGHT_EYE_TOP_BOUNDARY");
-
-            /// Right eye, right corner.
-            pub const RIGHT_EYE_RIGHT_CORNER: Type = Type::new("RIGHT_EYE_RIGHT_CORNER");
-
-            /// Right eye, bottom boundary.
-            pub const RIGHT_EYE_BOTTOM_BOUNDARY: Type = Type::new("RIGHT_EYE_BOTTOM_BOUNDARY");
-
-            /// Right eye, left corner.
-            pub const RIGHT_EYE_LEFT_CORNER: Type = Type::new("RIGHT_EYE_LEFT_CORNER");
-
-            /// Left eyebrow, upper midpoint.
-            pub const LEFT_EYEBROW_UPPER_MIDPOINT: Type = Type::new("LEFT_EYEBROW_UPPER_MIDPOINT");
-
-            /// Right eyebrow, upper midpoint.
-            pub const RIGHT_EYEBROW_UPPER_MIDPOINT: Type =
-                Type::new("RIGHT_EYEBROW_UPPER_MIDPOINT");
-
-            /// Left ear tragion.
-            pub const LEFT_EAR_TRAGION: Type = Type::new("LEFT_EAR_TRAGION");
-
-            /// Right ear tragion.
-            pub const RIGHT_EAR_TRAGION: Type = Type::new("RIGHT_EAR_TRAGION");
-
-            /// Left eye pupil.
-            pub const LEFT_EYE_PUPIL: Type = Type::new("LEFT_EYE_PUPIL");
-
-            /// Right eye pupil.
-            pub const RIGHT_EYE_PUPIL: Type = Type::new("RIGHT_EYE_PUPIL");
-
-            /// Forehead glabella.
-            pub const FOREHEAD_GLABELLA: Type = Type::new("FOREHEAD_GLABELLA");
-
-            /// Chin gnathion.
-            pub const CHIN_GNATHION: Type = Type::new("CHIN_GNATHION");
-
-            /// Chin left gonion.
-            pub const CHIN_LEFT_GONION: Type = Type::new("CHIN_LEFT_GONION");
-
-            /// Chin right gonion.
-            pub const CHIN_RIGHT_GONION: Type = Type::new("CHIN_RIGHT_GONION");
-
-            /// Left cheek center.
-            pub const LEFT_CHEEK_CENTER: Type = Type::new("LEFT_CHEEK_CENTER");
-
-            /// Right cheek center.
-            pub const RIGHT_CHEEK_CENTER: Type = Type::new("RIGHT_CHEEK_CENTER");
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for Type {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -2808,9 +2965,9 @@ pub struct InputConfig {
     ///
     /// Currently, this field only works for BatchAnnotateFiles requests. It does
     /// not work for AsyncBatchAnnotateFiles requests.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub content: bytes::Bytes,
+    pub content: ::bytes::Bytes,
 
     /// The type of the file. Currently only "application/pdf", "image/tiff" and
     /// "image/gif" are supported. Wildcards are not supported.
@@ -2833,7 +2990,7 @@ impl InputConfig {
     }
 
     /// Sets the value of [content][crate::model::InputConfig::content].
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
@@ -3048,44 +3205,69 @@ pub mod operation_metadata {
     use super::*;
 
     /// Batch operation states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Invalid.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Request is received.
+        pub const CREATED: State = State::new(1);
+
+        /// Request is actively being processed.
+        pub const RUNNING: State = State::new(2);
+
+        /// The batch processing is done.
+        pub const DONE: State = State::new(3);
+
+        /// The batch processing was cancelled.
+        pub const CANCELLED: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATED"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("DONE"),
+                4 => std::borrow::Cow::Borrowed("CANCELLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATED" => std::option::Option::Some(Self::CREATED),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "DONE" => std::option::Option::Some(Self::DONE),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Request is received.
-        pub const CREATED: State = State::new("CREATED");
-
-        /// Request is actively being processed.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// The batch processing is done.
-        pub const DONE: State = State::new("DONE");
-
-        /// The batch processing was cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -5102,47 +5284,72 @@ pub mod batch_operation_metadata {
     use super::*;
 
     /// Enumerates the possible states that the batch request can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Request is actively being processed.
-        pub const PROCESSING: State = State::new("PROCESSING");
+        pub const PROCESSING: State = State::new(1);
 
         /// The request is done and at least one item has been successfully
         /// processed.
-        pub const SUCCESSFUL: State = State::new("SUCCESSFUL");
+        pub const SUCCESSFUL: State = State::new(2);
 
         /// The request is done and no item has been successfully processed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(3);
 
         /// The request is done after the longrunning.Operations.CancelOperation has
         /// been called by the user.  Any records that were processed before the
         /// cancel command are output as specified in the request.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::new(4);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PROCESSING"),
+                2 => std::borrow::Cow::Borrowed("SUCCESSFUL"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                4 => std::borrow::Cow::Borrowed("CANCELLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PROCESSING" => std::option::Option::Some(Self::PROCESSING),
+                "SUCCESSFUL" => std::option::Option::Some(Self::SUCCESSFUL),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -5459,48 +5666,75 @@ pub mod text_annotation {
         use super::*;
 
         /// Enum to denote the type of break found. New line, space etc.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct BreakType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct BreakType(i32);
 
         impl BreakType {
-            /// Creates a new BreakType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [BreakType](BreakType)
-        pub mod break_type {
-            use super::BreakType;
-
             /// Unknown break label type.
-            pub const UNKNOWN: BreakType = BreakType::new("UNKNOWN");
+            pub const UNKNOWN: BreakType = BreakType::new(0);
 
             /// Regular space.
-            pub const SPACE: BreakType = BreakType::new("SPACE");
+            pub const SPACE: BreakType = BreakType::new(1);
 
             /// Sure space (very wide).
-            pub const SURE_SPACE: BreakType = BreakType::new("SURE_SPACE");
+            pub const SURE_SPACE: BreakType = BreakType::new(2);
 
             /// Line-wrapping break.
-            pub const EOL_SURE_SPACE: BreakType = BreakType::new("EOL_SURE_SPACE");
+            pub const EOL_SURE_SPACE: BreakType = BreakType::new(3);
 
             /// End-line hyphen that is not present in text; does not co-occur with
             /// `SPACE`, `LEADER_SPACE`, or `LINE_BREAK`.
-            pub const HYPHEN: BreakType = BreakType::new("HYPHEN");
+            pub const HYPHEN: BreakType = BreakType::new(4);
 
             /// Line break that ends a paragraph.
-            pub const LINE_BREAK: BreakType = BreakType::new("LINE_BREAK");
+            pub const LINE_BREAK: BreakType = BreakType::new(5);
+
+            /// Creates a new BreakType instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                    1 => std::borrow::Cow::Borrowed("SPACE"),
+                    2 => std::borrow::Cow::Borrowed("SURE_SPACE"),
+                    3 => std::borrow::Cow::Borrowed("EOL_SURE_SPACE"),
+                    4 => std::borrow::Cow::Borrowed("HYPHEN"),
+                    5 => std::borrow::Cow::Borrowed("LINE_BREAK"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                    "SPACE" => std::option::Option::Some(Self::SPACE),
+                    "SURE_SPACE" => std::option::Option::Some(Self::SURE_SPACE),
+                    "EOL_SURE_SPACE" => std::option::Option::Some(Self::EOL_SURE_SPACE),
+                    "HYPHEN" => std::option::Option::Some(Self::HYPHEN),
+                    "LINE_BREAK" => std::option::Option::Some(Self::LINE_BREAK),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for BreakType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for BreakType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for BreakType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -5748,47 +5982,74 @@ pub mod block {
     use super::*;
 
     /// Type of a block (text, image etc) as identified by OCR.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BlockType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct BlockType(i32);
 
     impl BlockType {
+        /// Unknown block type.
+        pub const UNKNOWN: BlockType = BlockType::new(0);
+
+        /// Regular text block.
+        pub const TEXT: BlockType = BlockType::new(1);
+
+        /// Table block.
+        pub const TABLE: BlockType = BlockType::new(2);
+
+        /// Image block.
+        pub const PICTURE: BlockType = BlockType::new(3);
+
+        /// Horizontal/vertical line box.
+        pub const RULER: BlockType = BlockType::new(4);
+
+        /// Barcode block.
+        pub const BARCODE: BlockType = BlockType::new(5);
+
         /// Creates a new BlockType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("TEXT"),
+                2 => std::borrow::Cow::Borrowed("TABLE"),
+                3 => std::borrow::Cow::Borrowed("PICTURE"),
+                4 => std::borrow::Cow::Borrowed("RULER"),
+                5 => std::borrow::Cow::Borrowed("BARCODE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "TEXT" => std::option::Option::Some(Self::TEXT),
+                "TABLE" => std::option::Option::Some(Self::TABLE),
+                "PICTURE" => std::option::Option::Some(Self::PICTURE),
+                "RULER" => std::option::Option::Some(Self::RULER),
+                "BARCODE" => std::option::Option::Some(Self::BARCODE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [BlockType](BlockType)
-    pub mod block_type {
-        use super::BlockType;
-
-        /// Unknown block type.
-        pub const UNKNOWN: BlockType = BlockType::new("UNKNOWN");
-
-        /// Regular text block.
-        pub const TEXT: BlockType = BlockType::new("TEXT");
-
-        /// Table block.
-        pub const TABLE: BlockType = BlockType::new("TABLE");
-
-        /// Image block.
-        pub const PICTURE: BlockType = BlockType::new("PICTURE");
-
-        /// Horizontal/vertical line box.
-        pub const RULER: BlockType = BlockType::new("RULER");
-
-        /// Barcode block.
-        pub const BARCODE: BlockType = BlockType::new("BARCODE");
+    impl std::convert::From<i32> for BlockType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for BlockType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for BlockType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -6387,46 +6648,73 @@ pub mod web_detection {
 
 /// A bucketized representation of likelihood, which is intended to give clients
 /// highly stable results across model upgrades.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Likelihood(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct Likelihood(i32);
 
 impl Likelihood {
+    /// Unknown likelihood.
+    pub const UNKNOWN: Likelihood = Likelihood::new(0);
+
+    /// It is very unlikely.
+    pub const VERY_UNLIKELY: Likelihood = Likelihood::new(1);
+
+    /// It is unlikely.
+    pub const UNLIKELY: Likelihood = Likelihood::new(2);
+
+    /// It is possible.
+    pub const POSSIBLE: Likelihood = Likelihood::new(3);
+
+    /// It is likely.
+    pub const LIKELY: Likelihood = Likelihood::new(4);
+
+    /// It is very likely.
+    pub const VERY_LIKELY: Likelihood = Likelihood::new(5);
+
     /// Creates a new Likelihood instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("UNKNOWN"),
+            1 => std::borrow::Cow::Borrowed("VERY_UNLIKELY"),
+            2 => std::borrow::Cow::Borrowed("UNLIKELY"),
+            3 => std::borrow::Cow::Borrowed("POSSIBLE"),
+            4 => std::borrow::Cow::Borrowed("LIKELY"),
+            5 => std::borrow::Cow::Borrowed("VERY_LIKELY"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+            "VERY_UNLIKELY" => std::option::Option::Some(Self::VERY_UNLIKELY),
+            "UNLIKELY" => std::option::Option::Some(Self::UNLIKELY),
+            "POSSIBLE" => std::option::Option::Some(Self::POSSIBLE),
+            "LIKELY" => std::option::Option::Some(Self::LIKELY),
+            "VERY_LIKELY" => std::option::Option::Some(Self::VERY_LIKELY),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [Likelihood](Likelihood)
-pub mod likelihood {
-    use super::Likelihood;
-
-    /// Unknown likelihood.
-    pub const UNKNOWN: Likelihood = Likelihood::new("UNKNOWN");
-
-    /// It is very unlikely.
-    pub const VERY_UNLIKELY: Likelihood = Likelihood::new("VERY_UNLIKELY");
-
-    /// It is unlikely.
-    pub const UNLIKELY: Likelihood = Likelihood::new("UNLIKELY");
-
-    /// It is possible.
-    pub const POSSIBLE: Likelihood = Likelihood::new("POSSIBLE");
-
-    /// It is likely.
-    pub const LIKELY: Likelihood = Likelihood::new("LIKELY");
-
-    /// It is very likely.
-    pub const VERY_LIKELY: Likelihood = Likelihood::new("VERY_LIKELY");
+impl std::convert::From<i32> for Likelihood {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for Likelihood {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for Likelihood {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

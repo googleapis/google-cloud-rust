@@ -24,6 +24,7 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/golang"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 	"github.com/googleapis/google-cloud-rust/generator/internal/rust"
+	"github.com/googleapis/google-cloud-rust/generator/internal/rust_prost"
 )
 
 func init() {
@@ -41,7 +42,11 @@ Reruns the generator for a single client library, using the configuration parame
 // refresh reruns the generator in one directory, using the configuration
 // parameters saved in its `.sidekick.toml` file.
 func refresh(rootConfig *config.Config, cmdLine *CommandLine) error {
-	return refreshDir(rootConfig, cmdLine, cmdLine.Output)
+	override, err := overrideSources(rootConfig)
+	if err != nil {
+		return err
+	}
+	return refreshDir(override, cmdLine, cmdLine.Output)
 }
 
 func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) error {
@@ -76,6 +81,9 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	if err := api.Validate(model); err != nil {
 		return err
 	}
+	if name, ok := config.Source["name-override"]; ok {
+		model.Name = name
+	}
 	if title, ok := config.Source["title-override"]; ok {
 		model.Title = title
 	}
@@ -88,11 +96,13 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 
 	switch config.General.Language {
 	case "rust":
-		return rust.Generate(model, output, config.Codec)
+		return rust.Generate(model, output, config)
+	case "rust+prost":
+		return rust_prost.Generate(model, output, config)
 	case "go":
-		return golang.Generate(model, output, config.Codec)
+		return golang.Generate(model, output, config)
 	case "dart":
-		return dart.Generate(model, output, config.Codec)
+		return dart.Generate(model, output, config)
 	default:
 		return fmt.Errorf("unknown language: %s", config.General.Language)
 	}

@@ -63,54 +63,90 @@ pub mod add_on_widget_set {
     use super::*;
 
     /// The Widget type. DEFAULT is the basic widget set.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WidgetType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct WidgetType(i32);
 
     impl WidgetType {
+        /// The default widget set.
+        pub const WIDGET_TYPE_UNSPECIFIED: WidgetType = WidgetType::new(0);
+
+        /// The date picker.
+        pub const DATE_PICKER: WidgetType = WidgetType::new(1);
+
+        /// Styled buttons include filled buttons and disabled buttons.
+        pub const STYLED_BUTTONS: WidgetType = WidgetType::new(2);
+
+        /// Persistent forms allow persisting form values during actions.
+        pub const PERSISTENT_FORMS: WidgetType = WidgetType::new(3);
+
+        /// Fixed footer in card.
+        pub const FIXED_FOOTER: WidgetType = WidgetType::new(4);
+
+        /// Update the subject and recipients of a draft.
+        pub const UPDATE_SUBJECT_AND_RECIPIENTS: WidgetType = WidgetType::new(5);
+
+        /// The grid widget.
+        pub const GRID_WIDGET: WidgetType = WidgetType::new(6);
+
+        /// A Gmail add-on action that applies to the addon compose UI.
+        pub const ADDON_COMPOSE_UI_ACTION: WidgetType = WidgetType::new(7);
+
         /// Creates a new WidgetType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("WIDGET_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DATE_PICKER"),
+                2 => std::borrow::Cow::Borrowed("STYLED_BUTTONS"),
+                3 => std::borrow::Cow::Borrowed("PERSISTENT_FORMS"),
+                4 => std::borrow::Cow::Borrowed("FIXED_FOOTER"),
+                5 => std::borrow::Cow::Borrowed("UPDATE_SUBJECT_AND_RECIPIENTS"),
+                6 => std::borrow::Cow::Borrowed("GRID_WIDGET"),
+                7 => std::borrow::Cow::Borrowed("ADDON_COMPOSE_UI_ACTION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "WIDGET_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::WIDGET_TYPE_UNSPECIFIED)
+                }
+                "DATE_PICKER" => std::option::Option::Some(Self::DATE_PICKER),
+                "STYLED_BUTTONS" => std::option::Option::Some(Self::STYLED_BUTTONS),
+                "PERSISTENT_FORMS" => std::option::Option::Some(Self::PERSISTENT_FORMS),
+                "FIXED_FOOTER" => std::option::Option::Some(Self::FIXED_FOOTER),
+                "UPDATE_SUBJECT_AND_RECIPIENTS" => {
+                    std::option::Option::Some(Self::UPDATE_SUBJECT_AND_RECIPIENTS)
+                }
+                "GRID_WIDGET" => std::option::Option::Some(Self::GRID_WIDGET),
+                "ADDON_COMPOSE_UI_ACTION" => {
+                    std::option::Option::Some(Self::ADDON_COMPOSE_UI_ACTION)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [WidgetType](WidgetType)
-    pub mod widget_type {
-        use super::WidgetType;
-
-        /// The default widget set.
-        pub const WIDGET_TYPE_UNSPECIFIED: WidgetType = WidgetType::new("WIDGET_TYPE_UNSPECIFIED");
-
-        /// The date picker.
-        pub const DATE_PICKER: WidgetType = WidgetType::new("DATE_PICKER");
-
-        /// Styled buttons include filled buttons and disabled buttons.
-        pub const STYLED_BUTTONS: WidgetType = WidgetType::new("STYLED_BUTTONS");
-
-        /// Persistent forms allow persisting form values during actions.
-        pub const PERSISTENT_FORMS: WidgetType = WidgetType::new("PERSISTENT_FORMS");
-
-        /// Fixed footer in card.
-        pub const FIXED_FOOTER: WidgetType = WidgetType::new("FIXED_FOOTER");
-
-        /// Update the subject and recipients of a draft.
-        pub const UPDATE_SUBJECT_AND_RECIPIENTS: WidgetType =
-            WidgetType::new("UPDATE_SUBJECT_AND_RECIPIENTS");
-
-        /// The grid widget.
-        pub const GRID_WIDGET: WidgetType = WidgetType::new("GRID_WIDGET");
-
-        /// A Gmail add-on action that applies to the addon compose UI.
-        pub const ADDON_COMPOSE_UI_ACTION: WidgetType = WidgetType::new("ADDON_COMPOSE_UI_ACTION");
+    impl std::convert::From<i32> for WidgetType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for WidgetType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for WidgetType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -549,44 +585,67 @@ impl wkt::message::Message for HttpOptions {
 }
 
 /// Authorization header sent in add-on HTTP requests
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HttpAuthorizationHeader(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct HttpAuthorizationHeader(i32);
 
 impl HttpAuthorizationHeader {
-    /// Creates a new HttpAuthorizationHeader instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [HttpAuthorizationHeader](HttpAuthorizationHeader)
-pub mod http_authorization_header {
-    use super::HttpAuthorizationHeader;
-
     /// Default value, equivalent to `SYSTEM_ID_TOKEN`
     pub const HTTP_AUTHORIZATION_HEADER_UNSPECIFIED: HttpAuthorizationHeader =
-        HttpAuthorizationHeader::new("HTTP_AUTHORIZATION_HEADER_UNSPECIFIED");
+        HttpAuthorizationHeader::new(0);
 
     /// Send an ID token for the project-specific Google Workspace add-ons system
     /// service account (default)
-    pub const SYSTEM_ID_TOKEN: HttpAuthorizationHeader =
-        HttpAuthorizationHeader::new("SYSTEM_ID_TOKEN");
+    pub const SYSTEM_ID_TOKEN: HttpAuthorizationHeader = HttpAuthorizationHeader::new(1);
 
     /// Send an ID token for the end user
-    pub const USER_ID_TOKEN: HttpAuthorizationHeader =
-        HttpAuthorizationHeader::new("USER_ID_TOKEN");
+    pub const USER_ID_TOKEN: HttpAuthorizationHeader = HttpAuthorizationHeader::new(2);
 
     /// Do not send an Authentication header
-    pub const NONE: HttpAuthorizationHeader = HttpAuthorizationHeader::new("NONE");
+    pub const NONE: HttpAuthorizationHeader = HttpAuthorizationHeader::new(3);
+
+    /// Creates a new HttpAuthorizationHeader instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("HTTP_AUTHORIZATION_HEADER_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SYSTEM_ID_TOKEN"),
+            2 => std::borrow::Cow::Borrowed("USER_ID_TOKEN"),
+            3 => std::borrow::Cow::Borrowed("NONE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "HTTP_AUTHORIZATION_HEADER_UNSPECIFIED" => {
+                std::option::Option::Some(Self::HTTP_AUTHORIZATION_HEADER_UNSPECIFIED)
+            }
+            "SYSTEM_ID_TOKEN" => std::option::Option::Some(Self::SYSTEM_ID_TOKEN),
+            "USER_ID_TOKEN" => std::option::Option::Some(Self::USER_ID_TOKEN),
+            "NONE" => std::option::Option::Some(Self::NONE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for HttpAuthorizationHeader {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for HttpAuthorizationHeader {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for HttpAuthorizationHeader {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

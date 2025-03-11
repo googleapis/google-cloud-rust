@@ -88,38 +88,59 @@ pub mod metadata_exchange_request {
     use super::*;
 
     /// AuthType contains all supported authentication types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AuthType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AuthType(i32);
 
     impl AuthType {
+        /// Authentication type is unspecified and DB_NATIVE is used by default
+        pub const AUTH_TYPE_UNSPECIFIED: AuthType = AuthType::new(0);
+
+        /// Database native authentication (user/password)
+        pub const DB_NATIVE: AuthType = AuthType::new(1);
+
+        /// Automatic IAM authentication
+        pub const AUTO_IAM: AuthType = AuthType::new(2);
+
         /// Creates a new AuthType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("AUTH_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DB_NATIVE"),
+                2 => std::borrow::Cow::Borrowed("AUTO_IAM"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "AUTH_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::AUTH_TYPE_UNSPECIFIED),
+                "DB_NATIVE" => std::option::Option::Some(Self::DB_NATIVE),
+                "AUTO_IAM" => std::option::Option::Some(Self::AUTO_IAM),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [AuthType](AuthType)
-    pub mod auth_type {
-        use super::AuthType;
-
-        /// Authentication type is unspecified and DB_NATIVE is used by default
-        pub const AUTH_TYPE_UNSPECIFIED: AuthType = AuthType::new("AUTH_TYPE_UNSPECIFIED");
-
-        /// Database native authentication (user/password)
-        pub const DB_NATIVE: AuthType = AuthType::new("DB_NATIVE");
-
-        /// Automatic IAM authentication
-        pub const AUTO_IAM: AuthType = AuthType::new("AUTO_IAM");
+    impl std::convert::From<i32> for AuthType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for AuthType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for AuthType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -175,39 +196,61 @@ pub mod metadata_exchange_response {
     use super::*;
 
     /// Response code.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResponseCode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ResponseCode(i32);
 
     impl ResponseCode {
+        /// Unknown response code
+        pub const RESPONSE_CODE_UNSPECIFIED: ResponseCode = ResponseCode::new(0);
+
+        /// Success
+        pub const OK: ResponseCode = ResponseCode::new(1);
+
+        /// Failure
+        pub const ERROR: ResponseCode = ResponseCode::new(2);
+
         /// Creates a new ResponseCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESPONSE_CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("OK"),
+                2 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESPONSE_CODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RESPONSE_CODE_UNSPECIFIED)
+                }
+                "OK" => std::option::Option::Some(Self::OK),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ResponseCode](ResponseCode)
-    pub mod response_code {
-        use super::ResponseCode;
-
-        /// Unknown response code
-        pub const RESPONSE_CODE_UNSPECIFIED: ResponseCode =
-            ResponseCode::new("RESPONSE_CODE_UNSPECIFIED");
-
-        /// Success
-        pub const OK: ResponseCode = ResponseCode::new("OK");
-
-        /// Failure
-        pub const ERROR: ResponseCode = ResponseCode::new("ERROR");
+    impl std::convert::From<i32> for ResponseCode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ResponseCode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ResponseCode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

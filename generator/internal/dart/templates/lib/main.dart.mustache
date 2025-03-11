@@ -21,13 +21,17 @@ limitations under the License.
 /// The Google Cloud client for the {{Title}}.
 ///
 {{#Codec.DocLines}}
-/// {{{.}}}
+{{{.}}}
 {{/Codec.DocLines}}
 library;
 
-import 'dart:typed_data';
+{{#Codec.Imports}}
+{{{.}}}
+{{/Codec.Imports}}
+{{#Codec.PartFileReference}}
 
-import 'package:http/http.dart' as http;
+part '{{Codec.PartFileReference}}';
+{{/Codec.PartFileReference}}
 {{#Services}}
 {{> service}}
 {{/Services}}

@@ -115,7 +115,7 @@ pub mod video_intelligence_service {
         }
 
         /// Sets the value of [input_content][crate::model::AnnotateVideoRequest::input_content].
-        pub fn set_input_content<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_input_content<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.input_content = v.into();
             self
         }

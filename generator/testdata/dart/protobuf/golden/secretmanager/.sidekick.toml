@@ -20,7 +20,10 @@ service-config = 'testdata/googleapis/google/cloud/secretmanager/v1/secretmanage
 
 [source]
 googleapis-root = 'testdata/googleapis'
+name-override = 'secretmanager'
 
 [codec]
 copyright-year = '2025'
 not-for-publication = 'true'
+'proto:google.protobuf' = 'package:google_cloud_protobuf/protobuf.dart'
+version = '0.1.0'

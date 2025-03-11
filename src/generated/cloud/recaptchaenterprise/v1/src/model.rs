@@ -149,137 +149,184 @@ pub mod transaction_event {
     use super::*;
 
     /// Enum that represents an event in the payment transaction lifecycle.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TransactionEventType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TransactionEventType(i32);
 
     impl TransactionEventType {
-        /// Creates a new TransactionEventType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [TransactionEventType](TransactionEventType)
-    pub mod transaction_event_type {
-        use super::TransactionEventType;
-
         /// Default, unspecified event type.
         pub const TRANSACTION_EVENT_TYPE_UNSPECIFIED: TransactionEventType =
-            TransactionEventType::new("TRANSACTION_EVENT_TYPE_UNSPECIFIED");
+            TransactionEventType::new(0);
 
         /// Indicates that the transaction is approved by the merchant. The
         /// accompanying reasons can include terms such as 'INHOUSE', 'ACCERTIFY',
         /// 'CYBERSOURCE', or 'MANUAL_REVIEW'.
-        pub const MERCHANT_APPROVE: TransactionEventType =
-            TransactionEventType::new("MERCHANT_APPROVE");
+        pub const MERCHANT_APPROVE: TransactionEventType = TransactionEventType::new(1);
 
         /// Indicates that the transaction is denied and concluded due to risks
         /// detected by the merchant. The accompanying reasons can include terms such
         /// as 'INHOUSE',  'ACCERTIFY',  'CYBERSOURCE', or 'MANUAL_REVIEW'.
-        pub const MERCHANT_DENY: TransactionEventType = TransactionEventType::new("MERCHANT_DENY");
+        pub const MERCHANT_DENY: TransactionEventType = TransactionEventType::new(2);
 
         /// Indicates that the transaction is being evaluated by a human, due to
         /// suspicion or risk.
-        pub const MANUAL_REVIEW: TransactionEventType = TransactionEventType::new("MANUAL_REVIEW");
+        pub const MANUAL_REVIEW: TransactionEventType = TransactionEventType::new(3);
 
         /// Indicates that the authorization attempt with the card issuer succeeded.
-        pub const AUTHORIZATION: TransactionEventType = TransactionEventType::new("AUTHORIZATION");
+        pub const AUTHORIZATION: TransactionEventType = TransactionEventType::new(4);
 
         /// Indicates that the authorization attempt with the card issuer failed.
         /// The accompanying reasons can include Visa's '54' indicating that the card
         /// is expired, or '82' indicating that the CVV is incorrect.
-        pub const AUTHORIZATION_DECLINE: TransactionEventType =
-            TransactionEventType::new("AUTHORIZATION_DECLINE");
+        pub const AUTHORIZATION_DECLINE: TransactionEventType = TransactionEventType::new(5);
 
         /// Indicates that the transaction is completed because the funds were
         /// settled.
-        pub const PAYMENT_CAPTURE: TransactionEventType =
-            TransactionEventType::new("PAYMENT_CAPTURE");
+        pub const PAYMENT_CAPTURE: TransactionEventType = TransactionEventType::new(6);
 
         /// Indicates that the transaction could not be completed because the funds
         /// were not settled.
-        pub const PAYMENT_CAPTURE_DECLINE: TransactionEventType =
-            TransactionEventType::new("PAYMENT_CAPTURE_DECLINE");
+        pub const PAYMENT_CAPTURE_DECLINE: TransactionEventType = TransactionEventType::new(7);
 
         /// Indicates that the transaction has been canceled. Specify the reason
         /// for the cancellation. For example, 'INSUFFICIENT_INVENTORY'.
-        pub const CANCEL: TransactionEventType = TransactionEventType::new("CANCEL");
+        pub const CANCEL: TransactionEventType = TransactionEventType::new(8);
 
         /// Indicates that the merchant has received a chargeback inquiry due to
         /// fraud for the transaction, requesting additional information before a
         /// fraud chargeback is officially issued and a formal chargeback
         /// notification is sent.
-        pub const CHARGEBACK_INQUIRY: TransactionEventType =
-            TransactionEventType::new("CHARGEBACK_INQUIRY");
+        pub const CHARGEBACK_INQUIRY: TransactionEventType = TransactionEventType::new(9);
 
         /// Indicates that the merchant has received a chargeback alert due to fraud
         /// for the transaction. The process of resolving the dispute without
         /// involving the payment network is started.
-        pub const CHARGEBACK_ALERT: TransactionEventType =
-            TransactionEventType::new("CHARGEBACK_ALERT");
+        pub const CHARGEBACK_ALERT: TransactionEventType = TransactionEventType::new(10);
 
         /// Indicates that a fraud notification is issued for the transaction, sent
         /// by the payment instrument's issuing bank because the transaction appears
         /// to be fraudulent. We recommend including TC40 or SAFE data in the
         /// `reason` field for this event type. For partial chargebacks, we recommend
         /// that you include an amount in the `value` field.
-        pub const FRAUD_NOTIFICATION: TransactionEventType =
-            TransactionEventType::new("FRAUD_NOTIFICATION");
+        pub const FRAUD_NOTIFICATION: TransactionEventType = TransactionEventType::new(11);
 
         /// Indicates that the merchant is informed by the payment network that the
         /// transaction has entered the chargeback process due to fraud. Reason code
         /// examples include Discover's '6005' and '6041'. For partial chargebacks,
         /// we recommend that you include an amount in the `value` field.
-        pub const CHARGEBACK: TransactionEventType = TransactionEventType::new("CHARGEBACK");
+        pub const CHARGEBACK: TransactionEventType = TransactionEventType::new(12);
 
         /// Indicates that the transaction has entered the chargeback process due to
         /// fraud, and that the merchant has chosen to enter representment. Reason
         /// examples include Discover's '6005' and '6041'. For partial chargebacks,
         /// we recommend that you include an amount in the `value` field.
-        pub const CHARGEBACK_REPRESENTMENT: TransactionEventType =
-            TransactionEventType::new("CHARGEBACK_REPRESENTMENT");
+        pub const CHARGEBACK_REPRESENTMENT: TransactionEventType = TransactionEventType::new(13);
 
         /// Indicates that the transaction has had a fraud chargeback which was
         /// illegitimate and was reversed as a result. For partial chargebacks, we
         /// recommend that you include an amount in the `value` field.
-        pub const CHARGEBACK_REVERSE: TransactionEventType =
-            TransactionEventType::new("CHARGEBACK_REVERSE");
+        pub const CHARGEBACK_REVERSE: TransactionEventType = TransactionEventType::new(14);
 
         /// Indicates that the merchant has received a refund for a completed
         /// transaction. For partial refunds, we recommend that you include an amount
         /// in the `value` field. Reason example: 'TAX_EXEMPT' (partial refund of
         /// exempt tax)
-        pub const REFUND_REQUEST: TransactionEventType =
-            TransactionEventType::new("REFUND_REQUEST");
+        pub const REFUND_REQUEST: TransactionEventType = TransactionEventType::new(15);
 
         /// Indicates that the merchant has received a refund request for this
         /// transaction, but that they have declined it. For partial refunds, we
         /// recommend that you include an amount in the `value` field. Reason
         /// example: 'TAX_EXEMPT' (partial refund of exempt tax)
-        pub const REFUND_DECLINE: TransactionEventType =
-            TransactionEventType::new("REFUND_DECLINE");
+        pub const REFUND_DECLINE: TransactionEventType = TransactionEventType::new(16);
 
         /// Indicates that the completed transaction was refunded by the merchant.
         /// For partial refunds, we recommend that you include an amount in the
         /// `value` field. Reason example: 'TAX_EXEMPT' (partial refund of exempt
         /// tax)
-        pub const REFUND: TransactionEventType = TransactionEventType::new("REFUND");
+        pub const REFUND: TransactionEventType = TransactionEventType::new(17);
 
         /// Indicates that the completed transaction was refunded by the merchant,
         /// and that this refund was reversed. For partial refunds, we recommend that
         /// you include an amount in the `value` field.
-        pub const REFUND_REVERSE: TransactionEventType =
-            TransactionEventType::new("REFUND_REVERSE");
+        pub const REFUND_REVERSE: TransactionEventType = TransactionEventType::new(18);
+
+        /// Creates a new TransactionEventType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TRANSACTION_EVENT_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MERCHANT_APPROVE"),
+                2 => std::borrow::Cow::Borrowed("MERCHANT_DENY"),
+                3 => std::borrow::Cow::Borrowed("MANUAL_REVIEW"),
+                4 => std::borrow::Cow::Borrowed("AUTHORIZATION"),
+                5 => std::borrow::Cow::Borrowed("AUTHORIZATION_DECLINE"),
+                6 => std::borrow::Cow::Borrowed("PAYMENT_CAPTURE"),
+                7 => std::borrow::Cow::Borrowed("PAYMENT_CAPTURE_DECLINE"),
+                8 => std::borrow::Cow::Borrowed("CANCEL"),
+                9 => std::borrow::Cow::Borrowed("CHARGEBACK_INQUIRY"),
+                10 => std::borrow::Cow::Borrowed("CHARGEBACK_ALERT"),
+                11 => std::borrow::Cow::Borrowed("FRAUD_NOTIFICATION"),
+                12 => std::borrow::Cow::Borrowed("CHARGEBACK"),
+                13 => std::borrow::Cow::Borrowed("CHARGEBACK_REPRESENTMENT"),
+                14 => std::borrow::Cow::Borrowed("CHARGEBACK_REVERSE"),
+                15 => std::borrow::Cow::Borrowed("REFUND_REQUEST"),
+                16 => std::borrow::Cow::Borrowed("REFUND_DECLINE"),
+                17 => std::borrow::Cow::Borrowed("REFUND"),
+                18 => std::borrow::Cow::Borrowed("REFUND_REVERSE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TRANSACTION_EVENT_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TRANSACTION_EVENT_TYPE_UNSPECIFIED)
+                }
+                "MERCHANT_APPROVE" => std::option::Option::Some(Self::MERCHANT_APPROVE),
+                "MERCHANT_DENY" => std::option::Option::Some(Self::MERCHANT_DENY),
+                "MANUAL_REVIEW" => std::option::Option::Some(Self::MANUAL_REVIEW),
+                "AUTHORIZATION" => std::option::Option::Some(Self::AUTHORIZATION),
+                "AUTHORIZATION_DECLINE" => std::option::Option::Some(Self::AUTHORIZATION_DECLINE),
+                "PAYMENT_CAPTURE" => std::option::Option::Some(Self::PAYMENT_CAPTURE),
+                "PAYMENT_CAPTURE_DECLINE" => {
+                    std::option::Option::Some(Self::PAYMENT_CAPTURE_DECLINE)
+                }
+                "CANCEL" => std::option::Option::Some(Self::CANCEL),
+                "CHARGEBACK_INQUIRY" => std::option::Option::Some(Self::CHARGEBACK_INQUIRY),
+                "CHARGEBACK_ALERT" => std::option::Option::Some(Self::CHARGEBACK_ALERT),
+                "FRAUD_NOTIFICATION" => std::option::Option::Some(Self::FRAUD_NOTIFICATION),
+                "CHARGEBACK" => std::option::Option::Some(Self::CHARGEBACK),
+                "CHARGEBACK_REPRESENTMENT" => {
+                    std::option::Option::Some(Self::CHARGEBACK_REPRESENTMENT)
+                }
+                "CHARGEBACK_REVERSE" => std::option::Option::Some(Self::CHARGEBACK_REVERSE),
+                "REFUND_REQUEST" => std::option::Option::Some(Self::REFUND_REQUEST),
+                "REFUND_DECLINE" => std::option::Option::Some(Self::REFUND_DECLINE),
+                "REFUND" => std::option::Option::Some(Self::REFUND),
+                "REFUND_REVERSE" => std::option::Option::Some(Self::REFUND_REVERSE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for TransactionEventType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for TransactionEventType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for TransactionEventType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -314,9 +361,9 @@ pub struct AnnotateAssessmentRequest {
     /// This is an alternative to setting `hashed_account_id` in
     /// `CreateAssessment`, for example when a stable account identifier is not yet
     /// known in the initial request.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub hashed_account_id: bytes::Bytes,
+    pub hashed_account_id: ::bytes::Bytes,
 
     /// Optional. If the assessment is part of a payment transaction, provide
     /// details on payment lifecycle events that occur in the transaction.
@@ -353,7 +400,7 @@ impl AnnotateAssessmentRequest {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::AnnotateAssessmentRequest::hashed_account_id].
-    pub fn set_hashed_account_id<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
     }
@@ -393,137 +440,207 @@ pub mod annotate_assessment_request {
     use super::*;
 
     /// Enum that represents the types of annotations.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Annotation(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Annotation(i32);
 
     impl Annotation {
-        /// Creates a new Annotation instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Annotation](Annotation)
-    pub mod annotation {
-        use super::Annotation;
-
         /// Default unspecified type.
-        pub const ANNOTATION_UNSPECIFIED: Annotation = Annotation::new("ANNOTATION_UNSPECIFIED");
+        pub const ANNOTATION_UNSPECIFIED: Annotation = Annotation::new(0);
 
         /// Provides information that the event turned out to be legitimate.
-        pub const LEGITIMATE: Annotation = Annotation::new("LEGITIMATE");
+        pub const LEGITIMATE: Annotation = Annotation::new(1);
 
         /// Provides information that the event turned out to be fraudulent.
-        pub const FRAUDULENT: Annotation = Annotation::new("FRAUDULENT");
+        pub const FRAUDULENT: Annotation = Annotation::new(2);
 
         /// Provides information that the event was related to a login event in which
         /// the user typed the correct password. Deprecated, prefer indicating
         /// CORRECT_PASSWORD through the reasons field instead.
-        pub const PASSWORD_CORRECT: Annotation = Annotation::new("PASSWORD_CORRECT");
+        pub const PASSWORD_CORRECT: Annotation = Annotation::new(3);
 
         /// Provides information that the event was related to a login event in which
         /// the user typed the incorrect password. Deprecated, prefer indicating
         /// INCORRECT_PASSWORD through the reasons field instead.
-        pub const PASSWORD_INCORRECT: Annotation = Annotation::new("PASSWORD_INCORRECT");
+        pub const PASSWORD_INCORRECT: Annotation = Annotation::new(4);
+
+        /// Creates a new Annotation instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ANNOTATION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LEGITIMATE"),
+                2 => std::borrow::Cow::Borrowed("FRAUDULENT"),
+                3 => std::borrow::Cow::Borrowed("PASSWORD_CORRECT"),
+                4 => std::borrow::Cow::Borrowed("PASSWORD_INCORRECT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ANNOTATION_UNSPECIFIED" => std::option::Option::Some(Self::ANNOTATION_UNSPECIFIED),
+                "LEGITIMATE" => std::option::Option::Some(Self::LEGITIMATE),
+                "FRAUDULENT" => std::option::Option::Some(Self::FRAUDULENT),
+                "PASSWORD_CORRECT" => std::option::Option::Some(Self::PASSWORD_CORRECT),
+                "PASSWORD_INCORRECT" => std::option::Option::Some(Self::PASSWORD_INCORRECT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Annotation {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Annotation {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Annotation {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Enum that represents potential reasons for annotating an assessment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Reason(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Reason(i32);
 
     impl Reason {
-        /// Creates a new Reason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Reason](Reason)
-    pub mod reason {
-        use super::Reason;
-
         /// Default unspecified reason.
-        pub const REASON_UNSPECIFIED: Reason = Reason::new("REASON_UNSPECIFIED");
+        pub const REASON_UNSPECIFIED: Reason = Reason::new(0);
 
         /// Indicates that the transaction had a chargeback issued with no other
         /// details. When possible, specify the type by using CHARGEBACK_FRAUD or
         /// CHARGEBACK_DISPUTE instead.
-        pub const CHARGEBACK: Reason = Reason::new("CHARGEBACK");
+        pub const CHARGEBACK: Reason = Reason::new(1);
 
         /// Indicates that the transaction had a chargeback issued related to an
         /// alleged unauthorized transaction from the cardholder's perspective (for
         /// example, the card number was stolen).
-        pub const CHARGEBACK_FRAUD: Reason = Reason::new("CHARGEBACK_FRAUD");
+        pub const CHARGEBACK_FRAUD: Reason = Reason::new(8);
 
         /// Indicates that the transaction had a chargeback issued related to the
         /// cardholder having provided their card details but allegedly not being
         /// satisfied with the purchase (for example, misrepresentation, attempted
         /// cancellation).
-        pub const CHARGEBACK_DISPUTE: Reason = Reason::new("CHARGEBACK_DISPUTE");
+        pub const CHARGEBACK_DISPUTE: Reason = Reason::new(9);
 
         /// Indicates that the completed payment transaction was refunded by the
         /// seller.
-        pub const REFUND: Reason = Reason::new("REFUND");
+        pub const REFUND: Reason = Reason::new(10);
 
         /// Indicates that the completed payment transaction was determined to be
         /// fraudulent by the seller, and was cancelled and refunded as a result.
-        pub const REFUND_FRAUD: Reason = Reason::new("REFUND_FRAUD");
+        pub const REFUND_FRAUD: Reason = Reason::new(11);
 
         /// Indicates that the payment transaction was accepted, and the user was
         /// charged.
-        pub const TRANSACTION_ACCEPTED: Reason = Reason::new("TRANSACTION_ACCEPTED");
+        pub const TRANSACTION_ACCEPTED: Reason = Reason::new(12);
 
         /// Indicates that the payment transaction was declined, for example due to
         /// invalid card details.
-        pub const TRANSACTION_DECLINED: Reason = Reason::new("TRANSACTION_DECLINED");
+        pub const TRANSACTION_DECLINED: Reason = Reason::new(13);
 
         /// Indicates the transaction associated with the assessment is suspected of
         /// being fraudulent based on the payment method, billing details, shipping
         /// address or other transaction information.
-        pub const PAYMENT_HEURISTICS: Reason = Reason::new("PAYMENT_HEURISTICS");
+        pub const PAYMENT_HEURISTICS: Reason = Reason::new(2);
 
         /// Indicates that the user was served a 2FA challenge. An old assessment
         /// with `ENUM_VALUES.INITIATED_TWO_FACTOR` reason that has not been
         /// overwritten with `PASSED_TWO_FACTOR` is treated as an abandoned 2FA flow.
         /// This is equivalent to `FAILED_TWO_FACTOR`.
-        pub const INITIATED_TWO_FACTOR: Reason = Reason::new("INITIATED_TWO_FACTOR");
+        pub const INITIATED_TWO_FACTOR: Reason = Reason::new(7);
 
         /// Indicates that the user passed a 2FA challenge.
-        pub const PASSED_TWO_FACTOR: Reason = Reason::new("PASSED_TWO_FACTOR");
+        pub const PASSED_TWO_FACTOR: Reason = Reason::new(3);
 
         /// Indicates that the user failed a 2FA challenge.
-        pub const FAILED_TWO_FACTOR: Reason = Reason::new("FAILED_TWO_FACTOR");
+        pub const FAILED_TWO_FACTOR: Reason = Reason::new(4);
 
         /// Indicates the user provided the correct password.
-        pub const CORRECT_PASSWORD: Reason = Reason::new("CORRECT_PASSWORD");
+        pub const CORRECT_PASSWORD: Reason = Reason::new(5);
 
         /// Indicates the user provided an incorrect password.
-        pub const INCORRECT_PASSWORD: Reason = Reason::new("INCORRECT_PASSWORD");
+        pub const INCORRECT_PASSWORD: Reason = Reason::new(6);
 
         /// Indicates that the user sent unwanted and abusive messages to other users
         /// of the platform, such as spam, scams, phishing, or social engineering.
-        pub const SOCIAL_SPAM: Reason = Reason::new("SOCIAL_SPAM");
+        pub const SOCIAL_SPAM: Reason = Reason::new(14);
+
+        /// Creates a new Reason instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REASON_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CHARGEBACK"),
+                2 => std::borrow::Cow::Borrowed("PAYMENT_HEURISTICS"),
+                3 => std::borrow::Cow::Borrowed("PASSED_TWO_FACTOR"),
+                4 => std::borrow::Cow::Borrowed("FAILED_TWO_FACTOR"),
+                5 => std::borrow::Cow::Borrowed("CORRECT_PASSWORD"),
+                6 => std::borrow::Cow::Borrowed("INCORRECT_PASSWORD"),
+                7 => std::borrow::Cow::Borrowed("INITIATED_TWO_FACTOR"),
+                8 => std::borrow::Cow::Borrowed("CHARGEBACK_FRAUD"),
+                9 => std::borrow::Cow::Borrowed("CHARGEBACK_DISPUTE"),
+                10 => std::borrow::Cow::Borrowed("REFUND"),
+                11 => std::borrow::Cow::Borrowed("REFUND_FRAUD"),
+                12 => std::borrow::Cow::Borrowed("TRANSACTION_ACCEPTED"),
+                13 => std::borrow::Cow::Borrowed("TRANSACTION_DECLINED"),
+                14 => std::borrow::Cow::Borrowed("SOCIAL_SPAM"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REASON_UNSPECIFIED" => std::option::Option::Some(Self::REASON_UNSPECIFIED),
+                "CHARGEBACK" => std::option::Option::Some(Self::CHARGEBACK),
+                "CHARGEBACK_FRAUD" => std::option::Option::Some(Self::CHARGEBACK_FRAUD),
+                "CHARGEBACK_DISPUTE" => std::option::Option::Some(Self::CHARGEBACK_DISPUTE),
+                "REFUND" => std::option::Option::Some(Self::REFUND),
+                "REFUND_FRAUD" => std::option::Option::Some(Self::REFUND_FRAUD),
+                "TRANSACTION_ACCEPTED" => std::option::Option::Some(Self::TRANSACTION_ACCEPTED),
+                "TRANSACTION_DECLINED" => std::option::Option::Some(Self::TRANSACTION_DECLINED),
+                "PAYMENT_HEURISTICS" => std::option::Option::Some(Self::PAYMENT_HEURISTICS),
+                "INITIATED_TWO_FACTOR" => std::option::Option::Some(Self::INITIATED_TWO_FACTOR),
+                "PASSED_TWO_FACTOR" => std::option::Option::Some(Self::PASSED_TWO_FACTOR),
+                "FAILED_TWO_FACTOR" => std::option::Option::Some(Self::FAILED_TWO_FACTOR),
+                "CORRECT_PASSWORD" => std::option::Option::Some(Self::CORRECT_PASSWORD),
+                "INCORRECT_PASSWORD" => std::option::Option::Some(Self::INCORRECT_PASSWORD),
+                "SOCIAL_SPAM" => std::option::Option::Some(Self::SOCIAL_SPAM),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Reason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Reason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Reason {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -751,71 +868,117 @@ pub mod account_verification_info {
 
     /// Result of the account verification as contained in the verdict token issued
     /// at the end of the verification flow.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Result(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Result(i32);
 
     impl Result {
-        /// Creates a new Result instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Result](Result)
-    pub mod result {
-        use super::Result;
-
         /// No information about the latest account verification.
-        pub const RESULT_UNSPECIFIED: Result = Result::new("RESULT_UNSPECIFIED");
+        pub const RESULT_UNSPECIFIED: Result = Result::new(0);
 
         /// The user was successfully verified. This means the account verification
         /// challenge was successfully completed.
-        pub const SUCCESS_USER_VERIFIED: Result = Result::new("SUCCESS_USER_VERIFIED");
+        pub const SUCCESS_USER_VERIFIED: Result = Result::new(1);
 
         /// The user failed the verification challenge.
-        pub const ERROR_USER_NOT_VERIFIED: Result = Result::new("ERROR_USER_NOT_VERIFIED");
+        pub const ERROR_USER_NOT_VERIFIED: Result = Result::new(2);
 
         /// The site is not properly onboarded to use the account verification
         /// feature.
-        pub const ERROR_SITE_ONBOARDING_INCOMPLETE: Result =
-            Result::new("ERROR_SITE_ONBOARDING_INCOMPLETE");
+        pub const ERROR_SITE_ONBOARDING_INCOMPLETE: Result = Result::new(3);
 
         /// The recipient is not allowed for account verification. This can occur
         /// during integration but should not occur in production.
-        pub const ERROR_RECIPIENT_NOT_ALLOWED: Result = Result::new("ERROR_RECIPIENT_NOT_ALLOWED");
+        pub const ERROR_RECIPIENT_NOT_ALLOWED: Result = Result::new(4);
 
         /// The recipient has already been sent too many verification codes in a
         /// short amount of time.
-        pub const ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED: Result =
-            Result::new("ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED");
+        pub const ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED: Result = Result::new(5);
 
         /// The verification flow could not be completed due to a critical internal
         /// error.
-        pub const ERROR_CRITICAL_INTERNAL: Result = Result::new("ERROR_CRITICAL_INTERNAL");
+        pub const ERROR_CRITICAL_INTERNAL: Result = Result::new(6);
 
         /// The client has exceeded their two factor request quota for this period of
         /// time.
-        pub const ERROR_CUSTOMER_QUOTA_EXHAUSTED: Result =
-            Result::new("ERROR_CUSTOMER_QUOTA_EXHAUSTED");
+        pub const ERROR_CUSTOMER_QUOTA_EXHAUSTED: Result = Result::new(7);
 
         /// The request cannot be processed at the time because of an incident. This
         /// bypass can be restricted to a problematic destination email domain, a
         /// customer, or could affect the entire service.
-        pub const ERROR_VERIFICATION_BYPASSED: Result = Result::new("ERROR_VERIFICATION_BYPASSED");
+        pub const ERROR_VERIFICATION_BYPASSED: Result = Result::new(8);
 
         /// The request parameters do not match with the token provided and cannot be
         /// processed.
-        pub const ERROR_VERDICT_MISMATCH: Result = Result::new("ERROR_VERDICT_MISMATCH");
+        pub const ERROR_VERDICT_MISMATCH: Result = Result::new(9);
+
+        /// Creates a new Result instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESULT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SUCCESS_USER_VERIFIED"),
+                2 => std::borrow::Cow::Borrowed("ERROR_USER_NOT_VERIFIED"),
+                3 => std::borrow::Cow::Borrowed("ERROR_SITE_ONBOARDING_INCOMPLETE"),
+                4 => std::borrow::Cow::Borrowed("ERROR_RECIPIENT_NOT_ALLOWED"),
+                5 => std::borrow::Cow::Borrowed("ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED"),
+                6 => std::borrow::Cow::Borrowed("ERROR_CRITICAL_INTERNAL"),
+                7 => std::borrow::Cow::Borrowed("ERROR_CUSTOMER_QUOTA_EXHAUSTED"),
+                8 => std::borrow::Cow::Borrowed("ERROR_VERIFICATION_BYPASSED"),
+                9 => std::borrow::Cow::Borrowed("ERROR_VERDICT_MISMATCH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESULT_UNSPECIFIED" => std::option::Option::Some(Self::RESULT_UNSPECIFIED),
+                "SUCCESS_USER_VERIFIED" => std::option::Option::Some(Self::SUCCESS_USER_VERIFIED),
+                "ERROR_USER_NOT_VERIFIED" => {
+                    std::option::Option::Some(Self::ERROR_USER_NOT_VERIFIED)
+                }
+                "ERROR_SITE_ONBOARDING_INCOMPLETE" => {
+                    std::option::Option::Some(Self::ERROR_SITE_ONBOARDING_INCOMPLETE)
+                }
+                "ERROR_RECIPIENT_NOT_ALLOWED" => {
+                    std::option::Option::Some(Self::ERROR_RECIPIENT_NOT_ALLOWED)
+                }
+                "ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED" => {
+                    std::option::Option::Some(Self::ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED)
+                }
+                "ERROR_CRITICAL_INTERNAL" => {
+                    std::option::Option::Some(Self::ERROR_CRITICAL_INTERNAL)
+                }
+                "ERROR_CUSTOMER_QUOTA_EXHAUSTED" => {
+                    std::option::Option::Some(Self::ERROR_CUSTOMER_QUOTA_EXHAUSTED)
+                }
+                "ERROR_VERIFICATION_BYPASSED" => {
+                    std::option::Option::Some(Self::ERROR_VERIFICATION_BYPASSED)
+                }
+                "ERROR_VERDICT_MISMATCH" => std::option::Option::Some(Self::ERROR_VERDICT_MISMATCH),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Result {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Result {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Result {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -829,30 +992,30 @@ pub struct PrivatePasswordLeakVerification {
     /// Required. Exactly 26-bit prefix of the SHA-256 hash of the canonicalized
     /// username. It is used to look up password leaks associated with that hash
     /// prefix.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub lookup_hash_prefix: bytes::Bytes,
+    pub lookup_hash_prefix: ::bytes::Bytes,
 
     /// Optional. Encrypted Scrypt hash of the canonicalized username+password. It
     /// is re-encrypted by the server and returned through
     /// `reencrypted_user_credentials_hash`.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub encrypted_user_credentials_hash: bytes::Bytes,
+    pub encrypted_user_credentials_hash: ::bytes::Bytes,
 
     /// Output only. List of prefixes of the encrypted potential password leaks
     /// that matched the given parameters. They must be compared with the
     /// client-side decryption prefix of `reencrypted_user_credentials_hash`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-    pub encrypted_leak_match_prefixes: std::vec::Vec<bytes::Bytes>,
+    pub encrypted_leak_match_prefixes: std::vec::Vec<::bytes::Bytes>,
 
     /// Output only. Corresponds to the re-encryption of the
     /// `encrypted_user_credentials_hash` field. It is used to match potential
     /// password leaks within `encrypted_leak_match_prefixes`.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub reencrypted_user_credentials_hash: bytes::Bytes,
+    pub reencrypted_user_credentials_hash: ::bytes::Bytes,
 }
 
 impl PrivatePasswordLeakVerification {
@@ -861,13 +1024,13 @@ impl PrivatePasswordLeakVerification {
     }
 
     /// Sets the value of [lookup_hash_prefix][crate::model::PrivatePasswordLeakVerification::lookup_hash_prefix].
-    pub fn set_lookup_hash_prefix<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_lookup_hash_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.lookup_hash_prefix = v.into();
         self
     }
 
     /// Sets the value of [encrypted_user_credentials_hash][crate::model::PrivatePasswordLeakVerification::encrypted_user_credentials_hash].
-    pub fn set_encrypted_user_credentials_hash<T: std::convert::Into<bytes::Bytes>>(
+    pub fn set_encrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
     ) -> Self {
@@ -876,7 +1039,7 @@ impl PrivatePasswordLeakVerification {
     }
 
     /// Sets the value of [reencrypted_user_credentials_hash][crate::model::PrivatePasswordLeakVerification::reencrypted_user_credentials_hash].
-    pub fn set_reencrypted_user_credentials_hash<T: std::convert::Into<bytes::Bytes>>(
+    pub fn set_reencrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
     ) -> Self {
@@ -888,7 +1051,7 @@ impl PrivatePasswordLeakVerification {
     pub fn set_encrypted_leak_match_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>,
     {
         use std::iter::Iterator;
         self.encrypted_leak_match_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -1142,9 +1305,9 @@ pub struct Event {
     /// Optional. Deprecated: use `user_info.account_id` instead.
     /// Unique stable hashed user identifier for the request. The identifier must
     /// be hashed using hmac-sha256 with stable secret.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub hashed_account_id: bytes::Bytes,
+    pub hashed_account_id: ::bytes::Bytes,
 
     /// Optional. Flag for a reCAPTCHA express request for an assessment without a
     /// token. If enabled, `site_key` must reference an Express site key.
@@ -1225,7 +1388,7 @@ impl Event {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::Event::hashed_account_id].
-    pub fn set_hashed_account_id<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
     }
@@ -1313,43 +1476,65 @@ pub mod event {
     use super::*;
 
     /// Setting that controls Fraud Prevention assessments.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FraudPrevention(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct FraudPrevention(i32);
 
     impl FraudPrevention {
-        /// Creates a new FraudPrevention instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FraudPrevention](FraudPrevention)
-    pub mod fraud_prevention {
-        use super::FraudPrevention;
-
         /// Default, unspecified setting. `fraud_prevention_assessment` is returned
         /// if `transaction_data` is present in `Event` and Fraud Prevention is
         /// enabled in the Google Cloud console.
-        pub const FRAUD_PREVENTION_UNSPECIFIED: FraudPrevention =
-            FraudPrevention::new("FRAUD_PREVENTION_UNSPECIFIED");
+        pub const FRAUD_PREVENTION_UNSPECIFIED: FraudPrevention = FraudPrevention::new(0);
 
         /// Enable Fraud Prevention for this assessment, if Fraud Prevention is
         /// enabled in the Google Cloud console.
-        pub const ENABLED: FraudPrevention = FraudPrevention::new("ENABLED");
+        pub const ENABLED: FraudPrevention = FraudPrevention::new(1);
 
         /// Disable Fraud Prevention for this assessment, regardless of Google Cloud
         /// console settings.
-        pub const DISABLED: FraudPrevention = FraudPrevention::new("DISABLED");
+        pub const DISABLED: FraudPrevention = FraudPrevention::new(2);
+
+        /// Creates a new FraudPrevention instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FRAUD_PREVENTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FRAUD_PREVENTION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FRAUD_PREVENTION_UNSPECIFIED)
+                }
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FraudPrevention {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FraudPrevention {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for FraudPrevention {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2125,102 +2310,154 @@ pub mod risk_analysis {
     use super::*;
 
     /// Reasons contributing to the risk analysis verdict.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ClassificationReason(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ClassificationReason(i32);
 
     impl ClassificationReason {
-        /// Creates a new ClassificationReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ClassificationReason](ClassificationReason)
-    pub mod classification_reason {
-        use super::ClassificationReason;
-
         /// Default unspecified type.
         pub const CLASSIFICATION_REASON_UNSPECIFIED: ClassificationReason =
-            ClassificationReason::new("CLASSIFICATION_REASON_UNSPECIFIED");
+            ClassificationReason::new(0);
 
         /// Interactions matched the behavior of an automated agent.
-        pub const AUTOMATION: ClassificationReason = ClassificationReason::new("AUTOMATION");
+        pub const AUTOMATION: ClassificationReason = ClassificationReason::new(1);
 
         /// The event originated from an illegitimate environment.
-        pub const UNEXPECTED_ENVIRONMENT: ClassificationReason =
-            ClassificationReason::new("UNEXPECTED_ENVIRONMENT");
+        pub const UNEXPECTED_ENVIRONMENT: ClassificationReason = ClassificationReason::new(2);
 
         /// Traffic volume from the event source is higher than normal.
-        pub const TOO_MUCH_TRAFFIC: ClassificationReason =
-            ClassificationReason::new("TOO_MUCH_TRAFFIC");
+        pub const TOO_MUCH_TRAFFIC: ClassificationReason = ClassificationReason::new(3);
 
         /// Interactions with the site were significantly different than expected
         /// patterns.
-        pub const UNEXPECTED_USAGE_PATTERNS: ClassificationReason =
-            ClassificationReason::new("UNEXPECTED_USAGE_PATTERNS");
+        pub const UNEXPECTED_USAGE_PATTERNS: ClassificationReason = ClassificationReason::new(4);
 
         /// Too little traffic has been received from this site thus far to generate
         /// quality risk analysis.
-        pub const LOW_CONFIDENCE_SCORE: ClassificationReason =
-            ClassificationReason::new("LOW_CONFIDENCE_SCORE");
+        pub const LOW_CONFIDENCE_SCORE: ClassificationReason = ClassificationReason::new(5);
 
         /// The request matches behavioral characteristics of a carding attack.
-        pub const SUSPECTED_CARDING: ClassificationReason =
-            ClassificationReason::new("SUSPECTED_CARDING");
+        pub const SUSPECTED_CARDING: ClassificationReason = ClassificationReason::new(6);
 
         /// The request matches behavioral characteristics of chargebacks for fraud.
-        pub const SUSPECTED_CHARGEBACK: ClassificationReason =
-            ClassificationReason::new("SUSPECTED_CHARGEBACK");
+        pub const SUSPECTED_CHARGEBACK: ClassificationReason = ClassificationReason::new(7);
+
+        /// Creates a new ClassificationReason instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CLASSIFICATION_REASON_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AUTOMATION"),
+                2 => std::borrow::Cow::Borrowed("UNEXPECTED_ENVIRONMENT"),
+                3 => std::borrow::Cow::Borrowed("TOO_MUCH_TRAFFIC"),
+                4 => std::borrow::Cow::Borrowed("UNEXPECTED_USAGE_PATTERNS"),
+                5 => std::borrow::Cow::Borrowed("LOW_CONFIDENCE_SCORE"),
+                6 => std::borrow::Cow::Borrowed("SUSPECTED_CARDING"),
+                7 => std::borrow::Cow::Borrowed("SUSPECTED_CHARGEBACK"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CLASSIFICATION_REASON_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CLASSIFICATION_REASON_UNSPECIFIED)
+                }
+                "AUTOMATION" => std::option::Option::Some(Self::AUTOMATION),
+                "UNEXPECTED_ENVIRONMENT" => std::option::Option::Some(Self::UNEXPECTED_ENVIRONMENT),
+                "TOO_MUCH_TRAFFIC" => std::option::Option::Some(Self::TOO_MUCH_TRAFFIC),
+                "UNEXPECTED_USAGE_PATTERNS" => {
+                    std::option::Option::Some(Self::UNEXPECTED_USAGE_PATTERNS)
+                }
+                "LOW_CONFIDENCE_SCORE" => std::option::Option::Some(Self::LOW_CONFIDENCE_SCORE),
+                "SUSPECTED_CARDING" => std::option::Option::Some(Self::SUSPECTED_CARDING),
+                "SUSPECTED_CHARGEBACK" => std::option::Option::Some(Self::SUSPECTED_CHARGEBACK),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ClassificationReason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ClassificationReason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ClassificationReason {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Challenge information for SCORE_AND_CHALLENGE and INVISIBLE keys
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Challenge(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Challenge(i32);
 
     impl Challenge {
-        /// Creates a new Challenge instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Challenge](Challenge)
-    pub mod challenge {
-        use super::Challenge;
-
         /// Default unspecified type.
-        pub const CHALLENGE_UNSPECIFIED: Challenge = Challenge::new("CHALLENGE_UNSPECIFIED");
+        pub const CHALLENGE_UNSPECIFIED: Challenge = Challenge::new(0);
 
         /// No challenge was presented for solving.
-        pub const NOCAPTCHA: Challenge = Challenge::new("NOCAPTCHA");
+        pub const NOCAPTCHA: Challenge = Challenge::new(1);
 
         /// A solution was submitted that was correct.
-        pub const PASSED: Challenge = Challenge::new("PASSED");
+        pub const PASSED: Challenge = Challenge::new(2);
 
         /// A solution was submitted that was incorrect or otherwise
         /// deemed suspicious.
-        pub const FAILED: Challenge = Challenge::new("FAILED");
+        pub const FAILED: Challenge = Challenge::new(3);
+
+        /// Creates a new Challenge instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CHALLENGE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NOCAPTCHA"),
+                2 => std::borrow::Cow::Borrowed("PASSED"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CHALLENGE_UNSPECIFIED" => std::option::Option::Some(Self::CHALLENGE_UNSPECIFIED),
+                "NOCAPTCHA" => std::option::Option::Some(Self::NOCAPTCHA),
+                "PASSED" => std::option::Option::Some(Self::PASSED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Challenge {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Challenge {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Challenge {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2336,53 +2573,82 @@ pub mod token_properties {
     use super::*;
 
     /// Enum that represents the types of invalid token reasons.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct InvalidReason(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct InvalidReason(i32);
 
     impl InvalidReason {
-        /// Creates a new InvalidReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [InvalidReason](InvalidReason)
-    pub mod invalid_reason {
-        use super::InvalidReason;
-
         /// Default unspecified type.
-        pub const INVALID_REASON_UNSPECIFIED: InvalidReason =
-            InvalidReason::new("INVALID_REASON_UNSPECIFIED");
+        pub const INVALID_REASON_UNSPECIFIED: InvalidReason = InvalidReason::new(0);
 
         /// If the failure reason was not accounted for.
-        pub const UNKNOWN_INVALID_REASON: InvalidReason =
-            InvalidReason::new("UNKNOWN_INVALID_REASON");
+        pub const UNKNOWN_INVALID_REASON: InvalidReason = InvalidReason::new(1);
 
         /// The provided user verification token was malformed.
-        pub const MALFORMED: InvalidReason = InvalidReason::new("MALFORMED");
+        pub const MALFORMED: InvalidReason = InvalidReason::new(2);
 
         /// The user verification token had expired.
-        pub const EXPIRED: InvalidReason = InvalidReason::new("EXPIRED");
+        pub const EXPIRED: InvalidReason = InvalidReason::new(3);
 
         /// The user verification had already been seen.
-        pub const DUPE: InvalidReason = InvalidReason::new("DUPE");
+        pub const DUPE: InvalidReason = InvalidReason::new(4);
 
         /// The user verification token was not present.
-        pub const MISSING: InvalidReason = InvalidReason::new("MISSING");
+        pub const MISSING: InvalidReason = InvalidReason::new(5);
 
         /// A retriable error (such as network failure) occurred on the browser.
         /// Could easily be simulated by an attacker.
-        pub const BROWSER_ERROR: InvalidReason = InvalidReason::new("BROWSER_ERROR");
+        pub const BROWSER_ERROR: InvalidReason = InvalidReason::new(6);
+
+        /// Creates a new InvalidReason instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INVALID_REASON_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UNKNOWN_INVALID_REASON"),
+                2 => std::borrow::Cow::Borrowed("MALFORMED"),
+                3 => std::borrow::Cow::Borrowed("EXPIRED"),
+                4 => std::borrow::Cow::Borrowed("DUPE"),
+                5 => std::borrow::Cow::Borrowed("MISSING"),
+                6 => std::borrow::Cow::Borrowed("BROWSER_ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INVALID_REASON_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::INVALID_REASON_UNSPECIFIED)
+                }
+                "UNKNOWN_INVALID_REASON" => std::option::Option::Some(Self::UNKNOWN_INVALID_REASON),
+                "MALFORMED" => std::option::Option::Some(Self::MALFORMED),
+                "EXPIRED" => std::option::Option::Some(Self::EXPIRED),
+                "DUPE" => std::option::Option::Some(Self::DUPE),
+                "MISSING" => std::option::Option::Some(Self::MISSING),
+                "BROWSER_ERROR" => std::option::Option::Some(Self::BROWSER_ERROR),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for InvalidReason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for InvalidReason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for InvalidReason {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2705,43 +2971,68 @@ pub mod fraud_signals {
 
         /// Risk labels describing the card being assessed, such as its funding
         /// mechanism.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct CardLabel(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct CardLabel(i32);
 
         impl CardLabel {
-            /// Creates a new CardLabel instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [CardLabel](CardLabel)
-        pub mod card_label {
-            use super::CardLabel;
-
             /// No label specified.
-            pub const CARD_LABEL_UNSPECIFIED: CardLabel = CardLabel::new("CARD_LABEL_UNSPECIFIED");
+            pub const CARD_LABEL_UNSPECIFIED: CardLabel = CardLabel::new(0);
 
             /// This card has been detected as prepaid.
-            pub const PREPAID: CardLabel = CardLabel::new("PREPAID");
+            pub const PREPAID: CardLabel = CardLabel::new(1);
 
             /// This card has been detected as virtual, such as a card number generated
             /// for a single transaction or merchant.
-            pub const VIRTUAL: CardLabel = CardLabel::new("VIRTUAL");
+            pub const VIRTUAL: CardLabel = CardLabel::new(2);
 
             /// This card has been detected as being used in an unexpected geographic
             /// location.
-            pub const UNEXPECTED_LOCATION: CardLabel = CardLabel::new("UNEXPECTED_LOCATION");
+            pub const UNEXPECTED_LOCATION: CardLabel = CardLabel::new(3);
+
+            /// Creates a new CardLabel instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("CARD_LABEL_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("PREPAID"),
+                    2 => std::borrow::Cow::Borrowed("VIRTUAL"),
+                    3 => std::borrow::Cow::Borrowed("UNEXPECTED_LOCATION"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "CARD_LABEL_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::CARD_LABEL_UNSPECIFIED)
+                    }
+                    "PREPAID" => std::option::Option::Some(Self::PREPAID),
+                    "VIRTUAL" => std::option::Option::Some(Self::VIRTUAL),
+                    "UNEXPECTED_LOCATION" => std::option::Option::Some(Self::UNEXPECTED_LOCATION),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for CardLabel {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for CardLabel {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for CardLabel {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -2797,37 +3088,57 @@ pub mod sms_toll_fraud_verdict {
     use super::*;
 
     /// Reasons contributing to the SMS toll fraud verdict.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SmsTollFraudReason(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct SmsTollFraudReason(i32);
 
     impl SmsTollFraudReason {
+        /// Default unspecified reason
+        pub const SMS_TOLL_FRAUD_REASON_UNSPECIFIED: SmsTollFraudReason =
+            SmsTollFraudReason::new(0);
+
+        /// The provided phone number was invalid
+        pub const INVALID_PHONE_NUMBER: SmsTollFraudReason = SmsTollFraudReason::new(1);
+
         /// Creates a new SmsTollFraudReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SMS_TOLL_FRAUD_REASON_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INVALID_PHONE_NUMBER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SMS_TOLL_FRAUD_REASON_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SMS_TOLL_FRAUD_REASON_UNSPECIFIED)
+                }
+                "INVALID_PHONE_NUMBER" => std::option::Option::Some(Self::INVALID_PHONE_NUMBER),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SmsTollFraudReason](SmsTollFraudReason)
-    pub mod sms_toll_fraud_reason {
-        use super::SmsTollFraudReason;
-
-        /// Default unspecified reason
-        pub const SMS_TOLL_FRAUD_REASON_UNSPECIFIED: SmsTollFraudReason =
-            SmsTollFraudReason::new("SMS_TOLL_FRAUD_REASON_UNSPECIFIED");
-
-        /// The provided phone number was invalid
-        pub const INVALID_PHONE_NUMBER: SmsTollFraudReason =
-            SmsTollFraudReason::new("INVALID_PHONE_NUMBER");
+    impl std::convert::From<i32> for SmsTollFraudReason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for SmsTollFraudReason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for SmsTollFraudReason {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2906,52 +3217,82 @@ pub mod account_defender_assessment {
     use super::*;
 
     /// Labels returned by account defender for this request.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AccountDefenderLabel(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AccountDefenderLabel(i32);
 
     impl AccountDefenderLabel {
-        /// Creates a new AccountDefenderLabel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [AccountDefenderLabel](AccountDefenderLabel)
-    pub mod account_defender_label {
-        use super::AccountDefenderLabel;
-
         /// Default unspecified type.
         pub const ACCOUNT_DEFENDER_LABEL_UNSPECIFIED: AccountDefenderLabel =
-            AccountDefenderLabel::new("ACCOUNT_DEFENDER_LABEL_UNSPECIFIED");
+            AccountDefenderLabel::new(0);
 
         /// The request matches a known good profile for the user.
-        pub const PROFILE_MATCH: AccountDefenderLabel = AccountDefenderLabel::new("PROFILE_MATCH");
+        pub const PROFILE_MATCH: AccountDefenderLabel = AccountDefenderLabel::new(1);
 
         /// The request is potentially a suspicious login event and must be further
         /// verified either through multi-factor authentication or another system.
-        pub const SUSPICIOUS_LOGIN_ACTIVITY: AccountDefenderLabel =
-            AccountDefenderLabel::new("SUSPICIOUS_LOGIN_ACTIVITY");
+        pub const SUSPICIOUS_LOGIN_ACTIVITY: AccountDefenderLabel = AccountDefenderLabel::new(2);
 
         /// The request matched a profile that previously had suspicious account
         /// creation behavior. This can mean that this is a fake account.
-        pub const SUSPICIOUS_ACCOUNT_CREATION: AccountDefenderLabel =
-            AccountDefenderLabel::new("SUSPICIOUS_ACCOUNT_CREATION");
+        pub const SUSPICIOUS_ACCOUNT_CREATION: AccountDefenderLabel = AccountDefenderLabel::new(3);
 
         /// The account in the request has a high number of related accounts. It does
         /// not necessarily imply that the account is bad but can require further
         /// investigation.
-        pub const RELATED_ACCOUNTS_NUMBER_HIGH: AccountDefenderLabel =
-            AccountDefenderLabel::new("RELATED_ACCOUNTS_NUMBER_HIGH");
+        pub const RELATED_ACCOUNTS_NUMBER_HIGH: AccountDefenderLabel = AccountDefenderLabel::new(4);
+
+        /// Creates a new AccountDefenderLabel instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACCOUNT_DEFENDER_LABEL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PROFILE_MATCH"),
+                2 => std::borrow::Cow::Borrowed("SUSPICIOUS_LOGIN_ACTIVITY"),
+                3 => std::borrow::Cow::Borrowed("SUSPICIOUS_ACCOUNT_CREATION"),
+                4 => std::borrow::Cow::Borrowed("RELATED_ACCOUNTS_NUMBER_HIGH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACCOUNT_DEFENDER_LABEL_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ACCOUNT_DEFENDER_LABEL_UNSPECIFIED)
+                }
+                "PROFILE_MATCH" => std::option::Option::Some(Self::PROFILE_MATCH),
+                "SUSPICIOUS_LOGIN_ACTIVITY" => {
+                    std::option::Option::Some(Self::SUSPICIOUS_LOGIN_ACTIVITY)
+                }
+                "SUSPICIOUS_ACCOUNT_CREATION" => {
+                    std::option::Option::Some(Self::SUSPICIOUS_ACCOUNT_CREATION)
+                }
+                "RELATED_ACCOUNTS_NUMBER_HIGH" => {
+                    std::option::Option::Some(Self::RELATED_ACCOUNTS_NUMBER_HIGH)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for AccountDefenderLabel {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AccountDefenderLabel {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for AccountDefenderLabel {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4068,43 +4409,64 @@ pub mod testing_options {
 
     /// Enum that represents the challenge option for challenge-based (CHECKBOX,
     /// INVISIBLE) testing keys.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TestingChallenge(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct TestingChallenge(i32);
 
     impl TestingChallenge {
-        /// Creates a new TestingChallenge instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [TestingChallenge](TestingChallenge)
-    pub mod testing_challenge {
-        use super::TestingChallenge;
-
         /// Perform the normal risk analysis and return either nocaptcha or a
         /// challenge depending on risk and trust factors.
-        pub const TESTING_CHALLENGE_UNSPECIFIED: TestingChallenge =
-            TestingChallenge::new("TESTING_CHALLENGE_UNSPECIFIED");
+        pub const TESTING_CHALLENGE_UNSPECIFIED: TestingChallenge = TestingChallenge::new(0);
 
         /// Challenge requests for this key always return a nocaptcha, which
         /// does not require a solution.
-        pub const NOCAPTCHA: TestingChallenge = TestingChallenge::new("NOCAPTCHA");
+        pub const NOCAPTCHA: TestingChallenge = TestingChallenge::new(1);
 
         /// Challenge requests for this key always return an unsolvable
         /// challenge.
-        pub const UNSOLVABLE_CHALLENGE: TestingChallenge =
-            TestingChallenge::new("UNSOLVABLE_CHALLENGE");
+        pub const UNSOLVABLE_CHALLENGE: TestingChallenge = TestingChallenge::new(2);
+
+        /// Creates a new TestingChallenge instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TESTING_CHALLENGE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NOCAPTCHA"),
+                2 => std::borrow::Cow::Borrowed("UNSOLVABLE_CHALLENGE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TESTING_CHALLENGE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TESTING_CHALLENGE_UNSPECIFIED)
+                }
+                "NOCAPTCHA" => std::option::Option::Some(Self::NOCAPTCHA),
+                "UNSOLVABLE_CHALLENGE" => std::option::Option::Some(Self::UNSOLVABLE_CHALLENGE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for TestingChallenge {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for TestingChallenge {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for TestingChallenge {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4201,91 +4563,137 @@ pub mod web_key_settings {
     use super::*;
 
     /// Enum that represents the integration types for web keys.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IntegrationType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct IntegrationType(i32);
 
     impl IntegrationType {
-        /// Creates a new IntegrationType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [IntegrationType](IntegrationType)
-    pub mod integration_type {
-        use super::IntegrationType;
-
         /// Default type that indicates this enum hasn't been specified. This is not
         /// a valid IntegrationType, one of the other types must be specified
         /// instead.
-        pub const INTEGRATION_TYPE_UNSPECIFIED: IntegrationType =
-            IntegrationType::new("INTEGRATION_TYPE_UNSPECIFIED");
+        pub const INTEGRATION_TYPE_UNSPECIFIED: IntegrationType = IntegrationType::new(0);
 
         /// Only used to produce scores. It doesn't display the "I'm not a robot"
         /// checkbox and never shows captcha challenges.
-        pub const SCORE: IntegrationType = IntegrationType::new("SCORE");
+        pub const SCORE: IntegrationType = IntegrationType::new(1);
 
         /// Displays the "I'm not a robot" checkbox and may show captcha challenges
         /// after it is checked.
-        pub const CHECKBOX: IntegrationType = IntegrationType::new("CHECKBOX");
+        pub const CHECKBOX: IntegrationType = IntegrationType::new(2);
 
         /// Doesn't display the "I'm not a robot" checkbox, but may show captcha
         /// challenges after risk analysis.
-        pub const INVISIBLE: IntegrationType = IntegrationType::new("INVISIBLE");
+        pub const INVISIBLE: IntegrationType = IntegrationType::new(3);
+
+        /// Creates a new IntegrationType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INTEGRATION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SCORE"),
+                2 => std::borrow::Cow::Borrowed("CHECKBOX"),
+                3 => std::borrow::Cow::Borrowed("INVISIBLE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INTEGRATION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::INTEGRATION_TYPE_UNSPECIFIED)
+                }
+                "SCORE" => std::option::Option::Some(Self::SCORE),
+                "CHECKBOX" => std::option::Option::Some(Self::CHECKBOX),
+                "INVISIBLE" => std::option::Option::Some(Self::INVISIBLE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for IntegrationType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for IntegrationType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for IntegrationType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Enum that represents the possible challenge frequency and difficulty
     /// configurations for a web key.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ChallengeSecurityPreference(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ChallengeSecurityPreference(i32);
 
     impl ChallengeSecurityPreference {
+        /// Default type that indicates this enum hasn't been specified.
+        pub const CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED: ChallengeSecurityPreference =
+            ChallengeSecurityPreference::new(0);
+
+        /// Key tends to show fewer and easier challenges.
+        pub const USABILITY: ChallengeSecurityPreference = ChallengeSecurityPreference::new(1);
+
+        /// Key tends to show balanced (in amount and difficulty) challenges.
+        pub const BALANCE: ChallengeSecurityPreference = ChallengeSecurityPreference::new(2);
+
+        /// Key tends to show more and harder challenges.
+        pub const SECURITY: ChallengeSecurityPreference = ChallengeSecurityPreference::new(3);
+
         /// Creates a new ChallengeSecurityPreference instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("USABILITY"),
+                2 => std::borrow::Cow::Borrowed("BALANCE"),
+                3 => std::borrow::Cow::Borrowed("SECURITY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED)
+                }
+                "USABILITY" => std::option::Option::Some(Self::USABILITY),
+                "BALANCE" => std::option::Option::Some(Self::BALANCE),
+                "SECURITY" => std::option::Option::Some(Self::SECURITY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ChallengeSecurityPreference](ChallengeSecurityPreference)
-    pub mod challenge_security_preference {
-        use super::ChallengeSecurityPreference;
-
-        /// Default type that indicates this enum hasn't been specified.
-        pub const CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED: ChallengeSecurityPreference =
-            ChallengeSecurityPreference::new("CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED");
-
-        /// Key tends to show fewer and easier challenges.
-        pub const USABILITY: ChallengeSecurityPreference =
-            ChallengeSecurityPreference::new("USABILITY");
-
-        /// Key tends to show balanced (in amount and difficulty) challenges.
-        pub const BALANCE: ChallengeSecurityPreference =
-            ChallengeSecurityPreference::new("BALANCE");
-
-        /// Key tends to show more and harder challenges.
-        pub const SECURITY: ChallengeSecurityPreference =
-            ChallengeSecurityPreference::new("SECURITY");
+    impl std::convert::From<i32> for ChallengeSecurityPreference {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ChallengeSecurityPreference {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ChallengeSecurityPreference {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -5450,9 +5858,9 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// identifier should correspond to a `hashed_account_id` provided in a
     /// previous `CreateAssessment` or `AnnotateAssessment` call. Either
     /// hashed_account_id or account_id must be set, but not both.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub hashed_account_id: bytes::Bytes,
+    pub hashed_account_id: ::bytes::Bytes,
 
     /// Optional. The maximum number of groups to return. The service might return
     /// fewer than this value. If unspecified, at most 50 groups are returned. The
@@ -5488,7 +5896,7 @@ impl SearchRelatedAccountGroupMembershipsRequest {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::SearchRelatedAccountGroupMembershipsRequest::hashed_account_id].
-    pub fn set_hashed_account_id<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
     }
@@ -5831,9 +6239,9 @@ pub struct RelatedAccountGroupMembership {
     /// The unique stable hashed account identifier of the member. The identifier
     /// corresponds to a `hashed_account_id` provided in a previous
     /// `CreateAssessment` or `AnnotateAssessment` call.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub hashed_account_id: bytes::Bytes,
+    pub hashed_account_id: ::bytes::Bytes,
 }
 
 impl RelatedAccountGroupMembership {
@@ -5854,7 +6262,7 @@ impl RelatedAccountGroupMembership {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::RelatedAccountGroupMembership::hashed_account_id].
-    pub fn set_hashed_account_id<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
     }
@@ -5948,88 +6356,142 @@ pub mod waf_settings {
 
     /// Supported WAF features. For more information, see
     /// <https://cloud.google.com/recaptcha/docs/usecase#comparison_of_features>.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WafFeature(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct WafFeature(i32);
 
     impl WafFeature {
-        /// Creates a new WafFeature instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [WafFeature](WafFeature)
-    pub mod waf_feature {
-        use super::WafFeature;
-
         /// Undefined feature.
-        pub const WAF_FEATURE_UNSPECIFIED: WafFeature = WafFeature::new("WAF_FEATURE_UNSPECIFIED");
+        pub const WAF_FEATURE_UNSPECIFIED: WafFeature = WafFeature::new(0);
 
         /// Redirects suspicious traffic to reCAPTCHA.
-        pub const CHALLENGE_PAGE: WafFeature = WafFeature::new("CHALLENGE_PAGE");
+        pub const CHALLENGE_PAGE: WafFeature = WafFeature::new(1);
 
         /// Use reCAPTCHA session-tokens to protect the whole user session on the
         /// site's domain.
-        pub const SESSION_TOKEN: WafFeature = WafFeature::new("SESSION_TOKEN");
+        pub const SESSION_TOKEN: WafFeature = WafFeature::new(2);
 
         /// Use reCAPTCHA action-tokens to protect user actions.
-        pub const ACTION_TOKEN: WafFeature = WafFeature::new("ACTION_TOKEN");
+        pub const ACTION_TOKEN: WafFeature = WafFeature::new(3);
 
         /// Use reCAPTCHA WAF express protection to protect any content other than
         /// web pages, like APIs and IoT devices.
-        pub const EXPRESS: WafFeature = WafFeature::new("EXPRESS");
+        pub const EXPRESS: WafFeature = WafFeature::new(5);
+
+        /// Creates a new WafFeature instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("WAF_FEATURE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CHALLENGE_PAGE"),
+                2 => std::borrow::Cow::Borrowed("SESSION_TOKEN"),
+                3 => std::borrow::Cow::Borrowed("ACTION_TOKEN"),
+                5 => std::borrow::Cow::Borrowed("EXPRESS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "WAF_FEATURE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::WAF_FEATURE_UNSPECIFIED)
+                }
+                "CHALLENGE_PAGE" => std::option::Option::Some(Self::CHALLENGE_PAGE),
+                "SESSION_TOKEN" => std::option::Option::Some(Self::SESSION_TOKEN),
+                "ACTION_TOKEN" => std::option::Option::Some(Self::ACTION_TOKEN),
+                "EXPRESS" => std::option::Option::Some(Self::EXPRESS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for WafFeature {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for WafFeature {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for WafFeature {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Web Application Firewalls supported by reCAPTCHA.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WafService(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct WafService(i32);
 
     impl WafService {
+        /// Undefined WAF
+        pub const WAF_SERVICE_UNSPECIFIED: WafService = WafService::new(0);
+
+        /// Cloud Armor
+        pub const CA: WafService = WafService::new(1);
+
+        /// Fastly
+        pub const FASTLY: WafService = WafService::new(3);
+
+        /// Cloudflare
+        pub const CLOUDFLARE: WafService = WafService::new(4);
+
+        /// Akamai
+        pub const AKAMAI: WafService = WafService::new(5);
+
         /// Creates a new WafService instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("WAF_SERVICE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CA"),
+                3 => std::borrow::Cow::Borrowed("FASTLY"),
+                4 => std::borrow::Cow::Borrowed("CLOUDFLARE"),
+                5 => std::borrow::Cow::Borrowed("AKAMAI"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "WAF_SERVICE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::WAF_SERVICE_UNSPECIFIED)
+                }
+                "CA" => std::option::Option::Some(Self::CA),
+                "FASTLY" => std::option::Option::Some(Self::FASTLY),
+                "CLOUDFLARE" => std::option::Option::Some(Self::CLOUDFLARE),
+                "AKAMAI" => std::option::Option::Some(Self::AKAMAI),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [WafService](WafService)
-    pub mod waf_service {
-        use super::WafService;
-
-        /// Undefined WAF
-        pub const WAF_SERVICE_UNSPECIFIED: WafService = WafService::new("WAF_SERVICE_UNSPECIFIED");
-
-        /// Cloud Armor
-        pub const CA: WafService = WafService::new("CA");
-
-        /// Fastly
-        pub const FASTLY: WafService = WafService::new("FASTLY");
-
-        /// Cloudflare
-        pub const CLOUDFLARE: WafService = WafService::new("CLOUDFLARE");
-
-        /// Akamai
-        pub const AKAMAI: WafService = WafService::new("AKAMAI");
+    impl std::convert::From<i32> for WafService {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for WafService {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for WafService {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -6136,37 +6598,57 @@ pub mod ip_override_data {
     use super::*;
 
     /// Enum that represents the type of IP override.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OverrideType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct OverrideType(i32);
 
     impl OverrideType {
-        /// Creates a new OverrideType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [OverrideType](OverrideType)
-    pub mod override_type {
-        use super::OverrideType;
-
         /// Default override type that indicates this enum hasn't been specified.
-        pub const OVERRIDE_TYPE_UNSPECIFIED: OverrideType =
-            OverrideType::new("OVERRIDE_TYPE_UNSPECIFIED");
+        pub const OVERRIDE_TYPE_UNSPECIFIED: OverrideType = OverrideType::new(0);
 
         /// Allowlist the IP address; i.e. give a `risk_analysis.score` of 0.9 for
         /// all valid assessments.
-        pub const ALLOW: OverrideType = OverrideType::new("ALLOW");
+        pub const ALLOW: OverrideType = OverrideType::new(1);
+
+        /// Creates a new OverrideType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("OVERRIDE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALLOW"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "OVERRIDE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::OVERRIDE_TYPE_UNSPECIFIED)
+                }
+                "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for OverrideType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for OverrideType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for OverrideType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

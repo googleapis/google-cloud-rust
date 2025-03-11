@@ -700,291 +700,465 @@ pub mod condition {
     use super::*;
 
     /// Represents the possible Condition states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// The default value. This value is used if the state is omitted.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Transient state: Reconciliation has not started yet.
+        pub const CONDITION_PENDING: State = State::new(1);
+
+        /// Transient state: reconciliation is still in progress.
+        pub const CONDITION_RECONCILING: State = State::new(2);
+
+        /// Terminal state: Reconciliation did not succeed.
+        pub const CONDITION_FAILED: State = State::new(3);
+
+        /// Terminal state: Reconciliation completed successfully.
+        pub const CONDITION_SUCCEEDED: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CONDITION_PENDING"),
+                2 => std::borrow::Cow::Borrowed("CONDITION_RECONCILING"),
+                3 => std::borrow::Cow::Borrowed("CONDITION_FAILED"),
+                4 => std::borrow::Cow::Borrowed("CONDITION_SUCCEEDED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CONDITION_PENDING" => std::option::Option::Some(Self::CONDITION_PENDING),
+                "CONDITION_RECONCILING" => std::option::Option::Some(Self::CONDITION_RECONCILING),
+                "CONDITION_FAILED" => std::option::Option::Some(Self::CONDITION_FAILED),
+                "CONDITION_SUCCEEDED" => std::option::Option::Some(Self::CONDITION_SUCCEEDED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Transient state: Reconciliation has not started yet.
-        pub const CONDITION_PENDING: State = State::new("CONDITION_PENDING");
-
-        /// Transient state: reconciliation is still in progress.
-        pub const CONDITION_RECONCILING: State = State::new("CONDITION_RECONCILING");
-
-        /// Terminal state: Reconciliation did not succeed.
-        pub const CONDITION_FAILED: State = State::new("CONDITION_FAILED");
-
-        /// Terminal state: Reconciliation completed successfully.
-        pub const CONDITION_SUCCEEDED: State = State::new("CONDITION_SUCCEEDED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Represents the severity of the condition failures.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Severity(i32);
 
     impl Severity {
+        /// Unspecified severity
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new(0);
+
+        /// Error severity.
+        pub const ERROR: Severity = Severity::new(1);
+
+        /// Warning severity.
+        pub const WARNING: Severity = Severity::new(2);
+
+        /// Info severity.
+        pub const INFO: Severity = Severity::new(3);
+
         /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ERROR"),
+                2 => std::borrow::Cow::Borrowed("WARNING"),
+                3 => std::borrow::Cow::Borrowed("INFO"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SEVERITY_UNSPECIFIED" => std::option::Option::Some(Self::SEVERITY_UNSPECIFIED),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                "INFO" => std::option::Option::Some(Self::INFO),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Severity](Severity)
-    pub mod severity {
-        use super::Severity;
-
-        /// Unspecified severity
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
-
-        /// Error severity.
-        pub const ERROR: Severity = Severity::new("ERROR");
-
-        /// Warning severity.
-        pub const WARNING: Severity = Severity::new("WARNING");
-
-        /// Info severity.
-        pub const INFO: Severity = Severity::new("INFO");
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Severity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Reasons common to all types of conditions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CommonReason(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct CommonReason(i32);
 
     impl CommonReason {
+        /// Default value.
+        pub const COMMON_REASON_UNDEFINED: CommonReason = CommonReason::new(0);
+
+        /// Reason unknown. Further details will be in message.
+        pub const UNKNOWN: CommonReason = CommonReason::new(1);
+
+        /// Revision creation process failed.
+        pub const REVISION_FAILED: CommonReason = CommonReason::new(3);
+
+        /// Timed out waiting for completion.
+        pub const PROGRESS_DEADLINE_EXCEEDED: CommonReason = CommonReason::new(4);
+
+        /// The container image path is incorrect.
+        pub const CONTAINER_MISSING: CommonReason = CommonReason::new(6);
+
+        /// Insufficient permissions on the container image.
+        pub const CONTAINER_PERMISSION_DENIED: CommonReason = CommonReason::new(7);
+
+        /// Container image is not authorized by policy.
+        pub const CONTAINER_IMAGE_UNAUTHORIZED: CommonReason = CommonReason::new(8);
+
+        /// Container image policy authorization check failed.
+        pub const CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED: CommonReason = CommonReason::new(9);
+
+        /// Insufficient permissions on encryption key.
+        pub const ENCRYPTION_KEY_PERMISSION_DENIED: CommonReason = CommonReason::new(10);
+
+        /// Permission check on encryption key failed.
+        pub const ENCRYPTION_KEY_CHECK_FAILED: CommonReason = CommonReason::new(11);
+
+        /// At least one Access check on secrets failed.
+        pub const SECRETS_ACCESS_CHECK_FAILED: CommonReason = CommonReason::new(12);
+
+        /// Waiting for operation to complete.
+        pub const WAITING_FOR_OPERATION: CommonReason = CommonReason::new(13);
+
+        /// System will retry immediately.
+        pub const IMMEDIATE_RETRY: CommonReason = CommonReason::new(14);
+
+        /// System will retry later; current attempt failed.
+        pub const POSTPONED_RETRY: CommonReason = CommonReason::new(15);
+
+        /// An internal error occurred. Further information may be in the message.
+        pub const INTERNAL: CommonReason = CommonReason::new(16);
+
         /// Creates a new CommonReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("COMMON_REASON_UNDEFINED"),
+                1 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                3 => std::borrow::Cow::Borrowed("REVISION_FAILED"),
+                4 => std::borrow::Cow::Borrowed("PROGRESS_DEADLINE_EXCEEDED"),
+                6 => std::borrow::Cow::Borrowed("CONTAINER_MISSING"),
+                7 => std::borrow::Cow::Borrowed("CONTAINER_PERMISSION_DENIED"),
+                8 => std::borrow::Cow::Borrowed("CONTAINER_IMAGE_UNAUTHORIZED"),
+                9 => std::borrow::Cow::Borrowed("CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED"),
+                10 => std::borrow::Cow::Borrowed("ENCRYPTION_KEY_PERMISSION_DENIED"),
+                11 => std::borrow::Cow::Borrowed("ENCRYPTION_KEY_CHECK_FAILED"),
+                12 => std::borrow::Cow::Borrowed("SECRETS_ACCESS_CHECK_FAILED"),
+                13 => std::borrow::Cow::Borrowed("WAITING_FOR_OPERATION"),
+                14 => std::borrow::Cow::Borrowed("IMMEDIATE_RETRY"),
+                15 => std::borrow::Cow::Borrowed("POSTPONED_RETRY"),
+                16 => std::borrow::Cow::Borrowed("INTERNAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "COMMON_REASON_UNDEFINED" => {
+                    std::option::Option::Some(Self::COMMON_REASON_UNDEFINED)
+                }
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "REVISION_FAILED" => std::option::Option::Some(Self::REVISION_FAILED),
+                "PROGRESS_DEADLINE_EXCEEDED" => {
+                    std::option::Option::Some(Self::PROGRESS_DEADLINE_EXCEEDED)
+                }
+                "CONTAINER_MISSING" => std::option::Option::Some(Self::CONTAINER_MISSING),
+                "CONTAINER_PERMISSION_DENIED" => {
+                    std::option::Option::Some(Self::CONTAINER_PERMISSION_DENIED)
+                }
+                "CONTAINER_IMAGE_UNAUTHORIZED" => {
+                    std::option::Option::Some(Self::CONTAINER_IMAGE_UNAUTHORIZED)
+                }
+                "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED" => {
+                    std::option::Option::Some(Self::CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED)
+                }
+                "ENCRYPTION_KEY_PERMISSION_DENIED" => {
+                    std::option::Option::Some(Self::ENCRYPTION_KEY_PERMISSION_DENIED)
+                }
+                "ENCRYPTION_KEY_CHECK_FAILED" => {
+                    std::option::Option::Some(Self::ENCRYPTION_KEY_CHECK_FAILED)
+                }
+                "SECRETS_ACCESS_CHECK_FAILED" => {
+                    std::option::Option::Some(Self::SECRETS_ACCESS_CHECK_FAILED)
+                }
+                "WAITING_FOR_OPERATION" => std::option::Option::Some(Self::WAITING_FOR_OPERATION),
+                "IMMEDIATE_RETRY" => std::option::Option::Some(Self::IMMEDIATE_RETRY),
+                "POSTPONED_RETRY" => std::option::Option::Some(Self::POSTPONED_RETRY),
+                "INTERNAL" => std::option::Option::Some(Self::INTERNAL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [CommonReason](CommonReason)
-    pub mod common_reason {
-        use super::CommonReason;
-
-        /// Default value.
-        pub const COMMON_REASON_UNDEFINED: CommonReason =
-            CommonReason::new("COMMON_REASON_UNDEFINED");
-
-        /// Reason unknown. Further details will be in message.
-        pub const UNKNOWN: CommonReason = CommonReason::new("UNKNOWN");
-
-        /// Revision creation process failed.
-        pub const REVISION_FAILED: CommonReason = CommonReason::new("REVISION_FAILED");
-
-        /// Timed out waiting for completion.
-        pub const PROGRESS_DEADLINE_EXCEEDED: CommonReason =
-            CommonReason::new("PROGRESS_DEADLINE_EXCEEDED");
-
-        /// The container image path is incorrect.
-        pub const CONTAINER_MISSING: CommonReason = CommonReason::new("CONTAINER_MISSING");
-
-        /// Insufficient permissions on the container image.
-        pub const CONTAINER_PERMISSION_DENIED: CommonReason =
-            CommonReason::new("CONTAINER_PERMISSION_DENIED");
-
-        /// Container image is not authorized by policy.
-        pub const CONTAINER_IMAGE_UNAUTHORIZED: CommonReason =
-            CommonReason::new("CONTAINER_IMAGE_UNAUTHORIZED");
-
-        /// Container image policy authorization check failed.
-        pub const CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED: CommonReason =
-            CommonReason::new("CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED");
-
-        /// Insufficient permissions on encryption key.
-        pub const ENCRYPTION_KEY_PERMISSION_DENIED: CommonReason =
-            CommonReason::new("ENCRYPTION_KEY_PERMISSION_DENIED");
-
-        /// Permission check on encryption key failed.
-        pub const ENCRYPTION_KEY_CHECK_FAILED: CommonReason =
-            CommonReason::new("ENCRYPTION_KEY_CHECK_FAILED");
-
-        /// At least one Access check on secrets failed.
-        pub const SECRETS_ACCESS_CHECK_FAILED: CommonReason =
-            CommonReason::new("SECRETS_ACCESS_CHECK_FAILED");
-
-        /// Waiting for operation to complete.
-        pub const WAITING_FOR_OPERATION: CommonReason = CommonReason::new("WAITING_FOR_OPERATION");
-
-        /// System will retry immediately.
-        pub const IMMEDIATE_RETRY: CommonReason = CommonReason::new("IMMEDIATE_RETRY");
-
-        /// System will retry later; current attempt failed.
-        pub const POSTPONED_RETRY: CommonReason = CommonReason::new("POSTPONED_RETRY");
-
-        /// An internal error occurred. Further information may be in the message.
-        pub const INTERNAL: CommonReason = CommonReason::new("INTERNAL");
+    impl std::convert::From<i32> for CommonReason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for CommonReason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for CommonReason {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Reasons specific to Revision resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RevisionReason(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RevisionReason(i32);
 
     impl RevisionReason {
-        /// Creates a new RevisionReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RevisionReason](RevisionReason)
-    pub mod revision_reason {
-        use super::RevisionReason;
-
         /// Default value.
-        pub const REVISION_REASON_UNDEFINED: RevisionReason =
-            RevisionReason::new("REVISION_REASON_UNDEFINED");
+        pub const REVISION_REASON_UNDEFINED: RevisionReason = RevisionReason::new(0);
 
         /// Revision in Pending state.
-        pub const PENDING: RevisionReason = RevisionReason::new("PENDING");
+        pub const PENDING: RevisionReason = RevisionReason::new(1);
 
         /// Revision is in Reserve state.
-        pub const RESERVE: RevisionReason = RevisionReason::new("RESERVE");
+        pub const RESERVE: RevisionReason = RevisionReason::new(2);
 
         /// Revision is Retired.
-        pub const RETIRED: RevisionReason = RevisionReason::new("RETIRED");
+        pub const RETIRED: RevisionReason = RevisionReason::new(3);
 
         /// Revision is being retired.
-        pub const RETIRING: RevisionReason = RevisionReason::new("RETIRING");
+        pub const RETIRING: RevisionReason = RevisionReason::new(4);
 
         /// Revision is being recreated.
-        pub const RECREATING: RevisionReason = RevisionReason::new("RECREATING");
+        pub const RECREATING: RevisionReason = RevisionReason::new(5);
 
         /// There was a health check error.
-        pub const HEALTH_CHECK_CONTAINER_ERROR: RevisionReason =
-            RevisionReason::new("HEALTH_CHECK_CONTAINER_ERROR");
+        pub const HEALTH_CHECK_CONTAINER_ERROR: RevisionReason = RevisionReason::new(6);
 
         /// Health check failed due to user error from customized path of the
         /// container. System will retry.
-        pub const CUSTOMIZED_PATH_RESPONSE_PENDING: RevisionReason =
-            RevisionReason::new("CUSTOMIZED_PATH_RESPONSE_PENDING");
+        pub const CUSTOMIZED_PATH_RESPONSE_PENDING: RevisionReason = RevisionReason::new(7);
 
         /// A revision with min_instance_count > 0 was created and is reserved, but
         /// it was not configured to serve traffic, so it's not live. This can also
         /// happen momentarily during traffic migration.
-        pub const MIN_INSTANCES_NOT_PROVISIONED: RevisionReason =
-            RevisionReason::new("MIN_INSTANCES_NOT_PROVISIONED");
+        pub const MIN_INSTANCES_NOT_PROVISIONED: RevisionReason = RevisionReason::new(8);
 
         /// The maximum allowed number of active revisions has been reached.
-        pub const ACTIVE_REVISION_LIMIT_REACHED: RevisionReason =
-            RevisionReason::new("ACTIVE_REVISION_LIMIT_REACHED");
+        pub const ACTIVE_REVISION_LIMIT_REACHED: RevisionReason = RevisionReason::new(9);
 
         /// There was no deployment defined.
         /// This value is no longer used, but Services created in older versions of
         /// the API might contain this value.
-        pub const NO_DEPLOYMENT: RevisionReason = RevisionReason::new("NO_DEPLOYMENT");
+        pub const NO_DEPLOYMENT: RevisionReason = RevisionReason::new(10);
 
         /// A revision's container has no port specified since the revision is of a
         /// manually scaled service with 0 instance count
-        pub const HEALTH_CHECK_SKIPPED: RevisionReason =
-            RevisionReason::new("HEALTH_CHECK_SKIPPED");
+        pub const HEALTH_CHECK_SKIPPED: RevisionReason = RevisionReason::new(11);
 
         /// A revision with min_instance_count > 0 was created and is waiting for
         /// enough instances to begin a traffic migration.
-        pub const MIN_INSTANCES_WARMING: RevisionReason =
-            RevisionReason::new("MIN_INSTANCES_WARMING");
+        pub const MIN_INSTANCES_WARMING: RevisionReason = RevisionReason::new(12);
+
+        /// Creates a new RevisionReason instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REVISION_REASON_UNDEFINED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("RESERVE"),
+                3 => std::borrow::Cow::Borrowed("RETIRED"),
+                4 => std::borrow::Cow::Borrowed("RETIRING"),
+                5 => std::borrow::Cow::Borrowed("RECREATING"),
+                6 => std::borrow::Cow::Borrowed("HEALTH_CHECK_CONTAINER_ERROR"),
+                7 => std::borrow::Cow::Borrowed("CUSTOMIZED_PATH_RESPONSE_PENDING"),
+                8 => std::borrow::Cow::Borrowed("MIN_INSTANCES_NOT_PROVISIONED"),
+                9 => std::borrow::Cow::Borrowed("ACTIVE_REVISION_LIMIT_REACHED"),
+                10 => std::borrow::Cow::Borrowed("NO_DEPLOYMENT"),
+                11 => std::borrow::Cow::Borrowed("HEALTH_CHECK_SKIPPED"),
+                12 => std::borrow::Cow::Borrowed("MIN_INSTANCES_WARMING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REVISION_REASON_UNDEFINED" => {
+                    std::option::Option::Some(Self::REVISION_REASON_UNDEFINED)
+                }
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "RESERVE" => std::option::Option::Some(Self::RESERVE),
+                "RETIRED" => std::option::Option::Some(Self::RETIRED),
+                "RETIRING" => std::option::Option::Some(Self::RETIRING),
+                "RECREATING" => std::option::Option::Some(Self::RECREATING),
+                "HEALTH_CHECK_CONTAINER_ERROR" => {
+                    std::option::Option::Some(Self::HEALTH_CHECK_CONTAINER_ERROR)
+                }
+                "CUSTOMIZED_PATH_RESPONSE_PENDING" => {
+                    std::option::Option::Some(Self::CUSTOMIZED_PATH_RESPONSE_PENDING)
+                }
+                "MIN_INSTANCES_NOT_PROVISIONED" => {
+                    std::option::Option::Some(Self::MIN_INSTANCES_NOT_PROVISIONED)
+                }
+                "ACTIVE_REVISION_LIMIT_REACHED" => {
+                    std::option::Option::Some(Self::ACTIVE_REVISION_LIMIT_REACHED)
+                }
+                "NO_DEPLOYMENT" => std::option::Option::Some(Self::NO_DEPLOYMENT),
+                "HEALTH_CHECK_SKIPPED" => std::option::Option::Some(Self::HEALTH_CHECK_SKIPPED),
+                "MIN_INSTANCES_WARMING" => std::option::Option::Some(Self::MIN_INSTANCES_WARMING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RevisionReason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RevisionReason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RevisionReason {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Reasons specific to Execution resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExecutionReason(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ExecutionReason(i32);
 
     impl ExecutionReason {
-        /// Creates a new ExecutionReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ExecutionReason](ExecutionReason)
-    pub mod execution_reason {
-        use super::ExecutionReason;
-
         /// Default value.
-        pub const EXECUTION_REASON_UNDEFINED: ExecutionReason =
-            ExecutionReason::new("EXECUTION_REASON_UNDEFINED");
+        pub const EXECUTION_REASON_UNDEFINED: ExecutionReason = ExecutionReason::new(0);
 
         /// Internal system error getting execution status. System will retry.
-        pub const JOB_STATUS_SERVICE_POLLING_ERROR: ExecutionReason =
-            ExecutionReason::new("JOB_STATUS_SERVICE_POLLING_ERROR");
+        pub const JOB_STATUS_SERVICE_POLLING_ERROR: ExecutionReason = ExecutionReason::new(1);
 
         /// A task reached its retry limit and the last attempt failed due to the
         /// user container exiting with a non-zero exit code.
-        pub const NON_ZERO_EXIT_CODE: ExecutionReason = ExecutionReason::new("NON_ZERO_EXIT_CODE");
+        pub const NON_ZERO_EXIT_CODE: ExecutionReason = ExecutionReason::new(2);
 
         /// The execution was cancelled by users.
-        pub const CANCELLED: ExecutionReason = ExecutionReason::new("CANCELLED");
+        pub const CANCELLED: ExecutionReason = ExecutionReason::new(3);
 
         /// The execution is in the process of being cancelled.
-        pub const CANCELLING: ExecutionReason = ExecutionReason::new("CANCELLING");
+        pub const CANCELLING: ExecutionReason = ExecutionReason::new(4);
 
         /// The execution was deleted.
-        pub const DELETED: ExecutionReason = ExecutionReason::new("DELETED");
+        pub const DELETED: ExecutionReason = ExecutionReason::new(5);
+
+        /// Creates a new ExecutionReason instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EXECUTION_REASON_UNDEFINED"),
+                1 => std::borrow::Cow::Borrowed("JOB_STATUS_SERVICE_POLLING_ERROR"),
+                2 => std::borrow::Cow::Borrowed("NON_ZERO_EXIT_CODE"),
+                3 => std::borrow::Cow::Borrowed("CANCELLED"),
+                4 => std::borrow::Cow::Borrowed("CANCELLING"),
+                5 => std::borrow::Cow::Borrowed("DELETED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EXECUTION_REASON_UNDEFINED" => {
+                    std::option::Option::Some(Self::EXECUTION_REASON_UNDEFINED)
+                }
+                "JOB_STATUS_SERVICE_POLLING_ERROR" => {
+                    std::option::Option::Some(Self::JOB_STATUS_SERVICE_POLLING_ERROR)
+                }
+                "NON_ZERO_EXIT_CODE" => std::option::Option::Some(Self::NON_ZERO_EXIT_CODE),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                "CANCELLING" => std::option::Option::Some(Self::CANCELLING),
+                "DELETED" => std::option::Option::Some(Self::DELETED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ExecutionReason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ExecutionReason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ExecutionReason {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
@@ -2803,50 +2977,76 @@ pub mod execution_reference {
     use super::*;
 
     /// Possible execution completion status.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CompletionStatus(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct CompletionStatus(i32);
 
     impl CompletionStatus {
+        /// The default value. This value is used if the state is omitted.
+        pub const COMPLETION_STATUS_UNSPECIFIED: CompletionStatus = CompletionStatus::new(0);
+
+        /// Job execution has succeeded.
+        pub const EXECUTION_SUCCEEDED: CompletionStatus = CompletionStatus::new(1);
+
+        /// Job execution has failed.
+        pub const EXECUTION_FAILED: CompletionStatus = CompletionStatus::new(2);
+
+        /// Job execution is running normally.
+        pub const EXECUTION_RUNNING: CompletionStatus = CompletionStatus::new(3);
+
+        /// Waiting for backing resources to be provisioned.
+        pub const EXECUTION_PENDING: CompletionStatus = CompletionStatus::new(4);
+
+        /// Job execution has been cancelled by the user.
+        pub const EXECUTION_CANCELLED: CompletionStatus = CompletionStatus::new(5);
+
         /// Creates a new CompletionStatus instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("COMPLETION_STATUS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("EXECUTION_SUCCEEDED"),
+                2 => std::borrow::Cow::Borrowed("EXECUTION_FAILED"),
+                3 => std::borrow::Cow::Borrowed("EXECUTION_RUNNING"),
+                4 => std::borrow::Cow::Borrowed("EXECUTION_PENDING"),
+                5 => std::borrow::Cow::Borrowed("EXECUTION_CANCELLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "COMPLETION_STATUS_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::COMPLETION_STATUS_UNSPECIFIED)
+                }
+                "EXECUTION_SUCCEEDED" => std::option::Option::Some(Self::EXECUTION_SUCCEEDED),
+                "EXECUTION_FAILED" => std::option::Option::Some(Self::EXECUTION_FAILED),
+                "EXECUTION_RUNNING" => std::option::Option::Some(Self::EXECUTION_RUNNING),
+                "EXECUTION_PENDING" => std::option::Option::Some(Self::EXECUTION_PENDING),
+                "EXECUTION_CANCELLED" => std::option::Option::Some(Self::EXECUTION_CANCELLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [CompletionStatus](CompletionStatus)
-    pub mod completion_status {
-        use super::CompletionStatus;
-
-        /// The default value. This value is used if the state is omitted.
-        pub const COMPLETION_STATUS_UNSPECIFIED: CompletionStatus =
-            CompletionStatus::new("COMPLETION_STATUS_UNSPECIFIED");
-
-        /// Job execution has succeeded.
-        pub const EXECUTION_SUCCEEDED: CompletionStatus =
-            CompletionStatus::new("EXECUTION_SUCCEEDED");
-
-        /// Job execution has failed.
-        pub const EXECUTION_FAILED: CompletionStatus = CompletionStatus::new("EXECUTION_FAILED");
-
-        /// Job execution is running normally.
-        pub const EXECUTION_RUNNING: CompletionStatus = CompletionStatus::new("EXECUTION_RUNNING");
-
-        /// Waiting for backing resources to be provisioned.
-        pub const EXECUTION_PENDING: CompletionStatus = CompletionStatus::new("EXECUTION_PENDING");
-
-        /// Job execution has been cancelled by the user.
-        pub const EXECUTION_CANCELLED: CompletionStatus =
-            CompletionStatus::new("EXECUTION_CANCELLED");
+    impl std::convert::From<i32> for CompletionStatus {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for CompletionStatus {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for CompletionStatus {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3844,36 +4044,55 @@ pub mod empty_dir_volume_source {
     use super::*;
 
     /// The different types of medium supported for EmptyDir.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Medium(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Medium(i32);
 
     impl Medium {
+        /// When not specified, falls back to the default implementation which
+        /// is currently in memory (this may change over time).
+        pub const MEDIUM_UNSPECIFIED: Medium = Medium::new(0);
+
+        /// Explicitly set the EmptyDir to be in memory. Uses tmpfs.
+        pub const MEMORY: Medium = Medium::new(1);
+
         /// Creates a new Medium instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MEDIUM_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MEMORY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MEDIUM_UNSPECIFIED" => std::option::Option::Some(Self::MEDIUM_UNSPECIFIED),
+                "MEMORY" => std::option::Option::Some(Self::MEMORY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Medium](Medium)
-    pub mod medium {
-        use super::Medium;
-
-        /// When not specified, falls back to the default implementation which
-        /// is currently in memory (this may change over time).
-        pub const MEDIUM_UNSPECIFIED: Medium = Medium::new("MEDIUM_UNSPECIFIED");
-
-        /// Explicitly set the EmptyDir to be in memory. Uses tmpfs.
-        pub const MEMORY: Medium = Medium::new("MEMORY");
+    impl std::convert::From<i32> for Medium {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Medium {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Medium {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7243,38 +7462,59 @@ pub mod vpc_access {
     }
 
     /// Egress options for VPC access.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VpcEgress(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct VpcEgress(i32);
 
     impl VpcEgress {
+        /// Unspecified
+        pub const VPC_EGRESS_UNSPECIFIED: VpcEgress = VpcEgress::new(0);
+
+        /// All outbound traffic is routed through the VPC connector.
+        pub const ALL_TRAFFIC: VpcEgress = VpcEgress::new(1);
+
+        /// Only private IP ranges are routed through the VPC connector.
+        pub const PRIVATE_RANGES_ONLY: VpcEgress = VpcEgress::new(2);
+
         /// Creates a new VpcEgress instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("VPC_EGRESS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALL_TRAFFIC"),
+                2 => std::borrow::Cow::Borrowed("PRIVATE_RANGES_ONLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "VPC_EGRESS_UNSPECIFIED" => std::option::Option::Some(Self::VPC_EGRESS_UNSPECIFIED),
+                "ALL_TRAFFIC" => std::option::Option::Some(Self::ALL_TRAFFIC),
+                "PRIVATE_RANGES_ONLY" => std::option::Option::Some(Self::PRIVATE_RANGES_ONLY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [VpcEgress](VpcEgress)
-    pub mod vpc_egress {
-        use super::VpcEgress;
-
-        /// Unspecified
-        pub const VPC_EGRESS_UNSPECIFIED: VpcEgress = VpcEgress::new("VPC_EGRESS_UNSPECIFIED");
-
-        /// All outbound traffic is routed through the VPC connector.
-        pub const ALL_TRAFFIC: VpcEgress = VpcEgress::new("ALL_TRAFFIC");
-
-        /// Only private IP ranges are routed through the VPC connector.
-        pub const PRIVATE_RANGES_ONLY: VpcEgress = VpcEgress::new("PRIVATE_RANGES_ONLY");
+    impl std::convert::From<i32> for VpcEgress {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for VpcEgress {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for VpcEgress {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7534,39 +7774,61 @@ pub mod service_scaling {
 
     /// The scaling mode for the service. If not provided, it defaults to
     /// AUTOMATIC.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ScalingMode(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ScalingMode(i32);
 
     impl ScalingMode {
+        /// Unspecified.
+        pub const SCALING_MODE_UNSPECIFIED: ScalingMode = ScalingMode::new(0);
+
+        /// Scale based on traffic between min and max instances.
+        pub const AUTOMATIC: ScalingMode = ScalingMode::new(1);
+
+        /// Scale to exactly min instances and ignore max instances.
+        pub const MANUAL: ScalingMode = ScalingMode::new(2);
+
         /// Creates a new ScalingMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SCALING_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AUTOMATIC"),
+                2 => std::borrow::Cow::Borrowed("MANUAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SCALING_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SCALING_MODE_UNSPECIFIED)
+                }
+                "AUTOMATIC" => std::option::Option::Some(Self::AUTOMATIC),
+                "MANUAL" => std::option::Option::Some(Self::MANUAL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ScalingMode](ScalingMode)
-    pub mod scaling_mode {
-        use super::ScalingMode;
-
-        /// Unspecified.
-        pub const SCALING_MODE_UNSPECIFIED: ScalingMode =
-            ScalingMode::new("SCALING_MODE_UNSPECIFIED");
-
-        /// Scale based on traffic between min and max instances.
-        pub const AUTOMATIC: ScalingMode = ScalingMode::new("AUTOMATIC");
-
-        /// Scale to exactly min instances and ignore max instances.
-        pub const MANUAL: ScalingMode = ScalingMode::new("MANUAL");
+    impl std::convert::From<i32> for ScalingMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ScalingMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ScalingMode {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7728,163 +7990,264 @@ impl wkt::message::Message for BuildConfig {
 }
 
 /// The type of instance allocation.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TrafficTargetAllocationType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct TrafficTargetAllocationType(i32);
 
 impl TrafficTargetAllocationType {
-    /// Creates a new TrafficTargetAllocationType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [TrafficTargetAllocationType](TrafficTargetAllocationType)
-pub mod traffic_target_allocation_type {
-    use super::TrafficTargetAllocationType;
-
     /// Unspecified instance allocation type.
     pub const TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED: TrafficTargetAllocationType =
-        TrafficTargetAllocationType::new("TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED");
+        TrafficTargetAllocationType::new(0);
 
     /// Allocates instances to the Service's latest ready Revision.
     pub const TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST: TrafficTargetAllocationType =
-        TrafficTargetAllocationType::new("TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST");
+        TrafficTargetAllocationType::new(1);
 
     /// Allocates instances to a Revision by name.
     pub const TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION: TrafficTargetAllocationType =
-        TrafficTargetAllocationType::new("TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION");
+        TrafficTargetAllocationType::new(2);
+
+    /// Creates a new TrafficTargetAllocationType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST"),
+            2 => std::borrow::Cow::Borrowed("TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED)
+            }
+            "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST" => {
+                std::option::Option::Some(Self::TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST)
+            }
+            "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION" => {
+                std::option::Option::Some(Self::TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for TrafficTargetAllocationType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for TrafficTargetAllocationType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for TrafficTargetAllocationType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Allowed ingress traffic for the Container.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct IngressTraffic(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct IngressTraffic(i32);
 
 impl IngressTraffic {
+    /// Unspecified
+    pub const INGRESS_TRAFFIC_UNSPECIFIED: IngressTraffic = IngressTraffic::new(0);
+
+    /// All inbound traffic is allowed.
+    pub const INGRESS_TRAFFIC_ALL: IngressTraffic = IngressTraffic::new(1);
+
+    /// Only internal traffic is allowed.
+    pub const INGRESS_TRAFFIC_INTERNAL_ONLY: IngressTraffic = IngressTraffic::new(2);
+
+    /// Both internal and Google Cloud Load Balancer traffic is allowed.
+    pub const INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER: IngressTraffic = IngressTraffic::new(3);
+
+    /// No ingress traffic is allowed.
+    pub const INGRESS_TRAFFIC_NONE: IngressTraffic = IngressTraffic::new(4);
+
     /// Creates a new IngressTraffic instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("INGRESS_TRAFFIC_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("INGRESS_TRAFFIC_ALL"),
+            2 => std::borrow::Cow::Borrowed("INGRESS_TRAFFIC_INTERNAL_ONLY"),
+            3 => std::borrow::Cow::Borrowed("INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"),
+            4 => std::borrow::Cow::Borrowed("INGRESS_TRAFFIC_NONE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "INGRESS_TRAFFIC_UNSPECIFIED" => {
+                std::option::Option::Some(Self::INGRESS_TRAFFIC_UNSPECIFIED)
+            }
+            "INGRESS_TRAFFIC_ALL" => std::option::Option::Some(Self::INGRESS_TRAFFIC_ALL),
+            "INGRESS_TRAFFIC_INTERNAL_ONLY" => {
+                std::option::Option::Some(Self::INGRESS_TRAFFIC_INTERNAL_ONLY)
+            }
+            "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER" => {
+                std::option::Option::Some(Self::INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER)
+            }
+            "INGRESS_TRAFFIC_NONE" => std::option::Option::Some(Self::INGRESS_TRAFFIC_NONE),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [IngressTraffic](IngressTraffic)
-pub mod ingress_traffic {
-    use super::IngressTraffic;
-
-    /// Unspecified
-    pub const INGRESS_TRAFFIC_UNSPECIFIED: IngressTraffic =
-        IngressTraffic::new("INGRESS_TRAFFIC_UNSPECIFIED");
-
-    /// All inbound traffic is allowed.
-    pub const INGRESS_TRAFFIC_ALL: IngressTraffic = IngressTraffic::new("INGRESS_TRAFFIC_ALL");
-
-    /// Only internal traffic is allowed.
-    pub const INGRESS_TRAFFIC_INTERNAL_ONLY: IngressTraffic =
-        IngressTraffic::new("INGRESS_TRAFFIC_INTERNAL_ONLY");
-
-    /// Both internal and Google Cloud Load Balancer traffic is allowed.
-    pub const INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER: IngressTraffic =
-        IngressTraffic::new("INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER");
-
-    /// No ingress traffic is allowed.
-    pub const INGRESS_TRAFFIC_NONE: IngressTraffic = IngressTraffic::new("INGRESS_TRAFFIC_NONE");
+impl std::convert::From<i32> for IngressTraffic {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for IngressTraffic {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for IngressTraffic {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Alternatives for execution environments.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ExecutionEnvironment(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ExecutionEnvironment(i32);
 
 impl ExecutionEnvironment {
+    /// Unspecified
+    pub const EXECUTION_ENVIRONMENT_UNSPECIFIED: ExecutionEnvironment =
+        ExecutionEnvironment::new(0);
+
+    /// Uses the First Generation environment.
+    pub const EXECUTION_ENVIRONMENT_GEN1: ExecutionEnvironment = ExecutionEnvironment::new(1);
+
+    /// Uses Second Generation environment.
+    pub const EXECUTION_ENVIRONMENT_GEN2: ExecutionEnvironment = ExecutionEnvironment::new(2);
+
     /// Creates a new ExecutionEnvironment instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("EXECUTION_ENVIRONMENT_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("EXECUTION_ENVIRONMENT_GEN1"),
+            2 => std::borrow::Cow::Borrowed("EXECUTION_ENVIRONMENT_GEN2"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "EXECUTION_ENVIRONMENT_UNSPECIFIED" => {
+                std::option::Option::Some(Self::EXECUTION_ENVIRONMENT_UNSPECIFIED)
+            }
+            "EXECUTION_ENVIRONMENT_GEN1" => {
+                std::option::Option::Some(Self::EXECUTION_ENVIRONMENT_GEN1)
+            }
+            "EXECUTION_ENVIRONMENT_GEN2" => {
+                std::option::Option::Some(Self::EXECUTION_ENVIRONMENT_GEN2)
+            }
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ExecutionEnvironment](ExecutionEnvironment)
-pub mod execution_environment {
-    use super::ExecutionEnvironment;
-
-    /// Unspecified
-    pub const EXECUTION_ENVIRONMENT_UNSPECIFIED: ExecutionEnvironment =
-        ExecutionEnvironment::new("EXECUTION_ENVIRONMENT_UNSPECIFIED");
-
-    /// Uses the First Generation environment.
-    pub const EXECUTION_ENVIRONMENT_GEN1: ExecutionEnvironment =
-        ExecutionEnvironment::new("EXECUTION_ENVIRONMENT_GEN1");
-
-    /// Uses Second Generation environment.
-    pub const EXECUTION_ENVIRONMENT_GEN2: ExecutionEnvironment =
-        ExecutionEnvironment::new("EXECUTION_ENVIRONMENT_GEN2");
+impl std::convert::From<i32> for ExecutionEnvironment {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for ExecutionEnvironment {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for ExecutionEnvironment {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Specifies behavior if an encryption key used by a resource is revoked.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EncryptionKeyRevocationAction(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct EncryptionKeyRevocationAction(i32);
 
 impl EncryptionKeyRevocationAction {
+    /// Unspecified
+    pub const ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED: EncryptionKeyRevocationAction =
+        EncryptionKeyRevocationAction::new(0);
+
+    /// Prevents the creation of new instances.
+    pub const PREVENT_NEW: EncryptionKeyRevocationAction = EncryptionKeyRevocationAction::new(1);
+
+    /// Shuts down existing instances, and prevents creation of new ones.
+    pub const SHUTDOWN: EncryptionKeyRevocationAction = EncryptionKeyRevocationAction::new(2);
+
     /// Creates a new EncryptionKeyRevocationAction instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("PREVENT_NEW"),
+            2 => std::borrow::Cow::Borrowed("SHUTDOWN"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED" => {
+                std::option::Option::Some(Self::ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED)
+            }
+            "PREVENT_NEW" => std::option::Option::Some(Self::PREVENT_NEW),
+            "SHUTDOWN" => std::option::Option::Some(Self::SHUTDOWN),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [EncryptionKeyRevocationAction](EncryptionKeyRevocationAction)
-pub mod encryption_key_revocation_action {
-    use super::EncryptionKeyRevocationAction;
-
-    /// Unspecified
-    pub const ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED: EncryptionKeyRevocationAction =
-        EncryptionKeyRevocationAction::new("ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED");
-
-    /// Prevents the creation of new instances.
-    pub const PREVENT_NEW: EncryptionKeyRevocationAction =
-        EncryptionKeyRevocationAction::new("PREVENT_NEW");
-
-    /// Shuts down existing instances, and prevents creation of new ones.
-    pub const SHUTDOWN: EncryptionKeyRevocationAction =
-        EncryptionKeyRevocationAction::new("SHUTDOWN");
+impl std::convert::From<i32> for EncryptionKeyRevocationAction {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for EncryptionKeyRevocationAction {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for EncryptionKeyRevocationAction {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

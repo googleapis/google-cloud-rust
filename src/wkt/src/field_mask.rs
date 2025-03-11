@@ -247,8 +247,12 @@ pub struct FieldMask {
 
 impl FieldMask {
     /// Set the paths.
-    pub fn set_paths(mut self, paths: Vec<String>) -> Self {
-        self.paths = paths;
+    pub fn set_paths<T, V>(mut self, paths: T) -> Self
+    where
+        T: IntoIterator<Item = V>,
+        V: Into<String>,
+    {
+        self.paths = paths.into_iter().map(|v| v.into()).collect();
         self
     }
 }
@@ -312,9 +316,7 @@ mod test {
     #[test_case(vec!["field1"], "field1"; "Serialize single")]
     #[test_case(vec!["field1", "field2", "field3"], "field1,field2,field3"; "Serialize multiple")]
     fn test_serialize(paths: Vec<&str>, want: &str) -> Result {
-        let value = serde_json::to_value(FieldMask {
-            paths: paths.into_iter().map(str::to_string).collect(),
-        })?;
+        let value = serde_json::to_value(FieldMask::default().set_paths(paths))?;
         let got = value
             .get("paths")
             .ok_or("missing paths")?

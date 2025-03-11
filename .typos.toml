@@ -70,9 +70,6 @@ ceritificate = "ceritificate"
 desitination = "desitination"
 orgnization  = "orgnization"
 partitoned   = "partitoned"
-# src/generated/cloud/confidentialcomputing/v1 has a typo, it needs to be fixed
-# upstream.
-plaform = "plaform"
 # src/generated/cloud/config/v1 has a typo, it needs to be fixed upstream.
 identifiy = "identifiy"
 # src/generated/cloud/dataproc/v1, has some typos, they need to be fixed upstream.
@@ -108,25 +105,20 @@ Underlaying = "Underlaying"
 aplies      = "aplies"
 # src/generated/cloud/dialogflow/cx/v3 has typos, they need to be fixed
 # upstream.
-evalauted     = "evalauted"
-sensitivy     = "sensitivy"
-specifictions = "specifictions"
-verion        = "verion"
-# src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere
-# seems too broad.
-evalution = "evalution"
-resonably = "resonably"
-tooks     = "tooks"
+verion = "verion"
 # src/generated/cloud/discoveryengine/v1 has typos, they need to be fixed
 # upstream.
 asscociated = "asscociated"
 launguage   = "launguage"
 simliar     = "simliar"
 inputed     = "inputed"     # probably mean input-ed
+maxiumn     = "maxiumn"
 # src/generated/cloud/edgenetwork/v1 has a typo, it needs to be fixed upstream.
 diagnositcs = "diagnositcs"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
+# src/generated/cloud/financialservices/v1 has a typo, it needs to be fixed upstream.
+woud = "woud"
 # src/generated/cloud/gkebackup/v1 has a typo, it needs to be fixed upstream.
 everyting = "everyting"
 # src/generated/cloud/gkemulticloud/v1 has a typo, it needs to be fixed
@@ -145,6 +137,9 @@ Insepction = "Insepction"
 # src/generated/cloud/networkconnectivity has a typo, it needs to be fixed
 # upstream.
 flexibile = "flexibile"
+# src/generated/cloud/networkservices/v1 has a typo, it needs to be fixed
+# upstream.
+forwareded = "forwareded"
 # src/generated/cloud/notebooks/v2 has a typo, it needs to be fixed upstream.
 maxmium = "maxmium"
 # src/generated/cloud/netapp/v1 has a typo, it needs to be fixed upstream.
@@ -158,6 +153,9 @@ supercedes = "supercedes"
 # src/generated/cloud/orchestration/airflow/service/v1 has a typo, it needs to
 # be fixed upstream.
 specifc = "specifc"
+# src/generated/cloud/parametermanager/v1 has a typo, it needs to be fixed
+# upstream.
+substituion = "substituion"
 # src/generated/cloud/rapidmigrationassessment/v1 has a typo, it needs to be
 # fixed upstream
 thorugh = "thorugh"
@@ -170,6 +168,8 @@ wil    = "wil"
 goig   = "goig"
 sesion = "sesion"
 overal = "overal"
+# Newly caught
+specifictions = "specifictions"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
 # src/generated/cloud/securesourcemanager/v1 has some typos, they need to be
@@ -220,6 +220,10 @@ combintation = "combintation"
 # true positives
 [type.rust]
 extend-ignore-re = [
+  # This is intentional, `typ` is the name of a field in OAuth2 claims:
+  "\"typ\"",
+  "\\Wtyp:",
+  "test_typ\"",
   # src/generated/cloud/aiplatform has a typo in the code. Won't be fixed.
   # Seems too risky to ignore the word, a RE seems cleaner
   "CheckTrialEarlyStoppingStateMetatdata",
@@ -243,6 +247,8 @@ extend-ignore-re = [
   # src/generated/cloud/dialogflow/v2 uses enums that look like typos.
   "GOST R 34",
   "GOST3411",
+  # src/generated/cloud/firestore has a typo, needs to be fixed upstream.
+  "`TargetChage\\.",
   # src/generated/cloud/gkemulticloud/v1 uses AKS as an acronym.
   "\\WAKS\\W",
   "\\Waks\\W",

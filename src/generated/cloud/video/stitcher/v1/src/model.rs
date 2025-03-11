@@ -469,9 +469,9 @@ pub mod cdn_key {
 #[non_exhaustive]
 pub struct GoogleCdnKey {
     /// Input only. Secret for this Google Cloud CDN key.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub private_key: bytes::Bytes,
+    pub private_key: ::bytes::Bytes,
 
     /// The public name of the Google Cloud CDN key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -484,7 +484,7 @@ impl GoogleCdnKey {
     }
 
     /// Sets the value of [private_key][crate::model::GoogleCdnKey::private_key].
-    pub fn set_private_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_private_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.private_key = v.into();
         self
     }
@@ -509,9 +509,9 @@ impl wkt::message::Message for GoogleCdnKey {
 #[non_exhaustive]
 pub struct AkamaiCdnKey {
     /// Input only. Token key for the Akamai CDN edge configuration.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub token_key: bytes::Bytes,
+    pub token_key: ::bytes::Bytes,
 }
 
 impl AkamaiCdnKey {
@@ -520,7 +520,7 @@ impl AkamaiCdnKey {
     }
 
     /// Sets the value of [token_key][crate::model::AkamaiCdnKey::token_key].
-    pub fn set_token_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_token_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.token_key = v.into();
         self
     }
@@ -539,9 +539,9 @@ impl wkt::message::Message for AkamaiCdnKey {
 #[non_exhaustive]
 pub struct MediaCdnKey {
     /// Input only. 64-byte ed25519 private key for this Media CDN key.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub private_key: bytes::Bytes,
+    pub private_key: ::bytes::Bytes,
 
     /// The keyset name of the Media CDN key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -559,7 +559,7 @@ impl MediaCdnKey {
     }
 
     /// Sets the value of [private_key][crate::model::MediaCdnKey::private_key].
-    pub fn set_private_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_private_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.private_key = v.into();
         self
     }
@@ -687,42 +687,66 @@ pub mod companion_ads {
     use super::*;
 
     /// Indicates how many of the companions should be displayed with the ad.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DisplayRequirement(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DisplayRequirement(i32);
 
     impl DisplayRequirement {
+        /// Required companions are not specified. The default is ALL.
+        pub const DISPLAY_REQUIREMENT_UNSPECIFIED: DisplayRequirement = DisplayRequirement::new(0);
+
+        /// All companions are required to be displayed.
+        pub const ALL: DisplayRequirement = DisplayRequirement::new(1);
+
+        /// At least one of companions needs to be displayed.
+        pub const ANY: DisplayRequirement = DisplayRequirement::new(2);
+
+        /// All companions are optional for display.
+        pub const NONE: DisplayRequirement = DisplayRequirement::new(3);
+
         /// Creates a new DisplayRequirement instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DISPLAY_REQUIREMENT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALL"),
+                2 => std::borrow::Cow::Borrowed("ANY"),
+                3 => std::borrow::Cow::Borrowed("NONE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DISPLAY_REQUIREMENT_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DISPLAY_REQUIREMENT_UNSPECIFIED)
+                }
+                "ALL" => std::option::Option::Some(Self::ALL),
+                "ANY" => std::option::Option::Some(Self::ANY),
+                "NONE" => std::option::Option::Some(Self::NONE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [DisplayRequirement](DisplayRequirement)
-    pub mod display_requirement {
-        use super::DisplayRequirement;
-
-        /// Required companions are not specified. The default is ALL.
-        pub const DISPLAY_REQUIREMENT_UNSPECIFIED: DisplayRequirement =
-            DisplayRequirement::new("DISPLAY_REQUIREMENT_UNSPECIFIED");
-
-        /// All companions are required to be displayed.
-        pub const ALL: DisplayRequirement = DisplayRequirement::new("ALL");
-
-        /// At least one of companions needs to be displayed.
-        pub const ANY: DisplayRequirement = DisplayRequirement::new("ANY");
-
-        /// All companions are optional for display.
-        pub const NONE: DisplayRequirement = DisplayRequirement::new("NONE");
+    impl std::convert::From<i32> for DisplayRequirement {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for DisplayRequirement {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for DisplayRequirement {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1130,104 +1154,169 @@ pub mod event {
     use super::*;
 
     /// Describes the event that occurred.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct EventType(i32);
 
     impl EventType {
+        /// The event type is unspecified.
+        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new(0);
+
+        /// First frame of creative ad viewed.
+        pub const CREATIVE_VIEW: EventType = EventType::new(1);
+
+        /// Creative ad started.
+        pub const START: EventType = EventType::new(2);
+
+        /// Start of an ad break.
+        pub const BREAK_START: EventType = EventType::new(3);
+
+        /// End of an ad break.
+        pub const BREAK_END: EventType = EventType::new(4);
+
+        /// Impression.
+        pub const IMPRESSION: EventType = EventType::new(5);
+
+        /// First quartile progress.
+        pub const FIRST_QUARTILE: EventType = EventType::new(6);
+
+        /// Midpoint progress.
+        pub const MIDPOINT: EventType = EventType::new(7);
+
+        /// Third quartile progress.
+        pub const THIRD_QUARTILE: EventType = EventType::new(8);
+
+        /// Ad progress completed.
+        pub const COMPLETE: EventType = EventType::new(9);
+
+        /// Specific progress event with an offset.
+        pub const PROGRESS: EventType = EventType::new(10);
+
+        /// Player muted.
+        pub const MUTE: EventType = EventType::new(11);
+
+        /// Player unmuted.
+        pub const UNMUTE: EventType = EventType::new(12);
+
+        /// Player paused.
+        pub const PAUSE: EventType = EventType::new(13);
+
+        /// Click event.
+        pub const CLICK: EventType = EventType::new(14);
+
+        /// Click-through event.
+        pub const CLICK_THROUGH: EventType = EventType::new(15);
+
+        /// Player rewinding.
+        pub const REWIND: EventType = EventType::new(16);
+
+        /// Player resumed.
+        pub const RESUME: EventType = EventType::new(17);
+
+        /// Error event.
+        pub const ERROR: EventType = EventType::new(18);
+
+        /// Ad expanded to a larger size.
+        pub const EXPAND: EventType = EventType::new(21);
+
+        /// Ad collapsed to a smaller size.
+        pub const COLLAPSE: EventType = EventType::new(22);
+
+        /// Non-linear ad closed.
+        pub const CLOSE: EventType = EventType::new(24);
+
+        /// Linear ad closed.
+        pub const CLOSE_LINEAR: EventType = EventType::new(25);
+
+        /// Ad skipped.
+        pub const SKIP: EventType = EventType::new(26);
+
+        /// Accept invitation event.
+        pub const ACCEPT_INVITATION: EventType = EventType::new(27);
+
         /// Creates a new EventType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EVENT_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATIVE_VIEW"),
+                2 => std::borrow::Cow::Borrowed("START"),
+                3 => std::borrow::Cow::Borrowed("BREAK_START"),
+                4 => std::borrow::Cow::Borrowed("BREAK_END"),
+                5 => std::borrow::Cow::Borrowed("IMPRESSION"),
+                6 => std::borrow::Cow::Borrowed("FIRST_QUARTILE"),
+                7 => std::borrow::Cow::Borrowed("MIDPOINT"),
+                8 => std::borrow::Cow::Borrowed("THIRD_QUARTILE"),
+                9 => std::borrow::Cow::Borrowed("COMPLETE"),
+                10 => std::borrow::Cow::Borrowed("PROGRESS"),
+                11 => std::borrow::Cow::Borrowed("MUTE"),
+                12 => std::borrow::Cow::Borrowed("UNMUTE"),
+                13 => std::borrow::Cow::Borrowed("PAUSE"),
+                14 => std::borrow::Cow::Borrowed("CLICK"),
+                15 => std::borrow::Cow::Borrowed("CLICK_THROUGH"),
+                16 => std::borrow::Cow::Borrowed("REWIND"),
+                17 => std::borrow::Cow::Borrowed("RESUME"),
+                18 => std::borrow::Cow::Borrowed("ERROR"),
+                21 => std::borrow::Cow::Borrowed("EXPAND"),
+                22 => std::borrow::Cow::Borrowed("COLLAPSE"),
+                24 => std::borrow::Cow::Borrowed("CLOSE"),
+                25 => std::borrow::Cow::Borrowed("CLOSE_LINEAR"),
+                26 => std::borrow::Cow::Borrowed("SKIP"),
+                27 => std::borrow::Cow::Borrowed("ACCEPT_INVITATION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EVENT_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::EVENT_TYPE_UNSPECIFIED),
+                "CREATIVE_VIEW" => std::option::Option::Some(Self::CREATIVE_VIEW),
+                "START" => std::option::Option::Some(Self::START),
+                "BREAK_START" => std::option::Option::Some(Self::BREAK_START),
+                "BREAK_END" => std::option::Option::Some(Self::BREAK_END),
+                "IMPRESSION" => std::option::Option::Some(Self::IMPRESSION),
+                "FIRST_QUARTILE" => std::option::Option::Some(Self::FIRST_QUARTILE),
+                "MIDPOINT" => std::option::Option::Some(Self::MIDPOINT),
+                "THIRD_QUARTILE" => std::option::Option::Some(Self::THIRD_QUARTILE),
+                "COMPLETE" => std::option::Option::Some(Self::COMPLETE),
+                "PROGRESS" => std::option::Option::Some(Self::PROGRESS),
+                "MUTE" => std::option::Option::Some(Self::MUTE),
+                "UNMUTE" => std::option::Option::Some(Self::UNMUTE),
+                "PAUSE" => std::option::Option::Some(Self::PAUSE),
+                "CLICK" => std::option::Option::Some(Self::CLICK),
+                "CLICK_THROUGH" => std::option::Option::Some(Self::CLICK_THROUGH),
+                "REWIND" => std::option::Option::Some(Self::REWIND),
+                "RESUME" => std::option::Option::Some(Self::RESUME),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "EXPAND" => std::option::Option::Some(Self::EXPAND),
+                "COLLAPSE" => std::option::Option::Some(Self::COLLAPSE),
+                "CLOSE" => std::option::Option::Some(Self::CLOSE),
+                "CLOSE_LINEAR" => std::option::Option::Some(Self::CLOSE_LINEAR),
+                "SKIP" => std::option::Option::Some(Self::SKIP),
+                "ACCEPT_INVITATION" => std::option::Option::Some(Self::ACCEPT_INVITATION),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [EventType](EventType)
-    pub mod event_type {
-        use super::EventType;
-
-        /// The event type is unspecified.
-        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new("EVENT_TYPE_UNSPECIFIED");
-
-        /// First frame of creative ad viewed.
-        pub const CREATIVE_VIEW: EventType = EventType::new("CREATIVE_VIEW");
-
-        /// Creative ad started.
-        pub const START: EventType = EventType::new("START");
-
-        /// Start of an ad break.
-        pub const BREAK_START: EventType = EventType::new("BREAK_START");
-
-        /// End of an ad break.
-        pub const BREAK_END: EventType = EventType::new("BREAK_END");
-
-        /// Impression.
-        pub const IMPRESSION: EventType = EventType::new("IMPRESSION");
-
-        /// First quartile progress.
-        pub const FIRST_QUARTILE: EventType = EventType::new("FIRST_QUARTILE");
-
-        /// Midpoint progress.
-        pub const MIDPOINT: EventType = EventType::new("MIDPOINT");
-
-        /// Third quartile progress.
-        pub const THIRD_QUARTILE: EventType = EventType::new("THIRD_QUARTILE");
-
-        /// Ad progress completed.
-        pub const COMPLETE: EventType = EventType::new("COMPLETE");
-
-        /// Specific progress event with an offset.
-        pub const PROGRESS: EventType = EventType::new("PROGRESS");
-
-        /// Player muted.
-        pub const MUTE: EventType = EventType::new("MUTE");
-
-        /// Player unmuted.
-        pub const UNMUTE: EventType = EventType::new("UNMUTE");
-
-        /// Player paused.
-        pub const PAUSE: EventType = EventType::new("PAUSE");
-
-        /// Click event.
-        pub const CLICK: EventType = EventType::new("CLICK");
-
-        /// Click-through event.
-        pub const CLICK_THROUGH: EventType = EventType::new("CLICK_THROUGH");
-
-        /// Player rewinding.
-        pub const REWIND: EventType = EventType::new("REWIND");
-
-        /// Player resumed.
-        pub const RESUME: EventType = EventType::new("RESUME");
-
-        /// Error event.
-        pub const ERROR: EventType = EventType::new("ERROR");
-
-        /// Ad expanded to a larger size.
-        pub const EXPAND: EventType = EventType::new("EXPAND");
-
-        /// Ad collapsed to a smaller size.
-        pub const COLLAPSE: EventType = EventType::new("COLLAPSE");
-
-        /// Non-linear ad closed.
-        pub const CLOSE: EventType = EventType::new("CLOSE");
-
-        /// Linear ad closed.
-        pub const CLOSE_LINEAR: EventType = EventType::new("CLOSE_LINEAR");
-
-        /// Ad skipped.
-        pub const SKIP: EventType = EventType::new("SKIP");
-
-        /// Accept invitation event.
-        pub const ACCEPT_INVITATION: EventType = EventType::new("ACCEPT_INVITATION");
+    impl std::convert::From<i32> for EventType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for EventType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for EventType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1476,80 +1565,125 @@ pub mod live_config {
     use super::*;
 
     /// State of the live config.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// State is not specified.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Live config is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// Live config is ready for use.
+        pub const READY: State = State::new(2);
+
+        /// Live config is queued up for deletion.
+        pub const DELETING: State = State::new(3);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Live config is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// Live config is ready for use.
-        pub const READY: State = State::new("READY");
-
-        /// Live config is queued up for deletion.
-        pub const DELETING: State = State::new("DELETING");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Defines the ad stitching behavior in case the ad duration does not align
     /// exactly with the ad break boundaries. If not specified, the default is
     /// `CUT_CURRENT`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StitchingPolicy(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct StitchingPolicy(i32);
 
     impl StitchingPolicy {
+        /// Stitching policy is not specified.
+        pub const STITCHING_POLICY_UNSPECIFIED: StitchingPolicy = StitchingPolicy::new(0);
+
+        /// Cuts an ad short and returns to content in the middle of the ad.
+        pub const CUT_CURRENT: StitchingPolicy = StitchingPolicy::new(1);
+
+        /// Finishes stitching the current ad before returning to content.
+        pub const COMPLETE_AD: StitchingPolicy = StitchingPolicy::new(2);
+
         /// Creates a new StitchingPolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STITCHING_POLICY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CUT_CURRENT"),
+                2 => std::borrow::Cow::Borrowed("COMPLETE_AD"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STITCHING_POLICY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::STITCHING_POLICY_UNSPECIFIED)
+                }
+                "CUT_CURRENT" => std::option::Option::Some(Self::CUT_CURRENT),
+                "COMPLETE_AD" => std::option::Option::Some(Self::COMPLETE_AD),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [StitchingPolicy](StitchingPolicy)
-    pub mod stitching_policy {
-        use super::StitchingPolicy;
-
-        /// Stitching policy is not specified.
-        pub const STITCHING_POLICY_UNSPECIFIED: StitchingPolicy =
-            StitchingPolicy::new("STITCHING_POLICY_UNSPECIFIED");
-
-        /// Cuts an ad short and returns to content in the middle of the ad.
-        pub const CUT_CURRENT: StitchingPolicy = StitchingPolicy::new("CUT_CURRENT");
-
-        /// Finishes stitching the current ad before returning to content.
-        pub const COMPLETE_AD: StitchingPolicy = StitchingPolicy::new("COMPLETE_AD");
+    impl std::convert::From<i32> for StitchingPolicy {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for StitchingPolicy {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for StitchingPolicy {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2335,39 +2469,61 @@ pub mod manifest_options {
     use super::*;
 
     /// Defines the ordering policy during manifest generation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OrderPolicy(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct OrderPolicy(i32);
 
     impl OrderPolicy {
+        /// Ordering policy is not specified.
+        pub const ORDER_POLICY_UNSPECIFIED: OrderPolicy = OrderPolicy::new(0);
+
+        /// Order by ascending.
+        pub const ASCENDING: OrderPolicy = OrderPolicy::new(1);
+
+        /// Order by descending.
+        pub const DESCENDING: OrderPolicy = OrderPolicy::new(2);
+
         /// Creates a new OrderPolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ORDER_POLICY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ASCENDING"),
+                2 => std::borrow::Cow::Borrowed("DESCENDING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ORDER_POLICY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ORDER_POLICY_UNSPECIFIED)
+                }
+                "ASCENDING" => std::option::Option::Some(Self::ASCENDING),
+                "DESCENDING" => std::option::Option::Some(Self::DESCENDING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [OrderPolicy](OrderPolicy)
-    pub mod order_policy {
-        use super::OrderPolicy;
-
-        /// Ordering policy is not specified.
-        pub const ORDER_POLICY_UNSPECIFIED: OrderPolicy =
-            OrderPolicy::new("ORDER_POLICY_UNSPECIFIED");
-
-        /// Order by ascending.
-        pub const ASCENDING: OrderPolicy = OrderPolicy::new("ASCENDING");
-
-        /// Order by descending.
-        pub const DESCENDING: OrderPolicy = OrderPolicy::new("DESCENDING");
+    impl std::convert::From<i32> for OrderPolicy {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for OrderPolicy {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for OrderPolicy {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4651,41 +4807,64 @@ pub mod vod_config {
     use super::*;
 
     /// State of the VOD config.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// State is not specified.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// VOD config is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// VOD config is ready for use.
+        pub const READY: State = State::new(2);
+
+        /// VOD config is queued up for deletion.
+        pub const DELETING: State = State::new(3);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// VOD config is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// VOD config is ready for use.
-        pub const READY: State = State::new("READY");
-
-        /// VOD config is queued up for deletion.
-        pub const DELETING: State = State::new("DELETING");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4720,39 +4899,60 @@ impl wkt::message::Message for GamVodConfig {
 }
 
 /// Determines the ad tracking policy.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AdTracking(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct AdTracking(i32);
 
 impl AdTracking {
-    /// Creates a new AdTracking instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [AdTracking](AdTracking)
-pub mod ad_tracking {
-    use super::AdTracking;
-
     /// The ad tracking policy is not specified.
-    pub const AD_TRACKING_UNSPECIFIED: AdTracking = AdTracking::new("AD_TRACKING_UNSPECIFIED");
+    pub const AD_TRACKING_UNSPECIFIED: AdTracking = AdTracking::new(0);
 
     /// Client-side ad tracking is specified. The client player is expected to
     /// trigger playback and activity events itself.
-    pub const CLIENT: AdTracking = AdTracking::new("CLIENT");
+    pub const CLIENT: AdTracking = AdTracking::new(1);
 
     /// The Video Stitcher API will trigger playback events on behalf of
     /// the client player.
-    pub const SERVER: AdTracking = AdTracking::new("SERVER");
+    pub const SERVER: AdTracking = AdTracking::new(2);
+
+    /// Creates a new AdTracking instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("AD_TRACKING_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("CLIENT"),
+            2 => std::borrow::Cow::Borrowed("SERVER"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "AD_TRACKING_UNSPECIFIED" => std::option::Option::Some(Self::AD_TRACKING_UNSPECIFIED),
+            "CLIENT" => std::option::Option::Some(Self::CLIENT),
+            "SERVER" => std::option::Option::Some(Self::SERVER),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for AdTracking {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for AdTracking {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for AdTracking {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

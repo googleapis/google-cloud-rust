@@ -444,38 +444,59 @@ pub mod attack_exposure {
     use super::*;
 
     /// This enum defines the various states an AttackExposure can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// The state is not specified.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The attack exposure has been calculated.
+        pub const CALCULATED: State = State::new(1);
+
+        /// The attack exposure has not been calculated.
+        pub const NOT_CALCULATED: State = State::new(2);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CALCULATED"),
+                2 => std::borrow::Cow::Borrowed("NOT_CALCULATED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CALCULATED" => std::option::Option::Some(Self::CALCULATED),
+                "NOT_CALCULATED" => std::option::Option::Some(Self::NOT_CALCULATED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The state is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The attack exposure has been calculated.
-        pub const CALCULATED: State = State::new("CALCULATED");
-
-        /// The attack exposure has not been calculated.
-        pub const NOT_CALCULATED: State = State::new("NOT_CALCULATED");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -796,44 +817,71 @@ pub mod attack_path {
         }
 
         /// The type of the incoming attack step node.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct NodeType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct NodeType(i32);
 
         impl NodeType {
+            /// Type not specified
+            pub const NODE_TYPE_UNSPECIFIED: NodeType = NodeType::new(0);
+
+            /// Incoming edge joined with AND
+            pub const NODE_TYPE_AND: NodeType = NodeType::new(1);
+
+            /// Incoming edge joined with OR
+            pub const NODE_TYPE_OR: NodeType = NodeType::new(2);
+
+            /// Incoming edge is defense
+            pub const NODE_TYPE_DEFENSE: NodeType = NodeType::new(3);
+
+            /// Incoming edge is attacker
+            pub const NODE_TYPE_ATTACKER: NodeType = NodeType::new(4);
+
             /// Creates a new NodeType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("NODE_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("NODE_TYPE_AND"),
+                    2 => std::borrow::Cow::Borrowed("NODE_TYPE_OR"),
+                    3 => std::borrow::Cow::Borrowed("NODE_TYPE_DEFENSE"),
+                    4 => std::borrow::Cow::Borrowed("NODE_TYPE_ATTACKER"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "NODE_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::NODE_TYPE_UNSPECIFIED)
+                    }
+                    "NODE_TYPE_AND" => std::option::Option::Some(Self::NODE_TYPE_AND),
+                    "NODE_TYPE_OR" => std::option::Option::Some(Self::NODE_TYPE_OR),
+                    "NODE_TYPE_DEFENSE" => std::option::Option::Some(Self::NODE_TYPE_DEFENSE),
+                    "NODE_TYPE_ATTACKER" => std::option::Option::Some(Self::NODE_TYPE_ATTACKER),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [NodeType](NodeType)
-        pub mod node_type {
-            use super::NodeType;
-
-            /// Type not specified
-            pub const NODE_TYPE_UNSPECIFIED: NodeType = NodeType::new("NODE_TYPE_UNSPECIFIED");
-
-            /// Incoming edge joined with AND
-            pub const NODE_TYPE_AND: NodeType = NodeType::new("NODE_TYPE_AND");
-
-            /// Incoming edge joined with OR
-            pub const NODE_TYPE_OR: NodeType = NodeType::new("NODE_TYPE_OR");
-
-            /// Incoming edge is defense
-            pub const NODE_TYPE_DEFENSE: NodeType = NodeType::new("NODE_TYPE_DEFENSE");
-
-            /// Incoming edge is attacker
-            pub const NODE_TYPE_ATTACKER: NodeType = NodeType::new("NODE_TYPE_ATTACKER");
+        impl std::convert::From<i32> for NodeType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for NodeType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for NodeType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -1564,38 +1612,61 @@ pub mod cloud_dlp_data_profile {
     use super::*;
 
     /// Parents for configurations that produce data profile findings.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ParentType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ParentType(i32);
 
     impl ParentType {
+        /// Unspecified parent type.
+        pub const PARENT_TYPE_UNSPECIFIED: ParentType = ParentType::new(0);
+
+        /// Organization-level configurations.
+        pub const ORGANIZATION: ParentType = ParentType::new(1);
+
+        /// Project-level configurations.
+        pub const PROJECT: ParentType = ParentType::new(2);
+
         /// Creates a new ParentType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PARENT_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ORGANIZATION"),
+                2 => std::borrow::Cow::Borrowed("PROJECT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PARENT_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PARENT_TYPE_UNSPECIFIED)
+                }
+                "ORGANIZATION" => std::option::Option::Some(Self::ORGANIZATION),
+                "PROJECT" => std::option::Option::Some(Self::PROJECT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ParentType](ParentType)
-    pub mod parent_type {
-        use super::ParentType;
-
-        /// Unspecified parent type.
-        pub const PARENT_TYPE_UNSPECIFIED: ParentType = ParentType::new("PARENT_TYPE_UNSPECIFIED");
-
-        /// Organization-level configurations.
-        pub const ORGANIZATION: ParentType = ParentType::new("ORGANIZATION");
-
-        /// Project-level configurations.
-        pub const PROJECT: ParentType = ParentType::new("PROJECT");
+    impl std::convert::From<i32> for ParentType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ParentType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ParentType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1797,47 +1868,74 @@ pub mod connection {
     use super::*;
 
     /// IANA Internet Protocol Number such as TCP(6) and UDP(17).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Protocol(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Protocol(i32);
 
     impl Protocol {
+        /// Unspecified protocol (not HOPOPT).
+        pub const PROTOCOL_UNSPECIFIED: Protocol = Protocol::new(0);
+
+        /// Internet Control Message Protocol.
+        pub const ICMP: Protocol = Protocol::new(1);
+
+        /// Transmission Control Protocol.
+        pub const TCP: Protocol = Protocol::new(6);
+
+        /// User Datagram Protocol.
+        pub const UDP: Protocol = Protocol::new(17);
+
+        /// Generic Routing Encapsulation.
+        pub const GRE: Protocol = Protocol::new(47);
+
+        /// Encap Security Payload.
+        pub const ESP: Protocol = Protocol::new(50);
+
         /// Creates a new Protocol instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PROTOCOL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ICMP"),
+                6 => std::borrow::Cow::Borrowed("TCP"),
+                17 => std::borrow::Cow::Borrowed("UDP"),
+                47 => std::borrow::Cow::Borrowed("GRE"),
+                50 => std::borrow::Cow::Borrowed("ESP"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PROTOCOL_UNSPECIFIED" => std::option::Option::Some(Self::PROTOCOL_UNSPECIFIED),
+                "ICMP" => std::option::Option::Some(Self::ICMP),
+                "TCP" => std::option::Option::Some(Self::TCP),
+                "UDP" => std::option::Option::Some(Self::UDP),
+                "GRE" => std::option::Option::Some(Self::GRE),
+                "ESP" => std::option::Option::Some(Self::ESP),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Protocol](Protocol)
-    pub mod protocol {
-        use super::Protocol;
-
-        /// Unspecified protocol (not HOPOPT).
-        pub const PROTOCOL_UNSPECIFIED: Protocol = Protocol::new("PROTOCOL_UNSPECIFIED");
-
-        /// Internet Control Message Protocol.
-        pub const ICMP: Protocol = Protocol::new("ICMP");
-
-        /// Transmission Control Protocol.
-        pub const TCP: Protocol = Protocol::new("TCP");
-
-        /// User Datagram Protocol.
-        pub const UDP: Protocol = Protocol::new("UDP");
-
-        /// Generic Routing Encapsulation.
-        pub const GRE: Protocol = Protocol::new("GRE");
-
-        /// Encap Security Payload.
-        pub const ESP: Protocol = Protocol::new("ESP");
+    impl std::convert::From<i32> for Protocol {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Protocol {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Protocol {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2056,41 +2154,64 @@ pub mod data_access_event {
     use super::*;
 
     /// The operation of a data access event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Operation(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Operation(i32);
 
     impl Operation {
+        /// The operation is unspecified.
+        pub const OPERATION_UNSPECIFIED: Operation = Operation::new(0);
+
+        /// Represents a read operation.
+        pub const READ: Operation = Operation::new(1);
+
+        /// Represents a move operation.
+        pub const MOVE: Operation = Operation::new(2);
+
+        /// Represents a copy operation.
+        pub const COPY: Operation = Operation::new(3);
+
         /// Creates a new Operation instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("OPERATION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("READ"),
+                2 => std::borrow::Cow::Borrowed("MOVE"),
+                3 => std::borrow::Cow::Borrowed("COPY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "OPERATION_UNSPECIFIED" => std::option::Option::Some(Self::OPERATION_UNSPECIFIED),
+                "READ" => std::option::Option::Some(Self::READ),
+                "MOVE" => std::option::Option::Some(Self::MOVE),
+                "COPY" => std::option::Option::Some(Self::COPY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Operation](Operation)
-    pub mod operation {
-        use super::Operation;
-
-        /// The operation is unspecified.
-        pub const OPERATION_UNSPECIFIED: Operation = Operation::new("OPERATION_UNSPECIFIED");
-
-        /// Represents a read operation.
-        pub const READ: Operation = Operation::new("READ");
-
-        /// Represents a move operation.
-        pub const MOVE: Operation = Operation::new("MOVE");
-
-        /// Represents a copy operation.
-        pub const COPY: Operation = Operation::new("COPY");
+    impl std::convert::From<i32> for Operation {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Operation {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Operation {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2181,41 +2302,64 @@ pub mod data_flow_event {
     use super::*;
 
     /// The operation of a data flow event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Operation(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Operation(i32);
 
     impl Operation {
+        /// The operation is unspecified.
+        pub const OPERATION_UNSPECIFIED: Operation = Operation::new(0);
+
+        /// Represents a read operation.
+        pub const READ: Operation = Operation::new(1);
+
+        /// Represents a move operation.
+        pub const MOVE: Operation = Operation::new(2);
+
+        /// Represents a copy operation.
+        pub const COPY: Operation = Operation::new(3);
+
         /// Creates a new Operation instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("OPERATION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("READ"),
+                2 => std::borrow::Cow::Borrowed("MOVE"),
+                3 => std::borrow::Cow::Borrowed("COPY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "OPERATION_UNSPECIFIED" => std::option::Option::Some(Self::OPERATION_UNSPECIFIED),
+                "READ" => std::option::Option::Some(Self::READ),
+                "MOVE" => std::option::Option::Some(Self::MOVE),
+                "COPY" => std::option::Option::Some(Self::COPY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Operation](Operation)
-    pub mod operation {
-        use super::Operation;
-
-        /// The operation is unspecified.
-        pub const OPERATION_UNSPECIFIED: Operation = Operation::new("OPERATION_UNSPECIFIED");
-
-        /// Represents a read operation.
-        pub const READ: Operation = Operation::new("READ");
-
-        /// Represents a move operation.
-        pub const MOVE: Operation = Operation::new("MOVE");
-
-        /// Represents a copy operation.
-        pub const COPY: Operation = Operation::new("COPY");
+    impl std::convert::From<i32> for Operation {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Operation {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Operation {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2311,36 +2455,56 @@ pub mod data_retention_deletion_event {
     use super::*;
 
     /// Type of the DRD event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct EventType(i32);
 
     impl EventType {
+        /// Unspecified event type.
+        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new(0);
+
+        /// The maximum retention time has been exceeded.
+        pub const EVENT_TYPE_MAX_TTL_EXCEEDED: EventType = EventType::new(1);
+
         /// Creates a new EventType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EVENT_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("EVENT_TYPE_MAX_TTL_EXCEEDED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EVENT_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::EVENT_TYPE_UNSPECIFIED),
+                "EVENT_TYPE_MAX_TTL_EXCEEDED" => {
+                    std::option::Option::Some(Self::EVENT_TYPE_MAX_TTL_EXCEEDED)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [EventType](EventType)
-    pub mod event_type {
-        use super::EventType;
-
-        /// Unspecified event type.
-        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new("EVENT_TYPE_UNSPECIFIED");
-
-        /// The maximum retention time has been exceeded.
-        pub const EVENT_TYPE_MAX_TTL_EXCEEDED: EventType =
-            EventType::new("EVENT_TYPE_MAX_TTL_EXCEEDED");
+    impl std::convert::From<i32> for EventType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for EventType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for EventType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4018,65 +4182,71 @@ pub mod finding {
     }
 
     /// The state of the finding.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The finding requires attention and has not been addressed yet.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(1);
 
         /// The finding has been fixed, triaged as a non-issue or otherwise addressed
         /// and is no longer active.
-        pub const INACTIVE: State = State::new("INACTIVE");
+        pub const INACTIVE: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("INACTIVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "INACTIVE" => std::option::Option::Some(Self::INACTIVE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The severity of the finding.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Severity(i32);
 
     impl Severity {
-        /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Severity](Severity)
-    pub mod severity {
-        use super::Severity;
-
         /// This value is used for findings when a source doesn't write a severity
         /// value.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new(0);
 
         /// Vulnerability:
         /// A critical vulnerability is easily discoverable by an external actor,
@@ -4089,7 +4259,7 @@ pub mod finding {
         /// Threat:
         /// Indicates a threat that is able to access, modify, or delete data or
         /// execute unauthorized code within existing resources.
-        pub const CRITICAL: Severity = Severity::new("CRITICAL");
+        pub const CRITICAL: Severity = Severity::new(1);
 
         /// Vulnerability:
         /// A high risk vulnerability can be easily discovered and exploited in
@@ -4104,7 +4274,7 @@ pub mod finding {
         /// Indicates a threat that is able to create new computational resources in
         /// an environment but not able to access data or execute code in existing
         /// resources.
-        pub const HIGH: Severity = Severity::new("HIGH");
+        pub const HIGH: Severity = Severity::new(2);
 
         /// Vulnerability:
         /// A medium risk vulnerability could be used by an actor to gain access to
@@ -4118,7 +4288,7 @@ pub mod finding {
         /// Threat:
         /// Indicates a threat that is able to cause operational impact but may not
         /// access data or execute unauthorized code.
-        pub const MEDIUM: Severity = Severity::new("MEDIUM");
+        pub const MEDIUM: Severity = Severity::new(3);
 
         /// Vulnerability:
         /// A low risk vulnerability hampers a security organization's ability to
@@ -4129,111 +4299,208 @@ pub mod finding {
         /// Threat:
         /// Indicates a threat that has obtained minimal access to an environment but
         /// is not able to access data, execute code, or create resources.
-        pub const LOW: Severity = Severity::new("LOW");
+        pub const LOW: Severity = Severity::new(4);
+
+        /// Creates a new Severity instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CRITICAL"),
+                2 => std::borrow::Cow::Borrowed("HIGH"),
+                3 => std::borrow::Cow::Borrowed("MEDIUM"),
+                4 => std::borrow::Cow::Borrowed("LOW"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SEVERITY_UNSPECIFIED" => std::option::Option::Some(Self::SEVERITY_UNSPECIFIED),
+                "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
+                "HIGH" => std::option::Option::Some(Self::HIGH),
+                "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
+                "LOW" => std::option::Option::Some(Self::LOW),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Severity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Mute state a finding can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mute(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Mute(i32);
 
     impl Mute {
+        /// Unspecified.
+        pub const MUTE_UNSPECIFIED: Mute = Mute::new(0);
+
+        /// Finding has been muted.
+        pub const MUTED: Mute = Mute::new(1);
+
+        /// Finding has been unmuted.
+        pub const UNMUTED: Mute = Mute::new(2);
+
+        /// Finding has never been muted/unmuted.
+        pub const UNDEFINED: Mute = Mute::new(3);
+
         /// Creates a new Mute instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MUTE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MUTED"),
+                2 => std::borrow::Cow::Borrowed("UNMUTED"),
+                3 => std::borrow::Cow::Borrowed("UNDEFINED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MUTE_UNSPECIFIED" => std::option::Option::Some(Self::MUTE_UNSPECIFIED),
+                "MUTED" => std::option::Option::Some(Self::MUTED),
+                "UNMUTED" => std::option::Option::Some(Self::UNMUTED),
+                "UNDEFINED" => std::option::Option::Some(Self::UNDEFINED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Mute](Mute)
-    pub mod mute {
-        use super::Mute;
-
-        /// Unspecified.
-        pub const MUTE_UNSPECIFIED: Mute = Mute::new("MUTE_UNSPECIFIED");
-
-        /// Finding has been muted.
-        pub const MUTED: Mute = Mute::new("MUTED");
-
-        /// Finding has been unmuted.
-        pub const UNMUTED: Mute = Mute::new("UNMUTED");
-
-        /// Finding has never been muted/unmuted.
-        pub const UNDEFINED: Mute = Mute::new("UNDEFINED");
+    impl std::convert::From<i32> for Mute {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Mute {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Mute {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// Represents what kind of Finding it is.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FindingClass(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct FindingClass(i32);
 
     impl FindingClass {
-        /// Creates a new FindingClass instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FindingClass](FindingClass)
-    pub mod finding_class {
-        use super::FindingClass;
-
         /// Unspecified finding class.
-        pub const FINDING_CLASS_UNSPECIFIED: FindingClass =
-            FindingClass::new("FINDING_CLASS_UNSPECIFIED");
+        pub const FINDING_CLASS_UNSPECIFIED: FindingClass = FindingClass::new(0);
 
         /// Describes unwanted or malicious activity.
-        pub const THREAT: FindingClass = FindingClass::new("THREAT");
+        pub const THREAT: FindingClass = FindingClass::new(1);
 
         /// Describes a potential weakness in software that increases risk to
         /// Confidentiality & Integrity & Availability.
-        pub const VULNERABILITY: FindingClass = FindingClass::new("VULNERABILITY");
+        pub const VULNERABILITY: FindingClass = FindingClass::new(2);
 
         /// Describes a potential weakness in cloud resource/asset configuration that
         /// increases risk.
-        pub const MISCONFIGURATION: FindingClass = FindingClass::new("MISCONFIGURATION");
+        pub const MISCONFIGURATION: FindingClass = FindingClass::new(3);
 
         /// Describes a security observation that is for informational purposes.
-        pub const OBSERVATION: FindingClass = FindingClass::new("OBSERVATION");
+        pub const OBSERVATION: FindingClass = FindingClass::new(4);
 
         /// Describes an error that prevents some SCC functionality.
-        pub const SCC_ERROR: FindingClass = FindingClass::new("SCC_ERROR");
+        pub const SCC_ERROR: FindingClass = FindingClass::new(5);
 
         /// Describes a potential security risk due to a change in the security
         /// posture.
-        pub const POSTURE_VIOLATION: FindingClass = FindingClass::new("POSTURE_VIOLATION");
+        pub const POSTURE_VIOLATION: FindingClass = FindingClass::new(6);
 
         /// Describes a combination of security issues that represent a more severe
         /// security problem when taken together.
-        pub const TOXIC_COMBINATION: FindingClass = FindingClass::new("TOXIC_COMBINATION");
+        pub const TOXIC_COMBINATION: FindingClass = FindingClass::new(7);
 
         /// Describes a potential security risk to data assets that contain sensitive
         /// data.
-        pub const SENSITIVE_DATA_RISK: FindingClass = FindingClass::new("SENSITIVE_DATA_RISK");
+        pub const SENSITIVE_DATA_RISK: FindingClass = FindingClass::new(8);
+
+        /// Creates a new FindingClass instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FINDING_CLASS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("THREAT"),
+                2 => std::borrow::Cow::Borrowed("VULNERABILITY"),
+                3 => std::borrow::Cow::Borrowed("MISCONFIGURATION"),
+                4 => std::borrow::Cow::Borrowed("OBSERVATION"),
+                5 => std::borrow::Cow::Borrowed("SCC_ERROR"),
+                6 => std::borrow::Cow::Borrowed("POSTURE_VIOLATION"),
+                7 => std::borrow::Cow::Borrowed("TOXIC_COMBINATION"),
+                8 => std::borrow::Cow::Borrowed("SENSITIVE_DATA_RISK"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FINDING_CLASS_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FINDING_CLASS_UNSPECIFIED)
+                }
+                "THREAT" => std::option::Option::Some(Self::THREAT),
+                "VULNERABILITY" => std::option::Option::Some(Self::VULNERABILITY),
+                "MISCONFIGURATION" => std::option::Option::Some(Self::MISCONFIGURATION),
+                "OBSERVATION" => std::option::Option::Some(Self::OBSERVATION),
+                "SCC_ERROR" => std::option::Option::Some(Self::SCC_ERROR),
+                "POSTURE_VIOLATION" => std::option::Option::Some(Self::POSTURE_VIOLATION),
+                "TOXIC_COMBINATION" => std::option::Option::Some(Self::TOXIC_COMBINATION),
+                "SENSITIVE_DATA_RISK" => std::option::Option::Some(Self::SENSITIVE_DATA_RISK),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FindingClass {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FindingClass {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for FindingClass {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4330,36 +4597,56 @@ pub mod group_membership {
     use super::*;
 
     /// Possible types of groups.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct GroupType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct GroupType(i32);
 
     impl GroupType {
+        /// Default value.
+        pub const GROUP_TYPE_UNSPECIFIED: GroupType = GroupType::new(0);
+
+        /// Group represents a toxic combination.
+        pub const GROUP_TYPE_TOXIC_COMBINATION: GroupType = GroupType::new(1);
+
         /// Creates a new GroupType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("GROUP_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GROUP_TYPE_TOXIC_COMBINATION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "GROUP_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::GROUP_TYPE_UNSPECIFIED),
+                "GROUP_TYPE_TOXIC_COMBINATION" => {
+                    std::option::Option::Some(Self::GROUP_TYPE_TOXIC_COMBINATION)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [GroupType](GroupType)
-    pub mod group_type {
-        use super::GroupType;
-
-        /// Default value.
-        pub const GROUP_TYPE_UNSPECIFIED: GroupType = GroupType::new("GROUP_TYPE_UNSPECIFIED");
-
-        /// Group represents a toxic combination.
-        pub const GROUP_TYPE_TOXIC_COMBINATION: GroupType =
-            GroupType::new("GROUP_TYPE_TOXIC_COMBINATION");
+    impl std::convert::From<i32> for GroupType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for GroupType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for GroupType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4424,38 +4711,59 @@ pub mod iam_binding {
     use super::*;
 
     /// The type of action performed on a Binding in a policy.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Action(i32);
 
     impl Action {
+        /// Unspecified.
+        pub const ACTION_UNSPECIFIED: Action = Action::new(0);
+
+        /// Addition of a Binding.
+        pub const ADD: Action = Action::new(1);
+
+        /// Removal of a Binding.
+        pub const REMOVE: Action = Action::new(2);
+
         /// Creates a new Action instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ADD"),
+                2 => std::borrow::Cow::Borrowed("REMOVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACTION_UNSPECIFIED" => std::option::Option::Some(Self::ACTION_UNSPECIFIED),
+                "ADD" => std::option::Option::Some(Self::ADD),
+                "REMOVE" => std::option::Option::Some(Self::REMOVE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Action](Action)
-    pub mod action {
-        use super::Action;
-
-        /// Unspecified.
-        pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
-
-        /// Addition of a Binding.
-        pub const ADD: Action = Action::new("ADD");
-
-        /// Removal of a Binding.
-        pub const REMOVE: Action = Action::new("REMOVE");
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Action {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -4814,41 +5122,63 @@ pub mod indicator {
         }
 
         /// Possible resource types to be associated with a signature.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SignatureType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct SignatureType(i32);
 
         impl SignatureType {
+            /// The default signature type.
+            pub const SIGNATURE_TYPE_UNSPECIFIED: SignatureType = SignatureType::new(0);
+
+            /// Used for signatures concerning processes.
+            pub const SIGNATURE_TYPE_PROCESS: SignatureType = SignatureType::new(1);
+
+            /// Used for signatures concerning disks.
+            pub const SIGNATURE_TYPE_FILE: SignatureType = SignatureType::new(2);
+
             /// Creates a new SignatureType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("SIGNATURE_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("SIGNATURE_TYPE_PROCESS"),
+                    2 => std::borrow::Cow::Borrowed("SIGNATURE_TYPE_FILE"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "SIGNATURE_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::SIGNATURE_TYPE_UNSPECIFIED)
+                    }
+                    "SIGNATURE_TYPE_PROCESS" => {
+                        std::option::Option::Some(Self::SIGNATURE_TYPE_PROCESS)
+                    }
+                    "SIGNATURE_TYPE_FILE" => std::option::Option::Some(Self::SIGNATURE_TYPE_FILE),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [SignatureType](SignatureType)
-        pub mod signature_type {
-            use super::SignatureType;
-
-            /// The default signature type.
-            pub const SIGNATURE_TYPE_UNSPECIFIED: SignatureType =
-                SignatureType::new("SIGNATURE_TYPE_UNSPECIFIED");
-
-            /// Used for signatures concerning processes.
-            pub const SIGNATURE_TYPE_PROCESS: SignatureType =
-                SignatureType::new("SIGNATURE_TYPE_PROCESS");
-
-            /// Used for signatures concerning disks.
-            pub const SIGNATURE_TYPE_FILE: SignatureType =
-                SignatureType::new("SIGNATURE_TYPE_FILE");
+        impl std::convert::From<i32> for SignatureType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for SignatureType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for SignatureType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
 
@@ -5324,38 +5654,59 @@ pub mod kubernetes {
         use super::*;
 
         /// Types of Kubernetes roles.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Kind(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct Kind(i32);
 
         impl Kind {
+            /// Role type is not specified.
+            pub const KIND_UNSPECIFIED: Kind = Kind::new(0);
+
+            /// Kubernetes Role.
+            pub const ROLE: Kind = Kind::new(1);
+
+            /// Kubernetes ClusterRole.
+            pub const CLUSTER_ROLE: Kind = Kind::new(2);
+
             /// Creates a new Kind instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("KIND_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("ROLE"),
+                    2 => std::borrow::Cow::Borrowed("CLUSTER_ROLE"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "KIND_UNSPECIFIED" => std::option::Option::Some(Self::KIND_UNSPECIFIED),
+                    "ROLE" => std::option::Option::Some(Self::ROLE),
+                    "CLUSTER_ROLE" => std::option::Option::Some(Self::CLUSTER_ROLE),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Kind](Kind)
-        pub mod kind {
-            use super::Kind;
-
-            /// Role type is not specified.
-            pub const KIND_UNSPECIFIED: Kind = Kind::new("KIND_UNSPECIFIED");
-
-            /// Kubernetes Role.
-            pub const ROLE: Kind = Kind::new("ROLE");
-
-            /// Kubernetes ClusterRole.
-            pub const CLUSTER_ROLE: Kind = Kind::new("CLUSTER_ROLE");
+        impl std::convert::From<i32> for Kind {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for Kind {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for Kind {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -5487,41 +5838,66 @@ pub mod kubernetes {
         use super::*;
 
         /// Auth types that can be used for the subject's kind field.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct AuthType(std::borrow::Cow<'static, str>);
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct AuthType(i32);
 
         impl AuthType {
+            /// Authentication is not specified.
+            pub const AUTH_TYPE_UNSPECIFIED: AuthType = AuthType::new(0);
+
+            /// User with valid certificate.
+            pub const USER: AuthType = AuthType::new(1);
+
+            /// Users managed by Kubernetes API with credentials stored as secrets.
+            pub const SERVICEACCOUNT: AuthType = AuthType::new(2);
+
+            /// Collection of users.
+            pub const GROUP: AuthType = AuthType::new(3);
+
             /// Creates a new AuthType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("AUTH_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("USER"),
+                    2 => std::borrow::Cow::Borrowed("SERVICEACCOUNT"),
+                    3 => std::borrow::Cow::Borrowed("GROUP"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "AUTH_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::AUTH_TYPE_UNSPECIFIED)
+                    }
+                    "USER" => std::option::Option::Some(Self::USER),
+                    "SERVICEACCOUNT" => std::option::Option::Some(Self::SERVICEACCOUNT),
+                    "GROUP" => std::option::Option::Some(Self::GROUP),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [AuthType](AuthType)
-        pub mod auth_type {
-            use super::AuthType;
-
-            /// Authentication is not specified.
-            pub const AUTH_TYPE_UNSPECIFIED: AuthType = AuthType::new("AUTH_TYPE_UNSPECIFIED");
-
-            /// User with valid certificate.
-            pub const USER: AuthType = AuthType::new("USER");
-
-            /// Users managed by Kubernetes API with credentials stored as secrets.
-            pub const SERVICEACCOUNT: AuthType = AuthType::new("SERVICEACCOUNT");
-
-            /// Collection of users.
-            pub const GROUP: AuthType = AuthType::new("GROUP");
+        impl std::convert::From<i32> for AuthType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
-        impl std::convert::From<std::string::String> for AuthType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::default::Default for AuthType {
+            fn default() -> Self {
+                Self::new(0)
             }
         }
     }
@@ -6020,331 +6396,561 @@ pub mod mitre_attack {
 
     /// MITRE ATT&CK tactics that can be referenced by SCC findings.
     /// See: <https://attack.mitre.org/tactics/enterprise/>
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Tactic(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Tactic(i32);
 
     impl Tactic {
+        /// Unspecified value.
+        pub const TACTIC_UNSPECIFIED: Tactic = Tactic::new(0);
+
+        /// TA0043
+        pub const RECONNAISSANCE: Tactic = Tactic::new(1);
+
+        /// TA0042
+        pub const RESOURCE_DEVELOPMENT: Tactic = Tactic::new(2);
+
+        /// TA0001
+        pub const INITIAL_ACCESS: Tactic = Tactic::new(5);
+
+        /// TA0002
+        pub const EXECUTION: Tactic = Tactic::new(3);
+
+        /// TA0003
+        pub const PERSISTENCE: Tactic = Tactic::new(6);
+
+        /// TA0004
+        pub const PRIVILEGE_ESCALATION: Tactic = Tactic::new(8);
+
+        /// TA0005
+        pub const DEFENSE_EVASION: Tactic = Tactic::new(7);
+
+        /// TA0006
+        pub const CREDENTIAL_ACCESS: Tactic = Tactic::new(9);
+
+        /// TA0007
+        pub const DISCOVERY: Tactic = Tactic::new(10);
+
+        /// TA0008
+        pub const LATERAL_MOVEMENT: Tactic = Tactic::new(11);
+
+        /// TA0009
+        pub const COLLECTION: Tactic = Tactic::new(12);
+
+        /// TA0011
+        pub const COMMAND_AND_CONTROL: Tactic = Tactic::new(4);
+
+        /// TA0010
+        pub const EXFILTRATION: Tactic = Tactic::new(13);
+
+        /// TA0040
+        pub const IMPACT: Tactic = Tactic::new(14);
+
         /// Creates a new Tactic instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TACTIC_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RECONNAISSANCE"),
+                2 => std::borrow::Cow::Borrowed("RESOURCE_DEVELOPMENT"),
+                3 => std::borrow::Cow::Borrowed("EXECUTION"),
+                4 => std::borrow::Cow::Borrowed("COMMAND_AND_CONTROL"),
+                5 => std::borrow::Cow::Borrowed("INITIAL_ACCESS"),
+                6 => std::borrow::Cow::Borrowed("PERSISTENCE"),
+                7 => std::borrow::Cow::Borrowed("DEFENSE_EVASION"),
+                8 => std::borrow::Cow::Borrowed("PRIVILEGE_ESCALATION"),
+                9 => std::borrow::Cow::Borrowed("CREDENTIAL_ACCESS"),
+                10 => std::borrow::Cow::Borrowed("DISCOVERY"),
+                11 => std::borrow::Cow::Borrowed("LATERAL_MOVEMENT"),
+                12 => std::borrow::Cow::Borrowed("COLLECTION"),
+                13 => std::borrow::Cow::Borrowed("EXFILTRATION"),
+                14 => std::borrow::Cow::Borrowed("IMPACT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TACTIC_UNSPECIFIED" => std::option::Option::Some(Self::TACTIC_UNSPECIFIED),
+                "RECONNAISSANCE" => std::option::Option::Some(Self::RECONNAISSANCE),
+                "RESOURCE_DEVELOPMENT" => std::option::Option::Some(Self::RESOURCE_DEVELOPMENT),
+                "INITIAL_ACCESS" => std::option::Option::Some(Self::INITIAL_ACCESS),
+                "EXECUTION" => std::option::Option::Some(Self::EXECUTION),
+                "PERSISTENCE" => std::option::Option::Some(Self::PERSISTENCE),
+                "PRIVILEGE_ESCALATION" => std::option::Option::Some(Self::PRIVILEGE_ESCALATION),
+                "DEFENSE_EVASION" => std::option::Option::Some(Self::DEFENSE_EVASION),
+                "CREDENTIAL_ACCESS" => std::option::Option::Some(Self::CREDENTIAL_ACCESS),
+                "DISCOVERY" => std::option::Option::Some(Self::DISCOVERY),
+                "LATERAL_MOVEMENT" => std::option::Option::Some(Self::LATERAL_MOVEMENT),
+                "COLLECTION" => std::option::Option::Some(Self::COLLECTION),
+                "COMMAND_AND_CONTROL" => std::option::Option::Some(Self::COMMAND_AND_CONTROL),
+                "EXFILTRATION" => std::option::Option::Some(Self::EXFILTRATION),
+                "IMPACT" => std::option::Option::Some(Self::IMPACT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Tactic](Tactic)
-    pub mod tactic {
-        use super::Tactic;
-
-        /// Unspecified value.
-        pub const TACTIC_UNSPECIFIED: Tactic = Tactic::new("TACTIC_UNSPECIFIED");
-
-        /// TA0043
-        pub const RECONNAISSANCE: Tactic = Tactic::new("RECONNAISSANCE");
-
-        /// TA0042
-        pub const RESOURCE_DEVELOPMENT: Tactic = Tactic::new("RESOURCE_DEVELOPMENT");
-
-        /// TA0001
-        pub const INITIAL_ACCESS: Tactic = Tactic::new("INITIAL_ACCESS");
-
-        /// TA0002
-        pub const EXECUTION: Tactic = Tactic::new("EXECUTION");
-
-        /// TA0003
-        pub const PERSISTENCE: Tactic = Tactic::new("PERSISTENCE");
-
-        /// TA0004
-        pub const PRIVILEGE_ESCALATION: Tactic = Tactic::new("PRIVILEGE_ESCALATION");
-
-        /// TA0005
-        pub const DEFENSE_EVASION: Tactic = Tactic::new("DEFENSE_EVASION");
-
-        /// TA0006
-        pub const CREDENTIAL_ACCESS: Tactic = Tactic::new("CREDENTIAL_ACCESS");
-
-        /// TA0007
-        pub const DISCOVERY: Tactic = Tactic::new("DISCOVERY");
-
-        /// TA0008
-        pub const LATERAL_MOVEMENT: Tactic = Tactic::new("LATERAL_MOVEMENT");
-
-        /// TA0009
-        pub const COLLECTION: Tactic = Tactic::new("COLLECTION");
-
-        /// TA0011
-        pub const COMMAND_AND_CONTROL: Tactic = Tactic::new("COMMAND_AND_CONTROL");
-
-        /// TA0010
-        pub const EXFILTRATION: Tactic = Tactic::new("EXFILTRATION");
-
-        /// TA0040
-        pub const IMPACT: Tactic = Tactic::new("IMPACT");
+    impl std::convert::From<i32> for Tactic {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Tactic {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Tactic {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// MITRE ATT&CK techniques that can be referenced by SCC findings.
     /// See: <https://attack.mitre.org/techniques/enterprise/>
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Technique(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Technique(i32);
 
     impl Technique {
+        /// Unspecified value.
+        pub const TECHNIQUE_UNSPECIFIED: Technique = Technique::new(0);
+
+        /// T1036
+        pub const MASQUERADING: Technique = Technique::new(49);
+
+        /// T1036.005
+        pub const MATCH_LEGITIMATE_NAME_OR_LOCATION: Technique = Technique::new(50);
+
+        /// T1037
+        pub const BOOT_OR_LOGON_INITIALIZATION_SCRIPTS: Technique = Technique::new(37);
+
+        /// T1037.005
+        pub const STARTUP_ITEMS: Technique = Technique::new(38);
+
+        /// T1046
+        pub const NETWORK_SERVICE_DISCOVERY: Technique = Technique::new(32);
+
+        /// T1057
+        pub const PROCESS_DISCOVERY: Technique = Technique::new(56);
+
+        /// T1059
+        pub const COMMAND_AND_SCRIPTING_INTERPRETER: Technique = Technique::new(6);
+
+        /// T1059.004
+        pub const UNIX_SHELL: Technique = Technique::new(7);
+
+        /// T1059.006
+        pub const PYTHON: Technique = Technique::new(59);
+
+        /// T1068
+        pub const EXPLOITATION_FOR_PRIVILEGE_ESCALATION: Technique = Technique::new(63);
+
+        /// T1069
+        pub const PERMISSION_GROUPS_DISCOVERY: Technique = Technique::new(18);
+
+        /// T1069.003
+        pub const CLOUD_GROUPS: Technique = Technique::new(19);
+
+        /// T1070.004
+        pub const INDICATOR_REMOVAL_FILE_DELETION: Technique = Technique::new(64);
+
+        /// T1071
+        pub const APPLICATION_LAYER_PROTOCOL: Technique = Technique::new(45);
+
+        /// T1071.004
+        pub const DNS: Technique = Technique::new(46);
+
+        /// T1072
+        pub const SOFTWARE_DEPLOYMENT_TOOLS: Technique = Technique::new(47);
+
+        /// T1078
+        pub const VALID_ACCOUNTS: Technique = Technique::new(14);
+
+        /// T1078.001
+        pub const DEFAULT_ACCOUNTS: Technique = Technique::new(35);
+
+        /// T1078.003
+        pub const LOCAL_ACCOUNTS: Technique = Technique::new(15);
+
+        /// T1078.004
+        pub const CLOUD_ACCOUNTS: Technique = Technique::new(16);
+
+        /// T1090
+        pub const PROXY: Technique = Technique::new(9);
+
+        /// T1090.002
+        pub const EXTERNAL_PROXY: Technique = Technique::new(10);
+
+        /// T1090.003
+        pub const MULTI_HOP_PROXY: Technique = Technique::new(11);
+
+        /// T1098
+        pub const ACCOUNT_MANIPULATION: Technique = Technique::new(22);
+
+        /// T1098.001
+        pub const ADDITIONAL_CLOUD_CREDENTIALS: Technique = Technique::new(40);
+
+        /// T1098.004
+        pub const SSH_AUTHORIZED_KEYS: Technique = Technique::new(23);
+
+        /// T1098.006
+        pub const ADDITIONAL_CONTAINER_CLUSTER_ROLES: Technique = Technique::new(58);
+
+        /// T1105
+        pub const INGRESS_TOOL_TRANSFER: Technique = Technique::new(3);
+
+        /// T1106
+        pub const NATIVE_API: Technique = Technique::new(4);
+
+        /// T1110
+        pub const BRUTE_FORCE: Technique = Technique::new(44);
+
+        /// T1129
+        pub const SHARED_MODULES: Technique = Technique::new(5);
+
+        /// T1134
+        pub const ACCESS_TOKEN_MANIPULATION: Technique = Technique::new(33);
+
+        /// T1134.001
+        pub const TOKEN_IMPERSONATION_OR_THEFT: Technique = Technique::new(39);
+
+        /// T1190
+        pub const EXPLOIT_PUBLIC_FACING_APPLICATION: Technique = Technique::new(27);
+
+        /// T1484
+        pub const DOMAIN_POLICY_MODIFICATION: Technique = Technique::new(30);
+
+        /// T1485
+        pub const DATA_DESTRUCTION: Technique = Technique::new(29);
+
+        /// T1489
+        pub const SERVICE_STOP: Technique = Technique::new(52);
+
+        /// T1490
+        pub const INHIBIT_SYSTEM_RECOVERY: Technique = Technique::new(36);
+
+        /// T1496
+        pub const RESOURCE_HIJACKING: Technique = Technique::new(8);
+
+        /// T1498
+        pub const NETWORK_DENIAL_OF_SERVICE: Technique = Technique::new(17);
+
+        /// T1526
+        pub const CLOUD_SERVICE_DISCOVERY: Technique = Technique::new(48);
+
+        /// T1528
+        pub const STEAL_APPLICATION_ACCESS_TOKEN: Technique = Technique::new(42);
+
+        /// T1531
+        pub const ACCOUNT_ACCESS_REMOVAL: Technique = Technique::new(51);
+
+        /// T1539
+        pub const STEAL_WEB_SESSION_COOKIE: Technique = Technique::new(25);
+
+        /// T1543
+        pub const CREATE_OR_MODIFY_SYSTEM_PROCESS: Technique = Technique::new(24);
+
+        /// T1546
+        pub const EVENT_TRIGGERED_EXECUTION: Technique = Technique::new(65);
+
+        /// T1548
+        pub const ABUSE_ELEVATION_CONTROL_MECHANISM: Technique = Technique::new(34);
+
+        /// T1552
+        pub const UNSECURED_CREDENTIALS: Technique = Technique::new(13);
+
+        /// T1556
+        pub const MODIFY_AUTHENTICATION_PROCESS: Technique = Technique::new(28);
+
+        /// T1562
+        pub const IMPAIR_DEFENSES: Technique = Technique::new(31);
+
+        /// T1562.001
+        pub const DISABLE_OR_MODIFY_TOOLS: Technique = Technique::new(55);
+
+        /// T1567
+        pub const EXFILTRATION_OVER_WEB_SERVICE: Technique = Technique::new(20);
+
+        /// T1567.002
+        pub const EXFILTRATION_TO_CLOUD_STORAGE: Technique = Technique::new(21);
+
+        /// T1568
+        pub const DYNAMIC_RESOLUTION: Technique = Technique::new(12);
+
+        /// T1570
+        pub const LATERAL_TOOL_TRANSFER: Technique = Technique::new(41);
+
+        /// T1578
+        pub const MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE: Technique = Technique::new(26);
+
+        /// T1578.001
+        pub const CREATE_SNAPSHOT: Technique = Technique::new(54);
+
+        /// T1580
+        pub const CLOUD_INFRASTRUCTURE_DISCOVERY: Technique = Technique::new(53);
+
+        /// T1588
+        pub const OBTAIN_CAPABILITIES: Technique = Technique::new(43);
+
+        /// T1595
+        pub const ACTIVE_SCANNING: Technique = Technique::new(1);
+
+        /// T1595.001
+        pub const SCANNING_IP_BLOCKS: Technique = Technique::new(2);
+
+        /// T1609
+        pub const CONTAINER_ADMINISTRATION_COMMAND: Technique = Technique::new(60);
+
+        /// T1610
+        pub const DEPLOY_CONTAINER: Technique = Technique::new(66);
+
+        /// T1611
+        pub const ESCAPE_TO_HOST: Technique = Technique::new(61);
+
+        /// T1613
+        pub const CONTAINER_AND_RESOURCE_DISCOVERY: Technique = Technique::new(57);
+
+        /// T1649
+        pub const STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES: Technique = Technique::new(62);
+
         /// Creates a new Technique instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TECHNIQUE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE_SCANNING"),
+                2 => std::borrow::Cow::Borrowed("SCANNING_IP_BLOCKS"),
+                3 => std::borrow::Cow::Borrowed("INGRESS_TOOL_TRANSFER"),
+                4 => std::borrow::Cow::Borrowed("NATIVE_API"),
+                5 => std::borrow::Cow::Borrowed("SHARED_MODULES"),
+                6 => std::borrow::Cow::Borrowed("COMMAND_AND_SCRIPTING_INTERPRETER"),
+                7 => std::borrow::Cow::Borrowed("UNIX_SHELL"),
+                8 => std::borrow::Cow::Borrowed("RESOURCE_HIJACKING"),
+                9 => std::borrow::Cow::Borrowed("PROXY"),
+                10 => std::borrow::Cow::Borrowed("EXTERNAL_PROXY"),
+                11 => std::borrow::Cow::Borrowed("MULTI_HOP_PROXY"),
+                12 => std::borrow::Cow::Borrowed("DYNAMIC_RESOLUTION"),
+                13 => std::borrow::Cow::Borrowed("UNSECURED_CREDENTIALS"),
+                14 => std::borrow::Cow::Borrowed("VALID_ACCOUNTS"),
+                15 => std::borrow::Cow::Borrowed("LOCAL_ACCOUNTS"),
+                16 => std::borrow::Cow::Borrowed("CLOUD_ACCOUNTS"),
+                17 => std::borrow::Cow::Borrowed("NETWORK_DENIAL_OF_SERVICE"),
+                18 => std::borrow::Cow::Borrowed("PERMISSION_GROUPS_DISCOVERY"),
+                19 => std::borrow::Cow::Borrowed("CLOUD_GROUPS"),
+                20 => std::borrow::Cow::Borrowed("EXFILTRATION_OVER_WEB_SERVICE"),
+                21 => std::borrow::Cow::Borrowed("EXFILTRATION_TO_CLOUD_STORAGE"),
+                22 => std::borrow::Cow::Borrowed("ACCOUNT_MANIPULATION"),
+                23 => std::borrow::Cow::Borrowed("SSH_AUTHORIZED_KEYS"),
+                24 => std::borrow::Cow::Borrowed("CREATE_OR_MODIFY_SYSTEM_PROCESS"),
+                25 => std::borrow::Cow::Borrowed("STEAL_WEB_SESSION_COOKIE"),
+                26 => std::borrow::Cow::Borrowed("MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE"),
+                27 => std::borrow::Cow::Borrowed("EXPLOIT_PUBLIC_FACING_APPLICATION"),
+                28 => std::borrow::Cow::Borrowed("MODIFY_AUTHENTICATION_PROCESS"),
+                29 => std::borrow::Cow::Borrowed("DATA_DESTRUCTION"),
+                30 => std::borrow::Cow::Borrowed("DOMAIN_POLICY_MODIFICATION"),
+                31 => std::borrow::Cow::Borrowed("IMPAIR_DEFENSES"),
+                32 => std::borrow::Cow::Borrowed("NETWORK_SERVICE_DISCOVERY"),
+                33 => std::borrow::Cow::Borrowed("ACCESS_TOKEN_MANIPULATION"),
+                34 => std::borrow::Cow::Borrowed("ABUSE_ELEVATION_CONTROL_MECHANISM"),
+                35 => std::borrow::Cow::Borrowed("DEFAULT_ACCOUNTS"),
+                36 => std::borrow::Cow::Borrowed("INHIBIT_SYSTEM_RECOVERY"),
+                37 => std::borrow::Cow::Borrowed("BOOT_OR_LOGON_INITIALIZATION_SCRIPTS"),
+                38 => std::borrow::Cow::Borrowed("STARTUP_ITEMS"),
+                39 => std::borrow::Cow::Borrowed("TOKEN_IMPERSONATION_OR_THEFT"),
+                40 => std::borrow::Cow::Borrowed("ADDITIONAL_CLOUD_CREDENTIALS"),
+                41 => std::borrow::Cow::Borrowed("LATERAL_TOOL_TRANSFER"),
+                42 => std::borrow::Cow::Borrowed("STEAL_APPLICATION_ACCESS_TOKEN"),
+                43 => std::borrow::Cow::Borrowed("OBTAIN_CAPABILITIES"),
+                44 => std::borrow::Cow::Borrowed("BRUTE_FORCE"),
+                45 => std::borrow::Cow::Borrowed("APPLICATION_LAYER_PROTOCOL"),
+                46 => std::borrow::Cow::Borrowed("DNS"),
+                47 => std::borrow::Cow::Borrowed("SOFTWARE_DEPLOYMENT_TOOLS"),
+                48 => std::borrow::Cow::Borrowed("CLOUD_SERVICE_DISCOVERY"),
+                49 => std::borrow::Cow::Borrowed("MASQUERADING"),
+                50 => std::borrow::Cow::Borrowed("MATCH_LEGITIMATE_NAME_OR_LOCATION"),
+                51 => std::borrow::Cow::Borrowed("ACCOUNT_ACCESS_REMOVAL"),
+                52 => std::borrow::Cow::Borrowed("SERVICE_STOP"),
+                53 => std::borrow::Cow::Borrowed("CLOUD_INFRASTRUCTURE_DISCOVERY"),
+                54 => std::borrow::Cow::Borrowed("CREATE_SNAPSHOT"),
+                55 => std::borrow::Cow::Borrowed("DISABLE_OR_MODIFY_TOOLS"),
+                56 => std::borrow::Cow::Borrowed("PROCESS_DISCOVERY"),
+                57 => std::borrow::Cow::Borrowed("CONTAINER_AND_RESOURCE_DISCOVERY"),
+                58 => std::borrow::Cow::Borrowed("ADDITIONAL_CONTAINER_CLUSTER_ROLES"),
+                59 => std::borrow::Cow::Borrowed("PYTHON"),
+                60 => std::borrow::Cow::Borrowed("CONTAINER_ADMINISTRATION_COMMAND"),
+                61 => std::borrow::Cow::Borrowed("ESCAPE_TO_HOST"),
+                62 => std::borrow::Cow::Borrowed("STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES"),
+                63 => std::borrow::Cow::Borrowed("EXPLOITATION_FOR_PRIVILEGE_ESCALATION"),
+                64 => std::borrow::Cow::Borrowed("INDICATOR_REMOVAL_FILE_DELETION"),
+                65 => std::borrow::Cow::Borrowed("EVENT_TRIGGERED_EXECUTION"),
+                66 => std::borrow::Cow::Borrowed("DEPLOY_CONTAINER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TECHNIQUE_UNSPECIFIED" => std::option::Option::Some(Self::TECHNIQUE_UNSPECIFIED),
+                "MASQUERADING" => std::option::Option::Some(Self::MASQUERADING),
+                "MATCH_LEGITIMATE_NAME_OR_LOCATION" => {
+                    std::option::Option::Some(Self::MATCH_LEGITIMATE_NAME_OR_LOCATION)
+                }
+                "BOOT_OR_LOGON_INITIALIZATION_SCRIPTS" => {
+                    std::option::Option::Some(Self::BOOT_OR_LOGON_INITIALIZATION_SCRIPTS)
+                }
+                "STARTUP_ITEMS" => std::option::Option::Some(Self::STARTUP_ITEMS),
+                "NETWORK_SERVICE_DISCOVERY" => {
+                    std::option::Option::Some(Self::NETWORK_SERVICE_DISCOVERY)
+                }
+                "PROCESS_DISCOVERY" => std::option::Option::Some(Self::PROCESS_DISCOVERY),
+                "COMMAND_AND_SCRIPTING_INTERPRETER" => {
+                    std::option::Option::Some(Self::COMMAND_AND_SCRIPTING_INTERPRETER)
+                }
+                "UNIX_SHELL" => std::option::Option::Some(Self::UNIX_SHELL),
+                "PYTHON" => std::option::Option::Some(Self::PYTHON),
+                "EXPLOITATION_FOR_PRIVILEGE_ESCALATION" => {
+                    std::option::Option::Some(Self::EXPLOITATION_FOR_PRIVILEGE_ESCALATION)
+                }
+                "PERMISSION_GROUPS_DISCOVERY" => {
+                    std::option::Option::Some(Self::PERMISSION_GROUPS_DISCOVERY)
+                }
+                "CLOUD_GROUPS" => std::option::Option::Some(Self::CLOUD_GROUPS),
+                "INDICATOR_REMOVAL_FILE_DELETION" => {
+                    std::option::Option::Some(Self::INDICATOR_REMOVAL_FILE_DELETION)
+                }
+                "APPLICATION_LAYER_PROTOCOL" => {
+                    std::option::Option::Some(Self::APPLICATION_LAYER_PROTOCOL)
+                }
+                "DNS" => std::option::Option::Some(Self::DNS),
+                "SOFTWARE_DEPLOYMENT_TOOLS" => {
+                    std::option::Option::Some(Self::SOFTWARE_DEPLOYMENT_TOOLS)
+                }
+                "VALID_ACCOUNTS" => std::option::Option::Some(Self::VALID_ACCOUNTS),
+                "DEFAULT_ACCOUNTS" => std::option::Option::Some(Self::DEFAULT_ACCOUNTS),
+                "LOCAL_ACCOUNTS" => std::option::Option::Some(Self::LOCAL_ACCOUNTS),
+                "CLOUD_ACCOUNTS" => std::option::Option::Some(Self::CLOUD_ACCOUNTS),
+                "PROXY" => std::option::Option::Some(Self::PROXY),
+                "EXTERNAL_PROXY" => std::option::Option::Some(Self::EXTERNAL_PROXY),
+                "MULTI_HOP_PROXY" => std::option::Option::Some(Self::MULTI_HOP_PROXY),
+                "ACCOUNT_MANIPULATION" => std::option::Option::Some(Self::ACCOUNT_MANIPULATION),
+                "ADDITIONAL_CLOUD_CREDENTIALS" => {
+                    std::option::Option::Some(Self::ADDITIONAL_CLOUD_CREDENTIALS)
+                }
+                "SSH_AUTHORIZED_KEYS" => std::option::Option::Some(Self::SSH_AUTHORIZED_KEYS),
+                "ADDITIONAL_CONTAINER_CLUSTER_ROLES" => {
+                    std::option::Option::Some(Self::ADDITIONAL_CONTAINER_CLUSTER_ROLES)
+                }
+                "INGRESS_TOOL_TRANSFER" => std::option::Option::Some(Self::INGRESS_TOOL_TRANSFER),
+                "NATIVE_API" => std::option::Option::Some(Self::NATIVE_API),
+                "BRUTE_FORCE" => std::option::Option::Some(Self::BRUTE_FORCE),
+                "SHARED_MODULES" => std::option::Option::Some(Self::SHARED_MODULES),
+                "ACCESS_TOKEN_MANIPULATION" => {
+                    std::option::Option::Some(Self::ACCESS_TOKEN_MANIPULATION)
+                }
+                "TOKEN_IMPERSONATION_OR_THEFT" => {
+                    std::option::Option::Some(Self::TOKEN_IMPERSONATION_OR_THEFT)
+                }
+                "EXPLOIT_PUBLIC_FACING_APPLICATION" => {
+                    std::option::Option::Some(Self::EXPLOIT_PUBLIC_FACING_APPLICATION)
+                }
+                "DOMAIN_POLICY_MODIFICATION" => {
+                    std::option::Option::Some(Self::DOMAIN_POLICY_MODIFICATION)
+                }
+                "DATA_DESTRUCTION" => std::option::Option::Some(Self::DATA_DESTRUCTION),
+                "SERVICE_STOP" => std::option::Option::Some(Self::SERVICE_STOP),
+                "INHIBIT_SYSTEM_RECOVERY" => {
+                    std::option::Option::Some(Self::INHIBIT_SYSTEM_RECOVERY)
+                }
+                "RESOURCE_HIJACKING" => std::option::Option::Some(Self::RESOURCE_HIJACKING),
+                "NETWORK_DENIAL_OF_SERVICE" => {
+                    std::option::Option::Some(Self::NETWORK_DENIAL_OF_SERVICE)
+                }
+                "CLOUD_SERVICE_DISCOVERY" => {
+                    std::option::Option::Some(Self::CLOUD_SERVICE_DISCOVERY)
+                }
+                "STEAL_APPLICATION_ACCESS_TOKEN" => {
+                    std::option::Option::Some(Self::STEAL_APPLICATION_ACCESS_TOKEN)
+                }
+                "ACCOUNT_ACCESS_REMOVAL" => std::option::Option::Some(Self::ACCOUNT_ACCESS_REMOVAL),
+                "STEAL_WEB_SESSION_COOKIE" => {
+                    std::option::Option::Some(Self::STEAL_WEB_SESSION_COOKIE)
+                }
+                "CREATE_OR_MODIFY_SYSTEM_PROCESS" => {
+                    std::option::Option::Some(Self::CREATE_OR_MODIFY_SYSTEM_PROCESS)
+                }
+                "EVENT_TRIGGERED_EXECUTION" => {
+                    std::option::Option::Some(Self::EVENT_TRIGGERED_EXECUTION)
+                }
+                "ABUSE_ELEVATION_CONTROL_MECHANISM" => {
+                    std::option::Option::Some(Self::ABUSE_ELEVATION_CONTROL_MECHANISM)
+                }
+                "UNSECURED_CREDENTIALS" => std::option::Option::Some(Self::UNSECURED_CREDENTIALS),
+                "MODIFY_AUTHENTICATION_PROCESS" => {
+                    std::option::Option::Some(Self::MODIFY_AUTHENTICATION_PROCESS)
+                }
+                "IMPAIR_DEFENSES" => std::option::Option::Some(Self::IMPAIR_DEFENSES),
+                "DISABLE_OR_MODIFY_TOOLS" => {
+                    std::option::Option::Some(Self::DISABLE_OR_MODIFY_TOOLS)
+                }
+                "EXFILTRATION_OVER_WEB_SERVICE" => {
+                    std::option::Option::Some(Self::EXFILTRATION_OVER_WEB_SERVICE)
+                }
+                "EXFILTRATION_TO_CLOUD_STORAGE" => {
+                    std::option::Option::Some(Self::EXFILTRATION_TO_CLOUD_STORAGE)
+                }
+                "DYNAMIC_RESOLUTION" => std::option::Option::Some(Self::DYNAMIC_RESOLUTION),
+                "LATERAL_TOOL_TRANSFER" => std::option::Option::Some(Self::LATERAL_TOOL_TRANSFER),
+                "MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE" => {
+                    std::option::Option::Some(Self::MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE)
+                }
+                "CREATE_SNAPSHOT" => std::option::Option::Some(Self::CREATE_SNAPSHOT),
+                "CLOUD_INFRASTRUCTURE_DISCOVERY" => {
+                    std::option::Option::Some(Self::CLOUD_INFRASTRUCTURE_DISCOVERY)
+                }
+                "OBTAIN_CAPABILITIES" => std::option::Option::Some(Self::OBTAIN_CAPABILITIES),
+                "ACTIVE_SCANNING" => std::option::Option::Some(Self::ACTIVE_SCANNING),
+                "SCANNING_IP_BLOCKS" => std::option::Option::Some(Self::SCANNING_IP_BLOCKS),
+                "CONTAINER_ADMINISTRATION_COMMAND" => {
+                    std::option::Option::Some(Self::CONTAINER_ADMINISTRATION_COMMAND)
+                }
+                "DEPLOY_CONTAINER" => std::option::Option::Some(Self::DEPLOY_CONTAINER),
+                "ESCAPE_TO_HOST" => std::option::Option::Some(Self::ESCAPE_TO_HOST),
+                "CONTAINER_AND_RESOURCE_DISCOVERY" => {
+                    std::option::Option::Some(Self::CONTAINER_AND_RESOURCE_DISCOVERY)
+                }
+                "STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES" => {
+                    std::option::Option::Some(Self::STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Technique](Technique)
-    pub mod technique {
-        use super::Technique;
-
-        /// Unspecified value.
-        pub const TECHNIQUE_UNSPECIFIED: Technique = Technique::new("TECHNIQUE_UNSPECIFIED");
-
-        /// T1036
-        pub const MASQUERADING: Technique = Technique::new("MASQUERADING");
-
-        /// T1036.005
-        pub const MATCH_LEGITIMATE_NAME_OR_LOCATION: Technique =
-            Technique::new("MATCH_LEGITIMATE_NAME_OR_LOCATION");
-
-        /// T1037
-        pub const BOOT_OR_LOGON_INITIALIZATION_SCRIPTS: Technique =
-            Technique::new("BOOT_OR_LOGON_INITIALIZATION_SCRIPTS");
-
-        /// T1037.005
-        pub const STARTUP_ITEMS: Technique = Technique::new("STARTUP_ITEMS");
-
-        /// T1046
-        pub const NETWORK_SERVICE_DISCOVERY: Technique =
-            Technique::new("NETWORK_SERVICE_DISCOVERY");
-
-        /// T1057
-        pub const PROCESS_DISCOVERY: Technique = Technique::new("PROCESS_DISCOVERY");
-
-        /// T1059
-        pub const COMMAND_AND_SCRIPTING_INTERPRETER: Technique =
-            Technique::new("COMMAND_AND_SCRIPTING_INTERPRETER");
-
-        /// T1059.004
-        pub const UNIX_SHELL: Technique = Technique::new("UNIX_SHELL");
-
-        /// T1059.006
-        pub const PYTHON: Technique = Technique::new("PYTHON");
-
-        /// T1068
-        pub const EXPLOITATION_FOR_PRIVILEGE_ESCALATION: Technique =
-            Technique::new("EXPLOITATION_FOR_PRIVILEGE_ESCALATION");
-
-        /// T1069
-        pub const PERMISSION_GROUPS_DISCOVERY: Technique =
-            Technique::new("PERMISSION_GROUPS_DISCOVERY");
-
-        /// T1069.003
-        pub const CLOUD_GROUPS: Technique = Technique::new("CLOUD_GROUPS");
-
-        /// T1070.004
-        pub const INDICATOR_REMOVAL_FILE_DELETION: Technique =
-            Technique::new("INDICATOR_REMOVAL_FILE_DELETION");
-
-        /// T1071
-        pub const APPLICATION_LAYER_PROTOCOL: Technique =
-            Technique::new("APPLICATION_LAYER_PROTOCOL");
-
-        /// T1071.004
-        pub const DNS: Technique = Technique::new("DNS");
-
-        /// T1072
-        pub const SOFTWARE_DEPLOYMENT_TOOLS: Technique =
-            Technique::new("SOFTWARE_DEPLOYMENT_TOOLS");
-
-        /// T1078
-        pub const VALID_ACCOUNTS: Technique = Technique::new("VALID_ACCOUNTS");
-
-        /// T1078.001
-        pub const DEFAULT_ACCOUNTS: Technique = Technique::new("DEFAULT_ACCOUNTS");
-
-        /// T1078.003
-        pub const LOCAL_ACCOUNTS: Technique = Technique::new("LOCAL_ACCOUNTS");
-
-        /// T1078.004
-        pub const CLOUD_ACCOUNTS: Technique = Technique::new("CLOUD_ACCOUNTS");
-
-        /// T1090
-        pub const PROXY: Technique = Technique::new("PROXY");
-
-        /// T1090.002
-        pub const EXTERNAL_PROXY: Technique = Technique::new("EXTERNAL_PROXY");
-
-        /// T1090.003
-        pub const MULTI_HOP_PROXY: Technique = Technique::new("MULTI_HOP_PROXY");
-
-        /// T1098
-        pub const ACCOUNT_MANIPULATION: Technique = Technique::new("ACCOUNT_MANIPULATION");
-
-        /// T1098.001
-        pub const ADDITIONAL_CLOUD_CREDENTIALS: Technique =
-            Technique::new("ADDITIONAL_CLOUD_CREDENTIALS");
-
-        /// T1098.004
-        pub const SSH_AUTHORIZED_KEYS: Technique = Technique::new("SSH_AUTHORIZED_KEYS");
-
-        /// T1098.006
-        pub const ADDITIONAL_CONTAINER_CLUSTER_ROLES: Technique =
-            Technique::new("ADDITIONAL_CONTAINER_CLUSTER_ROLES");
-
-        /// T1105
-        pub const INGRESS_TOOL_TRANSFER: Technique = Technique::new("INGRESS_TOOL_TRANSFER");
-
-        /// T1106
-        pub const NATIVE_API: Technique = Technique::new("NATIVE_API");
-
-        /// T1110
-        pub const BRUTE_FORCE: Technique = Technique::new("BRUTE_FORCE");
-
-        /// T1129
-        pub const SHARED_MODULES: Technique = Technique::new("SHARED_MODULES");
-
-        /// T1134
-        pub const ACCESS_TOKEN_MANIPULATION: Technique =
-            Technique::new("ACCESS_TOKEN_MANIPULATION");
-
-        /// T1134.001
-        pub const TOKEN_IMPERSONATION_OR_THEFT: Technique =
-            Technique::new("TOKEN_IMPERSONATION_OR_THEFT");
-
-        /// T1190
-        pub const EXPLOIT_PUBLIC_FACING_APPLICATION: Technique =
-            Technique::new("EXPLOIT_PUBLIC_FACING_APPLICATION");
-
-        /// T1484
-        pub const DOMAIN_POLICY_MODIFICATION: Technique =
-            Technique::new("DOMAIN_POLICY_MODIFICATION");
-
-        /// T1485
-        pub const DATA_DESTRUCTION: Technique = Technique::new("DATA_DESTRUCTION");
-
-        /// T1489
-        pub const SERVICE_STOP: Technique = Technique::new("SERVICE_STOP");
-
-        /// T1490
-        pub const INHIBIT_SYSTEM_RECOVERY: Technique = Technique::new("INHIBIT_SYSTEM_RECOVERY");
-
-        /// T1496
-        pub const RESOURCE_HIJACKING: Technique = Technique::new("RESOURCE_HIJACKING");
-
-        /// T1498
-        pub const NETWORK_DENIAL_OF_SERVICE: Technique =
-            Technique::new("NETWORK_DENIAL_OF_SERVICE");
-
-        /// T1526
-        pub const CLOUD_SERVICE_DISCOVERY: Technique = Technique::new("CLOUD_SERVICE_DISCOVERY");
-
-        /// T1528
-        pub const STEAL_APPLICATION_ACCESS_TOKEN: Technique =
-            Technique::new("STEAL_APPLICATION_ACCESS_TOKEN");
-
-        /// T1531
-        pub const ACCOUNT_ACCESS_REMOVAL: Technique = Technique::new("ACCOUNT_ACCESS_REMOVAL");
-
-        /// T1539
-        pub const STEAL_WEB_SESSION_COOKIE: Technique = Technique::new("STEAL_WEB_SESSION_COOKIE");
-
-        /// T1543
-        pub const CREATE_OR_MODIFY_SYSTEM_PROCESS: Technique =
-            Technique::new("CREATE_OR_MODIFY_SYSTEM_PROCESS");
-
-        /// T1546
-        pub const EVENT_TRIGGERED_EXECUTION: Technique =
-            Technique::new("EVENT_TRIGGERED_EXECUTION");
-
-        /// T1548
-        pub const ABUSE_ELEVATION_CONTROL_MECHANISM: Technique =
-            Technique::new("ABUSE_ELEVATION_CONTROL_MECHANISM");
-
-        /// T1552
-        pub const UNSECURED_CREDENTIALS: Technique = Technique::new("UNSECURED_CREDENTIALS");
-
-        /// T1556
-        pub const MODIFY_AUTHENTICATION_PROCESS: Technique =
-            Technique::new("MODIFY_AUTHENTICATION_PROCESS");
-
-        /// T1562
-        pub const IMPAIR_DEFENSES: Technique = Technique::new("IMPAIR_DEFENSES");
-
-        /// T1562.001
-        pub const DISABLE_OR_MODIFY_TOOLS: Technique = Technique::new("DISABLE_OR_MODIFY_TOOLS");
-
-        /// T1567
-        pub const EXFILTRATION_OVER_WEB_SERVICE: Technique =
-            Technique::new("EXFILTRATION_OVER_WEB_SERVICE");
-
-        /// T1567.002
-        pub const EXFILTRATION_TO_CLOUD_STORAGE: Technique =
-            Technique::new("EXFILTRATION_TO_CLOUD_STORAGE");
-
-        /// T1568
-        pub const DYNAMIC_RESOLUTION: Technique = Technique::new("DYNAMIC_RESOLUTION");
-
-        /// T1570
-        pub const LATERAL_TOOL_TRANSFER: Technique = Technique::new("LATERAL_TOOL_TRANSFER");
-
-        /// T1578
-        pub const MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE: Technique =
-            Technique::new("MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE");
-
-        /// T1578.001
-        pub const CREATE_SNAPSHOT: Technique = Technique::new("CREATE_SNAPSHOT");
-
-        /// T1580
-        pub const CLOUD_INFRASTRUCTURE_DISCOVERY: Technique =
-            Technique::new("CLOUD_INFRASTRUCTURE_DISCOVERY");
-
-        /// T1588
-        pub const OBTAIN_CAPABILITIES: Technique = Technique::new("OBTAIN_CAPABILITIES");
-
-        /// T1595
-        pub const ACTIVE_SCANNING: Technique = Technique::new("ACTIVE_SCANNING");
-
-        /// T1595.001
-        pub const SCANNING_IP_BLOCKS: Technique = Technique::new("SCANNING_IP_BLOCKS");
-
-        /// T1609
-        pub const CONTAINER_ADMINISTRATION_COMMAND: Technique =
-            Technique::new("CONTAINER_ADMINISTRATION_COMMAND");
-
-        /// T1610
-        pub const DEPLOY_CONTAINER: Technique = Technique::new("DEPLOY_CONTAINER");
-
-        /// T1611
-        pub const ESCAPE_TO_HOST: Technique = Technique::new("ESCAPE_TO_HOST");
-
-        /// T1613
-        pub const CONTAINER_AND_RESOURCE_DISCOVERY: Technique =
-            Technique::new("CONTAINER_AND_RESOURCE_DISCOVERY");
-
-        /// T1649
-        pub const STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES: Technique =
-            Technique::new("STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES");
+    impl std::convert::From<i32> for Technique {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Technique {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Technique {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -6508,33 +7114,17 @@ pub mod mute_config {
     use super::*;
 
     /// The type of MuteConfig.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MuteConfigType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct MuteConfigType(i32);
 
     impl MuteConfigType {
-        /// Creates a new MuteConfigType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [MuteConfigType](MuteConfigType)
-    pub mod mute_config_type {
-        use super::MuteConfigType;
-
         /// Unused.
-        pub const MUTE_CONFIG_TYPE_UNSPECIFIED: MuteConfigType =
-            MuteConfigType::new("MUTE_CONFIG_TYPE_UNSPECIFIED");
+        pub const MUTE_CONFIG_TYPE_UNSPECIFIED: MuteConfigType = MuteConfigType::new(0);
 
         /// A static mute config, which sets the static mute state of future matching
         /// findings to muted. Once the static mute state has been set, finding or
         /// config modifications will not affect the state.
-        pub const STATIC: MuteConfigType = MuteConfigType::new("STATIC");
+        pub const STATIC: MuteConfigType = MuteConfigType::new(1);
 
         /// A dynamic mute config, which is applied to existing and future matching
         /// findings, setting their dynamic mute state to "muted". If the config is
@@ -6542,12 +7132,50 @@ pub mod mute_config {
         /// finding doesn't match the config, the config will be removed from the
         /// finding, and the finding's dynamic mute state may become "unmuted"
         /// (unless other configs still match).
-        pub const DYNAMIC: MuteConfigType = MuteConfigType::new("DYNAMIC");
+        pub const DYNAMIC: MuteConfigType = MuteConfigType::new(2);
+
+        /// Creates a new MuteConfigType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MUTE_CONFIG_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STATIC"),
+                2 => std::borrow::Cow::Borrowed("DYNAMIC"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MUTE_CONFIG_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::MUTE_CONFIG_TYPE_UNSPECIFIED)
+                }
+                "STATIC" => std::option::Option::Some(Self::STATIC),
+                "DYNAMIC" => std::option::Option::Some(Self::DYNAMIC),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for MuteConfigType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for MuteConfigType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for MuteConfigType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -7995,66 +8623,99 @@ pub mod resource_path {
     }
 
     /// The type of resource the node represents.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResourcePathNodeType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ResourcePathNodeType(i32);
 
     impl ResourcePathNodeType {
+        /// Node type is unspecified.
+        pub const RESOURCE_PATH_NODE_TYPE_UNSPECIFIED: ResourcePathNodeType =
+            ResourcePathNodeType::new(0);
+
+        /// The node represents a Google Cloud organization.
+        pub const GCP_ORGANIZATION: ResourcePathNodeType = ResourcePathNodeType::new(1);
+
+        /// The node represents a Google Cloud folder.
+        pub const GCP_FOLDER: ResourcePathNodeType = ResourcePathNodeType::new(2);
+
+        /// The node represents a Google Cloud project.
+        pub const GCP_PROJECT: ResourcePathNodeType = ResourcePathNodeType::new(3);
+
+        /// The node represents an AWS organization.
+        pub const AWS_ORGANIZATION: ResourcePathNodeType = ResourcePathNodeType::new(4);
+
+        /// The node represents an AWS organizational unit.
+        pub const AWS_ORGANIZATIONAL_UNIT: ResourcePathNodeType = ResourcePathNodeType::new(5);
+
+        /// The node represents an AWS account.
+        pub const AWS_ACCOUNT: ResourcePathNodeType = ResourcePathNodeType::new(6);
+
+        /// The node represents an Azure management group.
+        pub const AZURE_MANAGEMENT_GROUP: ResourcePathNodeType = ResourcePathNodeType::new(7);
+
+        /// The node represents an Azure subscription.
+        pub const AZURE_SUBSCRIPTION: ResourcePathNodeType = ResourcePathNodeType::new(8);
+
+        /// The node represents an Azure resource group.
+        pub const AZURE_RESOURCE_GROUP: ResourcePathNodeType = ResourcePathNodeType::new(9);
+
         /// Creates a new ResourcePathNodeType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESOURCE_PATH_NODE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GCP_ORGANIZATION"),
+                2 => std::borrow::Cow::Borrowed("GCP_FOLDER"),
+                3 => std::borrow::Cow::Borrowed("GCP_PROJECT"),
+                4 => std::borrow::Cow::Borrowed("AWS_ORGANIZATION"),
+                5 => std::borrow::Cow::Borrowed("AWS_ORGANIZATIONAL_UNIT"),
+                6 => std::borrow::Cow::Borrowed("AWS_ACCOUNT"),
+                7 => std::borrow::Cow::Borrowed("AZURE_MANAGEMENT_GROUP"),
+                8 => std::borrow::Cow::Borrowed("AZURE_SUBSCRIPTION"),
+                9 => std::borrow::Cow::Borrowed("AZURE_RESOURCE_GROUP"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESOURCE_PATH_NODE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RESOURCE_PATH_NODE_TYPE_UNSPECIFIED)
+                }
+                "GCP_ORGANIZATION" => std::option::Option::Some(Self::GCP_ORGANIZATION),
+                "GCP_FOLDER" => std::option::Option::Some(Self::GCP_FOLDER),
+                "GCP_PROJECT" => std::option::Option::Some(Self::GCP_PROJECT),
+                "AWS_ORGANIZATION" => std::option::Option::Some(Self::AWS_ORGANIZATION),
+                "AWS_ORGANIZATIONAL_UNIT" => {
+                    std::option::Option::Some(Self::AWS_ORGANIZATIONAL_UNIT)
+                }
+                "AWS_ACCOUNT" => std::option::Option::Some(Self::AWS_ACCOUNT),
+                "AZURE_MANAGEMENT_GROUP" => std::option::Option::Some(Self::AZURE_MANAGEMENT_GROUP),
+                "AZURE_SUBSCRIPTION" => std::option::Option::Some(Self::AZURE_SUBSCRIPTION),
+                "AZURE_RESOURCE_GROUP" => std::option::Option::Some(Self::AZURE_RESOURCE_GROUP),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ResourcePathNodeType](ResourcePathNodeType)
-    pub mod resource_path_node_type {
-        use super::ResourcePathNodeType;
-
-        /// Node type is unspecified.
-        pub const RESOURCE_PATH_NODE_TYPE_UNSPECIFIED: ResourcePathNodeType =
-            ResourcePathNodeType::new("RESOURCE_PATH_NODE_TYPE_UNSPECIFIED");
-
-        /// The node represents a Google Cloud organization.
-        pub const GCP_ORGANIZATION: ResourcePathNodeType =
-            ResourcePathNodeType::new("GCP_ORGANIZATION");
-
-        /// The node represents a Google Cloud folder.
-        pub const GCP_FOLDER: ResourcePathNodeType = ResourcePathNodeType::new("GCP_FOLDER");
-
-        /// The node represents a Google Cloud project.
-        pub const GCP_PROJECT: ResourcePathNodeType = ResourcePathNodeType::new("GCP_PROJECT");
-
-        /// The node represents an AWS organization.
-        pub const AWS_ORGANIZATION: ResourcePathNodeType =
-            ResourcePathNodeType::new("AWS_ORGANIZATION");
-
-        /// The node represents an AWS organizational unit.
-        pub const AWS_ORGANIZATIONAL_UNIT: ResourcePathNodeType =
-            ResourcePathNodeType::new("AWS_ORGANIZATIONAL_UNIT");
-
-        /// The node represents an AWS account.
-        pub const AWS_ACCOUNT: ResourcePathNodeType = ResourcePathNodeType::new("AWS_ACCOUNT");
-
-        /// The node represents an Azure management group.
-        pub const AZURE_MANAGEMENT_GROUP: ResourcePathNodeType =
-            ResourcePathNodeType::new("AZURE_MANAGEMENT_GROUP");
-
-        /// The node represents an Azure subscription.
-        pub const AZURE_SUBSCRIPTION: ResourcePathNodeType =
-            ResourcePathNodeType::new("AZURE_SUBSCRIPTION");
-
-        /// The node represents an Azure resource group.
-        pub const AZURE_RESOURCE_GROUP: ResourcePathNodeType =
-            ResourcePathNodeType::new("AZURE_RESOURCE_GROUP");
+    impl std::convert::From<i32> for ResourcePathNodeType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ResourcePathNodeType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ResourcePathNodeType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -8743,38 +9404,59 @@ pub mod bulk_mute_findings_request {
     use super::*;
 
     /// The mute state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MuteState(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct MuteState(i32);
 
     impl MuteState {
+        /// Unused.
+        pub const MUTE_STATE_UNSPECIFIED: MuteState = MuteState::new(0);
+
+        /// Matching findings will be muted (default).
+        pub const MUTED: MuteState = MuteState::new(1);
+
+        /// Matching findings will have their mute state cleared.
+        pub const UNDEFINED: MuteState = MuteState::new(2);
+
         /// Creates a new MuteState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MUTE_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MUTED"),
+                2 => std::borrow::Cow::Borrowed("UNDEFINED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MUTE_STATE_UNSPECIFIED" => std::option::Option::Some(Self::MUTE_STATE_UNSPECIFIED),
+                "MUTED" => std::option::Option::Some(Self::MUTED),
+                "UNDEFINED" => std::option::Option::Some(Self::UNDEFINED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [MuteState](MuteState)
-    pub mod mute_state {
-        use super::MuteState;
-
-        /// Unused.
-        pub const MUTE_STATE_UNSPECIFIED: MuteState = MuteState::new("MUTE_STATE_UNSPECIFIED");
-
-        /// Matching findings will be muted (default).
-        pub const MUTED: MuteState = MuteState::new("MUTED");
-
-        /// Matching findings will have their mute state cleared.
-        pub const UNDEFINED: MuteState = MuteState::new("UNDEFINED");
+    impl std::convert::From<i32> for MuteState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for MuteState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for MuteState {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -12028,43 +12710,66 @@ pub mod valued_resource {
     use super::*;
 
     /// How valuable the resource is.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResourceValue(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ResourceValue(i32);
 
     impl ResourceValue {
+        /// The resource value isn't specified.
+        pub const RESOURCE_VALUE_UNSPECIFIED: ResourceValue = ResourceValue::new(0);
+
+        /// This is a low-value resource.
+        pub const RESOURCE_VALUE_LOW: ResourceValue = ResourceValue::new(1);
+
+        /// This is a medium-value resource.
+        pub const RESOURCE_VALUE_MEDIUM: ResourceValue = ResourceValue::new(2);
+
+        /// This is a high-value resource.
+        pub const RESOURCE_VALUE_HIGH: ResourceValue = ResourceValue::new(3);
+
         /// Creates a new ResourceValue instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESOURCE_VALUE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RESOURCE_VALUE_LOW"),
+                2 => std::borrow::Cow::Borrowed("RESOURCE_VALUE_MEDIUM"),
+                3 => std::borrow::Cow::Borrowed("RESOURCE_VALUE_HIGH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESOURCE_VALUE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RESOURCE_VALUE_UNSPECIFIED)
+                }
+                "RESOURCE_VALUE_LOW" => std::option::Option::Some(Self::RESOURCE_VALUE_LOW),
+                "RESOURCE_VALUE_MEDIUM" => std::option::Option::Some(Self::RESOURCE_VALUE_MEDIUM),
+                "RESOURCE_VALUE_HIGH" => std::option::Option::Some(Self::RESOURCE_VALUE_HIGH),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ResourceValue](ResourceValue)
-    pub mod resource_value {
-        use super::ResourceValue;
-
-        /// The resource value isn't specified.
-        pub const RESOURCE_VALUE_UNSPECIFIED: ResourceValue =
-            ResourceValue::new("RESOURCE_VALUE_UNSPECIFIED");
-
-        /// This is a low-value resource.
-        pub const RESOURCE_VALUE_LOW: ResourceValue = ResourceValue::new("RESOURCE_VALUE_LOW");
-
-        /// This is a medium-value resource.
-        pub const RESOURCE_VALUE_MEDIUM: ResourceValue =
-            ResourceValue::new("RESOURCE_VALUE_MEDIUM");
-
-        /// This is a high-value resource.
-        pub const RESOURCE_VALUE_HIGH: ResourceValue = ResourceValue::new("RESOURCE_VALUE_HIGH");
+    impl std::convert::From<i32> for ResourceValue {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ResourceValue {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ResourceValue {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -12325,96 +13030,152 @@ pub mod cve {
 
     /// The possible values of impact of the vulnerability if it was to be
     /// exploited.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RiskRating(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct RiskRating(i32);
 
     impl RiskRating {
-        /// Creates a new RiskRating instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RiskRating](RiskRating)
-    pub mod risk_rating {
-        use super::RiskRating;
-
         /// Invalid or empty value.
-        pub const RISK_RATING_UNSPECIFIED: RiskRating = RiskRating::new("RISK_RATING_UNSPECIFIED");
+        pub const RISK_RATING_UNSPECIFIED: RiskRating = RiskRating::new(0);
 
         /// Exploitation would have little to no security impact.
-        pub const LOW: RiskRating = RiskRating::new("LOW");
+        pub const LOW: RiskRating = RiskRating::new(1);
 
         /// Exploitation would enable attackers to perform activities, or could allow
         /// attackers to have a direct impact, but would require additional steps.
-        pub const MEDIUM: RiskRating = RiskRating::new("MEDIUM");
+        pub const MEDIUM: RiskRating = RiskRating::new(2);
 
         /// Exploitation would enable attackers to have a notable direct impact
         /// without needing to overcome any major mitigating factors.
-        pub const HIGH: RiskRating = RiskRating::new("HIGH");
+        pub const HIGH: RiskRating = RiskRating::new(3);
 
         /// Exploitation would fundamentally undermine the security of affected
         /// systems, enable actors to perform significant attacks with minimal
         /// effort, with little to no mitigating factors to overcome.
-        pub const CRITICAL: RiskRating = RiskRating::new("CRITICAL");
+        pub const CRITICAL: RiskRating = RiskRating::new(4);
+
+        /// Creates a new RiskRating instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RISK_RATING_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LOW"),
+                2 => std::borrow::Cow::Borrowed("MEDIUM"),
+                3 => std::borrow::Cow::Borrowed("HIGH"),
+                4 => std::borrow::Cow::Borrowed("CRITICAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RISK_RATING_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RISK_RATING_UNSPECIFIED)
+                }
+                "LOW" => std::option::Option::Some(Self::LOW),
+                "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
+                "HIGH" => std::option::Option::Some(Self::HIGH),
+                "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RiskRating {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RiskRating {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for RiskRating {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The possible values of exploitation activity of the vulnerability in the
     /// wild.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExploitationActivity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ExploitationActivity(i32);
 
     impl ExploitationActivity {
-        /// Creates a new ExploitationActivity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ExploitationActivity](ExploitationActivity)
-    pub mod exploitation_activity {
-        use super::ExploitationActivity;
-
         /// Invalid or empty value.
         pub const EXPLOITATION_ACTIVITY_UNSPECIFIED: ExploitationActivity =
-            ExploitationActivity::new("EXPLOITATION_ACTIVITY_UNSPECIFIED");
+            ExploitationActivity::new(0);
 
         /// Exploitation has been reported or confirmed to widely occur.
-        pub const WIDE: ExploitationActivity = ExploitationActivity::new("WIDE");
+        pub const WIDE: ExploitationActivity = ExploitationActivity::new(1);
 
         /// Limited reported or confirmed exploitation activities.
-        pub const CONFIRMED: ExploitationActivity = ExploitationActivity::new("CONFIRMED");
+        pub const CONFIRMED: ExploitationActivity = ExploitationActivity::new(2);
 
         /// Exploit is publicly available.
-        pub const AVAILABLE: ExploitationActivity = ExploitationActivity::new("AVAILABLE");
+        pub const AVAILABLE: ExploitationActivity = ExploitationActivity::new(3);
 
         /// No known exploitation activity, but has a high potential for
         /// exploitation.
-        pub const ANTICIPATED: ExploitationActivity = ExploitationActivity::new("ANTICIPATED");
+        pub const ANTICIPATED: ExploitationActivity = ExploitationActivity::new(4);
 
         /// No known exploitation activity.
-        pub const NO_KNOWN: ExploitationActivity = ExploitationActivity::new("NO_KNOWN");
+        pub const NO_KNOWN: ExploitationActivity = ExploitationActivity::new(5);
+
+        /// Creates a new ExploitationActivity instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EXPLOITATION_ACTIVITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("WIDE"),
+                2 => std::borrow::Cow::Borrowed("CONFIRMED"),
+                3 => std::borrow::Cow::Borrowed("AVAILABLE"),
+                4 => std::borrow::Cow::Borrowed("ANTICIPATED"),
+                5 => std::borrow::Cow::Borrowed("NO_KNOWN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EXPLOITATION_ACTIVITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::EXPLOITATION_ACTIVITY_UNSPECIFIED)
+                }
+                "WIDE" => std::option::Option::Some(Self::WIDE),
+                "CONFIRMED" => std::option::Option::Some(Self::CONFIRMED),
+                "AVAILABLE" => std::option::Option::Some(Self::AVAILABLE),
+                "ANTICIPATED" => std::option::Option::Some(Self::ANTICIPATED),
+                "NO_KNOWN" => std::option::Option::Some(Self::NO_KNOWN),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ExploitationActivity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ExploitationActivity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ExploitationActivity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -12602,271 +13363,408 @@ pub mod cvssv_3 {
 
     /// This metric reflects the context by which vulnerability exploitation is
     /// possible.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AttackVector(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AttackVector(i32);
 
     impl AttackVector {
-        /// Creates a new AttackVector instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [AttackVector](AttackVector)
-    pub mod attack_vector {
-        use super::AttackVector;
-
         /// Invalid value.
-        pub const ATTACK_VECTOR_UNSPECIFIED: AttackVector =
-            AttackVector::new("ATTACK_VECTOR_UNSPECIFIED");
+        pub const ATTACK_VECTOR_UNSPECIFIED: AttackVector = AttackVector::new(0);
 
         /// The vulnerable component is bound to the network stack and the set of
         /// possible attackers extends beyond the other options listed below, up to
         /// and including the entire Internet.
-        pub const ATTACK_VECTOR_NETWORK: AttackVector = AttackVector::new("ATTACK_VECTOR_NETWORK");
+        pub const ATTACK_VECTOR_NETWORK: AttackVector = AttackVector::new(1);
 
         /// The vulnerable component is bound to the network stack, but the attack is
         /// limited at the protocol level to a logically adjacent topology.
-        pub const ATTACK_VECTOR_ADJACENT: AttackVector =
-            AttackVector::new("ATTACK_VECTOR_ADJACENT");
+        pub const ATTACK_VECTOR_ADJACENT: AttackVector = AttackVector::new(2);
 
         /// The vulnerable component is not bound to the network stack and the
         /// attacker's path is via read/write/execute capabilities.
-        pub const ATTACK_VECTOR_LOCAL: AttackVector = AttackVector::new("ATTACK_VECTOR_LOCAL");
+        pub const ATTACK_VECTOR_LOCAL: AttackVector = AttackVector::new(3);
 
         /// The attack requires the attacker to physically touch or manipulate the
         /// vulnerable component.
-        pub const ATTACK_VECTOR_PHYSICAL: AttackVector =
-            AttackVector::new("ATTACK_VECTOR_PHYSICAL");
+        pub const ATTACK_VECTOR_PHYSICAL: AttackVector = AttackVector::new(4);
+
+        /// Creates a new AttackVector instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ATTACK_VECTOR_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ATTACK_VECTOR_NETWORK"),
+                2 => std::borrow::Cow::Borrowed("ATTACK_VECTOR_ADJACENT"),
+                3 => std::borrow::Cow::Borrowed("ATTACK_VECTOR_LOCAL"),
+                4 => std::borrow::Cow::Borrowed("ATTACK_VECTOR_PHYSICAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ATTACK_VECTOR_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ATTACK_VECTOR_UNSPECIFIED)
+                }
+                "ATTACK_VECTOR_NETWORK" => std::option::Option::Some(Self::ATTACK_VECTOR_NETWORK),
+                "ATTACK_VECTOR_ADJACENT" => std::option::Option::Some(Self::ATTACK_VECTOR_ADJACENT),
+                "ATTACK_VECTOR_LOCAL" => std::option::Option::Some(Self::ATTACK_VECTOR_LOCAL),
+                "ATTACK_VECTOR_PHYSICAL" => std::option::Option::Some(Self::ATTACK_VECTOR_PHYSICAL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for AttackVector {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AttackVector {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for AttackVector {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// This metric describes the conditions beyond the attacker's control that
     /// must exist in order to exploit the vulnerability.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AttackComplexity(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AttackComplexity(i32);
 
     impl AttackComplexity {
-        /// Creates a new AttackComplexity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [AttackComplexity](AttackComplexity)
-    pub mod attack_complexity {
-        use super::AttackComplexity;
-
         /// Invalid value.
-        pub const ATTACK_COMPLEXITY_UNSPECIFIED: AttackComplexity =
-            AttackComplexity::new("ATTACK_COMPLEXITY_UNSPECIFIED");
+        pub const ATTACK_COMPLEXITY_UNSPECIFIED: AttackComplexity = AttackComplexity::new(0);
 
         /// Specialized access conditions or extenuating circumstances do not exist.
         /// An attacker can expect repeatable success when attacking the vulnerable
         /// component.
-        pub const ATTACK_COMPLEXITY_LOW: AttackComplexity =
-            AttackComplexity::new("ATTACK_COMPLEXITY_LOW");
+        pub const ATTACK_COMPLEXITY_LOW: AttackComplexity = AttackComplexity::new(1);
 
         /// A successful attack depends on conditions beyond the attacker's control.
         /// That is, a successful attack cannot be accomplished at will, but requires
         /// the attacker to invest in some measurable amount of effort in preparation
         /// or execution against the vulnerable component before a successful attack
         /// can be expected.
-        pub const ATTACK_COMPLEXITY_HIGH: AttackComplexity =
-            AttackComplexity::new("ATTACK_COMPLEXITY_HIGH");
+        pub const ATTACK_COMPLEXITY_HIGH: AttackComplexity = AttackComplexity::new(2);
+
+        /// Creates a new AttackComplexity instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ATTACK_COMPLEXITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ATTACK_COMPLEXITY_LOW"),
+                2 => std::borrow::Cow::Borrowed("ATTACK_COMPLEXITY_HIGH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ATTACK_COMPLEXITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ATTACK_COMPLEXITY_UNSPECIFIED)
+                }
+                "ATTACK_COMPLEXITY_LOW" => std::option::Option::Some(Self::ATTACK_COMPLEXITY_LOW),
+                "ATTACK_COMPLEXITY_HIGH" => std::option::Option::Some(Self::ATTACK_COMPLEXITY_HIGH),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for AttackComplexity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AttackComplexity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for AttackComplexity {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// This metric describes the level of privileges an attacker must possess
     /// before successfully exploiting the vulnerability.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PrivilegesRequired(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PrivilegesRequired(i32);
 
     impl PrivilegesRequired {
-        /// Creates a new PrivilegesRequired instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PrivilegesRequired](PrivilegesRequired)
-    pub mod privileges_required {
-        use super::PrivilegesRequired;
-
         /// Invalid value.
-        pub const PRIVILEGES_REQUIRED_UNSPECIFIED: PrivilegesRequired =
-            PrivilegesRequired::new("PRIVILEGES_REQUIRED_UNSPECIFIED");
+        pub const PRIVILEGES_REQUIRED_UNSPECIFIED: PrivilegesRequired = PrivilegesRequired::new(0);
 
         /// The attacker is unauthorized prior to attack, and therefore does not
         /// require any access to settings or files of the vulnerable system to
         /// carry out an attack.
-        pub const PRIVILEGES_REQUIRED_NONE: PrivilegesRequired =
-            PrivilegesRequired::new("PRIVILEGES_REQUIRED_NONE");
+        pub const PRIVILEGES_REQUIRED_NONE: PrivilegesRequired = PrivilegesRequired::new(1);
 
         /// The attacker requires privileges that provide basic user capabilities
         /// that could normally affect only settings and files owned by a user.
         /// Alternatively, an attacker with Low privileges has the ability to access
         /// only non-sensitive resources.
-        pub const PRIVILEGES_REQUIRED_LOW: PrivilegesRequired =
-            PrivilegesRequired::new("PRIVILEGES_REQUIRED_LOW");
+        pub const PRIVILEGES_REQUIRED_LOW: PrivilegesRequired = PrivilegesRequired::new(2);
 
         /// The attacker requires privileges that provide significant (e.g.,
         /// administrative) control over the vulnerable component allowing access to
         /// component-wide settings and files.
-        pub const PRIVILEGES_REQUIRED_HIGH: PrivilegesRequired =
-            PrivilegesRequired::new("PRIVILEGES_REQUIRED_HIGH");
+        pub const PRIVILEGES_REQUIRED_HIGH: PrivilegesRequired = PrivilegesRequired::new(3);
+
+        /// Creates a new PrivilegesRequired instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PRIVILEGES_REQUIRED_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PRIVILEGES_REQUIRED_NONE"),
+                2 => std::borrow::Cow::Borrowed("PRIVILEGES_REQUIRED_LOW"),
+                3 => std::borrow::Cow::Borrowed("PRIVILEGES_REQUIRED_HIGH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PRIVILEGES_REQUIRED_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PRIVILEGES_REQUIRED_UNSPECIFIED)
+                }
+                "PRIVILEGES_REQUIRED_NONE" => {
+                    std::option::Option::Some(Self::PRIVILEGES_REQUIRED_NONE)
+                }
+                "PRIVILEGES_REQUIRED_LOW" => {
+                    std::option::Option::Some(Self::PRIVILEGES_REQUIRED_LOW)
+                }
+                "PRIVILEGES_REQUIRED_HIGH" => {
+                    std::option::Option::Some(Self::PRIVILEGES_REQUIRED_HIGH)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PrivilegesRequired {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PrivilegesRequired {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for PrivilegesRequired {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// This metric captures the requirement for a human user, other than the
     /// attacker, to participate in the successful compromise of the vulnerable
     /// component.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct UserInteraction(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct UserInteraction(i32);
 
     impl UserInteraction {
-        /// Creates a new UserInteraction instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [UserInteraction](UserInteraction)
-    pub mod user_interaction {
-        use super::UserInteraction;
-
         /// Invalid value.
-        pub const USER_INTERACTION_UNSPECIFIED: UserInteraction =
-            UserInteraction::new("USER_INTERACTION_UNSPECIFIED");
+        pub const USER_INTERACTION_UNSPECIFIED: UserInteraction = UserInteraction::new(0);
 
         /// The vulnerable system can be exploited without interaction from any user.
-        pub const USER_INTERACTION_NONE: UserInteraction =
-            UserInteraction::new("USER_INTERACTION_NONE");
+        pub const USER_INTERACTION_NONE: UserInteraction = UserInteraction::new(1);
 
         /// Successful exploitation of this vulnerability requires a user to take
         /// some action before the vulnerability can be exploited.
-        pub const USER_INTERACTION_REQUIRED: UserInteraction =
-            UserInteraction::new("USER_INTERACTION_REQUIRED");
+        pub const USER_INTERACTION_REQUIRED: UserInteraction = UserInteraction::new(2);
+
+        /// Creates a new UserInteraction instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("USER_INTERACTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("USER_INTERACTION_NONE"),
+                2 => std::borrow::Cow::Borrowed("USER_INTERACTION_REQUIRED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "USER_INTERACTION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::USER_INTERACTION_UNSPECIFIED)
+                }
+                "USER_INTERACTION_NONE" => std::option::Option::Some(Self::USER_INTERACTION_NONE),
+                "USER_INTERACTION_REQUIRED" => {
+                    std::option::Option::Some(Self::USER_INTERACTION_REQUIRED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for UserInteraction {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for UserInteraction {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for UserInteraction {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The Scope metric captures whether a vulnerability in one vulnerable
     /// component impacts resources in components beyond its security scope.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Scope(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Scope(i32);
 
     impl Scope {
-        /// Creates a new Scope instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Scope](Scope)
-    pub mod scope {
-        use super::Scope;
-
         /// Invalid value.
-        pub const SCOPE_UNSPECIFIED: Scope = Scope::new("SCOPE_UNSPECIFIED");
+        pub const SCOPE_UNSPECIFIED: Scope = Scope::new(0);
 
         /// An exploited vulnerability can only affect resources managed by the same
         /// security authority.
-        pub const SCOPE_UNCHANGED: Scope = Scope::new("SCOPE_UNCHANGED");
+        pub const SCOPE_UNCHANGED: Scope = Scope::new(1);
 
         /// An exploited vulnerability can affect resources beyond the security scope
         /// managed by the security authority of the vulnerable component.
-        pub const SCOPE_CHANGED: Scope = Scope::new("SCOPE_CHANGED");
+        pub const SCOPE_CHANGED: Scope = Scope::new(2);
+
+        /// Creates a new Scope instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SCOPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SCOPE_UNCHANGED"),
+                2 => std::borrow::Cow::Borrowed("SCOPE_CHANGED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SCOPE_UNSPECIFIED" => std::option::Option::Some(Self::SCOPE_UNSPECIFIED),
+                "SCOPE_UNCHANGED" => std::option::Option::Some(Self::SCOPE_UNCHANGED),
+                "SCOPE_CHANGED" => std::option::Option::Some(Self::SCOPE_CHANGED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Scope {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Scope {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Scope {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 
     /// The Impact metrics capture the effects of a successfully exploited
     /// vulnerability on the component that suffers the worst outcome that is most
     /// directly and predictably associated with the attack.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Impact(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Impact(i32);
 
     impl Impact {
+        /// Invalid value.
+        pub const IMPACT_UNSPECIFIED: Impact = Impact::new(0);
+
+        /// High impact.
+        pub const IMPACT_HIGH: Impact = Impact::new(1);
+
+        /// Low impact.
+        pub const IMPACT_LOW: Impact = Impact::new(2);
+
+        /// No impact.
+        pub const IMPACT_NONE: Impact = Impact::new(3);
+
         /// Creates a new Impact instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("IMPACT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IMPACT_HIGH"),
+                2 => std::borrow::Cow::Borrowed("IMPACT_LOW"),
+                3 => std::borrow::Cow::Borrowed("IMPACT_NONE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "IMPACT_UNSPECIFIED" => std::option::Option::Some(Self::IMPACT_UNSPECIFIED),
+                "IMPACT_HIGH" => std::option::Option::Some(Self::IMPACT_HIGH),
+                "IMPACT_LOW" => std::option::Option::Some(Self::IMPACT_LOW),
+                "IMPACT_NONE" => std::option::Option::Some(Self::IMPACT_NONE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Impact](Impact)
-    pub mod impact {
-        use super::Impact;
-
-        /// Invalid value.
-        pub const IMPACT_UNSPECIFIED: Impact = Impact::new("IMPACT_UNSPECIFIED");
-
-        /// High impact.
-        pub const IMPACT_HIGH: Impact = Impact::new("IMPACT_HIGH");
-
-        /// Low impact.
-        pub const IMPACT_LOW: Impact = Impact::new("IMPACT_LOW");
-
-        /// No impact.
-        pub const IMPACT_NONE: Impact = Impact::new("IMPACT_NONE");
+    impl std::convert::From<i32> for Impact {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for Impact {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for Impact {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -12987,84 +13885,134 @@ impl wkt::message::Message for SecurityBulletin {
 }
 
 /// The cloud provider the finding pertains to.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CloudProvider(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct CloudProvider(i32);
 
 impl CloudProvider {
+    /// The cloud provider is unspecified.
+    pub const CLOUD_PROVIDER_UNSPECIFIED: CloudProvider = CloudProvider::new(0);
+
+    /// The cloud provider is Google Cloud Platform.
+    pub const GOOGLE_CLOUD_PLATFORM: CloudProvider = CloudProvider::new(1);
+
+    /// The cloud provider is Amazon Web Services.
+    pub const AMAZON_WEB_SERVICES: CloudProvider = CloudProvider::new(2);
+
+    /// The cloud provider is Microsoft Azure.
+    pub const MICROSOFT_AZURE: CloudProvider = CloudProvider::new(3);
+
     /// Creates a new CloudProvider instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("CLOUD_PROVIDER_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("GOOGLE_CLOUD_PLATFORM"),
+            2 => std::borrow::Cow::Borrowed("AMAZON_WEB_SERVICES"),
+            3 => std::borrow::Cow::Borrowed("MICROSOFT_AZURE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "CLOUD_PROVIDER_UNSPECIFIED" => {
+                std::option::Option::Some(Self::CLOUD_PROVIDER_UNSPECIFIED)
+            }
+            "GOOGLE_CLOUD_PLATFORM" => std::option::Option::Some(Self::GOOGLE_CLOUD_PLATFORM),
+            "AMAZON_WEB_SERVICES" => std::option::Option::Some(Self::AMAZON_WEB_SERVICES),
+            "MICROSOFT_AZURE" => std::option::Option::Some(Self::MICROSOFT_AZURE),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [CloudProvider](CloudProvider)
-pub mod cloud_provider {
-    use super::CloudProvider;
-
-    /// The cloud provider is unspecified.
-    pub const CLOUD_PROVIDER_UNSPECIFIED: CloudProvider =
-        CloudProvider::new("CLOUD_PROVIDER_UNSPECIFIED");
-
-    /// The cloud provider is Google Cloud Platform.
-    pub const GOOGLE_CLOUD_PLATFORM: CloudProvider = CloudProvider::new("GOOGLE_CLOUD_PLATFORM");
-
-    /// The cloud provider is Amazon Web Services.
-    pub const AMAZON_WEB_SERVICES: CloudProvider = CloudProvider::new("AMAZON_WEB_SERVICES");
-
-    /// The cloud provider is Microsoft Azure.
-    pub const MICROSOFT_AZURE: CloudProvider = CloudProvider::new("MICROSOFT_AZURE");
+impl std::convert::From<i32> for CloudProvider {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for CloudProvider {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for CloudProvider {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Value enum to map to a resource
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ResourceValue(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ResourceValue(i32);
 
 impl ResourceValue {
+    /// Unspecific value
+    pub const RESOURCE_VALUE_UNSPECIFIED: ResourceValue = ResourceValue::new(0);
+
+    /// High resource value
+    pub const HIGH: ResourceValue = ResourceValue::new(1);
+
+    /// Medium resource value
+    pub const MEDIUM: ResourceValue = ResourceValue::new(2);
+
+    /// Low resource value
+    pub const LOW: ResourceValue = ResourceValue::new(3);
+
+    /// No resource value, e.g. ignore these resources
+    pub const NONE: ResourceValue = ResourceValue::new(4);
+
     /// Creates a new ResourceValue instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("RESOURCE_VALUE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("HIGH"),
+            2 => std::borrow::Cow::Borrowed("MEDIUM"),
+            3 => std::borrow::Cow::Borrowed("LOW"),
+            4 => std::borrow::Cow::Borrowed("NONE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "RESOURCE_VALUE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::RESOURCE_VALUE_UNSPECIFIED)
+            }
+            "HIGH" => std::option::Option::Some(Self::HIGH),
+            "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
+            "LOW" => std::option::Option::Some(Self::LOW),
+            "NONE" => std::option::Option::Some(Self::NONE),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ResourceValue](ResourceValue)
-pub mod resource_value {
-    use super::ResourceValue;
-
-    /// Unspecific value
-    pub const RESOURCE_VALUE_UNSPECIFIED: ResourceValue =
-        ResourceValue::new("RESOURCE_VALUE_UNSPECIFIED");
-
-    /// High resource value
-    pub const HIGH: ResourceValue = ResourceValue::new("HIGH");
-
-    /// Medium resource value
-    pub const MEDIUM: ResourceValue = ResourceValue::new("MEDIUM");
-
-    /// Low resource value
-    pub const LOW: ResourceValue = ResourceValue::new("LOW");
-
-    /// No resource value, e.g. ignore these resources
-    pub const NONE: ResourceValue = ResourceValue::new("NONE");
+impl std::convert::From<i32> for ResourceValue {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for ResourceValue {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for ResourceValue {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

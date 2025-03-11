@@ -143,47 +143,74 @@ pub mod api {
     use super::*;
 
     /// All the possible API states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// API does not have a state yet.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// API is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// API is active.
+        pub const ACTIVE: State = State::new(2);
+
+        /// API creation failed.
+        pub const FAILED: State = State::new(3);
+
+        /// API is being deleted.
+        pub const DELETING: State = State::new(4);
+
+        /// API is being updated.
+        pub const UPDATING: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("UPDATING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// API does not have a state yet.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// API is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// API is active.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// API creation failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// API is being deleted.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// API is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -394,9 +421,9 @@ pub mod api_config {
         pub path: std::string::String,
 
         /// The bytes that constitute the file.
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub contents: bytes::Bytes,
+        pub contents: ::bytes::Bytes,
     }
 
     impl File {
@@ -411,7 +438,7 @@ pub mod api_config {
         }
 
         /// Sets the value of [contents][crate::model::api_config::File::contents].
-        pub fn set_contents<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.contents = v.into();
             self
         }
@@ -516,51 +543,80 @@ pub mod api_config {
     }
 
     /// All the possible API Config states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// API Config does not have a state yet.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// API Config is being created and deployed to the API Controller.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// API Config is ready for use by Gateways.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// API Config creation failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(3);
 
         /// API Config is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// API Config is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(5);
 
         /// API Config settings are being activated in downstream systems.
         /// API Configs in this state cannot be used by Gateways.
-        pub const ACTIVATING: State = State::new("ACTIVATING");
+        pub const ACTIVATING: State = State::new(6);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("UPDATING"),
+                6 => std::borrow::Cow::Borrowed("ACTIVATING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "ACTIVATING" => std::option::Option::Some(Self::ACTIVATING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -691,47 +747,74 @@ pub mod gateway {
     use super::*;
 
     /// All the possible Gateway states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
+        /// Gateway does not have a state yet.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Gateway is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// Gateway is running and ready for requests.
+        pub const ACTIVE: State = State::new(2);
+
+        /// Gateway creation failed.
+        pub const FAILED: State = State::new(3);
+
+        /// Gateway is being deleted.
+        pub const DELETING: State = State::new(4);
+
+        /// Gateway is being updated.
+        pub const UPDATING: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("UPDATING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Gateway does not have a state yet.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Gateway is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// Gateway is running and ready for requests.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// Gateway creation failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// Gateway is being deleted.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// Gateway is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1534,37 +1617,60 @@ pub mod get_api_config_request {
     use super::*;
 
     /// Enum to control which fields should be included in the response.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConfigView(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ConfigView(i32);
 
     impl ConfigView {
+        pub const CONFIG_VIEW_UNSPECIFIED: ConfigView = ConfigView::new(0);
+
+        /// Do not include configuration source files.
+        pub const BASIC: ConfigView = ConfigView::new(1);
+
+        /// Include configuration source files.
+        pub const FULL: ConfigView = ConfigView::new(2);
+
         /// Creates a new ConfigView instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CONFIG_VIEW_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BASIC"),
+                2 => std::borrow::Cow::Borrowed("FULL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CONFIG_VIEW_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CONFIG_VIEW_UNSPECIFIED)
+                }
+                "BASIC" => std::option::Option::Some(Self::BASIC),
+                "FULL" => std::option::Option::Some(Self::FULL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ConfigView](ConfigView)
-    pub mod config_view {
-        use super::ConfigView;
-
-        pub const CONFIG_VIEW_UNSPECIFIED: ConfigView = ConfigView::new("CONFIG_VIEW_UNSPECIFIED");
-
-        /// Do not include configuration source files.
-        pub const BASIC: ConfigView = ConfigView::new("BASIC");
-
-        /// Include configuration source files.
-        pub const FULL: ConfigView = ConfigView::new("FULL");
+    impl std::convert::From<i32> for ConfigView {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ConfigView {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ConfigView {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }

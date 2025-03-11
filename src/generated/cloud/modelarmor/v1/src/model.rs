@@ -268,7 +268,8 @@ pub struct FloorSetting {
     pub filter_config: std::option::Option<crate::model::FilterConfig>,
 
     /// Optional. Floor Settings enforcement status.
-    pub enable_floor_setting_enforcement: bool,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub enable_floor_setting_enforcement: std::option::Option<bool>,
 }
 
 impl FloorSetting {
@@ -312,7 +313,9 @@ impl FloorSetting {
     }
 
     /// Sets the value of [enable_floor_setting_enforcement][crate::model::FloorSetting::enable_floor_setting_enforcement].
-    pub fn set_enable_floor_setting_enforcement<T: std::convert::Into<bool>>(
+    pub fn set_enable_floor_setting_enforcement<
+        T: std::convert::Into<std::option::Option<bool>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -917,41 +920,64 @@ pub mod pi_and_jailbreak_filter_settings {
 
     /// Option to specify the state of Prompt Injection and Jailbreak filter
     /// (ENABLED/DISABLED).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PiAndJailbreakFilterEnforcement(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PiAndJailbreakFilterEnforcement(i32);
 
     impl PiAndJailbreakFilterEnforcement {
-        /// Creates a new PiAndJailbreakFilterEnforcement instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PiAndJailbreakFilterEnforcement](PiAndJailbreakFilterEnforcement)
-    pub mod pi_and_jailbreak_filter_enforcement {
-        use super::PiAndJailbreakFilterEnforcement;
-
         /// Same as Disabled
         pub const PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED: PiAndJailbreakFilterEnforcement =
-            PiAndJailbreakFilterEnforcement::new("PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED");
+            PiAndJailbreakFilterEnforcement::new(0);
 
         /// Enabled
         pub const ENABLED: PiAndJailbreakFilterEnforcement =
-            PiAndJailbreakFilterEnforcement::new("ENABLED");
+            PiAndJailbreakFilterEnforcement::new(1);
 
         /// Enabled
         pub const DISABLED: PiAndJailbreakFilterEnforcement =
-            PiAndJailbreakFilterEnforcement::new("DISABLED");
+            PiAndJailbreakFilterEnforcement::new(2);
+
+        /// Creates a new PiAndJailbreakFilterEnforcement instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED)
+                }
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PiAndJailbreakFilterEnforcement {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PiAndJailbreakFilterEnforcement {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for PiAndJailbreakFilterEnforcement {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -998,41 +1024,62 @@ pub mod malicious_uri_filter_settings {
     use super::*;
 
     /// Option to specify the state of Malicious URI filter (ENABLED/DISABLED).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MaliciousUriFilterEnforcement(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct MaliciousUriFilterEnforcement(i32);
 
     impl MaliciousUriFilterEnforcement {
+        /// Same as Disabled
+        pub const MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED: MaliciousUriFilterEnforcement =
+            MaliciousUriFilterEnforcement::new(0);
+
+        /// Enabled
+        pub const ENABLED: MaliciousUriFilterEnforcement = MaliciousUriFilterEnforcement::new(1);
+
+        /// Disabled
+        pub const DISABLED: MaliciousUriFilterEnforcement = MaliciousUriFilterEnforcement::new(2);
+
         /// Creates a new MaliciousUriFilterEnforcement instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED)
+                }
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [MaliciousUriFilterEnforcement](MaliciousUriFilterEnforcement)
-    pub mod malicious_uri_filter_enforcement {
-        use super::MaliciousUriFilterEnforcement;
-
-        /// Same as Disabled
-        pub const MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED: MaliciousUriFilterEnforcement =
-            MaliciousUriFilterEnforcement::new("MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED");
-
-        /// Enabled
-        pub const ENABLED: MaliciousUriFilterEnforcement =
-            MaliciousUriFilterEnforcement::new("ENABLED");
-
-        /// Disabled
-        pub const DISABLED: MaliciousUriFilterEnforcement =
-            MaliciousUriFilterEnforcement::new("DISABLED");
+    impl std::convert::From<i32> for MaliciousUriFilterEnforcement {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for MaliciousUriFilterEnforcement {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for MaliciousUriFilterEnforcement {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1290,39 +1337,62 @@ pub mod sdp_basic_config {
 
     /// Option to specify the state of Sensitive Data Protection basic config
     /// (ENABLED/DISABLED).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SdpBasicConfigEnforcement(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct SdpBasicConfigEnforcement(i32);
 
     impl SdpBasicConfigEnforcement {
+        /// Same as Disabled
+        pub const SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED: SdpBasicConfigEnforcement =
+            SdpBasicConfigEnforcement::new(0);
+
+        /// Enabled
+        pub const ENABLED: SdpBasicConfigEnforcement = SdpBasicConfigEnforcement::new(1);
+
+        /// Disabled
+        pub const DISABLED: SdpBasicConfigEnforcement = SdpBasicConfigEnforcement::new(2);
+
         /// Creates a new SdpBasicConfigEnforcement instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED)
+                }
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SdpBasicConfigEnforcement](SdpBasicConfigEnforcement)
-    pub mod sdp_basic_config_enforcement {
-        use super::SdpBasicConfigEnforcement;
-
-        /// Same as Disabled
-        pub const SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED: SdpBasicConfigEnforcement =
-            SdpBasicConfigEnforcement::new("SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED");
-
-        /// Enabled
-        pub const ENABLED: SdpBasicConfigEnforcement = SdpBasicConfigEnforcement::new("ENABLED");
-
-        /// Disabled
-        pub const DISABLED: SdpBasicConfigEnforcement = SdpBasicConfigEnforcement::new("DISABLED");
+    impl std::convert::From<i32> for SdpBasicConfigEnforcement {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for SdpBasicConfigEnforcement {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for SdpBasicConfigEnforcement {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -1338,10 +1408,9 @@ pub struct SdpAdvancedConfig {
     /// If only inspect template is provided (de-identify template not provided),
     /// then Sensitive Data Protection InspectContent action is performed during
     /// Sanitization. All Sensitive Data Protection findings identified during
-    /// inspection will be returned as SdpFinding in SdpInsepctionResult e.g.
-    /// `organizations/{organization}/inspectTemplates/{inspect_template}`,
-    /// `projects/{project}/inspectTemplates/{inspect_template}`
-    /// `organizations/{organization}/locations/{location}/inspectTemplates/{inspect_template}`
+    /// inspection will be returned as SdpFinding in SdpInsepctionResult.
+    ///
+    /// e.g.
     /// `projects/{project}/locations/{location}/inspectTemplates/{inspect_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub inspect_template: std::string::String,
@@ -1356,9 +1425,6 @@ pub struct SdpAdvancedConfig {
     /// in inspect template.
     ///
     /// e.g.
-    /// `organizations/{organization}/deidentifyTemplates/{deidentify_template}`,
-    /// `projects/{project}/deidentifyTemplates/{deidentify_template}`
-    /// `organizations/{organization}/locations/{location}/deidentifyTemplates/{deidentify_template}`
     /// `projects/{project}/locations/{location}/deidentifyTemplates/{deidentify_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub deidentify_template: std::string::String,
@@ -2419,9 +2485,9 @@ pub struct ByteDataItem {
     pub byte_data_type: crate::model::byte_data_item::ByteItemType,
 
     /// Required. Bytes Data
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub byte_data: bytes::Bytes,
+    pub byte_data: ::bytes::Bytes,
 }
 
 impl ByteDataItem {
@@ -2439,7 +2505,7 @@ impl ByteDataItem {
     }
 
     /// Sets the value of [byte_data][crate::model::ByteDataItem::byte_data].
-    pub fn set_byte_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_byte_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.byte_data = v.into();
         self
     }
@@ -2457,39 +2523,61 @@ pub mod byte_data_item {
     use super::*;
 
     /// Option to specify the type of byte data.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ByteItemType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ByteItemType(i32);
 
     impl ByteItemType {
+        /// Unused
+        pub const BYTE_ITEM_TYPE_UNSPECIFIED: ByteItemType = ByteItemType::new(0);
+
+        /// plain text
+        pub const PLAINTEXT_UTF8: ByteItemType = ByteItemType::new(1);
+
+        /// PDF
+        pub const PDF: ByteItemType = ByteItemType::new(2);
+
         /// Creates a new ByteItemType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("BYTE_ITEM_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PLAINTEXT_UTF8"),
+                2 => std::borrow::Cow::Borrowed("PDF"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "BYTE_ITEM_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::BYTE_ITEM_TYPE_UNSPECIFIED)
+                }
+                "PLAINTEXT_UTF8" => std::option::Option::Some(Self::PLAINTEXT_UTF8),
+                "PDF" => std::option::Option::Some(Self::PDF),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ByteItemType](ByteItemType)
-    pub mod byte_item_type {
-        use super::ByteItemType;
-
-        /// Unused
-        pub const BYTE_ITEM_TYPE_UNSPECIFIED: ByteItemType =
-            ByteItemType::new("BYTE_ITEM_TYPE_UNSPECIFIED");
-
-        /// plain text
-        pub const PLAINTEXT_UTF8: ByteItemType = ByteItemType::new("PLAINTEXT_UTF8");
-
-        /// PDF
-        pub const PDF: ByteItemType = ByteItemType::new("PDF");
+    impl std::convert::From<i32> for ByteItemType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ByteItemType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ByteItemType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -2522,6 +2610,10 @@ pub struct SdpDeidentifyResult {
     /// Total size in bytes that were transformed during deidentification.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub transformed_bytes: i64,
+
+    /// List of Sensitive Data Protection info-types that were de-identified.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub info_types: std::vec::Vec<std::string::String>,
 }
 
 impl SdpDeidentifyResult {
@@ -2570,6 +2662,17 @@ impl SdpDeidentifyResult {
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [info_types][crate::model::SdpDeidentifyResult::info_types].
+    pub fn set_info_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.info_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3014,43 +3117,67 @@ pub mod virus_scan_filter_result {
     use super::*;
 
     /// Type of content scanned.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ScannedContentType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ScannedContentType(i32);
 
     impl ScannedContentType {
-        /// Creates a new ScannedContentType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ScannedContentType](ScannedContentType)
-    pub mod scanned_content_type {
-        use super::ScannedContentType;
-
         /// Unused
-        pub const SCANNED_CONTENT_TYPE_UNSPECIFIED: ScannedContentType =
-            ScannedContentType::new("SCANNED_CONTENT_TYPE_UNSPECIFIED");
+        pub const SCANNED_CONTENT_TYPE_UNSPECIFIED: ScannedContentType = ScannedContentType::new(0);
 
         /// Unknown content
-        pub const UNKNOWN: ScannedContentType = ScannedContentType::new("UNKNOWN");
+        pub const UNKNOWN: ScannedContentType = ScannedContentType::new(1);
 
         /// Plaintext
-        pub const PLAINTEXT: ScannedContentType = ScannedContentType::new("PLAINTEXT");
+        pub const PLAINTEXT: ScannedContentType = ScannedContentType::new(2);
 
         /// PDF
         /// Scanning for only PDF is supported.
-        pub const PDF: ScannedContentType = ScannedContentType::new("PDF");
+        pub const PDF: ScannedContentType = ScannedContentType::new(3);
+
+        /// Creates a new ScannedContentType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SCANNED_CONTENT_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                2 => std::borrow::Cow::Borrowed("PLAINTEXT"),
+                3 => std::borrow::Cow::Borrowed("PDF"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SCANNED_CONTENT_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SCANNED_CONTENT_TYPE_UNSPECIFIED)
+                }
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "PLAINTEXT" => std::option::Option::Some(Self::PLAINTEXT),
+                "PDF" => std::option::Option::Some(Self::PDF),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ScannedContentType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ScannedContentType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for ScannedContentType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3117,49 +3244,80 @@ pub mod virus_detail {
     use super::*;
 
     /// Defines all the threat types of a virus
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ThreatType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct ThreatType(i32);
 
     impl ThreatType {
+        /// Unused
+        pub const THREAT_TYPE_UNSPECIFIED: ThreatType = ThreatType::new(0);
+
+        /// Unable to categorize threat
+        pub const UNKNOWN: ThreatType = ThreatType::new(1);
+
+        /// Virus or Worm threat.
+        pub const VIRUS_OR_WORM: ThreatType = ThreatType::new(2);
+
+        /// Malicious program. E.g. Spyware, Trojan.
+        pub const MALICIOUS_PROGRAM: ThreatType = ThreatType::new(3);
+
+        /// Potentially harmful content. E.g. Injected code, Macro
+        pub const POTENTIALLY_HARMFUL_CONTENT: ThreatType = ThreatType::new(4);
+
+        /// Potentially unwanted content. E.g. Adware.
+        pub const POTENTIALLY_UNWANTED_CONTENT: ThreatType = ThreatType::new(5);
+
         /// Creates a new ThreatType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("THREAT_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                2 => std::borrow::Cow::Borrowed("VIRUS_OR_WORM"),
+                3 => std::borrow::Cow::Borrowed("MALICIOUS_PROGRAM"),
+                4 => std::borrow::Cow::Borrowed("POTENTIALLY_HARMFUL_CONTENT"),
+                5 => std::borrow::Cow::Borrowed("POTENTIALLY_UNWANTED_CONTENT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "THREAT_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::THREAT_TYPE_UNSPECIFIED)
+                }
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "VIRUS_OR_WORM" => std::option::Option::Some(Self::VIRUS_OR_WORM),
+                "MALICIOUS_PROGRAM" => std::option::Option::Some(Self::MALICIOUS_PROGRAM),
+                "POTENTIALLY_HARMFUL_CONTENT" => {
+                    std::option::Option::Some(Self::POTENTIALLY_HARMFUL_CONTENT)
+                }
+                "POTENTIALLY_UNWANTED_CONTENT" => {
+                    std::option::Option::Some(Self::POTENTIALLY_UNWANTED_CONTENT)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ThreatType](ThreatType)
-    pub mod threat_type {
-        use super::ThreatType;
-
-        /// Unused
-        pub const THREAT_TYPE_UNSPECIFIED: ThreatType = ThreatType::new("THREAT_TYPE_UNSPECIFIED");
-
-        /// Unable to categorize threat
-        pub const UNKNOWN: ThreatType = ThreatType::new("UNKNOWN");
-
-        /// Virus or Worm threat.
-        pub const VIRUS_OR_WORM: ThreatType = ThreatType::new("VIRUS_OR_WORM");
-
-        /// Malicious program. E.g. Spyware, Trojan.
-        pub const MALICIOUS_PROGRAM: ThreatType = ThreatType::new("MALICIOUS_PROGRAM");
-
-        /// Potentially harmful content. E.g. Injected code, Macro
-        pub const POTENTIALLY_HARMFUL_CONTENT: ThreatType =
-            ThreatType::new("POTENTIALLY_HARMFUL_CONTENT");
-
-        /// Potentially unwanted content. E.g. Adware.
-        pub const POTENTIALLY_UNWANTED_CONTENT: ThreatType =
-            ThreatType::new("POTENTIALLY_UNWANTED_CONTENT");
+    impl std::convert::From<i32> for ThreatType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for ThreatType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for ThreatType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3273,42 +3431,66 @@ pub mod message_item {
     use super::*;
 
     /// Option to specify the type of message.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MessageType(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct MessageType(i32);
 
     impl MessageType {
+        /// Unused
+        pub const MESSAGE_TYPE_UNSPECIFIED: MessageType = MessageType::new(0);
+
+        /// Information related message.
+        pub const INFO: MessageType = MessageType::new(1);
+
+        /// Warning related message.
+        pub const WARNING: MessageType = MessageType::new(2);
+
+        /// Error message.
+        pub const ERROR: MessageType = MessageType::new(3);
+
         /// Creates a new MessageType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MESSAGE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INFO"),
+                2 => std::borrow::Cow::Borrowed("WARNING"),
+                3 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MESSAGE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::MESSAGE_TYPE_UNSPECIFIED)
+                }
+                "INFO" => std::option::Option::Some(Self::INFO),
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [MessageType](MessageType)
-    pub mod message_type {
-        use super::MessageType;
-
-        /// Unused
-        pub const MESSAGE_TYPE_UNSPECIFIED: MessageType =
-            MessageType::new("MESSAGE_TYPE_UNSPECIFIED");
-
-        /// Information related message.
-        pub const INFO: MessageType = MessageType::new("INFO");
-
-        /// Warning related message.
-        pub const WARNING: MessageType = MessageType::new("WARNING");
-
-        /// Error message.
-        pub const ERROR: MessageType = MessageType::new("ERROR");
+    impl std::convert::From<i32> for MessageType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
-    impl std::convert::From<std::string::String> for MessageType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::default::Default for MessageType {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
@@ -3357,253 +3539,398 @@ impl wkt::message::Message for RangeInfo {
 }
 
 /// Option to specify filter match state.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FilterMatchState(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct FilterMatchState(i32);
 
 impl FilterMatchState {
+    /// Unused
+    pub const FILTER_MATCH_STATE_UNSPECIFIED: FilterMatchState = FilterMatchState::new(0);
+
+    /// Matching criteria is not achieved for filters.
+    pub const NO_MATCH_FOUND: FilterMatchState = FilterMatchState::new(1);
+
+    /// Matching criteria is achieved for the filter.
+    pub const MATCH_FOUND: FilterMatchState = FilterMatchState::new(2);
+
     /// Creates a new FilterMatchState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("FILTER_MATCH_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("NO_MATCH_FOUND"),
+            2 => std::borrow::Cow::Borrowed("MATCH_FOUND"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "FILTER_MATCH_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::FILTER_MATCH_STATE_UNSPECIFIED)
+            }
+            "NO_MATCH_FOUND" => std::option::Option::Some(Self::NO_MATCH_FOUND),
+            "MATCH_FOUND" => std::option::Option::Some(Self::MATCH_FOUND),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [FilterMatchState](FilterMatchState)
-pub mod filter_match_state {
-    use super::FilterMatchState;
-
-    /// Unused
-    pub const FILTER_MATCH_STATE_UNSPECIFIED: FilterMatchState =
-        FilterMatchState::new("FILTER_MATCH_STATE_UNSPECIFIED");
-
-    /// Matching criteria is not achieved for filters.
-    pub const NO_MATCH_FOUND: FilterMatchState = FilterMatchState::new("NO_MATCH_FOUND");
-
-    /// Matching criteria is achieved for the filter.
-    pub const MATCH_FOUND: FilterMatchState = FilterMatchState::new("MATCH_FOUND");
+impl std::convert::From<i32> for FilterMatchState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for FilterMatchState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for FilterMatchState {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Enum which reports whether a specific filter executed successfully or not.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FilterExecutionState(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct FilterExecutionState(i32);
 
 impl FilterExecutionState {
-    /// Creates a new FilterExecutionState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [FilterExecutionState](FilterExecutionState)
-pub mod filter_execution_state {
-    use super::FilterExecutionState;
-
     /// Unused
     pub const FILTER_EXECUTION_STATE_UNSPECIFIED: FilterExecutionState =
-        FilterExecutionState::new("FILTER_EXECUTION_STATE_UNSPECIFIED");
+        FilterExecutionState::new(0);
 
     /// Filter executed successfully
-    pub const EXECUTION_SUCCESS: FilterExecutionState =
-        FilterExecutionState::new("EXECUTION_SUCCESS");
+    pub const EXECUTION_SUCCESS: FilterExecutionState = FilterExecutionState::new(1);
 
     /// Filter execution was skipped. This can happen due to server-side error
     /// or permission issue.
-    pub const EXECUTION_SKIPPED: FilterExecutionState =
-        FilterExecutionState::new("EXECUTION_SKIPPED");
+    pub const EXECUTION_SKIPPED: FilterExecutionState = FilterExecutionState::new(2);
+
+    /// Creates a new FilterExecutionState instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("FILTER_EXECUTION_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("EXECUTION_SUCCESS"),
+            2 => std::borrow::Cow::Borrowed("EXECUTION_SKIPPED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "FILTER_EXECUTION_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::FILTER_EXECUTION_STATE_UNSPECIFIED)
+            }
+            "EXECUTION_SUCCESS" => std::option::Option::Some(Self::EXECUTION_SUCCESS),
+            "EXECUTION_SKIPPED" => std::option::Option::Some(Self::EXECUTION_SKIPPED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for FilterExecutionState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for FilterExecutionState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for FilterExecutionState {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Options for responsible AI Filter Types.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RaiFilterType(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct RaiFilterType(i32);
 
 impl RaiFilterType {
+    /// Unspecified filter type.
+    pub const RAI_FILTER_TYPE_UNSPECIFIED: RaiFilterType = RaiFilterType::new(0);
+
+    /// Sexually Explicit.
+    pub const SEXUALLY_EXPLICIT: RaiFilterType = RaiFilterType::new(2);
+
+    /// Hate Speech.
+    pub const HATE_SPEECH: RaiFilterType = RaiFilterType::new(3);
+
+    /// Harassment.
+    pub const HARASSMENT: RaiFilterType = RaiFilterType::new(6);
+
+    /// Danger
+    pub const DANGEROUS: RaiFilterType = RaiFilterType::new(17);
+
     /// Creates a new RaiFilterType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("RAI_FILTER_TYPE_UNSPECIFIED"),
+            2 => std::borrow::Cow::Borrowed("SEXUALLY_EXPLICIT"),
+            3 => std::borrow::Cow::Borrowed("HATE_SPEECH"),
+            6 => std::borrow::Cow::Borrowed("HARASSMENT"),
+            17 => std::borrow::Cow::Borrowed("DANGEROUS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "RAI_FILTER_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::RAI_FILTER_TYPE_UNSPECIFIED)
+            }
+            "SEXUALLY_EXPLICIT" => std::option::Option::Some(Self::SEXUALLY_EXPLICIT),
+            "HATE_SPEECH" => std::option::Option::Some(Self::HATE_SPEECH),
+            "HARASSMENT" => std::option::Option::Some(Self::HARASSMENT),
+            "DANGEROUS" => std::option::Option::Some(Self::DANGEROUS),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [RaiFilterType](RaiFilterType)
-pub mod rai_filter_type {
-    use super::RaiFilterType;
-
-    /// Unspecified filter type.
-    pub const RAI_FILTER_TYPE_UNSPECIFIED: RaiFilterType =
-        RaiFilterType::new("RAI_FILTER_TYPE_UNSPECIFIED");
-
-    /// Sexually Explicit.
-    pub const SEXUALLY_EXPLICIT: RaiFilterType = RaiFilterType::new("SEXUALLY_EXPLICIT");
-
-    /// Hate Speech.
-    pub const HATE_SPEECH: RaiFilterType = RaiFilterType::new("HATE_SPEECH");
-
-    /// Harassment.
-    pub const HARASSMENT: RaiFilterType = RaiFilterType::new("HARASSMENT");
-
-    /// Danger
-    pub const DANGEROUS: RaiFilterType = RaiFilterType::new("DANGEROUS");
+impl std::convert::From<i32> for RaiFilterType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for RaiFilterType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for RaiFilterType {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// Confidence levels for detectors.
 /// Higher value maps to a greater confidence level. To enforce stricter level a
 /// lower value should be used.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DetectionConfidenceLevel(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct DetectionConfidenceLevel(i32);
 
 impl DetectionConfidenceLevel {
+    /// Same as LOW_AND_ABOVE.
+    pub const DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED: DetectionConfidenceLevel =
+        DetectionConfidenceLevel::new(0);
+
+    /// Highest chance of a false positive.
+    pub const LOW_AND_ABOVE: DetectionConfidenceLevel = DetectionConfidenceLevel::new(1);
+
+    /// Some chance of false positives.
+    pub const MEDIUM_AND_ABOVE: DetectionConfidenceLevel = DetectionConfidenceLevel::new(2);
+
+    /// Low chance of false positives.
+    pub const HIGH: DetectionConfidenceLevel = DetectionConfidenceLevel::new(3);
+
     /// Creates a new DetectionConfidenceLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("LOW_AND_ABOVE"),
+            2 => std::borrow::Cow::Borrowed("MEDIUM_AND_ABOVE"),
+            3 => std::borrow::Cow::Borrowed("HIGH"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED" => {
+                std::option::Option::Some(Self::DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED)
+            }
+            "LOW_AND_ABOVE" => std::option::Option::Some(Self::LOW_AND_ABOVE),
+            "MEDIUM_AND_ABOVE" => std::option::Option::Some(Self::MEDIUM_AND_ABOVE),
+            "HIGH" => std::option::Option::Some(Self::HIGH),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [DetectionConfidenceLevel](DetectionConfidenceLevel)
-pub mod detection_confidence_level {
-    use super::DetectionConfidenceLevel;
-
-    /// Same as LOW_AND_ABOVE.
-    pub const DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED: DetectionConfidenceLevel =
-        DetectionConfidenceLevel::new("DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED");
-
-    /// Highest chance of a false positive.
-    pub const LOW_AND_ABOVE: DetectionConfidenceLevel =
-        DetectionConfidenceLevel::new("LOW_AND_ABOVE");
-
-    /// Some chance of false positives.
-    pub const MEDIUM_AND_ABOVE: DetectionConfidenceLevel =
-        DetectionConfidenceLevel::new("MEDIUM_AND_ABOVE");
-
-    /// Low chance of false positives.
-    pub const HIGH: DetectionConfidenceLevel = DetectionConfidenceLevel::new("HIGH");
+impl std::convert::From<i32> for DetectionConfidenceLevel {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for DetectionConfidenceLevel {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for DetectionConfidenceLevel {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// For more information about each Sensitive Data Protection likelihood level,
 /// see <https://cloud.google.com/sensitive-data-protection/docs/likelihood>.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SdpFindingLikelihood(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct SdpFindingLikelihood(i32);
 
 impl SdpFindingLikelihood {
+    /// Default value; same as POSSIBLE.
+    pub const SDP_FINDING_LIKELIHOOD_UNSPECIFIED: SdpFindingLikelihood =
+        SdpFindingLikelihood::new(0);
+
+    /// Highest chance of a false positive.
+    pub const VERY_UNLIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new(1);
+
+    /// High chance of a false positive.
+    pub const UNLIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new(2);
+
+    /// Some matching signals. The default value.
+    pub const POSSIBLE: SdpFindingLikelihood = SdpFindingLikelihood::new(3);
+
+    /// Low chance of a false positive.
+    pub const LIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new(4);
+
+    /// Confidence level is high. Lowest chance of a false positive.
+    pub const VERY_LIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new(5);
+
     /// Creates a new SdpFindingLikelihood instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SDP_FINDING_LIKELIHOOD_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("VERY_UNLIKELY"),
+            2 => std::borrow::Cow::Borrowed("UNLIKELY"),
+            3 => std::borrow::Cow::Borrowed("POSSIBLE"),
+            4 => std::borrow::Cow::Borrowed("LIKELY"),
+            5 => std::borrow::Cow::Borrowed("VERY_LIKELY"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SDP_FINDING_LIKELIHOOD_UNSPECIFIED" => {
+                std::option::Option::Some(Self::SDP_FINDING_LIKELIHOOD_UNSPECIFIED)
+            }
+            "VERY_UNLIKELY" => std::option::Option::Some(Self::VERY_UNLIKELY),
+            "UNLIKELY" => std::option::Option::Some(Self::UNLIKELY),
+            "POSSIBLE" => std::option::Option::Some(Self::POSSIBLE),
+            "LIKELY" => std::option::Option::Some(Self::LIKELY),
+            "VERY_LIKELY" => std::option::Option::Some(Self::VERY_LIKELY),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SdpFindingLikelihood](SdpFindingLikelihood)
-pub mod sdp_finding_likelihood {
-    use super::SdpFindingLikelihood;
-
-    /// Default value; same as POSSIBLE.
-    pub const SDP_FINDING_LIKELIHOOD_UNSPECIFIED: SdpFindingLikelihood =
-        SdpFindingLikelihood::new("SDP_FINDING_LIKELIHOOD_UNSPECIFIED");
-
-    /// Highest chance of a false positive.
-    pub const VERY_UNLIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new("VERY_UNLIKELY");
-
-    /// High chance of a false positive.
-    pub const UNLIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new("UNLIKELY");
-
-    /// Some matching signals. The default value.
-    pub const POSSIBLE: SdpFindingLikelihood = SdpFindingLikelihood::new("POSSIBLE");
-
-    /// Low chance of a false positive.
-    pub const LIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new("LIKELY");
-
-    /// Confidence level is high. Lowest chance of a false positive.
-    pub const VERY_LIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new("VERY_LIKELY");
+impl std::convert::From<i32> for SdpFindingLikelihood {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for SdpFindingLikelihood {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for SdpFindingLikelihood {
+    fn default() -> Self {
+        Self::new(0)
     }
 }
 
 /// A field indicating the outcome of the invocation, irrespective of match
 /// status.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct InvocationResult(std::borrow::Cow<'static, str>);
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct InvocationResult(i32);
 
 impl InvocationResult {
+    /// Unused. Default value.
+    pub const INVOCATION_RESULT_UNSPECIFIED: InvocationResult = InvocationResult::new(0);
+
+    /// All filters were invoked successfully.
+    pub const SUCCESS: InvocationResult = InvocationResult::new(1);
+
+    /// Some filters were skipped or failed.
+    pub const PARTIAL: InvocationResult = InvocationResult::new(2);
+
+    /// All filters were skipped or failed.
+    pub const FAILURE: InvocationResult = InvocationResult::new(3);
+
     /// Creates a new InvocationResult instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("INVOCATION_RESULT_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SUCCESS"),
+            2 => std::borrow::Cow::Borrowed("PARTIAL"),
+            3 => std::borrow::Cow::Borrowed("FAILURE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "INVOCATION_RESULT_UNSPECIFIED" => {
+                std::option::Option::Some(Self::INVOCATION_RESULT_UNSPECIFIED)
+            }
+            "SUCCESS" => std::option::Option::Some(Self::SUCCESS),
+            "PARTIAL" => std::option::Option::Some(Self::PARTIAL),
+            "FAILURE" => std::option::Option::Some(Self::FAILURE),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [InvocationResult](InvocationResult)
-pub mod invocation_result {
-    use super::InvocationResult;
-
-    /// Unused. Default value.
-    pub const INVOCATION_RESULT_UNSPECIFIED: InvocationResult =
-        InvocationResult::new("INVOCATION_RESULT_UNSPECIFIED");
-
-    /// All filters were invoked successfully.
-    pub const SUCCESS: InvocationResult = InvocationResult::new("SUCCESS");
-
-    /// Some filters were skipped or failed.
-    pub const PARTIAL: InvocationResult = InvocationResult::new("PARTIAL");
-
-    /// All filters were skipped or failed.
-    pub const FAILURE: InvocationResult = InvocationResult::new("FAILURE");
+impl std::convert::From<i32> for InvocationResult {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
-impl std::convert::From<std::string::String> for InvocationResult {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::default::Default for InvocationResult {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

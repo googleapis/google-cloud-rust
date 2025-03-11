@@ -1330,40 +1330,62 @@ pub mod workstation_config {
 
             /// Value representing what should happen to the disk after the workstation
             /// is deleted.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct ReclaimPolicy(std::borrow::Cow<'static, str>);
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            pub struct ReclaimPolicy(i32);
 
             impl ReclaimPolicy {
-                /// Creates a new ReclaimPolicy instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
-
-            /// Useful constants to work with [ReclaimPolicy](ReclaimPolicy)
-            pub mod reclaim_policy {
-                use super::ReclaimPolicy;
-
                 /// Do not use.
-                pub const RECLAIM_POLICY_UNSPECIFIED: ReclaimPolicy =
-                    ReclaimPolicy::new("RECLAIM_POLICY_UNSPECIFIED");
+                pub const RECLAIM_POLICY_UNSPECIFIED: ReclaimPolicy = ReclaimPolicy::new(0);
 
                 /// Delete the persistent disk when deleting the workstation.
-                pub const DELETE: ReclaimPolicy = ReclaimPolicy::new("DELETE");
+                pub const DELETE: ReclaimPolicy = ReclaimPolicy::new(1);
 
                 /// Keep the persistent disk when deleting the workstation.
                 /// An administrator must manually delete the disk.
-                pub const RETAIN: ReclaimPolicy = ReclaimPolicy::new("RETAIN");
+                pub const RETAIN: ReclaimPolicy = ReclaimPolicy::new(2);
+
+                /// Creates a new ReclaimPolicy instance.
+                pub(crate) const fn new(value: i32) -> Self {
+                    Self(value)
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> i32 {
+                    self.0
+                }
+
+                /// Gets the enum value as a string.
+                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                    match self.0 {
+                        0 => std::borrow::Cow::Borrowed("RECLAIM_POLICY_UNSPECIFIED"),
+                        1 => std::borrow::Cow::Borrowed("DELETE"),
+                        2 => std::borrow::Cow::Borrowed("RETAIN"),
+                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                    }
+                }
+
+                /// Creates an enum value from the value name.
+                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                    match name {
+                        "RECLAIM_POLICY_UNSPECIFIED" => {
+                            std::option::Option::Some(Self::RECLAIM_POLICY_UNSPECIFIED)
+                        }
+                        "DELETE" => std::option::Option::Some(Self::DELETE),
+                        "RETAIN" => std::option::Option::Some(Self::RETAIN),
+                        _ => std::option::Option::None,
+                    }
+                }
             }
 
-            impl std::convert::From<std::string::String> for ReclaimPolicy {
-                fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+            impl std::convert::From<i32> for ReclaimPolicy {
+                fn from(value: i32) -> Self {
+                    Self::new(value)
+                }
+            }
+
+            impl std::default::Default for ReclaimPolicy {
+                fn default() -> Self {
+                    Self::new(0)
                 }
             }
         }
@@ -1770,46 +1792,71 @@ pub mod workstation {
     use super::*;
 
     /// Whether a workstation is running and ready to receive user requests.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Do not use.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The workstation is not yet ready to accept requests from users but will
         /// be soon.
-        pub const STATE_STARTING: State = State::new("STATE_STARTING");
+        pub const STATE_STARTING: State = State::new(1);
 
         /// The workstation is ready to accept requests from users.
-        pub const STATE_RUNNING: State = State::new("STATE_RUNNING");
+        pub const STATE_RUNNING: State = State::new(2);
 
         /// The workstation is being stopped.
-        pub const STATE_STOPPING: State = State::new("STATE_STOPPING");
+        pub const STATE_STOPPING: State = State::new(3);
 
         /// The workstation is stopped and will not be able to receive requests until
         /// it is started.
-        pub const STATE_STOPPED: State = State::new("STATE_STOPPED");
+        pub const STATE_STOPPED: State = State::new(4);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STATE_STARTING"),
+                2 => std::borrow::Cow::Borrowed("STATE_RUNNING"),
+                3 => std::borrow::Cow::Borrowed("STATE_STOPPING"),
+                4 => std::borrow::Cow::Borrowed("STATE_STOPPED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "STATE_STARTING" => std::option::Option::Some(Self::STATE_STARTING),
+                "STATE_RUNNING" => std::option::Option::Some(Self::STATE_RUNNING),
+                "STATE_STOPPING" => std::option::Option::Some(Self::STATE_STOPPING),
+                "STATE_STOPPED" => std::option::Option::Some(Self::STATE_STOPPED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
         }
     }
 }
