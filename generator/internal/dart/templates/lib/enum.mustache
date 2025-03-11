@@ -17,15 +17,22 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
-class {{Codec.Name}} {
+class {{Codec.Name}} extends CloudEnum {
   {{#Values}}
   {{#Codec.DocLines}}
   {{{.}}}
   {{/Codec.DocLines}}
-  static const {{Parent.Codec.Name}} {{Codec.Name}} = {{Parent.Codec.Name}}('{{Name}}');
+  static const {{Codec.Name}} = {{Parent.Codec.Name}}('{{Name}}');
 
   {{/Values}}
-  final String value;
+  const {{Codec.Name}}(super.value);
 
-  const {{Codec.Name}}(this.value);
+  factory {{Codec.Name}}.fromJson(String json) => {{Codec.Name}}(json);
+
+  @override
+  bool operator ==(Object other) =>
+      other is {{Codec.Name}} && value == other.value;
+
+  @override
+  String toString() => '{{Name}}.$value';
 }

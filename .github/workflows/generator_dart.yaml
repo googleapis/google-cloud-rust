@@ -67,3 +67,7 @@ jobs:
       - name: "analyze package:google_cloud_type"
         run: dart analyze
         working-directory: generator/dart/packages/generated/google_cloud_type
+
+      - name: "analyze package:google_cloud_common"
+        run: dart analyze
+        working-directory: generator/dart/packages/google_cloud_common

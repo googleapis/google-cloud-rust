@@ -180,6 +180,10 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 	// Remove our self-reference.
 	delete(imports, model.PackageName)
 
+	// Add the import for the base google_cloud_common package.
+	commonImport := "package:google_cloud_common/common.dart"
+	imports["google_cloud_common"] = commonImport
+
 	deps := calculateDependencies(imports)
 
 	ann := &modelAnnotations{
