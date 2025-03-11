@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,24 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Rust places its build artifacts in target/ directories.
-/target/
-**/target/
+[general]
+language             = 'rust+prost'
+specification-source = 'google/firestore/v1'
 
-# We create lockfiles when generating code via Prost+Tonic, but we do not want
-# to save these.
-**/Cargo.lock
-
-# We use a few Python tools for development [^1]. Reserve `.env/` to install
-# these tools in a local Python virtual environment.
-/.venv/
-
-.vscode
-.idea/
-
-# Ignore terraform files.
-.terraform/
-terraform.tfstate
-
-# Ignore code coverage output files.
-cobertura.xml
+[codec]
+copyright-year    = '2025'
+template-override = 'templates/prost'
