@@ -1,0 +1,75 @@
+{{!
+Copyright 2025 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+}}
+{{^IsMap}}
+{{#Messages}}
+{{> message}}
+{{/Messages}}
+{{#Enums}}
+{{> enum}}
+{{/Enums}}
+{{#OneOfs}}
+{{> oneof}}
+{{/OneOfs}}
+{{^Codec.SkipConversion}}
+
+impl wkt::prost::Convert<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
+    fn cnv(self) -> {{Codec.RelativeName}} {
+        {{Codec.RelativeName}} {
+            {{#Codec.SingularFields}}
+            {{^Optional}}
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.cnv(),
+            {{/Optional}}
+            {{#Optional}}
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.map(|v| v.cnv()),
+            {{/Optional}}
+            {{/Codec.SingularFields}}
+            {{#Codec.RepeatedFields}}
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.into_iter().map(|v| v.cnv()).collect(),
+            {{/Codec.RepeatedFields}}
+            {{#Codec.MapFields}}
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.into_iter().map(|(k, v)| (k.cnv(), v.cnv())).collect(),
+            {{/Codec.MapFields}}
+            {{#OneOfs}}
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.map(|v| v.cnv()),
+            {{/OneOfs}}
+        }
+    }
+}
+
+impl wkt::prost::Convert<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
+    fn cnv(self) -> {{Codec.QualifiedName}} {
+        {{Codec.QualifiedName}}::new()
+            {{#Codec.SingularFields}}
+            {{^Optional}}
+            .set_{{Codec.SetterName}}(self.{{Codec.FieldName}})
+            {{/Optional}}
+            {{#Optional}}
+            .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.map(|v| v.cnv()))
+            {{/Optional}}
+            {{/Codec.SingularFields}}
+            {{#Codec.RepeatedFields}}
+            .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.into_iter().map(|v| v.cnv()))
+            {{/Codec.RepeatedFields}}
+            {{#Codec.MapFields}}
+            .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
+            {{/Codec.MapFields}}
+            {{#OneOfs}}
+            .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.map(|v| v.cnv()))
+            {{/OneOfs}}
+    }
+}
+{{/Codec.SkipConversion}}
+{{/IsMap}}
