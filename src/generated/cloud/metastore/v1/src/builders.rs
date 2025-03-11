@@ -68,7 +68,6 @@ pub mod dataproc_metastore {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
@@ -469,7 +468,6 @@ pub mod dataproc_metastore {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMetadataImportsResponse, gax::error::Error>
@@ -1003,7 +1001,6 @@ pub mod dataproc_metastore {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
@@ -1600,7 +1597,6 @@ pub mod dataproc_metastore {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
@@ -1882,7 +1878,6 @@ pub mod dataproc_metastore {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
@@ -2118,7 +2113,6 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFederationsResponse, gax::error::Error>
@@ -2540,7 +2534,6 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
@@ -2832,7 +2825,6 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>

@@ -195,7 +195,6 @@ impl wkt::message::Message for ListKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListKeysResponse {
     type PageItem = crate::model::Key;
 

@@ -1543,7 +1543,6 @@ impl wkt::message::Message for ListDashboardsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDashboardsResponse {
     type PageItem = crate::model::Dashboard;
 

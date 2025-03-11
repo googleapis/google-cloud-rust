@@ -805,7 +805,6 @@ impl wkt::message::Message for ListManagementServersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListManagementServersResponse {
     type PageItem = crate::model::ManagementServer;
 
@@ -2230,7 +2229,6 @@ impl wkt::message::Message for ListBackupPlansResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupPlansResponse {
     type PageItem = crate::model::BackupPlan;
 
@@ -2891,7 +2889,6 @@ impl wkt::message::Message for ListBackupPlanAssociationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupPlanAssociationsResponse {
     type PageItem = crate::model::BackupPlanAssociation;
 
@@ -5481,7 +5478,6 @@ impl wkt::message::Message for ListBackupVaultsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupVaultsResponse {
     type PageItem = crate::model::BackupVault;
 
@@ -5634,7 +5630,6 @@ impl wkt::message::Message for FetchUsableBackupVaultsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for FetchUsableBackupVaultsResponse {
     type PageItem = crate::model::BackupVault;
 
@@ -6023,7 +6018,6 @@ impl wkt::message::Message for ListDataSourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDataSourcesResponse {
     type PageItem = crate::model::DataSource;
 
@@ -6296,7 +6290,6 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 

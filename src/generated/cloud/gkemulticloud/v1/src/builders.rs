@@ -436,7 +436,6 @@ pub mod attached_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAttachedClustersResponse, gax::error::Error>
@@ -821,7 +820,6 @@ pub mod attached_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
@@ -1297,7 +1295,6 @@ pub mod aws_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAwsClustersResponse, gax::error::Error>
@@ -1949,7 +1946,6 @@ pub mod aws_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAwsNodePoolsResponse, gax::error::Error>
@@ -2255,7 +2251,6 @@ pub mod aws_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
@@ -2634,7 +2629,6 @@ pub mod azure_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAzureClientsResponse, gax::error::Error>
@@ -3040,7 +3034,6 @@ pub mod azure_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAzureClustersResponse, gax::error::Error>
@@ -3609,7 +3602,6 @@ pub mod azure_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAzureNodePoolsResponse, gax::error::Error>
@@ -3915,7 +3907,6 @@ pub mod azure_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>

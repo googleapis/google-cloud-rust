@@ -391,7 +391,6 @@ impl wkt::message::Message for ListDomainsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDomainsResponse {
     type PageItem = crate::model::Domain;
 

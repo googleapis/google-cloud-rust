@@ -73,7 +73,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -398,7 +397,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCloudVmClustersResponse, gax::error::Error>
@@ -714,7 +712,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error>
@@ -782,7 +779,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDbServersResponse, gax::error::Error>
@@ -850,7 +846,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDbNodesResponse, gax::error::Error>
@@ -918,7 +913,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGiVersionsResponse, gax::error::Error>
@@ -989,7 +983,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDbSystemShapesResponse, gax::error::Error>
@@ -1062,7 +1055,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -1546,7 +1538,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -1623,7 +1614,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -1704,7 +1694,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -1783,7 +1772,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
@@ -1901,7 +1889,6 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>

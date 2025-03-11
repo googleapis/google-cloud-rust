@@ -171,7 +171,6 @@ impl wkt::message::Message for ListAppGatewaysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAppGatewaysResponse {
     type PageItem = crate::model::AppGateway;
 

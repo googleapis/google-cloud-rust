@@ -346,7 +346,6 @@ pub mod identity_aware_proxy_admin_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTunnelDestGroupsResponse, gax::error::Error>
@@ -861,7 +860,6 @@ pub mod identity_aware_proxy_o_auth_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<

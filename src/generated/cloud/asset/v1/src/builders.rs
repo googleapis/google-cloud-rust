@@ -193,7 +193,6 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
@@ -605,7 +604,6 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchAllResourcesResponse, gax::error::Error>
@@ -705,7 +703,6 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchAllIamPoliciesResponse, gax::error::Error>
@@ -1218,7 +1215,6 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSavedQueriesResponse, gax::error::Error>
@@ -1452,7 +1448,6 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::AnalyzeOrgPoliciesResponse, gax::error::Error>
@@ -1539,7 +1534,6 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -1626,7 +1620,6 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<

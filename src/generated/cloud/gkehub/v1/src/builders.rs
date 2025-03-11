@@ -68,7 +68,6 @@ pub mod gke_hub {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMembershipsResponse, gax::error::Error>
@@ -148,7 +147,6 @@ pub mod gke_hub {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFeaturesResponse, gax::error::Error>
@@ -984,7 +982,6 @@ pub mod gke_hub {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>

@@ -3739,7 +3739,6 @@ impl wkt::message::Message for ListControlsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListControlsResponse {
     type PageItem = crate::model::Control;
 
@@ -4686,7 +4685,6 @@ impl wkt::message::Message for ListConversationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConversationsResponse {
     type PageItem = crate::model::Conversation;
 
@@ -6587,7 +6585,6 @@ impl wkt::message::Message for ListSessionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSessionsResponse {
     type PageItem = crate::model::Session;
 
@@ -7701,7 +7698,6 @@ impl wkt::message::Message for ListDataStoresResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDataStoresResponse {
     type PageItem = crate::model::DataStore;
 
@@ -8981,7 +8977,6 @@ impl wkt::message::Message for ListDocumentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDocumentsResponse {
     type PageItem = crate::model::Document;
 
@@ -10802,7 +10797,6 @@ impl wkt::message::Message for ListEnginesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEnginesResponse {
     type PageItem = crate::model::Engine;
 
@@ -17709,7 +17703,6 @@ impl wkt::message::Message for ListSchemasResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSchemasResponse {
     type PageItem = crate::model::Schema;
 
@@ -20648,7 +20641,6 @@ impl wkt::message::Message for SearchResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchResponse {
     type PageItem = crate::model::search_response::Facet;
 
@@ -23462,7 +23454,6 @@ impl wkt::message::Message for ListTargetSitesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTargetSitesResponse {
     type PageItem = crate::model::TargetSite;
 
@@ -24430,7 +24421,6 @@ impl wkt::message::Message for FetchDomainVerificationStatusResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for FetchDomainVerificationStatusResponse {
     type PageItem = crate::model::TargetSite;
 

@@ -832,7 +832,6 @@ impl wkt::message::Message for ListDataSourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDataSourcesResponse {
     type PageItem = crate::model::DataSource;
 
@@ -1341,7 +1340,6 @@ impl wkt::message::Message for ListTransferConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTransferConfigsResponse {
     type PageItem = crate::model::TransferConfig;
 
@@ -1545,7 +1543,6 @@ impl wkt::message::Message for ListTransferRunsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTransferRunsResponse {
     type PageItem = crate::model::TransferRun;
 
@@ -1675,7 +1672,6 @@ impl wkt::message::Message for ListTransferLogsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTransferLogsResponse {
     type PageItem = crate::model::TransferMessage;
 

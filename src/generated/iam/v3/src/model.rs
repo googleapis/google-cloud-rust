@@ -865,7 +865,6 @@ impl wkt::message::Message for ListPolicyBindingsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPolicyBindingsResponse {
     type PageItem = crate::model::PolicyBinding;
 
@@ -1009,7 +1008,6 @@ impl wkt::message::Message for SearchTargetPolicyBindingsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchTargetPolicyBindingsResponse {
     type PageItem = crate::model::PolicyBinding;
 
@@ -1364,7 +1362,6 @@ impl wkt::message::Message for ListPrincipalAccessBoundaryPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPrincipalAccessBoundaryPoliciesResponse {
     type PageItem = crate::model::PrincipalAccessBoundaryPolicy;
 
@@ -1482,7 +1479,6 @@ impl wkt::message::Message for SearchPrincipalAccessBoundaryPolicyBindingsRespon
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     type PageItem = crate::model::PolicyBinding;
 

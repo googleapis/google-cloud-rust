@@ -1264,7 +1264,6 @@ impl wkt::message::Message for ListAppProfilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAppProfilesResponse {
     type PageItem = crate::model::AppProfile;
 
@@ -1530,7 +1529,6 @@ impl wkt::message::Message for ListHotTabletsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListHotTabletsResponse {
     type PageItem = crate::model::HotTablet;
 
@@ -2614,7 +2612,6 @@ impl wkt::message::Message for ListTablesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTablesResponse {
     type PageItem = crate::model::Table;
 
@@ -3697,7 +3694,6 @@ impl wkt::message::Message for ListSnapshotsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSnapshotsResponse {
     type PageItem = crate::model::Snapshot;
 
@@ -4322,7 +4318,6 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
@@ -4733,7 +4728,6 @@ impl wkt::message::Message for ListAuthorizedViewsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAuthorizedViewsResponse {
     type PageItem = crate::model::AuthorizedView;
 

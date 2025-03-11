@@ -253,7 +253,6 @@ pub mod company_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCompaniesResponse, gax::error::Error>
@@ -1143,7 +1142,6 @@ pub mod job_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListJobsResponse, gax::error::Error> {
@@ -1807,7 +1805,6 @@ pub mod tenant_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTenantsResponse, gax::error::Error>

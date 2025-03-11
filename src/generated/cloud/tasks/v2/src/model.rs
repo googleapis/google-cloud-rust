@@ -184,7 +184,6 @@ impl wkt::message::Message for ListQueuesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListQueuesResponse {
     type PageItem = crate::model::Queue;
 
@@ -629,7 +628,6 @@ impl wkt::message::Message for ListTasksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTasksResponse {
     type PageItem = crate::model::Task;
 

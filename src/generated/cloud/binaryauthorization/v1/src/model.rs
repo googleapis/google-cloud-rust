@@ -1374,7 +1374,6 @@ impl wkt::message::Message for ListAttestorsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAttestorsResponse {
     type PageItem = crate::model::Attestor;
 

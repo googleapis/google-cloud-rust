@@ -109,7 +109,6 @@ pub mod data_transfer_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDataSourcesResponse, gax::error::Error>
@@ -413,7 +412,6 @@ pub mod data_transfer_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTransferConfigsResponse, gax::error::Error>
@@ -694,7 +692,6 @@ pub mod data_transfer_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTransferRunsResponse, gax::error::Error>
@@ -785,7 +782,6 @@ pub mod data_transfer_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTransferLogsResponse, gax::error::Error>
@@ -1018,7 +1014,6 @@ pub mod data_transfer_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>

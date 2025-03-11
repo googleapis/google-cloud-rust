@@ -109,7 +109,6 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListZonesResponse, gax::error::Error> {
@@ -229,7 +228,6 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNetworksResponse, gax::error::Error>
@@ -572,7 +570,6 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSubnetsResponse, gax::error::Error>
@@ -973,7 +970,6 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInterconnectsResponse, gax::error::Error>
@@ -1143,7 +1139,6 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -1471,7 +1466,6 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRoutersResponse, gax::error::Error>
@@ -1913,7 +1907,6 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
@@ -2031,7 +2024,6 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>

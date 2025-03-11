@@ -1486,7 +1486,6 @@ impl wkt::message::Message for ListConnectivityTestsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConnectivityTestsResponse {
     type PageItem = crate::model::ConnectivityTest;
 
@@ -7960,7 +7959,6 @@ impl wkt::message::Message for ListVpcFlowLogsConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVpcFlowLogsConfigsResponse {
     type PageItem = crate::model::VpcFlowLogsConfig;
 

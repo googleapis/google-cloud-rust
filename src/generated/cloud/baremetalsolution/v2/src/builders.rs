@@ -68,7 +68,6 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
@@ -834,7 +833,6 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSSHKeysResponse, gax::error::Error>
@@ -999,7 +997,6 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVolumesResponse, gax::error::Error>
@@ -1411,7 +1408,6 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNetworksResponse, gax::error::Error>
@@ -1887,7 +1883,6 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVolumeSnapshotsResponse, gax::error::Error>
@@ -1994,7 +1989,6 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLunsResponse, gax::error::Error> {
@@ -2178,7 +2172,6 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNfsSharesResponse, gax::error::Error>
@@ -2557,7 +2550,6 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -2910,7 +2902,6 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListOSImagesResponse, gax::error::Error>
@@ -2981,7 +2972,6 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>

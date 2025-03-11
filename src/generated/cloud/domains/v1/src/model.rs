@@ -1897,7 +1897,6 @@ impl wkt::message::Message for ListRegistrationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRegistrationsResponse {
     type PageItem = crate::model::Registration;
 

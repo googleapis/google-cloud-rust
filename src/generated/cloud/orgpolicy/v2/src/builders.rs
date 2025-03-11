@@ -68,7 +68,6 @@ pub mod org_policy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConstraintsResponse, gax::error::Error>
@@ -136,7 +135,6 @@ pub mod org_policy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPoliciesResponse, gax::error::Error>
@@ -590,7 +588,6 @@ pub mod org_policy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCustomConstraintsResponse, gax::error::Error>

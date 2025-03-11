@@ -812,7 +812,6 @@ impl wkt::message::Message for ListConnectionProfilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConnectionProfilesResponse {
     type PageItem = crate::model::ConnectionProfile;
 
@@ -1229,7 +1228,6 @@ impl wkt::message::Message for ListStreamsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListStreamsResponse {
     type PageItem = crate::model::Stream;
 
@@ -1857,7 +1855,6 @@ impl wkt::message::Message for ListStreamObjectsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListStreamObjectsResponse {
     type PageItem = crate::model::StreamObject;
 
@@ -2212,7 +2209,6 @@ impl wkt::message::Message for ListPrivateConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPrivateConnectionsResponse {
     type PageItem = crate::model::PrivateConnection;
 
@@ -2525,7 +2521,6 @@ impl wkt::message::Message for ListRoutesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRoutesResponse {
     type PageItem = crate::model::Route;
 

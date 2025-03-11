@@ -68,7 +68,6 @@ pub mod cloud_redis_cluster {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
@@ -600,7 +599,6 @@ pub mod cloud_redis_cluster {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupCollectionsResponse, gax::error::Error>
@@ -712,7 +710,6 @@ pub mod cloud_redis_cluster {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
@@ -1084,7 +1081,6 @@ pub mod cloud_redis_cluster {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
@@ -1202,7 +1198,6 @@ pub mod cloud_redis_cluster {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>

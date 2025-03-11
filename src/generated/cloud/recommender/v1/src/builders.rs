@@ -68,7 +68,6 @@ pub mod recommender {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInsightsResponse, gax::error::Error>
@@ -248,7 +247,6 @@ pub mod recommender {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRecommendationsResponse, gax::error::Error>

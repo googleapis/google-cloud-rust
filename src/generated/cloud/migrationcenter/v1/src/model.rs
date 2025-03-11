@@ -1875,7 +1875,6 @@ impl wkt::message::Message for ListAssetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAssetsResponse {
     type PageItem = crate::model::Asset;
 
@@ -2558,7 +2557,6 @@ impl wkt::message::Message for ListImportJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListImportJobsResponse {
     type PageItem = crate::model::ImportJob;
 
@@ -3010,7 +3008,6 @@ impl wkt::message::Message for ListImportDataFilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListImportDataFilesResponse {
     type PageItem = crate::model::ImportDataFile;
 
@@ -3281,7 +3278,6 @@ impl wkt::message::Message for ListGroupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGroupsResponse {
     type PageItem = crate::model::Group;
 
@@ -3800,7 +3796,6 @@ impl wkt::message::Message for ListErrorFramesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListErrorFramesResponse {
     type PageItem = crate::model::ErrorFrame;
 
@@ -3981,7 +3976,6 @@ impl wkt::message::Message for ListSourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSourcesResponse {
     type PageItem = crate::model::Source;
 
@@ -4343,7 +4337,6 @@ impl wkt::message::Message for ListPreferenceSetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPreferenceSetsResponse {
     type PageItem = crate::model::PreferenceSet;
 
@@ -5015,7 +5008,6 @@ impl wkt::message::Message for ListReportsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListReportsResponse {
     type PageItem = crate::model::Report;
 
@@ -5236,7 +5228,6 @@ impl wkt::message::Message for ListReportConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListReportConfigsResponse {
     type PageItem = crate::model::ReportConfig;
 

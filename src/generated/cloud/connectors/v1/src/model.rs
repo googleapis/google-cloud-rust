@@ -2501,7 +2501,6 @@ impl wkt::message::Message for ListConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
@@ -2875,7 +2874,6 @@ impl wkt::message::Message for ListRuntimeEntitySchemasResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRuntimeEntitySchemasResponse {
     type PageItem = crate::model::RuntimeEntitySchema;
 
@@ -3000,7 +2998,6 @@ impl wkt::message::Message for ListRuntimeActionSchemasResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRuntimeActionSchemasResponse {
     type PageItem = crate::model::RuntimeActionSchema;
 
@@ -3437,7 +3434,6 @@ impl wkt::message::Message for ListConnectorsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConnectorsResponse {
     type PageItem = crate::model::Connector;
 
@@ -3829,7 +3825,6 @@ impl wkt::message::Message for ListConnectorVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConnectorVersionsResponse {
     type PageItem = crate::model::ConnectorVersion;
 
@@ -4623,7 +4618,6 @@ impl wkt::message::Message for ListProvidersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProvidersResponse {
     type PageItem = crate::model::Provider;
 

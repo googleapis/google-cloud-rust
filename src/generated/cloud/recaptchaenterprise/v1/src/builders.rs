@@ -265,7 +265,6 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error> {
@@ -674,7 +673,6 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListIpOverridesResponse, gax::error::Error>
@@ -845,7 +843,6 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFirewallPoliciesResponse, gax::error::Error>
@@ -1129,7 +1126,6 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -1208,7 +1204,6 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -1287,7 +1282,6 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<

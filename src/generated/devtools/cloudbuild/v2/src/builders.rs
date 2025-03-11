@@ -206,7 +206,6 @@ pub mod repository_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
@@ -712,7 +711,6 @@ pub mod repository_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error>
@@ -967,7 +965,6 @@ pub mod repository_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<

@@ -406,7 +406,6 @@ impl wkt::message::Message for ListTransferJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTransferJobsResponse {
     type PageItem = crate::model::TransferJob;
 
@@ -820,7 +819,6 @@ impl wkt::message::Message for ListAgentPoolsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAgentPoolsResponse {
     type PageItem = crate::model::AgentPool;
 

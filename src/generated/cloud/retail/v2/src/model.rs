@@ -1549,7 +1549,6 @@ impl wkt::message::Message for ListCatalogsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCatalogsResponse {
     type PageItem = crate::model::Catalog;
 
@@ -5413,7 +5412,6 @@ impl wkt::message::Message for ListControlsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListControlsResponse {
     type PageItem = crate::model::Control;
 
@@ -8985,7 +8983,6 @@ impl wkt::message::Message for ListModelsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListModelsResponse {
     type PageItem = crate::model::Model;
 
@@ -11121,7 +11118,6 @@ impl wkt::message::Message for ListProductsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProductsResponse {
     type PageItem = crate::model::Product;
 
@@ -14767,7 +14763,6 @@ impl wkt::message::Message for SearchResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchResponse {
     type PageItem = crate::model::search_response::Facet;
 
@@ -16474,7 +16469,6 @@ impl wkt::message::Message for ListServingConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServingConfigsResponse {
     type PageItem = crate::model::ServingConfig;
 

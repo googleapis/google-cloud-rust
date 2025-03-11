@@ -4717,7 +4717,6 @@ impl wkt::message::Message for ListClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListClustersResponse {
     type PageItem = crate::model::Cluster;
 
@@ -5573,7 +5572,6 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
@@ -7058,7 +7056,6 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
@@ -7449,7 +7446,6 @@ impl wkt::message::Message for ListSupportedDatabaseFlagsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSupportedDatabaseFlagsResponse {
     type PageItem = crate::model::SupportedDatabaseFlag;
 
@@ -7943,7 +7939,6 @@ impl wkt::message::Message for ListUsersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUsersResponse {
     type PageItem = crate::model::User;
 
@@ -8331,7 +8326,6 @@ impl wkt::message::Message for ListDatabasesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDatabasesResponse {
     type PageItem = crate::model::Database;
 

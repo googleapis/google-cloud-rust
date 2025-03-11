@@ -156,7 +156,6 @@ pub mod api_keys {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error> {

@@ -308,7 +308,6 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAttestorsResponse, gax::error::Error>

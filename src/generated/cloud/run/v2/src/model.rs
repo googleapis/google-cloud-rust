@@ -1316,7 +1316,6 @@ impl wkt::message::Message for ListExecutionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListExecutionsResponse {
     type PageItem = crate::model::Execution;
 
@@ -2162,7 +2161,6 @@ impl wkt::message::Message for ListJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListJobsResponse {
     type PageItem = crate::model::Job;
 
@@ -4722,7 +4720,6 @@ impl wkt::message::Message for ListRevisionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRevisionsResponse {
     type PageItem = crate::model::Revision;
 
@@ -5754,7 +5751,6 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
@@ -6544,7 +6540,6 @@ impl wkt::message::Message for ListTasksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTasksResponse {
     type PageItem = crate::model::Task;
 

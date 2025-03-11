@@ -68,7 +68,6 @@ pub mod secret_manager_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error>
@@ -195,7 +194,6 @@ pub mod secret_manager_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>
@@ -336,7 +334,6 @@ pub mod secret_manager_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>
@@ -990,7 +987,6 @@ pub mod secret_manager_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>
@@ -1086,7 +1082,6 @@ pub mod secret_manager_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>

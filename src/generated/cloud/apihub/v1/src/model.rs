@@ -405,7 +405,6 @@ impl wkt::message::Message for ListApisResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListApisResponse {
     type PageItem = crate::model::Api;
 
@@ -787,7 +786,6 @@ impl wkt::message::Message for ListVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVersionsResponse {
     type PageItem = crate::model::Version;
 
@@ -1147,7 +1145,6 @@ impl wkt::message::Message for ListSpecsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSpecsResponse {
     type PageItem = crate::model::Spec;
 
@@ -1389,7 +1386,6 @@ impl wkt::message::Message for ListApiOperationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListApiOperationsResponse {
     type PageItem = crate::model::ApiOperation;
 
@@ -1794,7 +1790,6 @@ impl wkt::message::Message for ListDeploymentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
 
@@ -2151,7 +2146,6 @@ impl wkt::message::Message for ListAttributesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAttributesResponse {
     type PageItem = crate::model::Attribute;
 
@@ -2582,7 +2576,6 @@ impl wkt::message::Message for SearchResourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchResourcesResponse {
     type PageItem = crate::model::SearchResult;
 
@@ -2930,7 +2923,6 @@ impl wkt::message::Message for ListDependenciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDependenciesResponse {
     type PageItem = crate::model::Dependency;
 
@@ -3242,7 +3234,6 @@ impl wkt::message::Message for ListExternalApisResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListExternalApisResponse {
     type PageItem = crate::model::ExternalApi;
 
@@ -7490,7 +7481,6 @@ impl wkt::message::Message for ListHostProjectRegistrationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListHostProjectRegistrationsResponse {
     type PageItem = crate::model::HostProjectRegistration;
 
@@ -8468,7 +8458,6 @@ impl wkt::message::Message for ListRuntimeProjectAttachmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRuntimeProjectAttachmentsResponse {
     type PageItem = crate::model::RuntimeProjectAttachment;
 

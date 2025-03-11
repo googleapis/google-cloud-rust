@@ -4964,7 +4964,6 @@ impl wkt::message::Message for ListCertificatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCertificatesResponse {
     type PageItem = crate::model::Certificate;
 
@@ -5700,7 +5699,6 @@ impl wkt::message::Message for ListCertificateAuthoritiesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCertificateAuthoritiesResponse {
     type PageItem = crate::model::CertificateAuthority;
 
@@ -6493,7 +6491,6 @@ impl wkt::message::Message for ListCaPoolsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCaPoolsResponse {
     type PageItem = crate::model::CaPool;
 
@@ -6700,7 +6697,6 @@ impl wkt::message::Message for ListCertificateRevocationListsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCertificateRevocationListsResponse {
     type PageItem = crate::model::CertificateRevocationList;
 
@@ -7131,7 +7127,6 @@ impl wkt::message::Message for ListCertificateTemplatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCertificateTemplatesResponse {
     type PageItem = crate::model::CertificateTemplate;
 

@@ -458,7 +458,6 @@ impl wkt::message::Message for ListTemplatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTemplatesResponse {
     type PageItem = crate::model::Template;
 

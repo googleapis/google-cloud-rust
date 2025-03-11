@@ -439,7 +439,6 @@ impl wkt::message::Message for ListServiceAccountsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServiceAccountsResponse {
     type PageItem = crate::model::ServiceAccount;
 
@@ -1793,7 +1792,6 @@ impl wkt::message::Message for QueryGrantableRolesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for QueryGrantableRolesResponse {
     type PageItem = crate::model::Role;
 
@@ -1952,7 +1950,6 @@ impl wkt::message::Message for ListRolesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRolesResponse {
     type PageItem = crate::model::Role;
 
@@ -2644,7 +2641,6 @@ impl wkt::message::Message for QueryTestablePermissionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for QueryTestablePermissionsResponse {
     type PageItem = crate::model::Permission;
 

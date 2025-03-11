@@ -3436,7 +3436,6 @@ impl wkt::message::Message for ListKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListKeysResponse {
     type PageItem = crate::model::Key;
 
@@ -3726,7 +3725,6 @@ impl wkt::message::Message for ListFirewallPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFirewallPoliciesResponse {
     type PageItem = crate::model::FirewallPolicy;
 
@@ -5707,7 +5705,6 @@ impl wkt::message::Message for ListRelatedAccountGroupMembershipsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRelatedAccountGroupMembershipsResponse {
     type PageItem = crate::model::RelatedAccountGroupMembership;
 
@@ -5821,7 +5818,6 @@ impl wkt::message::Message for ListRelatedAccountGroupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRelatedAccountGroupsResponse {
     type PageItem = crate::model::RelatedAccountGroup;
 
@@ -5966,7 +5962,6 @@ impl wkt::message::Message for SearchRelatedAccountGroupMembershipsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchRelatedAccountGroupMembershipsResponse {
     type PageItem = crate::model::RelatedAccountGroupMembership;
 
@@ -6205,7 +6200,6 @@ impl wkt::message::Message for ListIpOverridesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListIpOverridesResponse {
     type PageItem = crate::model::IpOverrideData;
 

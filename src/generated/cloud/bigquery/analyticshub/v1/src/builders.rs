@@ -71,7 +71,6 @@ pub mod analytics_hub_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDataExchangesResponse, gax::error::Error>
@@ -142,7 +141,6 @@ pub mod analytics_hub_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListOrgDataExchangesResponse, gax::error::Error>
@@ -410,7 +408,6 @@ pub mod analytics_hub_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListListingsResponse, gax::error::Error>
@@ -956,7 +953,6 @@ pub mod analytics_hub_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
@@ -1035,7 +1031,6 @@ pub mod analytics_hub_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<

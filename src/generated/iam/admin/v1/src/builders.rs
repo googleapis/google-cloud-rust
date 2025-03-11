@@ -71,7 +71,6 @@ pub mod iam {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServiceAccountsResponse, gax::error::Error>
@@ -1186,7 +1185,6 @@ pub mod iam {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::QueryGrantableRolesResponse, gax::error::Error>
@@ -1260,7 +1258,6 @@ pub mod iam {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRolesResponse, gax::error::Error> {
@@ -1588,7 +1585,6 @@ pub mod iam {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<

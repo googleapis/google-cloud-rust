@@ -115,7 +115,6 @@ pub mod privileged_access_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error>
@@ -198,7 +197,6 @@ pub mod privileged_access_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchEntitlementsResponse, gax::error::Error>
@@ -615,7 +613,6 @@ pub mod privileged_access_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGrantsResponse, gax::error::Error>
@@ -695,7 +692,6 @@ pub mod privileged_access_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchGrantsResponse, gax::error::Error>
@@ -1058,7 +1054,6 @@ pub mod privileged_access_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
@@ -1176,7 +1171,6 @@ pub mod privileged_access_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>

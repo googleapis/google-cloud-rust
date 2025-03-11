@@ -3505,7 +3505,6 @@ impl wkt::message::Message for ListClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListClustersResponse {
     type PageItem = crate::model::Cluster;
 
@@ -4128,7 +4127,6 @@ impl wkt::message::Message for ListNodePoolsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNodePoolsResponse {
     type PageItem = crate::model::NodePool;
 
@@ -4463,7 +4461,6 @@ impl wkt::message::Message for ListMachinesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMachinesResponse {
     type PageItem = crate::model::Machine;
 
@@ -4633,7 +4630,6 @@ impl wkt::message::Message for ListVpnConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVpnConnectionsResponse {
     type PageItem = crate::model::VpnConnection;
 

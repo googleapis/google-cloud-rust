@@ -1240,7 +1240,6 @@ impl wkt::message::Message for ListReplayResultsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListReplayResultsResponse {
     type PageItem = crate::model::ReplayResult;
 

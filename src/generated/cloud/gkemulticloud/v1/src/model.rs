@@ -1408,7 +1408,6 @@ impl wkt::message::Message for ListAttachedClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAttachedClustersResponse {
     type PageItem = crate::model::AttachedCluster;
 
@@ -4526,7 +4525,6 @@ impl wkt::message::Message for ListAwsClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAwsClustersResponse {
     type PageItem = crate::model::AwsCluster;
 
@@ -5023,7 +5021,6 @@ impl wkt::message::Message for ListAwsNodePoolsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAwsNodePoolsResponse {
     type PageItem = crate::model::AwsNodePool;
 
@@ -8117,7 +8114,6 @@ impl wkt::message::Message for ListAzureClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAzureClustersResponse {
     type PageItem = crate::model::AzureCluster;
 
@@ -8543,7 +8539,6 @@ impl wkt::message::Message for ListAzureNodePoolsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAzureNodePoolsResponse {
     type PageItem = crate::model::AzureNodePool;
 
@@ -9000,7 +8995,6 @@ impl wkt::message::Message for ListAzureClientsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAzureClientsResponse {
     type PageItem = crate::model::AzureClient;
 

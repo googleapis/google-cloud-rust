@@ -2352,7 +2352,6 @@ impl wkt::message::Message for ListFunctionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFunctionsResponse {
     type PageItem = crate::model::Function;
 

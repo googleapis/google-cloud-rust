@@ -320,7 +320,6 @@ impl wkt::message::Message for ListOperationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOperationsResponse {
     type PageItem = crate::model::Operation;
 

@@ -5414,7 +5414,6 @@ impl wkt::message::Message for ListAssetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAssetsResponse {
     type PageItem = crate::model::Asset;
 
@@ -5670,7 +5669,6 @@ impl wkt::message::Message for ListChannelsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListChannelsResponse {
     type PageItem = crate::model::Channel;
 
@@ -6180,7 +6178,6 @@ impl wkt::message::Message for ListInputsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInputsResponse {
     type PageItem = crate::model::Input;
 
@@ -6566,7 +6563,6 @@ impl wkt::message::Message for ListEventsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEventsResponse {
     type PageItem = crate::model::Event;
 
@@ -6808,7 +6804,6 @@ impl wkt::message::Message for ListClipsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListClipsResponse {
     type PageItem = crate::model::Clip;
 

@@ -130,7 +130,6 @@ pub mod reservation_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListReservationsResponse, gax::error::Error>
@@ -457,7 +456,6 @@ pub mod reservation_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -851,7 +849,6 @@ pub mod reservation_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAssignmentsResponse, gax::error::Error>
@@ -966,7 +963,6 @@ pub mod reservation_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchAssignmentsResponse, gax::error::Error>
@@ -1043,7 +1039,6 @@ pub mod reservation_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchAllAssignmentsResponse, gax::error::Error>

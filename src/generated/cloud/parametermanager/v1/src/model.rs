@@ -260,7 +260,6 @@ impl wkt::message::Message for ListParametersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListParametersResponse {
     type PageItem = crate::model::Parameter;
 
@@ -747,7 +746,6 @@ impl wkt::message::Message for ListParameterVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListParameterVersionsResponse {
     type PageItem = crate::model::ParameterVersion;
 

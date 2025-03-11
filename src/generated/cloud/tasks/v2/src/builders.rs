@@ -68,7 +68,6 @@ pub mod cloud_tasks {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListQueuesResponse, gax::error::Error>
@@ -614,7 +613,6 @@ pub mod cloud_tasks {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTasksResponse, gax::error::Error> {
@@ -878,7 +876,6 @@ pub mod cloud_tasks {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>

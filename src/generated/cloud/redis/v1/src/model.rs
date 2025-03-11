@@ -1689,7 +1689,6 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 

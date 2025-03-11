@@ -109,7 +109,6 @@ pub mod grafeas {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListOccurrencesResponse, gax::error::Error>
@@ -482,7 +481,6 @@ pub mod grafeas {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNotesResponse, gax::error::Error> {
@@ -763,7 +761,6 @@ pub mod grafeas {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNoteOccurrencesResponse, gax::error::Error>

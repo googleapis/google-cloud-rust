@@ -68,7 +68,6 @@ pub mod case_attachment_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error>
@@ -203,7 +202,6 @@ pub mod case_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCasesResponse, gax::error::Error> {
@@ -276,7 +274,6 @@ pub mod case_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchCasesResponse, gax::error::Error>
@@ -543,7 +540,6 @@ pub mod case_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -639,7 +635,6 @@ pub mod comment_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCommentsResponse, gax::error::Error>

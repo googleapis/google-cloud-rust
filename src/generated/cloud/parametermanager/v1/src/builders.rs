@@ -68,7 +68,6 @@ pub mod parameter_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListParametersResponse, gax::error::Error>
@@ -360,7 +359,6 @@ pub mod parameter_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListParameterVersionsResponse, gax::error::Error>
@@ -718,7 +716,6 @@ pub mod parameter_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>

@@ -233,7 +233,6 @@ impl wkt::message::Message for ListClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListClustersResponse {
     type PageItem = crate::model::Cluster;
 
@@ -542,7 +541,6 @@ impl wkt::message::Message for ListBackupCollectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupCollectionsResponse {
     type PageItem = crate::model::BackupCollection;
 
@@ -704,7 +702,6 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 

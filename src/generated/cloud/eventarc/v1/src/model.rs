@@ -909,7 +909,6 @@ impl wkt::message::Message for ListTriggersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTriggersResponse {
     type PageItem = crate::model::Trigger;
 
@@ -1267,7 +1266,6 @@ impl wkt::message::Message for ListChannelsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListChannelsResponse {
     type PageItem = crate::model::Channel;
 
@@ -1602,7 +1600,6 @@ impl wkt::message::Message for ListProvidersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProvidersResponse {
     type PageItem = crate::model::Provider;
 
@@ -1760,7 +1757,6 @@ impl wkt::message::Message for ListChannelConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListChannelConnectionsResponse {
     type PageItem = crate::model::ChannelConnection;
 
@@ -2104,7 +2100,6 @@ impl wkt::message::Message for ListMessageBusesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMessageBusesResponse {
     type PageItem = crate::model::MessageBus;
 
@@ -2588,7 +2583,6 @@ impl wkt::message::Message for ListEnrollmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEnrollmentsResponse {
     type PageItem = crate::model::Enrollment;
 
@@ -2958,7 +2952,6 @@ impl wkt::message::Message for ListPipelinesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPipelinesResponse {
     type PageItem = crate::model::Pipeline;
 
@@ -3327,7 +3320,6 @@ impl wkt::message::Message for ListGoogleApiSourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGoogleApiSourcesResponse {
     type PageItem = crate::model::GoogleApiSource;
 

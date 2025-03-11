@@ -745,7 +745,6 @@ impl wkt::message::Message for ListAutoscalingPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutoscalingPoliciesResponse {
     type PageItem = crate::model::AutoscalingPolicy;
 
@@ -1014,7 +1013,6 @@ impl wkt::message::Message for ListBatchesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBatchesResponse {
     type PageItem = crate::model::Batch;
 
@@ -6117,7 +6115,6 @@ impl wkt::message::Message for ListClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListClustersResponse {
     type PageItem = crate::model::Cluster;
 
@@ -10029,7 +10026,6 @@ impl wkt::message::Message for ListJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListJobsResponse {
     type PageItem = crate::model::Job;
 
@@ -11397,7 +11393,6 @@ impl wkt::message::Message for ListSessionTemplatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSessionTemplatesResponse {
     type PageItem = crate::model::SessionTemplate;
 
@@ -11900,7 +11895,6 @@ impl wkt::message::Message for ListSessionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSessionsResponse {
     type PageItem = crate::model::Session;
 
@@ -16436,7 +16430,6 @@ impl wkt::message::Message for ListWorkflowTemplatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkflowTemplatesResponse {
     type PageItem = crate::model::WorkflowTemplate;
 

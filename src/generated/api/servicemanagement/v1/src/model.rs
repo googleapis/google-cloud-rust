@@ -1107,7 +1107,6 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::ManagedService;
 
@@ -1488,7 +1487,6 @@ impl wkt::message::Message for ListServiceConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServiceConfigsResponse {
     type PageItem = api::model::Service;
 
@@ -1792,7 +1790,6 @@ impl wkt::message::Message for ListServiceRolloutsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServiceRolloutsResponse {
     type PageItem = crate::model::Rollout;
 

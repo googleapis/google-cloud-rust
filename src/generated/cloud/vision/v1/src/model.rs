@@ -4067,7 +4067,6 @@ impl wkt::message::Message for ListProductsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProductsResponse {
     type PageItem = crate::model::Product;
 
@@ -4348,7 +4347,6 @@ impl wkt::message::Message for ListProductSetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProductSetsResponse {
     type PageItem = crate::model::ProductSet;
 
@@ -4647,7 +4645,6 @@ impl wkt::message::Message for ListReferenceImagesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListReferenceImagesResponse {
     type PageItem = crate::model::ReferenceImage;
 
@@ -4911,7 +4908,6 @@ impl wkt::message::Message for ListProductsInProductSetResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProductsInProductSetResponse {
     type PageItem = crate::model::Product;
 

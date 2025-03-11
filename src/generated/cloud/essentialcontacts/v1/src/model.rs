@@ -230,7 +230,6 @@ impl wkt::message::Message for ListContactsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListContactsResponse {
     type PageItem = crate::model::Contact;
 
@@ -522,7 +521,6 @@ impl wkt::message::Message for ComputeContactsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ComputeContactsResponse {
     type PageItem = crate::model::Contact;
 

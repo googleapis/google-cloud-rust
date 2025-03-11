@@ -161,7 +161,6 @@ pub mod video_stitcher_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCdnKeysResponse, gax::error::Error>
@@ -545,7 +544,6 @@ pub mod video_stitcher_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVodStitchDetailsResponse, gax::error::Error>
@@ -660,7 +658,6 @@ pub mod video_stitcher_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVodAdTagDetailsResponse, gax::error::Error>
@@ -775,7 +772,6 @@ pub mod video_stitcher_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLiveAdTagDetailsResponse, gax::error::Error>
@@ -986,7 +982,6 @@ pub mod video_stitcher_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSlatesResponse, gax::error::Error>
@@ -1470,7 +1465,6 @@ pub mod video_stitcher_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLiveConfigsResponse, gax::error::Error>
@@ -1864,7 +1858,6 @@ pub mod video_stitcher_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVodConfigsResponse, gax::error::Error>
@@ -2155,7 +2148,6 @@ pub mod video_stitcher_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>

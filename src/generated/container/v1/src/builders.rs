@@ -2386,7 +2386,6 @@ pub mod cluster_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListUsableSubnetworksResponse, gax::error::Error>

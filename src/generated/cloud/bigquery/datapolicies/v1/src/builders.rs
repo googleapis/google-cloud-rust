@@ -315,7 +315,6 @@ pub mod data_policy_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDataPoliciesResponse, gax::error::Error>

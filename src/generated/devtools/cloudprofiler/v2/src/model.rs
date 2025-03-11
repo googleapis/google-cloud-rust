@@ -484,7 +484,6 @@ impl wkt::message::Message for ListProfilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProfilesResponse {
     type PageItem = crate::model::Profile;
 

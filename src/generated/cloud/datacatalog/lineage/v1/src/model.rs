@@ -1028,7 +1028,6 @@ impl wkt::message::Message for ListProcessesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProcessesResponse {
     type PageItem = crate::model::Process;
 
@@ -1329,7 +1328,6 @@ impl wkt::message::Message for ListRunsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRunsResponse {
     type PageItem = crate::model::Run;
 
@@ -1573,7 +1571,6 @@ impl wkt::message::Message for ListLineageEventsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLineageEventsResponse {
     type PageItem = crate::model::LineageEvent;
 
@@ -1825,7 +1822,6 @@ impl wkt::message::Message for SearchLinksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchLinksResponse {
     type PageItem = crate::model::Link;
 
@@ -2050,7 +2046,6 @@ impl wkt::message::Message for BatchSearchLinkProcessesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for BatchSearchLinkProcessesResponse {
     type PageItem = crate::model::ProcessLinks;
 

@@ -68,7 +68,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
@@ -643,7 +642,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListImportJobsResponse, gax::error::Error>
@@ -1175,7 +1173,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListImportDataFilesResponse, gax::error::Error>
@@ -1444,7 +1441,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
@@ -2046,7 +2042,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListErrorFramesResponse, gax::error::Error>
@@ -2167,7 +2162,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
@@ -2568,7 +2562,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPreferenceSetsResponse, gax::error::Error>
@@ -3261,7 +3254,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListReportConfigsResponse, gax::error::Error>
@@ -3578,7 +3570,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListReportsResponse, gax::error::Error>
@@ -3749,7 +3740,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
@@ -3867,7 +3857,6 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>

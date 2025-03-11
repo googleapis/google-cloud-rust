@@ -109,7 +109,6 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
@@ -230,7 +229,6 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCustomersResponse, gax::error::Error>
@@ -403,7 +401,6 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<
@@ -556,7 +553,6 @@ pub mod cloud_controls_partner_monitoring {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListViolationsResponse, gax::error::Error>

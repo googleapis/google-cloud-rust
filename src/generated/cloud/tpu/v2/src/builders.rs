@@ -68,7 +68,6 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNodesResponse, gax::error::Error> {
@@ -588,7 +587,6 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListQueuedResourcesResponse, gax::error::Error>
@@ -1027,7 +1025,6 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAcceleratorTypesResponse, gax::error::Error>
@@ -1154,7 +1151,6 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRuntimeVersionsResponse, gax::error::Error>
@@ -1342,7 +1338,6 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
@@ -1460,7 +1455,6 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
         pub async fn stream(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>

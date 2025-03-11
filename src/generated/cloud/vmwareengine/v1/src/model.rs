@@ -210,7 +210,6 @@ impl wkt::message::Message for ListPrivateCloudsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPrivateCloudsResponse {
     type PageItem = crate::model::PrivateCloud;
 
@@ -712,7 +711,6 @@ impl wkt::message::Message for ListClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListClustersResponse {
     type PageItem = crate::model::Cluster;
 
@@ -1082,7 +1080,6 @@ impl wkt::message::Message for ListNodesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNodesResponse {
     type PageItem = crate::model::Node;
 
@@ -1306,7 +1303,6 @@ impl wkt::message::Message for ListExternalAddressesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListExternalAddressesResponse {
     type PageItem = crate::model::ExternalAddress;
 
@@ -1432,7 +1428,6 @@ impl wkt::message::Message for FetchNetworkPolicyExternalAddressesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for FetchNetworkPolicyExternalAddressesResponse {
     type PageItem = crate::model::ExternalAddress;
 
@@ -1842,7 +1837,6 @@ impl wkt::message::Message for ListSubnetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSubnetsResponse {
     type PageItem = crate::model::Subnet;
 
@@ -2120,7 +2114,6 @@ impl wkt::message::Message for ListExternalAccessRulesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListExternalAccessRulesResponse {
     type PageItem = crate::model::ExternalAccessRule;
 
@@ -2581,7 +2574,6 @@ impl wkt::message::Message for ListLoggingServersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLoggingServersResponse {
     type PageItem = crate::model::LoggingServer;
 
@@ -3127,7 +3119,6 @@ impl wkt::message::Message for ListNodeTypesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNodeTypesResponse {
     type PageItem = crate::model::NodeType;
 
@@ -3471,7 +3462,6 @@ impl wkt::message::Message for ListHcxActivationKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListHcxActivationKeysResponse {
     type PageItem = crate::model::HcxActivationKey;
 
@@ -4235,7 +4225,6 @@ impl wkt::message::Message for ListNetworkPeeringsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNetworkPeeringsResponse {
     type PageItem = crate::model::NetworkPeering;
 
@@ -4370,7 +4359,6 @@ impl wkt::message::Message for ListPeeringRoutesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPeeringRoutesResponse {
     type PageItem = crate::model::PeeringRoute;
 
@@ -4559,7 +4547,6 @@ impl wkt::message::Message for ListNetworkPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNetworkPoliciesResponse {
     type PageItem = crate::model::NetworkPolicy;
 
@@ -5021,7 +5008,6 @@ impl wkt::message::Message for ListManagementDnsZoneBindingsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListManagementDnsZoneBindingsResponse {
     type PageItem = crate::model::ManagementDnsZoneBinding;
 
@@ -5820,7 +5806,6 @@ impl wkt::message::Message for ListVmwareEngineNetworksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVmwareEngineNetworksResponse {
     type PageItem = crate::model::VmwareEngineNetwork;
 
@@ -6140,7 +6125,6 @@ impl wkt::message::Message for ListPrivateConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPrivateConnectionsResponse {
     type PageItem = crate::model::PrivateConnection;
 
@@ -6397,7 +6381,6 @@ impl wkt::message::Message for ListPrivateConnectionPeeringRoutesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPrivateConnectionPeeringRoutesResponse {
     type PageItem = crate::model::PeeringRoute;
 

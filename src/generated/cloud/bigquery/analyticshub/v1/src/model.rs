@@ -1741,7 +1741,6 @@ impl wkt::message::Message for ListDataExchangesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDataExchangesResponse {
     type PageItem = crate::model::DataExchange;
 
@@ -1851,7 +1850,6 @@ impl wkt::message::Message for ListOrgDataExchangesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOrgDataExchangesResponse {
     type PageItem = crate::model::DataExchange;
 
@@ -2130,7 +2128,6 @@ impl wkt::message::Message for ListListingsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListListingsResponse {
     type PageItem = crate::model::Listing;
 
@@ -2745,7 +2742,6 @@ impl wkt::message::Message for ListSubscriptionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSubscriptionsResponse {
     type PageItem = crate::model::Subscription;
 
@@ -2863,7 +2859,6 @@ impl wkt::message::Message for ListSharedResourceSubscriptionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSharedResourceSubscriptionsResponse {
     type PageItem = crate::model::Subscription;
 
