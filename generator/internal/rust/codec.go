@@ -16,7 +16,6 @@ package rust
 
 import (
 	"bytes"
-	"embed"
 	"fmt"
 	"log/slog"
 	"path"
@@ -28,7 +27,6 @@ import (
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
-	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/iancoleman/strcase"
 	"github.com/yuin/goldmark"
@@ -36,9 +34,6 @@ import (
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/text"
 )
-
-//go:embed all:templates
-var rustTemplates embed.FS
 
 // A regular expression to find https links in comments.
 //
@@ -56,17 +51,6 @@ var commentUrlRegex = regexp.MustCompile(
 		`([A-Za-z0-9\.\-_]+\.)+` + // Be generous in accepting most of the authority (hostname)
 		`[a-zA-Z]{2,63}` + // The root domain is far more strict
 		`(/[-a-zA-Z0-9@:%_\+.~#?&/={}\$]*)?`) // Accept just about anything on the query and URL fragments
-
-func Generate(model *api.API, outdir string, cfg *config.Config) error {
-	codec, err := newCodec(cfg.General.SpecificationFormat == "protobuf", cfg.Codec)
-	if err != nil {
-		return err
-	}
-	annotations := annotateModel(model, codec, outdir)
-	provider := templatesProvider()
-	generatedFiles := codec.generatedFiles(annotations.HasServices)
-	return language.GenerateFromRoot(outdir, model, provider, generatedFiles)
-}
 
 func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 	var sysParams []systemParameter
@@ -659,30 +643,6 @@ func addQueryParameterOneOf(f *api.Field) string {
 	default:
 		return fmt.Sprintf(`let builder = req.get_%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
 	}
-}
-
-func templatesProvider() language.TemplateProvider {
-	return func(name string) (string, error) {
-		contents, err := rustTemplates.ReadFile(name)
-		if err != nil {
-			return "", err
-		}
-		return string(contents), nil
-	}
-}
-
-func (c *codec) generatedFiles(hasServices bool) []language.GeneratedFile {
-	if c.templateOverride != "" {
-		return language.WalkTemplatesDir(rustTemplates, c.templateOverride)
-	}
-	var root string
-	switch {
-	case !hasServices:
-		root = "templates/nosvc"
-	default:
-		root = "templates/crate"
-	}
-	return language.WalkTemplatesDir(rustTemplates, root)
 }
 
 func methodInOutTypeName(id string, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
