@@ -27,7 +27,7 @@ repository.workspace = true
 
 [dependencies]
 auth        = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
-retry       = { version = "0.1", path = "../retry", package = "google-cloud-retry" }
+retry       = { version = "0.1", path = "../retry", package = "google-cloud-retry", features = ["unstable-sdk-client"] }
 base64      = "0.22"
 bytes       = "1"
 futures     = { version = "0.3", optional = true }

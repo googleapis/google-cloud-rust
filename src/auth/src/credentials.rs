@@ -252,7 +252,7 @@ pub(crate) mod dynamic {
 /// [gce-link]: https://cloud.google.com/products/compute
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
-pub async fn create_access_token_credential() -> Result<Credential> {
+pub async fn create_access_token_credential(retry_client: retry::retry_client::RetryClient) -> Result<Credential> {
     let contents = match load_adc()? {
         AdcContents::Contents(contents) => contents,
         AdcContents::FallbackToMds => return Ok(mds_credential::new()),
@@ -266,7 +266,7 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         .ok_or_else(|| CredentialError::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
         )?;
     match cred_type {
-        "authorized_user" => user_credential::creds_from(js),
+        "authorized_user" => user_credential::creds_from(js, retry_client),
         "service_account" => service_account_credential::creds_from(js),
         _ => Err(CredentialError::non_retryable_from_str(format!(
             "Unimplemented credential type: {cred_type}"

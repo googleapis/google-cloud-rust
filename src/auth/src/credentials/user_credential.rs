@@ -17,13 +17,13 @@ use crate::credentials::{Credential, Result, QUOTA_PROJECT_KEY};
 use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION, CONTENT_TYPE};
-use reqwest::{Client, Method};
+use reqwest::{Client, Method, RequestBuilder};
 use std::sync::Arc;
 use std::time::Duration;
 
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
-pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
+pub(crate) fn creds_from(js: serde_json::Value, retry_client: retry::retry_client::RetryClient) -> Result<Credential> {
     let au =
         serde_json::from_value::<AuthorizedUser>(js).map_err(CredentialError::non_retryable)?;
 
@@ -34,6 +34,7 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
         client_secret: au.client_secret,
         refresh_token: au.refresh_token,
         endpoint,
+        retry_client,
     };
 
     Ok(Credential {
@@ -44,12 +45,12 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     })
 }
 
-#[derive(PartialEq)]
 struct UserTokenProvider {
     client_id: String,
     client_secret: String,
     refresh_token: String,
     endpoint: String,
+    retry_client: retry::retry_client::RetryClient,
 }
 
 impl std::fmt::Debug for UserTokenProvider {
@@ -76,28 +77,33 @@ impl TokenProvider for UserTokenProvider {
             refresh_token: self.refresh_token.clone(),
         };
         let header = HeaderValue::from_static("application/json");
+
         let builder = client
             .request(Method::POST, self.endpoint.as_str())
             .header(CONTENT_TYPE, header)
             .json(&req);
-        let resp = builder.send().await.map_err(CredentialError::retryable)?;
 
-        // Process the response
-        if !resp.status().is_success() {
-            let status = resp.status();
-            let body = resp
-                .text()
-                .await
-                .map_err(|e| CredentialError::new(is_retryable(status), e))?;
-            return Err(CredentialError::from_str(
-                is_retryable(status),
-                format!("Failed to fetch token. {body}"),
-            ));
-        }
-        let response = resp.json::<Oauth2RefreshResponse>().await.map_err(|e| {
-            let retryable = !e.is_decode();
-            CredentialError::new(retryable, e)
-        })?;
+        let options = retry::options::RequestOptions::default();
+        let response = self.retry_client.request::<Oauth2RefreshResponse>(builder, &options).await.map_err(CredentialError::retryable)?;
+
+        // let resp = builder.send().await.map_err(CredentialError::retryable)?;
+
+        // // Process the response
+        // if !resp.status().is_success() {
+        //     let status = resp.status();
+        //     let body = resp
+        //         .text()
+        //         .await
+        //         .map_err(|e| CredentialError::new(is_retryable(status), e))?;
+        //     return Err(CredentialError::from_str(
+        //         is_retryable(status),
+        //         format!("Failed to fetch token. {body}"),
+        //     ));
+        // }
+        // let response = resp.json::<Oauth2RefreshResponse>().await.map_err(|e| {
+        //     let retryable = !e.is_decode();
+        //     CredentialError::new(retryable, e)
+        // })?;
         let token = Token {
             token: response.access_token,
             token_type: response.token_type,
@@ -205,6 +211,7 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: OAUTH2_ENDPOINT.to_string(),
+            retry_client: retry::retry_client::RetryClient::new(),
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("test-client-id"), "{fmt}");
@@ -511,6 +518,7 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
+            retry_client: retry::retry_client::RetryClient::new(),
         };
         let uc = UserCredential {
             token_provider,
@@ -556,7 +564,7 @@ mod test {
             "token_uri": endpoint,
         });
 
-        let cred = creds_from(json).unwrap();
+        let cred = creds_from(json, retry::retry_client::RetryClient::new()).unwrap();
 
         let token = cred.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -582,6 +590,7 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
+            retry_client: retry::retry_client::RetryClient::new(),
         };
         let uc = UserCredential {
             token_provider,
@@ -606,6 +615,7 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
+            retry_client: retry::retry_client::RetryClient::new(),
         };
         let uc = UserCredential {
             token_provider,
@@ -628,6 +638,7 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
+            retry_client: retry::retry_client::RetryClient::new(),
         };
         let uc = UserCredential {
             token_provider,
@@ -650,6 +661,7 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
+            retry_client: retry::retry_client::RetryClient::new(),
         };
         let uc = UserCredential {
             token_provider,

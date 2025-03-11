@@ -14,3 +14,4 @@ pub mod exponential_backoff;
 pub mod error;
 pub mod loop_state;
 pub mod options;
+pub mod retry_client;

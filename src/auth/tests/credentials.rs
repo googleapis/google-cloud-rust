@@ -19,6 +19,7 @@ use google_cloud_auth::credentials::{
 };
 use google_cloud_auth::errors::CredentialError;
 use google_cloud_auth::token::Token;
+use retry::retry_client::RetryClient;
 
 type Result<T> = std::result::Result<T, CredentialError>;
 
@@ -36,7 +37,7 @@ mod test {
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
 
-        let mds = create_access_token_credential().await.unwrap();
+        let mds = create_access_token_credential(RetryClient::new()).await.unwrap();
         let fmt = format!("{:?}", mds);
         assert!(fmt.contains("MDSCredential"));
     }
@@ -45,7 +46,7 @@ mod test {
     #[serial_test::serial]
     async fn create_access_token_credential_errors_if_adc_env_is_not_a_file() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
-        let err = create_access_token_credential().await.err().unwrap();
+        let err = create_access_token_credential(RetryClient::new()).await.err().unwrap();
         let msg = err.source().unwrap().to_string();
         assert!(msg.contains("Failed to load Application Default Credentials"));
         assert!(msg.contains("file-does-not-exist.json"));
@@ -61,7 +62,7 @@ mod test {
             std::fs::write(&path, contents).expect("Unable to write to temporary file.");
             let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-            let err = create_access_token_credential().await.err().unwrap();
+            let err = create_access_token_credential(RetryClient::new()).await.err().unwrap();
             let msg = err.source().unwrap().to_string();
             assert!(msg.contains("Failed to parse"));
             assert!(msg.contains("`type` field"));
@@ -80,7 +81,7 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let err = create_access_token_credential().await.err().unwrap();
+        let err = create_access_token_credential(RetryClient::new()).await.err().unwrap();
         let msg = err.source().unwrap().to_string();
         assert!(msg.contains("Unimplemented"));
         assert!(msg.contains("some_unknown_credential_type"));
@@ -101,7 +102,7 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let uc = create_access_token_credential().await.unwrap();
+        let uc = create_access_token_credential(RetryClient::new()).await.unwrap();
         let fmt = format!("{:?}", uc);
         assert!(fmt.contains("UserCredential"));
     }
@@ -123,7 +124,7 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let sac = create_access_token_credential().await.unwrap();
+        let sac = create_access_token_credential(RetryClient::new()).await.unwrap();
         let fmt = format!("{:?}", sac);
         assert!(fmt.contains("ServiceAccountCredential"));
     }

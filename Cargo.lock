@@ -1221,6 +1221,7 @@ dependencies = [
  "axum 0.8.1",
  "base64",
  "derive_builder",
+ "google-cloud-retry",
  "http",
  "mockall",
  "rand 0.8.5",
