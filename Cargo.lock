@@ -556,6 +556,7 @@ version = "0.0.0"
 dependencies = [
  "axum 0.8.1",
  "google-cloud-gax",
+ "google-cloud-retry",
  "google-cloud-rpc",
  "serde_json",
  "tokio",
@@ -2265,6 +2266,7 @@ dependencies = [
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
+ "google-cloud-retry",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "http",
@@ -3457,6 +3459,32 @@ dependencies = [
  "serde_with",
  "tokio",
  "tracing",
+]
+
+[[package]]
+name = "google-cloud-retry"
+version = "0.1.0"
+dependencies = [
+ "axum 0.8.1",
+ "base64",
+ "built",
+ "bytes",
+ "futures",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "http",
+ "mockall",
+ "pin-project",
+ "rand 0.9.0",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "serial_test",
+ "tempfile",
+ "test-case",
+ "thiserror",
+ "tokio",
 ]
 
 [[package]]

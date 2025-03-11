@@ -218,6 +218,7 @@ members = [
   "src/generated/type",
   "src/integration-tests",
   "src/lro",
+  "src/retry",
   "src/root",
   "src/wkt",
   "tools/check-copyright",

@@ -75,7 +75,7 @@ pub trait PollingPolicy: Send + Sync + std::fmt::Debug {
 
 /// A helper type to use [PollingPolicy] in client and request options.
 #[derive(Clone)]
-pub struct PollingPolicyArg(pub(crate) Arc<dyn PollingPolicy>);
+pub struct PollingPolicyArg(pub Arc<dyn PollingPolicy>);
 
 impl<T> std::convert::From<T> for PollingPolicyArg
 where

@@ -70,11 +70,11 @@ pub trait RetryThrottler: Send + Sync + std::fmt::Debug {
 // Retry throttlers are shared by many clients, so they are wrapped in `Arc<>`.
 // They are (consequently) used from many threads at the same time, so they
 // are wrapped in `Mutex`.
-pub(crate) type RetryThrottlerWrapped = Arc<Mutex<dyn RetryThrottler>>;
+pub type RetryThrottlerWrapped = Arc<Mutex<dyn RetryThrottler>>;
 
 /// A helper type to use [RetryThrottler] in client and request options.
 #[derive(Clone)]
-pub struct RetryThrottlerArg(pub(crate) RetryThrottlerWrapped);
+pub struct RetryThrottlerArg(pub RetryThrottlerWrapped);
 
 impl<T: RetryThrottler + 'static> std::convert::From<T> for RetryThrottlerArg {
     fn from(value: T) -> Self {

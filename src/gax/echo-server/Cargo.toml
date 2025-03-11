@@ -25,3 +25,4 @@ serde_json = "1"
 tokio      = { version = "1.42", features = ["macros"] }
 gax        = { path = "..", package = "google-cloud-gax", features = ["unstable-sdk-client", "unstable-stream"] }
 rpc        = { path = "../../generated/rpc/types", package = "google-cloud-rpc" }
+retry      = { version = "0.1", path = "../../retry", package = "google-cloud-retry" }

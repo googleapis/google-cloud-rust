@@ -65,7 +65,7 @@ pub trait PollingBackoffPolicy: Send + Sync + std::fmt::Debug {
 
 /// A helper type to use [PollingBackoffPolicy] in client and request options.
 #[derive(Clone)]
-pub struct PollingBackoffPolicyArg(pub(crate) Arc<dyn PollingBackoffPolicy>);
+pub struct PollingBackoffPolicyArg(pub Arc<dyn PollingBackoffPolicy>);
 
 impl<T: PollingBackoffPolicy + 'static> std::convert::From<T> for PollingBackoffPolicyArg {
     fn from(value: T) -> Self {

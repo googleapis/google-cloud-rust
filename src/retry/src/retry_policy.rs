@@ -38,8 +38,6 @@
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use auth::errors::CredentialError;
-
 use crate::error::Error;
 use crate::loop_state::LoopState;
 use std::sync::Arc;
@@ -102,7 +100,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
 
 /// A helper type to use [RetryPolicy] in client and request options.
 #[derive(Clone)]
-pub struct RetryPolicyArg(pub(crate) Arc<dyn RetryPolicy>);
+pub struct RetryPolicyArg(pub Arc<dyn RetryPolicy>);
 
 impl<T> std::convert::From<T> for RetryPolicyArg
 where
@@ -235,19 +233,20 @@ impl RetryPolicy for Aip194Strict {
                     LoopState::Permanent(error)
                 }
             }
-            ErrorKind::Authentication => {
-                if let Some(cred_err) = error.as_inner::<CredentialError>() {
-                    if cred_err.is_retryable() {
-                        LoopState::Continue(error)
-                    } else {
-                        LoopState::Permanent(error)
-                    }
-                } else {
-                    LoopState::Continue(error)
-                }
-            }
+            // ErrorKind::Authentication => {
+            //     if let Some(cred_err) = error.as_inner::<CredentialError>() {
+            //         if cred_err.is_retryable() {
+            //             LoopState::Continue(error)
+            //         } else {
+            //             LoopState::Permanent(error)
+            //         }
+            //     } else {
+            //         LoopState::Continue(error)
+            //     }
+            // }
             ErrorKind::Serde => LoopState::Permanent(error),
             ErrorKind::Other => LoopState::Permanent(error),
+            _ => LoopState::Permanent(error),
         }
     }
 }

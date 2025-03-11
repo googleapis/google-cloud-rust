@@ -25,8 +25,8 @@ pub enum Error {
     MissingRequiredParameter(String),
 }
 
-pub fn missing(name: &str) -> crate::error::Error {
-    crate::error::Error::other(Error::MissingRequiredParameter(name.to_string()))
+pub fn missing(name: &str) -> retry::error::Error {
+    retry::error::Error::other(Error::MissingRequiredParameter(name.to_string()))
 }
 
 #[cfg(test)]
