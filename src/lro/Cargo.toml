@@ -15,7 +15,7 @@
 [package]
 description = "Google Cloud Client Libraries for Rust - LRO Helpers"
 name        = "google-cloud-lro"
-version     = "0.1.0"
+version     = "0.1.1"
 # Inherit other attributes from the workspace.
 authors.workspace    = true
 categories.workspace = true
@@ -26,13 +26,14 @@ repository.workspace = true
 
 [dependencies]
 futures     = { version = "0.3", optional = true }
-gax         = { version = "0.20", path = "../gax", package = "google-cloud-gax" }
-longrunning = { version = "0.22", path = "../generated/longrunning", package = "google-cloud-longrunning" }
 pin-project = { version = "1", optional = true }
-rpc         = { version = "0.1", path = "../generated/rpc/types", package = "google-cloud-rpc" }
 serde       = "1"
 tokio       = { version = "1", features = ["time"] }
-wkt         = { version = "0.1", path = "../wkt", package = "google-cloud-wkt" }
+# Local crates
+gax         = { version = "0.20", path = "../gax", package = "google-cloud-gax" }
+longrunning = { version = "0.22", path = "../generated/longrunning", package = "google-cloud-longrunning" }
+rpc         = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
+wkt         = { version = "0.2", path = "../wkt", package = "google-cloud-wkt" }
 
 [features]
 unstable-stream = ["dep:futures", "dep:pin-project"]

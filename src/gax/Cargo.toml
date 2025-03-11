@@ -26,7 +26,6 @@ license.workspace    = true
 repository.workspace = true
 
 [dependencies]
-auth        = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
 base64      = "0.22"
 bytes       = "1"
 futures     = { version = "0.3", optional = true }
@@ -34,13 +33,15 @@ http        = "1"
 pin-project = { version = "1", optional = true }
 rand        = "0.9"
 reqwest     = { version = "0.12", optional = true }
-rpc         = { version = "0.1", path = "../generated/rpc/types", package = "google-cloud-rpc" }
 serde       = "1"
 serde_json  = "1"
 serde_with  = { version = "3", default-features = false, features = ["base64", "macros"] }
 thiserror   = "2"
 tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
-wkt         = { version = "0.1", path = "../wkt", package = "google-cloud-wkt" }
+# Local crates
+auth = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
+rpc  = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
+wkt  = { version = "0.2", path = "../wkt", package = "google-cloud-wkt" }
 
 [dev-dependencies]
 echo-server = { path = "echo-server" }
