@@ -37,3 +37,5 @@ pub(crate) mod google {
         include!("generated/convert/type/convert.rs");
     }
 }
+
+pub mod status;
