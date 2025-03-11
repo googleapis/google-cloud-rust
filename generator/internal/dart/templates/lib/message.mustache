@@ -28,6 +28,21 @@ class {{Codec.Name}} extends CloudMessage {
     this.{{Codec.Name}},
   {{/Fields}}
   }){{Codec.ConstructorBody}}
+
+  @override
+  {{#Codec.HasToStringLines}}
+  String toString() {
+    final contents = [
+      {{#Codec.ToStringLines}}
+      {{{.}}}
+      {{/Codec.ToStringLines}}
+    ].join(',');
+    return '{{Name}}($contents)';
+  }
+  {{/Codec.HasToStringLines}}
+  {{^Codec.HasToStringLines}}
+  String toString() => '{{Name}}()';
+  {{/Codec.HasToStringLines}}
 }
 {{#Messages}}
 {{> message}}

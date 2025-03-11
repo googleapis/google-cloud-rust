@@ -327,6 +327,14 @@ func Automatic() *api.Message {
 	}
 }
 
+func CustomerManagedEncryption() *api.Message {
+	return &api.Message{
+		Name:    "CustomerManagedEncryption",
+		ID:      "..CustomerManagedEncryption",
+		Package: Package,
+	}
+}
+
 func SecretPayload() *api.Message {
 	return &api.Message{
 		Name:          "SecretPayload",
