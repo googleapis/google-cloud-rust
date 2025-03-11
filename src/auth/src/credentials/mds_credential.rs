@@ -17,7 +17,7 @@ use crate::credentials::{Credential, Result};
 use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
-use derive_builder::Builder;
+use bon::Builder;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use reqwest::Client;
 use std::sync::Arc;
@@ -28,10 +28,9 @@ const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1";
 
 pub(crate) fn new() -> Credential {
-    let token_provider = MDSAccessTokenProviderBuilder::default()
+    let token_provider = MDSAccessTokenProvider::builder()
         .endpoint(METADATA_ROOT)
-        .build()
-        .unwrap();
+        .build();
     Credential {
         inner: Arc::new(MDSCredential { token_provider }),
     }
@@ -79,9 +78,10 @@ struct MDSTokenResponse {
 }
 
 #[derive(Debug, Clone, Default, Builder)]
-#[builder(setter(into), default)]
 struct MDSAccessTokenProvider {
+    #[builder(into)]
     scopes: Option<Vec<String>>,
+    #[builder(into)]
     endpoint: String,
 }
 
@@ -164,15 +164,24 @@ impl TokenProvider for MDSAccessTokenProvider {
 mod test {
     use super::*;
     use crate::token::test::MockTokenProvider;
+    use axum::extract::Query;
     use axum::response::IntoResponse;
     use reqwest::header::HeaderMap;
     use reqwest::StatusCode;
+    use serde::Deserialize;
     use serde_json::Value;
     use std::collections::HashMap;
     use std::error::Error;
     use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    // Define a struct to capture query parameters
+    #[derive(Debug, Clone, Deserialize, PartialEq)]
+    struct TokenQueryParams {
+        scopes: Option<String>,
+        recursive: Option<String>,
+    }
 
     #[tokio::test]
     async fn get_token_success() {
@@ -277,17 +286,20 @@ mod test {
     // Starts a server running locally that responds on multiple paths.
     // Returns an (endpoint, server) pair.
     async fn start(
-        path_handlers: HashMap<String, (StatusCode, Value)>,
+        path_handlers: HashMap<String, (StatusCode, Value, TokenQueryParams)>,
     ) -> (String, JoinHandle<()>) {
         let mut app = axum::Router::new();
 
-        for (path, (code, body)) in path_handlers {
+        for (path, (code, body, expected_query)) in path_handlers {
             let header_map = HeaderMap::new();
-            let handler = move || {
+            let handler = move |Query(query): Query<TokenQueryParams>| {
                 let code = code.clone();
                 let body = body.clone();
                 let header_map = header_map.clone();
-                async move { handle_token_factory(code, header_map, body) }
+                async move {
+                    assert_eq!(expected_query, query);
+                    handle_token_factory(code, header_map, body)
+                }
             };
             app = app.route(&path, axum::routing::get(handler));
         }
@@ -313,15 +325,19 @@ mod test {
         let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
         let (endpoint, _server) = start(HashMap::from([(
             path,
-            (StatusCode::OK, service_account_info_json),
+            (
+                StatusCode::OK,
+                service_account_info_json,
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: Some("true".to_string()),
+                },
+            ),
         )]))
         .await;
 
         let request = Client::new();
-        let token_provider = MDSAccessTokenProviderBuilder::default()
-            .endpoint(endpoint)
-            .build()
-            .unwrap();
+        let token_provider = MDSAccessTokenProvider::builder().endpoint(endpoint).build();
 
         let result = token_provider.get_service_account_info(&request).await;
 
@@ -337,15 +353,16 @@ mod test {
             (
                 StatusCode::SERVICE_UNAVAILABLE,
                 serde_json::to_value("try again").unwrap(),
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: Some("true".to_string()),
+                },
             ),
         )]))
         .await;
 
         let request = Client::new();
-        let token_provider = MDSAccessTokenProviderBuilder::default()
-            .endpoint(endpoint)
-            .build()
-            .unwrap();
+        let token_provider = MDSAccessTokenProvider::builder().endpoint(endpoint).build();
 
         let result = token_provider.get_service_account_info(&request).await;
         assert!(result.is_err());
@@ -353,6 +370,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_full() -> TestResult {
+        let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -363,15 +381,21 @@ mod test {
 
         let (endpoint, _server) = start(HashMap::from([(
             path.to_string(),
-            (StatusCode::OK, response_body),
+            (
+                StatusCode::OK,
+                response_body,
+                TokenQueryParams {
+                    scopes: Some(scopes.join(",")),
+                    recursive: None,
+                },
+            ),
         )]))
         .await;
         println!("endpoint = {endpoint}");
-        let tp = MDSAccessTokenProviderBuilder::default()
-            .scopes(vec!["scope1".to_string()])
+        let tp = MDSAccessTokenProvider::builder()
+            .scopes(scopes)
             .endpoint(endpoint)
-            .build()
-            .unwrap();
+            .build();
 
         let mdsc = MDSCredential { token_provider: tp };
         let now = std::time::Instant::now();
@@ -388,9 +412,10 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_full_no_scopes() -> TestResult {
         let service_account_info_path = "/instance/service-accounts/default/".to_string();
+        let scopes = vec!["scope 1".to_string(), "scope 2".to_string()];
         let service_account_info = ServiceAccountInfo {
             email: "test@test.com".to_string(),
-            scopes: Some(vec!["scope 1".to_string(), "scope 2".to_string()]),
+            scopes: Some(scopes.clone()),
             aliases: None,
         };
         let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
@@ -406,16 +431,30 @@ mod test {
         let (endpoint, _server) = start(HashMap::from([
             (
                 service_account_info_path,
-                (StatusCode::OK, service_account_info_json),
+                (
+                    StatusCode::OK,
+                    service_account_info_json,
+                    TokenQueryParams {
+                        scopes: None,
+                        recursive: Some("true".to_string()),
+                    },
+                ),
             ),
-            (path, (StatusCode::OK, response_body)),
+            (
+                path,
+                (
+                    StatusCode::OK,
+                    response_body,
+                    TokenQueryParams {
+                        scopes: Some(scopes.join(",")),
+                        recursive: None,
+                    },
+                ),
+            ),
         ]))
         .await;
         println!("endpoint = {endpoint}");
-        let tp = MDSAccessTokenProviderBuilder::default()
-            .endpoint(endpoint)
-            .build()
-            .unwrap();
+        let tp = MDSAccessTokenProvider::builder().endpoint(endpoint).build();
 
         let mdsc = MDSCredential { token_provider: tp };
         let now = std::time::Instant::now();
@@ -431,6 +470,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_partial() -> TestResult {
+        let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: None,
@@ -440,16 +480,22 @@ mod test {
         let path = "/instance/service-accounts/default/token";
         let (endpoint, _server) = start(HashMap::from([(
             path.to_string(),
-            (StatusCode::OK, response_body),
+            (
+                StatusCode::OK,
+                response_body,
+                TokenQueryParams {
+                    scopes: Some(scopes.join(",")),
+                    recursive: None,
+                },
+            ),
         )]))
         .await;
         println!("endpoint = {endpoint}");
 
-        let tp = MDSAccessTokenProviderBuilder::default()
-            .scopes(vec!["scope1".to_string()])
+        let tp = MDSAccessTokenProvider::builder()
+            .scopes(scopes)
             .endpoint(endpoint)
-            .build()
-            .unwrap();
+            .build();
 
         let mdsc = MDSCredential { token_provider: tp };
         let token = mdsc.get_token().await?;
@@ -463,20 +509,24 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_retryable_error() -> TestResult {
         let path = "/instance/service-accounts/default/token";
+        let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(HashMap::from([(
             path.to_string(),
             (
                 StatusCode::SERVICE_UNAVAILABLE,
                 serde_json::to_value("try again")?,
+                TokenQueryParams {
+                    scopes: Some(scopes.join(",")),
+                    recursive: None,
+                },
             ),
         )]))
         .await;
 
-        let tp = MDSAccessTokenProviderBuilder::default()
-            .scopes(vec!["scope1".to_string()])
+        let tp = MDSAccessTokenProvider::builder()
+            .scopes(scopes)
             .endpoint(endpoint)
-            .build()
-            .unwrap();
+            .build();
 
         let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
@@ -489,20 +539,24 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_nonretryable_error() -> TestResult {
         let path = "/instance/service-accounts/default/token";
+        let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(HashMap::from([(
             path.to_string(),
             (
                 StatusCode::UNAUTHORIZED,
                 serde_json::to_value("epic fail".to_string())?,
+                TokenQueryParams {
+                    scopes: Some(scopes.join(",")),
+                    recursive: None,
+                },
             ),
         )]))
         .await;
 
-        let tp = MDSAccessTokenProviderBuilder::default()
-            .scopes(vec!["scope1".to_string()])
+        let tp = MDSAccessTokenProvider::builder()
+            .scopes(scopes)
             .endpoint(endpoint)
-            .build()
-            .unwrap();
+            .build();
 
         let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
@@ -515,20 +569,24 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
         let path = "/instance/service-accounts/default/token";
+        let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(HashMap::from([(
             path.to_string(),
             (
                 StatusCode::OK,
                 serde_json::to_value("bad json".to_string())?,
+                TokenQueryParams {
+                    scopes: Some(scopes.join(",")),
+                    recursive: None,
+                },
             ),
         )]))
         .await;
 
-        let tp = MDSAccessTokenProviderBuilder::default()
-            .scopes(vec!["scope1".to_string()])
+        let tp = MDSAccessTokenProvider::builder()
+            .scopes(scopes)
             .endpoint(endpoint)
-            .build()
-            .unwrap();
+            .build();
 
         let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
