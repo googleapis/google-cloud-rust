@@ -13,12 +13,10 @@
 // limitations under the License.
 
 use futures::stream::unfold;
+use futures::{Stream, StreamExt};
 use pin_project::pin_project;
 use std::future::Future;
 use std::pin::Pin;
-
-#[cfg(feature = "unstable-stream")]
-use futures::{Stream, StreamExt};
 
 /// Describes a type that can be iterated over asyncly when used with [Paginator].
 pub trait PageableResponse {
