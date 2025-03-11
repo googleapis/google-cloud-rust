@@ -116,11 +116,11 @@ func TestCalculateDependencies(t *testing.T) {
 		want    []string
 	}{
 		{name: "empty", imports: []string{}, want: []string{}},
-		{name: "dart import", imports: []string{dartTypedDataImport}, want: []string{}},
-		{name: "package import", imports: []string{packageHttpImport}, want: []string{"http"}},
-		{name: "dart and package imports", imports: []string{dartTypedDataImport, packageHttpImport}, want: []string{"http"}},
+		{name: "dart import", imports: []string{typedDataImport}, want: []string{}},
+		{name: "package import", imports: []string{httpImport}, want: []string{"http"}},
+		{name: "dart and package imports", imports: []string{typedDataImport, httpImport}, want: []string{"http"}},
 		{name: "package imports", imports: []string{
-			packageHttpImport,
+			httpImport,
 			"package:google_cloud_foo/foo.dart",
 		}, want: []string{"google_cloud_foo", "http"}},
 	} {
@@ -149,19 +149,19 @@ func TestCalculateImports(t *testing.T) {
 		imports []string
 		want    []string
 	}{
-		{name: "dart import", imports: []string{dartTypedDataImport}, want: []string{
+		{name: "dart import", imports: []string{typedDataImport}, want: []string{
 			"import 'dart:typed_data';",
 		}},
-		{name: "package import", imports: []string{packageHttpImport}, want: []string{
+		{name: "package import", imports: []string{httpImport}, want: []string{
 			"import 'package:http/http.dart';",
 		}},
-		{name: "dart and package imports", imports: []string{dartTypedDataImport, packageHttpImport}, want: []string{
+		{name: "dart and package imports", imports: []string{typedDataImport, httpImport}, want: []string{
 			"import 'dart:typed_data';",
 			"",
 			"import 'package:http/http.dart';",
 		}},
 		{name: "package imports", imports: []string{
-			packageHttpImport,
+			httpImport,
 			"package:google_cloud_foo/foo.dart",
 		}, want: []string{
 			"import 'package:google_cloud_foo/foo.dart';",

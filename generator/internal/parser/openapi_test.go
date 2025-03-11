@@ -70,7 +70,7 @@ func TestOpenAPI_AllOf(t *testing.T) {
 	want.Package = ""
 	message := test.State.MessageByID[want.ID]
 	if message == nil {
-		t.Errorf("missing message in MessageByID index: %s", want.ID)
+		t.Errorf("missing message in MessageByID index")
 		return
 	}
 	checkMessage(t, message, want)

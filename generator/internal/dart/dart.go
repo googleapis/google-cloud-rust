@@ -30,8 +30,8 @@ import (
 //go:embed templates
 var dartTemplates embed.FS
 
-var dartTypedDataImport = "dart:typed_data"
-var packageHttpImport = "package:http/http.dart"
+var typedDataImport = "dart:typed_data"
+var httpImport = "package:http/http.dart"
 
 var needsCtorValidation = map[string]string{
 	".google.protobuf.Duration": ".google.protobuf.Duration",
@@ -94,7 +94,7 @@ func fieldType(f *api.Field, state *api.APIState, packageMapping map[string]stri
 	case api.BYTES_TYPE:
 		// TODO(#1034): We should instead reference a custom type (ProtoBuffer or
 		// similar), encode/decode to it, and add Uint8List related utility methods.
-		imports["typed_data"] = dartTypedDataImport
+		imports["typed_data"] = typedDataImport
 		out = "Uint8List"
 	case api.MESSAGE_TYPE:
 		message, ok := state.MessageByID[f.TypezID]

@@ -51,9 +51,10 @@ type modelAnnotations struct {
 }
 
 type serviceAnnotations struct {
-	Name        string // The service name using Dart naming conventions.
+	// The service name using Dart naming conventions.
+	Name        string
 	DocLines    []string
-	Methods     []*api.Method // Only a subset of the methods is generated.
+	Methods     []*api.Method
 	FieldName   string
 	StructName  string
 	DefaultHost string
