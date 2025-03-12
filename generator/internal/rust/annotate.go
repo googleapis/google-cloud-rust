@@ -182,6 +182,8 @@ type fieldAnnotations struct {
 	ValueType string
 	// The templates need to generate different code for boxed fields.
 	IsBoxed bool
+	// Simplify the templates for Protobuf => sidekick type conversion.
+	ToProto string
 }
 
 type enumAnnotation struct {
@@ -467,9 +469,13 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),
+		ToProto:            "cnv",
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true
+	}
+	if field.Typez == api.ENUM_TYPE {
+		ann.ToProto = "value"
 	}
 	field.Codec = ann
 	if field.Typez != api.MESSAGE_TYPE {
