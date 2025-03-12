@@ -2101,10 +2101,10 @@ func TestEnumNames(t *testing.T) {
 		{non_nested, "Code", "crate::model::Code"},
 	} {
 		if got := enumName(test.enum); got != test.wantEnum {
-			t.Errorf("c.enumName(%q) = %q; want = %s", test.enum.Name, got, test.wantEnum)
+			t.Errorf("enumName(%q) = %q; want = %s", test.enum.Name, got, test.wantEnum)
 		}
 		if got := fullyQualifiedEnumName(test.enum, c.modulePath, model.PackageName, c.packageMapping); got != test.wantFQEnum {
-			t.Errorf("c.fqEnumName(%q) = %q; want = %s", test.enum.Name, got, test.wantFQEnum)
+			t.Errorf("fullyQualifiedEnumName(%q) = %q; want = %s", test.enum.Name, got, test.wantFQEnum)
 		}
 	}
 }

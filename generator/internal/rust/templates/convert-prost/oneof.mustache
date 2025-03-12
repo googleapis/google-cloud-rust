@@ -1,0 +1,42 @@
+{{!
+Copyright 2025 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+}}
+
+impl wkt::prost::Convert<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
+    fn cnv(self) -> {{Codec.QualifiedName}} {
+        use {{Codec.Qualified}} as T;
+        match self {
+            {{#Fields}}
+            Self::{{Codec.BranchName}}(v) => T::from_{{Codec.SetterName}}(v.cnv()),
+            {{/Fields}}
+        }
+    }
+}
+
+impl wkt::prost::Convert<{{Codec.RelativeName}}> for {{Codec.Qualified}} {
+    fn cnv(self) -> {{Codec.RelativeName}} {
+        use {{Codec.RelativeName}} as T;
+        match self {
+            {{#Fields}}
+            {{^Codec.IsBoxed}}
+            Self::{{Codec.BranchName}}(v) => T::{{Codec.BranchName}}(v.cnv()),
+            {{/Codec.IsBoxed}}
+            {{#Codec.IsBoxed}}
+            Self::{{Codec.BranchName}}(v) => T::{{Codec.BranchName}}((*v).cnv()),
+            {{/Codec.IsBoxed}}
+            {{/Fields}}
+        }
+    }
+}
