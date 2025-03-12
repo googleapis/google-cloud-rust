@@ -68,7 +68,7 @@ pub mod operations {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListOperationsResponse, gax::error::Error>
         {

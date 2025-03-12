@@ -203,7 +203,7 @@ pub mod vpc_access_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConnectorsResponse, gax::error::Error>
         {
@@ -349,7 +349,7 @@ pub mod vpc_access_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -425,7 +425,7 @@ pub mod vpc_access_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

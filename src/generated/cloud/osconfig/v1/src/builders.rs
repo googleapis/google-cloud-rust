@@ -244,7 +244,7 @@ pub mod os_config_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPatchJobsResponse, gax::error::Error>
         {
@@ -322,7 +322,7 @@ pub mod os_config_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListPatchJobInstanceDetailsResponse,
@@ -503,7 +503,7 @@ pub mod os_config_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPatchDeploymentsResponse, gax::error::Error>
         {
@@ -1130,7 +1130,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentsResponse,
@@ -1204,7 +1204,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentRevisionsResponse,
@@ -1409,7 +1409,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentReportsResponse,
@@ -1531,7 +1531,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInventoriesResponse, gax::error::Error>
         {
@@ -1659,7 +1659,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListVulnerabilityReportsResponse,

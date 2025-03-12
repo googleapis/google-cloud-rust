@@ -68,7 +68,7 @@ pub mod data_catalog {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchCatalogResponse, gax::error::Error>
         {
@@ -370,7 +370,7 @@ pub mod data_catalog {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEntryGroupsResponse, gax::error::Error>
         {
@@ -684,7 +684,7 @@ pub mod data_catalog {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEntriesResponse, gax::error::Error>
         {
@@ -1487,7 +1487,7 @@ pub mod data_catalog {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTagsResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -2143,7 +2143,7 @@ pub mod data_catalog {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2518,7 +2518,7 @@ pub mod policy_tag_manager {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTaxonomiesResponse, gax::error::Error>
         {
@@ -2776,7 +2776,7 @@ pub mod policy_tag_manager {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPolicyTagsResponse, gax::error::Error>
         {
@@ -3051,7 +3051,7 @@ pub mod policy_tag_manager {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -3466,7 +3466,7 @@ pub mod policy_tag_manager_serialization {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

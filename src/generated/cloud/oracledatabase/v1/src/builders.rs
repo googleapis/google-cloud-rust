@@ -73,7 +73,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListCloudExadataInfrastructuresResponse,
@@ -397,7 +397,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCloudVmClustersResponse, gax::error::Error>
         {
@@ -712,7 +712,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error>
         {
@@ -779,7 +779,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDbServersResponse, gax::error::Error>
         {
@@ -846,7 +846,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDbNodesResponse, gax::error::Error>
         {
@@ -913,7 +913,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGiVersionsResponse, gax::error::Error>
         {
@@ -983,7 +983,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDbSystemShapesResponse, gax::error::Error>
         {
@@ -1055,7 +1055,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListAutonomousDatabasesResponse,
@@ -1538,7 +1538,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListAutonomousDbVersionsResponse,
@@ -1614,7 +1614,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListAutonomousDatabaseCharacterSetsResponse,
@@ -1694,7 +1694,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListAutonomousDatabaseBackupsResponse,
@@ -1772,7 +1772,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1889,7 +1889,7 @@ pub mod oracle_database {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

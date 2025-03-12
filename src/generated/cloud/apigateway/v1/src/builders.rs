@@ -68,7 +68,7 @@ pub mod api_gateway_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGatewaysResponse, gax::error::Error>
         {
@@ -447,7 +447,7 @@ pub mod api_gateway_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListApisResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -817,7 +817,7 @@ pub mod api_gateway_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListApiConfigsResponse, gax::error::Error>
         {
@@ -1210,7 +1210,7 @@ pub mod api_gateway_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

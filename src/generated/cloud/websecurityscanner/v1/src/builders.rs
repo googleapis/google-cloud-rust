@@ -206,7 +206,7 @@ pub mod web_security_scanner {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListScanConfigsResponse, gax::error::Error>
         {
@@ -411,7 +411,7 @@ pub mod web_security_scanner {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListScanRunsResponse, gax::error::Error>
         {
@@ -519,7 +519,7 @@ pub mod web_security_scanner {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCrawledUrlsResponse, gax::error::Error>
         {
@@ -627,7 +627,7 @@ pub mod web_security_scanner {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
         {

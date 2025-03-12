@@ -265,7 +265,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -673,7 +673,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListIpOverridesResponse, gax::error::Error>
         {
@@ -843,7 +843,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFirewallPoliciesResponse, gax::error::Error>
         {
@@ -1126,7 +1126,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListRelatedAccountGroupsResponse,
@@ -1204,7 +1204,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListRelatedAccountGroupMembershipsResponse,
@@ -1282,7 +1282,7 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::SearchRelatedAccountGroupMembershipsResponse,

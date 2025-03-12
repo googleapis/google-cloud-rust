@@ -109,7 +109,7 @@ pub mod folders {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFoldersResponse, gax::error::Error>
         {
@@ -182,7 +182,7 @@ pub mod folders {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchFoldersResponse, gax::error::Error>
         {
@@ -942,7 +942,7 @@ pub mod organizations {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchOrganizationsResponse, gax::error::Error>
         {
@@ -1284,7 +1284,7 @@ pub mod projects {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListProjectsResponse, gax::error::Error>
         {
@@ -1357,7 +1357,7 @@ pub mod projects {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchProjectsResponse, gax::error::Error>
         {
@@ -2075,7 +2075,7 @@ pub mod tag_bindings {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTagBindingsResponse, gax::error::Error>
         {
@@ -2318,7 +2318,7 @@ pub mod tag_bindings {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEffectiveTagsResponse, gax::error::Error>
         {
@@ -2631,7 +2631,7 @@ pub mod tag_holds {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTagHoldsResponse, gax::error::Error>
         {
@@ -2774,7 +2774,7 @@ pub mod tag_keys {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTagKeysResponse, gax::error::Error>
         {
@@ -3436,7 +3436,7 @@ pub mod tag_values {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTagValuesResponse, gax::error::Error>
         {

@@ -73,7 +73,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListOrchestrationClustersResponse,
@@ -395,7 +395,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEdgeSlmsResponse, gax::error::Error>
         {
@@ -893,7 +893,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBlueprintsResponse, gax::error::Error>
         {
@@ -1098,7 +1098,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListBlueprintRevisionsResponse,
@@ -1172,7 +1172,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::SearchBlueprintRevisionsResponse,
@@ -1252,7 +1252,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::SearchDeploymentRevisionsResponse,
@@ -1376,7 +1376,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPublicBlueprintsResponse, gax::error::Error>
         {
@@ -1693,7 +1693,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
         {
@@ -1771,7 +1771,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListDeploymentRevisionsResponse,
@@ -2072,7 +2072,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListHydratedDeploymentsResponse,
@@ -2250,7 +2250,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2367,7 +2367,7 @@ pub mod telco_automation {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

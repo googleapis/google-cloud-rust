@@ -68,7 +68,7 @@ pub mod hub_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListHubsResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -456,7 +456,7 @@ pub mod hub_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListHubSpokesResponse, gax::error::Error>
         {
@@ -555,7 +555,7 @@ pub mod hub_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::QueryHubStatusResponse, gax::error::Error>
         {
@@ -640,7 +640,7 @@ pub mod hub_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSpokesResponse, gax::error::Error>
         {
@@ -1313,7 +1313,7 @@ pub mod hub_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRoutesResponse, gax::error::Error>
         {
@@ -1392,7 +1392,7 @@ pub mod hub_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRouteTablesResponse, gax::error::Error>
         {
@@ -1512,7 +1512,7 @@ pub mod hub_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
         {
@@ -1690,7 +1690,7 @@ pub mod hub_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1971,7 +1971,7 @@ pub mod hub_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2205,7 +2205,7 @@ pub mod policy_based_routing_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPolicyBasedRoutesResponse, gax::error::Error>
         {
@@ -2522,7 +2522,7 @@ pub mod policy_based_routing_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2803,7 +2803,7 @@ pub mod policy_based_routing_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

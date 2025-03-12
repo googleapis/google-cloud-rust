@@ -66,7 +66,7 @@ pub mod secret_manager_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(self) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
+        pub async fn paginator(self) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
                 let mut builder = self.clone();
@@ -371,7 +371,7 @@ pub mod secret_manager_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(self) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error> {
+        pub async fn paginator(self) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
                 let mut builder = self.clone();
@@ -816,7 +816,7 @@ pub mod secret_manager_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(self) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        pub async fn paginator(self) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
                 let mut builder = self.clone();

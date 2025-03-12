@@ -68,7 +68,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
         {
@@ -515,7 +515,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListUtilizationReportsResponse,
@@ -852,7 +852,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListDatacenterConnectorsResponse,
@@ -1369,7 +1369,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMigratingVmsResponse, gax::error::Error>
         {
@@ -2193,7 +2193,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCloneJobsResponse, gax::error::Error>
         {
@@ -2501,7 +2501,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCutoverJobsResponse, gax::error::Error>
         {
@@ -2621,7 +2621,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
         {
@@ -3203,7 +3203,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTargetProjectsResponse, gax::error::Error>
         {
@@ -3619,7 +3619,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListReplicationCyclesResponse, gax::error::Error>
         {
@@ -3745,7 +3745,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -3862,7 +3862,7 @@ pub mod vm_migration {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

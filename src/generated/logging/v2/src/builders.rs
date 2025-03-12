@@ -193,7 +193,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLogEntriesResponse, gax::error::Error>
         {
@@ -282,7 +282,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListMonitoredResourceDescriptorsResponse,
@@ -412,7 +412,7 @@ pub mod logging_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -599,7 +599,7 @@ pub mod config_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBucketsResponse, gax::error::Error>
         {
@@ -1093,7 +1093,7 @@ pub mod config_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -1356,7 +1356,7 @@ pub mod config_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSinksResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -1789,7 +1789,7 @@ pub mod config_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLinksResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -1896,7 +1896,7 @@ pub mod config_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListExclusionsResponse, gax::error::Error>
         {
@@ -2454,7 +2454,7 @@ pub mod config_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2641,7 +2641,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLogMetricsResponse, gax::error::Error>
         {
@@ -2893,7 +2893,7 @@ pub mod metrics_service_v_2 {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

@@ -72,7 +72,7 @@ pub mod timeseries_insights_controller {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDataSetsResponse, gax::error::Error>
         {

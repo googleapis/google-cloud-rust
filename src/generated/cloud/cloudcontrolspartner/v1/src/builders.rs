@@ -109,7 +109,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
         {
@@ -229,7 +229,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCustomersResponse, gax::error::Error>
         {
@@ -401,7 +401,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListAccessApprovalRequestsResponse,
@@ -553,7 +553,7 @@ pub mod cloud_controls_partner_monitoring {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListViolationsResponse, gax::error::Error>
         {

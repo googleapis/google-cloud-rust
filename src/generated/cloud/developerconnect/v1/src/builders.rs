@@ -68,7 +68,7 @@ pub mod developer_connect {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
         {
@@ -722,7 +722,7 @@ pub mod developer_connect {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListGitRepositoryLinksResponse,
@@ -937,7 +937,7 @@ pub mod developer_connect {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::FetchLinkableGitRepositoriesResponse,
@@ -1117,7 +1117,7 @@ pub mod developer_connect {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1234,7 +1234,7 @@ pub mod developer_connect {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

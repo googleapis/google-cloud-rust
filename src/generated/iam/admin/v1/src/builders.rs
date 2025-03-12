@@ -71,7 +71,7 @@ pub mod iam {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServiceAccountsResponse, gax::error::Error>
         {
@@ -1185,7 +1185,7 @@ pub mod iam {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::QueryGrantableRolesResponse, gax::error::Error>
         {
@@ -1258,7 +1258,7 @@ pub mod iam {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRolesResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -1585,7 +1585,7 @@ pub mod iam {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::QueryTestablePermissionsResponse,

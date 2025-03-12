@@ -259,7 +259,7 @@ pub mod g_suite_add_ons {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
         {

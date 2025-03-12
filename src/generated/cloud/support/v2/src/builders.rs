@@ -68,7 +68,7 @@ pub mod case_attachment_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error>
         {
@@ -202,7 +202,7 @@ pub mod case_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCasesResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -274,7 +274,7 @@ pub mod case_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchCasesResponse, gax::error::Error>
         {
@@ -540,7 +540,7 @@ pub mod case_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::SearchCaseClassificationsResponse,
@@ -635,7 +635,7 @@ pub mod comment_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCommentsResponse, gax::error::Error>
         {

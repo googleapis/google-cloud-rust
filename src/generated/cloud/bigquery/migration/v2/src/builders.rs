@@ -178,7 +178,7 @@ pub mod migration_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListMigrationWorkflowsResponse,
@@ -396,7 +396,7 @@ pub mod migration_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMigrationSubtasksResponse, gax::error::Error>
         {

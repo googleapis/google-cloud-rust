@@ -124,7 +124,7 @@ pub mod dashboards_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDashboardsResponse, gax::error::Error>
         {

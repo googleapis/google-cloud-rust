@@ -71,7 +71,7 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInstanceConfigsResponse, gax::error::Error>
         {
@@ -452,7 +452,7 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListInstanceConfigOperationsResponse,
@@ -527,7 +527,7 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
@@ -612,7 +612,7 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListInstancePartitionsResponse,
@@ -1442,7 +1442,7 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListInstancePartitionOperationsResponse,
@@ -1617,7 +1617,7 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

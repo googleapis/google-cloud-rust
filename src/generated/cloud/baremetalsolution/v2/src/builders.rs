@@ -68,7 +68,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
@@ -833,7 +833,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSSHKeysResponse, gax::error::Error>
         {
@@ -997,7 +997,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVolumesResponse, gax::error::Error>
         {
@@ -1408,7 +1408,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNetworksResponse, gax::error::Error>
         {
@@ -1883,7 +1883,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVolumeSnapshotsResponse, gax::error::Error>
         {
@@ -1989,7 +1989,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLunsResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -2172,7 +2172,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNfsSharesResponse, gax::error::Error>
         {
@@ -2550,7 +2550,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListProvisioningQuotasResponse,
@@ -2902,7 +2902,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListOSImagesResponse, gax::error::Error>
         {
@@ -2972,7 +2972,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {

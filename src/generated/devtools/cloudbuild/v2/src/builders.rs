@@ -206,7 +206,7 @@ pub mod repository_manager {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
         {
@@ -711,7 +711,7 @@ pub mod repository_manager {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error>
         {
@@ -965,7 +965,7 @@ pub mod repository_manager {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::FetchLinkableRepositoriesResponse,

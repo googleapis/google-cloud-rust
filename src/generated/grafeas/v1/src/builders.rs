@@ -109,7 +109,7 @@ pub mod grafeas {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListOccurrencesResponse, gax::error::Error>
         {
@@ -481,7 +481,7 @@ pub mod grafeas {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNotesResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -761,7 +761,7 @@ pub mod grafeas {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNoteOccurrencesResponse, gax::error::Error>
         {

@@ -68,7 +68,7 @@ pub mod model_armor {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTemplatesResponse, gax::error::Error>
         {
@@ -568,7 +568,7 @@ pub mod model_armor {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {

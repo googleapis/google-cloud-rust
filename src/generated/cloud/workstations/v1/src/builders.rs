@@ -117,7 +117,7 @@ pub mod workstations {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListWorkstationClustersResponse,
@@ -555,7 +555,7 @@ pub mod workstations {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListWorkstationConfigsResponse,
@@ -629,7 +629,7 @@ pub mod workstations {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListUsableWorkstationConfigsResponse,
@@ -1064,7 +1064,7 @@ pub mod workstations {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListWorkstationsResponse, gax::error::Error>
         {
@@ -1134,7 +1134,7 @@ pub mod workstations {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListUsableWorkstationsResponse,
@@ -1913,7 +1913,7 @@ pub mod workstations {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

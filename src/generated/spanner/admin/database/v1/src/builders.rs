@@ -68,7 +68,7 @@ pub mod database_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDatabasesResponse, gax::error::Error>
         {
@@ -1091,7 +1091,7 @@ pub mod database_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
@@ -1273,7 +1273,7 @@ pub mod database_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListDatabaseOperationsResponse,
@@ -1351,7 +1351,7 @@ pub mod database_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupOperationsResponse, gax::error::Error>
         {
@@ -1427,7 +1427,7 @@ pub mod database_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDatabaseRolesResponse, gax::error::Error>
         {
@@ -1758,7 +1758,7 @@ pub mod database_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupSchedulesResponse, gax::error::Error>
         {
@@ -1828,7 +1828,7 @@ pub mod database_admin {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

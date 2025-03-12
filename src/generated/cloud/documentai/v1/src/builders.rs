@@ -336,7 +336,7 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListProcessorTypesResponse, gax::error::Error>
         {
@@ -447,7 +447,7 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListProcessorsResponse, gax::error::Error>
         {
@@ -737,7 +737,7 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListProcessorVersionsResponse, gax::error::Error>
         {
@@ -1710,7 +1710,7 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEvaluationsResponse, gax::error::Error>
         {
@@ -1780,7 +1780,7 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1897,7 +1897,7 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

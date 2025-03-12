@@ -411,7 +411,7 @@ pub mod policy_bindings {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPolicyBindingsResponse, gax::error::Error>
         {
@@ -489,7 +489,7 @@ pub mod policy_bindings {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::SearchTargetPolicyBindingsResponse,
@@ -1018,7 +1018,7 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListPrincipalAccessBoundaryPoliciesResponse,
@@ -1098,7 +1098,7 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse,

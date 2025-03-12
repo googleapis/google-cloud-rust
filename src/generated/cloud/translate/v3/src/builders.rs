@@ -1008,7 +1008,7 @@ pub mod translation_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGlossariesResponse, gax::error::Error>
         {
@@ -1251,7 +1251,7 @@ pub mod translation_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGlossaryEntriesResponse, gax::error::Error>
         {
@@ -1591,7 +1591,7 @@ pub mod translation_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDatasetsResponse, gax::error::Error>
         {
@@ -1884,7 +1884,7 @@ pub mod translation_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListAdaptiveMtDatasetsResponse,
@@ -2192,7 +2192,7 @@ pub mod translation_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAdaptiveMtFilesResponse, gax::error::Error>
         {
@@ -2264,7 +2264,7 @@ pub mod translation_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListAdaptiveMtSentencesResponse,
@@ -2505,7 +2505,7 @@ pub mod translation_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListExamplesResponse, gax::error::Error>
         {
@@ -2665,7 +2665,7 @@ pub mod translation_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListModelsResponse, gax::error::Error>
         {
@@ -2858,7 +2858,7 @@ pub mod translation_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2975,7 +2975,7 @@ pub mod translation_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

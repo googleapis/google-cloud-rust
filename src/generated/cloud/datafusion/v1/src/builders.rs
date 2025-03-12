@@ -71,7 +71,7 @@ pub mod data_fusion {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAvailableVersionsResponse, gax::error::Error>
         {
@@ -144,7 +144,7 @@ pub mod data_fusion {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
@@ -607,7 +607,7 @@ pub mod data_fusion {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

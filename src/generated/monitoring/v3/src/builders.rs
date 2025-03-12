@@ -71,7 +71,7 @@ pub mod alert_policy_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAlertPoliciesResponse, gax::error::Error>
         {
@@ -370,7 +370,7 @@ pub mod group_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
         {
@@ -643,7 +643,7 @@ pub mod group_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGroupMembersResponse, gax::error::Error>
         {
@@ -756,7 +756,7 @@ pub mod metric_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListMonitoredResourceDescriptorsResponse,
@@ -880,7 +880,7 @@ pub mod metric_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMetricDescriptorsResponse, gax::error::Error>
         {
@@ -1100,7 +1100,7 @@ pub mod metric_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTimeSeriesResponse, gax::error::Error>
         {
@@ -1364,7 +1364,7 @@ pub mod notification_channel_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListNotificationChannelDescriptorsResponse,
@@ -1488,7 +1488,7 @@ pub mod notification_channel_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListNotificationChannelsResponse,
@@ -1981,7 +1981,7 @@ pub mod query_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::QueryTimeSeriesResponse, gax::error::Error>
         {
@@ -2177,7 +2177,7 @@ pub mod service_monitoring_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
@@ -2470,7 +2470,7 @@ pub mod service_monitoring_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListServiceLevelObjectivesResponse,
@@ -2736,7 +2736,7 @@ pub mod snooze_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSnoozesResponse, gax::error::Error>
         {
@@ -2932,7 +2932,7 @@ pub mod uptime_check_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListUptimeCheckConfigsResponse,
@@ -3217,7 +3217,7 @@ pub mod uptime_check_service {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListUptimeCheckIpsResponse, gax::error::Error>
         {

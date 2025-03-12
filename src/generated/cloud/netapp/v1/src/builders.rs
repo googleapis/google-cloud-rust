@@ -71,7 +71,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListStoragePoolsResponse, gax::error::Error>
         {
@@ -635,7 +635,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVolumesResponse, gax::error::Error>
         {
@@ -1104,7 +1104,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error>
         {
@@ -1488,7 +1488,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListActiveDirectoriesResponse, gax::error::Error>
         {
@@ -1883,7 +1883,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListKmsConfigsResponse, gax::error::Error>
         {
@@ -2387,7 +2387,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListReplicationsResponse, gax::error::Error>
         {
@@ -3359,7 +3359,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupVaultsResponse, gax::error::Error>
         {
@@ -3745,7 +3745,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
@@ -4131,7 +4131,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupPoliciesResponse, gax::error::Error>
         {
@@ -4383,7 +4383,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListQuotaRulesResponse, gax::error::Error>
         {
@@ -4767,7 +4767,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -4884,7 +4884,7 @@ pub mod net_app {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

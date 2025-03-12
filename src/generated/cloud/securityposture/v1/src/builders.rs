@@ -68,7 +68,7 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPosturesResponse, gax::error::Error>
         {
@@ -138,7 +138,7 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPostureRevisionsResponse, gax::error::Error>
         {
@@ -616,7 +616,7 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListPostureDeploymentsResponse,
@@ -1026,7 +1026,7 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPostureTemplatesResponse, gax::error::Error>
         {
@@ -1152,7 +1152,7 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1269,7 +1269,7 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

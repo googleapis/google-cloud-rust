@@ -68,7 +68,7 @@ pub mod config {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
         {
@@ -494,7 +494,7 @@ pub mod config {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRevisionsResponse, gax::error::Error>
         {
@@ -655,7 +655,7 @@ pub mod config {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListResourcesResponse, gax::error::Error>
         {
@@ -1280,7 +1280,7 @@ pub mod config {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPreviewsResponse, gax::error::Error>
         {
@@ -1490,7 +1490,7 @@ pub mod config {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTerraformVersionsResponse, gax::error::Error>
         {
@@ -1616,7 +1616,7 @@ pub mod config {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1897,7 +1897,7 @@ pub mod config {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

@@ -68,7 +68,7 @@ pub mod recommender {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInsightsResponse, gax::error::Error>
         {
@@ -247,7 +247,7 @@ pub mod recommender {
         }
 
         /// Streams the responses back.
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRecommendationsResponse, gax::error::Error>
         {
