@@ -31,7 +31,7 @@ pub async fn initialize_client(project_id: &str) -> Result {
     // ANCHOR: make-rpc
     let mut items = client
         .list_locations(format!("projects/{project_id}"))
-        .stream()
+        .paginator()
         .await;
     while let Some(page) = items.next().await {
         let page = page?;

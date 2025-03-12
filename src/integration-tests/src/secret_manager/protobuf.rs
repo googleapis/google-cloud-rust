@@ -304,7 +304,7 @@ async fn run_many_secret_versions(
     let mut stream = client
         .list_secret_versions(secret_name)
         .set_page_size(PAGE_SIZE)
-        .stream()
+        .paginator()
         .await;
     let mut got = BTreeSet::new();
     while let Some(page) = stream.next().await {
@@ -363,7 +363,7 @@ async fn get_all_secret_names(
     let mut names = Vec::new();
     let mut stream = client
         .list_secrets(format!("projects/{project_id}"))
-        .stream()
+        .paginator()
         .await
         .items();
     while let Some(response) = stream.next().await {
@@ -388,7 +388,7 @@ async fn cleanup_stale_secrets(
     let mut stale_secrets = Vec::new();
     let mut stream = client
         .list_secrets(format!("projects/{project_id}"))
-        .stream()
+        .paginator()
         .await
         .items();
     while let Some(secret) = stream.next().await {

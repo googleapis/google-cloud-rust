@@ -222,7 +222,7 @@ async fn cleanup_stale_workflows(
 
     let mut stream = client
         .list_workflows(format!("projects/{project_id}/locations/{location_id}"))
-        .stream()
+        .paginator()
         .await
         .items();
     let mut stale_workflows = Vec::new();

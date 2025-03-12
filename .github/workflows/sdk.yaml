@@ -42,9 +42,10 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustc --version
-      - name: Test gax with features disabled
-        run: cargo test --package google-cloud-gax
-      - run: cargo test --workspace
+      - name: Test with features disabled
+        run: cargo test --workspace --no-default-features
+      - name: Test with features enabled
+        run: cargo test --workspace --all-features
   coverage:
     runs-on: ubuntu-24.04
     strategy:
@@ -99,9 +100,6 @@ jobs:
       - name: Display rustc version
         run: rustc --version
       - run: cargo doc --workspace
-        env:
-          RUSTDOCFLAGS: "-D warnings"
-      - run: cargo doc --package google-cloud-gax
         env:
           RUSTDOCFLAGS: "-D warnings"
       - run: mdbook build guide
