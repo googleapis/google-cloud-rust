@@ -63,7 +63,10 @@ func TestTemplatesAvailable(t *testing.T) {
 func TestMessageNames(t *testing.T) {
 	r := sample.Replication()
 	a := sample.Automatic()
-	model := api.NewTestAPI([]*api.Message{r, a}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI(
+		[]*api.Message{r, a, sample.CustomerManagedEncryption()},
+		[]*api.Enum{},
+		[]*api.Service{})
 	model.PackageName = "test"
 	annotateModel(model, map[string]string{})
 
@@ -86,13 +89,13 @@ func TestMessageNames(t *testing.T) {
 func TestEnumNames(t *testing.T) {
 	parent := &api.Message{
 		Name:    "SecretVersion",
-		ID:      ".test.SecretVersion",
+		ID:      sample.SecretVersion().ID,
 		Package: "test",
 		Fields: []*api.Field{
 			{
 				Name:     "automatic",
 				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".test.Automatic",
+				TypezID:  sample.Automatic().ID,
 				Optional: true,
 				Repeated: false,
 			},
@@ -110,7 +113,10 @@ func TestEnumNames(t *testing.T) {
 		Package: "test",
 	}
 
-	model := api.NewTestAPI([]*api.Message{parent}, []*api.Enum{nested, non_nested}, []*api.Service{})
+	model := api.NewTestAPI(
+		[]*api.Message{parent, sample.Automatic(), sample.CustomerManagedEncryption()},
+		[]*api.Enum{nested, non_nested},
+		[]*api.Service{})
 	model.PackageName = "test"
 	annotateModel(model, map[string]string{})
 

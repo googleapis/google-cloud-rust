@@ -23,11 +23,11 @@ class {{Codec.Name}} extends CloudMessage {
   {{> field}}
   {{/Fields}}
 
-  {{Codec.Name}}({
+  {{Codec.Name}}({{#Codec.HasFields}}{
   {{#Fields}}
-    this.{{Codec.Name}},
+    {{#Codec.Required}}required {{/Codec.Required}}this.{{Codec.Name}},
   {{/Fields}}
-  }){{Codec.ConstructorBody}}
+  }{{/Codec.HasFields}}){{Codec.ConstructorBody}}
 
   @override
   {{#Codec.HasToStringLines}}

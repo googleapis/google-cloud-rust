@@ -169,14 +169,6 @@ func enumValueName(e *api.EnumValue) string {
 	return strcase.ToLowerCamel(e.Name)
 }
 
-func bodyAccessor(m *api.Method) string {
-	if m.PathInfo.BodyFieldPath == "*" {
-		// no accessor needed, use the whole request
-		return ""
-	}
-	return "." + strcase.ToCamel(m.PathInfo.BodyFieldPath)
-}
-
 func httpPathFmt(_ *api.PathInfo) string {
 	fmt := ""
 	// TODO(#1034): Determine the correct format for Dart.

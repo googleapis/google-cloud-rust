@@ -54,6 +54,7 @@ type serviceAnnotations struct {
 	// The service name using Dart naming conventions.
 	Name        string
 	DocLines    []string
+	Methods     []*api.Method
 	FieldName   string
 	StructName  string
 	DefaultHost string
@@ -64,6 +65,7 @@ type messageAnnotation struct {
 	DocLines         []string
 	ConstructorBody  string // A custom body for the message's constructor.
 	BasicFields      []*api.Field
+	HasFields        bool
 	HasToStringLines bool
 	ToStringLines    []string
 }
@@ -93,10 +95,10 @@ type oneOfAnnotation struct {
 }
 
 type fieldAnnotation struct {
-	Name             string
-	Type             string
-	DocLines         []string
-	AsQueryParameter string
+	Name     string
+	Type     string
+	DocLines []string
+	Required bool
 }
 
 type enumAnnotation struct {
@@ -165,6 +167,12 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		}
 	}
 
+	// Register any missing WKT.
+	registerMissingWkt(model.State)
+
+	// Calculate required fields.
+	requiredFields := calculateRequiredFields(model)
+
 	// Traverse and annotate the enums defined in this API.
 	for _, e := range model.Enums {
 		annotateEnum(e, model.State)
@@ -172,7 +180,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 
 	// Traverse and annotate the messages defined in this API.
 	for _, m := range model.Messages {
-		traverseMessage(m, model.State, packageMapping, imports)
+		annotateMessage(m, model.State, packageMapping, imports, requiredFields)
 	}
 
 	for _, s := range model.Services {
@@ -215,6 +223,28 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 
 	model.Codec = ann
 	return ann, nil
+}
+
+func registerMissingWkt(state *api.APIState) {
+	// If these definitions weren't provided by protoc then provide our own
+	// placeholders.
+	for _, message := range []struct {
+		ID      string
+		Name    string
+		Package string
+	}{
+		{".google.protobuf.Any", "Any", "google.protobuf"},
+		{".google.protobuf.Empty", "Empty", "google.protobuf"},
+	} {
+		_, ok := state.MessageByID[message.ID]
+		if !ok {
+			state.MessageByID[message.ID] = &api.Message{
+				ID:      message.ID,
+				Name:    message.Name,
+				Package: message.Package,
+			}
+		}
+	}
 }
 
 // Calculate package dependencies based on `package:` imports.
@@ -261,20 +291,44 @@ func calculateImports(usedImports map[string]string) []string {
 	return imports
 }
 
-func annotateService(s *api.Service, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
-	// Require package:http when generating services.
-	imports["http"] = httpImport
+func calculateRequiredFields(model *api.API) map[string]*api.Field {
+	required := map[string]*api.Field{}
 
+	for _, s := range model.Services {
+		// Some methods are skipped.
+		methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
+			return generateMethod(m)
+		})
+
+		for _, method := range methods {
+			for _, field := range language.PathParams(method, model.State) {
+				required[field.ID] = field
+			}
+
+			for _, field := range method.InputType.Fields {
+				if field.Name == method.PathInfo.BodyFieldPath {
+					required[field.ID] = field
+				}
+			}
+		}
+	}
+
+	return required
+}
+
+func annotateService(s *api.Service, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
 	// Some methods are skipped.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return generateMethod(m)
 	})
+
 	for _, m := range methods {
 		annotateMethod(m, state, packageMapping, imports)
 	}
 	ann := &serviceAnnotations{
 		Name:        s.Name,
 		DocLines:    formatDocComments(s.Documentation, state),
+		Methods:     methods,
 		FieldName:   strcase.ToLowerCamel(s.Name),
 		StructName:  s.Name,
 		DefaultHost: s.DefaultHost,
@@ -282,24 +336,19 @@ func annotateService(s *api.Service, state *api.APIState, packageMapping map[str
 	s.Codec = ann
 }
 
-func traverseMessage(m *api.Message, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
-	annotateMessage(m, state, packageMapping, imports)
-
-	for _, e := range m.Enums {
-		annotateEnum(e, state)
-	}
-
-	for _, m := range m.Messages {
-		traverseMessage(m, state, packageMapping, imports)
-	}
-}
-
-func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
+func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[string]string,
+	imports map[string]string, requiredFields map[string]*api.Field) {
 	for _, f := range m.Fields {
-		annotateField(f, state, packageMapping, imports)
+		annotateField(f, state, packageMapping, imports, requiredFields)
 	}
 	for _, f := range m.OneOfs {
 		annotateOneOf(f, state)
+	}
+	for _, e := range m.Enums {
+		annotateEnum(e, state)
+	}
+	for _, m := range m.Messages {
+		annotateMessage(m, state, packageMapping, imports, requiredFields)
 	}
 
 	constructorBody := ";"
@@ -317,6 +366,7 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 		BasicFields: language.FilterSlice(m.Fields, func(s *api.Field) bool {
 			return !s.IsOneOf
 		}),
+		HasFields:        len(m.Fields) > 0,
 		HasToStringLines: len(toStringLines) > 0,
 		ToStringLines:    toStringLines,
 	}
@@ -337,27 +387,40 @@ func createToStringLines(message *api.Message) []string {
 			continue
 		}
 
-		// if (name != null) 'name=$name',
-		lines = append(lines, fmt.Sprintf("if (%s != null) '%s=$%s',", name, name, name))
+		if codec.Required {
+			// 'name=$name',
+			lines = append(lines, fmt.Sprintf("'%s=$%s',", name, name))
+		} else {
+			// if (name != null) 'name=$name',
+			lines = append(lines, fmt.Sprintf("if (%s != null) '%s=$%s',", name, name, name))
+		}
 	}
 
 	return lines
 }
 
 func annotateMethod(method *api.Method, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
+	// Ignore imports added from the input and output messages.
+	tempImports := map[string]string{}
+	tempRequiredFields := map[string]*api.Field{}
+	if method.InputType.Codec == nil {
+		annotateMessage(method.InputType, state, packageMapping, tempImports, tempRequiredFields)
+	}
+	if method.OutputType.Codec == nil {
+		annotateMessage(method.OutputType, state, packageMapping, tempImports, tempRequiredFields)
+	}
+
 	pathInfoAnnotation := &pathInfoAnnotation{
-		Method:   method.PathInfo.Verb,
 		PathFmt:  httpPathFmt(method.PathInfo),
 		PathArgs: httpPathArgs(method.PathInfo),
-		HasBody:  method.PathInfo.BodyFieldPath != "",
 	}
 	method.PathInfo.Codec = pathInfoAnnotation
+
 	annotation := &methodAnnotation{
 		Name:         strcase.ToLowerCamel(method.Name),
 		RequestType:  resolveTypeName(state.MessageByID[method.InputTypeID], packageMapping, imports),
 		ResponseType: resolveTypeName(state.MessageByID[method.OutputTypeID], packageMapping, imports),
 		DocLines:     formatDocComments(method.Documentation, state),
-		BodyAccessor: bodyAccessor(method),
 		PathParams:   language.PathParams(method, state),
 		QueryParams:  language.QueryParams(method, state),
 	}
@@ -371,11 +434,15 @@ func annotateOneOf(field *api.OneOf, state *api.APIState) {
 	}
 }
 
-func annotateField(field *api.Field, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
+func annotateField(field *api.Field, state *api.APIState, packageMapping map[string]string,
+	imports map[string]string, requiredFields map[string]*api.Field) {
+	_, ok := requiredFields[field.ID]
+
 	field.Codec = &fieldAnnotation{
 		Name:     strcase.ToLowerCamel(field.Name),
 		Type:     fieldType(field, state, packageMapping, imports),
 		DocLines: formatDocComments(field.Documentation, state),
+		Required: ok,
 	}
 }
 

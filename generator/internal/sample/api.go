@@ -132,14 +132,16 @@ func MethodListSecretVersions() *api.Method {
 		ID:            "..Service.ListVersion",
 		Documentation: "Lists [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]. This call does not return secret data.",
 		InputTypeID:   ListSecretVersionsRequest().ID,
+		InputType:     ListSecretVersionsRequest(),
 		OutputTypeID:  ListSecretVersionsResponse().ID,
+		OutputType:    ListSecretVersionsResponse(),
 		PathInfo: &api.PathInfo{
 			Verb:          http.MethodPost,
 			BodyFieldPath: "*",
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v1"),
 				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
+				api.NewFieldPathPathSegment("parent"),
 				api.NewLiteralPathSegment("secrets"),
 				api.NewFieldPathPathSegment("secret"),
 				api.NewVerbPathSegment("listSecretVersions"),
@@ -204,6 +206,7 @@ func ListSecretVersionsRequest() *api.Message {
 			{
 				Name:     "parent",
 				JSONName: "parent",
+				ID:       Secret().ID + ".parent",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  Secret().ID,
 			},
@@ -243,6 +246,7 @@ func Secret() *api.Message {
 				Name:     "replication",
 				JSONName: "replication",
 				Typez:    api.MESSAGE_TYPE,
+				TypezID:  Replication().ID,
 			},
 		},
 	}
@@ -264,6 +268,7 @@ func SecretVersion() *api.Message {
 				Name:     "state",
 				JSONName: "state",
 				Typez:    api.ENUM_TYPE,
+				TypezID:  EnumState().ID,
 			},
 		},
 	}
@@ -282,6 +287,7 @@ func EnumState() *api.Enum {
 	)
 	return &api.Enum{
 		Name:    "State",
+		ID:      ".test.EnumState",
 		Package: Package,
 		Values: []*api.EnumValue{
 			stateEnabled,
@@ -299,7 +305,7 @@ func Replication() *api.Message {
 			{
 				Name:     "automatic",
 				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".test.Automatic",
+				TypezID:  "..Automatic",
 				Optional: true,
 				Repeated: false,
 			},
