@@ -85,25 +85,23 @@ where
     }
 
     /// Returns the next mutation of the wrapped stream.
-    ///
-    /// Enable the `unstable-stream` feature to interact with a [`futures::stream::Stream`].
-    ///
-    /// [`futures::stream::Stream`]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
     pub async fn next(&mut self) -> Option<Result<T, E>> {
         self.stream.next().await
     }
-}
 
-/// Async streams are not yet stable, so neither is the use of this feature.
-#[cfg(feature = "unstable-stream")]
-impl<T, E> Stream for Paginator<T, E> {
-    type Item = Result<T, E>;
-
-    fn poll_next(
-        self: Pin<&mut Self>,
-        cx: &mut std::task::Context<'_>,
-    ) -> std::task::Poll<Option<Self::Item>> {
-        self.project().stream.poll_next(cx)
+    #[cfg(feature = "unstable-stream")]
+    /// Convert the paginator to a stream.
+    ///
+    /// This API is gated by the `unstable-stream` feature.
+    pub fn to_stream(self) -> impl futures::Stream<Item = Result<T, E>> + Unpin {
+        Box::pin(unfold(Some(self), move |state| async move {
+            if let Some(mut paginator) = state {
+                if let Some(pr) = paginator.next().await {
+                    return Some((pr, Some(paginator)));
+                }
+            };
+            None
+        }))
     }
 }
 
@@ -162,39 +160,20 @@ where
             }
         }
     }
-}
 
-/// Async streams are not yet stable, so neither is the use of this feature.
-#[cfg(feature = "unstable-stream")]
-impl<T, E> Stream for ItemPaginator<T, E>
-where
-    T: PageableResponse,
-{
-    type Item = Result<T::PageItem, E>;
-
-    fn poll_next(
-        mut self: Pin<&mut Self>,
-        cx: &mut std::task::Context<'_>,
-    ) -> std::task::Poll<Option<Self::Item>> {
-        loop {
-            if let Some(ref mut iter) = self.current_items {
-                if let Some(item) = iter.next() {
-                    return std::task::Poll::Ready(Some(Ok(item)));
+    #[cfg(feature = "unstable-stream")]
+    /// Convert the paginator to a stream.
+    ///
+    /// This API is gated by the `unstable-stream` feature.
+    pub fn to_stream(self) -> impl futures::Stream<Item = Result<T::PageItem, E>> + Unpin {
+        Box::pin(unfold(Some(self), move |state| async move {
+            if let Some(mut paginator) = state {
+                if let Some(pr) = paginator.next().await {
+                    return Some((pr, Some(paginator)));
                 }
-            }
-
-            let next_page_poll = self.as_mut().project().stream.poll_next(cx);
-            match next_page_poll {
-                std::task::Poll::Ready(Some(Ok(page))) => {
-                    self.current_items = Some(page.items().into_iter());
-                }
-                std::task::Poll::Ready(Some(Err(e))) => {
-                    return std::task::Poll::Ready(Some(Err(e)));
-                }
-                std::task::Poll::Ready(None) => return std::task::Poll::Ready(None),
-                std::task::Poll::Pending => return std::task::Poll::Pending,
-            }
-        }
+            };
+            None
+        }))
     }
 }
 
@@ -346,9 +325,9 @@ mod tests {
         };
 
         let mut resps = vec![];
-        let mut stream: Paginator<TestResponse, Box<dyn std::error::Error>> =
+        let mut paginator: Paginator<TestResponse, Box<dyn std::error::Error>> =
             Paginator::new(seed, execute);
-        while let Some(resp) = stream.next().await {
+        while let Some(resp) = paginator.next().await {
             if let Ok(resp) = resp {
                 resps.push(resp)
             }
@@ -386,8 +365,8 @@ mod tests {
             }),
         };
         let mut resps = vec![];
-        let mut stream = client.list_rpc_stream(TestRequest::default());
-        while let Some(resp) = stream.next().await {
+        let mut paginator = client.list_rpc_stream(TestRequest::default());
+        while let Some(resp) = paginator.next().await {
             if let Ok(resp) = resp {
                 resps.push(resp)
             }
@@ -427,44 +406,35 @@ mod tests {
 
     #[cfg(feature = "unstable-stream")]
     #[tokio::test]
-    async fn test_paginator_as_stream() {
-        let seed = "token1".to_string();
-        let mut responses = VecDeque::new();
-        responses.push_back(TestResponse {
-            items: vec![
-                PageItem {
-                    name: "item1".to_string(),
-                },
-                PageItem {
-                    name: "item2".to_string(),
-                },
-            ],
-            next_page_token: "token2".to_string(),
-        });
-        responses.push_back(TestResponse {
-            items: vec![PageItem {
-                name: "item3".to_string(),
-            }],
-            next_page_token: "".to_string(),
-        });
-        let mut expected_tokens = VecDeque::new();
-        expected_tokens.push_back("token1".to_string());
-        expected_tokens.push_back("token2".to_string());
+    async fn test_paginator_to_stream() {
+        let responses = vec![
+            TestResponse {
+                items: vec![
+                    PageItem {
+                        name: "item1".to_string(),
+                    },
+                    PageItem {
+                        name: "item2".to_string(),
+                    },
+                ],
+                next_page_token: "token1".to_string(),
+            },
+            TestResponse {
+                items: vec![PageItem {
+                    name: "item3".to_string(),
+                }],
+                next_page_token: "".to_string(),
+            },
+        ];
 
-        let state = Arc::new(Mutex::new(responses));
-        let tokens = Arc::new(Mutex::new(expected_tokens));
-
-        let execute = move |token: String| {
-            let expected_token = tokens.clone().lock().unwrap().pop_front().unwrap();
-            assert_eq!(token, expected_token);
-            let resp = state.clone().lock().unwrap().pop_front().unwrap();
-            async move { Ok(resp) }
+        let client = Client {
+            inner: Arc::new(InnerClient {
+                data: Arc::new(Mutex::new(responses)),
+            }),
         };
-
         let mut resps = vec![];
-        let mut stream: Paginator<TestResponse, Box<dyn std::error::Error>> =
-            Paginator::new(seed, execute);
-        while let Some(resp) = futures::stream::StreamExt::next(&mut stream).await {
+        let mut stream = client.list_rpc_stream(TestRequest::default()).to_stream();
+        while let Some(resp) = stream.next().await {
             if let Ok(resp) = resp {
                 resps.push(resp)
             }
@@ -472,5 +442,50 @@ mod tests {
         assert_eq!(resps.len(), 2);
         assert_eq!(resps[0].items[0].name, "item1");
         assert_eq!(resps[0].items[1].name, "item2");
+        assert_eq!(resps[1].items[0].name, "item3");
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio::test]
+    async fn test_item_paginator_to_stream() {
+        let responses = vec![
+            TestResponse {
+                items: vec![
+                    PageItem {
+                        name: "item1".to_string(),
+                    },
+                    PageItem {
+                        name: "item2".to_string(),
+                    },
+                ],
+                next_page_token: "token1".to_string(),
+            },
+            TestResponse {
+                items: vec![PageItem {
+                    name: "item3".to_string(),
+                }],
+                next_page_token: "".to_string(),
+            },
+        ];
+
+        let client = Client {
+            inner: Arc::new(InnerClient {
+                data: Arc::new(Mutex::new(responses)),
+            }),
+        };
+        let mut items = vec![];
+        let mut stream = client
+            .list_rpc_stream(TestRequest::default())
+            .items()
+            .to_stream();
+        while let Some(item) = stream.next().await {
+            if let Ok(item) = item {
+                items.push(item)
+            }
+        }
+        assert_eq!(items.len(), 3);
+        assert_eq!(items[0].name, "item1");
+        assert_eq!(items[1].name, "item2");
+        assert_eq!(items[2].name, "item3");
     }
 }

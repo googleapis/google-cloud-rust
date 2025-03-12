@@ -311,8 +311,8 @@ async fn get_all_secret_names(
     project_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
-    let mut stream = client.list_secrets(project_id).paginator().await;
-    while let Some(response) = stream.next().await {
+    let mut paginator = client.list_secrets(project_id).paginator().await;
+    while let Some(response) = paginator.next().await {
         response?
             .secrets
             .into_iter()

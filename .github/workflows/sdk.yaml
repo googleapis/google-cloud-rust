@@ -43,7 +43,7 @@ jobs:
       - name: Display rustc version
         run: rustc --version
       - name: Test with features disabled
-        run: cargo test --workspace --no-default-features
+        run: cargo test --workspace -p google-cloud-gax --no-default-features
       - name: Test with features enabled
         run: cargo test --workspace --all-features
   coverage:

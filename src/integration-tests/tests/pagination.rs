@@ -55,13 +55,13 @@ mod mocking {
             });
 
         let client = sm::client::SecretManagerService::from_stub(mock);
-        let mut stream = client
+        let mut paginator = client
             .list_secrets("projects/test-project")
             .paginator()
             .await
             .items();
         let mut names = Vec::new();
-        while let Some(response) = stream.next().await {
+        while let Some(response) = paginator.next().await {
             names.push(response?.name);
         }
 
