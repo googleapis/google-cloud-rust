@@ -279,11 +279,31 @@ var wellKnownMessages = []*api.Message{
 		Name:    "Timestamp",
 		Package: "google.protobuf",
 	},
+	{
+		ID:      ".google.protobuf.Value",
+		Name:    "Value",
+		Package: "google.protobuf",
+	},
+	{
+		ID:      ".google.protobuf.Struct",
+		Name:    "Struct",
+		Package: "google.protobuf",
+	},
+	{
+		ID:      ".google.protobuf.ListValue",
+		Name:    "ListValue",
+		Package: "google.protobuf",
+	},
 }
 
 func loadWellKnownTypes(s *api.APIState) {
 	for _, message := range wellKnownMessages {
 		s.MessageByID[message.ID] = message
+	}
+	s.EnumByID[".google.protobuf.NullValue"] = &api.Enum{
+		Name:    "NullValue",
+		Package: "google.protobuf",
+		ID:      ".google.protobuf.NullValue",
 	}
 }
 
