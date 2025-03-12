@@ -38,7 +38,7 @@
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use auth::errors::CredentialError;
+// use auth::errors::CredentialError;
 
 use crate::error::Error;
 use crate::loop_state::LoopState;
@@ -235,19 +235,20 @@ impl RetryPolicy for Aip194Strict {
                     LoopState::Permanent(error)
                 }
             }
-            ErrorKind::Authentication => {
-                if let Some(cred_err) = error.as_inner::<CredentialError>() {
-                    if cred_err.is_retryable() {
-                        LoopState::Continue(error)
-                    } else {
-                        LoopState::Permanent(error)
-                    }
-                } else {
-                    LoopState::Continue(error)
-                }
-            }
+            // ErrorKind::Authentication => {
+            //     if let Some(cred_err) = error.as_inner::<CredentialError>() {
+            //         if cred_err.is_retryable() {
+            //             LoopState::Continue(error)
+            //         } else {
+            //             LoopState::Permanent(error)
+            //         }
+            //     } else {
+            //         LoopState::Continue(error)
+            //     }
+            // }
             ErrorKind::Serde => LoopState::Permanent(error),
             ErrorKind::Other => LoopState::Permanent(error),
+            _ => LoopState::Permanent(error),
         }
     }
 }

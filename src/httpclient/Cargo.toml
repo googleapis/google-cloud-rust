@@ -13,10 +13,9 @@
 # limitations under the License.
 
 [package]
-name        = "google-cloud-gax"
-version     = "0.20.0"
+name        = "google-cloud-httpclient"
+version     = "0.1.0"
 description = "Google Cloud Client Libraries for Rust"
-build       = "build.rs"
 # Inherit other attributes from the workspace.
 authors.workspace    = true
 categories.workspace = true
@@ -26,8 +25,6 @@ license.workspace    = true
 repository.workspace = true
 
 [dependencies]
-auth        = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
-httpclient  = { version = "0.1.0", path = "../httpclient", package = "google-cloud-httpclient" }
 base64      = "0.22"
 bytes       = "1"
 futures     = { version = "0.3", optional = true }
@@ -44,11 +41,10 @@ tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
 wkt         = { version = "0.1", path = "../wkt", package = "google-cloud-wkt" }
 
 [dev-dependencies]
-echo-server = { path = "echo-server" }
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
 axum        = "0.8"
-gax         = { path = ".", package = "google-cloud-gax", features = ["unstable-sdk-client", "unstable-stream"] }
+gax         = { path = ".", package = "google-cloud-httpclient", features = ["unstable-sdk-client", "unstable-stream"] }
 mockall     = "0.13"
 serde       = { version = "1", features = ["serde_derive"] }
 serial_test = "3"

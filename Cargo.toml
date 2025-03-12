@@ -215,7 +215,7 @@ members = [
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
   "src/generated/storagetransfer/v1",
-  "src/generated/type",
+  "src/generated/type", "src/httpclient",
   "src/integration-tests",
   "src/lro",
   "src/root",

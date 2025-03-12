@@ -40,12 +40,12 @@ pub async fn start() -> Result<(String, JoinHandle<()>)> {
     Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
 }
 
-pub fn make_status() -> Result<gax::error::rpc::Status> {
+pub fn make_status() -> Result<httpclient::error::rpc::Status> {
     let value = make_status_value()?;
     let value = value
         .get("error")
         .ok_or("missing error field in status payload")?;
-    let status = serde_json::from_value::<gax::error::rpc::Status>(value.clone())?;
+    let status = serde_json::from_value::<httpclient::error::rpc::Status>(value.clone())?;
     Ok(status)
 }
 
@@ -104,7 +104,7 @@ async fn error_impl(
 }
 
 fn make_status_value() -> Result<serde_json::Value> {
-    use gax::error::rpc::StatusDetails;
+    use httpclient::error::rpc::StatusDetails;
     use rpc::model::bad_request::FieldViolation;
     use rpc::model::BadRequest;
     let details = StatusDetails::BadRequest(BadRequest::default().set_field_violations(

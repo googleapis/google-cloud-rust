@@ -33,7 +33,8 @@
 /// An alias of [std::result::Result] where the error is always [Error][crate::error::Error].
 ///
 /// This is the result type used by all functions wrapping RPCs.
-pub type Result<T> = std::result::Result<T, crate::error::Error>;
+pub type Result<T> = std::result::Result<T, httpclient::error::Error>;
+
 
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
@@ -48,24 +49,10 @@ pub mod path_parameter;
 #[doc(hidden)]
 pub mod api_header;
 
-/// The core error types used by generated clients.
-pub mod error;
+pub mod http_client_with_auth;
 
 /// Defines some types and traits to convert and use List RPCs as a Stream.
 /// Async streams are not yet stable, so neither is the use of this feature.
 #[cfg(feature = "unstable-stream")]
 pub mod paginator;
 
-/// Defines traits and helpers for HTTP client implementations.
-#[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
-pub mod http_client;
-
-pub mod backoff_policy;
-pub mod exponential_backoff;
-pub mod loop_state;
-pub mod options;
-pub mod polling_backoff_policy;
-pub mod polling_policy;
-pub mod retry_policy;
-pub mod retry_throttler;

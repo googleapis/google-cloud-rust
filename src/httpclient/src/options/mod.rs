@@ -30,7 +30,7 @@ use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyAr
 use crate::polling_policy::{PollingPolicy, PollingPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, RetryThrottlerWrapped};
-use auth::credentials::Credential;
+// use auth::credentials::Credential;
 use std::sync::Arc;
 
 /// A set of options configuring a single request.
@@ -227,7 +227,7 @@ where
 /// the retry policies, and/or other behaviors of the client.
 pub struct ClientConfig {
     pub(crate) endpoint: Option<String>,
-    pub(crate) cred: Option<Credential>,
+    // pub(crate) cred: Option<Credential>,
     pub(crate) tracing: bool,
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
     pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
@@ -271,11 +271,11 @@ impl ClientConfig {
         self
     }
 
-    /// Configure the authentication credentials.
-    pub fn set_credential<T: Into<Option<Credential>>>(mut self, v: T) -> Self {
-        self.cred = v.into();
-        self
-    }
+    // /// Configure the authentication credentials.
+    // pub fn set_credential<T: Into<Option<Credential>>>(mut self, v: T) -> Self {
+    //     self.cred = v.into();
+    //     self
+    // }
 
     /// Configure the retry policy.
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
@@ -314,7 +314,7 @@ impl std::default::Default for ClientConfig {
         use std::sync::{Arc, Mutex};
         Self {
             endpoint: None,
-            cred: None,
+            // cred: None,
             tracing: false,
             retry_policy: None,
             backoff_policy: None,
@@ -491,15 +491,15 @@ mod test {
         );
     }
 
-    #[tokio::test]
-    async fn config_credentials() -> Result {
-        let config =
-            ClientConfig::new().set_credential(auth::credentials::testing::test_credentials());
-        let cred = config.cred.unwrap();
-        let token = cred.get_token().await?;
-        assert_eq!(token.token, "test-only-token");
-        Ok(())
-    }
+    // #[tokio::test]
+    // async fn config_credentials() -> Result {
+    //     let config =
+    //         ClientConfig::new().set_credential(auth::credentials::testing::test_credentials());
+    //     let cred = config.cred.unwrap();
+    //     let token = cred.get_token().await?;
+    //     assert_eq!(token.token, "test-only-token");
+    //     Ok(())
+    // }
 
     #[test]
     fn config_retry_policy() {

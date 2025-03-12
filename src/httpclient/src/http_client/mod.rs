@@ -25,13 +25,13 @@ use crate::polling_policy::PollingPolicy;
 use crate::retry_policy::RetryPolicy;
 use crate::retry_throttler::RetryThrottlerWrapped;
 use crate::Result;
-use auth::credentials::{create_access_token_credential, Credential};
+// use auth::credentials::{create_access_token_credential, Credential};
 use std::sync::Arc;
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: reqwest::Client,
-    cred: Credential,
+    // cred: Credential,
     endpoint: String,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
@@ -43,19 +43,19 @@ pub struct ReqwestClient {
 impl ReqwestClient {
     pub async fn new(config: ClientConfig, default_endpoint: &str) -> Result<Self> {
         let inner = reqwest::Client::new();
-        let cred = if let Some(c) = config.cred {
-            c
-        } else {
-            create_access_token_credential()
-                .await
-                .map_err(Error::authentication)?
-        };
+        // let cred = if let Some(c) = config.cred {
+        //     c
+        // } else {
+        //     create_access_token_credential()
+        //         .await
+        //         .map_err(Error::authentication)?
+        // };
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
         Ok(Self {
             inner,
-            cred,
+            // cred,
             endpoint,
             retry_policy: config.retry_policy,
             backoff_policy: config.backoff_policy,
@@ -178,14 +178,14 @@ impl ReqwestClient {
         {
             builder = builder.timeout(timeout);
         }
-        let auth_headers = self
-            .cred
-            .get_headers()
-            .await
-            .map_err(Error::authentication)?;
-        for header in auth_headers.into_iter() {
-            builder = builder.header(header.0, header.1);
-        }
+        // let auth_headers = self
+        //     .cred
+        //     .get_headers()
+        //     .await
+        //     .map_err(Error::authentication)?;
+        // for header in auth_headers.into_iter() {
+        //     builder = builder.header(header.0, header.1);
+        // }
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
             return Self::to_http_error(response).await;
