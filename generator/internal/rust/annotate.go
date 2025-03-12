@@ -78,7 +78,7 @@ type messageAnnotation struct {
 	Name       string
 	ModuleName string
 	// The fully qualified name, including the `codec.modulePath` prefix. For
-	// messages is external packages this includes the package name.
+	// messages in external packages this includes the package name.
 	QualifiedName string
 	// The fully qualified name, relative to `codec.modulePath`. Typically this
 	// is the `QualifiedName` with the `crate::model::` prefix removed.
