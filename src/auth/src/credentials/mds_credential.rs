@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::{Credential, Result, QUOTA_PROJECT_KEY};
+use crate::credentials::{Credential, Result, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
 use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
@@ -29,7 +29,6 @@ use std::vec;
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1";
-const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 pub(crate) fn new() -> Credential {
     let mds_credential: MDSCredential<MDSAccessTokenProvider> = MDSCredential::builder()
@@ -46,7 +45,7 @@ struct MDSCredential<T>
 where
     T: TokenProvider,
 {
-    scopes: Option<Vec<String>>,
+    endpoint: String,
     quota_project_id: Option<String>,
     universe_domain: Option<String>,
     token_provider: T,
@@ -62,12 +61,12 @@ impl MDSCredential<MDSAccessTokenProvider> {
         endpoint: String,
     ) -> Self {
         let token_provider = MDSAccessTokenProvider::builder()
-            .endpoint(endpoint)
-            .maybe_scopes(scopes.clone())
+            .endpoint(endpoint.clone())
+            .maybe_scopes(scopes)
             .build();
 
         MDSCredential {
-            scopes,
+            endpoint,
             quota_project_id,
             universe_domain,
             token_provider,
@@ -75,15 +74,14 @@ impl MDSCredential<MDSAccessTokenProvider> {
     }
 }
 
-#[allow(dead_code)]
 impl<T> MDSCredential<T>
 where
     T: TokenProvider,
 {
-    pub async fn get_universe_domain(endpoint: String) -> Result<String> {
+    async fn get_universe_domain_from_mds(&self) -> Result<String> {
         let client = Client::new();
         let request = client
-            .get(format!("{}/universe/universe-domain", endpoint))
+            .get(format!("{}/universe/universe-domain", self.endpoint))
             .header(
                 METADATA_FLAVOR,
                 HeaderValue::from_static(METADATA_FLAVOR_VALUE),
@@ -137,6 +135,16 @@ where
             ));
         }
         Ok(headers)
+    }
+
+    async fn get_universe_domain(&self) -> Option<String> {
+        if self.universe_domain.is_some() {
+            return self.universe_domain.clone();
+        }
+        match self.get_universe_domain_from_mds().await {
+            Ok(universe_domain) => Some(universe_domain),
+            Err(_) => None,
+        }
     }
 }
 
@@ -283,7 +291,7 @@ mod test {
             .return_once(|| Ok(expected_clone));
 
         let mdsc = MDSCredential {
-            scopes: None,
+            endpoint: "test-endpoint".to_string(),
             quota_project_id: None,
             universe_domain: None,
             token_provider: mock,
@@ -300,7 +308,7 @@ mod test {
             .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
         let mdsc = MDSCredential {
-            scopes: None,
+            endpoint: "test-endpoint".to_string(),
             quota_project_id: None,
             universe_domain: None,
             token_provider: mock,
@@ -321,7 +329,7 @@ mod test {
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
         let mdsc = MDSCredential {
-            scopes: None,
+            endpoint: "test-endpoint".to_string(),
             quota_project_id: None,
             universe_domain: None,
             token_provider: mock,
@@ -351,7 +359,7 @@ mod test {
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
         let mdsc = MDSCredential {
-            scopes: None,
+            endpoint: "test-endpoint".to_string(),
             quota_project_id: Some("test-project".to_string()),
             universe_domain: None,
             token_provider: mock,
@@ -383,7 +391,7 @@ mod test {
             .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
         let mdsc = MDSCredential {
-            scopes: None,
+            endpoint: "test-endpoint".to_string(),
             quota_project_id: None,
             universe_domain: None,
             token_provider: mock,
@@ -725,10 +733,12 @@ mod test {
         )]))
         .await;
 
-        let universe_domain_response =
-            MDSCredential::<MDSAccessTokenProvider>::get_universe_domain(endpoint)
-                .await
-                .unwrap();
+        let universe_domain_response = MDSCredential::builder()
+            .endpoint(endpoint)
+            .build()
+            .get_universe_domain()
+            .await
+            .unwrap();
         assert_eq!(universe_domain_response, ud);
     }
 
@@ -750,10 +760,12 @@ mod test {
         )]))
         .await;
 
-        let universe_domain_response =
-            MDSCredential::<MDSAccessTokenProvider>::get_universe_domain(endpoint)
-                .await
-                .unwrap();
+        let universe_domain_response = MDSCredential::builder()
+            .endpoint(endpoint)
+            .build()
+            .get_universe_domain()
+            .await
+            .unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
     }
 
@@ -775,9 +787,12 @@ mod test {
         )]))
         .await;
 
-        let universe_domain_response =
-            MDSCredential::<MDSAccessTokenProvider>::get_universe_domain(endpoint).await;
-        assert!(universe_domain_response.is_err());
+        let universe_domain_response = MDSCredential::builder()
+            .endpoint(endpoint)
+            .build()
+            .get_universe_domain()
+            .await;
+        assert!(universe_domain_response.is_none());
     }
 
     #[tokio::test]
@@ -798,8 +813,11 @@ mod test {
         )]))
         .await;
 
-        let universe_domain_response =
-            MDSCredential::<MDSAccessTokenProvider>::get_universe_domain(endpoint).await;
-        assert!(universe_domain_response.is_err());
+        let universe_domain_response = MDSCredential::builder()
+            .endpoint(endpoint)
+            .build()
+            .get_universe_domain()
+            .await;
+        assert!(universe_domain_response.is_none());
     }
 }

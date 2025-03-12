@@ -28,6 +28,7 @@ use std::future::Future;
 use std::sync::Arc;
 
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
+pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 /// An implementation of [crate::credentials::CredentialTrait].
 ///
