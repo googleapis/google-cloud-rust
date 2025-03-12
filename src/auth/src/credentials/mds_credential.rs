@@ -108,8 +108,7 @@ where
         let universe_domain = response
             .json::<UniverseDomainResponse>()
             .await
-            .map_err(CredentialError::non_retryable)
-            .unwrap()
+            .map_err(CredentialError::non_retryable)?
             .universe_domain;
 
         Ok(universe_domain)
@@ -767,6 +766,29 @@ mod test {
             path.to_string(),
             (
                 StatusCode::SERVICE_UNAVAILABLE,
+                universe_domain_response,
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
+
+        let universe_domain_response =
+            MDSCredential::<MDSAccessTokenProvider>::get_universe_domain(endpoint).await;
+        assert!(universe_domain_response.is_err());
+    }
+
+    #[tokio::test]
+    async fn get_universe_domain_error_invalid_json() {
+        let path = "/universe/universe-domain";
+        let universe_domain_response = serde_json::to_value("invalid_response").unwrap();
+
+        let (endpoint, _server) = start(HashMap::from([(
+            path.to_string(),
+            (
+                StatusCode::OK,
                 universe_domain_response,
                 TokenQueryParams {
                     scopes: None,
