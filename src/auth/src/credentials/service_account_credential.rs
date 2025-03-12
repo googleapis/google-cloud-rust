@@ -203,6 +203,7 @@ mod test {
     use rsa::pkcs8::LineEnding;
     use rsa::RsaPrivateKey;
     use rustls_pemfile::Item;
+    use rustls::SignatureAlgorithm;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -335,9 +336,15 @@ mod test {
         Ok(())
     }
 
-    fn generate_pkcs8_key() -> String {
+    fn generate_pkcs8_key(algorithm: SignatureAlgorithm) -> String {
         let mut rng = rand::thread_rng();
         let bits = 2048;
+        match algorithm {
+            SignatureAlgorithm::RSA_PKCS1_SHA256 => {}
+            SignatureAlgorithm::ECDSA_NISTP256_SHA256 => {
+            }
+            other => {}
+        }
         let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
         priv_key
             .to_pkcs8_pem(LineEnding::LF)
@@ -402,17 +409,17 @@ mod test {
         Ok(())
     }
 
-    // #[cfg(feature = "default-crypto-provider")]
-    // #[test]
-    // fn signer_failure() -> TestResult {
-    //     let tp = ServiceAccountTokenProvider {
-    //         service_account_info: get_mock_service_account(),
-    //     };
-    //     let signer = tp.signer(&tp.service_account_info.private_key);
-    //     let expected_error_message = "missing PEM section in service account key";
-    //     assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
-    //     Ok(())
-    // }
+    #[cfg(feature = "default-crypto-provider")]
+    #[test]
+    fn signer_failure() -> TestResult {
+        let tp = ServiceAccountTokenProvider {
+            service_account_info: get_mock_service_account(),
+        };
+        let signer = tp.get_signing_key(&tp.service_account_info.private_key);
+        let expected_error_message = "missing PEM section in service account key";
+        assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
+        Ok(())
+    }
 
     #[test]
     fn unexpected_private_key_error_message() -> TestResult {
