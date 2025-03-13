@@ -247,6 +247,8 @@ func TestOneOfAnnotations(t *testing.T) {
 		ValueType:          "i32",
 		IsBoxed:            true,
 		ToProto:            "cnv",
+		KeyToProto:         "cnv",
+		ValueToProto:       "cnv",
 	}, map_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -612,6 +614,8 @@ func TestFieldAnnotations(t *testing.T) {
 		KeyType:            "i32",
 		ValueType:          "i64",
 		ToProto:            "cnv",
+		KeyToProto:         "cnv",
+		ValueToProto:       "cnv",
 	}
 	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -672,15 +676,44 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		Typez:    api.ENUM_TYPE,
 		TypezID:  ".google.protobuf.NullValue",
 	}
+	map_field := &api.Field{
+		Name:     "map_field",
+		JSONName: "mapField",
+		ID:       ".test.Message.map_field",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  "$map<string, .test.TestEnum>",
+	}
+	// TODO(#1381) - this is closer to wnat we would message map messages to
+	//     be called.
+	key_field := &api.Field{
+		Name:     "key",
+		JSONName: "key",
+		ID:       "$map<string, .test.TestEnum>.key",
+		Typez:    api.STRING_TYPE,
+	}
+	value_field := &api.Field{
+		Name:     "value",
+		JSONName: "value",
+		ID:       "$map<string, .test.TestEnum>.value",
+		Typez:    api.ENUM_TYPE,
+		TypezID:  ".test.TestEnum",
+	}
+	map_message := &api.Message{
+		Name:   "$map<string, .test.TestEnum>",
+		ID:     "$map<string, .test.TestEnum>",
+		IsMap:  true,
+		Fields: []*api.Field{key_field, value_field},
+	}
 	message := &api.Message{
 		Name:          "TestMessage",
 		Package:       "test",
 		ID:            ".test.TestMessage",
 		Documentation: "A test message.",
-		Fields:        []*api.Field{singular_field, repeated_field, optional_field, null_value_field},
+		Fields:        []*api.Field{singular_field, repeated_field, optional_field, null_value_field, map_field},
 	}
 
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{enumz}, []*api.Service{})
+	model.State.MessageByID[map_message.ID] = map_message
 	api.CrossReference(model)
 	api.LabelRecursiveFields(model)
 	codec, err := newCodec(true, map[string]string{
@@ -703,10 +736,10 @@ func TestEnumFieldAnnotations(t *testing.T) {
 			`#[non_exhaustive]`,
 		},
 		DocLines:       []string{"/// A test message."},
-		BasicFields:    []*api.Field{singular_field, repeated_field, optional_field, null_value_field},
+		BasicFields:    []*api.Field{singular_field, repeated_field, optional_field, null_value_field, map_field},
 		SingularFields: []*api.Field{singular_field, optional_field, null_value_field},
 		RepeatedFields: []*api.Field{repeated_field},
-		MapFields:      []*api.Field{},
+		MapFields:      []*api.Field{map_field},
 	}
 	if diff := cmp.Diff(wantMessage, message.Codec); diff != "" {
 		t.Errorf("mismatch in message annotations (-want, +got)\n:%s", diff)
@@ -775,6 +808,27 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		ToProto:            "value",
 	}
 	if diff := cmp.Diff(wantField, null_value_field.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	wantField = &fieldAnnotations{
+		FieldName:     "map_field",
+		SetterName:    "map_field",
+		BranchName:    "MapField",
+		FQMessageName: "crate::model::TestMessage",
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
+		},
+		FieldType:          "std::collections::HashMap<std::string::String,crate::model::TestEnum>",
+		PrimitiveFieldType: "std::collections::HashMap<std::string::String,crate::model::TestEnum>",
+		AddQueryParameter:  `let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.map_field).map_err(Error::serde)?.add(builder, "mapField") };`,
+		KeyType:            "std::string::String",
+		ValueType:          "crate::model::TestEnum",
+		ToProto:            "cnv",
+		KeyToProto:         "cnv",
+		ValueToProto:       "value",
+	}
+	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 }
