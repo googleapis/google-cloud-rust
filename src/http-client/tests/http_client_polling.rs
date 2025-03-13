@@ -14,10 +14,8 @@
 
 #[cfg(test)]
 mod test {
-
-    use gax::http_client::ReqwestClient;
     use gax::options::ClientConfig;
-    use google_cloud_gax as gax;
+    use google_cloud_http_client::ReqwestClient;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -32,8 +30,8 @@ mod test {
             &self,
             _loop_start: std::time::Instant,
             _attempt_count: u32,
-            error: google_cloud_gax::error::Error,
-        ) -> google_cloud_gax::loop_state::LoopState {
+            error: gax::error::Error,
+        ) -> gax::loop_state::LoopState {
             gax::loop_state::LoopState::Continue(error)
         }
     }

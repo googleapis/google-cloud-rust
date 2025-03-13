@@ -14,8 +14,8 @@
 
 use axum::extract::Query;
 use axum::http::StatusCode;
-use google_cloud_gax::http_client::*;
-use google_cloud_gax::paginator::{ItemPaginator, PageableResponse, Paginator};
+use gax::paginator::{ItemPaginator, PageableResponse, Paginator};
+use google_cloud_http_client::*;
 use std::collections::HashMap;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -104,7 +104,7 @@ impl Client {
     pub fn list_stream(
         &self,
         req: ListFoosRequest,
-    ) -> Paginator<ListFoosResponse, google_cloud_gax::error::Error> {
+    ) -> Paginator<ListFoosResponse, gax::error::Error> {
         let inner = self.inner.clone();
         let execute = move |page_token| {
             let mut request = req.clone();
@@ -120,14 +120,14 @@ impl Client {
     pub fn list_stream_items(
         &self,
         req: ListFoosRequest,
-    ) -> ItemPaginator<ListFoosResponse, google_cloud_gax::error::Error> {
+    ) -> ItemPaginator<ListFoosResponse, gax::error::Error> {
         self.list_stream(req).items()
     }
 
     async fn list_impl(
         self,
         req: ListFoosRequest,
-    ) -> std::result::Result<ListFoosResponse, google_cloud_gax::error::Error> {
+    ) -> std::result::Result<ListFoosResponse, gax::error::Error> {
         let mut builder = self
             .inner
             .builder(reqwest::Method::GET, "/pagination".to_string())
@@ -139,7 +139,7 @@ impl Client {
             .execute(
                 builder,
                 None::<NoBody>,
-                google_cloud_gax::options::RequestOptions::default(),
+                gax::options::RequestOptions::default(),
             )
             .await
     }
@@ -147,7 +147,7 @@ impl Client {
     pub async fn list(
         &self,
         req: ListFoosRequest,
-    ) -> std::result::Result<ListFoosResponse, google_cloud_gax::error::Error> {
+    ) -> std::result::Result<ListFoosResponse, gax::error::Error> {
         let client = Self {
             inner: self.inner.clone(),
         };

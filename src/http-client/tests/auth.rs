@@ -15,10 +15,9 @@
 use auth::credentials::{Credential, CredentialTrait};
 use auth::errors::CredentialError;
 use auth::token::Token;
-use gax::http_client::ReqwestClient;
 use gax::options::*;
-use google_cloud_gax as gax;
-use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+use google_cloud_http_client::ReqwestClient;
 use http::header::{HeaderName, HeaderValue};
 use serde_json::json;
 
@@ -94,7 +93,7 @@ async fn auth_error_retryable() -> Result<()> {
     let builder = client.builder(reqwest::Method::GET, "/echo".into());
     let body = json!({});
     let options = RequestOptions::default();
-    let result: std::result::Result<serde_json::Value, google_cloud_gax::error::Error> =
+    let result: std::result::Result<serde_json::Value, gax::error::Error> =
         client.execute(builder, Some(body), options).await;
 
     assert!(result.is_err());
@@ -127,7 +126,7 @@ async fn auth_error_non_retryable() -> Result<()> {
     let builder = client.builder(reqwest::Method::GET, "/echo".into());
     let body = serde_json::json!({});
 
-    let result: std::result::Result<serde_json::Value, google_cloud_gax::error::Error> = client
+    let result: std::result::Result<serde_json::Value, gax::error::Error> = client
         .execute(builder, Some(body), RequestOptions::default())
         .await;
 

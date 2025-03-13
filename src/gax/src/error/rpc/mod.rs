@@ -48,6 +48,36 @@ pub struct Status {
     pub details: Vec<StatusDetails>,
 }
 
+impl Status {
+    /// Sets the value for [code][Status::code].
+    pub fn set_code<T: Into<i32>>(mut self, v: T) -> Self {
+        self.code = v.into();
+        self
+    }
+
+    /// Sets the value for [message][Status::message].
+    pub fn set_message<T: Into<String>>(mut self, v: T) -> Self {
+        self.message = v.into();
+        self
+    }
+
+    /// Sets the value for [status][Status::status].
+    pub fn set_status<T: Into<String>>(mut self, v: T) -> Self {
+        self.status = Some(v.into());
+        self
+    }
+
+    /// Sets the value for [details][Status::details].
+    pub fn set_details<T, I>(mut self, v: T) -> Self
+    where
+        T: IntoIterator<Item = I>,
+        I: Into<StatusDetails>,
+    {
+        self.details = v.into_iter().map(|v| v.into()).collect();
+        self
+    }
+}
+
 /// The canonical error codes for APIs.
 //
 /// Sometimes multiple error codes may apply.  Services should return
