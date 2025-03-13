@@ -362,7 +362,6 @@ impl wkt::message::Message for ListBillingAccountsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBillingAccountsResponse {
     type PageItem = crate::model::BillingAccount;
 
@@ -583,7 +582,6 @@ impl wkt::message::Message for ListProjectBillingInfoResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProjectBillingInfoResponse {
     type PageItem = crate::model::ProjectBillingInfo;
 
@@ -1626,7 +1624,6 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
@@ -1784,7 +1781,6 @@ impl wkt::message::Message for ListSkusResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSkusResponse {
     type PageItem = crate::model::Sku;
 

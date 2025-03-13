@@ -1119,7 +1119,6 @@ impl wkt::message::Message for ListApprovalRequestsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListApprovalRequestsResponse {
     type PageItem = crate::model::ApprovalRequest;
 

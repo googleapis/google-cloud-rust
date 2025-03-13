@@ -66,8 +66,7 @@ pub mod locations {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(self) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error> {
+        pub async fn paginator(self) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
                 let mut builder = self.clone();

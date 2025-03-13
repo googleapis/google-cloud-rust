@@ -1086,7 +1086,6 @@ impl wkt::message::Message for ListDeploymentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
 
@@ -1286,7 +1285,6 @@ impl wkt::message::Message for ListRevisionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRevisionsResponse {
     type PageItem = crate::model::Revision;
 
@@ -3162,7 +3160,6 @@ impl wkt::message::Message for ListResourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListResourcesResponse {
     type PageItem = crate::model::Resource;
 
@@ -4610,7 +4607,6 @@ impl wkt::message::Message for ListPreviewsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPreviewsResponse {
     type PageItem = crate::model::Preview;
 
@@ -4953,7 +4949,6 @@ impl wkt::message::Message for ListTerraformVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTerraformVersionsResponse {
     type PageItem = crate::model::TerraformVersion;
 

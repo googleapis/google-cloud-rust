@@ -135,7 +135,6 @@ impl wkt::message::Message for ListCryptoKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCryptoKeysResponse {
     type PageItem = kms::model::CryptoKey;
 
@@ -439,7 +438,6 @@ impl wkt::message::Message for SearchProtectedResourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchProtectedResourcesResponse {
     type PageItem = crate::model::ProtectedResource;
 

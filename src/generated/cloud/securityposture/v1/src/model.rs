@@ -1429,7 +1429,6 @@ impl wkt::message::Message for ListPosturesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPosturesResponse {
     type PageItem = crate::model::Posture;
 
@@ -1535,7 +1534,6 @@ impl wkt::message::Message for ListPostureRevisionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPostureRevisionsResponse {
     type PageItem = crate::model::Posture;
 
@@ -2209,7 +2207,6 @@ impl wkt::message::Message for ListPostureDeploymentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPostureDeploymentsResponse {
     type PageItem = crate::model::PostureDeployment;
 
@@ -2647,7 +2644,6 @@ impl wkt::message::Message for ListPostureTemplatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPostureTemplatesResponse {
     type PageItem = crate::model::PostureTemplate;
 

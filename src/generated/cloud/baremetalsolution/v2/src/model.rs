@@ -655,7 +655,6 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
@@ -1700,7 +1699,6 @@ impl wkt::message::Message for ListLunsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLunsResponse {
     type PageItem = crate::model::Lun;
 
@@ -2676,7 +2674,6 @@ impl wkt::message::Message for ListNetworksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNetworksResponse {
     type PageItem = crate::model::Network;
 
@@ -3523,7 +3520,6 @@ impl wkt::message::Message for ListNfsSharesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNfsSharesResponse {
     type PageItem = crate::model::NfsShare;
 
@@ -3875,7 +3871,6 @@ impl wkt::message::Message for ListOSImagesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOSImagesResponse {
     type PageItem = crate::model::OSImage;
 
@@ -4650,7 +4645,6 @@ impl wkt::message::Message for ListProvisioningQuotasResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProvisioningQuotasResponse {
     type PageItem = crate::model::ProvisioningQuota;
 
@@ -6230,7 +6224,6 @@ impl wkt::message::Message for ListSSHKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSSHKeysResponse {
     type PageItem = crate::model::SSHKey;
 
@@ -7169,7 +7162,6 @@ impl wkt::message::Message for ListVolumesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVolumesResponse {
     type PageItem = crate::model::Volume;
 
@@ -7628,7 +7620,6 @@ impl wkt::message::Message for ListVolumeSnapshotsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVolumeSnapshotsResponse {
     type PageItem = crate::model::VolumeSnapshot;
 

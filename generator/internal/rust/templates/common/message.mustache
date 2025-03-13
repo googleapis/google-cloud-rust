@@ -166,7 +166,6 @@ impl wkt::message::Message for {{Codec.Name}} {
 {{/Codec.HasSyntheticFields}}
 {{#IsPageableResponse}}
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for {{Name}} {
     {{#PageableItem}}
     type PageItem = {{{Codec.PrimitiveFieldType}}};

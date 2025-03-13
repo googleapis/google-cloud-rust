@@ -228,7 +228,6 @@ impl wkt::message::Message for ListServiceProjectAttachmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServiceProjectAttachmentsResponse {
     type PageItem = crate::model::ServiceProjectAttachment;
 
@@ -588,7 +587,6 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
@@ -730,7 +728,6 @@ impl wkt::message::Message for ListDiscoveredServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDiscoveredServicesResponse {
     type PageItem = crate::model::DiscoveredService;
 
@@ -1217,7 +1214,6 @@ impl wkt::message::Message for ListApplicationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListApplicationsResponse {
     type PageItem = crate::model::Application;
 
@@ -1601,7 +1597,6 @@ impl wkt::message::Message for ListWorkloadsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkloadsResponse {
     type PageItem = crate::model::Workload;
 
@@ -1743,7 +1738,6 @@ impl wkt::message::Message for ListDiscoveredWorkloadsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDiscoveredWorkloadsResponse {
     type PageItem = crate::model::DiscoveredWorkload;
 

@@ -21,7 +21,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut items = client
         .list_secrets(format!("projects/{project_id}"))
-        .stream()
+        .paginator()
         .await
         .items();
     while let Some(item) = items.next().await {

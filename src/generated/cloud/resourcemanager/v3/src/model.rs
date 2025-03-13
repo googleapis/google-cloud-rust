@@ -370,7 +370,6 @@ impl wkt::message::Message for ListFoldersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFoldersResponse {
     type PageItem = crate::model::Folder;
 
@@ -510,7 +509,6 @@ impl wkt::message::Message for SearchFoldersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchFoldersResponse {
     type PageItem = crate::model::Folder;
 
@@ -1251,7 +1249,6 @@ impl wkt::message::Message for SearchOrganizationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchOrganizationsResponse {
     type PageItem = crate::model::Organization;
 
@@ -1708,7 +1705,6 @@ impl wkt::message::Message for ListProjectsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProjectsResponse {
     type PageItem = crate::model::Project;
 
@@ -1871,7 +1867,6 @@ impl wkt::message::Message for SearchProjectsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchProjectsResponse {
     type PageItem = crate::model::Project;
 
@@ -2519,7 +2514,6 @@ impl wkt::message::Message for ListTagBindingsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTagBindingsResponse {
     type PageItem = crate::model::TagBinding;
 
@@ -2639,7 +2633,6 @@ impl wkt::message::Message for ListEffectiveTagsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEffectiveTagsResponse {
     type PageItem = crate::model::EffectiveTag;
 
@@ -3101,7 +3094,6 @@ impl wkt::message::Message for ListTagHoldsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTagHoldsResponse {
     type PageItem = crate::model::TagHold;
 
@@ -3367,7 +3359,6 @@ impl wkt::message::Message for ListTagKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTagKeysResponse {
     type PageItem = crate::model::TagKey;
 
@@ -3874,7 +3865,6 @@ impl wkt::message::Message for ListTagValuesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTagValuesResponse {
     type PageItem = crate::model::TagValue;
 

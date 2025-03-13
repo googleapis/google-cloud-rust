@@ -615,7 +615,6 @@ impl wkt::message::Message for ListNotificationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNotificationsResponse {
     type PageItem = crate::model::Notification;
 

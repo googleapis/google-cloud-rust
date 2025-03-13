@@ -3121,7 +3121,6 @@ impl wkt::message::Message for ListScanConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListScanConfigsResponse {
     type PageItem = crate::model::ScanConfig;
 
@@ -3293,7 +3292,6 @@ impl wkt::message::Message for ListScanRunsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListScanRunsResponse {
     type PageItem = crate::model::ScanRun;
 
@@ -3436,7 +3434,6 @@ impl wkt::message::Message for ListCrawledUrlsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCrawledUrlsResponse {
     type PageItem = crate::model::CrawledUrl;
 
@@ -3592,7 +3589,6 @@ impl wkt::message::Message for ListFindingsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFindingsResponse {
     type PageItem = crate::model::Finding;
 

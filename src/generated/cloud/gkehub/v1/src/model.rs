@@ -1861,7 +1861,6 @@ impl wkt::message::Message for ListMembershipsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMembershipsResponse {
     type PageItem = crate::model::Membership;
 
@@ -2499,7 +2498,6 @@ impl wkt::message::Message for ListFeaturesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFeaturesResponse {
     type PageItem = crate::model::Feature;
 

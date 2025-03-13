@@ -651,7 +651,6 @@ impl wkt::message::Message for EnumerateLicensedUsersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for EnumerateLicensedUsersResponse {
     type PageItem = crate::model::LicensedUser;
 
@@ -1562,7 +1561,6 @@ impl wkt::message::Message for ListOrdersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOrdersResponse {
     type PageItem = crate::model::Order;
 

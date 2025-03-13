@@ -1396,7 +1396,6 @@ impl wkt::message::Message for ListOrchestrationClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOrchestrationClustersResponse {
     type PageItem = crate::model::OrchestrationCluster;
 
@@ -1698,7 +1697,6 @@ impl wkt::message::Message for ListEdgeSlmsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEdgeSlmsResponse {
     type PageItem = crate::model::EdgeSlm;
 
@@ -2150,7 +2148,6 @@ impl wkt::message::Message for ListBlueprintsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBlueprintsResponse {
     type PageItem = crate::model::Blueprint;
 
@@ -2345,7 +2342,6 @@ impl wkt::message::Message for ListBlueprintRevisionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBlueprintRevisionsResponse {
     type PageItem = crate::model::Blueprint;
 
@@ -2472,7 +2468,6 @@ impl wkt::message::Message for SearchBlueprintRevisionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchBlueprintRevisionsResponse {
     type PageItem = crate::model::Blueprint;
 
@@ -2629,7 +2624,6 @@ impl wkt::message::Message for ListPublicBlueprintsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPublicBlueprintsResponse {
     type PageItem = crate::model::PublicBlueprint;
 
@@ -2952,7 +2946,6 @@ impl wkt::message::Message for ListDeploymentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
 
@@ -3059,7 +3052,6 @@ impl wkt::message::Message for ListDeploymentRevisionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDeploymentRevisionsResponse {
     type PageItem = crate::model::Deployment;
 
@@ -3187,7 +3179,6 @@ impl wkt::message::Message for SearchDeploymentRevisionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchDeploymentRevisionsResponse {
     type PageItem = crate::model::Deployment;
 
@@ -3629,7 +3620,6 @@ impl wkt::message::Message for ListHydratedDeploymentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListHydratedDeploymentsResponse {
     type PageItem = crate::model::HydratedDeployment;
 

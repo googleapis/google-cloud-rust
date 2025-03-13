@@ -5118,7 +5118,6 @@ impl wkt::message::Message for ListCloudExadataInfrastructuresResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCloudExadataInfrastructuresResponse {
     type PageItem = crate::model::CloudExadataInfrastructure;
 
@@ -5404,7 +5403,6 @@ impl wkt::message::Message for ListCloudVmClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCloudVmClustersResponse {
     type PageItem = crate::model::CloudVmCluster;
 
@@ -5678,7 +5676,6 @@ impl wkt::message::Message for ListEntitlementsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEntitlementsResponse {
     type PageItem = crate::model::Entitlement;
 
@@ -5786,7 +5783,6 @@ impl wkt::message::Message for ListDbServersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDbServersResponse {
     type PageItem = crate::model::DbServer;
 
@@ -5894,7 +5890,6 @@ impl wkt::message::Message for ListDbNodesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDbNodesResponse {
     type PageItem = crate::model::DbNode;
 
@@ -6003,7 +5998,6 @@ impl wkt::message::Message for ListGiVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGiVersionsResponse {
     type PageItem = crate::model::GiVersion;
 
@@ -6111,7 +6105,6 @@ impl wkt::message::Message for ListDbSystemShapesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDbSystemShapesResponse {
     type PageItem = crate::model::DbSystemShape;
 
@@ -6349,7 +6342,6 @@ impl wkt::message::Message for ListAutonomousDatabasesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutonomousDatabasesResponse {
     type PageItem = crate::model::AutonomousDatabase;
 
@@ -6747,7 +6739,6 @@ impl wkt::message::Message for ListAutonomousDbVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutonomousDbVersionsResponse {
     type PageItem = crate::model::AutonomousDbVersion;
 
@@ -6869,7 +6860,6 @@ impl wkt::message::Message for ListAutonomousDatabaseCharacterSetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutonomousDatabaseCharacterSetsResponse {
     type PageItem = crate::model::AutonomousDatabaseCharacterSet;
 
@@ -6993,7 +6983,6 @@ impl wkt::message::Message for ListAutonomousDatabaseBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutonomousDatabaseBackupsResponse {
     type PageItem = crate::model::AutonomousDatabaseBackup;
 

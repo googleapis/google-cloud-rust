@@ -269,7 +269,6 @@ impl wkt::message::Message for ListAttachmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAttachmentsResponse {
     type PageItem = crate::model::Attachment;
 
@@ -875,7 +874,6 @@ impl wkt::message::Message for ListCasesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCasesResponse {
     type PageItem = crate::model::Case;
 
@@ -1029,7 +1027,6 @@ impl wkt::message::Message for SearchCasesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchCasesResponse {
     type PageItem = crate::model::Case;
 
@@ -1263,7 +1260,6 @@ impl wkt::message::Message for SearchCaseClassificationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchCaseClassificationsResponse {
     type PageItem = crate::model::CaseClassification;
 
@@ -1449,7 +1445,6 @@ impl wkt::message::Message for ListCommentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCommentsResponse {
     type PageItem = crate::model::Comment;
 

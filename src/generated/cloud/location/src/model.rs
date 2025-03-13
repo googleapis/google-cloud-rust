@@ -135,7 +135,6 @@ impl wkt::message::Message for ListLocationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLocationsResponse {
     type PageItem = crate::model::Location;
 

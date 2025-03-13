@@ -353,7 +353,6 @@ impl wkt::message::Message for ListAdaptiveMtDatasetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAdaptiveMtDatasetsResponse {
     type PageItem = crate::model::AdaptiveMtDataset;
 
@@ -1162,7 +1161,6 @@ impl wkt::message::Message for ListAdaptiveMtFilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAdaptiveMtFilesResponse {
     type PageItem = crate::model::AdaptiveMtFile;
 
@@ -1350,7 +1348,6 @@ impl wkt::message::Message for ListAdaptiveMtSentencesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAdaptiveMtSentencesResponse {
     type PageItem = crate::model::AdaptiveMtSentence;
 
@@ -2029,7 +2026,6 @@ impl wkt::message::Message for ListDatasetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDatasetsResponse {
     type PageItem = crate::model::Dataset;
 
@@ -2262,7 +2258,6 @@ impl wkt::message::Message for ListExamplesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListExamplesResponse {
     type PageItem = crate::model::Example;
 
@@ -2782,7 +2777,6 @@ impl wkt::message::Message for ListModelsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListModelsResponse {
     type PageItem = crate::model::Model;
 
@@ -6350,7 +6344,6 @@ impl wkt::message::Message for ListGlossariesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGlossariesResponse {
     type PageItem = crate::model::Glossary;
 
@@ -6519,7 +6512,6 @@ impl wkt::message::Message for ListGlossaryEntriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGlossaryEntriesResponse {
     type PageItem = crate::model::GlossaryEntry;
 

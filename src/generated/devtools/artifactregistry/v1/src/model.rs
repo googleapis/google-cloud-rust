@@ -725,7 +725,6 @@ impl wkt::message::Message for ListDockerImagesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDockerImagesResponse {
     type PageItem = crate::model::DockerImage;
 
@@ -967,7 +966,6 @@ impl wkt::message::Message for ListMavenArtifactsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMavenArtifactsResponse {
     type PageItem = crate::model::MavenArtifact;
 
@@ -1199,7 +1197,6 @@ impl wkt::message::Message for ListNpmPackagesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNpmPackagesResponse {
     type PageItem = crate::model::NpmPackage;
 
@@ -1430,7 +1427,6 @@ impl wkt::message::Message for ListPythonPackagesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPythonPackagesResponse {
     type PageItem = crate::model::PythonPackage;
 
@@ -1727,7 +1723,6 @@ impl wkt::message::Message for ListAttachmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAttachmentsResponse {
     type PageItem = crate::model::Attachment;
 
@@ -2239,7 +2234,6 @@ impl wkt::message::Message for ListFilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFilesResponse {
     type PageItem = crate::model::File;
 
@@ -2667,7 +2661,6 @@ impl wkt::message::Message for ListPackagesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPackagesResponse {
     type PageItem = crate::model::Package;
 
@@ -6312,7 +6305,6 @@ impl wkt::message::Message for ListRepositoriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRepositoriesResponse {
     type PageItem = crate::model::Repository;
 
@@ -6770,7 +6762,6 @@ impl wkt::message::Message for ListRulesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRulesResponse {
     type PageItem = crate::model::Rule;
 
@@ -7364,7 +7355,6 @@ impl wkt::message::Message for ListTagsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTagsResponse {
     type PageItem = crate::model::Tag;
 
@@ -7822,7 +7812,6 @@ impl wkt::message::Message for ListVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVersionsResponse {
     type PageItem = crate::model::Version;
 

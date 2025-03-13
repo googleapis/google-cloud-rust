@@ -16495,7 +16495,6 @@ impl wkt::message::Message for ListUsableSubnetworksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUsableSubnetworksResponse {
     type PageItem = crate::model::UsableSubnetwork;
 

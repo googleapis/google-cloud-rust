@@ -800,7 +800,6 @@ impl wkt::message::Message for ListCollectorsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCollectorsResponse {
     type PageItem = crate::model::Collector;
 

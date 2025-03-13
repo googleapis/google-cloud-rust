@@ -683,7 +683,6 @@ impl wkt::message::Message for ListWorkflowsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkflowsResponse {
     type PageItem = crate::model::Workflow;
 

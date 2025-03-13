@@ -1037,8 +1037,7 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::GroupFindingsResponse, gax::error::Error>
         {
@@ -1117,8 +1116,7 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAttackPathsResponse, gax::error::Error>
         {
@@ -1194,8 +1192,7 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBigQueryExportsResponse, gax::error::Error>
         {
@@ -1262,8 +1259,7 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
         {
@@ -1351,8 +1347,7 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMuteConfigsResponse, gax::error::Error>
         {
@@ -1424,8 +1419,7 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListNotificationConfigsResponse,
@@ -1499,8 +1493,7 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListResourceValueConfigsResponse,
@@ -1569,8 +1562,7 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
         {
@@ -1640,8 +1632,7 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListValuedResourcesResponse, gax::error::Error>
         {
@@ -2381,8 +2372,7 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

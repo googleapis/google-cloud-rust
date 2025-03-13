@@ -851,7 +851,6 @@ impl wkt::message::Message for ListDataSetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDataSetsResponse {
     type PageItem = crate::model::DataSet;
 

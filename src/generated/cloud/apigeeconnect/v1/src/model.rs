@@ -131,7 +131,6 @@ impl wkt::message::Message for ListConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 

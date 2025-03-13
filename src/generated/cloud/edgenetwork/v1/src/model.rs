@@ -2192,7 +2192,6 @@ impl wkt::message::Message for ListZonesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListZonesResponse {
     type PageItem = crate::model::Zone;
 
@@ -2363,7 +2362,6 @@ impl wkt::message::Message for ListNetworksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNetworksResponse {
     type PageItem = crate::model::Network;
 
@@ -2660,7 +2658,6 @@ impl wkt::message::Message for ListSubnetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSubnetsResponse {
     type PageItem = crate::model::Subnet;
 
@@ -3028,7 +3025,6 @@ impl wkt::message::Message for ListInterconnectsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInterconnectsResponse {
     type PageItem = crate::model::Interconnect;
 
@@ -3198,7 +3194,6 @@ impl wkt::message::Message for ListInterconnectAttachmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInterconnectAttachmentsResponse {
     type PageItem = crate::model::InterconnectAttachment;
 
@@ -3500,7 +3495,6 @@ impl wkt::message::Message for ListRoutersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRoutersResponse {
     type PageItem = crate::model::Router;
 

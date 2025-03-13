@@ -1274,7 +1274,6 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
@@ -1523,7 +1522,6 @@ impl wkt::message::Message for ListVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVersionsResponse {
     type PageItem = crate::model::Version;
 
@@ -1798,7 +1796,6 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
@@ -2025,7 +2022,6 @@ impl wkt::message::Message for ListIngressRulesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListIngressRulesResponse {
     type PageItem = crate::model::FirewallRule;
 
@@ -2377,7 +2373,6 @@ impl wkt::message::Message for ListAuthorizedDomainsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAuthorizedDomainsResponse {
     type PageItem = crate::model::AuthorizedDomain;
 
@@ -2494,7 +2489,6 @@ impl wkt::message::Message for ListAuthorizedCertificatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAuthorizedCertificatesResponse {
     type PageItem = crate::model::AuthorizedCertificate;
 
@@ -2775,7 +2769,6 @@ impl wkt::message::Message for ListDomainMappingsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDomainMappingsResponse {
     type PageItem = crate::model::DomainMapping;
 

@@ -636,8 +636,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInspectTemplatesResponse, gax::error::Error>
         {
@@ -944,8 +943,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListDeidentifyTemplatesResponse,
@@ -1295,8 +1293,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListJobTriggersResponse, gax::error::Error>
         {
@@ -1643,8 +1640,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDiscoveryConfigsResponse, gax::error::Error>
         {
@@ -1823,8 +1819,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDlpJobsResponse, gax::error::Error>
         {
@@ -2212,8 +2207,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListStoredInfoTypesResponse, gax::error::Error>
         {
@@ -2341,8 +2335,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListProjectDataProfilesResponse,
@@ -2426,8 +2419,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTableDataProfilesResponse, gax::error::Error>
         {
@@ -2509,8 +2501,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListColumnDataProfilesResponse,
@@ -2640,8 +2631,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListFileStoreDataProfilesResponse,
@@ -3134,8 +3124,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
         {
@@ -3211,8 +3200,7 @@ pub mod dlp_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchConnectionsResponse, gax::error::Error>
         {

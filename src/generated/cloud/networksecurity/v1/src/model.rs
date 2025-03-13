@@ -627,7 +627,6 @@ impl wkt::message::Message for ListAuthorizationPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAuthorizationPoliciesResponse {
     type PageItem = crate::model::AuthorizationPolicy;
 
@@ -1038,7 +1037,6 @@ impl wkt::message::Message for ListClientTlsPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListClientTlsPoliciesResponse {
     type PageItem = crate::model::ClientTlsPolicy;
 
@@ -1598,7 +1596,6 @@ impl wkt::message::Message for ListServerTlsPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServerTlsPoliciesResponse {
     type PageItem = crate::model::ServerTlsPolicy;
 

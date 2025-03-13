@@ -1602,7 +1602,6 @@ impl wkt::message::Message for ListDocumentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDocumentsResponse {
     type PageItem = crate::model::Document;
 
@@ -3532,7 +3531,6 @@ impl wkt::message::Message for PartitionQueryResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for PartitionQueryResponse {
     type PageItem = crate::model::Cursor;
 

@@ -71,8 +71,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDeliveryPipelinesResponse, gax::error::Error>
         {
@@ -531,8 +530,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTargetsResponse, gax::error::Error>
         {
@@ -1061,8 +1059,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCustomTargetTypesResponse, gax::error::Error>
         {
@@ -1515,8 +1512,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListReleasesResponse, gax::error::Error>
         {
@@ -2120,8 +2116,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDeployPoliciesResponse, gax::error::Error>
         {
@@ -2409,8 +2404,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRolloutsResponse, gax::error::Error>
         {
@@ -2780,8 +2774,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListJobRunsResponse, gax::error::Error>
         {
@@ -3359,8 +3352,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAutomationsResponse, gax::error::Error>
         {
@@ -3486,8 +3478,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAutomationRunsResponse, gax::error::Error>
         {
@@ -3613,8 +3604,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -3895,8 +3885,7 @@ pub mod cloud_deploy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

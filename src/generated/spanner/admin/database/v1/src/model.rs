@@ -1096,7 +1096,6 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
@@ -1314,7 +1313,6 @@ impl wkt::message::Message for ListBackupOperationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupOperationsResponse {
     type PageItem = longrunning::model::Operation;
 
@@ -2404,7 +2402,6 @@ impl wkt::message::Message for ListBackupSchedulesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupSchedulesResponse {
     type PageItem = crate::model::BackupSchedule;
 
@@ -3192,7 +3189,6 @@ impl wkt::message::Message for ListDatabasesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDatabasesResponse {
     type PageItem = crate::model::Database;
 
@@ -4116,7 +4112,6 @@ impl wkt::message::Message for ListDatabaseOperationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDatabaseOperationsResponse {
     type PageItem = longrunning::model::Operation;
 
@@ -4790,7 +4785,6 @@ impl wkt::message::Message for ListDatabaseRolesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDatabaseRolesResponse {
     type PageItem = crate::model::DatabaseRole;
 

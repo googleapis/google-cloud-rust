@@ -1197,7 +1197,6 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
@@ -1582,7 +1581,6 @@ impl wkt::message::Message for ListRepositoriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRepositoriesResponse {
     type PageItem = crate::model::Repository;
 
@@ -1987,7 +1985,6 @@ impl wkt::message::Message for ListBranchRulesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBranchRulesResponse {
     type PageItem = crate::model::BranchRule;
 

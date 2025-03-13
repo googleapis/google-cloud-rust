@@ -771,7 +771,6 @@ impl wkt::message::Message for FetchLinkableRepositoriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for FetchLinkableRepositoriesResponse {
     type PageItem = crate::model::Repository;
 
@@ -1681,7 +1680,6 @@ impl wkt::message::Message for ListConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
@@ -2089,7 +2087,6 @@ impl wkt::message::Message for ListRepositoriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRepositoriesResponse {
     type PageItem = crate::model::Repository;
 

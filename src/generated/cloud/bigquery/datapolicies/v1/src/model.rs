@@ -344,7 +344,6 @@ impl wkt::message::Message for ListDataPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDataPoliciesResponse {
     type PageItem = crate::model::DataPolicy;
 

@@ -316,7 +316,6 @@ impl wkt::message::Message for ListWorkloadsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkloadsResponse {
     type PageItem = crate::model::Workload;
 
@@ -1717,7 +1716,6 @@ impl wkt::message::Message for ListViolationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListViolationsResponse {
     type PageItem = crate::model::Violation;
 

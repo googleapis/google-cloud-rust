@@ -1999,7 +1999,6 @@ impl wkt::message::Message for ListWorkstationClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkstationClustersResponse {
     type PageItem = crate::model::WorkstationCluster;
 
@@ -2347,7 +2346,6 @@ impl wkt::message::Message for ListWorkstationConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkstationConfigsResponse {
     type PageItem = crate::model::WorkstationConfig;
 
@@ -2469,7 +2467,6 @@ impl wkt::message::Message for ListUsableWorkstationConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUsableWorkstationConfigsResponse {
     type PageItem = crate::model::WorkstationConfig;
 
@@ -2817,7 +2814,6 @@ impl wkt::message::Message for ListWorkstationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkstationsResponse {
     type PageItem = crate::model::Workstation;
 
@@ -2939,7 +2935,6 @@ impl wkt::message::Message for ListUsableWorkstationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUsableWorkstationsResponse {
     type PageItem = crate::model::Workstation;
 

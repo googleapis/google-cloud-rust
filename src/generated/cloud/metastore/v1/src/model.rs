@@ -2677,7 +2677,6 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
@@ -3094,7 +3093,6 @@ impl wkt::message::Message for ListMetadataImportsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMetadataImportsResponse {
     type PageItem = crate::model::MetadataImport;
 
@@ -3462,7 +3460,6 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
@@ -4906,7 +4903,6 @@ impl wkt::message::Message for ListFederationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFederationsResponse {
     type PageItem = crate::model::Federation;
 
