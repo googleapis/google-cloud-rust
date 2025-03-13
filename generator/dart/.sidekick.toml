@@ -34,8 +34,6 @@ version = "0.1.0"
 
 # A mapping from protobuf packages to Dart imports.
 'proto:google.cloud.location' = 'package:google_cloud_location/location.dart'
-'proto:google.iam.v1'         = 'package:google_cloud_iam/iam.dart'
-'proto:google.longrunning'    = 'package:google_cloud_longrunning/longrunning.dart'
 'proto:google.protobuf'       = 'package:google_cloud_protobuf/protobuf.dart'
 'proto:google.rpc'            = 'package:google_cloud_rpc/rpc.dart'
 'proto:google.type'           = 'package:google_cloud_type/type.dart'
