@@ -37,7 +37,7 @@ pub type ListValue = Vec<serde_json::Value>;
 
 /// A message representing the `null` value. We need a type that can be
 /// referenced from the generated code.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, Default, PartialEq)]
 pub struct NullValue;
 
 impl crate::message::Message for Struct {
@@ -123,6 +123,31 @@ impl crate::message::Message for ListValue {
     }
 }
 
+/// Protobuf represents `NullValue` as an enum. In some contexts, it is
+/// useful to make it behave as if it was.
+impl NullValue {
+    /// Gets the value.
+    pub fn value(&self) -> i32 {
+        0
+    }
+
+    /// Gets the value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        "NULL_VALUE".into()
+    }
+
+    /// Creates a value from the value name
+    pub fn from_str_name(_name: &str) -> Option<Self> {
+        Some(Self)
+    }
+}
+
+impl std::convert::From<i32> for crate::NullValue {
+    fn from(_value: i32) -> Self {
+        Self
+    }
+}
+
 impl std::convert::From<NullValue> for serde_json::Value {
     fn from(_value: NullValue) -> Self {
         serde_json::Value::Null
@@ -168,6 +193,15 @@ mod any_tests {
     use super::*;
     use crate::Any;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[test]
+    fn test_null_value_interface() {
+        let input = NullValue;
+        assert_eq!(input.value(), NullValue::default().value());
+        assert_eq!(input.as_str_name().as_ref(), "NULL_VALUE");
+        assert_eq!(NullValue::from_str_name("NULL_VALUE"), Some(NullValue));
+        assert_eq!(NullValue::from(0), NullValue::default());
+    }
 
     #[test]
     fn test_serde_null_value() -> Result {
