@@ -61,13 +61,15 @@ type serviceAnnotations struct {
 }
 
 type messageAnnotation struct {
-	Name             string
-	DocLines         []string
-	ConstructorBody  string // A custom body for the message's constructor.
-	BasicFields      []*api.Field
-	HasFields        bool
-	HasToStringLines bool
-	ToStringLines    []string
+	Name              string
+	DocLines          []string
+	ConstructorBody   string // A custom body for the message's constructor.
+	HasFields         bool
+	HasCustomEncoding bool
+	FromJsonLines     []string
+	ToJsonLines       []string
+	HasToStringLines  bool
+	ToStringLines     []string
 }
 
 type methodAnnotation struct {
@@ -78,15 +80,11 @@ type methodAnnotation struct {
 	DocLines     []string
 	PathParams   []*api.Field
 	QueryParams  []*api.Field
-	BodyAccessor string
 }
 
 type pathInfoAnnotation struct {
-	Method      string
-	PathFmt     string
-	PathArgs    []string
-	HasPathArgs bool
-	HasBody     bool
+	PathFmt  string
+	PathArgs []string
 }
 
 type oneOfAnnotation struct {
@@ -357,19 +355,165 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 		constructorBody = " {\n    _validate();\n  }"
 	}
 
+	_, hasCustomEncoding := usesCustomEncoding[m.ID]
 	toStringLines := createToStringLines(m)
 
 	m.Codec = &messageAnnotation{
-		Name:            messageName(m),
-		DocLines:        formatDocComments(m.Documentation, state),
-		ConstructorBody: constructorBody,
-		BasicFields: language.FilterSlice(m.Fields, func(s *api.Field) bool {
-			return !s.IsOneOf
-		}),
-		HasFields:        len(m.Fields) > 0,
-		HasToStringLines: len(toStringLines) > 0,
-		ToStringLines:    toStringLines,
+		Name:              messageName(m),
+		DocLines:          formatDocComments(m.Documentation, state),
+		ConstructorBody:   constructorBody,
+		HasFields:         len(m.Fields) > 0,
+		HasCustomEncoding: hasCustomEncoding,
+		FromJsonLines:     createFromJsonLines(m, state),
+		ToJsonLines:       createToJsonLines(m, state),
+		HasToStringLines:  len(toStringLines) > 0,
+		ToStringLines:     toStringLines,
 	}
+}
+
+func createFromJsonLines(message *api.Message, state *api.APIState) []string {
+	_, hasCustomEncoding := usesCustomEncoding[message.ID]
+	if hasCustomEncoding {
+		return []string{}
+	}
+
+	lines := []string{}
+
+	for _, field := range message.Fields {
+		codec := field.Codec.(*fieldAnnotation)
+		name := codec.Name
+		message := state.MessageByID[field.TypezID]
+		typeName := ""
+
+		isCustom := false
+		isList := field.Repeated
+		isMessage := field.Typez == api.MESSAGE_TYPE
+		isEnum := field.Typez == api.ENUM_TYPE
+		isMap := message != nil && message.IsMap
+		isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
+		isRequired := codec.Required
+
+		if isMessage {
+			typeName = messageName(message)
+			_, isCustom = usesCustomEncoding[message.ID]
+		} else if isEnum {
+			enum := state.EnumByID[field.TypezID]
+			typeName = enumName(enum)
+		}
+
+		opt := ""
+		bang := "!"
+		if !isRequired {
+			opt = "?"
+			bang = ""
+		}
+
+		if isMessageMap {
+			// message maps
+			//   name: $toMap(json['name'], Status.fromJson)!,
+			//   name: $toMap(json['name'], Status.fromJson),
+			lines = append(lines, fmt.Sprintf("%s: $toMap(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
+		} else if isMap {
+			// primitive maps
+			//   name: (json['name'] as Map).cast(),
+			//   name: (json['name'] as Map?)?.cast(),
+			lines = append(lines, fmt.Sprintf("%s: (json['%s'] as Map%s)%s.cast(),", name, name, opt, opt))
+		} else if isList && isCustom {
+			// custom lists
+			//   name: $toCustomList(json['name'], FieldMask.fromJson)!,
+			//   name: $toCustomList(json['name'], FieldMask.fromJson),
+			lines = append(lines, fmt.Sprintf("%s: $toCustomList(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
+		} else if isList && isMessage {
+			// message lists
+			//   name: $toMessageList(json['name'], Status.fromJson)!,
+			//   name: $toMessageList(json['name'], Status.fromJson),
+			lines = append(lines, fmt.Sprintf("%s: $toMessageList(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
+		} else if isList {
+			// primitive lists
+			//   name: (json['name'] as List).cast(),
+			//   name: (json['name'] as List?)?.cast(),
+			lines = append(lines, fmt.Sprintf("%s: (json['%s'] as List%s)%s.cast(),", name, name, opt, opt))
+		} else if isEnum || isCustom {
+			// enum
+			if isRequired {
+				// name: FieldMask.fromJson(json['name']),
+				lines = append(lines, fmt.Sprintf("%s: %s.fromJson(json['%s']),", name, typeName, name))
+			} else {
+				// name: $toCustom(json['name'], FieldMask.fromJson),
+				lines = append(lines, fmt.Sprintf("%s: $toCustom(json['%s'], %s.fromJson),", name, name, typeName))
+			}
+		} else if isMessage {
+			// message
+			if isRequired {
+				// name: Status.fromJson(json['name']),
+				lines = append(lines, fmt.Sprintf("%s: %s.fromJson(json['%s']),", name, typeName, name))
+			} else {
+				// name: $toMessage(json['name'], Status.fromJson),
+				lines = append(lines, fmt.Sprintf("%s: $toMessage(json['%s'], %s.fromJson),", name, name, typeName))
+			}
+		} else {
+			// primitive
+			// name: json['name'],
+			lines = append(lines, fmt.Sprintf("%s: json['%s'],", name, name))
+		}
+	}
+
+	return lines
+}
+
+func createToJsonLines(message *api.Message, state *api.APIState) []string {
+	_, hasCustomEncoding := usesCustomEncoding[message.ID]
+	if hasCustomEncoding {
+		return []string{}
+	}
+
+	lines := []string{}
+
+	for _, field := range message.Fields {
+		codec := field.Codec.(*fieldAnnotation)
+		name := codec.Name
+		message := state.MessageByID[field.TypezID]
+
+		isList := field.Repeated
+		isMessage := field.Typez == api.MESSAGE_TYPE
+		isEnum := field.Typez == api.ENUM_TYPE
+		isMap := message != nil && message.IsMap
+		isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
+		isRequired := codec.Required
+
+		prefix := ""
+		if !isRequired {
+			prefix = fmt.Sprintf("if (%s != null) ", name)
+		}
+
+		if isMessageMap {
+			// message maps
+			//   'name': $fromMap(name),
+			//   if (name != null) 'name': $fromMap(name),
+			lines = append(lines, fmt.Sprintf("%s'%s': $fromMap(%s),", prefix, name, name))
+		} else if isList && (isMessage || isEnum) {
+			// message lists, custom lists, and enum lists
+			//   'name': $fromList(name),
+			//   if (name != null) 'name': $fromList(name),
+			lines = append(lines, fmt.Sprintf("%s'%s': $fromList(%s),", prefix, name, name))
+		} else if (isMessage && !isMap) || isEnum {
+			// message, enum, and custom
+			if isRequired {
+				// 'name': name.toJson(),
+				lines = append(lines, fmt.Sprintf("'%s': %s.toJson(),", name, name))
+			} else {
+				// if (name != null) 'name': name!.toJson(),
+				lines = append(lines, fmt.Sprintf("if (%s != null) '%s': %s!.toJson(),", name, name, name))
+			}
+		} else {
+			// primitive, primitive lists, and primitive maps
+			//   'name': name
+			//   if (name != null) 'name': name,
+			lines = append(lines, fmt.Sprintf("%s'%s': %s,", prefix, name, name))
+		}
+	}
+
+	return lines
 }
 
 func createToStringLines(message *api.Message) []string {

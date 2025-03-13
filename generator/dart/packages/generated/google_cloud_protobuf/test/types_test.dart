@@ -19,33 +19,33 @@ void main() {
   group('FieldMask', () {
     test('encode empty', () {
       final fieldMask = FieldMask(paths: []);
-      expect(fieldMask.encode(), '');
+      expect(fieldMask.toJson(), '');
     });
 
     test('encode single', () {
       final fieldMask = FieldMask(paths: ['one']);
-      expect(fieldMask.encode(), 'one');
+      expect(fieldMask.toJson(), 'one');
     });
 
     test('encode multiple', () {
       final fieldMask = FieldMask(paths: ['one', 'two']);
-      expect(fieldMask.encode(), 'one,two');
+      expect(fieldMask.toJson(), 'one,two');
     });
 
     test('decode empty', () {
-      final fieldMask = FieldMaskExtension.decode('');
+      final fieldMask = FieldMask.fromJson('');
       final actual = fieldMask.paths!.join('|');
       expect(actual, '');
     });
 
     test('decode single', () {
-      final fieldMask = FieldMaskExtension.decode('one');
+      final fieldMask = FieldMask.fromJson('one');
       final actual = fieldMask.paths!.join('|');
       expect(actual, 'one');
     });
 
     test('decode multiple', () {
-      final fieldMask = FieldMaskExtension.decode('one,two');
+      final fieldMask = FieldMask.fromJson('one,two');
       final actual = fieldMask.paths!.join('|');
       expect(actual, 'one|two');
     });
@@ -59,10 +59,10 @@ void main() {
       test('test case $encoding', () {
         // test DurationExtension.encode()
         final duration = Duration(seconds: seconds, nanos: nanos);
-        expect(duration.encode(), encoding);
+        expect(duration.toJson(), encoding);
 
         // test DurationExtension.decode()
-        final copy = DurationExtension.decode(encoding);
+        final copy = Duration.fromJson(encoding);
         expect(copy.seconds, seconds);
         expect(copy.nanos, nanos);
       });
@@ -83,8 +83,8 @@ void main() {
     // Verify durations can roundtrip from String -> Duration -> String.
     void roundTrip(String name, String encoding) {
       test('round trip $name ($encoding)', () {
-        final duration = DurationExtension.decode(encoding);
-        expect(duration.encode(), encoding);
+        final duration = Duration.fromJson(encoding);
+        expect(duration.toJson(), encoding);
       });
     }
 
@@ -106,15 +106,15 @@ void main() {
 
     // bad format tests
     test('bad number', () {
-      expect(() => DurationExtension.decode('20u10s'), throwsFormatException);
+      expect(() => Duration.fromJson('20u10s'), throwsFormatException);
     });
 
     test('bad format', () {
-      expect(() => DurationExtension.decode('2.00001'), throwsFormatException);
+      expect(() => Duration.fromJson('2.00001'), throwsFormatException);
     });
 
     test('bad format - too many periods', () {
-      expect(() => DurationExtension.decode('1.2.3.4s'), throwsFormatException);
+      expect(() => Duration.fromJson('1.2.3.4s'), throwsFormatException);
     });
 
     test('too many positive nanoseconds', () {

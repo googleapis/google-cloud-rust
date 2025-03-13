@@ -14,6 +14,7 @@
 
 import 'dart:convert';
 
+import 'package:google_cloud_rpc/rpc.dart';
 import 'package:http/http.dart';
 
 const _clientName = 'dart-test-client';
@@ -22,9 +23,9 @@ abstract class Jsonable {
   Object toJson();
 }
 
-abstract class CloudMessage {}
+abstract class CloudMessage implements Jsonable {}
 
-abstract class CloudEnum {
+abstract class CloudEnum implements Jsonable {
   final String value;
 
   const CloudEnum(this.value);
@@ -32,6 +33,7 @@ abstract class CloudEnum {
   @override
   int get hashCode => value.hashCode;
 
+  @override
   Object toJson() => value;
 }
 
@@ -91,7 +93,49 @@ abstract class CloudService {
       return body.isEmpty ? {} : jsonDecode(body);
     }
 
-    // TODO(#1454): This is a placeholder until we're able to parse 'Status'.
-    throw ClientException('${response.statusCode}: ${response.reasonPhrase}');
+    Status status;
+
+    try {
+      final json = jsonDecode(response.body);
+      status = Status.fromJson(json['error']);
+    } catch (_) {
+      // If we're not able to parse the Status error, return a general HTTP
+      // exception.
+      throw ClientException('${response.statusCode}: ${response.reasonPhrase}');
+    }
+
+    throw status;
   }
+}
+
+T? $toMessage<T>(dynamic json, T Function(Map<String, dynamic>) decoder) {
+  return json == null ? null : decoder(json);
+}
+
+T? $toCustom<T>(dynamic json, T Function(String) decoder) {
+  return json == null ? null : decoder(json);
+}
+
+List<T>? $toMessageList<T>(
+    dynamic json, T Function(Map<String, dynamic>) decoder) {
+  return (json as List?)?.map((item) => decoder(item)).toList().cast();
+}
+
+List<T>? $toCustomList<T>(dynamic json, T Function(String) decoder) {
+  return (json as List?)?.map((item) => decoder(item)).toList().cast();
+}
+
+Map<String, T>? $toMap<T>(
+    dynamic json, T Function(Map<String, dynamic>) decoder) {
+  return (json as Map?)
+      ?.map((key, value) => MapEntry(key, decoder(value)))
+      .cast();
+}
+
+List? $fromList(List<Jsonable>? items) {
+  return items?.map((item) => item.toJson()).toList();
+}
+
+Map? $fromMap(Map<String, Jsonable>? items) {
+  return items?.map((key, value) => MapEntry(key, value.toJson()));
 }

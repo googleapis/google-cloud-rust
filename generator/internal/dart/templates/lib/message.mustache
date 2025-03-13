@@ -29,6 +29,33 @@ class {{Codec.Name}} extends CloudMessage {
   {{/Fields}}
   }{{/Codec.HasFields}}){{Codec.ConstructorBody}}
 
+{{#Codec.HasCustomEncoding}}
+  factory {{Codec.Name}}.fromJson(String json)=> {{Codec.Name}}Helper.decode(json);
+{{/Codec.HasCustomEncoding}}
+{{^Codec.HasCustomEncoding}}
+  factory {{Codec.Name}}.fromJson(Map<String, dynamic> json) {
+    return {{Codec.Name}}(
+      {{#Codec.FromJsonLines}}
+      {{{.}}}
+      {{/Codec.FromJsonLines}}
+    );
+  }
+{{/Codec.HasCustomEncoding}}
+
+  @override
+{{#Codec.HasCustomEncoding}}
+  Object toJson() => {{Codec.Name}}Helper.encode(this);
+{{/Codec.HasCustomEncoding}}
+{{^Codec.HasCustomEncoding}}
+  Object toJson() {
+    return {
+      {{#Codec.ToJsonLines}}
+      {{{.}}}
+      {{/Codec.ToJsonLines}}
+    };
+  }
+{{/Codec.HasCustomEncoding}}
+
   @override
   {{#Codec.HasToStringLines}}
   String toString() {

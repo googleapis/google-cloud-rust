@@ -37,6 +37,11 @@ var needsCtorValidation = map[string]string{
 	".google.protobuf.Duration": ".google.protobuf.Duration",
 }
 
+var usesCustomEncoding = map[string]string{
+	".google.protobuf.Duration":  ".google.protobuf.Duration",
+	".google.protobuf.FieldMask": ".google.protobuf.FieldMask",
+}
+
 func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	_, err := annotateModel(model, cfg.Codec)
 	if err != nil {

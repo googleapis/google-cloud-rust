@@ -82,6 +82,23 @@ class ErrorInfo extends CloudMessage {
     this.metadata,
   });
 
+  factory ErrorInfo.fromJson(Map<String, dynamic> json) {
+    return ErrorInfo(
+      reason: json['reason'],
+      domain: json['domain'],
+      metadata: (json['metadata'] as Map?)?.cast(),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (reason != null) 'reason': reason,
+      if (domain != null) 'domain': domain,
+      if (metadata != null) 'metadata': metadata,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -114,6 +131,19 @@ class RetryInfo extends CloudMessage {
     this.retryDelay,
   });
 
+  factory RetryInfo.fromJson(Map<String, dynamic> json) {
+    return RetryInfo(
+      retryDelay: $toCustom(json['retryDelay'], Duration.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (retryDelay != null) 'retryDelay': retryDelay!.toJson(),
+    };
+  }
+
   @override
   String toString() => 'RetryInfo()';
 }
@@ -131,6 +161,21 @@ class DebugInfo extends CloudMessage {
     this.stackEntries,
     this.detail,
   });
+
+  factory DebugInfo.fromJson(Map<String, dynamic> json) {
+    return DebugInfo(
+      stackEntries: (json['stackEntries'] as List?)?.cast(),
+      detail: json['detail'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (stackEntries != null) 'stackEntries': stackEntries,
+      if (detail != null) 'detail': detail,
+    };
+  }
 
   @override
   String toString() {
@@ -161,6 +206,19 @@ class QuotaFailure extends CloudMessage {
     this.violations,
   });
 
+  factory QuotaFailure.fromJson(Map<String, dynamic> json) {
+    return QuotaFailure(
+      violations: $toMessageList(json['violations'], QuotaFailure$Violation.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (violations != null) 'violations': $fromList(violations),
+    };
+  }
+
   @override
   String toString() => 'QuotaFailure()';
 }
@@ -188,6 +246,21 @@ class QuotaFailure$Violation extends CloudMessage {
     this.description,
   });
 
+  factory QuotaFailure$Violation.fromJson(Map<String, dynamic> json) {
+    return QuotaFailure$Violation(
+      subject: json['subject'],
+      description: json['description'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (subject != null) 'subject': subject,
+      if (description != null) 'description': description,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -211,6 +284,19 @@ class PreconditionFailure extends CloudMessage {
   PreconditionFailure({
     this.violations,
   });
+
+  factory PreconditionFailure.fromJson(Map<String, dynamic> json) {
+    return PreconditionFailure(
+      violations: $toMessageList(json['violations'], PreconditionFailure$Violation.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (violations != null) 'violations': $fromList(violations),
+    };
+  }
 
   @override
   String toString() => 'PreconditionFailure()';
@@ -241,6 +327,23 @@ class PreconditionFailure$Violation extends CloudMessage {
     this.description,
   });
 
+  factory PreconditionFailure$Violation.fromJson(Map<String, dynamic> json) {
+    return PreconditionFailure$Violation(
+      type: json['type'],
+      subject: json['subject'],
+      description: json['description'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (type != null) 'type': type,
+      if (subject != null) 'subject': subject,
+      if (description != null) 'description': description,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -262,6 +365,19 @@ class BadRequest extends CloudMessage {
   BadRequest({
     this.fieldViolations,
   });
+
+  factory BadRequest.fromJson(Map<String, dynamic> json) {
+    return BadRequest(
+      fieldViolations: $toMessageList(json['fieldViolations'], BadRequest$FieldViolation.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (fieldViolations != null) 'fieldViolations': $fromList(fieldViolations),
+    };
+  }
 
   @override
   String toString() => 'BadRequest()';
@@ -331,6 +447,25 @@ class BadRequest$FieldViolation extends CloudMessage {
     this.localizedMessage,
   });
 
+  factory BadRequest$FieldViolation.fromJson(Map<String, dynamic> json) {
+    return BadRequest$FieldViolation(
+      field: json['field'],
+      description: json['description'],
+      reason: json['reason'],
+      localizedMessage: $toMessage(json['localizedMessage'], LocalizedMessage.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (field != null) 'field': field,
+      if (description != null) 'description': description,
+      if (reason != null) 'reason': reason,
+      if (localizedMessage != null) 'localizedMessage': localizedMessage!.toJson(),
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -358,6 +493,21 @@ class RequestInfo extends CloudMessage {
     this.requestId,
     this.servingData,
   });
+
+  factory RequestInfo.fromJson(Map<String, dynamic> json) {
+    return RequestInfo(
+      requestId: json['requestId'],
+      servingData: json['servingData'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (requestId != null) 'requestId': requestId,
+      if (servingData != null) 'servingData': servingData,
+    };
+  }
 
   @override
   String toString() {
@@ -400,6 +550,25 @@ class ResourceInfo extends CloudMessage {
     this.description,
   });
 
+  factory ResourceInfo.fromJson(Map<String, dynamic> json) {
+    return ResourceInfo(
+      resourceType: json['resourceType'],
+      resourceName: json['resourceName'],
+      owner: json['owner'],
+      description: json['description'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (resourceType != null) 'resourceType': resourceType,
+      if (resourceName != null) 'resourceName': resourceName,
+      if (owner != null) 'owner': owner,
+      if (description != null) 'description': description,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -426,6 +595,19 @@ class Help extends CloudMessage {
     this.links,
   });
 
+  factory Help.fromJson(Map<String, dynamic> json) {
+    return Help(
+      links: $toMessageList(json['links'], Help$Link.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (links != null) 'links': $fromList(links),
+    };
+  }
+
   @override
   String toString() => 'Help()';
 }
@@ -443,6 +625,21 @@ class Help$Link extends CloudMessage {
     this.description,
     this.url,
   });
+
+  factory Help$Link.fromJson(Map<String, dynamic> json) {
+    return Help$Link(
+      description: json['description'],
+      url: json['url'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (description != null) 'description': description,
+      if (url != null) 'url': url,
+    };
+  }
 
   @override
   String toString() {
@@ -470,6 +667,21 @@ class LocalizedMessage extends CloudMessage {
     this.locale,
     this.message,
   });
+
+  factory LocalizedMessage.fromJson(Map<String, dynamic> json) {
+    return LocalizedMessage(
+      locale: json['locale'],
+      message: json['message'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (locale != null) 'locale': locale,
+      if (message != null) 'message': message,
+    };
+  }
 
   @override
   String toString() {
@@ -503,6 +715,25 @@ class HttpRequest extends CloudMessage {
     this.headers,
     this.body,
   });
+
+  factory HttpRequest.fromJson(Map<String, dynamic> json) {
+    return HttpRequest(
+      method: json['method'],
+      uri: json['uri'],
+      headers: $toMessageList(json['headers'], HttpHeader.fromJson),
+      body: json['body'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (method != null) 'method': method,
+      if (uri != null) 'uri': uri,
+      if (headers != null) 'headers': $fromList(headers),
+      if (body != null) 'body': body,
+    };
+  }
 
   @override
   String toString() {
@@ -538,6 +769,25 @@ class HttpResponse extends CloudMessage {
     this.body,
   });
 
+  factory HttpResponse.fromJson(Map<String, dynamic> json) {
+    return HttpResponse(
+      status: json['status'],
+      reason: json['reason'],
+      headers: $toMessageList(json['headers'], HttpHeader.fromJson),
+      body: json['body'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (status != null) 'status': status,
+      if (reason != null) 'reason': reason,
+      if (headers != null) 'headers': $fromList(headers),
+      if (body != null) 'body': body,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -562,6 +812,21 @@ class HttpHeader extends CloudMessage {
     this.key,
     this.value,
   });
+
+  factory HttpHeader.fromJson(Map<String, dynamic> json) {
+    return HttpHeader(
+      key: json['key'],
+      value: json['value'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (key != null) 'key': key,
+      if (value != null) 'value': value,
+    };
+  }
 
   @override
   String toString() {
@@ -601,6 +866,23 @@ class Status extends CloudMessage {
     this.message,
     this.details,
   });
+
+  factory Status.fromJson(Map<String, dynamic> json) {
+    return Status(
+      code: json['code'],
+      message: json['message'],
+      details: $toMessageList(json['details'], Any.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (code != null) 'code': code,
+      if (message != null) 'message': message,
+      if (details != null) 'details': $fromList(details),
+    };
+  }
 
   @override
   String toString() {

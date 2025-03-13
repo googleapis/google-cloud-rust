@@ -282,6 +282,43 @@ class Secret extends CloudMessage {
     this.customerManagedEncryption,
   });
 
+  factory Secret.fromJson(Map<String, dynamic> json) {
+    return Secret(
+      name: json['name'],
+      replication: $toMessage(json['replication'], Replication.fromJson),
+      createTime: $toMessage(json['createTime'], Timestamp.fromJson),
+      labels: (json['labels'] as Map?)?.cast(),
+      topics: $toMessageList(json['topics'], Topic.fromJson),
+      expireTime: $toMessage(json['expireTime'], Timestamp.fromJson),
+      ttl: $toCustom(json['ttl'], Duration.fromJson),
+      etag: json['etag'],
+      rotation: $toMessage(json['rotation'], Rotation.fromJson),
+      versionAliases: (json['versionAliases'] as Map?)?.cast(),
+      annotations: (json['annotations'] as Map?)?.cast(),
+      versionDestroyTtl: $toCustom(json['versionDestroyTtl'], Duration.fromJson),
+      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+      if (replication != null) 'replication': replication!.toJson(),
+      if (createTime != null) 'createTime': createTime!.toJson(),
+      if (labels != null) 'labels': labels,
+      if (topics != null) 'topics': $fromList(topics),
+      if (expireTime != null) 'expireTime': expireTime!.toJson(),
+      if (ttl != null) 'ttl': ttl!.toJson(),
+      if (etag != null) 'etag': etag,
+      if (rotation != null) 'rotation': rotation!.toJson(),
+      if (versionAliases != null) 'versionAliases': versionAliases,
+      if (annotations != null) 'annotations': annotations,
+      if (versionDestroyTtl != null) 'versionDestroyTtl': versionDestroyTtl!.toJson(),
+      if (customerManagedEncryption != null) 'customerManagedEncryption': customerManagedEncryption!.toJson(),
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -361,6 +398,35 @@ class SecretVersion extends CloudMessage {
     this.customerManagedEncryption,
   });
 
+  factory SecretVersion.fromJson(Map<String, dynamic> json) {
+    return SecretVersion(
+      name: json['name'],
+      createTime: $toMessage(json['createTime'], Timestamp.fromJson),
+      destroyTime: $toMessage(json['destroyTime'], Timestamp.fromJson),
+      state: $toCustom(json['state'], SecretVersion$State.fromJson),
+      replicationStatus: $toMessage(json['replicationStatus'], ReplicationStatus.fromJson),
+      etag: json['etag'],
+      clientSpecifiedPayloadChecksum: json['clientSpecifiedPayloadChecksum'],
+      scheduledDestroyTime: $toMessage(json['scheduledDestroyTime'], Timestamp.fromJson),
+      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+      if (createTime != null) 'createTime': createTime!.toJson(),
+      if (destroyTime != null) 'destroyTime': destroyTime!.toJson(),
+      if (state != null) 'state': state!.toJson(),
+      if (replicationStatus != null) 'replicationStatus': replicationStatus!.toJson(),
+      if (etag != null) 'etag': etag,
+      if (clientSpecifiedPayloadChecksum != null) 'clientSpecifiedPayloadChecksum': clientSpecifiedPayloadChecksum,
+      if (scheduledDestroyTime != null) 'scheduledDestroyTime': scheduledDestroyTime!.toJson(),
+      if (customerManagedEncryption != null) 'customerManagedEncryption': customerManagedEncryption!.toJson(),
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -424,6 +490,21 @@ class Replication extends CloudMessage {
     this.userManaged,
   });
 
+  factory Replication.fromJson(Map<String, dynamic> json) {
+    return Replication(
+      automatic: $toMessage(json['automatic'], Replication$Automatic.fromJson),
+      userManaged: $toMessage(json['userManaged'], Replication$UserManaged.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (automatic != null) 'automatic': automatic!.toJson(),
+      if (userManaged != null) 'userManaged': userManaged!.toJson(),
+    };
+  }
+
   @override
   String toString() => 'Replication()';
 }
@@ -448,6 +529,19 @@ class Replication$Automatic extends CloudMessage {
     this.customerManagedEncryption,
   });
 
+  factory Replication$Automatic.fromJson(Map<String, dynamic> json) {
+    return Replication$Automatic(
+      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (customerManagedEncryption != null) 'customerManagedEncryption': customerManagedEncryption!.toJson(),
+    };
+  }
+
   @override
   String toString() => 'Automatic()';
 }
@@ -466,6 +560,19 @@ class Replication$UserManaged extends CloudMessage {
   Replication$UserManaged({
     this.replicas,
   });
+
+  factory Replication$UserManaged.fromJson(Map<String, dynamic> json) {
+    return Replication$UserManaged(
+      replicas: $toMessageList(json['replicas'], Replication$UserManaged$Replica.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (replicas != null) 'replicas': $fromList(replicas),
+    };
+  }
 
   @override
   String toString() => 'UserManaged()';
@@ -494,6 +601,21 @@ class Replication$UserManaged$Replica extends CloudMessage {
     this.location,
     this.customerManagedEncryption,
   });
+
+  factory Replication$UserManaged$Replica.fromJson(Map<String, dynamic> json) {
+    return Replication$UserManaged$Replica(
+      location: json['location'],
+      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (location != null) 'location': location,
+      if (customerManagedEncryption != null) 'customerManagedEncryption': customerManagedEncryption!.toJson(),
+    };
+  }
 
   @override
   String toString() {
@@ -526,6 +648,19 @@ class CustomerManagedEncryption extends CloudMessage {
   CustomerManagedEncryption({
     this.kmsKeyName,
   });
+
+  factory CustomerManagedEncryption.fromJson(Map<String, dynamic> json) {
+    return CustomerManagedEncryption(
+      kmsKeyName: json['kmsKeyName'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (kmsKeyName != null) 'kmsKeyName': kmsKeyName,
+    };
+  }
 
   @override
   String toString() {
@@ -563,6 +698,21 @@ class ReplicationStatus extends CloudMessage {
     this.userManaged,
   });
 
+  factory ReplicationStatus.fromJson(Map<String, dynamic> json) {
+    return ReplicationStatus(
+      automatic: $toMessage(json['automatic'], ReplicationStatus$AutomaticStatus.fromJson),
+      userManaged: $toMessage(json['userManaged'], ReplicationStatus$UserManagedStatus.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (automatic != null) 'automatic': automatic!.toJson(),
+      if (userManaged != null) 'userManaged': userManaged!.toJson(),
+    };
+  }
+
   @override
   String toString() => 'ReplicationStatus()';
 }
@@ -584,6 +734,19 @@ class ReplicationStatus$AutomaticStatus extends CloudMessage {
     this.customerManagedEncryption,
   });
 
+  factory ReplicationStatus$AutomaticStatus.fromJson(Map<String, dynamic> json) {
+    return ReplicationStatus$AutomaticStatus(
+      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (customerManagedEncryption != null) 'customerManagedEncryption': customerManagedEncryption!.toJson(),
+    };
+  }
+
   @override
   String toString() => 'AutomaticStatus()';
 }
@@ -603,6 +766,19 @@ class ReplicationStatus$UserManagedStatus extends CloudMessage {
   ReplicationStatus$UserManagedStatus({
     this.replicas,
   });
+
+  factory ReplicationStatus$UserManagedStatus.fromJson(Map<String, dynamic> json) {
+    return ReplicationStatus$UserManagedStatus(
+      replicas: $toMessageList(json['replicas'], ReplicationStatus$UserManagedStatus$ReplicaStatus.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (replicas != null) 'replicas': $fromList(replicas),
+    };
+  }
 
   @override
   String toString() => 'UserManagedStatus()';
@@ -626,6 +802,21 @@ class ReplicationStatus$UserManagedStatus$ReplicaStatus extends CloudMessage {
     this.customerManagedEncryption,
   });
 
+  factory ReplicationStatus$UserManagedStatus$ReplicaStatus.fromJson(Map<String, dynamic> json) {
+    return ReplicationStatus$UserManagedStatus$ReplicaStatus(
+      location: json['location'],
+      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (location != null) 'location': location,
+      if (customerManagedEncryption != null) 'customerManagedEncryption': customerManagedEncryption!.toJson(),
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -646,6 +837,19 @@ class CustomerManagedEncryptionStatus extends CloudMessage {
   CustomerManagedEncryptionStatus({
     this.kmsKeyVersionName,
   });
+
+  factory CustomerManagedEncryptionStatus.fromJson(Map<String, dynamic> json) {
+    return CustomerManagedEncryptionStatus(
+      kmsKeyVersionName: json['kmsKeyVersionName'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (kmsKeyVersionName != null) 'kmsKeyVersionName': kmsKeyVersionName,
+    };
+  }
 
   @override
   String toString() {
@@ -670,6 +874,19 @@ class Topic extends CloudMessage {
   Topic({
     this.name,
   });
+
+  factory Topic.fromJson(Map<String, dynamic> json) {
+    return Topic(
+      name: json['name'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+    };
+  }
 
   @override
   String toString() {
@@ -716,6 +933,21 @@ class Rotation extends CloudMessage {
     this.rotationPeriod,
   });
 
+  factory Rotation.fromJson(Map<String, dynamic> json) {
+    return Rotation(
+      nextRotationTime: $toMessage(json['nextRotationTime'], Timestamp.fromJson),
+      rotationPeriod: $toCustom(json['rotationPeriod'], Duration.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (nextRotationTime != null) 'nextRotationTime': nextRotationTime!.toJson(),
+      if (rotationPeriod != null) 'rotationPeriod': rotationPeriod!.toJson(),
+    };
+  }
+
   @override
   String toString() => 'Rotation()';
 }
@@ -750,6 +982,21 @@ class SecretPayload extends CloudMessage {
     this.data,
     this.dataCrc32C,
   });
+
+  factory SecretPayload.fromJson(Map<String, dynamic> json) {
+    return SecretPayload(
+      data: json['data'],
+      dataCrc32C: json['dataCrc32C'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (data != null) 'data': data,
+      if (dataCrc32C != null) 'dataCrc32C': dataCrc32C,
+    };
+  }
 
   @override
   String toString() {
@@ -793,6 +1040,25 @@ class ListSecretsRequest extends CloudMessage {
     this.filter,
   });
 
+  factory ListSecretsRequest.fromJson(Map<String, dynamic> json) {
+    return ListSecretsRequest(
+      parent: json['parent'],
+      pageSize: json['pageSize'],
+      pageToken: json['pageToken'],
+      filter: json['filter'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'parent': parent,
+      if (pageSize != null) 'pageSize': pageSize,
+      if (pageToken != null) 'pageToken': pageToken,
+      if (filter != null) 'filter': filter,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -830,6 +1096,23 @@ class ListSecretsResponse extends CloudMessage {
     this.totalSize,
   });
 
+  factory ListSecretsResponse.fromJson(Map<String, dynamic> json) {
+    return ListSecretsResponse(
+      secrets: $toMessageList(json['secrets'], Secret.fromJson),
+      nextPageToken: json['nextPageToken'],
+      totalSize: json['totalSize'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (secrets != null) 'secrets': $fromList(secrets),
+      if (nextPageToken != null) 'nextPageToken': nextPageToken,
+      if (totalSize != null) 'totalSize': totalSize,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -866,6 +1149,23 @@ class CreateSecretRequest extends CloudMessage {
     required this.secret,
   });
 
+  factory CreateSecretRequest.fromJson(Map<String, dynamic> json) {
+    return CreateSecretRequest(
+      parent: json['parent'],
+      secretId: json['secretId'],
+      secret: Secret.fromJson(json['secret']),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'parent': parent,
+      if (secretId != null) 'secretId': secretId,
+      'secret': secret.toJson(),
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -895,6 +1195,21 @@ class AddSecretVersionRequest extends CloudMessage {
     this.payload,
   });
 
+  factory AddSecretVersionRequest.fromJson(Map<String, dynamic> json) {
+    return AddSecretVersionRequest(
+      parent: json['parent'],
+      payload: $toMessage(json['payload'], SecretPayload.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'parent': parent,
+      if (payload != null) 'payload': payload!.toJson(),
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -916,6 +1231,19 @@ class GetSecretRequest extends CloudMessage {
   GetSecretRequest({
     required this.name,
   });
+
+  factory GetSecretRequest.fromJson(Map<String, dynamic> json) {
+    return GetSecretRequest(
+      name: json['name'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'name': name,
+    };
+  }
 
   @override
   String toString() {
@@ -959,6 +1287,25 @@ class ListSecretVersionsRequest extends CloudMessage {
     this.filter,
   });
 
+  factory ListSecretVersionsRequest.fromJson(Map<String, dynamic> json) {
+    return ListSecretVersionsRequest(
+      parent: json['parent'],
+      pageSize: json['pageSize'],
+      pageToken: json['pageToken'],
+      filter: json['filter'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'parent': parent,
+      if (pageSize != null) 'pageSize': pageSize,
+      if (pageToken != null) 'pageToken': pageToken,
+      if (filter != null) 'filter': filter,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -997,6 +1344,23 @@ class ListSecretVersionsResponse extends CloudMessage {
     this.totalSize,
   });
 
+  factory ListSecretVersionsResponse.fromJson(Map<String, dynamic> json) {
+    return ListSecretVersionsResponse(
+      versions: $toMessageList(json['versions'], SecretVersion.fromJson),
+      nextPageToken: json['nextPageToken'],
+      totalSize: json['totalSize'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (versions != null) 'versions': $fromList(versions),
+      if (nextPageToken != null) 'nextPageToken': nextPageToken,
+      if (totalSize != null) 'totalSize': totalSize,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -1026,6 +1390,19 @@ class GetSecretVersionRequest extends CloudMessage {
     required this.name,
   });
 
+  factory GetSecretVersionRequest.fromJson(Map<String, dynamic> json) {
+    return GetSecretVersionRequest(
+      name: json['name'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'name': name,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -1051,6 +1428,21 @@ class UpdateSecretRequest extends CloudMessage {
     this.updateMask,
   });
 
+  factory UpdateSecretRequest.fromJson(Map<String, dynamic> json) {
+    return UpdateSecretRequest(
+      secret: Secret.fromJson(json['secret']),
+      updateMask: $toCustom(json['updateMask'], FieldMask.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'secret': secret.toJson(),
+      if (updateMask != null) 'updateMask': updateMask!.toJson(),
+    };
+  }
+
   @override
   String toString() => 'UpdateSecretRequest()';
 }
@@ -1073,6 +1465,19 @@ class AccessSecretVersionRequest extends CloudMessage {
   AccessSecretVersionRequest({
     required this.name,
   });
+
+  factory AccessSecretVersionRequest.fromJson(Map<String, dynamic> json) {
+    return AccessSecretVersionRequest(
+      name: json['name'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'name': name,
+    };
+  }
 
   @override
   String toString() {
@@ -1101,6 +1506,21 @@ class AccessSecretVersionResponse extends CloudMessage {
     this.payload,
   });
 
+  factory AccessSecretVersionResponse.fromJson(Map<String, dynamic> json) {
+    return AccessSecretVersionResponse(
+      name: json['name'],
+      payload: $toMessage(json['payload'], SecretPayload.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+      if (payload != null) 'payload': payload!.toJson(),
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -1128,6 +1548,21 @@ class DeleteSecretRequest extends CloudMessage {
     required this.name,
     this.etag,
   });
+
+  factory DeleteSecretRequest.fromJson(Map<String, dynamic> json) {
+    return DeleteSecretRequest(
+      name: json['name'],
+      etag: json['etag'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'name': name,
+      if (etag != null) 'etag': etag,
+    };
+  }
 
   @override
   String toString() {
@@ -1160,6 +1595,21 @@ class DisableSecretVersionRequest extends CloudMessage {
     this.etag,
   });
 
+  factory DisableSecretVersionRequest.fromJson(Map<String, dynamic> json) {
+    return DisableSecretVersionRequest(
+      name: json['name'],
+      etag: json['etag'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'name': name,
+      if (etag != null) 'etag': etag,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -1191,6 +1641,21 @@ class EnableSecretVersionRequest extends CloudMessage {
     this.etag,
   });
 
+  factory EnableSecretVersionRequest.fromJson(Map<String, dynamic> json) {
+    return EnableSecretVersionRequest(
+      name: json['name'],
+      etag: json['etag'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'name': name,
+      if (etag != null) 'etag': etag,
+    };
+  }
+
   @override
   String toString() {
     final contents = [
@@ -1221,6 +1686,21 @@ class DestroySecretVersionRequest extends CloudMessage {
     required this.name,
     this.etag,
   });
+
+  factory DestroySecretVersionRequest.fromJson(Map<String, dynamic> json) {
+    return DestroySecretVersionRequest(
+      name: json['name'],
+      etag: json['etag'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      'name': name,
+      if (etag != null) 'etag': etag,
+    };
+  }
 
   @override
   String toString() {

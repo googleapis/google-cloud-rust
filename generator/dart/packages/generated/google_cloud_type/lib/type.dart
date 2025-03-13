@@ -78,6 +78,25 @@ class Expr extends CloudMessage {
     this.location,
   });
 
+  factory Expr.fromJson(Map<String, dynamic> json) {
+    return Expr(
+      expression: json['expression'],
+      title: json['title'],
+      description: json['description'],
+      location: json['location'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (expression != null) 'expression': expression,
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+      if (location != null) 'location': location,
+    };
+  }
+
   @override
   String toString() {
     final contents = [

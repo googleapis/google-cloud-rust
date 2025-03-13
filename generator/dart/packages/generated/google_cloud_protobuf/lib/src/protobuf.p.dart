@@ -14,10 +14,10 @@
 
 part of '../protobuf.dart';
 
-extension FieldMaskExtension on FieldMask {
+class FieldMaskHelper {
   /// Encode the field mask as a single comma-separated string.
-  String encode() {
-    return paths?.join(',') ?? '';
+  static String encode(FieldMask fieldMask) {
+    return fieldMask.paths?.join(',') ?? '';
   }
 
   /// Decode the field mask from a single comma-separated string.
@@ -41,25 +41,28 @@ extension DurationExtension on Duration {
       throw ArgumentError('nanos out of range');
     }
   }
+}
 
+class DurationHelper {
   /// Encode into a decimal representation of the seconds and nanos, suffixed
   /// with 's'.
   ///
   /// E.g., 3 seconds with 0 nanoseconds would be '3s'; 3 seconds with 70
   /// nanosecond would be '3.00000007s'.
-  String encode() {
-    if (nanos == 0) {
-      return '${seconds}s';
+  static String encode(Duration duration) {
+    if (duration.nanos == 0) {
+      return '${duration.seconds}s';
     } else {
-      final rhs = nanos!.abs().toString().padLeft(9, '0');
+      final rhs = duration.nanos!.abs().toString().padLeft(9, '0');
 
-      var duration =
-          seconds == 0 ? '${nanos! < 0 ? '-' : ''}0.$rhs' : '${seconds}.$rhs';
-      while (duration.endsWith('0')) {
-        duration = duration.substring(0, duration.length - 1);
+      var result = duration.seconds == 0
+          ? '${duration.nanos! < 0 ? '-' : ''}0.$rhs'
+          : '${duration.seconds}.$rhs';
+      while (result.endsWith('0')) {
+        result = result.substring(0, result.length - 1);
       }
 
-      return '${duration}s';
+      return '${result}s';
     }
   }
 
