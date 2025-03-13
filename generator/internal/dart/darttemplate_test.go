@@ -216,3 +216,37 @@ func TestAnnotateMessageToString(t *testing.T) {
 		})
 	}
 }
+
+func TestCalculateRequiredFields(t *testing.T) {
+	service := &api.Service{
+		Name:          sample.ServiceName,
+		Documentation: sample.APIDescription,
+		DefaultHost:   sample.DefaultHost,
+		Methods:       []*api.Method{sample.MethodListSecretVersions()},
+		Package:       sample.Package,
+	}
+	model := api.NewTestAPI(
+		[]*api.Message{sample.ListSecretVersionsRequest(), sample.ListSecretVersionsResponse(),
+			sample.Secret(), sample.SecretVersion(), sample.Replication()},
+		[]*api.Enum{sample.EnumState()},
+		[]*api.Service{service},
+	)
+	api.Validate(model)
+
+	// Test that field annotations correctly calculate their required state; this
+	// uses the method's PathInfo.
+	requiredFields := calculateRequiredFields(model)
+
+	got := map[string]string{}
+	for key, value := range requiredFields {
+		got[key] = value.Name
+	}
+
+	want := map[string]string{
+		"..Secret.parent": "parent",
+	}
+
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in TestCalculateRequiredFields (-want, +got)\n:%s", diff)
+	}
+}

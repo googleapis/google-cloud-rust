@@ -39,7 +39,7 @@ func TestPackageNames(t *testing.T) {
 	}
 }
 
-func Test_OneOfAnnotations(t *testing.T) {
+func TestOneOfAnnotations(t *testing.T) {
 	singular := &api.Field{
 		Name:     "oneof_field",
 		JSONName: "oneofField",
@@ -102,7 +102,8 @@ func Test_OneOfAnnotations(t *testing.T) {
 		FieldName:      "r#type",
 		SetterName:     "type",
 		EnumName:       "Type",
-		FQEnumName:     "crate::model::message::Type",
+		QualifiedName:  "crate::model::message::Type",
+		RelativeName:   "message::Type",
 		FieldType:      "crate::model::message::Type",
 		DocLines:       []string{"/// Say something clever about this oneof."},
 		SingularFields: []*api.Field{singular},
@@ -162,12 +163,13 @@ func Test_OneOfAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = req.get_oneof_field_map().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; p.add(builder, "oneofFieldMap") });`,
 		KeyType:            "i32",
 		ValueType:          "i32",
+		IsBoxed:            true,
 	}, map_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 }
 
-func Test_RustEnumAnnotations(t *testing.T) {
+func TestEnumAnnotations(t *testing.T) {
 	// Verify we can handle values that are not in SCREAMING_SNAKE_CASE style.
 	v0 := &api.EnumValue{
 		Name:          "week5",
@@ -205,6 +207,8 @@ func Test_RustEnumAnnotations(t *testing.T) {
 	if diff := cmp.Diff(&enumAnnotation{
 		Name:             "TestEnum",
 		ModuleName:       "test_enum",
+		QualifiedName:    "crate::model::TestEnum",
+		RelativeName:     "TestEnum",
 		DocLines:         []string{"/// The enum is documented."},
 		DefaultValueName: "VALUE",
 	}, enum.Codec); diff != "" {
@@ -236,7 +240,7 @@ func Test_RustEnumAnnotations(t *testing.T) {
 	}
 }
 
-func Test_JsonNameAnnotations(t *testing.T) {
+func TestJsonNameAnnotations(t *testing.T) {
 	parent := &api.Field{
 		Name:     "parent",
 		JSONName: "parent",
@@ -320,6 +324,224 @@ func Test_JsonNameAnnotations(t *testing.T) {
 		KeyType:            "",
 		ValueType:          "",
 	}, readTime.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestMessageAnnotations(t *testing.T) {
+	message := &api.Message{
+		Name:          "TestMessage",
+		Package:       "test",
+		ID:            ".test.TestMessage",
+		Documentation: "A test message.",
+	}
+	nested := &api.Message{
+		Name:          "NestedMessage",
+		Package:       "test",
+		ID:            ".test.TestMessage.NestedMessage",
+		Documentation: "A nested message.",
+		Parent:        message,
+	}
+	message.Messages = []*api.Message{nested}
+
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	api.CrossReference(model)
+	codec, err := newCodec(true, map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec, "")
+	want := &messageAnnotation{
+		Name:          "TestMessage",
+		ModuleName:    "test_message",
+		QualifiedName: "crate::model::TestMessage",
+		RelativeName:  "TestMessage",
+		SourceFQN:     "test.TestMessage",
+		MessageAttributes: []string{
+			`#[serde_with::serde_as]`,
+			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
+			`#[serde(default, rename_all = "camelCase")]`,
+			`#[non_exhaustive]`,
+		},
+		DocLines:       []string{"/// A test message."},
+		HasNestedTypes: true,
+		BasicFields:    []*api.Field{},
+		SingularFields: []*api.Field{},
+		RepeatedFields: []*api.Field{},
+		MapFields:      []*api.Field{},
+	}
+	if diff := cmp.Diff(want, message.Codec); diff != "" {
+		t.Errorf("mismatch in message annotations (-want, +got)\n:%s", diff)
+	}
+
+	want = &messageAnnotation{
+		Name:          "NestedMessage",
+		ModuleName:    "nested_message",
+		QualifiedName: "crate::model::test_message::NestedMessage",
+		RelativeName:  "test_message::NestedMessage",
+		SourceFQN:     "test.TestMessage.NestedMessage",
+		MessageAttributes: []string{
+			`#[serde_with::serde_as]`,
+			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
+			`#[serde(default, rename_all = "camelCase")]`,
+			`#[non_exhaustive]`,
+		},
+		DocLines:       []string{"/// A nested message."},
+		HasNestedTypes: false,
+		BasicFields:    []*api.Field{},
+		SingularFields: []*api.Field{},
+		RepeatedFields: []*api.Field{},
+		MapFields:      []*api.Field{},
+	}
+	if diff := cmp.Diff(want, nested.Codec); diff != "" {
+		t.Errorf("mismatch in nested message annotations (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestFieldAnnotations(t *testing.T) {
+	map_message := &api.Message{
+		Name:    "$Map",
+		ID:      ".test.$Map",
+		IsMap:   true,
+		Package: "test",
+		Fields: []*api.Field{
+			{Name: "key", Typez: api.INT32_TYPE},
+			{Name: "value", Typez: api.INT64_TYPE},
+		},
+	}
+	singular_field := &api.Field{
+		Name:     "singular_field",
+		JSONName: "singularField",
+		ID:       ".test.Message.singular_field",
+		Typez:    api.STRING_TYPE,
+	}
+	repeated_field := &api.Field{
+		Name:     "repeated_field",
+		JSONName: "repeatedField",
+		ID:       ".test.Message.repeated_field",
+		Typez:    api.STRING_TYPE,
+		Repeated: true,
+	}
+	map_field := &api.Field{
+		Name:     "map_field",
+		JSONName: "mapField",
+		ID:       ".test.Message.map_field",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  ".test.$Map",
+		Repeated: false,
+	}
+	boxed_field := &api.Field{
+		Name:     "boxed_field",
+		JSONName: "boxedField",
+		ID:       ".test.Message.boxed_field",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  ".test.TestMessage",
+		Optional: true,
+	}
+	message := &api.Message{
+		Name:          "TestMessage",
+		Package:       "test",
+		ID:            ".test.TestMessage",
+		Documentation: "A test message.",
+		Fields:        []*api.Field{singular_field, repeated_field, map_field, boxed_field},
+	}
+
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model.State.MessageByID[map_message.ID] = map_message
+	api.CrossReference(model)
+	api.LabelRecursiveFields(model)
+	codec, err := newCodec(true, map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec, "")
+	wantMessage := &messageAnnotation{
+		Name:          "TestMessage",
+		ModuleName:    "test_message",
+		QualifiedName: "crate::model::TestMessage",
+		RelativeName:  "TestMessage",
+		SourceFQN:     "test.TestMessage",
+		MessageAttributes: []string{
+			`#[serde_with::serde_as]`,
+			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
+			`#[serde(default, rename_all = "camelCase")]`,
+			`#[non_exhaustive]`,
+		},
+		DocLines:       []string{"/// A test message."},
+		BasicFields:    []*api.Field{singular_field, repeated_field, map_field, boxed_field},
+		SingularFields: []*api.Field{singular_field, boxed_field},
+		RepeatedFields: []*api.Field{repeated_field},
+		MapFields:      []*api.Field{map_field},
+	}
+	if diff := cmp.Diff(wantMessage, message.Codec); diff != "" {
+		t.Errorf("mismatch in message annotations (-want, +got)\n:%s", diff)
+	}
+
+	wantField := &fieldAnnotations{
+		FieldName:     "singular_field",
+		SetterName:    "singular_field",
+		BranchName:    "SingularField",
+		FQMessageName: "crate::model::TestMessage",
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
+		},
+		FieldType:          "std::string::String",
+		PrimitiveFieldType: "std::string::String",
+		AddQueryParameter:  `let builder = builder.query(&[("singularField", &req.singular_field)]);`,
+	}
+	if diff := cmp.Diff(wantField, singular_field.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	wantField = &fieldAnnotations{
+		FieldName:     "repeated_field",
+		SetterName:    "repeated_field",
+		BranchName:    "RepeatedField",
+		FQMessageName: "crate::model::TestMessage",
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		},
+		FieldType:          "std::vec::Vec<std::string::String>",
+		PrimitiveFieldType: "std::string::String",
+		AddQueryParameter:  `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`,
+	}
+	if diff := cmp.Diff(wantField, repeated_field.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	wantField = &fieldAnnotations{
+		FieldName:     "map_field",
+		SetterName:    "map_field",
+		BranchName:    "MapField",
+		FQMessageName: "crate::model::TestMessage",
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
+			`#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
+		},
+		FieldType:          "std::collections::HashMap<i32,i64>",
+		PrimitiveFieldType: "std::collections::HashMap<i32,i64>",
+		AddQueryParameter:  `let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.map_field).map_err(Error::serde)?.add(builder, "mapField") };`,
+		KeyType:            "i32",
+		ValueType:          "i64",
+	}
+	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	wantField = &fieldAnnotations{
+		FieldName:     "boxed_field",
+		SetterName:    "boxed_field",
+		BranchName:    "BoxedField",
+		FQMessageName: "crate::model::TestMessage",
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		},
+		FieldType:          "std::option::Option<std::boxed::Box<crate::model::TestMessage>>",
+		PrimitiveFieldType: "crate::model::TestMessage",
+		AddQueryParameter:  `let builder = req.boxed_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "boxedField") });`,
+		IsBoxed:            true,
+	}
+	if diff := cmp.Diff(wantField, boxed_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 }

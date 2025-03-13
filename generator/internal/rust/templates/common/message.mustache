@@ -98,7 +98,7 @@ impl {{Codec.Name}} {
         {{! Rarely, oneofs have a single branch and then the `_` case is never matched. }}
         #[allow(unreachable_patterns)]
         self.{{Group.Codec.FieldName}}.as_ref().and_then(|v| match v {
-            {{Group.Codec.FQEnumName}}::{{Codec.BranchName}}(v) => std::option::Option::Some(v),
+            {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -112,7 +112,7 @@ impl {{Codec.Name}} {
     /// mutually exclusive.
     pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
         self.{{Group.Codec.FieldName}} = std::option::Option::Some(
-            {{Group.Codec.FQEnumName}}::{{Codec.BranchName}}(
+            {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
                 v.into()
             )
         );
@@ -129,7 +129,7 @@ impl {{Codec.Name}} {
     {
         use std::iter::Iterator;
         self.{{Group.Codec.FieldName}} = std::option::Option::Some(
-            {{Group.Codec.FQEnumName}}::{{Codec.BranchName}}(
+            {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
                 v.into_iter().map(|i| i.into()).collect()
             )
         );
@@ -147,7 +147,7 @@ impl {{Codec.Name}} {
     {
         use std::iter::Iterator;
         self.{{Group.Codec.FieldName}} = std::option::Option::Some(
-            {{Group.Codec.FQEnumName}}::{{Codec.BranchName}}(
+            {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect()
             )
         );

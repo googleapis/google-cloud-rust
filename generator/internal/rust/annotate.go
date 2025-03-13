@@ -75,9 +75,14 @@ type serviceAnnotations struct {
 }
 
 type messageAnnotation struct {
-	Name          string
-	ModuleName    string
+	Name       string
+	ModuleName string
+	// The fully qualified name, including the `codec.modulePath` prefix. For
+	// messages in external packages this includes the package name.
 	QualifiedName string
+	// The fully qualified name, relative to `codec.modulePath`. Typically this
+	// is the `QualifiedName` with the `crate::model::` prefix removed.
+	RelativeName string
 	// The FQN is the source specification
 	SourceFQN         string
 	MessageAttributes []string
@@ -139,9 +144,12 @@ type oneOfAnnotation struct {
 	// The `oneof` is represented by a Rust `enum`, these need to be `PascalCase`.
 	EnumName string
 	// The Rust `enum` may be in a deeply nested scope. This is a shortcut.
-	FQEnumName string
-	FieldType  string
-	DocLines   []string
+	QualifiedName string
+	// The fully qualified name, relative to `codec.modulePath`. Typically this
+	// is the `QualifiedName` with the `crate::model::` prefix removed.
+	RelativeName string
+	FieldType    string
+	DocLines     []string
 	// The subset of the oneof fields that are neither maps, nor repeated.
 	SingularFields []*api.Field
 	// The subset of the oneof fields that are repeated (`Vec<T>` in Rust).
@@ -172,6 +180,8 @@ type fieldAnnotations struct {
 	// respectively.
 	KeyType   string
 	ValueType string
+	// The templates need to generate different code for boxed fields.
+	IsBoxed bool
 }
 
 type enumAnnotation struct {
@@ -179,6 +189,13 @@ type enumAnnotation struct {
 	ModuleName       string
 	DocLines         []string
 	DefaultValueName string
+	// The fully qualified name, including the `codec.modulePath`
+	// (typically `crate::model::`) prefix. For external enums this is prefixed
+	// by the external crate name.
+	QualifiedName string
+	// The fully qualified name, relative to `codec.modulePath`. Typically this
+	// is the `QualifiedName` with the `crate::model::` prefix removed.
+	RelativeName string
 }
 
 type enumValueAnnotation struct {
@@ -202,7 +219,7 @@ func annotateModel(model *api.API, codec *codec, outdir string) *modelAnnotation
 	// process we discover the external dependencies and trim the list of
 	// packages used by this API.
 	for _, e := range model.Enums {
-		codec.annotateEnum(e, model.State)
+		codec.annotateEnum(e, model.State, model.PackageName)
 	}
 	for _, m := range model.Messages {
 		codec.annotateMessage(m, model.State, model.PackageName)
@@ -346,7 +363,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		c.annotateOneOf(f, m, state, sourceSpecificationPackageName)
 	}
 	for _, e := range m.Enums {
-		c.annotateEnum(e, state)
+		c.annotateEnum(e, state, sourceSpecificationPackageName)
 	}
 	for _, child := range m.Messages {
 		c.annotateMessage(child, state, sourceSpecificationPackageName)
@@ -362,10 +379,13 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		return !f.IsOneOf
 	})
 	partition := partitionFields(basicFields, state)
+	qualifiedName := fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	m.Codec = &messageAnnotation{
 		Name:               toPascal(m.Name),
 		ModuleName:         toSnake(m.Name),
-		QualifiedName:      fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
+		QualifiedName:      qualifiedName,
+		RelativeName:       relativeName,
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 		DocLines:           formatDocComments(m.Documentation, m.ID, state, c.modulePath, m.Scopes(), c.packageMapping),
 		MessageAttributes:  messageAttributes(),
@@ -420,12 +440,14 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 	partition := partitionFields(oneof.Fields, state)
 	scope := messageScopeName(message, "", c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	enumName := toPascal(oneof.Name)
-	fqEnumName := fmt.Sprintf("%s::%s", scope, enumName)
+	qualifiedName := fmt.Sprintf("%s::%s", scope, enumName)
+	relativeEnumName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	oneof.Codec = &oneOfAnnotation{
 		FieldName:      toSnake(oneof.Name),
 		SetterName:     toSnakeNoMangling(oneof.Name),
 		EnumName:       enumName,
-		FQEnumName:     fqEnumName,
+		QualifiedName:  qualifiedName,
+		RelativeName:   relativeEnumName,
 		FieldType:      fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
 		DocLines:       formatDocComments(oneof.Documentation, oneof.ID, state, c.modulePath, message.Scopes(), c.packageMapping),
 		SingularFields: partition.singularFields,
@@ -446,6 +468,9 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),
 	}
+	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
+		ann.IsBoxed = true
+	}
 	field.Codec = ann
 	if field.Typez != api.MESSAGE_TYPE {
 		return
@@ -458,7 +483,7 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 	ann.ValueType = mapType(mapMessage.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 }
 
-func (c *codec) annotateEnum(e *api.Enum, state *api.APIState) {
+func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificationPackageName string) {
 	for _, ev := range e.Values {
 		c.annotateEnumValue(ev, e, state)
 	}
@@ -469,11 +494,15 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState) {
 			break
 		}
 	}
+	qualifiedName := fullyQualifiedEnumName(e, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	e.Codec = &enumAnnotation{
 		Name:             enumName(e),
 		ModuleName:       toSnake(enumName(e)),
 		DocLines:         formatDocComments(e.Documentation, e.ID, state, c.modulePath, e.Scopes(), c.packageMapping),
 		DefaultValueName: defaultValueName,
+		QualifiedName:    qualifiedName,
+		RelativeName:     relativeName,
 	}
 }
 

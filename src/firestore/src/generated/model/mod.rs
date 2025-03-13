@@ -321,6 +321,17 @@ pub mod precondition {
         /// that time. Timestamp must be microsecond aligned.
         UpdateTime(std::boxed::Box<wkt::Timestamp>),
     }
+
+    impl ConditionType {
+        /// Initializes the enum to the [Exists] branch.
+        pub fn from_exists(value: impl Into<bool>) -> Self {
+            Self::Exists(value.into())
+        }
+        /// Initializes the enum to the [UpdateTime] branch.
+        pub fn from_update_time(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+            Self::UpdateTime(value.into())
+        }
+    }
 }
 
 /// Options for creating a new transaction.
@@ -544,6 +555,13 @@ pub mod transaction_options {
             /// whole minute timestamp within the past 7 days.
             ReadTime(std::boxed::Box<wkt::Timestamp>),
         }
+
+        impl ConsistencySelector {
+            /// Initializes the enum to the [ReadTime] branch.
+            pub fn from_read_time(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+                Self::ReadTime(value.into())
+            }
+        }
     }
 
     /// The mode of the transaction.
@@ -555,6 +573,21 @@ pub mod transaction_options {
         ReadOnly(std::boxed::Box<crate::model::transaction_options::ReadOnly>),
         /// The transaction can be used for both read and write operations.
         ReadWrite(std::boxed::Box<crate::model::transaction_options::ReadWrite>),
+    }
+
+    impl Mode {
+        /// Initializes the enum to the [ReadOnly] branch.
+        pub fn from_read_only(
+            value: impl Into<std::boxed::Box<crate::model::transaction_options::ReadOnly>>,
+        ) -> Self {
+            Self::ReadOnly(value.into())
+        }
+        /// Initializes the enum to the [ReadWrite] branch.
+        pub fn from_read_write(
+            value: impl Into<std::boxed::Box<crate::model::transaction_options::ReadWrite>>,
+        ) -> Self {
+            Self::ReadWrite(value.into())
+        }
     }
 }
 
@@ -1002,6 +1035,57 @@ pub mod value {
         /// A map value.
         MapValue(std::boxed::Box<crate::model::MapValue>),
     }
+
+    impl ValueType {
+        /// Initializes the enum to the [NullValue] branch.
+        pub fn from_null_value(value: impl Into<wkt::NullValue>) -> Self {
+            Self::NullValue(value.into())
+        }
+        /// Initializes the enum to the [BooleanValue] branch.
+        pub fn from_boolean_value(value: impl Into<bool>) -> Self {
+            Self::BooleanValue(value.into())
+        }
+        /// Initializes the enum to the [IntegerValue] branch.
+        pub fn from_integer_value(value: impl Into<i64>) -> Self {
+            Self::IntegerValue(value.into())
+        }
+        /// Initializes the enum to the [DoubleValue] branch.
+        pub fn from_double_value(value: impl Into<f64>) -> Self {
+            Self::DoubleValue(value.into())
+        }
+        /// Initializes the enum to the [TimestampValue] branch.
+        pub fn from_timestamp_value(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+            Self::TimestampValue(value.into())
+        }
+        /// Initializes the enum to the [StringValue] branch.
+        pub fn from_string_value(value: impl Into<std::string::String>) -> Self {
+            Self::StringValue(value.into())
+        }
+        /// Initializes the enum to the [BytesValue] branch.
+        pub fn from_bytes_value(value: impl Into<::bytes::Bytes>) -> Self {
+            Self::BytesValue(value.into())
+        }
+        /// Initializes the enum to the [ReferenceValue] branch.
+        pub fn from_reference_value(value: impl Into<std::string::String>) -> Self {
+            Self::ReferenceValue(value.into())
+        }
+        /// Initializes the enum to the [GeoPointValue] branch.
+        pub fn from_geo_point_value(
+            value: impl Into<std::boxed::Box<gtype::model::LatLng>>,
+        ) -> Self {
+            Self::GeoPointValue(value.into())
+        }
+        /// Initializes the enum to the [ArrayValue] branch.
+        pub fn from_array_value(
+            value: impl Into<std::boxed::Box<crate::model::ArrayValue>>,
+        ) -> Self {
+            Self::ArrayValue(value.into())
+        }
+        /// Initializes the enum to the [MapValue] branch.
+        pub fn from_map_value(value: impl Into<std::boxed::Box<crate::model::MapValue>>) -> Self {
+            Self::MapValue(value.into())
+        }
+    }
 }
 
 /// An array value.
@@ -1218,6 +1302,17 @@ pub mod get_document_request {
         /// or if Point-in-Time Recovery is enabled, can additionally be a whole
         /// minute timestamp within the past 7 days.
         ReadTime(std::boxed::Box<wkt::Timestamp>),
+    }
+
+    impl ConsistencySelector {
+        /// Initializes the enum to the [Transaction] branch.
+        pub fn from_transaction(value: impl Into<::bytes::Bytes>) -> Self {
+            Self::Transaction(value.into())
+        }
+        /// Initializes the enum to the [ReadTime] branch.
+        pub fn from_read_time(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+            Self::ReadTime(value.into())
+        }
     }
 }
 
@@ -1444,6 +1539,17 @@ pub mod list_documents_request {
         /// or if Point-in-Time Recovery is enabled, can additionally be a whole
         /// minute timestamp within the past 7 days.
         ReadTime(std::boxed::Box<wkt::Timestamp>),
+    }
+
+    impl ConsistencySelector {
+        /// Initializes the enum to the [Transaction] branch.
+        pub fn from_transaction(value: impl Into<::bytes::Bytes>) -> Self {
+            Self::Transaction(value.into())
+        }
+        /// Initializes the enum to the [ReadTime] branch.
+        pub fn from_read_time(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+            Self::ReadTime(value.into())
+        }
     }
 }
 
@@ -1929,6 +2035,23 @@ pub mod batch_get_documents_request {
         /// minute timestamp within the past 7 days.
         ReadTime(std::boxed::Box<wkt::Timestamp>),
     }
+
+    impl ConsistencySelector {
+        /// Initializes the enum to the [Transaction] branch.
+        pub fn from_transaction(value: impl Into<::bytes::Bytes>) -> Self {
+            Self::Transaction(value.into())
+        }
+        /// Initializes the enum to the [NewTransaction] branch.
+        pub fn from_new_transaction(
+            value: impl Into<std::boxed::Box<crate::model::TransactionOptions>>,
+        ) -> Self {
+            Self::NewTransaction(value.into())
+        }
+        /// Initializes the enum to the [ReadTime] branch.
+        pub fn from_read_time(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+            Self::ReadTime(value.into())
+        }
+    }
 }
 
 /// The streamed response for
@@ -2068,6 +2191,17 @@ pub mod batch_get_documents_response {
         /// A document name that was requested but does not exist. In the format:
         /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
         Missing(std::string::String),
+    }
+
+    impl Result {
+        /// Initializes the enum to the [Found] branch.
+        pub fn from_found(value: impl Into<std::boxed::Box<crate::model::Document>>) -> Self {
+            Self::Found(value.into())
+        }
+        /// Initializes the enum to the [Missing] branch.
+        pub fn from_missing(value: impl Into<std::string::String>) -> Self {
+            Self::Missing(value.into())
+        }
     }
 }
 
@@ -2524,6 +2658,15 @@ pub mod run_query_request {
         StructuredQuery(std::boxed::Box<crate::model::StructuredQuery>),
     }
 
+    impl QueryType {
+        /// Initializes the enum to the [StructuredQuery] branch.
+        pub fn from_structured_query(
+            value: impl Into<std::boxed::Box<crate::model::StructuredQuery>>,
+        ) -> Self {
+            Self::StructuredQuery(value.into())
+        }
+    }
+
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2545,6 +2688,23 @@ pub mod run_query_request {
         /// or if Point-in-Time Recovery is enabled, can additionally be a whole
         /// minute timestamp within the past 7 days.
         ReadTime(std::boxed::Box<wkt::Timestamp>),
+    }
+
+    impl ConsistencySelector {
+        /// Initializes the enum to the [Transaction] branch.
+        pub fn from_transaction(value: impl Into<::bytes::Bytes>) -> Self {
+            Self::Transaction(value.into())
+        }
+        /// Initializes the enum to the [NewTransaction] branch.
+        pub fn from_new_transaction(
+            value: impl Into<std::boxed::Box<crate::model::TransactionOptions>>,
+        ) -> Self {
+            Self::NewTransaction(value.into())
+        }
+        /// Initializes the enum to the [ReadTime] branch.
+        pub fn from_read_time(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+            Self::ReadTime(value.into())
+        }
     }
 }
 
@@ -2706,6 +2866,13 @@ pub mod run_query_response {
         /// If present, Firestore has completely finished the request and no more
         /// documents will be returned.
         Done(bool),
+    }
+
+    impl ContinuationSelector {
+        /// Initializes the enum to the [Done] branch.
+        pub fn from_done(value: impl Into<bool>) -> Self {
+            Self::Done(value.into())
+        }
     }
 }
 
@@ -2930,6 +3097,15 @@ pub mod run_aggregation_query_request {
         StructuredAggregationQuery(std::boxed::Box<crate::model::StructuredAggregationQuery>),
     }
 
+    impl QueryType {
+        /// Initializes the enum to the [StructuredAggregationQuery] branch.
+        pub fn from_structured_aggregation_query(
+            value: impl Into<std::boxed::Box<crate::model::StructuredAggregationQuery>>,
+        ) -> Self {
+            Self::StructuredAggregationQuery(value.into())
+        }
+    }
+
     /// The consistency mode for the query, defaults to strong consistency.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -2950,6 +3126,23 @@ pub mod run_aggregation_query_request {
         /// or if Point-in-Time Recovery is enabled, can additionally be a whole
         /// minute timestamp within the past 7 days.
         ReadTime(std::boxed::Box<wkt::Timestamp>),
+    }
+
+    impl ConsistencySelector {
+        /// Initializes the enum to the [Transaction] branch.
+        pub fn from_transaction(value: impl Into<::bytes::Bytes>) -> Self {
+            Self::Transaction(value.into())
+        }
+        /// Initializes the enum to the [NewTransaction] branch.
+        pub fn from_new_transaction(
+            value: impl Into<std::boxed::Box<crate::model::TransactionOptions>>,
+        ) -> Self {
+            Self::NewTransaction(value.into())
+        }
+        /// Initializes the enum to the [ReadTime] branch.
+        pub fn from_read_time(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+            Self::ReadTime(value.into())
+        }
     }
 }
 
@@ -3243,6 +3436,15 @@ pub mod partition_query_request {
         StructuredQuery(std::boxed::Box<crate::model::StructuredQuery>),
     }
 
+    impl QueryType {
+        /// Initializes the enum to the [StructuredQuery] branch.
+        pub fn from_structured_query(
+            value: impl Into<std::boxed::Box<crate::model::StructuredQuery>>,
+        ) -> Self {
+            Self::StructuredQuery(value.into())
+        }
+    }
+
     /// The consistency mode for this request.
     /// If not set, defaults to strong consistency.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -3255,6 +3457,13 @@ pub mod partition_query_request {
         /// or if Point-in-Time Recovery is enabled, can additionally be a whole
         /// minute timestamp within the past 7 days.
         ReadTime(std::boxed::Box<wkt::Timestamp>),
+    }
+
+    impl ConsistencySelector {
+        /// Initializes the enum to the [ReadTime] branch.
+        pub fn from_read_time(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+            Self::ReadTime(value.into())
+        }
     }
 }
 
@@ -3655,6 +3864,17 @@ pub mod listen_request {
         /// The ID of a target to remove from this stream.
         RemoveTarget(i32),
     }
+
+    impl TargetChange {
+        /// Initializes the enum to the [AddTarget] branch.
+        pub fn from_add_target(value: impl Into<std::boxed::Box<crate::model::Target>>) -> Self {
+            Self::AddTarget(value.into())
+        }
+        /// Initializes the enum to the [RemoveTarget] branch.
+        pub fn from_remove_target(value: impl Into<i32>) -> Self {
+            Self::RemoveTarget(value.into())
+        }
+    }
 }
 
 /// The response for [Firestore.Listen][google.firestore.v1.Firestore.Listen].
@@ -3876,6 +4096,39 @@ pub mod listen_response {
         /// Returned when documents may have been removed from the given target, but
         /// the exact documents are unknown.
         Filter(std::boxed::Box<crate::model::ExistenceFilter>),
+    }
+
+    impl ResponseType {
+        /// Initializes the enum to the [TargetChange] branch.
+        pub fn from_target_change(
+            value: impl Into<std::boxed::Box<crate::model::TargetChange>>,
+        ) -> Self {
+            Self::TargetChange(value.into())
+        }
+        /// Initializes the enum to the [DocumentChange] branch.
+        pub fn from_document_change(
+            value: impl Into<std::boxed::Box<crate::model::DocumentChange>>,
+        ) -> Self {
+            Self::DocumentChange(value.into())
+        }
+        /// Initializes the enum to the [DocumentDelete] branch.
+        pub fn from_document_delete(
+            value: impl Into<std::boxed::Box<crate::model::DocumentDelete>>,
+        ) -> Self {
+            Self::DocumentDelete(value.into())
+        }
+        /// Initializes the enum to the [DocumentRemove] branch.
+        pub fn from_document_remove(
+            value: impl Into<std::boxed::Box<crate::model::DocumentRemove>>,
+        ) -> Self {
+            Self::DocumentRemove(value.into())
+        }
+        /// Initializes the enum to the [Filter] branch.
+        pub fn from_filter(
+            value: impl Into<std::boxed::Box<crate::model::ExistenceFilter>>,
+        ) -> Self {
+            Self::Filter(value.into())
+        }
     }
 }
 
@@ -4223,6 +4476,15 @@ pub mod target {
             /// A structured query.
             StructuredQuery(std::boxed::Box<crate::model::StructuredQuery>),
         }
+
+        impl QueryType {
+            /// Initializes the enum to the [StructuredQuery] branch.
+            pub fn from_structured_query(
+                value: impl Into<std::boxed::Box<crate::model::StructuredQuery>>,
+            ) -> Self {
+                Self::StructuredQuery(value.into())
+            }
+        }
     }
 
     /// The type of target to listen to.
@@ -4234,6 +4496,21 @@ pub mod target {
         Query(std::boxed::Box<crate::model::target::QueryTarget>),
         /// A target specified by a set of document names.
         Documents(std::boxed::Box<crate::model::target::DocumentsTarget>),
+    }
+
+    impl TargetType {
+        /// Initializes the enum to the [Query] branch.
+        pub fn from_query(
+            value: impl Into<std::boxed::Box<crate::model::target::QueryTarget>>,
+        ) -> Self {
+            Self::Query(value.into())
+        }
+        /// Initializes the enum to the [Documents] branch.
+        pub fn from_documents(
+            value: impl Into<std::boxed::Box<crate::model::target::DocumentsTarget>>,
+        ) -> Self {
+            Self::Documents(value.into())
+        }
     }
 
     /// When to start listening.
@@ -4256,6 +4533,17 @@ pub mod target {
         ///
         /// The client must know the state of matching documents at this time.
         ReadTime(std::boxed::Box<wkt::Timestamp>),
+    }
+
+    impl ResumeType {
+        /// Initializes the enum to the [ResumeToken] branch.
+        pub fn from_resume_token(value: impl Into<::bytes::Bytes>) -> Self {
+            Self::ResumeToken(value.into())
+        }
+        /// Initializes the enum to the [ReadTime] branch.
+        pub fn from_read_time(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+            Self::ReadTime(value.into())
+        }
     }
 }
 
@@ -4565,6 +4853,13 @@ pub mod list_collection_ids_request {
         /// or if Point-in-Time Recovery is enabled, can additionally be a whole
         /// minute timestamp within the past 7 days.
         ReadTime(std::boxed::Box<wkt::Timestamp>),
+    }
+
+    impl ConsistencySelector {
+        /// Initializes the enum to the [ReadTime] branch.
+        pub fn from_read_time(value: impl Into<std::boxed::Box<wkt::Timestamp>>) -> Self {
+            Self::ReadTime(value.into())
+        }
     }
 }
 
@@ -5175,6 +5470,27 @@ pub mod structured_query {
             /// A filter that takes exactly one argument.
             UnaryFilter(std::boxed::Box<crate::model::structured_query::UnaryFilter>),
         }
+
+        impl FilterType {
+            /// Initializes the enum to the [CompositeFilter] branch.
+            pub fn from_composite_filter(
+                value: impl Into<std::boxed::Box<crate::model::structured_query::CompositeFilter>>,
+            ) -> Self {
+                Self::CompositeFilter(value.into())
+            }
+            /// Initializes the enum to the [FieldFilter] branch.
+            pub fn from_field_filter(
+                value: impl Into<std::boxed::Box<crate::model::structured_query::FieldFilter>>,
+            ) -> Self {
+                Self::FieldFilter(value.into())
+            }
+            /// Initializes the enum to the [UnaryFilter] branch.
+            pub fn from_unary_filter(
+                value: impl Into<std::boxed::Box<crate::model::structured_query::UnaryFilter>>,
+            ) -> Self {
+                Self::UnaryFilter(value.into())
+            }
+        }
     }
 
     /// A filter that merges multiple other filters using the given operator.
@@ -5673,6 +5989,15 @@ pub mod structured_query {
         pub enum OperandType {
             /// The field to which to apply the operator.
             Field(std::boxed::Box<crate::model::structured_query::FieldReference>),
+        }
+
+        impl OperandType {
+            /// Initializes the enum to the [Field] branch.
+            pub fn from_field(
+                value: impl Into<std::boxed::Box<crate::model::structured_query::FieldReference>>,
+            ) -> Self {
+                Self::Field(value.into())
+            }
         }
     }
 
@@ -6518,6 +6843,33 @@ pub mod structured_aggregation_query {
             /// Average aggregator.
             Avg(std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>),
         }
+
+        impl Operator {
+            /// Initializes the enum to the [Count] branch.
+            pub fn from_count(
+                value: impl Into<
+                    std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Count>,
+                >,
+            ) -> Self {
+                Self::Count(value.into())
+            }
+            /// Initializes the enum to the [Sum] branch.
+            pub fn from_sum(
+                value: impl Into<
+                    std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
+                >,
+            ) -> Self {
+                Self::Sum(value.into())
+            }
+            /// Initializes the enum to the [Avg] branch.
+            pub fn from_avg(
+                value: impl Into<
+                    std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
+                >,
+            ) -> Self {
+                Self::Avg(value.into())
+            }
+        }
     }
 
     /// The base query to aggregate over.
@@ -6527,6 +6879,15 @@ pub mod structured_aggregation_query {
     pub enum QueryType {
         /// Nested structured query.
         StructuredQuery(std::boxed::Box<crate::model::StructuredQuery>),
+    }
+
+    impl QueryType {
+        /// Initializes the enum to the [StructuredQuery] branch.
+        pub fn from_structured_query(
+            value: impl Into<std::boxed::Box<crate::model::StructuredQuery>>,
+        ) -> Self {
+            Self::StructuredQuery(value.into())
+        }
     }
 }
 
@@ -6967,6 +7328,23 @@ pub mod write {
         /// Applies a transformation to a document.
         Transform(std::boxed::Box<crate::model::DocumentTransform>),
     }
+
+    impl Operation {
+        /// Initializes the enum to the [Update] branch.
+        pub fn from_update(value: impl Into<std::boxed::Box<crate::model::Document>>) -> Self {
+            Self::Update(value.into())
+        }
+        /// Initializes the enum to the [Delete] branch.
+        pub fn from_delete(value: impl Into<std::string::String>) -> Self {
+            Self::Delete(value.into())
+        }
+        /// Initializes the enum to the [Transform] branch.
+        pub fn from_transform(
+            value: impl Into<std::boxed::Box<crate::model::DocumentTransform>>,
+        ) -> Self {
+            Self::Transform(value.into())
+        }
+    }
 }
 
 /// A transformation of a document.
@@ -7385,6 +7763,39 @@ pub mod document_transform {
             ///
             /// The corresponding transform_result will be the null value.
             RemoveAllFromArray(std::boxed::Box<crate::model::ArrayValue>),
+        }
+
+        impl TransformType {
+            /// Initializes the enum to the [SetToServerValue] branch.
+            pub fn from_set_to_server_value(
+                value: impl Into<crate::model::document_transform::field_transform::ServerValue>,
+            ) -> Self {
+                Self::SetToServerValue(value.into())
+            }
+            /// Initializes the enum to the [Increment] branch.
+            pub fn from_increment(value: impl Into<std::boxed::Box<crate::model::Value>>) -> Self {
+                Self::Increment(value.into())
+            }
+            /// Initializes the enum to the [Maximum] branch.
+            pub fn from_maximum(value: impl Into<std::boxed::Box<crate::model::Value>>) -> Self {
+                Self::Maximum(value.into())
+            }
+            /// Initializes the enum to the [Minimum] branch.
+            pub fn from_minimum(value: impl Into<std::boxed::Box<crate::model::Value>>) -> Self {
+                Self::Minimum(value.into())
+            }
+            /// Initializes the enum to the [AppendMissingElements] branch.
+            pub fn from_append_missing_elements(
+                value: impl Into<std::boxed::Box<crate::model::ArrayValue>>,
+            ) -> Self {
+                Self::AppendMissingElements(value.into())
+            }
+            /// Initializes the enum to the [RemoveAllFromArray] branch.
+            pub fn from_remove_all_from_array(
+                value: impl Into<std::boxed::Box<crate::model::ArrayValue>>,
+            ) -> Self {
+                Self::RemoveAllFromArray(value.into())
+            }
         }
     }
 }

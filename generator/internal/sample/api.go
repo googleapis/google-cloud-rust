@@ -141,7 +141,7 @@ func MethodListSecretVersions() *api.Method {
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v1"),
 				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
+				api.NewFieldPathPathSegment("parent"),
 				api.NewLiteralPathSegment("secrets"),
 				api.NewFieldPathPathSegment("secret"),
 				api.NewVerbPathSegment("listSecretVersions"),
@@ -206,6 +206,7 @@ func ListSecretVersionsRequest() *api.Message {
 			{
 				Name:     "parent",
 				JSONName: "parent",
+				ID:       Secret().ID + ".parent",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  Secret().ID,
 			},

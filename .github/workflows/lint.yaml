@@ -54,7 +54,8 @@ jobs:
       - name: Verify Copyright Boilerplate
         run: |
           cargo build --release --bin check-copyright
-          git ls-files -z -- '*.yaml' '*.yml' '*.toml' '*.go' '*.rs' ':!:**/testdata/**' ':!:**.md' ':!:**.mustache' | \
+          git ls-files -z -- '*.yaml' '*.yml' '*.toml' '*.go' '*.rs' \
+            ':!:**/testdata/**' ':!:**.md' ':!:**.mustache' ':!:**/generated/protos/**' | \
             xargs -0 -r -P "$(nproc)" -n 50 cargo run --release --bin check-copyright
       - name: Format Markdown Files
         run: |

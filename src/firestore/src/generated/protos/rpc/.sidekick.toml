@@ -13,10 +13,9 @@
 # limitations under the License.
 
 [general]
-language             = 'rust'
-specification-source = 'google/firestore/v1'
-service-config       = 'google/firestore/v1/firestore_v1.yaml'
+language             = 'rust+prost'
+specification-source = 'google/rpc'
 
 [codec]
 copyright-year    = '2025'
-template-override = 'templates/mod-prost'
+template-override = 'templates/prost'

@@ -14,9 +14,12 @@
 
 [general]
 language             = 'rust'
-specification-source = 'google/firestore/v1'
-service-config       = 'google/firestore/v1/firestore_v1.yaml'
+specification-source = 'google/rpc'
+
+[source]
+skipped-ids = '.google.rpc.Status'
 
 [codec]
 copyright-year    = '2025'
-template-override = 'templates/mod-prost'
+template-override = 'templates/convert-prost'
+module-path       = 'rpc::model'

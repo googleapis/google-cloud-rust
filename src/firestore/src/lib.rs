@@ -22,8 +22,18 @@ pub mod model {
 
 pub(crate) mod google {
     pub mod firestore {
-        pub mod v1 {}
+        #[allow(clippy::enum_variant_names)]
+        pub mod v1 {
+            include!("generated/protos/firestore/google.firestore.v1.rs");
+        }
     }
-    pub mod rpc {}
-    pub mod r#type {}
+    pub mod rpc {
+        include!("generated/protos/rpc/google.rpc.rs");
+        include!("generated/convert/rpc/convert.rs");
+    }
+    pub mod r#type {
+        // TODO(#1414) - decide if we want to generate this as its own directory.
+        include!("generated/protos/firestore/google.r#type.rs");
+        include!("generated/convert/type/convert.rs");
+    }
 }
