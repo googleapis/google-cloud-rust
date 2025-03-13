@@ -207,6 +207,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = req.get_oneof_field().iter().fold(builder, |builder, p| builder.query(&[("oneofField", p)]));`,
 		KeyType:            "",
 		ValueType:          "",
+		ToProto:            "cnv",
 	}, singular.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -225,6 +226,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = req.get_oneof_field_repeated().iter().fold(builder, |builder, p| builder.query(&[("oneofFieldRepeated", p)]));`,
 		KeyType:            "",
 		ValueType:          "",
+		ToProto:            "cnv",
 	}, repeated.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -244,6 +246,9 @@ func TestOneOfAnnotations(t *testing.T) {
 		KeyType:            "i32",
 		ValueType:          "i32",
 		IsBoxed:            true,
+		ToProto:            "cnv",
+		KeyToProto:         "cnv",
+		ValueToProto:       "cnv",
 	}, map_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -368,6 +373,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = builder.query(&[("parent", &req.parent)]);`,
 		KeyType:            "",
 		ValueType:          "",
+		ToProto:            "cnv",
 	}, parent.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -387,6 +393,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = builder.query(&[("public_key", &req.public_key)]);`,
 		KeyType:            "",
 		ValueType:          "",
+		ToProto:            "cnv",
 	}, publicKey.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -403,6 +410,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = builder.query(&[("readTime", &req.read_time)]);`,
 		KeyType:            "",
 		ValueType:          "",
+		ToProto:            "cnv",
 	}, readTime.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -568,6 +576,7 @@ func TestFieldAnnotations(t *testing.T) {
 		FieldType:          "std::string::String",
 		PrimitiveFieldType: "std::string::String",
 		AddQueryParameter:  `let builder = builder.query(&[("singularField", &req.singular_field)]);`,
+		ToProto:            "cnv",
 	}
 	if diff := cmp.Diff(wantField, singular_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -584,6 +593,7 @@ func TestFieldAnnotations(t *testing.T) {
 		FieldType:          "std::vec::Vec<std::string::String>",
 		PrimitiveFieldType: "std::string::String",
 		AddQueryParameter:  `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`,
+		ToProto:            "cnv",
 	}
 	if diff := cmp.Diff(wantField, repeated_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -603,6 +613,9 @@ func TestFieldAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.map_field).map_err(Error::serde)?.add(builder, "mapField") };`,
 		KeyType:            "i32",
 		ValueType:          "i64",
+		ToProto:            "cnv",
+		KeyToProto:         "cnv",
+		ValueToProto:       "cnv",
 	}
 	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -620,8 +633,201 @@ func TestFieldAnnotations(t *testing.T) {
 		PrimitiveFieldType: "crate::model::TestMessage",
 		AddQueryParameter:  `let builder = req.boxed_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "boxedField") });`,
 		IsBoxed:            true,
+		ToProto:            "cnv",
 	}
 	if diff := cmp.Diff(wantField, boxed_field.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestEnumFieldAnnotations(t *testing.T) {
+	enumz := &api.Enum{
+		Name:    "TestEnum",
+		Package: "test",
+		ID:      ".test.TestEnum",
+	}
+	singular_field := &api.Field{
+		Name:     "singular_field",
+		JSONName: "singularField",
+		ID:       ".test.Message.singular_field",
+		Typez:    api.ENUM_TYPE,
+		TypezID:  ".test.TestEnum",
+	}
+	repeated_field := &api.Field{
+		Name:     "repeated_field",
+		JSONName: "repeatedField",
+		ID:       ".test.Message.repeated_field",
+		Typez:    api.ENUM_TYPE,
+		TypezID:  ".test.TestEnum",
+		Repeated: true,
+	}
+	optional_field := &api.Field{
+		Name:     "optional_field",
+		JSONName: "optionalField",
+		ID:       ".test.Message.optional_field",
+		Typez:    api.ENUM_TYPE,
+		TypezID:  ".test.TestEnum",
+		Optional: true,
+	}
+	null_value_field := &api.Field{
+		Name:     "null_value_field",
+		JSONName: "nullValueField",
+		ID:       ".test.Message.null_value_field",
+		Typez:    api.ENUM_TYPE,
+		TypezID:  ".google.protobuf.NullValue",
+	}
+	map_field := &api.Field{
+		Name:     "map_field",
+		JSONName: "mapField",
+		ID:       ".test.Message.map_field",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  "$map<string, .test.TestEnum>",
+	}
+	// TODO(#1381) - this is closer to what map message should be called.
+	key_field := &api.Field{
+		Name:     "key",
+		JSONName: "key",
+		ID:       "$map<string, .test.TestEnum>.key",
+		Typez:    api.STRING_TYPE,
+	}
+	value_field := &api.Field{
+		Name:     "value",
+		JSONName: "value",
+		ID:       "$map<string, .test.TestEnum>.value",
+		Typez:    api.ENUM_TYPE,
+		TypezID:  ".test.TestEnum",
+	}
+	map_message := &api.Message{
+		Name:   "$map<string, .test.TestEnum>",
+		ID:     "$map<string, .test.TestEnum>",
+		IsMap:  true,
+		Fields: []*api.Field{key_field, value_field},
+	}
+	message := &api.Message{
+		Name:          "TestMessage",
+		Package:       "test",
+		ID:            ".test.TestMessage",
+		Documentation: "A test message.",
+		Fields:        []*api.Field{singular_field, repeated_field, optional_field, null_value_field, map_field},
+	}
+
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{enumz}, []*api.Service{})
+	model.State.MessageByID[map_message.ID] = map_message
+	api.CrossReference(model)
+	api.LabelRecursiveFields(model)
+	codec, err := newCodec(true, map[string]string{
+		"package:wkt": "force-used=true,package=google-cloud-wkt,path=src/wkt,source=google.protobuf,version=0.2",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec, "")
+	wantMessage := &messageAnnotation{
+		Name:          "TestMessage",
+		ModuleName:    "test_message",
+		QualifiedName: "crate::model::TestMessage",
+		RelativeName:  "TestMessage",
+		SourceFQN:     "test.TestMessage",
+		MessageAttributes: []string{
+			`#[serde_with::serde_as]`,
+			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
+			`#[serde(default, rename_all = "camelCase")]`,
+			`#[non_exhaustive]`,
+		},
+		DocLines:       []string{"/// A test message."},
+		BasicFields:    []*api.Field{singular_field, repeated_field, optional_field, null_value_field, map_field},
+		SingularFields: []*api.Field{singular_field, optional_field, null_value_field},
+		RepeatedFields: []*api.Field{repeated_field},
+		MapFields:      []*api.Field{map_field},
+	}
+	if diff := cmp.Diff(wantMessage, message.Codec); diff != "" {
+		t.Errorf("mismatch in message annotations (-want, +got)\n:%s", diff)
+	}
+
+	wantField := &fieldAnnotations{
+		FieldName:          "singular_field",
+		SetterName:         "singular_field",
+		BranchName:         "SingularField",
+		FQMessageName:      "crate::model::TestMessage",
+		Attributes:         []string{},
+		FieldType:          "crate::model::TestEnum",
+		PrimitiveFieldType: "crate::model::TestEnum",
+		AddQueryParameter:  `let builder = builder.query(&[("singularField", &req.singular_field.value())]);`,
+		ToProto:            "value",
+	}
+	if diff := cmp.Diff(wantField, singular_field.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	wantField = &fieldAnnotations{
+		FieldName:     "repeated_field",
+		SetterName:    "repeated_field",
+		BranchName:    "RepeatedField",
+		FQMessageName: "crate::model::TestMessage",
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		},
+		FieldType:          "std::vec::Vec<crate::model::TestEnum>",
+		PrimitiveFieldType: "crate::model::TestEnum",
+		AddQueryParameter:  `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p.value())]));`,
+		ToProto:            "value",
+	}
+	if diff := cmp.Diff(wantField, repeated_field.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	wantField = &fieldAnnotations{
+		FieldName:     "optional_field",
+		SetterName:    "optional_field",
+		BranchName:    "OptionalField",
+		FQMessageName: "crate::model::TestMessage",
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		},
+		FieldType:          "std::option::Option<crate::model::TestEnum>",
+		PrimitiveFieldType: "crate::model::TestEnum",
+		AddQueryParameter:  `let builder = req.optional_field.iter().fold(builder, |builder, p| builder.query(&[("optionalField", p.value())]));`,
+		ToProto:            "value",
+	}
+	if diff := cmp.Diff(wantField, optional_field.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	// In the .proto specification this is represented as an enum. Which we
+	// map to a unit struct.
+	wantField = &fieldAnnotations{
+		FieldName:          "null_value_field",
+		SetterName:         "null_value_field",
+		BranchName:         "NullValueField",
+		FQMessageName:      "crate::model::TestMessage",
+		Attributes:         []string{},
+		FieldType:          "wkt::NullValue",
+		PrimitiveFieldType: "wkt::NullValue",
+		AddQueryParameter:  `let builder = builder.query(&[("nullValueField", &req.null_value_field.value())]);`,
+		ToProto:            "value",
+	}
+	if diff := cmp.Diff(wantField, null_value_field.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	wantField = &fieldAnnotations{
+		FieldName:     "map_field",
+		SetterName:    "map_field",
+		BranchName:    "MapField",
+		FQMessageName: "crate::model::TestMessage",
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
+		},
+		FieldType:          "std::collections::HashMap<std::string::String,crate::model::TestEnum>",
+		PrimitiveFieldType: "std::collections::HashMap<std::string::String,crate::model::TestEnum>",
+		AddQueryParameter:  `let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.map_field).map_err(Error::serde)?.add(builder, "mapField") };`,
+		KeyType:            "std::string::String",
+		ValueType:          "crate::model::TestEnum",
+		ToProto:            "cnv",
+		KeyToProto:         "cnv",
+		ValueToProto:       "value",
+	}
+	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 }
