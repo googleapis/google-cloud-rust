@@ -204,7 +204,7 @@ mod test {
     use rsa::pkcs8::EncodePrivateKey;
     use rsa::pkcs8::LineEnding;
     use rsa::RsaPrivateKey;
-    use rustls::SignatureAlgorithm;
+    use rustls::SignatureScheme;
     use rustls_pemfile::Item;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -338,12 +338,11 @@ mod test {
         Ok(())
     }
 
-    fn generate_pkcs8_key(algorithm: rustls::SignatureScheme) -> String {
+    fn generate_pkcs8_key(algorithm: SignatureScheme) -> String {
         let mut rng = rand::thread_rng();
         let bits = 2048;
-        // let mut priv_key = None;
         match algorithm {
-            rustls::SignatureScheme::RSA_PKCS1_SHA256 => {
+            SignatureScheme::RSA_PKCS1_SHA256 => {
                 let priv_key =
                     RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
                 priv_key
@@ -351,7 +350,7 @@ mod test {
                     .expect("Failed to encode key to PKCS#8 PEM")
                     .to_string()
             }
-            rustls::SignatureScheme::ECDSA_NISTP256_SHA256 => {
+            SignatureScheme::ECDSA_NISTP256_SHA256 => {
                 let priv_key = p256::ecdsa::SigningKey::random(&mut rng); // Generate a new ES256 key pair
                 priv_key
                     .to_pkcs8_pem(LineEnding::LF)
