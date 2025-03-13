@@ -25,6 +25,12 @@ keywords.workspace   = true
 license.workspace    = true
 repository.workspace = true
 
+[package.metadata.docs.rs]
+# We want to generate documentation for streaming APIs, gated by this feature.
+# We do not want to generate documentation for `unstable-sdk-client`, which
+# gates internal tpes.
+features = ["unstable-stream"]
+
 [dependencies]
 base64      = "0.22"
 bytes       = "1"
