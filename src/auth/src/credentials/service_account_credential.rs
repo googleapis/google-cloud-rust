@@ -84,9 +84,10 @@ impl TokenProvider for ServiceAccountTokenProvider {
     async fn get_token(&self) -> Result<Token> {
         let signing_key = self.get_signing_key(&self.service_account_info.private_key)?;
         let signing_algorithm = match signing_key.algorithm().as_str() {
-            Some(s) => Ok(s),
-            None => Err(CredentialError::non_retryable_from_str(
-                "Unable to find algorithm",
+            Some("RSA") => Ok("RS256"),
+            Some("ECDSA") => Ok("ES256"),
+            _ => Err(CredentialError::non_retryable_from_str(
+                "Unsupported signing algorithm %s ",
             )),
         }?;
         let signer = signing_key.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256, rustls::SignatureScheme::ECDSA_NISTP256_SHA256])
@@ -392,7 +393,7 @@ mod test {
             )
         })?;
         let header = b64_decode_to_json(captures["header"].to_string());
-        assert_eq!(header["alg"], "RSA");
+        assert_eq!(header["alg"], "RS256");
         assert_eq!(header["typ"], "JWT");
         assert_eq!(header["kid"], "test-private-key-id");
 
@@ -425,7 +426,7 @@ mod test {
             )
         })?;
         let header = b64_decode_to_json(captures["header"].to_string());
-        assert_eq!(header["alg"], "ECDSA");
+        assert_eq!(header["alg"], "ES256");
         assert_eq!(header["typ"], "JWT");
         assert_eq!(header["kid"], "test-private-key-id");
 
@@ -456,7 +457,7 @@ mod test {
 
     #[cfg(feature = "default-crypto-provider")]
     #[test]
-    fn signer_failure() -> TestResult {
+    fn signing_key_failure() -> TestResult {
         let tp = ServiceAccountTokenProvider {
             service_account_info: get_mock_service_account(),
         };
