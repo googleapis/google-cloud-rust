@@ -167,12 +167,6 @@ impl Convert<prost_types::NullValue> for crate::NullValue {
     }
 }
 
-impl std::convert::From<i32> for crate::NullValue {
-    fn from(_value: i32) -> Self {
-        Self
-    }
-}
-
 impl std::convert::From<crate::NullValue> for i32 {
     fn from(_value: crate::NullValue) -> Self {
         i32::default()
