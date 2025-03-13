@@ -69,19 +69,19 @@ mod test {
         // We need a type with a static lifetime because of the constraints on
         // `PrivateKeyDer`.
         static FAKE_KEY_PROVIDER: FakeKeyProvider = FakeKeyProvider {};
-        
+
         // It is easier to grab some `CryptoProvider` and replace its
         // `key_provider` than construct a fake `CryptoProvider` from scratch.
         let mut cp = rustls::crypto::ring::default_provider();
         cp.key_provider = &FAKE_KEY_PROVIDER;
-        
+
         // Install our custom `CryptoProvider`.
         //
         // Note that this can only be called once **per process**. That is why
         // we isolate this test into its own binary. Adding other tests to this
         // binary will use the fake (and faulty!) provider we just installed.
         CryptoProvider::install_default(cp).unwrap();
-        
+
         // Try to use the service account credentials. This calls into the
         // custom crypto provider.
         let creds = test_service_account_credentials().await;
