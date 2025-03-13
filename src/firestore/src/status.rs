@@ -19,11 +19,7 @@ impl wkt::prost::Convert<google::rpc::Status> for rpc::model::Status {
         google::rpc::Status {
             code: self.code.cnv(),
             message: self.message.cnv(),
-            details: self
-                .details
-                .into_iter()
-                .filter_map(|v| any_to_prost(v))
-                .collect(),
+            details: self.details.into_iter().filter_map(any_to_prost).collect(),
         }
     }
 }
@@ -33,7 +29,7 @@ impl wkt::prost::Convert<rpc::model::Status> for google::rpc::Status {
         rpc::model::Status::new()
             .set_code(self.code)
             .set_message(self.message)
-            .set_details(self.details.into_iter().filter_map(|v| any_from_prost(v)))
+            .set_details(self.details.into_iter().filter_map(any_from_prost))
     }
 }
 
