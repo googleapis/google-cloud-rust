@@ -285,6 +285,11 @@ func loadWellKnownTypes(s *api.APIState) {
 	for _, message := range wellKnownMessages {
 		s.MessageByID[message.ID] = message
 	}
+	s.EnumByID[".google.protobuf.NullValue"] = &api.Enum{
+		Name:    "NullValue",
+		Package: "google.protobuf",
+		ID:      ".google.protobuf.NullValue",
+	}
 }
 
 func resolveUsedPackages(model *api.API, extraPackages []*packagez) {
