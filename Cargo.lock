@@ -2351,6 +2351,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-http-client"
+version = "0.1.0"
+dependencies = [
+ "google-cloud-gax",
+]
+
+[[package]]
 name = "google-cloud-iam-admin-v1"
 version = "0.2.0"
 dependencies = [
