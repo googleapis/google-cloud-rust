@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [RecaptchaEnterpriseService](crate::stubs::RecaptchaEnterpriseService) using a [gax::http_client::ReqwestClient].
+/// Implements [RecaptchaEnterpriseService](crate::stubs::RecaptchaEnterpriseService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct RecaptchaEnterpriseService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for RecaptchaEnterpriseService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for RecaptchaEnterpriseService {
 }
 
 impl RecaptchaEnterpriseService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -113,7 +113,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -135,7 +135,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -154,7 +154,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -209,7 +209,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -290,7 +290,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -309,7 +309,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -355,7 +355,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -374,7 +374,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -431,7 +431,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -475,7 +475,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -499,7 +499,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

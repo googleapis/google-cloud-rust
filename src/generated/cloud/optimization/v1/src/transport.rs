@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [FleetRouting](crate::stubs::FleetRouting) using a [gax::http_client::ReqwestClient].
+/// Implements [FleetRouting](crate::stubs::FleetRouting) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct FleetRouting {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for FleetRouting {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for FleetRouting {
 }
 
 impl FleetRouting {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -95,7 +95,7 @@ impl crate::stubs::FleetRouting for FleetRouting {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

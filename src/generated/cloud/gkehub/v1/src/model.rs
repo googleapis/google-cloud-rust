@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gkehub_configmanagement_v1;
 extern crate gkehub_multiclusteringress_v1;
 extern crate lazy_static;

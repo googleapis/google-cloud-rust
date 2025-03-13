@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate grafeas;
 extern crate lazy_static;
 extern crate reqwest;

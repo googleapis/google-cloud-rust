@@ -21,6 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate cloud_common;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate location;
 extern crate longrunning;
