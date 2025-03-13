@@ -683,8 +683,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		Typez:    api.MESSAGE_TYPE,
 		TypezID:  "$map<string, .test.TestEnum>",
 	}
-	// TODO(#1381) - this is closer to wnat we would message map messages to
-	//     be called.
+	// TODO(#1381) - this is closer to what map message should be called.
 	key_field := &api.Field{
 		Name:     "key",
 		JSONName: "key",
