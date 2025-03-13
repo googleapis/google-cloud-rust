@@ -94,6 +94,14 @@ func TestServiceAnnotations(t *testing.T) {
 		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)
 	}
 
+	// The `noHttpMethod` should be excluded from the list of methods in the
+	// Codec.
+	serviceAnn := service.Codec.(*serviceAnnotations)
+	wantMethodList := []*api.Method{method}
+	if diff := cmp.Diff(wantMethodList, serviceAnn.Methods, cmpopts.IgnoreFields(api.Method{}, "Model", "Service")); diff != "" {
+		t.Errorf("mismatch in method list (-want, +got)\n:%s", diff)
+	}
+
 	wantMethod := &methodAnnotation{
 		Name:         "get_resource",
 		BuilderName:  "GetResource",
