@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Google APIs helpers.
+//! Google APIs eXtensions for Rust.
 //!
 //! **WARNING:** this crate is under active development. We expect multiple
 //! breaking changes in the upcoming releases. Testing is also incomplete, we do
