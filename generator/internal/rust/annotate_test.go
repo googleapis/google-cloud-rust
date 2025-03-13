@@ -39,6 +39,86 @@ func TestPackageNames(t *testing.T) {
 	}
 }
 
+func TestServiceAnnotations(t *testing.T) {
+	request := &api.Message{
+		Name:    "Request",
+		Package: "test",
+		ID:      ".test.Request",
+	}
+	response := &api.Message{
+		Name:    "Response",
+		Package: "test",
+		ID:      ".test.Response",
+	}
+	method := &api.Method{
+		Name:         "GetResource",
+		ID:           ".test.Service.GetResource",
+		InputTypeID:  ".test.Request",
+		OutputTypeID: ".test.Response",
+		PathInfo: &api.PathInfo{
+			Verb: "GET",
+			PathTemplate: []api.PathSegment{
+				api.NewLiteralPathSegment("/v1/resource"),
+			},
+		},
+	}
+	noHttpMethod := &api.Method{
+		Name:         "DoAThing",
+		ID:           ".test.Service.DoAThing",
+		InputTypeID:  ".test.Request",
+		OutputTypeID: ".test.Response",
+	}
+	service := &api.Service{
+		Name:    "ResourceService",
+		ID:      ".test.ResourceService",
+		Package: "test",
+		Methods: []*api.Method{method, noHttpMethod},
+	}
+
+	model := api.NewTestAPI(
+		[]*api.Message{request, response},
+		[]*api.Enum{},
+		[]*api.Service{service})
+	api.CrossReference(model)
+	codec, err := newCodec(true, map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec, "")
+	wantService := &serviceAnnotations{
+		Name:       "ResourceService",
+		ModuleName: "resource_service",
+		HasLROs:    false,
+	}
+	if diff := cmp.Diff(wantService, service.Codec, cmpopts.IgnoreFields(serviceAnnotations{}, "Methods")); diff != "" {
+		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)
+	}
+
+	// The `noHttpMethod` should be excluded from the list of methods in the
+	// Codec.
+	serviceAnn := service.Codec.(*serviceAnnotations)
+	wantMethodList := []*api.Method{method}
+	if diff := cmp.Diff(wantMethodList, serviceAnn.Methods, cmpopts.IgnoreFields(api.Method{}, "Model", "Service")); diff != "" {
+		t.Errorf("mismatch in method list (-want, +got)\n:%s", diff)
+	}
+
+	wantMethod := &methodAnnotation{
+		Name:         "get_resource",
+		BuilderName:  "GetResource",
+		BodyAccessor: ".",
+		PathInfo:     method.PathInfo,
+		SystemParameters: []systemParameter{
+			{Name: "$alt", Value: "json;enum-encoding=int"},
+		},
+		ServiceNameToPascal: "ResourceService",
+		ServiceNameToCamel:  "resourceService",
+		ServiceNameToSnake:  "resource_service",
+	}
+	if diff := cmp.Diff(wantMethod, method.Codec); diff != "" {
+		t.Errorf("mismatch in nested message annotations (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestOneOfAnnotations(t *testing.T) {
 	singular := &api.Field{
 		Name:     "oneof_field",
