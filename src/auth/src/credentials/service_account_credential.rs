@@ -23,10 +23,10 @@ use derive_builder::Builder;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use jws::{JwsClaims, JwsHeader, CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT};
 use rustls::crypto::CryptoProvider;
+use rustls::sign::SigningKey;
 use rustls_pemfile::Item;
 use std::sync::Arc;
 use time::OffsetDateTime;
-use rustls::sign::SigningKey;
 
 const DEFAULT_SCOPES: &str = "https://www.googleapis.com/auth/cloud-platform";
 
@@ -85,7 +85,9 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let signing_key = self.get_signing_key(&self.service_account_info.private_key)?;
         let signing_algorithm = match signing_key.algorithm().as_str() {
             Some(s) => Ok(s),
-            None => Err(CredentialError::non_retryable_from_str("Unable to find algorithm"))
+            None => Err(CredentialError::non_retryable_from_str(
+                "Unable to find algorithm",
+            )),
         }?;
         let signer = signing_key.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256, rustls::SignatureScheme::ECDSA_NISTP256_SHA256])
             .ok_or_else(|| CredentialError::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 or ECDSA_NISTP256_SHA256 signing scheme as it is not supported by current signer"))?;
@@ -202,8 +204,8 @@ mod test {
     use rsa::pkcs8::EncodePrivateKey;
     use rsa::pkcs8::LineEnding;
     use rsa::RsaPrivateKey;
-    use rustls_pemfile::Item;
     use rustls::SignatureAlgorithm;
+    use rustls_pemfile::Item;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -336,20 +338,30 @@ mod test {
         Ok(())
     }
 
-    fn generate_pkcs8_key(algorithm: SignatureAlgorithm) -> String {
+    fn generate_pkcs8_key(algorithm: rustls::SignatureScheme) -> String {
         let mut rng = rand::thread_rng();
         let bits = 2048;
+        // let mut priv_key = None;
         match algorithm {
-            SignatureAlgorithm::RSA_PKCS1_SHA256 => {}
-            SignatureAlgorithm::ECDSA_NISTP256_SHA256 => {
+            rustls::SignatureScheme::RSA_PKCS1_SHA256 => {
+                let priv_key =
+                    RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
+                priv_key
+                    .to_pkcs8_pem(LineEnding::LF)
+                    .expect("Failed to encode key to PKCS#8 PEM")
+                    .to_string()
             }
-            other => {}
+            rustls::SignatureScheme::ECDSA_NISTP256_SHA256 => {
+                let priv_key = p256::ecdsa::SigningKey::random(&mut rng); // Generate a new ES256 key pair
+                priv_key
+                    .to_pkcs8_pem(LineEnding::LF)
+                    .expect("Failed to encode key to PKCS#8 PEM")
+                    .to_string()
+            }
+            _ => {
+                panic!("Unsupported signature scheme");
+            }
         }
-        let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
-        priv_key
-            .to_pkcs8_pem(LineEnding::LF)
-            .expect("Failed to encode key to PKCS#8 PEM")
-            .to_string()
     }
 
     fn b64_decode_to_json(s: String) -> serde_json::Value {
@@ -364,9 +376,10 @@ mod test {
 
     #[cfg(feature = "default-crypto-provider")]
     #[tokio::test]
-    async fn get_service_account_token_pkcs8_key_success() -> TestResult {
+    async fn get_service_account_token_rsa_pkcs8_key_success() -> TestResult {
         let mut service_account_info = get_mock_service_account();
-        service_account_info.private_key = generate_pkcs8_key();
+        service_account_info.private_key =
+            generate_pkcs8_key(rustls::SignatureScheme::RSA_PKCS1_SHA256);
         let token_provider = ServiceAccountTokenProvider {
             service_account_info,
         };
@@ -381,6 +394,39 @@ mod test {
         })?;
         let header = b64_decode_to_json(captures["header"].to_string());
         assert_eq!(header["alg"], "RSA");
+        assert_eq!(header["typ"], "JWT");
+        assert_eq!(header["kid"], "test-private-key-id");
+
+        let claims = b64_decode_to_json(captures["claims"].to_string());
+        assert_eq!(claims["iss"], "test-client-email");
+        assert_eq!(claims["scope"], DEFAULT_SCOPES);
+        assert!(claims["iat"].is_number());
+        assert!(claims["exp"].is_number());
+        assert_eq!(claims["sub"], "test-client-email");
+
+        Ok(())
+    }
+
+    #[cfg(feature = "default-crypto-provider")]
+    #[tokio::test]
+    async fn get_service_account_token_esa_pkcs8_key_success() -> TestResult {
+        let mut service_account_info = get_mock_service_account();
+        service_account_info.private_key =
+            generate_pkcs8_key(rustls::SignatureScheme::ECDSA_NISTP256_SHA256);
+        let token_provider = ServiceAccountTokenProvider {
+            service_account_info,
+        };
+        let token = token_provider.get_token().await?;
+        let re =
+            regex::Regex::new(r"(?<header>[^\.]+)\.(?<claims>[^\.]+)\.(?<sig>[^\.]+)").unwrap();
+        let captures = re.captures(&token.token).ok_or_else(|| {
+            format!(
+                r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
+                token.token
+            )
+        })?;
+        let header = b64_decode_to_json(captures["header"].to_string());
+        assert_eq!(header["alg"], "ECDSA");
         assert_eq!(header["typ"], "JWT");
         assert_eq!(header["kid"], "test-private-key-id");
 
