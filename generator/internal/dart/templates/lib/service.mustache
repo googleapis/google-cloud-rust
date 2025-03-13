@@ -21,7 +21,7 @@ class {{Codec.Name}} extends CloudService {
   static const String host = '{{DefaultHost}}';
 
   {{Codec.Name}}({required super.client});
-  {{#Methods}}
+  {{#Codec.Methods}}
   {{> method}}
-  {{/Methods}}
+  {{/Codec.Methods}}
 }
