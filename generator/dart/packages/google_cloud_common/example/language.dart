@@ -12,11 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:google_cloud_language/language.dart';
 
 import 'package:googleapis_auth/auth_io.dart' as auth;
 
 void main(List<String> args) async {
+  if (args.isEmpty) {
+    print('usage: dart example/language.dart <api-key>');
+    exit(1);
+  }
+
   final apiKey = args[0];
 
   final client = auth.clientViaApiKey(apiKey);
