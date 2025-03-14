@@ -24,6 +24,9 @@ keywords.workspace   = true
 license.workspace    = true
 repository.workspace = true
 
+[package.metadata.docs.rs]
+features = ["unstable-stream"]
+
 [dependencies]
 futures     = { version = "0.3", optional = true }
 pin-project = { version = "1", optional = true }
