@@ -12,12 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// For createFromJsonLines tests, see
-// generator/dart/packages/generated/google_cloud_rpc/test/json_test.dart.
-
-// For createToJsonLines tests, see
-// generator/dart/packages/generated/google_cloud_rpc/test/json_test.dart.
-
 package dart
 
 import (

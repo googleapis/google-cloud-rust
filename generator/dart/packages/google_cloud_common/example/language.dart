@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/// A simple end-to-end example showing an API call through the
+/// `google_cloud_language` package with authentication via
+/// `package:googleapis_auth`.
+library;
+
 import 'dart:io';
 
 import 'package:google_cloud_language/language.dart';
