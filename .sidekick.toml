@@ -44,7 +44,7 @@ disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 'package:serde_with' = 'force-used=true,package=serde_with,version=3,default-features=false,feature=base64,feature=macros,feature=std'
 # These are used by crates with services.
 'package:async-trait' = 'used-if=services,package=async-trait,version=0.1'
-'package:gax'         = 'used-if=services,package=google-cloud-gax,path=src/gax,feature=unstable-sdk-client,version=0.20'
+'package:gax'         = 'used-if=services,package=google-cloud-gax,path=src/gax,feature=unstable-sdk-client,version=0.21'
 'package:gclient'     = 'used-if=services,package=google-cloud-http-client,path=src/http-client,version=0.1'
 'package:lazy_static' = 'used-if=services,package=lazy_static,version=1'
 'package:reqwest'     = 'used-if=services,package=reqwest,version=0.12,feature=json'
