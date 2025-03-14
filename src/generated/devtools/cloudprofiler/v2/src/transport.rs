@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ProfilerService](crate::stubs::ProfilerService) using a [gax::http_client::ReqwestClient].
+/// Implements [ProfilerService](crate::stubs::ProfilerService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ProfilerService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for ProfilerService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ProfilerService {
 }
 
 impl ProfilerService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -121,10 +121,10 @@ impl crate::stubs::ProfilerService for ProfilerService {
     }
 }
 
-/// Implements [ExportService](crate::stubs::ExportService) using a [gax::http_client::ReqwestClient].
+/// Implements [ExportService](crate::stubs::ExportService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ExportService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for ExportService {
@@ -136,8 +136,8 @@ impl std::fmt::Debug for ExportService {
 }
 
 impl ExportService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -160,7 +160,7 @@ impl crate::stubs::ExportService for ExportService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 }

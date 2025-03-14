@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [LookupService](crate::stubs::LookupService) using a [gax::http_client::ReqwestClient].
+/// Implements [LookupService](crate::stubs::LookupService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct LookupService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for LookupService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for LookupService {
 }
 
 impl LookupService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -75,7 +75,7 @@ impl crate::stubs::LookupService for LookupService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -94,15 +94,15 @@ impl crate::stubs::LookupService for LookupService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 }
 
-/// Implements [RegistrationService](crate::stubs::RegistrationService) using a [gax::http_client::ReqwestClient].
+/// Implements [RegistrationService](crate::stubs::RegistrationService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct RegistrationService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for RegistrationService {
@@ -114,8 +114,8 @@ impl std::fmt::Debug for RegistrationService {
 }
 
 impl RegistrationService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -166,7 +166,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -185,7 +185,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -242,7 +242,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -288,7 +288,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -307,7 +307,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -364,7 +364,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -413,7 +413,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -432,7 +432,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -489,7 +489,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -571,7 +571,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -590,7 +590,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 }

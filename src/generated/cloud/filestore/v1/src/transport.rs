@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudFilestoreManager](crate::stubs::CloudFilestoreManager) using a [gax::http_client::ReqwestClient].
+/// Implements [CloudFilestoreManager](crate::stubs::CloudFilestoreManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudFilestoreManager {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for CloudFilestoreManager {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for CloudFilestoreManager {
 }
 
 impl CloudFilestoreManager {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -196,7 +196,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -223,7 +223,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -242,7 +242,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -284,7 +284,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -345,7 +345,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -364,7 +364,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -401,7 +401,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -479,7 +479,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -498,7 +498,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -520,7 +520,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -539,7 +539,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -558,7 +558,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

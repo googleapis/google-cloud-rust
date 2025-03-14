@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecretManagerService](crate::stubs::SecretManagerService) using a [gax::http_client::ReqwestClient].
+/// Implements [SecretManagerService](crate::stubs::SecretManagerService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SecretManagerService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for SecretManagerService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for SecretManagerService {
 }
 
 impl SecretManagerService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gclient::NoBody>,
             options,
         ).await
     }
@@ -135,7 +135,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gclient::NoBody>,
             options,
         ).await
     }
@@ -185,7 +185,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gclient::NoBody>,
             options,
         ).await
     }
@@ -212,7 +212,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gclient::NoBody>,
             options,
         ).await
     }
@@ -236,7 +236,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gclient::NoBody>,
             options,
         ).await
     }
@@ -260,7 +260,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gclient::NoBody>,
             options,
         ).await
     }
@@ -381,7 +381,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gclient::NoBody>,
             options,
         ).await
     }
@@ -432,7 +432,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gclient::NoBody>,
             options,
         ).await
     }
@@ -456,7 +456,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gclient::NoBody>,
             options,
         ).await
     }
