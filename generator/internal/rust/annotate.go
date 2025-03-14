@@ -45,8 +45,6 @@ type modelAnnotations struct {
 	Services          []*api.Service
 	NameToLower       string
 	NotForPublication bool
-	HasFeatures       bool
-	Features          []string
 	// When bootstrapping the well-known types crate the templates add some
 	// ad-hoc code.
 	IsWktCrate bool
@@ -295,7 +293,6 @@ func annotateModel(model *api.API, codec *codec, outdir string) *modelAnnotation
 		DisabledRustdocWarnings: codec.disabledRustdocWarnings,
 	}
 
-	addStreamingFeature(ann, model, codec.extraPackages)
 	model.Codec = ann
 	return ann
 }

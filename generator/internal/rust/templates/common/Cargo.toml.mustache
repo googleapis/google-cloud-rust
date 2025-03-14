@@ -36,13 +36,6 @@ publish              = false
 {{#Codec.RequiredPackages}}
 {{{.}}}
 {{/Codec.RequiredPackages}}
-{{#Codec.HasFeatures}}
-
-[features]
-{{#Codec.Features}}
-{{{.}}}
-{{/Codec.Features}}
-{{/Codec.HasFeatures}}
 {{#Codec.HasLROs}}
 
 [dev-dependencies]

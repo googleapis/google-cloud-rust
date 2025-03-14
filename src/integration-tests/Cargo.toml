@@ -27,7 +27,7 @@ run-integration-tests = []
 bytes              = "1"
 crc32c             = "0.6"
 futures            = "0.3"
-gax                = { path = "../../src/gax", package = "google-cloud-gax" }
+gax                = { path = "../../src/gax", package = "google-cloud-gax", features = ["unstable-stream"] }
 iam_v1             = { path = "../../src/generated/iam/v1", package = "google-cloud-iam-v1" }
 loc                = { path = "../../src/generated/cloud/location", package = "google-cloud-location" }
 longrunning        = { path = "../../src/generated/longrunning", package = "google-cloud-longrunning" }
@@ -39,19 +39,16 @@ tracing-subscriber = "0.3"
 wkt                = { path = "../../src/wkt", package = "google-cloud-wkt" }
 
 [dependencies.sm]
-features = ["unstable-stream"]
-package  = "google-cloud-secretmanager-v1"
-path     = "../../src/generated/cloud/secretmanager/v1"
+package = "google-cloud-secretmanager-v1"
+path    = "../../src/generated/cloud/secretmanager/v1"
 
 [dependencies.smo]
-features = ["unstable-stream"]
-package  = "secretmanager-openapi-v1"
-path     = "../../src/generated/openapi-validation"
+package = "secretmanager-openapi-v1"
+path    = "../../src/generated/openapi-validation"
 
 [dependencies.wf]
-features = ["unstable-stream"]
-package  = "google-cloud-workflows-v1"
-path     = "../../src/generated/cloud/workflows/v1"
+package = "google-cloud-workflows-v1"
+path    = "../../src/generated/cloud/workflows/v1"
 
 [dev-dependencies]
 mockall    = "0.13"

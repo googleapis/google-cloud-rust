@@ -30,6 +30,3 @@ publish              = false
 iam        = { path = "../../../../../testdata/rust/protobuf/golden/iam/v1", package = "iam-v1-golden-protobuf" }
 location   = { path = "../../../../../testdata/rust/protobuf/golden/location", package = "location-golden-protobuf" }
 wkt        = { path = "../../../../../../src/wkt", package = "google-cloud-wkt" }
-
-[features]
-unstable-stream = ["gax/unstable-stream", "location/unstable-stream"]

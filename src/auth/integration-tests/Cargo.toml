@@ -24,7 +24,7 @@ run-integration-tests = []
 
 [dependencies]
 auth          = { path = "../../../src/auth", package = "google-cloud-auth" }
-gax           = { path = "../../../src/gax", package = "google-cloud-gax", features = ["unstable-stream"] }
+gax           = { path = "../../../src/gax", package = "google-cloud-gax" }
 language      = { path = "../../../src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
 scoped-env    = "2"
 secretmanager = { path = "../../../src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }

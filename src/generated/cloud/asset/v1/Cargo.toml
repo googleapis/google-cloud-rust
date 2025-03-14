@@ -46,8 +46,5 @@ serde_with = { version = "3", default-features = false, features = ["base64", "m
 tracing    = { version = "0.1" }
 wkt        = { version = "0.2", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
 
-[features]
-unstable-stream = ["gax/unstable-stream", "longrunning/unstable-stream"]
-
 [dev-dependencies]
 tokio = { version = "1", features = ["time"] }
