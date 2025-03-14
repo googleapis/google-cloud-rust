@@ -25,10 +25,10 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-reqwest     = "0.12"
-serde       = "1"
-serde_json  = "1"
-tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
+reqwest    = "0.12"
+serde      = "1"
+serde_json = "1"
+tokio      = { version = "1", features = ["macros", "rt-multi-thread"] }
 # Local crates
 auth = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
 gax  = { version = "0.20", path = "../gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
