@@ -54,11 +54,6 @@ pub mod error;
 /// Defines some types and traits to convert and use List RPCs as a Stream.
 pub mod paginator;
 
-/// Defines traits and helpers for HTTP client implementations.
-#[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
-pub mod http_client;
-
 pub mod backoff_policy;
 pub mod exponential_backoff;
 pub mod loop_state;

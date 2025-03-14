@@ -29,7 +29,7 @@ use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyArg};
 use crate::polling_policy::{PollingPolicy, PollingPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
-use crate::retry_throttler::{RetryThrottlerArg, RetryThrottlerWrapped};
+use crate::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
 use auth::credentials::Credential;
 use std::sync::Arc;
 
@@ -42,17 +42,22 @@ use std::sync::Arc;
 /// All other code uses this type indirectly, via the per-request builders.
 #[derive(Clone, Debug, Default)]
 pub struct RequestOptions {
-    pub(crate) idempotent: Option<bool>,
+    idempotent: Option<bool>,
     user_agent: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
-    pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
-    pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
-    pub(crate) retry_throttler: Option<RetryThrottlerWrapped>,
-    pub(crate) polling_policy: Option<Arc<dyn PollingPolicy>>,
-    pub(crate) polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    retry_policy: Option<Arc<dyn RetryPolicy>>,
+    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_throttler: Option<SharedRetryThrottler>,
+    polling_policy: Option<Arc<dyn PollingPolicy>>,
+    polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
 impl RequestOptions {
+    /// Gets the idempotency
+    pub fn idempotent(&self) -> Option<bool> {
+        self.idempotent
+    }
+
     /// Treat the RPC underlying RPC in this method as idempotent.
     ///
     /// If a retry policy is configured, the policy may examine the idempotency
@@ -101,9 +106,19 @@ impl RequestOptions {
         &self.attempt_timeout
     }
 
+    /// Get the current retry policy override, if any.
+    pub fn retry_policy(&self) -> &Option<Arc<dyn RetryPolicy>> {
+        &self.retry_policy
+    }
+
     /// Sets the retry policy configuration.
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(&mut self, v: V) {
         self.retry_policy = Some(v.into().0);
+    }
+
+    /// Get the current backoff policy override, if any.
+    pub fn backoff_policy(&self) -> &Option<Arc<dyn BackoffPolicy>> {
+        &self.backoff_policy
     }
 
     /// Sets the backoff policy configuration.
@@ -111,14 +126,29 @@ impl RequestOptions {
         self.backoff_policy = Some(v.into().0);
     }
 
+    /// Get the current retry throttler override, if any.
+    pub fn retry_throttler(&self) -> &Option<SharedRetryThrottler> {
+        &self.retry_throttler
+    }
+
     /// Sets the retry throttling configuration.
     pub fn set_retry_throttler<V: Into<RetryThrottlerArg>>(&mut self, v: V) {
         self.retry_throttler = Some(v.into().0);
     }
 
+    /// Get the current polling policy override, if any.
+    pub fn polling_policy(&self) -> &Option<Arc<dyn PollingPolicy>> {
+        &self.polling_policy
+    }
+
     /// Sets the polling policy configuration.
     pub fn set_polling_policy<V: Into<PollingPolicyArg>>(&mut self, v: V) {
         self.polling_policy = Some(v.into().0);
+    }
+
+    /// Get the current polling backoff policy override, if any.
+    pub fn polling_backoff_policy(&self) -> &Option<Arc<dyn PollingBackoffPolicy>> {
+        &self.polling_backoff_policy
     }
 
     /// Sets the backoff policy configuration.
@@ -226,14 +256,14 @@ where
 /// override the default endpoint, the default authentication credentials,
 /// the retry policies, and/or other behaviors of the client.
 pub struct ClientConfig {
-    pub(crate) endpoint: Option<String>,
-    pub(crate) cred: Option<Credential>,
-    pub(crate) tracing: bool,
-    pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
-    pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
-    pub(crate) retry_throttler: RetryThrottlerWrapped,
-    pub(crate) polling_policy: Option<Arc<dyn PollingPolicy>>,
-    pub(crate) polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    endpoint: Option<String>,
+    cred: Option<Credential>,
+    tracing: bool,
+    retry_policy: Option<Arc<dyn RetryPolicy>>,
+    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_throttler: SharedRetryThrottler,
+    polling_policy: Option<Arc<dyn PollingPolicy>>,
+    polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
 const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
@@ -251,6 +281,11 @@ impl ClientConfig {
         std::env::var(LOGGING_VAR)
             .map(|v| v == "true")
             .unwrap_or(false)
+    }
+
+    /// Gets the current endpoint override, if any
+    pub fn endpoint(&self) -> &Option<String> {
+        &self.endpoint
     }
 
     /// Sets an endpoint that overrides the default endpoint for a service.
@@ -271,10 +306,20 @@ impl ClientConfig {
         self
     }
 
+    /// Gets the current credential override, if any.
+    pub fn credential(&self) -> &Option<Credential> {
+        &self.cred
+    }
+
     /// Configure the authentication credentials.
     pub fn set_credential<T: Into<Option<Credential>>>(mut self, v: T) -> Self {
         self.cred = v.into();
         self
+    }
+
+    /// Get the current retry policy override, if any.
+    pub fn retry_policy(&self) -> &Option<Arc<dyn RetryPolicy>> {
+        &self.retry_policy
     }
 
     /// Configure the retry policy.
@@ -283,10 +328,20 @@ impl ClientConfig {
         self
     }
 
+    /// Get the current backoff policy override, if any.
+    pub fn backoff_policy(&self) -> &Option<Arc<dyn BackoffPolicy>> {
+        &self.backoff_policy
+    }
+
     /// Configure the retry backoff policy.
     pub fn set_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.backoff_policy = Some(v.into().0);
         self
+    }
+
+    /// Get the current retry throttler.
+    pub fn retry_throttler(&self) -> SharedRetryThrottler {
+        self.retry_throttler.clone()
     }
 
     /// Configure the retry throttler.
@@ -295,10 +350,20 @@ impl ClientConfig {
         self
     }
 
+    /// Get the current polling policy override, if any.
+    pub fn polling_policy(&self) -> &Option<Arc<dyn PollingPolicy>> {
+        &self.polling_policy
+    }
+
     /// Configure the polling backoff policy.
     pub fn set_polling_policy<V: Into<PollingPolicyArg>>(mut self, v: V) -> Self {
         self.polling_policy = Some(v.into().0);
         self
+    }
+
+    /// Get the current polling backoff policy override, if any.
+    pub fn polling_backoff_policy(&self) -> &Option<Arc<dyn PollingBackoffPolicy>> {
+        &self.polling_backoff_policy
     }
 
     /// Configure the polling backoff policy.
@@ -351,9 +416,9 @@ mod test {
 
         assert_eq!(opts.idempotent, None);
         opts.set_idempotency(true);
-        assert_eq!(opts.idempotent, Some(true));
+        assert_eq!(opts.idempotent(), Some(true));
         opts.set_idempotency(false);
-        assert_eq!(opts.idempotent, Some(false));
+        assert_eq!(opts.idempotent(), Some(false));
 
         opts.set_user_agent("test-only");
         assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
@@ -365,32 +430,32 @@ mod test {
         assert_eq!(opts.attempt_timeout(), &Some(d));
 
         opts.set_retry_policy(LimitedAttemptCount::new(3));
-        assert!(opts.retry_policy.is_some(), "{opts:?}");
+        assert!(opts.retry_policy().is_some(), "{opts:?}");
 
         opts.set_backoff_policy(ExponentialBackoffBuilder::new().clamp());
-        assert!(opts.backoff_policy.is_some(), "{opts:?}");
+        assert!(opts.backoff_policy().is_some(), "{opts:?}");
 
         opts.set_retry_throttler(AdaptiveThrottler::default());
-        assert!(opts.retry_throttler.is_some(), "{opts:?}");
+        assert!(opts.retry_throttler().is_some(), "{opts:?}");
 
         opts.set_polling_policy(polling_policy::Aip194Strict);
-        assert!(opts.polling_policy.is_some(), "{opts:?}");
+        assert!(opts.polling_policy().is_some(), "{opts:?}");
 
         opts.set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
-        assert!(opts.polling_backoff_policy.is_some(), "{opts:?}");
+        assert!(opts.polling_backoff_policy().is_some(), "{opts:?}");
     }
 
     #[test]
     fn request_options_idempotency() {
         let opts = RequestOptions::default().set_default_idempotency(true);
-        assert_eq!(opts.idempotent, Some(true));
+        assert_eq!(opts.idempotent(), Some(true));
         let opts = opts.set_default_idempotency(false);
-        assert_eq!(opts.idempotent, Some(true));
+        assert_eq!(opts.idempotent(), Some(true));
 
         let opts = RequestOptions::default().set_default_idempotency(false);
-        assert_eq!(opts.idempotent, Some(false));
+        assert_eq!(opts.idempotent(), Some(false));
         let opts = opts.set_default_idempotency(true);
-        assert_eq!(opts.idempotent, Some(false));
+        assert_eq!(opts.idempotent(), Some(false));
     }
 
     #[test]
@@ -400,9 +465,9 @@ mod test {
         assert_eq!(builder.request_options().attempt_timeout(), &None);
 
         let mut builder = TestBuilder::default().with_idempotency(true);
-        assert_eq!(builder.request_options().idempotent, Some(true));
+        assert_eq!(builder.request_options().idempotent(), Some(true));
         let mut builder = TestBuilder::default().with_idempotency(false);
-        assert_eq!(builder.request_options().idempotent, Some(false));
+        assert_eq!(builder.request_options().idempotent(), Some(false));
 
         let mut builder = TestBuilder::default().with_user_agent("test-only");
         assert_eq!(
@@ -418,33 +483,33 @@ mod test {
 
         let mut builder = TestBuilder::default().with_retry_policy(LimitedAttemptCount::new(3));
         assert!(
-            builder.request_options().retry_policy.is_some(),
+            builder.request_options().retry_policy().is_some(),
             "{builder:?}"
         );
 
         let mut builder =
             TestBuilder::default().with_backoff_policy(ExponentialBackoffBuilder::new().build()?);
         assert!(
-            builder.request_options().backoff_policy.is_some(),
+            builder.request_options().backoff_policy().is_some(),
             "{builder:?}"
         );
 
         let mut builder = TestBuilder::default().with_retry_throttler(AdaptiveThrottler::default());
         assert!(
-            builder.request_options().retry_throttler.is_some(),
+            builder.request_options().retry_throttler().is_some(),
             "{builder:?}"
         );
 
         let mut builder = TestBuilder::default().with_polling_policy(polling_policy::Aip194Strict);
         assert!(
-            builder.request_options().polling_policy.is_some(),
+            builder.request_options().polling_policy().is_some(),
             "{builder:?}"
         );
 
         let mut builder = TestBuilder::default()
             .with_polling_backoff_policy(ExponentialBackoffBuilder::new().build()?);
         assert!(
-            builder.request_options().polling_backoff_policy.is_some(),
+            builder.request_options().polling_backoff_policy().is_some(),
             "{builder:?}"
         );
 

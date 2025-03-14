@@ -50,15 +50,12 @@ rpc  = { version = "0.2", path = "../generated/rpc/types", package = "google-clo
 wkt  = { version = "0.2", path = "../wkt", package = "google-cloud-wkt" }
 
 [dev-dependencies]
-echo-server = { path = "echo-server" }
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
-axum        = "0.8"
 gax         = { path = ".", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
 mockall     = "0.13"
 serde       = { version = "1", features = ["serde_derive"] }
 serial_test = "3"
-tempfile    = "3"
 test-case   = "3"
 tokio       = { version = "1", features = ["test-util"] }
 

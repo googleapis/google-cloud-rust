@@ -12,9 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::http_client::ReqwestClient;
 use gax::options::*;
-use google_cloud_gax as gax;
+use google_cloud_http_client::ReqwestClient;
 use serde_json::json;
 use std::time::Duration;
 

@@ -2252,11 +2252,9 @@ dependencies = [
 name = "google-cloud-gax"
 version = "0.20.0"
 dependencies = [
- "axum 0.8.1",
  "base64",
  "built",
  "bytes",
- "echo-server",
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
@@ -2271,7 +2269,6 @@ dependencies = [
  "serde_json",
  "serde_with",
  "serial_test",
- "tempfile",
  "test-case",
  "thiserror",
  "tokio",
@@ -2426,7 +2423,19 @@ dependencies = [
 name = "google-cloud-http-client"
 version = "0.1.0"
 dependencies = [
+ "axum 0.8.1",
+ "bytes",
+ "echo-server",
+ "google-cloud-auth",
  "google-cloud-gax",
+ "google-cloud-rpc",
+ "http",
+ "mockall",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serial_test",
+ "tokio",
 ]
 
 [[package]]

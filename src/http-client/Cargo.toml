@@ -25,4 +25,21 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-gax = { version = "0.20", path = "../gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
+reqwest    = "0.12"
+serde      = "1"
+serde_json = "1"
+tokio      = { version = "1", features = ["macros", "rt-multi-thread"] }
+# Local crates
+auth = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
+gax  = { version = "0.20", path = "../gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
+rpc  = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
+
+[dev-dependencies]
+axum        = "0.8"
+bytes       = "1"
+http        = "1"
+mockall     = "0.13"
+serial_test = "3"
+tokio       = { version = "1", features = ["test-util"] }
+# Local crates
+echo-server = { path = "echo-server" }
