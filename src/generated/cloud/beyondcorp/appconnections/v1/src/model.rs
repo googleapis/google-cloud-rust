@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate location;
@@ -171,7 +172,6 @@ impl wkt::message::Message for ListAppConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAppConnectionsResponse {
     type PageItem = crate::model::AppConnection;
 
@@ -597,7 +597,6 @@ impl wkt::message::Message for ResolveAppConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ResolveAppConnectionsResponse {
     type PageItem = crate::model::resolve_app_connections_response::AppConnectionDetails;
 

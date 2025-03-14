@@ -27,6 +27,7 @@ extern crate apps_script_type;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate serde;
@@ -343,7 +344,6 @@ impl wkt::message::Message for ListDeploymentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
 

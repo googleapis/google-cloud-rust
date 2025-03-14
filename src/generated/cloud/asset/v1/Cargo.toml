@@ -30,6 +30,7 @@ accesscontextmanager_v1 = { version = "0.2", path = "../../../../../src/generate
 async-trait = { version = "0.1" }
 bytes      = { version = "1", features = ["serde"] }
 gax        = { version = "0.20", path = "../../../../../src/gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
+gclient    = { version = "0.1", path = "../../../../../src/http-client", package = "google-cloud-http-client" }
 gtype      = { version = "0.2", path = "../../../../../src/generated/type", package = "google-cloud-type" }
 iam_v1     = { version = "0.2", path = "../../../../../src/generated/iam/v1", package = "google-cloud-iam-v1" }
 lazy_static = { version = "1" }

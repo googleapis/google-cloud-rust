@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate location;
@@ -1408,7 +1409,6 @@ impl wkt::message::Message for ListHubsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListHubsResponse {
     type PageItem = crate::model::Hub;
 
@@ -1904,7 +1904,6 @@ impl wkt::message::Message for ListHubSpokesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListHubSpokesResponse {
     type PageItem = crate::model::Spoke;
 
@@ -2074,7 +2073,6 @@ impl wkt::message::Message for QueryHubStatusResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for QueryHubStatusResponse {
     type PageItem = crate::model::HubStatusEntry;
 
@@ -2479,7 +2477,6 @@ impl wkt::message::Message for ListSpokesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSpokesResponse {
     type PageItem = crate::model::Spoke;
 
@@ -3144,7 +3141,6 @@ impl wkt::message::Message for ListRoutesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRoutesResponse {
     type PageItem = crate::model::Route;
 
@@ -3294,7 +3290,6 @@ impl wkt::message::Message for ListRouteTablesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRouteTablesResponse {
     type PageItem = crate::model::RouteTable;
 
@@ -3444,7 +3439,6 @@ impl wkt::message::Message for ListGroupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGroupsResponse {
     type PageItem = crate::model::Group;
 
@@ -5292,7 +5286,6 @@ impl wkt::message::Message for ListPolicyBasedRoutesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPolicyBasedRoutesResponse {
     type PageItem = crate::model::PolicyBasedRoute;
 

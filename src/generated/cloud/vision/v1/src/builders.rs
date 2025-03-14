@@ -560,8 +560,7 @@ pub mod product_search {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListProductSetsResponse, gax::error::Error>
         {
@@ -825,8 +824,7 @@ pub mod product_search {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListProductsResponse, gax::error::Error>
         {
@@ -1134,8 +1132,7 @@ pub mod product_search {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListReferenceImagesResponse, gax::error::Error>
         {
@@ -1353,8 +1350,7 @@ pub mod product_search {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListProductsInProductSetResponse,

@@ -15,6 +15,15 @@
 syntax = "proto3";
 package test;
 
+enum TestEnum {
+  V0 = 0;
+  V1 = 1;
+}
+
 message Fake {
   map<string, int32> singular_map = 1;
+
+  map<string, TestEnum> enum_value = 2;
+
+  // DOES NOT COMPILE: map<TestEnum, string> enum_key = 3;
 }

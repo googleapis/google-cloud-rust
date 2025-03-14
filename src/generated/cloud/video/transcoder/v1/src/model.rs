@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate rpc;
@@ -5221,7 +5222,6 @@ impl wkt::message::Message for ListJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListJobsResponse {
     type PageItem = crate::model::Job;
 
@@ -5495,7 +5495,6 @@ impl wkt::message::Message for ListJobTemplatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListJobTemplatesResponse {
     type PageItem = crate::model::JobTemplate;
 

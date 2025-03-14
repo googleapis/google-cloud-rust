@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate location;
 extern crate longrunning;
@@ -1254,7 +1255,6 @@ impl wkt::message::Message for ListConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
@@ -2093,7 +2093,6 @@ impl wkt::message::Message for ListGitRepositoryLinksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGitRepositoryLinksResponse {
     type PageItem = crate::model::GitRepositoryLink;
 
@@ -2402,7 +2401,6 @@ impl wkt::message::Message for FetchLinkableGitRepositoriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for FetchLinkableGitRepositoriesResponse {
     type PageItem = crate::model::LinkableGitRepository;
 

@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate location;
@@ -184,7 +185,6 @@ impl wkt::message::Message for ListQueuesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListQueuesResponse {
     type PageItem = crate::model::Queue;
 
@@ -629,7 +629,6 @@ impl wkt::message::Message for ListTasksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTasksResponse {
     type PageItem = crate::model::Task;
 

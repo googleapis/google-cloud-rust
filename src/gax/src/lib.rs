@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Google APIs helpers.
+//! Google APIs eXtensions for Rust.
 //!
 //! **WARNING:** this crate is under active development. We expect multiple
 //! breaking changes in the upcoming releases. Testing is also incomplete, we do
@@ -52,8 +52,6 @@ pub mod api_header;
 pub mod error;
 
 /// Defines some types and traits to convert and use List RPCs as a Stream.
-/// Async streams are not yet stable, so neither is the use of this feature.
-#[cfg(feature = "unstable-stream")]
 pub mod paginator;
 
 /// Defines traits and helpers for HTTP client implementations.

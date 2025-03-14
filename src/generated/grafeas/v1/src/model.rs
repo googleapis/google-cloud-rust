@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate rpc;
@@ -4258,7 +4259,6 @@ impl wkt::message::Message for ListOccurrencesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOccurrencesResponse {
     type PageItem = crate::model::Occurrence;
 
@@ -4566,7 +4566,6 @@ impl wkt::message::Message for ListNotesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNotesResponse {
     type PageItem = crate::model::Note;
 
@@ -4821,7 +4820,6 @@ impl wkt::message::Message for ListNoteOccurrencesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNoteOccurrencesResponse {
     type PageItem = crate::model::Occurrence;
 

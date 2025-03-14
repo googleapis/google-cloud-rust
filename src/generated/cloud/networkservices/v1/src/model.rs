@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate location;
@@ -994,7 +995,6 @@ impl wkt::message::Message for ListLbTrafficExtensionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLbTrafficExtensionsResponse {
     type PageItem = crate::model::LbTrafficExtension;
 
@@ -1537,7 +1537,6 @@ impl wkt::message::Message for ListLbRouteExtensionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLbRouteExtensionsResponse {
     type PageItem = crate::model::LbRouteExtension;
 
@@ -2136,7 +2135,6 @@ impl wkt::message::Message for ListEndpointPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEndpointPoliciesResponse {
     type PageItem = crate::model::EndpointPolicy;
 
@@ -2639,7 +2637,6 @@ impl wkt::message::Message for ListGatewaysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGatewaysResponse {
     type PageItem = crate::model::Gateway;
 
@@ -3890,7 +3887,6 @@ impl wkt::message::Message for ListGrpcRoutesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGrpcRoutesResponse {
     type PageItem = crate::model::GrpcRoute;
 
@@ -6006,7 +6002,6 @@ impl wkt::message::Message for ListHttpRoutesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListHttpRoutesResponse {
     type PageItem = crate::model::HttpRoute;
 
@@ -6387,7 +6382,6 @@ impl wkt::message::Message for ListMeshesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMeshesResponse {
     type PageItem = crate::model::Mesh;
 
@@ -6754,7 +6748,6 @@ impl wkt::message::Message for ListServiceBindingsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServiceBindingsResponse {
     type PageItem = crate::model::ServiceBinding;
 
@@ -7344,7 +7337,6 @@ impl wkt::message::Message for ListTcpRoutesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTcpRoutesResponse {
     type PageItem = crate::model::TcpRoute;
 
@@ -7950,7 +7942,6 @@ impl wkt::message::Message for ListTlsRoutesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTlsRoutesResponse {
     type PageItem = crate::model::TlsRoute;
 

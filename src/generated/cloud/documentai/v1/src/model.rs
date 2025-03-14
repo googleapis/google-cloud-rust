@@ -21,6 +21,7 @@ extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate location;
@@ -6827,7 +6828,6 @@ impl wkt::message::Message for ListProcessorTypesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProcessorTypesResponse {
     type PageItem = crate::model::ProcessorType;
 
@@ -6940,7 +6940,6 @@ impl wkt::message::Message for ListProcessorsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProcessorsResponse {
     type PageItem = crate::model::Processor;
 
@@ -7153,7 +7152,6 @@ impl wkt::message::Message for ListProcessorVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProcessorVersionsResponse {
     type PageItem = crate::model::ProcessorVersion;
 
@@ -9070,7 +9068,6 @@ impl wkt::message::Message for ListEvaluationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEvaluationsResponse {
     type PageItem = crate::model::Evaluation;
 

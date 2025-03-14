@@ -215,8 +215,7 @@ pub mod cloud_build {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBuildsResponse, gax::error::Error>
         {
@@ -642,8 +641,7 @@ pub mod cloud_build {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBuildTriggersResponse, gax::error::Error>
         {
@@ -1361,8 +1359,7 @@ pub mod cloud_build {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListWorkerPoolsResponse, gax::error::Error>
         {

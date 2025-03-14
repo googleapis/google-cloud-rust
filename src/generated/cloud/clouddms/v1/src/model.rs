@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate location;
@@ -178,7 +179,6 @@ impl wkt::message::Message for ListMigrationJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMigrationJobsResponse {
     type PageItem = crate::model::MigrationJob;
 
@@ -1140,7 +1140,6 @@ impl wkt::message::Message for ListConnectionProfilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConnectionProfilesResponse {
     type PageItem = crate::model::ConnectionProfile;
 
@@ -1642,7 +1641,6 @@ impl wkt::message::Message for ListPrivateConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPrivateConnectionsResponse {
     type PageItem = crate::model::PrivateConnection;
 
@@ -1962,7 +1960,6 @@ impl wkt::message::Message for ListConversionWorkspacesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConversionWorkspacesResponse {
     type PageItem = crate::model::ConversionWorkspace;
 
@@ -2492,7 +2489,6 @@ impl wkt::message::Message for ListMappingRulesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMappingRulesResponse {
     type PageItem = crate::model::MappingRule;
 
@@ -3093,7 +3089,6 @@ impl wkt::message::Message for DescribeDatabaseEntitiesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for DescribeDatabaseEntitiesResponse {
     type PageItem = crate::model::DatabaseEntity;
 

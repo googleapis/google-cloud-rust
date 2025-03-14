@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate location;
@@ -1209,7 +1210,6 @@ impl wkt::message::Message for ListAgentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAgentsResponse {
     type PageItem = crate::model::Agent;
 
@@ -2933,7 +2933,6 @@ impl wkt::message::Message for ListChangelogsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListChangelogsResponse {
     type PageItem = crate::model::Changelog;
 
@@ -4295,7 +4294,6 @@ impl wkt::message::Message for ListDeploymentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
 
@@ -5630,7 +5628,6 @@ impl wkt::message::Message for ListEntityTypesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEntityTypesResponse {
     type PageItem = crate::model::EntityType;
 
@@ -6261,7 +6258,6 @@ impl wkt::message::Message for ListEnvironmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEnvironmentsResponse {
     type PageItem = crate::model::Environment;
 
@@ -6554,7 +6550,6 @@ impl wkt::message::Message for LookupEnvironmentHistoryResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for LookupEnvironmentHistoryResponse {
     type PageItem = crate::model::Environment;
 
@@ -6913,7 +6908,6 @@ impl wkt::message::Message for ListContinuousTestResultsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListContinuousTestResultsResponse {
     type PageItem = crate::model::ContinuousTestResult;
 
@@ -8399,7 +8393,6 @@ impl wkt::message::Message for ListExperimentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListExperimentsResponse {
     type PageItem = crate::model::Experiment;
 
@@ -9377,7 +9370,6 @@ impl wkt::message::Message for ListFlowsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFlowsResponse {
     type PageItem = crate::model::Flow;
 
@@ -11279,7 +11271,6 @@ impl wkt::message::Message for ListGeneratorsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGeneratorsResponse {
     type PageItem = crate::model::Generator;
 
@@ -12065,7 +12056,6 @@ impl wkt::message::Message for ListIntentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListIntentsResponse {
     type PageItem = crate::model::Intent;
 
@@ -14026,7 +14016,6 @@ impl wkt::message::Message for ListPagesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPagesResponse {
     type PageItem = crate::model::Page;
 
@@ -15878,7 +15867,6 @@ impl wkt::message::Message for ListSecuritySettingsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSecuritySettingsResponse {
     type PageItem = crate::model::SecuritySettings;
 
@@ -20724,7 +20712,6 @@ impl wkt::message::Message for ListSessionEntityTypesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSessionEntityTypesResponse {
     type PageItem = crate::model::SessionEntityType;
 
@@ -22640,7 +22627,6 @@ impl wkt::message::Message for ListTestCasesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTestCasesResponse {
     type PageItem = crate::model::TestCase;
 
@@ -23842,7 +23828,6 @@ impl wkt::message::Message for ListTestCaseResultsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTestCaseResultsResponse {
     type PageItem = crate::model::TestCaseResult;
 
@@ -24085,7 +24070,6 @@ impl wkt::message::Message for ListTransitionRouteGroupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTransitionRouteGroupsResponse {
     type PageItem = crate::model::TransitionRouteGroup;
 
@@ -24970,7 +24954,6 @@ impl wkt::message::Message for ListVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVersionsResponse {
     type PageItem = crate::model::Version;
 
@@ -26137,7 +26120,6 @@ impl wkt::message::Message for ListWebhooksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWebhooksResponse {
     type PageItem = crate::model::Webhook;
 

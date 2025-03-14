@@ -24,7 +24,6 @@ import 'dart:typed_data';
 
 import 'package:google_cloud_common/common.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
-import 'package:http/http.dart';
 
 /// Secret Manager Service
 ///
@@ -769,7 +768,7 @@ class ListSecretsRequest extends CloudMessage {
   /// Required. The resource name of the project associated with the
   /// [Secrets][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
   /// or `projects/*/locations/*`
-  final String? parent;
+  final String parent;
 
   /// Optional. The maximum number of results to be returned in a single page. If
   /// set to 0, the server decides the number of results to return. If the
@@ -788,7 +787,7 @@ class ListSecretsRequest extends CloudMessage {
   final String? filter;
 
   ListSecretsRequest({
-    this.parent,
+    required this.parent,
     this.pageSize,
     this.pageToken,
     this.filter,
@@ -797,7 +796,7 @@ class ListSecretsRequest extends CloudMessage {
   @override
   String toString() {
     final contents = [
-      if (parent != null) 'parent=$parent',
+      'parent=$parent',
       if (pageSize != null) 'pageSize=$pageSize',
       if (pageToken != null) 'pageToken=$pageToken',
       if (filter != null) 'filter=$filter',
@@ -848,7 +847,7 @@ class CreateSecretRequest extends CloudMessage {
   /// Required. The resource name of the project to associate with the
   /// [Secret][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
   /// or `projects/*/locations/*`.
-  final String? parent;
+  final String parent;
 
   /// Required. This must be unique within the project.
   ///
@@ -859,18 +858,18 @@ class CreateSecretRequest extends CloudMessage {
 
   /// Required. A [Secret][google.cloud.secretmanager.v1.Secret] with initial
   /// field values.
-  final Secret? secret;
+  final Secret secret;
 
   CreateSecretRequest({
-    this.parent,
+    required this.parent,
     this.secretId,
-    this.secret,
+    required this.secret,
   });
 
   @override
   String toString() {
     final contents = [
-      if (parent != null) 'parent=$parent',
+      'parent=$parent',
       if (secretId != null) 'secretId=$secretId',
     ].join(',');
     return 'CreateSecretRequest($contents)';
@@ -885,21 +884,21 @@ class AddSecretVersionRequest extends CloudMessage {
   /// [Secret][google.cloud.secretmanager.v1.Secret] to associate with the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
-  final String? parent;
+  final String parent;
 
   /// Required. The secret payload of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
   final SecretPayload? payload;
 
   AddSecretVersionRequest({
-    this.parent,
+    required this.parent,
     this.payload,
   });
 
   @override
   String toString() {
     final contents = [
-      if (parent != null) 'parent=$parent',
+      'parent=$parent',
     ].join(',');
     return 'AddSecretVersionRequest($contents)';
   }
@@ -912,16 +911,16 @@ class GetSecretRequest extends CloudMessage {
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret], in the format
   /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
-  final String? name;
+  final String name;
 
   GetSecretRequest({
-    this.name,
+    required this.name,
   });
 
   @override
   String toString() {
     final contents = [
-      if (name != null) 'name=$name',
+      'name=$name',
     ].join(',');
     return 'GetSecretRequest($contents)';
   }
@@ -935,7 +934,7 @@ class ListSecretVersionsRequest extends CloudMessage {
   /// [Secret][google.cloud.secretmanager.v1.Secret] associated with the
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] to list, in
   /// the format `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
-  final String? parent;
+  final String parent;
 
   /// Optional. The maximum number of results to be returned in a single page. If
   /// set to 0, the server decides the number of results to return. If the
@@ -954,7 +953,7 @@ class ListSecretVersionsRequest extends CloudMessage {
   final String? filter;
 
   ListSecretVersionsRequest({
-    this.parent,
+    required this.parent,
     this.pageSize,
     this.pageToken,
     this.filter,
@@ -963,7 +962,7 @@ class ListSecretVersionsRequest extends CloudMessage {
   @override
   String toString() {
     final contents = [
-      if (parent != null) 'parent=$parent',
+      'parent=$parent',
       if (pageSize != null) 'pageSize=$pageSize',
       if (pageToken != null) 'pageToken=$pageToken',
       if (filter != null) 'filter=$filter',
@@ -1021,16 +1020,16 @@ class GetSecretVersionRequest extends CloudMessage {
   /// `projects/*/locations/*/secrets/*/versions/latest` is an alias to the most
   /// recently created
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  final String? name;
+  final String name;
 
   GetSecretVersionRequest({
-    this.name,
+    required this.name,
   });
 
   @override
   String toString() {
     final contents = [
-      if (name != null) 'name=$name',
+      'name=$name',
     ].join(',');
     return 'GetSecretVersionRequest($contents)';
   }
@@ -1042,13 +1041,13 @@ class UpdateSecretRequest extends CloudMessage {
 
   /// Required. [Secret][google.cloud.secretmanager.v1.Secret] with updated field
   /// values.
-  final Secret? secret;
+  final Secret secret;
 
   /// Required. Specifies the fields to be updated.
   final FieldMask? updateMask;
 
   UpdateSecretRequest({
-    this.secret,
+    required this.secret,
     this.updateMask,
   });
 
@@ -1069,16 +1068,16 @@ class AccessSecretVersionRequest extends CloudMessage {
   /// `projects/*/locations/*/secrets/*/versions/latest` is an alias to the most
   /// recently created
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  final String? name;
+  final String name;
 
   AccessSecretVersionRequest({
-    this.name,
+    required this.name,
   });
 
   @override
   String toString() {
     final contents = [
-      if (name != null) 'name=$name',
+      'name=$name',
     ].join(',');
     return 'AccessSecretVersionRequest($contents)';
   }
@@ -1118,7 +1117,7 @@ class DeleteSecretRequest extends CloudMessage {
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] to delete in the format
   /// `projects/*/secrets/*`.
-  final String? name;
+  final String name;
 
   /// Optional. Etag of the [Secret][google.cloud.secretmanager.v1.Secret]. The
   /// request succeeds if it matches the etag of the currently stored secret
@@ -1126,14 +1125,14 @@ class DeleteSecretRequest extends CloudMessage {
   final String? etag;
 
   DeleteSecretRequest({
-    this.name,
+    required this.name,
     this.etag,
   });
 
   @override
   String toString() {
     final contents = [
-      if (name != null) 'name=$name',
+      'name=$name',
       if (etag != null) 'etag=$etag',
     ].join(',');
     return 'DeleteSecretRequest($contents)';
@@ -1148,7 +1147,7 @@ class DisableSecretVersionRequest extends CloudMessage {
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to disable in
   /// the format `projects/*/secrets/*/versions/*` or
   /// `projects/*/locations/*/secrets/*/versions/*`.
-  final String? name;
+  final String name;
 
   /// Optional. Etag of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
@@ -1157,14 +1156,14 @@ class DisableSecretVersionRequest extends CloudMessage {
   final String? etag;
 
   DisableSecretVersionRequest({
-    this.name,
+    required this.name,
     this.etag,
   });
 
   @override
   String toString() {
     final contents = [
-      if (name != null) 'name=$name',
+      'name=$name',
       if (etag != null) 'etag=$etag',
     ].join(',');
     return 'DisableSecretVersionRequest($contents)';
@@ -1179,7 +1178,7 @@ class EnableSecretVersionRequest extends CloudMessage {
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to enable in
   /// the format `projects/*/secrets/*/versions/*` or
   /// `projects/*/locations/*/secrets/*/versions/*`.
-  final String? name;
+  final String name;
 
   /// Optional. Etag of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
@@ -1188,14 +1187,14 @@ class EnableSecretVersionRequest extends CloudMessage {
   final String? etag;
 
   EnableSecretVersionRequest({
-    this.name,
+    required this.name,
     this.etag,
   });
 
   @override
   String toString() {
     final contents = [
-      if (name != null) 'name=$name',
+      'name=$name',
       if (etag != null) 'etag=$etag',
     ].join(',');
     return 'EnableSecretVersionRequest($contents)';
@@ -1210,7 +1209,7 @@ class DestroySecretVersionRequest extends CloudMessage {
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to destroy in
   /// the format `projects/*/secrets/*/versions/*` or
   /// `projects/*/locations/*/secrets/*/versions/*`.
-  final String? name;
+  final String name;
 
   /// Optional. Etag of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
@@ -1219,14 +1218,14 @@ class DestroySecretVersionRequest extends CloudMessage {
   final String? etag;
 
   DestroySecretVersionRequest({
-    this.name,
+    required this.name,
     this.etag,
   });
 
   @override
   String toString() {
     final contents = [
-      if (name != null) 'name=$name',
+      'name=$name',
       if (etag != null) 'etag=$etag',
     ].join(',');
     return 'DestroySecretVersionRequest($contents)';

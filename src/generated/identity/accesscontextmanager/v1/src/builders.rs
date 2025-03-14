@@ -71,8 +71,7 @@ pub mod access_context_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAccessPoliciesResponse, gax::error::Error>
         {
@@ -496,8 +495,7 @@ pub mod access_context_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAccessLevelsResponse, gax::error::Error>
         {
@@ -1002,8 +1000,7 @@ pub mod access_context_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServicePerimetersResponse, gax::error::Error>
         {
@@ -1602,8 +1599,7 @@ pub mod access_context_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListGcpUserAccessBindingsResponse,

@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate location;
@@ -2688,7 +2689,6 @@ impl wkt::message::Message for ListNodesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNodesResponse {
     type PageItem = crate::model::Node;
 
@@ -3042,7 +3042,6 @@ impl wkt::message::Message for ListQueuedResourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListQueuedResourcesResponse {
     type PageItem = crate::model::QueuedResource;
 
@@ -3561,7 +3560,6 @@ impl wkt::message::Message for ListAcceleratorTypesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAcceleratorTypesResponse {
     type PageItem = crate::model::AcceleratorType;
 
@@ -3777,7 +3775,6 @@ impl wkt::message::Message for ListRuntimeVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRuntimeVersionsResponse {
     type PageItem = crate::model::RuntimeVersion;
 

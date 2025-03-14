@@ -71,8 +71,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPrivateCloudsResponse, gax::error::Error>
         {
@@ -589,8 +588,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
         {
@@ -999,8 +997,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNodesResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -1110,8 +1107,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListExternalAddressesResponse, gax::error::Error>
         {
@@ -1197,8 +1193,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::FetchNetworkPolicyExternalAddressesResponse,
@@ -1601,8 +1596,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSubnetsResponse, gax::error::Error>
         {
@@ -1805,8 +1799,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListExternalAccessRulesResponse,
@@ -2234,8 +2227,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLoggingServersResponse, gax::error::Error>
         {
@@ -2648,8 +2640,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNodeTypesResponse, gax::error::Error>
         {
@@ -3233,8 +3224,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNetworkPeeringsResponse, gax::error::Error>
         {
@@ -3606,8 +3596,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPeeringRoutesResponse, gax::error::Error>
         {
@@ -3789,8 +3778,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListHcxActivationKeysResponse, gax::error::Error>
         {
@@ -3948,8 +3936,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNetworkPoliciesResponse, gax::error::Error>
         {
@@ -4323,8 +4310,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListManagementDnsZoneBindingsResponse,
@@ -5206,8 +5192,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListVmwareEngineNetworksResponse,
@@ -5443,8 +5428,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListPrivateConnectionsResponse,
@@ -5724,8 +5708,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListPrivateConnectionPeeringRoutesResponse,
@@ -6039,8 +6022,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -6321,8 +6303,7 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

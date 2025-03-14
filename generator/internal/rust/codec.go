@@ -285,6 +285,11 @@ func loadWellKnownTypes(s *api.APIState) {
 	for _, message := range wellKnownMessages {
 		s.MessageByID[message.ID] = message
 	}
+	s.EnumByID[".google.protobuf.NullValue"] = &api.Enum{
+		Name:    "NullValue",
+		Package: "google.protobuf",
+		ID:      ".google.protobuf.NullValue",
+	}
 }
 
 func resolveUsedPackages(model *api.API, extraPackages []*packagez) {
@@ -568,6 +573,15 @@ func mapType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationP
 		return fullyQualifiedEnumName(e, modulePath, sourceSpecificationPackageName, packageMapping)
 	default:
 		return scalarFieldType(f)
+	}
+}
+
+func toProto(f *api.Field) string {
+	switch f.Typez {
+	case api.ENUM_TYPE:
+		return "value"
+	default:
+		return "cnv"
 	}
 }
 

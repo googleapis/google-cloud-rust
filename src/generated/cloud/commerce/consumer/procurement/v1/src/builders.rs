@@ -270,8 +270,7 @@ pub mod license_management_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::EnumerateLicensedUsersResponse,
@@ -560,8 +559,7 @@ pub mod consumer_procurement_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListOrdersResponse, gax::error::Error>
         {

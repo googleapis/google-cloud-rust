@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate location;
 extern crate longrunning;
@@ -890,7 +891,6 @@ impl wkt::message::Message for ListRecognizersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRecognizersResponse {
     type PageItem = crate::model::Recognizer;
 
@@ -5725,7 +5725,6 @@ impl wkt::message::Message for ListCustomClassesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCustomClassesResponse {
     type PageItem = crate::model::CustomClass;
 
@@ -6152,7 +6151,6 @@ impl wkt::message::Message for ListPhraseSetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPhraseSetsResponse {
     type PageItem = crate::model::PhraseSet;
 

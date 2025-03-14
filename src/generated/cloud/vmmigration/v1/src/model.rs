@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate location;
 extern crate longrunning;
@@ -2283,7 +2284,6 @@ impl wkt::message::Message for ListCloneJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCloneJobsResponse {
     type PageItem = crate::model::CloneJob;
 
@@ -3556,7 +3556,6 @@ impl wkt::message::Message for ListSourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSourcesResponse {
     type PageItem = crate::model::Source;
 
@@ -5460,7 +5459,6 @@ impl wkt::message::Message for ListUtilizationReportsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUtilizationReportsResponse {
     type PageItem = crate::model::UtilizationReport;
 
@@ -5710,7 +5708,6 @@ impl wkt::message::Message for ListDatacenterConnectorsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDatacenterConnectorsResponse {
     type PageItem = crate::model::DatacenterConnector;
 
@@ -7291,7 +7288,6 @@ impl wkt::message::Message for ListMigratingVmsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMigratingVmsResponse {
     type PageItem = crate::model::MigratingVm;
 
@@ -7877,7 +7873,6 @@ impl wkt::message::Message for ListTargetProjectsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTargetProjectsResponse {
     type PageItem = crate::model::TargetProject;
 
@@ -8304,7 +8299,6 @@ impl wkt::message::Message for ListGroupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGroupsResponse {
     type PageItem = crate::model::Group;
 
@@ -8915,7 +8909,6 @@ impl wkt::message::Message for ListCutoverJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCutoverJobsResponse {
     type PageItem = crate::model::CutoverJob;
 
@@ -9498,7 +9491,6 @@ impl wkt::message::Message for ListReplicationCyclesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListReplicationCyclesResponse {
     type PageItem = crate::model::ReplicationCycle;
 

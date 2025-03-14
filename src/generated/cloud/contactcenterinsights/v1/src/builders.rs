@@ -351,8 +351,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConversationsResponse, gax::error::Error>
         {
@@ -619,8 +618,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAnalysesResponse, gax::error::Error>
         {
@@ -2225,8 +2223,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPhraseMatchersResponse, gax::error::Error>
         {
@@ -2637,8 +2634,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAnalysisRulesResponse, gax::error::Error>
         {
@@ -3029,8 +3025,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
@@ -3506,8 +3501,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListQaQuestionsResponse, gax::error::Error>
         {
@@ -3783,8 +3777,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListQaScorecardsResponse, gax::error::Error>
         {
@@ -4208,8 +4201,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListQaScorecardRevisionsResponse,
@@ -4346,8 +4338,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFeedbackLabelsResponse, gax::error::Error>
         {
@@ -4567,8 +4558,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAllFeedbackLabelsResponse, gax::error::Error>
         {
@@ -4890,8 +4880,7 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

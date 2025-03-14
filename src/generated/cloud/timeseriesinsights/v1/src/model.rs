@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate rpc;
@@ -851,7 +852,6 @@ impl wkt::message::Message for ListDataSetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDataSetsResponse {
     type PageItem = crate::model::DataSet;
 

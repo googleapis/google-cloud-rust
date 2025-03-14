@@ -69,8 +69,10 @@ func TestAnnotateMethod(t *testing.T) {
 		Package:       sample.Package,
 	}
 	model := api.NewTestAPI(
-		[]*api.Message{sample.ListSecretVersionsRequest(), sample.ListSecretVersionsResponse()},
-		[]*api.Enum{},
+		[]*api.Message{sample.ListSecretVersionsRequest(), sample.ListSecretVersionsResponse(),
+			sample.Secret(), sample.SecretVersion(), sample.Replication(), sample.Automatic(),
+			sample.CustomerManagedEncryption()},
+		[]*api.Enum{sample.EnumState()},
 		[]*api.Service{service},
 	)
 	api.Validate(model)
@@ -195,8 +197,9 @@ func TestAnnotateMessageToString(t *testing.T) {
 		t.Run(test.message.Name, func(t *testing.T) {
 			packageMapping := map[string]string{}
 			imports := map[string]string{}
+			requiredFields := map[string]*api.Field{}
 
-			annotateMessage(test.message, model.State, packageMapping, imports)
+			annotateMessage(test.message, model.State, packageMapping, imports, requiredFields)
 
 			codec := test.message.Codec.(*messageAnnotation)
 			actual := codec.ToStringLines
@@ -205,5 +208,39 @@ func TestAnnotateMessageToString(t *testing.T) {
 				t.Errorf("Expected list of length %d, got %d", test.expected, len(actual))
 			}
 		})
+	}
+}
+
+func TestCalculateRequiredFields(t *testing.T) {
+	service := &api.Service{
+		Name:          sample.ServiceName,
+		Documentation: sample.APIDescription,
+		DefaultHost:   sample.DefaultHost,
+		Methods:       []*api.Method{sample.MethodListSecretVersions()},
+		Package:       sample.Package,
+	}
+	model := api.NewTestAPI(
+		[]*api.Message{sample.ListSecretVersionsRequest(), sample.ListSecretVersionsResponse(),
+			sample.Secret(), sample.SecretVersion(), sample.Replication()},
+		[]*api.Enum{sample.EnumState()},
+		[]*api.Service{service},
+	)
+	api.Validate(model)
+
+	// Test that field annotations correctly calculate their required state; this
+	// uses the method's PathInfo.
+	requiredFields := calculateRequiredFields(model)
+
+	got := map[string]string{}
+	for key, value := range requiredFields {
+		got[key] = value.Name
+	}
+
+	want := map[string]string{
+		"..Secret.parent": "parent",
+	}
+
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in TestCalculateRequiredFields (-want, +got)\n:%s", diff)
 	}
 }

@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate longrunning;
@@ -200,7 +201,6 @@ impl wkt::message::Message for ListEnvironmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEnvironmentsResponse {
     type PageItem = crate::model::Environment;
 
@@ -1361,7 +1361,6 @@ impl wkt::message::Message for ListUserWorkloadsSecretsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUserWorkloadsSecretsResponse {
     type PageItem = crate::model::UserWorkloadsSecret;
 
@@ -1474,7 +1473,6 @@ impl wkt::message::Message for ListUserWorkloadsConfigMapsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUserWorkloadsConfigMapsResponse {
     type PageItem = crate::model::UserWorkloadsConfigMap;
 
@@ -1596,7 +1594,6 @@ impl wkt::message::Message for ListWorkloadsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkloadsResponse {
     type PageItem = crate::model::list_workloads_response::ComposerWorkload;
 
@@ -5561,7 +5558,6 @@ impl wkt::message::Message for ListImageVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListImageVersionsResponse {
     type PageItem = crate::model::ImageVersion;
 

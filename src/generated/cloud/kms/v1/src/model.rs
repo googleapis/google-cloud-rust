@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate location;
@@ -369,7 +370,6 @@ impl wkt::message::Message for ListKeyHandlesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListKeyHandlesResponse {
     type PageItem = crate::model::KeyHandle;
 
@@ -837,7 +837,6 @@ impl wkt::message::Message for ListEkmConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEkmConnectionsResponse {
     type PageItem = crate::model::EkmConnection;
 
@@ -4750,7 +4749,6 @@ impl wkt::message::Message for ListKeyRingsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListKeyRingsResponse {
     type PageItem = crate::model::KeyRing;
 
@@ -4828,7 +4826,6 @@ impl wkt::message::Message for ListCryptoKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCryptoKeysResponse {
     type PageItem = crate::model::CryptoKey;
 
@@ -4907,7 +4904,6 @@ impl wkt::message::Message for ListCryptoKeyVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCryptoKeyVersionsResponse {
     type PageItem = crate::model::CryptoKeyVersion;
 
@@ -4985,7 +4981,6 @@ impl wkt::message::Message for ListImportJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListImportJobsResponse {
     type PageItem = crate::model::ImportJob;
 

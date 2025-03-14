@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AssetService](crate::stubs::AssetService) using a [gax::http_client::ReqwestClient].
+/// Implements [AssetService](crate::stubs::AssetService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AssetService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for AssetService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for AssetService {
 }
 
 impl AssetService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -95,7 +95,7 @@ impl crate::stubs::AssetService for AssetService {
             builder.query(&[("relationshipTypes", p)])
         });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -135,7 +135,7 @@ impl crate::stubs::AssetService for AssetService {
             builder.query(&[("relationshipTypes", p)])
         });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -171,7 +171,7 @@ impl crate::stubs::AssetService for AssetService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -190,7 +190,7 @@ impl crate::stubs::AssetService for AssetService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -235,7 +235,7 @@ impl crate::stubs::AssetService for AssetService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -275,7 +275,7 @@ impl crate::stubs::AssetService for AssetService {
                 v.add(builder, "readMask")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -305,7 +305,7 @@ impl crate::stubs::AssetService for AssetService {
             .fold(builder, |builder, p| builder.query(&[("assetTypes", p)]));
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -354,7 +354,7 @@ impl crate::stubs::AssetService for AssetService {
                 v.add(builder, "executionTimeout")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -404,7 +404,7 @@ impl crate::stubs::AssetService for AssetService {
         let builder = builder.query(&[("destinationParent", &req.destination_parent)]);
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -466,7 +466,7 @@ impl crate::stubs::AssetService for AssetService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -491,7 +491,7 @@ impl crate::stubs::AssetService for AssetService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -548,7 +548,7 @@ impl crate::stubs::AssetService for AssetService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -574,7 +574,7 @@ impl crate::stubs::AssetService for AssetService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("names", p)]));
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -603,7 +603,7 @@ impl crate::stubs::AssetService for AssetService {
             .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -632,7 +632,7 @@ impl crate::stubs::AssetService for AssetService {
             .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -661,7 +661,7 @@ impl crate::stubs::AssetService for AssetService {
             .fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -680,7 +680,7 @@ impl crate::stubs::AssetService for AssetService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
