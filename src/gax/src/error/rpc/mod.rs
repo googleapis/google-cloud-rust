@@ -448,6 +448,57 @@ mod test {
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
+    fn status_basic_setters() {
+        let got = Status::default()
+            .set_code(Code::Unimplemented as i32)
+            .set_message("test-message")
+            .set_status(Code::Unimplemented);
+        let want = Status {
+            code: Code::Unimplemented as i32,
+            message: "test-message".into(),
+            status: Some(String::from(Code::Unimplemented)),
+            ..Default::default()
+        };
+        assert_eq!(got, want);
+
+        let got = Status::default()
+            .set_code(12)
+            .set_message("test-message")
+            .set_status("UNIMPLEMENTED");
+        let want = Status {
+            code: 12,
+            message: "test-message".into(),
+            status: Some(String::from("UNIMPLEMENTED")),
+            ..Default::default()
+        };
+        assert_eq!(got, want);
+    }
+
+    #[test]
+    fn status_detail_setter() -> Result {
+        let d0 = StatusDetails::ErrorInfo(rpc::model::ErrorInfo::new().set_reason("test-reason"));
+        let d1 = StatusDetails::Help(
+            rpc::model::Help::new().set_links([rpc::model::help::Link::new().set_url("test-url")]),
+        );
+        let want = Status {
+            details: vec![d0.clone(), d1.clone()],
+            ..Default::default()
+        };
+
+        let got = Status::default().set_details([d0, d1]);
+        assert_eq!(got, want);
+
+        let a0 = wkt::Any::try_from(&rpc::model::ErrorInfo::new().set_reason("test-reason"))?;
+        let a1 = wkt::Any::try_from(
+            &rpc::model::Help::new().set_links([rpc::model::help::Link::new().set_url("test-url")]),
+        )?;
+        let got = Status::default().set_details([a0, a1]);
+        assert_eq!(got, want);
+
+        Ok(())
+    }
+
+    #[test]
     fn serialization_all_variants() {
         let status =
             Status {
