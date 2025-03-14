@@ -1519,53 +1519,6 @@ func PackageName(api *api.API, packageNameOverride string) string {
 	return "google-cloud-" + name
 }
 
-func hasStreamingRPC(model *api.API) bool {
-	for _, m := range model.Messages {
-		if m.IsPageableResponse {
-			return true
-		}
-	}
-	// Sometimes the method with a pageable message is using an imported message
-	// or is part of a mixin.
-	for _, s := range model.Services {
-		for _, m := range s.Methods {
-			if output, ok := model.State.MessageByID[m.OutputTypeID]; ok {
-				if output.IsPageableResponse {
-					return true
-				}
-			}
-		}
-	}
-	return false
-}
-
-func addStreamingFeature(ann *modelAnnotations, api *api.API, extraPackages []*packagez) {
-	hasStreamingRPC := hasStreamingRPC(api)
-	if !hasStreamingRPC {
-		return
-	}
-	// Create a list of dependency features we need to enable. To avoid
-	// uninteresting changes, always sort the list.
-	feature := func(name string) string {
-		return fmt.Sprintf(`"%s/unstable-stream"`, name)
-	}
-	deps := []string{feature("gax")}
-	for _, p := range extraPackages {
-		if p.ignore || !p.used {
-			continue
-		}
-		// Only mixins are relevant here, and only longrunning and location have
-		// streaming features. Hardcoding the list is not a terrible problem.
-		if p.name == "location" || p.name == "longrunning" {
-			deps = append(deps, feature(p.name))
-		}
-	}
-	sort.Strings(deps)
-	features := fmt.Sprintf("unstable-stream = [%s]", strings.Join(deps, ", "))
-	ann.HasFeatures = true
-	ann.Features = append(ann.Features, features)
-}
-
 func generateMethod(m *api.Method) bool {
 	// Ignore methods without HTTP annotations, we cannot generate working
 	// RPCs for them.
