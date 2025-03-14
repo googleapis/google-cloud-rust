@@ -17,6 +17,10 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
-Future<{{Codec.ResponseType}}> {{Codec.Name}}({{Codec.RequestType}} request) {
-  throw UnimplementedError('{{Codec.Name}}');
+Future<{{Codec.ResponseType}}> {{Codec.Name}}({{Codec.RequestType}} request) async {
+  final url = Uri.https(host, '{{PathInfo.Codec.PathFmt}}');
+  {{#Codec.ReturnsValue}}final response = {{/Codec.ReturnsValue}}await ${{Codec.RequestMethod}}(url{{#Codec.HasBody}}, body: {{Codec.BodyMessageName}}{{/Codec.HasBody}});
+{{#Codec.ReturnsValue}}
+  return {{Codec.ResponseType}}.fromJson(response);
+{{/Codec.ReturnsValue}}
 }

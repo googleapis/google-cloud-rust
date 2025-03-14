@@ -38,43 +38,56 @@ class SecretManagerService extends CloudService {
   SecretManagerService({required super.client});
 
   /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
-  Future<ListSecretsResponse> listSecrets(ListSecretsRequest request) {
-    throw UnimplementedError('listSecrets');
+  Future<ListSecretsResponse> listSecrets(ListSecretsRequest request) async {
+    final url = Uri.https(host, '/v1/${request.parent}/secrets');
+    final response = await $get(url);
+    return ListSecretsResponse.fromJson(response);
   }
 
   /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
-  Future<Secret> createSecret(CreateSecretRequest request) {
-    throw UnimplementedError('createSecret');
+  Future<Secret> createSecret(CreateSecretRequest request) async {
+    final url = Uri.https(host, '/v1/${request.parent}/secrets');
+    final response = await $post(url, body: request.secret);
+    return Secret.fromJson(response);
   }
 
   /// Creates a new [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
   /// containing secret data and attaches it to an existing
   /// [Secret][google.cloud.secretmanager.v1.Secret].
-  Future<SecretVersion> addSecretVersion(AddSecretVersionRequest request) {
-    throw UnimplementedError('addSecretVersion');
+  Future<SecretVersion> addSecretVersion(AddSecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.parent}:addVersion');
+    final response = await $post(url, body: request);
+    return SecretVersion.fromJson(response);
   }
 
   /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
-  Future<Secret> getSecret(GetSecretRequest request) {
-    throw UnimplementedError('getSecret');
+  Future<Secret> getSecret(GetSecretRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}');
+    final response = await $get(url);
+    return Secret.fromJson(response);
   }
 
   /// Updates metadata of an existing
   /// [Secret][google.cloud.secretmanager.v1.Secret].
-  Future<Secret> updateSecret(UpdateSecretRequest request) {
-    throw UnimplementedError('updateSecret');
+  Future<Secret> updateSecret(UpdateSecretRequest request) async {
+    final url = Uri.https(host, '/v1/${request.secret.name}');
+    final response = await $patch(url, body: request.secret);
+    return Secret.fromJson(response);
   }
 
   /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
-  Future<void> deleteSecret(DeleteSecretRequest request) {
-    throw UnimplementedError('deleteSecret');
+  Future<void> deleteSecret(DeleteSecretRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}');
+    await $delete(url);
   }
 
   /// Lists [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]. This
   /// call does not return secret data.
-  Future<ListSecretVersionsResponse> listSecretVersions(ListSecretVersionsRequest request) {
-    throw UnimplementedError('listSecretVersions');
+  Future<ListSecretVersionsResponse> listSecretVersions(ListSecretVersionsRequest request) async {
+    final url = Uri.https(host, '/v1/${request.parent}/versions');
+    final response = await $get(url);
+    return ListSecretVersionsResponse.fromJson(response);
   }
 
   /// Gets metadata for a
@@ -82,8 +95,10 @@ class SecretManagerService extends CloudService {
   ///
   /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
   /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  Future<SecretVersion> getSecretVersion(GetSecretVersionRequest request) {
-    throw UnimplementedError('getSecretVersion');
+  Future<SecretVersion> getSecretVersion(GetSecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}');
+    final response = await $get(url);
+    return SecretVersion.fromJson(response);
   }
 
   /// Accesses a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -91,8 +106,10 @@ class SecretManagerService extends CloudService {
   ///
   /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
   /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  Future<AccessSecretVersionResponse> accessSecretVersion(AccessSecretVersionRequest request) {
-    throw UnimplementedError('accessSecretVersion');
+  Future<AccessSecretVersionResponse> accessSecretVersion(AccessSecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}:access');
+    final response = await $get(url);
+    return AccessSecretVersionResponse.fromJson(response);
   }
 
   /// Disables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -100,8 +117,10 @@ class SecretManagerService extends CloudService {
   /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
   /// [DISABLED][google.cloud.secretmanager.v1.SecretVersion.State.DISABLED].
-  Future<SecretVersion> disableSecretVersion(DisableSecretVersionRequest request) {
-    throw UnimplementedError('disableSecretVersion');
+  Future<SecretVersion> disableSecretVersion(DisableSecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}:disable');
+    final response = await $post(url, body: request);
+    return SecretVersion.fromJson(response);
   }
 
   /// Enables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -109,8 +128,10 @@ class SecretManagerService extends CloudService {
   /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
   /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED].
-  Future<SecretVersion> enableSecretVersion(EnableSecretVersionRequest request) {
-    throw UnimplementedError('enableSecretVersion');
+  Future<SecretVersion> enableSecretVersion(EnableSecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}:enable');
+    final response = await $post(url, body: request);
+    return SecretVersion.fromJson(response);
   }
 
   /// Destroys a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -119,8 +140,10 @@ class SecretManagerService extends CloudService {
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
   /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]
   /// and irrevocably destroys the secret data.
-  Future<SecretVersion> destroySecretVersion(DestroySecretVersionRequest request) {
-    throw UnimplementedError('destroySecretVersion');
+  Future<SecretVersion> destroySecretVersion(DestroySecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}:destroy');
+    final response = await $post(url, body: request);
+    return SecretVersion.fromJson(response);
   }
 
   /// Sets the access control policy on the specified secret. Replaces any
@@ -130,14 +153,18 @@ class SecretManagerService extends CloudService {
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] are enforced
   /// according to the policy set on the associated
   /// [Secret][google.cloud.secretmanager.v1.Secret].
-  Future<Policy> setIamPolicy(SetIamPolicyRequest request) {
-    throw UnimplementedError('setIamPolicy');
+  Future<Policy> setIamPolicy(SetIamPolicyRequest request) async {
+    final url = Uri.https(host, '/v1/${request.resource}:setIamPolicy');
+    final response = await $post(url, body: request);
+    return Policy.fromJson(response);
   }
 
   /// Gets the access control policy for a secret.
   /// Returns empty policy if the secret exists and does not have a policy set.
-  Future<Policy> getIamPolicy(GetIamPolicyRequest request) {
-    throw UnimplementedError('getIamPolicy');
+  Future<Policy> getIamPolicy(GetIamPolicyRequest request) async {
+    final url = Uri.https(host, '/v1/${request.resource}:getIamPolicy');
+    final response = await $get(url);
+    return Policy.fromJson(response);
   }
 
   /// Returns permissions that a caller has for the specified secret.
@@ -147,18 +174,24 @@ class SecretManagerService extends CloudService {
   /// Note: This operation is designed to be used for building permission-aware
   /// UIs and command-line tools, not for authorization checking. This operation
   /// may "fail open" without warning.
-  Future<TestIamPermissionsResponse> testIamPermissions(TestIamPermissionsRequest request) {
-    throw UnimplementedError('testIamPermissions');
+  Future<TestIamPermissionsResponse> testIamPermissions(TestIamPermissionsRequest request) async {
+    final url = Uri.https(host, '/v1/${request.resource}:testIamPermissions');
+    final response = await $post(url, body: request);
+    return TestIamPermissionsResponse.fromJson(response);
   }
 
   /// Lists information about the supported locations for this service.
-  Future<ListLocationsResponse> listLocations(ListLocationsRequest request) {
-    throw UnimplementedError('listLocations');
+  Future<ListLocationsResponse> listLocations(ListLocationsRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}/locations');
+    final response = await $get(url);
+    return ListLocationsResponse.fromJson(response);
   }
 
   /// Gets information about a location.
-  Future<Location> getLocation(GetLocationRequest request) {
-    throw UnimplementedError('getLocation');
+  Future<Location> getLocation(GetLocationRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}');
+    final response = await $get(url);
+    return Location.fromJson(response);
   }
 }
 

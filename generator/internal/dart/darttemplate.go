@@ -72,12 +72,16 @@ type messageAnnotation struct {
 
 type methodAnnotation struct {
 	// The method name using Dart naming conventions.
-	Name         string
-	RequestType  string
-	ResponseType string
-	DocLines     []string
-	PathParams   []*api.Field
-	QueryParams  []*api.Field
+	Name            string
+	RequestMethod   string
+	RequestType     string
+	ResponseType    string
+	DocLines        []string
+	HasBody         bool
+	ReturnsValue    bool
+	BodyMessageName string
+	PathParams      []*api.Field
+	QueryParams     []*api.Field
 }
 
 type pathInfoAnnotation struct {
@@ -504,13 +508,24 @@ func annotateMethod(method *api.Method, state *api.APIState, packageMapping map[
 	}
 	method.PathInfo.Codec = pathInfoAnnotation
 
+	bodyMessageName := method.PathInfo.BodyFieldPath
+	if bodyMessageName == "*" {
+		bodyMessageName = "request"
+	} else if bodyMessageName != "" {
+		bodyMessageName = "request." + strcase.ToLowerCamel(bodyMessageName)
+	}
+
 	annotation := &methodAnnotation{
-		Name:         strcase.ToLowerCamel(method.Name),
-		RequestType:  resolveTypeName(state.MessageByID[method.InputTypeID], packageMapping, imports),
-		ResponseType: resolveTypeName(state.MessageByID[method.OutputTypeID], packageMapping, imports),
-		DocLines:     formatDocComments(method.Documentation, state),
-		PathParams:   language.PathParams(method, state),
-		QueryParams:  language.QueryParams(method, state),
+		Name:            strcase.ToLowerCamel(method.Name),
+		RequestMethod:   strings.ToLower(method.PathInfo.Verb),
+		RequestType:     resolveTypeName(state.MessageByID[method.InputTypeID], packageMapping, imports),
+		ResponseType:    resolveTypeName(state.MessageByID[method.OutputTypeID], packageMapping, imports),
+		DocLines:        formatDocComments(method.Documentation, state),
+		HasBody:         method.PathInfo.BodyFieldPath != "",
+		ReturnsValue:    method.OutputTypeID != ".google.protobuf.Empty",
+		BodyMessageName: bodyMessageName,
+		PathParams:      language.PathParams(method, state),
+		QueryParams:     language.QueryParams(method, state),
 	}
 	method.Codec = annotation
 }

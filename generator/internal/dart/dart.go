@@ -156,11 +156,22 @@ func resolveTypeName(message *api.Message, packageMapping map[string]string, imp
 	return messageName(message)
 }
 
+var messageRenames = map[string]string{
+	// 'Function' is a reserved keyword: https://dart.dev/language/keywords.
+	".google.cloud.functions.v2.Function": "CloudFunction",
+}
+
 func messageName(m *api.Message) string {
-	if m.Parent != nil {
-		return messageName(m.Parent) + "$" + strcase.ToCamel(m.Name)
+	name, ok := messageRenames[m.ID]
+	if !ok {
+		name = strcase.ToCamel(m.Name)
 	}
-	return strcase.ToCamel(m.Name)
+
+	if m.Parent != nil {
+		return messageName(m.Parent) + "$" + name
+	} else {
+		return name
+	}
 }
 
 func enumName(e *api.Enum) string {
@@ -174,9 +185,23 @@ func enumValueName(e *api.EnumValue) string {
 	return strcase.ToLowerCamel(e.Name)
 }
 
-func httpPathFmt(_ *api.PathInfo) string {
+func httpPathFmt(pathInfo *api.PathInfo) string {
 	fmt := ""
-	// TODO(#1034): Determine the correct format for Dart.
+	for _, segment := range pathInfo.PathTemplate {
+		if segment.Literal != nil {
+			fmt = fmt + "/" + *segment.Literal
+		} else if segment.FieldPath != nil {
+			fieldPath := *segment.FieldPath
+			paths := strings.Split(fieldPath, ".")
+			for i, p := range paths {
+				paths[i] = strcase.ToLowerCamel(p)
+			}
+			fieldPath = strings.Join(paths, ".")
+			fmt = fmt + "/${request." + fieldPath + "}"
+		} else if segment.Verb != nil {
+			fmt = fmt + ":" + *segment.Verb
+		}
+	}
 	return fmt
 }
 
