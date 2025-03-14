@@ -132,7 +132,7 @@ impl crate::stubs::Iam for Iam {
                     "/v1/{}",
                     req.service_account
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("service_account"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("service_account"))?
                         .name
                 ),
             )
@@ -404,7 +404,7 @@ impl crate::stubs::Iam for Iam {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -553,7 +553,7 @@ impl crate::stubs::Iam for Iam {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.role), options).await

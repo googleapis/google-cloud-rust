@@ -98,7 +98,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                     "/v2/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -114,7 +114,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -365,7 +365,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                     "/v2/{}",
                     req.volume
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("volume"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("volume"))?
                         .name
                 ),
             )
@@ -381,7 +381,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.volume), options).await
@@ -515,7 +515,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                     "/v2/{}",
                     req.network
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("network"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("network"))?
                         .name
                 ),
             )
@@ -531,7 +531,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -758,7 +758,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                     "/v2/{}",
                     req.nfs_share
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("nfs_share"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("nfs_share"))?
                         .name
                 ),
             )
@@ -774,7 +774,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -940,7 +940,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                     "/v2/{}",
                     req.provisioning_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("provisioning_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("provisioning_config"))?
                         .name
                 ),
             )
@@ -956,7 +956,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("email", &req.email)]);

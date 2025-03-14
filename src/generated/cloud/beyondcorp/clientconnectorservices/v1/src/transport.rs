@@ -125,7 +125,9 @@ impl crate::stubs::ClientConnectorServicesService for ClientConnectorServicesSer
                     "/v1/{}",
                     req.client_connector_service
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("client_connector_service"))?
+                        .ok_or_else(|| gclient::path_parameter::missing(
+                            "client_connector_service"
+                        ))?
                         .name
                 ),
             )
@@ -141,7 +143,7 @@ impl crate::stubs::ClientConnectorServicesService for ClientConnectorServicesSer
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -258,7 +260,7 @@ impl crate::stubs::ClientConnectorServicesService for ClientConnectorServicesSer
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

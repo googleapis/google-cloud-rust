@@ -121,7 +121,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -137,7 +137,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -286,7 +286,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.dataset
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("dataset"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("dataset"))?
                         .name
                 ),
             )
@@ -302,7 +302,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -406,7 +406,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.model
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("model"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("model"))?
                         .name
                 ),
             )
@@ -422,7 +422,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -552,7 +552,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.engine_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("engine_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("engine_config"))?
                         .name
                 ),
             )
@@ -568,7 +568,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -745,7 +745,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.prediction_result
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("prediction_result"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("prediction_result"))?
                         .name
                 ),
             )
@@ -761,7 +761,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -893,7 +893,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.backtest_result
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backtest_result"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backtest_result"))?
                         .name
                 ),
             )
@@ -909,7 +909,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

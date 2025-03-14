@@ -122,7 +122,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                     "/v1/{}",
                     req.cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("cluster"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -387,7 +387,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                     "/v1/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -403,7 +403,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -586,7 +586,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                     "/v1/{}",
                     req.backup
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -602,7 +602,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -776,7 +776,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                     "/v1/{}",
                     req.user
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("user"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("user"))?
                         .name
                 ),
             )
@@ -792,7 +792,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

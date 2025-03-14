@@ -123,7 +123,7 @@ impl crate::stubs::FunctionService for FunctionService {
                     "/v2/{}",
                     req.function
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("function"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("function"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl crate::stubs::FunctionService for FunctionService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -292,7 +292,7 @@ impl crate::stubs::FunctionService for FunctionService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

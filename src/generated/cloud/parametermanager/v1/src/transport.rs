@@ -123,7 +123,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
                     "/v1/{}",
                     req.parameter
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("parameter"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("parameter"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -268,7 +268,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
                     "/v1/{}",
                     req.parameter_version
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("parameter_version"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("parameter_version"))?
                         .name
                 ),
             )
@@ -284,7 +284,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

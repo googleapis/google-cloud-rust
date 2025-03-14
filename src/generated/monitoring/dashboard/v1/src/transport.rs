@@ -139,7 +139,7 @@ impl crate::stubs::DashboardsService for DashboardsService {
                     "/v1/{}",
                     req.dashboard
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("dashboard"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("dashboard"))?
                         .name
                 ),
             )

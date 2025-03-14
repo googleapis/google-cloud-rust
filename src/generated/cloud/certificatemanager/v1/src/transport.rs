@@ -122,7 +122,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                     "/v1/{}",
                     req.certificate
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("certificate"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -247,7 +247,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                     "/v1/{}",
                     req.certificate_map
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate_map"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("certificate_map"))?
                         .name
                 ),
             )
@@ -263,7 +263,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -372,7 +372,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                     "/v1/{}",
                     req.certificate_map_entry
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate_map_entry"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("certificate_map_entry"))?
                         .name
                 ),
             )
@@ -388,7 +388,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -497,7 +497,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                     "/v1/{}",
                     req.dns_authorization
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("dns_authorization"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("dns_authorization"))?
                         .name
                 ),
             )
@@ -513,7 +513,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -712,7 +712,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                     "/v1/{}",
                     req.trust_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("trust_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("trust_config"))?
                         .name
                 ),
             )
@@ -728,7 +728,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

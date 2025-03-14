@@ -117,7 +117,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                     "/v1/{}",
                     req.instance_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("instance_config"))?
                         .name
                 ),
             )
@@ -202,7 +202,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "instanceDeadline")
             });
         self.inner
@@ -236,7 +236,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "instancePartitionDeadline")
             });
         self.inner
@@ -265,7 +265,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "fieldMask")
             });
         self.inner
@@ -307,7 +307,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                     "/v1/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -471,7 +471,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                     "/v1/{}",
                     req.instance_partition
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance_partition"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("instance_partition"))?
                         .name
                 ),
             )
@@ -510,7 +510,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "instancePartitionDeadline")
             });
         self.inner

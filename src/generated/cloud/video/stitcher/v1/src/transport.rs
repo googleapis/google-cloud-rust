@@ -135,7 +135,7 @@ impl crate::stubs::VideoStitcherService for VideoStitcherService {
                     "/v1/{}",
                     req.cdn_key
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("cdn_key"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("cdn_key"))?
                         .name
                 ),
             )
@@ -151,7 +151,7 @@ impl crate::stubs::VideoStitcherService for VideoStitcherService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -404,7 +404,7 @@ impl crate::stubs::VideoStitcherService for VideoStitcherService {
                     "/v1/{}",
                     req.slate
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("slate"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("slate"))?
                         .name
                 ),
             )
@@ -420,7 +420,7 @@ impl crate::stubs::VideoStitcherService for VideoStitcherService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.slate), options).await
@@ -588,7 +588,7 @@ impl crate::stubs::VideoStitcherService for VideoStitcherService {
                     "/v1/{}",
                     req.live_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("live_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("live_config"))?
                         .name
                 ),
             )
@@ -604,7 +604,7 @@ impl crate::stubs::VideoStitcherService for VideoStitcherService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -714,7 +714,7 @@ impl crate::stubs::VideoStitcherService for VideoStitcherService {
                     "/v1/{}",
                     req.vod_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("vod_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("vod_config"))?
                         .name
                 ),
             )
@@ -730,7 +730,7 @@ impl crate::stubs::VideoStitcherService for VideoStitcherService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

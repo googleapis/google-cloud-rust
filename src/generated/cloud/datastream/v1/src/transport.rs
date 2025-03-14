@@ -125,7 +125,7 @@ impl crate::stubs::Datastream for Datastream {
                     "/v1/{}",
                     req.connection_profile
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("connection_profile"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("connection_profile"))?
                         .name
                 ),
             )
@@ -141,7 +141,7 @@ impl crate::stubs::Datastream for Datastream {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -269,7 +269,7 @@ impl crate::stubs::Datastream for Datastream {
                     "/v1/{}",
                     req.stream
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("stream"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("stream"))?
                         .name
                 ),
             )
@@ -285,7 +285,7 @@ impl crate::stubs::Datastream for Datastream {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

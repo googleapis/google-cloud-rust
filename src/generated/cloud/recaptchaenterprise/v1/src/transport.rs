@@ -172,7 +172,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}",
                     req.key
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("key"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("key"))?
                         .name
                 ),
             )
@@ -188,7 +188,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.key), options).await
@@ -392,7 +392,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}",
                     req.firewall_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("firewall_policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("firewall_policy"))?
                         .name
                 ),
             )
@@ -408,7 +408,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

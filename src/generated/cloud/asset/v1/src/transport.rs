@@ -81,7 +81,7 @@ impl crate::stubs::AssetService for AssetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readTime")
             });
         let builder = req
@@ -128,7 +128,7 @@ impl crate::stubs::AssetService for AssetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readTimeWindow")
             });
         let builder = req.relationship_types.iter().fold(builder, |builder, p| {
@@ -208,7 +208,7 @@ impl crate::stubs::AssetService for AssetService {
                     "/v1/{}",
                     req.feed
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("feed"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("feed"))?
                         .name
                 ),
             )
@@ -271,7 +271,7 @@ impl crate::stubs::AssetService for AssetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -323,7 +323,7 @@ impl crate::stubs::AssetService for AssetService {
                     "/v1/{}:analyzeIamPolicy",
                     req.analysis_query
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("analysis_query"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("analysis_query"))?
                         .scope
                 ),
             )
@@ -339,7 +339,7 @@ impl crate::stubs::AssetService for AssetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "analysisQuery")
             });
         let builder = builder.query(&[("savedAnalysisQuery", &req.saved_analysis_query)]);
@@ -350,7 +350,7 @@ impl crate::stubs::AssetService for AssetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "executionTimeout")
             });
         self.inner
@@ -372,7 +372,7 @@ impl crate::stubs::AssetService for AssetService {
                     "/v1/{}:analyzeIamPolicyLongrunning",
                     req.analysis_query
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("analysis_query"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("analysis_query"))?
                         .scope
                 ),
             )
@@ -509,7 +509,7 @@ impl crate::stubs::AssetService for AssetService {
                     "/v1/{}",
                     req.saved_query
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("saved_query"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("saved_query"))?
                         .name
                 ),
             )
@@ -525,7 +525,7 @@ impl crate::stubs::AssetService for AssetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

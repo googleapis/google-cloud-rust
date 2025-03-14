@@ -247,7 +247,7 @@ impl crate::stubs::BackupDR for BackupDR {
                     "/v1/{}",
                     req.backup_vault
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup_vault"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup_vault"))?
                         .name
                 ),
             )
@@ -263,7 +263,7 @@ impl crate::stubs::BackupDR for BackupDR {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -361,7 +361,7 @@ impl crate::stubs::BackupDR for BackupDR {
                     "/v1/{}",
                     req.data_source
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("data_source"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("data_source"))?
                         .name
                 ),
             )
@@ -377,7 +377,7 @@ impl crate::stubs::BackupDR for BackupDR {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -445,7 +445,7 @@ impl crate::stubs::BackupDR for BackupDR {
                     "/v1/{}",
                     req.backup
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -461,7 +461,7 @@ impl crate::stubs::BackupDR for BackupDR {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -808,7 +808,7 @@ impl crate::stubs::BackupDR for BackupDR {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

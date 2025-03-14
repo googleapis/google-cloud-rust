@@ -150,7 +150,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                     "/v1/{}",
                     req.field
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("field"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("field"))?
                         .name
                 ),
             )
@@ -166,7 +166,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.field), options).await
@@ -333,7 +333,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                     "/v1/{}",
                     req.database
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("database"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("database"))?
                         .name
                 ),
             )
@@ -349,7 +349,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -532,7 +532,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                     "/v1/{}",
                     req.backup_schedule
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup_schedule"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup_schedule"))?
                         .name
                 ),
             )
@@ -548,7 +548,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

@@ -123,7 +123,7 @@ impl crate::stubs::DataMigrationService for DataMigrationService {
                     "/v1/{}",
                     req.migration_job
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("migration_job"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("migration_job"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl crate::stubs::DataMigrationService for DataMigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -396,7 +396,7 @@ impl crate::stubs::DataMigrationService for DataMigrationService {
                     "/v1/{}",
                     req.connection_profile
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("connection_profile"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("connection_profile"))?
                         .name
                 ),
             )
@@ -412,7 +412,7 @@ impl crate::stubs::DataMigrationService for DataMigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -616,7 +616,7 @@ impl crate::stubs::DataMigrationService for DataMigrationService {
                     "/v1/{}",
                     req.conversion_workspace
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("conversion_workspace"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("conversion_workspace"))?
                         .name
                 ),
             )
@@ -632,7 +632,7 @@ impl crate::stubs::DataMigrationService for DataMigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -912,7 +912,7 @@ impl crate::stubs::DataMigrationService for DataMigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "completedUntilTime")
             });
         self.inner
@@ -1055,7 +1055,7 @@ impl crate::stubs::DataMigrationService for DataMigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

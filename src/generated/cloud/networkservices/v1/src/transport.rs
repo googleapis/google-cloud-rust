@@ -123,7 +123,7 @@ impl crate::stubs::DepService for DepService {
                     "/v1/{}",
                     req.lb_traffic_extension
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("lb_traffic_extension"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("lb_traffic_extension"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl crate::stubs::DepService for DepService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -251,7 +251,7 @@ impl crate::stubs::DepService for DepService {
                     "/v1/{}",
                     req.lb_route_extension
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("lb_route_extension"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("lb_route_extension"))?
                         .name
                 ),
             )
@@ -267,7 +267,7 @@ impl crate::stubs::DepService for DepService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -381,7 +381,7 @@ impl crate::stubs::DepService for DepService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -603,7 +603,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
                     "/v1/{}",
                     req.endpoint_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("endpoint_policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("endpoint_policy"))?
                         .name
                 ),
             )
@@ -619,7 +619,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -723,7 +723,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
                     "/v1/{}",
                     req.gateway
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("gateway"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("gateway"))?
                         .name
                 ),
             )
@@ -739,7 +739,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -846,7 +846,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
                     "/v1/{}",
                     req.grpc_route
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("grpc_route"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("grpc_route"))?
                         .name
                 ),
             )
@@ -862,7 +862,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -969,7 +969,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
                     "/v1/{}",
                     req.http_route
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("http_route"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("http_route"))?
                         .name
                 ),
             )
@@ -985,7 +985,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1092,7 +1092,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
                     "/v1/{}",
                     req.tcp_route
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tcp_route"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tcp_route"))?
                         .name
                 ),
             )
@@ -1108,7 +1108,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1215,7 +1215,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
                     "/v1/{}",
                     req.tls_route
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tls_route"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tls_route"))?
                         .name
                 ),
             )
@@ -1231,7 +1231,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1415,7 +1415,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
                     "/v1/{}",
                     req.mesh
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("mesh"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("mesh"))?
                         .name
                 ),
             )
@@ -1431,7 +1431,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.mesh), options).await
@@ -1541,7 +1541,7 @@ impl crate::stubs::NetworkServices for NetworkServices {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

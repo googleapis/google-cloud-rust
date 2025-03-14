@@ -77,7 +77,7 @@ impl crate::stubs::AssuredWorkloadsService for AssuredWorkloadsService {
                     "/v1/{}",
                     req.workload
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("workload"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("workload"))?
                         .name
                 ),
             )
@@ -93,7 +93,7 @@ impl crate::stubs::AssuredWorkloadsService for AssuredWorkloadsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

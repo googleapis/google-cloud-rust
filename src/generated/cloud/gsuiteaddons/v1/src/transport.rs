@@ -96,7 +96,7 @@ impl crate::stubs::GSuiteAddOns for GSuiteAddOns {
                     "/v1/{}",
                     req.deployment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("deployment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("deployment"))?
                         .name
                 ),
             )

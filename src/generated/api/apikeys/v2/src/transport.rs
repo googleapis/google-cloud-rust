@@ -132,7 +132,7 @@ impl crate::stubs::ApiKeys for ApiKeys {
                     "/v2/{}",
                     req.key
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("key"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("key"))?
                         .name
                 ),
             )
@@ -148,7 +148,7 @@ impl crate::stubs::ApiKeys for ApiKeys {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.key), options).await

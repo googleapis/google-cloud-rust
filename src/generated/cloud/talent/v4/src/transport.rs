@@ -95,7 +95,7 @@ impl crate::stubs::CompanyService for CompanyService {
                     "/v4/{}",
                     req.company
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("company"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("company"))?
                         .name
                 ),
             )
@@ -111,7 +111,7 @@ impl crate::stubs::CompanyService for CompanyService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -412,7 +412,7 @@ impl crate::stubs::JobService for JobService {
                     "/v4/{}",
                     req.job
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("job"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("job"))?
                         .name
                 ),
             )
@@ -428,7 +428,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.job), options).await
@@ -662,7 +662,7 @@ impl crate::stubs::TenantService for TenantService {
                     "/v4/{}",
                     req.tenant
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tenant"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tenant"))?
                         .name
                 ),
             )
@@ -678,7 +678,7 @@ impl crate::stubs::TenantService for TenantService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.tenant), options).await

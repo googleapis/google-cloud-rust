@@ -124,7 +124,7 @@ impl crate::stubs::AppConnectionsService for AppConnectionsService {
                     "/v1/{}",
                     req.app_connection
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("app_connection"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("app_connection"))?
                         .name
                 ),
             )
@@ -140,7 +140,7 @@ impl crate::stubs::AppConnectionsService for AppConnectionsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -282,7 +282,7 @@ impl crate::stubs::AppConnectionsService for AppConnectionsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

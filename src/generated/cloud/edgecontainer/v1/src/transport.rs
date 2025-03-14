@@ -120,7 +120,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                     "/v1/{}",
                     req.cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("cluster"))?
                         .name
                 ),
             )
@@ -136,7 +136,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -309,7 +309,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                     "/v1/{}",
                     req.node_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("node_pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("node_pool"))?
                         .name
                 ),
             )
@@ -325,7 +325,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

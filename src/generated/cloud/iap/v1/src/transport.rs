@@ -136,7 +136,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
                     "/v1/{}:iapSettings",
                     req.iap_settings
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("iap_settings"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("iap_settings"))?
                         .name
                 ),
             )
@@ -152,7 +152,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -259,7 +259,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
                     "/v1/{}",
                     req.tunnel_dest_group
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tunnel_dest_group"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tunnel_dest_group"))?
                         .name
                 ),
             )
@@ -275,7 +275,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

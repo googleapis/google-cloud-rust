@@ -510,7 +510,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "fieldMask")
             });
         let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -727,7 +727,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.big_query_export
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("big_query_export"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("big_query_export"))?
                         .name
                 ),
             )
@@ -743,7 +743,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -765,7 +765,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.external_system
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("external_system"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("external_system"))?
                         .name
                 ),
             )
@@ -781,7 +781,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -803,7 +803,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.finding
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("finding"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("finding"))?
                         .name
                 ),
             )
@@ -819,7 +819,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -841,7 +841,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.mute_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("mute_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("mute_config"))?
                         .name
                 ),
             )
@@ -857,7 +857,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -879,7 +879,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.notification_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("notification_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("notification_config"))?
                         .name
                 ),
             )
@@ -895,7 +895,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -917,7 +917,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.resource_value_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("resource_value_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("resource_value_config"))?
                         .name
                 ),
             )
@@ -933,7 +933,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -955,7 +955,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.security_marks
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("security_marks"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("security_marks"))?
                         .name
                 ),
             )
@@ -971,7 +971,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -993,7 +993,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.source
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("source"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("source"))?
                         .name
                 ),
             )
@@ -1009,7 +1009,7 @@ impl crate::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.source), options).await

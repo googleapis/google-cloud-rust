@@ -83,7 +83,7 @@ impl crate::stubs::MigrationService for MigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -115,7 +115,7 @@ impl crate::stubs::MigrationService for MigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -182,7 +182,7 @@ impl crate::stubs::MigrationService for MigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -211,7 +211,7 @@ impl crate::stubs::MigrationService for MigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("pageSize", &req.page_size)]);

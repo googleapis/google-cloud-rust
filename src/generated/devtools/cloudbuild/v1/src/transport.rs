@@ -294,7 +294,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -430,7 +430,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                     "/v1/{}",
                     req.worker_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("worker_pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("worker_pool"))?
                         .name
                 ),
             )
@@ -446,7 +446,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);

@@ -122,7 +122,7 @@ impl crate::stubs::ReachabilityService for ReachabilityService {
                     "/v1/{}",
                     req.resource
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("resource"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("resource"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl crate::stubs::ReachabilityService for ReachabilityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -267,7 +267,7 @@ impl crate::stubs::ReachabilityService for ReachabilityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -491,7 +491,7 @@ impl crate::stubs::VpcFlowLogsService for VpcFlowLogsService {
                     "/v1/{}",
                     req.vpc_flow_logs_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("vpc_flow_logs_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("vpc_flow_logs_config"))?
                         .name
                 ),
             )
@@ -507,7 +507,7 @@ impl crate::stubs::VpcFlowLogsService for VpcFlowLogsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -619,7 +619,7 @@ impl crate::stubs::VpcFlowLogsService for VpcFlowLogsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

@@ -66,7 +66,7 @@ impl crate::stubs::WebRiskService for WebRiskService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "constraints")
             });
         self.inner

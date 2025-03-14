@@ -117,7 +117,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                     "/v1/{}",
                     req.database
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("database"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("database"))?
                         .name
                 ),
             )
@@ -133,7 +133,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -278,7 +278,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "encryptionConfig")
             });
         self.inner.execute(builder, Some(req.backup), options).await
@@ -337,7 +337,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                     "/v1/{}",
                     req.backup
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -353,7 +353,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.backup), options).await
@@ -570,7 +570,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                     "/v1/{}",
                     req.backup_schedule
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup_schedule"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup_schedule"))?
                         .name
                 ),
             )
@@ -586,7 +586,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

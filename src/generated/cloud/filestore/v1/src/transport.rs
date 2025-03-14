@@ -122,7 +122,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                     "/v1/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -302,7 +302,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                     "/v1/{}",
                     req.snapshot
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("snapshot"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("snapshot"))?
                         .name
                 ),
             )
@@ -318,7 +318,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -419,7 +419,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                     "/v1/{}",
                     req.backup
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -435,7 +435,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.backup), options).await

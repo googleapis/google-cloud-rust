@@ -163,7 +163,7 @@ impl crate::stubs::Tpu for Tpu {
                     "/v2/{}",
                     req.node
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("node"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("node"))?
                         .name
                 ),
             )
@@ -179,7 +179,7 @@ impl crate::stubs::Tpu for Tpu {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.node), options).await

@@ -258,7 +258,7 @@ impl crate::stubs::Recommender for Recommender {
                     "/v1/{}",
                     req.recommender_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("recommender_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("recommender_config"))?
                         .name
                 ),
             )
@@ -274,7 +274,7 @@ impl crate::stubs::Recommender for Recommender {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -316,7 +316,7 @@ impl crate::stubs::Recommender for Recommender {
                     "/v1/{}",
                     req.insight_type_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("insight_type_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("insight_type_config"))?
                         .name
                 ),
             )
@@ -332,7 +332,7 @@ impl crate::stubs::Recommender for Recommender {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);

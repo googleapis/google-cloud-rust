@@ -213,7 +213,7 @@ impl crate::stubs::Domains for Domains {
                     "/v1/{}",
                     req.registration
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("registration"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("registration"))?
                         .name
                 ),
             )
@@ -229,7 +229,7 @@ impl crate::stubs::Domains for Domains {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

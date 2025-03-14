@@ -121,7 +121,7 @@ impl crate::stubs::Workstations for Workstations {
                     "/v1/{}",
                     req.workstation_cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("workstation_cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("workstation_cluster"))?
                         .name
                 ),
             )
@@ -137,7 +137,7 @@ impl crate::stubs::Workstations for Workstations {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -274,7 +274,7 @@ impl crate::stubs::Workstations for Workstations {
                     "/v1/{}",
                     req.workstation_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("workstation_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("workstation_config"))?
                         .name
                 ),
             )
@@ -290,7 +290,7 @@ impl crate::stubs::Workstations for Workstations {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -427,7 +427,7 @@ impl crate::stubs::Workstations for Workstations {
                     "/v1/{}",
                     req.workstation
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("workstation"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("workstation"))?
                         .name
                 ),
             )
@@ -443,7 +443,7 @@ impl crate::stubs::Workstations for Workstations {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -572,7 +572,7 @@ impl crate::stubs::Workstations for Workstations {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

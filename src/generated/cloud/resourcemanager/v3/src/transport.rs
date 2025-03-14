@@ -135,7 +135,7 @@ impl crate::stubs::Folders for Folders {
                     "/v3/{}",
                     req.folder
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("folder"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("folder"))?
                         .name
                 ),
             )
@@ -151,7 +151,7 @@ impl crate::stubs::Folders for Folders {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.folder), options).await
@@ -566,7 +566,7 @@ impl crate::stubs::Projects for Projects {
                     "/v3/{}",
                     req.project
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("project"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("project"))?
                         .name
                 ),
             )
@@ -582,7 +582,7 @@ impl crate::stubs::Projects for Projects {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1114,7 +1114,7 @@ impl crate::stubs::TagKeys for TagKeys {
                     "/v3/{}",
                     req.tag_key
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tag_key"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tag_key"))?
                         .name
                 ),
             )
@@ -1130,7 +1130,7 @@ impl crate::stubs::TagKeys for TagKeys {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -1371,7 +1371,7 @@ impl crate::stubs::TagValues for TagValues {
                     "/v3/{}",
                     req.tag_value
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tag_value"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tag_value"))?
                         .name
                 ),
             )
@@ -1387,7 +1387,7 @@ impl crate::stubs::TagValues for TagValues {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);

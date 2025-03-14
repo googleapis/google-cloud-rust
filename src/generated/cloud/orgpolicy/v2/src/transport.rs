@@ -160,7 +160,7 @@ impl crate::stubs::OrgPolicy for OrgPolicy {
                     "/v2/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -176,7 +176,7 @@ impl crate::stubs::OrgPolicy for OrgPolicy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.policy), options).await
@@ -238,7 +238,7 @@ impl crate::stubs::OrgPolicy for OrgPolicy {
                     "/v2/{}",
                     req.custom_constraint
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("custom_constraint"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("custom_constraint"))?
                         .name
                 ),
             )

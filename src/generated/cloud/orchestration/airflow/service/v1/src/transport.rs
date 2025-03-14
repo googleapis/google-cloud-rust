@@ -126,7 +126,7 @@ impl crate::stubs::Environments for Environments {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -337,7 +337,7 @@ impl crate::stubs::Environments for Environments {
                     "/v1/{}",
                     req.user_workloads_secret
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("user_workloads_secret"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("user_workloads_secret"))?
                         .name
                 ),
             )
@@ -449,7 +449,9 @@ impl crate::stubs::Environments for Environments {
                     "/v1/{}",
                     req.user_workloads_config_map
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("user_workloads_config_map"))?
+                        .ok_or_else(|| gclient::path_parameter::missing(
+                            "user_workloads_config_map"
+                        ))?
                         .name
                 ),
             )

@@ -133,7 +133,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     "/v2/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -149,7 +149,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -269,7 +269,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     "/v2/{}",
                     req.cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("cluster"))?
                         .name
                 ),
             )
@@ -285,7 +285,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -393,7 +393,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     "/v2/{}",
                     req.app_profile
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("app_profile"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("app_profile"))?
                         .name
                 ),
             )
@@ -409,7 +409,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
@@ -522,7 +522,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "startTime")
             });
         let builder = req
@@ -532,7 +532,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "endTime")
             });
         let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -751,7 +751,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                     "/v2/{}",
                     req.table
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("table"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("table"))?
                         .name
                 ),
             )
@@ -767,7 +767,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
@@ -892,7 +892,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                     "/v2/{}",
                     req.authorized_view
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("authorized_view"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("authorized_view"))?
                         .name
                 ),
             )
@@ -908,7 +908,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
@@ -1147,7 +1147,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                     "/v2/{}",
                     req.backup
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -1163,7 +1163,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.backup), options).await

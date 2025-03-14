@@ -328,7 +328,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = {
-            use gax::query_parameter::QueryParameter;
+            use gclient::query_parameter::QueryParameter;
             serde_json::to_value(&req.update_mask)
                 .map_err(Error::serde)?
                 .add(builder, "updateMask")
@@ -413,7 +413,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = {
-            use gax::query_parameter::QueryParameter;
+            use gclient::query_parameter::QueryParameter;
             serde_json::to_value(&req.update_mask)
                 .map_err(Error::serde)?
                 .add(builder, "updateMask")

@@ -113,7 +113,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.api
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("api"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("api"))?
                         .name
                 ),
             )
@@ -129,7 +129,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.api), options).await
@@ -233,7 +233,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.version
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("version"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("version"))?
                         .name
                 ),
             )
@@ -249,7 +249,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -369,7 +369,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.spec
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("spec"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("spec"))?
                         .name
                 ),
             )
@@ -385,7 +385,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.spec), options).await
@@ -554,7 +554,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.deployment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("deployment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("deployment"))?
                         .name
                 ),
             )
@@ -570,7 +570,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -653,7 +653,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.attribute
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("attribute"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("attribute"))?
                         .name
                 ),
             )
@@ -669,7 +669,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -797,7 +797,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.external_api
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("external_api"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("external_api"))?
                         .name
                 ),
             )
@@ -813,7 +813,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1061,7 +1061,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
                     "/v1/{}",
                     req.dependency
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("dependency"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("dependency"))?
                         .name
                 ),
             )
@@ -1077,7 +1077,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1515,7 +1515,7 @@ impl crate::stubs::LintingService for LintingService {
                     "/v1/{}",
                     req.style_guide
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("style_guide"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("style_guide"))?
                         .name
                 ),
             )
@@ -1531,7 +1531,7 @@ impl crate::stubs::LintingService for LintingService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

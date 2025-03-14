@@ -252,7 +252,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                     "/v1/{}",
                     req.blueprint
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("blueprint"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("blueprint"))?
                         .name
                 ),
             )
@@ -268,7 +268,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -562,7 +562,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                     "/v1/{}",
                     req.deployment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("deployment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("deployment"))?
                         .name
                 ),
             )
@@ -578,7 +578,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -802,7 +802,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                     "/v1/{}",
                     req.hydrated_deployment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("hydrated_deployment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("hydrated_deployment"))?
                         .name
                 ),
             )
@@ -818,7 +818,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

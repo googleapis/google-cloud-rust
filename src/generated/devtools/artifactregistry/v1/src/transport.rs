@@ -335,7 +335,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.repository
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("repository"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("repository"))?
                         .name
                 ),
             )
@@ -351,7 +351,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -537,7 +537,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.version
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("version"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("version"))?
                         .name
                 ),
             )
@@ -553,7 +553,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -636,7 +636,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.file
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("file"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("file"))?
                         .name
                 ),
             )
@@ -652,7 +652,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.file), options).await
@@ -731,7 +731,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.tag
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tag"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tag"))?
                         .name
                 ),
             )
@@ -747,7 +747,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.tag), options).await
@@ -844,7 +844,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.rule
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("rule"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("rule"))?
                         .name
                 ),
             )
@@ -860,7 +860,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.rule), options).await
@@ -929,7 +929,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -990,7 +990,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.project_settings
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("project_settings"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("project_settings"))?
                         .name
                 ),
             )
@@ -1006,7 +1006,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1047,7 +1047,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.vpcsc_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("vpcsc_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("vpcsc_config"))?
                         .name
                 ),
             )
@@ -1063,7 +1063,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1085,7 +1085,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.package
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("package"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("package"))?
                         .name
                 ),
             )
@@ -1101,7 +1101,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

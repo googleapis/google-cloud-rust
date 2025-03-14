@@ -73,7 +73,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     "/v1/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -141,7 +141,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     "/v1/{}",
                     req.attestor
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("attestor"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("attestor"))?
                         .name
                 ),
             )

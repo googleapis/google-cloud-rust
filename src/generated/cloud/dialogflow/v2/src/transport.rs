@@ -73,7 +73,7 @@ impl crate::stubs::Agents for Agents {
                     "/v2/{}/agent",
                     req.agent
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("agent"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("agent"))?
                         .parent
                 ),
             )
@@ -89,7 +89,7 @@ impl crate::stubs::Agents for Agents {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.agent), options).await
@@ -418,7 +418,7 @@ impl crate::stubs::AnswerRecords for AnswerRecords {
                     "/v2/{}",
                     req.answer_record
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("answer_record"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("answer_record"))?
                         .name
                 ),
             )
@@ -434,7 +434,7 @@ impl crate::stubs::AnswerRecords for AnswerRecords {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -642,7 +642,7 @@ impl crate::stubs::Contexts for Contexts {
                     "/v2/{}",
                     req.context
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("context"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("context"))?
                         .name
                 ),
             )
@@ -658,7 +658,7 @@ impl crate::stubs::Contexts for Contexts {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -994,7 +994,7 @@ impl crate::stubs::Conversations for Conversations {
                     "/v2/{}/suggestions:generateStatelessSummary",
                     req.stateless_conversation
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("stateless_conversation"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("stateless_conversation"))?
                         .parent
                 ),
             )
@@ -1830,7 +1830,7 @@ impl crate::stubs::ConversationProfiles for ConversationProfiles {
                     "/v2/{}",
                     req.conversation_profile
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("conversation_profile"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("conversation_profile"))?
                         .name
                 ),
             )
@@ -1846,7 +1846,7 @@ impl crate::stubs::ConversationProfiles for ConversationProfiles {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -2176,7 +2176,7 @@ impl crate::stubs::Documents for Documents {
                     "/v2/{}",
                     req.document
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("document"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("document"))?
                         .name
                 ),
             )
@@ -2192,7 +2192,7 @@ impl crate::stubs::Documents for Documents {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -2405,7 +2405,7 @@ impl crate::stubs::EncryptionSpecService for EncryptionSpecService {
                     "/v2/{}:initialize",
                     req.encryption_spec
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("encryption_spec"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("encryption_spec"))?
                         .name
                 ),
             )
@@ -2637,7 +2637,7 @@ impl crate::stubs::EntityTypes for EntityTypes {
                     "/v2/{}",
                     req.entity_type
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("entity_type"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("entity_type"))?
                         .name
                 ),
             )
@@ -2654,7 +2654,7 @@ impl crate::stubs::EntityTypes for EntityTypes {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -2999,7 +2999,7 @@ impl crate::stubs::Environments for Environments {
                     "/v2/{}",
                     req.environment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("environment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("environment"))?
                         .name
                 ),
             )
@@ -3015,7 +3015,7 @@ impl crate::stubs::Environments for Environments {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[(
@@ -3224,7 +3224,7 @@ impl crate::stubs::Fulfillments for Fulfillments {
                     "/v2/{}",
                     req.fulfillment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("fulfillment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("fulfillment"))?
                         .name
                 ),
             )
@@ -3240,7 +3240,7 @@ impl crate::stubs::Fulfillments for Fulfillments {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -3471,7 +3471,7 @@ impl crate::stubs::Generators for Generators {
                     "/v2/{}",
                     req.generator
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("generator"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("generator"))?
                         .name
                 ),
             )
@@ -3487,7 +3487,7 @@ impl crate::stubs::Generators for Generators {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -3696,7 +3696,7 @@ impl crate::stubs::Intents for Intents {
                     "/v2/{}",
                     req.intent
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("intent"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("intent"))?
                         .name
                 ),
             )
@@ -3713,7 +3713,7 @@ impl crate::stubs::Intents for Intents {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("intentView", &req.intent_view.value())]);
@@ -4017,7 +4017,7 @@ impl crate::stubs::KnowledgeBases for KnowledgeBases {
                     "/v2/{}",
                     req.knowledge_base
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("knowledge_base"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("knowledge_base"))?
                         .name
                 ),
             )
@@ -4033,7 +4033,7 @@ impl crate::stubs::KnowledgeBases for KnowledgeBases {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -4244,7 +4244,7 @@ impl crate::stubs::Participants for Participants {
                     "/v2/{}",
                     req.participant
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("participant"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("participant"))?
                         .name
                 ),
             )
@@ -4260,7 +4260,7 @@ impl crate::stubs::Participants for Participants {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -4715,7 +4715,7 @@ impl crate::stubs::SessionEntityTypes for SessionEntityTypes {
                     "/v2/{}",
                     req.session_entity_type
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("session_entity_type"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("session_entity_type"))?
                         .name
                 ),
             )
@@ -4731,7 +4731,7 @@ impl crate::stubs::SessionEntityTypes for SessionEntityTypes {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -4958,7 +4958,7 @@ impl crate::stubs::Versions for Versions {
                     "/v2/{}",
                     req.version
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("version"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("version"))?
                         .name
                 ),
             )
@@ -4974,7 +4974,7 @@ impl crate::stubs::Versions for Versions {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

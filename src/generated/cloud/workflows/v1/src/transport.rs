@@ -142,7 +142,7 @@ impl crate::stubs::Workflows for Workflows {
                     "/v1/{}",
                     req.workflow
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("workflow"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("workflow"))?
                         .name
                 ),
             )
@@ -158,7 +158,7 @@ impl crate::stubs::Workflows for Workflows {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
