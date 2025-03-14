@@ -2729,6 +2729,7 @@ dependencies = [
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
