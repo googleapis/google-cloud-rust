@@ -30,7 +30,7 @@ pin-project = { version = "1", optional = true }
 serde       = "1"
 tokio       = { version = "1", features = ["time"] }
 # Local crates
-gax         = { version = "0.20", path = "../gax", package = "google-cloud-gax" }
+gax         = { version = "0.21", path = "../gax", package = "google-cloud-gax" }
 longrunning = { version = "0.22", path = "../generated/longrunning", package = "google-cloud-longrunning" }
 rpc         = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
 wkt         = { version = "0.2", path = "../wkt", package = "google-cloud-wkt" }
