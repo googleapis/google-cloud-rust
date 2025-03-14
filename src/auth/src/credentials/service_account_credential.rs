@@ -138,11 +138,6 @@ impl TokenProvider for ServiceAccountTokenProvider {
 impl ServiceAccountTokenProvider {
     // Creates a signer using the private key stored in the service account file.
     fn get_signing_key(&self, private_key: &String) -> Result<Arc<dyn SigningKey>> {
-        #[cfg(not(feature = "default-crypto-provider"))]
-        let key_provider = CryptoProvider::get_default()
-            .map(|p| p.key_provider)
-            .ok_or_else(no_crypto_provider_error)?;
-        #[cfg(feature = "default-crypto-provider")]
         let key_provider = CryptoProvider::get_default().map_or_else(
             || rustls::crypto::ring::default_provider().key_provider,
             |p| p.key_provider,
