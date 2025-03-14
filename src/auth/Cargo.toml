@@ -39,6 +39,7 @@ base64         = "0.22"
 derive_builder = "0.20"
 bon            = "3.4.0"
 
+
 [dev-dependencies]
 axum        = "0.8"
 mockall     = "0.13"
@@ -51,3 +52,4 @@ tempfile    = "3"
 test-case   = "3"
 tokio       = { version = "1", features = ["macros", "rt-multi-thread", "test-util"] }
 tokio-test  = "0.4"
+p256        = "0.13"
