@@ -26,3 +26,4 @@ include-list = "any.proto,duration.proto,field_mask.proto"
 [codec]
 copyright-year = '2025'
 part-file = "src/protobuf.p.dart"
+dev-dependencies = "test"
