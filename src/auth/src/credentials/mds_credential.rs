@@ -23,8 +23,8 @@ use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use reqwest::Client;
 use reqwest::StatusCode;
 use std::sync::Arc;
+use std::sync::RwLock;
 use std::time::Duration;
-use std::vec;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
@@ -39,7 +39,6 @@ pub(crate) fn new() -> Credential {
     }
 }
 
-#[allow(dead_code)]
 #[derive(Debug)]
 struct MDSCredential<T>
 where
@@ -47,7 +46,7 @@ where
 {
     endpoint: String,
     quota_project_id: Option<String>,
-    universe_domain: Option<String>,
+    universe_domain: RwLock<Option<String>>,
     token_provider: T,
 }
 
@@ -68,7 +67,7 @@ impl MDSCredential<MDSAccessTokenProvider> {
         MDSCredential {
             endpoint,
             quota_project_id,
-            universe_domain,
+            universe_domain: RwLock::new(universe_domain),
             token_provider,
         }
     }
@@ -138,13 +137,18 @@ where
     }
 
     async fn get_universe_domain(&self) -> Option<String> {
-        if self.universe_domain.is_some() {
-            return self.universe_domain.clone();
+        {
+            let universe_domain = self.universe_domain.read().unwrap();
+            if universe_domain.is_some() {
+                return universe_domain.clone();
+            }
         }
-        match self.get_universe_domain_from_mds().await {
+        let universe_domain = match self.get_universe_domain_from_mds().await {
             Ok(universe_domain) => Some(universe_domain),
             Err(_) => None,
-        }
+        };
+        *self.universe_domain.write().unwrap() = universe_domain.clone();
+        universe_domain
     }
 }
 
@@ -293,7 +297,7 @@ mod test {
         let mdsc = MDSCredential {
             endpoint: "test-endpoint".to_string(),
             quota_project_id: None,
-            universe_domain: None,
+            universe_domain: RwLock::new(None),
             token_provider: mock,
         };
         let actual = mdsc.get_token().await.unwrap();
@@ -310,7 +314,7 @@ mod test {
         let mdsc = MDSCredential {
             endpoint: "test-endpoint".to_string(),
             quota_project_id: None,
-            universe_domain: None,
+            universe_domain: RwLock::new(None),
             token_provider: mock,
         };
         assert!(mdsc.get_token().await.is_err());
@@ -331,7 +335,7 @@ mod test {
         let mdsc = MDSCredential {
             endpoint: "test-endpoint".to_string(),
             quota_project_id: None,
-            universe_domain: None,
+            universe_domain: RwLock::new(None),
             token_provider: mock,
         };
         let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
@@ -361,7 +365,7 @@ mod test {
         let mdsc = MDSCredential {
             endpoint: "test-endpoint".to_string(),
             quota_project_id: Some("test-project".to_string()),
-            universe_domain: None,
+            universe_domain: RwLock::new(None),
             token_provider: mock,
         };
 
@@ -393,7 +397,7 @@ mod test {
         let mdsc = MDSCredential {
             endpoint: "test-endpoint".to_string(),
             quota_project_id: None,
-            universe_domain: None,
+            universe_domain: RwLock::new(None),
             token_provider: mock,
         };
         assert!(mdsc.get_headers().await.is_err());
