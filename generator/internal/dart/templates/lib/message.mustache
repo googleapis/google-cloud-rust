@@ -18,7 +18,7 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
-class {{Codec.Name}} extends CloudMessage {
+class {{Codec.Name}} extends Message {
   {{#Fields}}
   {{> field}}
   {{/Fields}}
@@ -28,6 +28,33 @@ class {{Codec.Name}} extends CloudMessage {
     {{#Codec.Required}}required {{/Codec.Required}}this.{{Codec.Name}},
   {{/Fields}}
   }{{/Codec.HasFields}}){{Codec.ConstructorBody}}
+
+  {{#Codec.HasCustomEncoding}}
+  factory {{Codec.Name}}.fromJson(String json) => {{Codec.Name}}Helper.decode(json);
+  {{/Codec.HasCustomEncoding}}
+  {{^Codec.HasCustomEncoding}}
+  factory {{Codec.Name}}.fromJson(Map<String, dynamic> json) {
+    return {{Codec.Name}}(
+      {{#Fields}}
+      {{{Codec.Name}}}: {{{Codec.FromJson}}},
+      {{/Fields}}
+    );
+  }
+  {{/Codec.HasCustomEncoding}}
+
+  @override
+  {{#Codec.HasCustomEncoding}}
+  Object toJson() => {{Codec.Name}}Helper.encode(this);
+  {{/Codec.HasCustomEncoding}}
+  {{^Codec.HasCustomEncoding}}
+  Object toJson() {
+    return {
+      {{#Fields}}
+      {{#Codec.Nullable}}if ({{{Codec.Name}}} != null) {{/Codec.Nullable}}'{{{Codec.Name}}}': {{{Codec.ToJson}}},
+      {{/Fields}}
+    };
+  }
+  {{/Codec.HasCustomEncoding}}
 
   @override
   {{#Codec.HasToStringLines}}

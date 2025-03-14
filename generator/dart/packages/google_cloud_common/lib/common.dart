@@ -14,24 +14,30 @@
 
 import 'dart:convert';
 
+import 'package:google_cloud_rpc/rpc.dart';
 import 'package:http/http.dart';
 
-const _clientName = 'dart-test-client';
+const String _clientName = 'dart-test-client';
 
-abstract class Jsonable {
+/// An abstract class that can return a JSON encodable representation of itself.
+///
+/// Classes that implement [JsonEncodable] will often have a `fromJson()`
+/// constructor.
+abstract class JsonEncodable {
   Object toJson();
 }
 
-abstract class CloudMessage {}
+abstract class Message implements JsonEncodable {}
 
-abstract class CloudEnum {
+abstract class Enum implements JsonEncodable {
   final String value;
 
-  const CloudEnum(this.value);
+  const Enum(this.value);
 
   @override
   int get hashCode => value.hashCode;
 
+  @override
   Object toJson() => value;
 }
 
@@ -50,7 +56,7 @@ abstract class CloudService {
     return _processResponse(response);
   }
 
-  Future<Map<String, dynamic>> $post(Uri url, {Jsonable? body}) async {
+  Future<Map<String, dynamic>> $post(Uri url, {JsonEncodable? body}) async {
     final response = await client.post(
       url,
       body: body == null ? null : jsonEncode(body.toJson()),
@@ -62,7 +68,7 @@ abstract class CloudService {
     return _processResponse(response);
   }
 
-  Future<Map<String, dynamic>> $patch(Uri url, {Jsonable? body}) async {
+  Future<Map<String, dynamic>> $patch(Uri url, {JsonEncodable? body}) async {
     final response = await client.patch(
       url,
       body: body == null ? null : jsonEncode(body.toJson()),
@@ -91,7 +97,40 @@ abstract class CloudService {
       return body.isEmpty ? {} : jsonDecode(body);
     }
 
-    // TODO(#1454): This is a placeholder until we're able to parse 'Status'.
-    throw ClientException('${response.statusCode}: ${response.reasonPhrase}');
+    Status status;
+
+    try {
+      final json = jsonDecode(response.body);
+      status = Status.fromJson(json['error']);
+    } catch (_) {
+      // If we're not able to parse the Status error, return a general HTTP
+      // exception.
+      throw ClientException('${response.statusCode}: ${response.reasonPhrase}');
+    }
+
+    throw status;
   }
+}
+
+T? $decode<T, S>(dynamic json, T Function(S) decoder) {
+  return json == null ? null : decoder(json);
+}
+
+List<T>? $decodeList<T, S>(dynamic json, T Function(S) decoder) {
+  return (json as List?)?.map((item) => decoder(item)).toList().cast();
+}
+
+Map<String, T>? $decodeMap<T>(
+    dynamic json, T Function(Map<String, dynamic>) decoder) {
+  return (json as Map?)
+      ?.map((key, value) => MapEntry(key, decoder(value)))
+      .cast();
+}
+
+List? $encodeList(List<JsonEncodable>? items) {
+  return items?.map((item) => item.toJson()).toList();
+}
+
+Map? $encodeMap(Map<String, JsonEncodable>? items) {
+  return items?.map((key, value) => MapEntry(key, value.toJson()));
 }

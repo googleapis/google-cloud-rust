@@ -52,7 +52,7 @@ import 'package:google_cloud_common/common.dart';
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
-class Expr extends CloudMessage {
+class Expr extends Message {
 
   /// Textual representation of an expression in Common Expression Language
   /// syntax.
@@ -77,6 +77,25 @@ class Expr extends CloudMessage {
     this.description,
     this.location,
   });
+
+  factory Expr.fromJson(Map<String, dynamic> json) {
+    return Expr(
+      expression: json['expression'],
+      title: json['title'],
+      description: json['description'],
+      location: json['location'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (expression != null) 'expression': expression,
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+      if (location != null) 'location': location,
+    };
+  }
 
   @override
   String toString() {

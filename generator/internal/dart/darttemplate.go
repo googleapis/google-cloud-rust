@@ -61,13 +61,13 @@ type serviceAnnotations struct {
 }
 
 type messageAnnotation struct {
-	Name             string
-	DocLines         []string
-	ConstructorBody  string // A custom body for the message's constructor.
-	BasicFields      []*api.Field
-	HasFields        bool
-	HasToStringLines bool
-	ToStringLines    []string
+	Name              string
+	DocLines          []string
+	ConstructorBody   string // A custom body for the message's constructor.
+	HasFields         bool
+	HasCustomEncoding bool
+	HasToStringLines  bool
+	ToStringLines     []string
 }
 
 type methodAnnotation struct {
@@ -78,15 +78,11 @@ type methodAnnotation struct {
 	DocLines     []string
 	PathParams   []*api.Field
 	QueryParams  []*api.Field
-	BodyAccessor string
 }
 
 type pathInfoAnnotation struct {
-	Method      string
-	PathFmt     string
-	PathArgs    []string
-	HasPathArgs bool
-	HasBody     bool
+	PathFmt  string
+	PathArgs []string
 }
 
 type oneOfAnnotation struct {
@@ -99,6 +95,9 @@ type fieldAnnotation struct {
 	Type     string
 	DocLines []string
 	Required bool
+	Nullable bool
+	FromJson string
+	ToJson   string
 }
 
 type enumAnnotation struct {
@@ -357,18 +356,107 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 		constructorBody = " {\n    _validate();\n  }"
 	}
 
+	_, hasCustomEncoding := usesCustomEncoding[m.ID]
 	toStringLines := createToStringLines(m)
 
 	m.Codec = &messageAnnotation{
-		Name:            messageName(m),
-		DocLines:        formatDocComments(m.Documentation, state),
-		ConstructorBody: constructorBody,
-		BasicFields: language.FilterSlice(m.Fields, func(s *api.Field) bool {
-			return !s.IsOneOf
-		}),
-		HasFields:        len(m.Fields) > 0,
-		HasToStringLines: len(toStringLines) > 0,
-		ToStringLines:    toStringLines,
+		Name:              messageName(m),
+		DocLines:          formatDocComments(m.Documentation, state),
+		ConstructorBody:   constructorBody,
+		HasFields:         len(m.Fields) > 0,
+		HasCustomEncoding: hasCustomEncoding,
+		HasToStringLines:  len(toStringLines) > 0,
+		ToStringLines:     toStringLines,
+	}
+}
+
+func createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
+	name := strcase.ToLowerCamel(field.Name)
+	message := state.MessageByID[field.TypezID]
+	typeName := ""
+
+	isList := field.Repeated
+	isMessage := field.Typez == api.MESSAGE_TYPE
+	isEnum := field.Typez == api.ENUM_TYPE
+	isMap := message != nil && message.IsMap
+	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
+
+	if isMessage {
+		typeName = messageName(message)
+	} else if isEnum {
+		enum := state.EnumByID[field.TypezID]
+		typeName = enumName(enum)
+	}
+
+	data := "json['" + name + "']"
+	fn := typeName + ".fromJson"
+	opt := ""
+	bang := "!"
+	if !required {
+		opt = "?"
+		bang = ""
+	}
+
+	if isMap {
+		if isMessageMap {
+			// message maps: $decodeMap(json['name'], Status.fromJson)!,
+			return "$decodeMap(" + data + ", " + fn + ")" + bang
+		} else {
+			// primitive maps: (json['name'] as Map?)?.cast(),
+			return "(" + data + " as Map" + opt + ")" + opt + ".cast()"
+		}
+	} else if isList {
+		if isMessage {
+			// message lists, custom lists: $decodeList(json['name'], FieldMask.fromJson)!,
+			return "$decodeList(" + data + ", " + fn + ")" + bang
+		} else {
+			// primitive lists: (json['name'] as List?)?.cast(),
+			return "(" + data + " as List" + opt + ")" + opt + ".cast()"
+		}
+	} else if isMessage || isEnum {
+		// enum or message
+		if required {
+			// FieldMask.fromJson(json['name']),
+			return fn + "(" + data + ")"
+		} else {
+			// $decode(json['name'], FieldMask.fromJson),
+			return "$decode(" + data + ", " + fn + ")"
+		}
+	} else {
+		// json['name']
+		return data
+	}
+}
+
+func createToJsonLine(field *api.Field, state *api.APIState, required bool) string {
+	name := strcase.ToLowerCamel(field.Name)
+	message := state.MessageByID[field.TypezID]
+
+	isList := field.Repeated
+	isMessage := field.Typez == api.MESSAGE_TYPE
+	isEnum := field.Typez == api.ENUM_TYPE
+	isMap := message != nil && message.IsMap
+	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
+	bang := "!"
+	if required {
+		bang = ""
+	}
+
+	if isMessageMap {
+		// message maps: $encodeMap(name)
+		return "$encodeMap(" + name + ")"
+	} else if isList && (isMessage || isEnum) {
+		// message lists, custom lists, and enum lists: $encodeList(name)
+		return "$encodeList(" + name + ")"
+	} else if isMap {
+		// primitive maps
+		return name
+	} else if isMessage || isEnum {
+		// message, enum, and custom: name!.toJson()
+		return name + bang + ".toJson()"
+	} else {
+		// primitive, primitive lists
+		return name
 	}
 }
 
@@ -436,13 +524,16 @@ func annotateOneOf(field *api.OneOf, state *api.APIState) {
 
 func annotateField(field *api.Field, state *api.APIState, packageMapping map[string]string,
 	imports map[string]string, requiredFields map[string]*api.Field) {
-	_, ok := requiredFields[field.ID]
+	_, required := requiredFields[field.ID]
 
 	field.Codec = &fieldAnnotation{
 		Name:     strcase.ToLowerCamel(field.Name),
 		Type:     fieldType(field, state, packageMapping, imports),
 		DocLines: formatDocComments(field.Documentation, state),
-		Required: ok,
+		Required: required,
+		Nullable: !required,
+		FromJson: createFromJsonLine(field, state, required),
+		ToJson:   createToJsonLine(field, state, required),
 	}
 }
 
