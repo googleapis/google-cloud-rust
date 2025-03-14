@@ -39,9 +39,11 @@ wkt         = { version = "0.2", path = "../wkt", package = "google-cloud-wkt" }
 unstable-stream = ["dep:futures", "dep:pin-project"]
 
 [dev-dependencies]
-auth       = { path = "../auth", package = "google-cloud-auth" }
 axum       = "0.8"
-lro        = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }
 reqwest    = "0.12"
 serde_json = "1"
 tokio      = { version = "1", features = ["test-util"] }
+# Local dependencies
+auth    = { path = "../auth", package = "google-cloud-auth" }
+gclient = { path = "../http-client", package = "google-cloud-http-client" }
+lro     = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }
