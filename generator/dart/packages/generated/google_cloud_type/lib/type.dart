@@ -52,7 +52,7 @@ import 'package:google_cloud_common/common.dart';
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
-class Expr extends CloudMessage {
+class Expr extends Message {
 
   /// Textual representation of an expression in Common Expression Language
   /// syntax.

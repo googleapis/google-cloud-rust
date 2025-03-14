@@ -110,7 +110,7 @@ part 'src/protobuf.p.dart';
 ///       "@type": "type.googleapis.com/google.protobuf.Duration",
 ///       "value": "1.212s"
 ///     }
-class Any extends CloudMessage {
+class Any extends Message {
 
   /// A URL/resource name that uniquely identifies the type of the serialized
   /// protocol buffer message. This string must contain at least
@@ -233,7 +233,7 @@ class Any extends CloudMessage {
 /// encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should
 /// be expressed in JSON format as "3.000000001s", and 3 seconds and 1
 /// microsecond should be expressed in JSON format as "3.000001s".
-class Duration extends CloudMessage {
+class Duration extends Message {
 
   /// Signed seconds of the span of time. Must be from -315,576,000,000
   /// to +315,576,000,000 inclusive. Note: these bounds are computed from:
@@ -469,7 +469,7 @@ class Duration extends CloudMessage {
 /// The implementation of any API method which has a FieldMask type field in the
 /// request should verify the included field paths, and return an
 /// `INVALID_ARGUMENT` error if any path is unmappable.
-class FieldMask extends CloudMessage {
+class FieldMask extends Message {
 
   /// The set of field mask paths.
   final List<String>? paths;

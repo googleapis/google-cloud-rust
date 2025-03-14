@@ -27,12 +27,12 @@ abstract class JsonEncodable {
   Object toJson();
 }
 
-abstract class CloudMessage implements JsonEncodable {}
+abstract class Message implements JsonEncodable {}
 
-abstract class CloudEnum implements JsonEncodable {
+abstract class Enum implements JsonEncodable {
   final String value;
 
-  const CloudEnum(this.value);
+  const Enum(this.value);
 
   @override
   int get hashCode => value.hashCode;
