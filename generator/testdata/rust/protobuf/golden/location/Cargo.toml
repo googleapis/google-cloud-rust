@@ -28,6 +28,3 @@ publish              = false
 
 [dependencies]
 wkt        = { path = "../../../../../../src/wkt", package = "google-cloud-wkt" }
-
-[features]
-unstable-stream = ["gax/unstable-stream"]
