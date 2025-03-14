@@ -38,11 +38,8 @@ futures     = { version = "0.3" }
 http        = "1"
 pin-project = { version = "1" }
 rand        = "0.9"
-reqwest     = { version = "0.12", optional = true }
 serde       = "1"
 serde_json  = "1"
-serde_with  = { version = "3", default-features = false, features = ["base64", "macros"] }
-thiserror   = "2"
 tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
 # Local crates
 auth = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
@@ -63,5 +60,5 @@ tokio       = { version = "1", features = ["test-util"] }
 built = "0.7"
 
 [features]
-unstable-sdk-client = ["dep:reqwest"]
+unstable-sdk-client = []
 unstable-stream     = []

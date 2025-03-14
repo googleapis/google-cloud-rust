@@ -35,14 +35,6 @@
 /// This is the result type used by all functions wrapping RPCs.
 pub type Result<T> = std::result::Result<T, crate::error::Error>;
 
-#[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
-pub mod query_parameter;
-
-#[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
-pub mod path_parameter;
-
 /// Implements helpers to create telemetry headers.
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]

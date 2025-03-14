@@ -2264,13 +2264,10 @@ dependencies = [
  "mockall",
  "pin-project",
  "rand 0.9.0",
- "reqwest",
  "serde",
  "serde_json",
- "serde_with",
  "serial_test",
  "test-case",
- "thiserror",
  "tokio",
 ]
 
@@ -2429,12 +2426,15 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-rpc",
+ "google-cloud-wkt",
  "http",
  "mockall",
  "reqwest",
  "serde",
  "serde_json",
+ "serde_with",
  "serial_test",
+ "thiserror",
  "tokio",
 ]
 

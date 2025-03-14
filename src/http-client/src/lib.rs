@@ -39,15 +39,10 @@ use gax::Result;
 use std::sync::Arc;
 
 #[doc(hidden)]
-pub mod path_parameter {
-    pub use gax::path_parameter::missing;
-    pub use gax::path_parameter::Error;
-}
+pub mod path_parameter;
 
 #[doc(hidden)]
-pub mod query_parameter {
-    pub use gax::query_parameter::QueryParameter;
-}
+pub mod query_parameter;
 
 #[doc(hidden)]
 #[derive(Clone, Debug)]
