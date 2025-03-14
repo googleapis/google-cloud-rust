@@ -241,7 +241,7 @@ impl crate::stubs::SecureSourceManager for SecureSourceManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -369,7 +369,7 @@ impl crate::stubs::SecureSourceManager for SecureSourceManager {
                     "/v1/{}",
                     req.branch_rule
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("branch_rule"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("branch_rule"))?
                         .name
                 ),
             )
@@ -386,7 +386,7 @@ impl crate::stubs::SecureSourceManager for SecureSourceManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -499,7 +499,7 @@ impl crate::stubs::SecureSourceManager for SecureSourceManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

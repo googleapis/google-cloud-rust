@@ -78,7 +78,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                     "/v1/{}",
                     req.attached_cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("attached_cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("attached_cluster"))?
                         .name
                 ),
             )
@@ -95,7 +95,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -234,7 +234,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "proxyConfig")
             });
         self.inner
@@ -417,7 +417,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                     "/v1/{}",
                     req.aws_cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("aws_cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("aws_cluster"))?
                         .name
                 ),
             )
@@ -434,7 +434,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -588,7 +588,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                     "/v1/{}",
                     req.aws_node_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("aws_node_pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("aws_node_pool"))?
                         .name
                 ),
             )
@@ -605,7 +605,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -999,7 +999,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                     "/v1/{}",
                     req.azure_cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("azure_cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("azure_cluster"))?
                         .name
                 ),
             )
@@ -1016,7 +1016,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1170,7 +1170,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                     "/v1/{}",
                     req.azure_node_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("azure_node_pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("azure_node_pool"))?
                         .name
                 ),
             )
@@ -1187,7 +1187,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

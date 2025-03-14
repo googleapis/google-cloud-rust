@@ -119,7 +119,7 @@ impl crate::stubs::AdvisoryNotificationsService for AdvisoryNotificationsService
                     "/v1/{}",
                     req.settings
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("settings"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("settings"))?
                         .name
                 ),
             )

@@ -97,7 +97,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
                     "/v3/{}",
                     req.policy_binding
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy_binding"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("policy_binding"))?
                         .name
                 ),
             )
@@ -114,7 +114,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -312,7 +312,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
                     "/v3/{}",
                     req.principal_access_boundary_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing(
+                        .ok_or_else(|| gclient::path_parameter::missing(
                             "principal_access_boundary_policy"
                         ))?
                         .name
@@ -331,7 +331,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

@@ -101,7 +101,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -123,7 +123,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                     "/v1/{}",
                     req.entry_group
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("entry_group"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("entry_group"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -223,7 +223,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                     "/v1/{}",
                     req.entry
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("entry"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("entry"))?
                         .name
                 ),
             )
@@ -239,7 +239,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.entry), options).await
@@ -343,7 +343,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -447,7 +447,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                     "/v1/{}",
                     req.tag_template
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tag_template"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tag_template"))?
                         .name
                 ),
             )
@@ -463,7 +463,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -532,7 +532,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -625,7 +625,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                     "/v1/{}",
                     req.tag
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tag"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tag"))?
                         .name
                 ),
             )
@@ -641,7 +641,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.tag), options).await
@@ -1053,7 +1053,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                     "/v1/{}",
                     req.taxonomy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("taxonomy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("taxonomy"))?
                         .name
                 ),
             )
@@ -1069,7 +1069,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1176,7 +1176,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                     "/v1/{}",
                     req.policy_tag
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy_tag"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("policy_tag"))?
                         .name
                 ),
             )
@@ -1192,7 +1192,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

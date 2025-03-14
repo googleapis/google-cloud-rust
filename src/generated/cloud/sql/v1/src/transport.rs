@@ -185,7 +185,7 @@ impl crate::stubs::SqlConnectService for SqlConnectService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = req.read_time.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "readTime") });
+        let builder = req.read_time.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gclient::query_parameter::QueryParameter; v.add(builder, "readTime") });
         self.inner.execute(
             builder,
             
@@ -862,7 +862,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = req.db_timeout.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "dbTimeout") });
+        let builder = req.db_timeout.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gclient::query_parameter::QueryParameter; v.add(builder, "dbTimeout") });
         self.inner.execute(
             builder,
             

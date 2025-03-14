@@ -184,7 +184,7 @@ impl crate::stubs::CaseService for CaseService {
                     "/v2/{}",
                     req.case
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("case"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("case"))?
                         .name
                 ),
             )
@@ -200,7 +200,7 @@ impl crate::stubs::CaseService for CaseService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.case), options).await

@@ -123,7 +123,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
                     "/v1/{}",
                     req.template
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("template"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("template"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -201,7 +201,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
                     "/v1/{}",
                     req.floor_setting
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("floor_setting"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("floor_setting"))?
                         .name
                 ),
             )
@@ -217,7 +217,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

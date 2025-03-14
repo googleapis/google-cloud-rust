@@ -133,7 +133,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     "/v1/{}",
                     req.secret
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("secret"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("secret"))?
                         .name
                 ),
             )
@@ -149,7 +149,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.secret), options).await
@@ -330,7 +330,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

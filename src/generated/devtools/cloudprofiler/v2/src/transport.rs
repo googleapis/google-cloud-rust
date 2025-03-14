@@ -96,7 +96,7 @@ impl crate::stubs::ProfilerService for ProfilerService {
                     "/v2/{}",
                     req.profile
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("profile"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("profile"))?
                         .name
                 ),
             )
@@ -112,7 +112,7 @@ impl crate::stubs::ProfilerService for ProfilerService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

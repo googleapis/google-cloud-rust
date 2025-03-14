@@ -112,7 +112,7 @@ impl crate::stubs::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -128,7 +128,7 @@ impl crate::stubs::AccessContextManager for AccessContextManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.policy), options).await
@@ -234,7 +234,7 @@ impl crate::stubs::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     req.access_level
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("access_level"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("access_level"))?
                         .name
                 ),
             )
@@ -250,7 +250,7 @@ impl crate::stubs::AccessContextManager for AccessContextManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -376,7 +376,7 @@ impl crate::stubs::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     req.service_perimeter
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("service_perimeter"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("service_perimeter"))?
                         .name
                 ),
             )
@@ -392,7 +392,7 @@ impl crate::stubs::AccessContextManager for AccessContextManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -538,7 +538,7 @@ impl crate::stubs::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     req.gcp_user_access_binding
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("gcp_user_access_binding"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("gcp_user_access_binding"))?
                         .name
                 ),
             )
@@ -554,7 +554,7 @@ impl crate::stubs::AccessContextManager for AccessContextManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

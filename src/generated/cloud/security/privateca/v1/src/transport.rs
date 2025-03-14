@@ -145,7 +145,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}",
                     req.certificate
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("certificate"))?
                         .name
                 ),
             )
@@ -161,7 +161,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -365,7 +365,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}",
                     req.certificate_authority
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate_authority"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("certificate_authority"))?
                         .name
                 ),
             )
@@ -381,7 +381,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -425,7 +425,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}",
                     req.ca_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("ca_pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("ca_pool"))?
                         .name
                 ),
             )
@@ -441,7 +441,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -593,7 +593,9 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}",
                     req.certificate_revocation_list
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate_revocation_list"))?
+                        .ok_or_else(|| gclient::path_parameter::missing(
+                            "certificate_revocation_list"
+                        ))?
                         .name
                 ),
             )
@@ -609,7 +611,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -721,7 +723,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}",
                     req.certificate_template
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate_template"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("certificate_template"))?
                         .name
                 ),
             )
@@ -737,7 +739,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -831,7 +833,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

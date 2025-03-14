@@ -297,7 +297,7 @@ impl crate::stubs::ControlService for ControlService {
                     "/v1/{}",
                     req.control
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("control"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("control"))?
                         .name
                 ),
             )
@@ -313,7 +313,7 @@ impl crate::stubs::ControlService for ControlService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -515,7 +515,7 @@ impl crate::stubs::ConversationalSearchService for ConversationalSearchService {
                     "/v1/{}",
                     req.conversation
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("conversation"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("conversation"))?
                         .name
                 ),
             )
@@ -531,7 +531,7 @@ impl crate::stubs::ConversationalSearchService for ConversationalSearchService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -678,7 +678,7 @@ impl crate::stubs::ConversationalSearchService for ConversationalSearchService {
                     "/v1/{}",
                     req.session
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("session"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("session"))?
                         .name
                 ),
             )
@@ -694,7 +694,7 @@ impl crate::stubs::ConversationalSearchService for ConversationalSearchService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -931,7 +931,7 @@ impl crate::stubs::DataStoreService for DataStoreService {
                     "/v1/{}",
                     req.data_store
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("data_store"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("data_store"))?
                         .name
                 ),
             )
@@ -947,7 +947,7 @@ impl crate::stubs::DataStoreService for DataStoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1130,7 +1130,7 @@ impl crate::stubs::DocumentService for DocumentService {
                     "/v1/{}",
                     req.document
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("document"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("document"))?
                         .name
                 ),
             )
@@ -1147,7 +1147,7 @@ impl crate::stubs::DocumentService for DocumentService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1238,7 +1238,7 @@ impl crate::stubs::DocumentService for DocumentService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "matcher")
             });
         self.inner
@@ -1392,7 +1392,7 @@ impl crate::stubs::EngineService for EngineService {
                     "/v1/{}",
                     req.engine
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("engine"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("engine"))?
                         .name
                 ),
             )
@@ -1408,7 +1408,7 @@ impl crate::stubs::EngineService for EngineService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.engine), options).await
@@ -2057,7 +2057,7 @@ impl crate::stubs::SchemaService for SchemaService {
                     "/v1/{}",
                     req.schema
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("schema"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("schema"))?
                         .name
                 ),
             )
@@ -2536,7 +2536,7 @@ impl crate::stubs::SiteSearchEngineService for SiteSearchEngineService {
                     "/v1/{}",
                     req.target_site
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("target_site"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("target_site"))?
                         .name
                 ),
             )

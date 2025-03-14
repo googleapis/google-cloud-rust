@@ -216,7 +216,7 @@ impl crate::stubs::AppGatewaysService for AppGatewaysService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

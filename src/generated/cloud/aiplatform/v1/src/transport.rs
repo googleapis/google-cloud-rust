@@ -83,7 +83,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -105,7 +105,7 @@ impl crate::stubs::DatasetService for DatasetService {
                     "/v1/{}",
                     req.dataset
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("dataset"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("dataset"))?
                         .name
                 ),
             )
@@ -121,7 +121,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -153,7 +153,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -251,7 +251,7 @@ impl crate::stubs::DatasetService for DatasetService {
                     "/v1/{}",
                     req.dataset_version
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("dataset_version"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("dataset_version"))?
                         .name
                 ),
             )
@@ -267,7 +267,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -315,7 +315,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -350,7 +350,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -405,7 +405,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -443,7 +443,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, p| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 p.add(builder, "orderByAnnotation")
             });
         let builder = builder.query(&[("savedQuery", &req.saved_query)]);
@@ -460,7 +460,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "fieldMask")
             });
         let builder = builder.query(&[("annotationsLimit", &req.annotations_limit)]);
@@ -499,7 +499,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -548,7 +548,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -583,7 +583,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -677,7 +677,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -811,7 +811,7 @@ impl crate::stubs::DatasetService for DatasetService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -933,7 +933,9 @@ impl crate::stubs::DeploymentResourcePoolService for DeploymentResourcePoolServi
                     "/v1/{}",
                     req.deployment_resource_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("deployment_resource_pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing(
+                            "deployment_resource_pool"
+                        ))?
                         .name
                 ),
             )
@@ -949,7 +951,7 @@ impl crate::stubs::DeploymentResourcePoolService for DeploymentResourcePoolServi
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1085,7 +1087,7 @@ impl crate::stubs::DeploymentResourcePoolService for DeploymentResourcePoolServi
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -1219,7 +1221,7 @@ impl crate::stubs::DeploymentResourcePoolService for DeploymentResourcePoolServi
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -1333,7 +1335,7 @@ impl crate::stubs::EndpointService for EndpointService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -1356,7 +1358,7 @@ impl crate::stubs::EndpointService for EndpointService {
                     "/v1/{}",
                     req.endpoint
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("endpoint"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("endpoint"))?
                         .name
                 ),
             )
@@ -1372,7 +1374,7 @@ impl crate::stubs::EndpointService for EndpointService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1394,7 +1396,7 @@ impl crate::stubs::EndpointService for EndpointService {
                     "/v1/{}:update",
                     req.endpoint
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("endpoint"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("endpoint"))?
                         .name
                 ),
             )
@@ -1570,7 +1572,7 @@ impl crate::stubs::EndpointService for EndpointService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -1704,7 +1706,7 @@ impl crate::stubs::EndpointService for EndpointService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -1854,7 +1856,7 @@ impl crate::stubs::EvaluationService for EvaluationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -1988,7 +1990,7 @@ impl crate::stubs::EvaluationService for EvaluationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -2101,7 +2103,7 @@ impl crate::stubs::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminSer
                     "/v1/{}",
                     req.feature_online_store
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("feature_online_store"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("feature_online_store"))?
                         .name
                 ),
             )
@@ -2117,7 +2119,7 @@ impl crate::stubs::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminSer
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -2228,7 +2230,7 @@ impl crate::stubs::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminSer
                     "/v1/{}",
                     req.feature_view
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("feature_view"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("feature_view"))?
                         .name
                 ),
             )
@@ -2244,7 +2246,7 @@ impl crate::stubs::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminSer
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -2421,7 +2423,7 @@ impl crate::stubs::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminSer
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -2555,7 +2557,7 @@ impl crate::stubs::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminSer
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -2725,7 +2727,7 @@ impl crate::stubs::FeatureOnlineStoreService for FeatureOnlineStoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -2859,7 +2861,7 @@ impl crate::stubs::FeatureOnlineStoreService for FeatureOnlineStoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -2972,7 +2974,7 @@ impl crate::stubs::FeatureRegistryService for FeatureRegistryService {
                     "/v1/{}",
                     req.feature_group
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("feature_group"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("feature_group"))?
                         .name
                 ),
             )
@@ -2988,7 +2990,7 @@ impl crate::stubs::FeatureRegistryService for FeatureRegistryService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -3103,7 +3105,7 @@ impl crate::stubs::FeatureRegistryService for FeatureRegistryService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("latestStatsCount", &req.latest_stats_count)]);
@@ -3126,7 +3128,7 @@ impl crate::stubs::FeatureRegistryService for FeatureRegistryService {
                     "/v1/{}",
                     req.feature
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("feature"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("feature"))?
                         .name
                 ),
             )
@@ -3142,7 +3144,7 @@ impl crate::stubs::FeatureRegistryService for FeatureRegistryService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -3254,7 +3256,7 @@ impl crate::stubs::FeatureRegistryService for FeatureRegistryService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -3388,7 +3390,7 @@ impl crate::stubs::FeatureRegistryService for FeatureRegistryService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -3558,7 +3560,7 @@ impl crate::stubs::FeaturestoreOnlineServingService for FeaturestoreOnlineServin
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -3692,7 +3694,7 @@ impl crate::stubs::FeaturestoreOnlineServingService for FeaturestoreOnlineServin
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -3793,7 +3795,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -3815,7 +3817,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
                     "/v1/{}",
                     req.featurestore
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("featurestore"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("featurestore"))?
                         .name
                 ),
             )
@@ -3831,7 +3833,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -3929,7 +3931,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -3951,7 +3953,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
                     "/v1/{}",
                     req.entity_type
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("entity_type"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("entity_type"))?
                         .name
                 ),
             )
@@ -3967,7 +3969,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -4082,7 +4084,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("latestStatsCount", &req.latest_stats_count)]);
@@ -4105,7 +4107,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
                     "/v1/{}",
                     req.feature
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("feature"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("feature"))?
                         .name
                 ),
             )
@@ -4121,7 +4123,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -4338,7 +4340,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -4472,7 +4474,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -4572,7 +4574,7 @@ impl crate::stubs::GenAiCacheService for GenAiCacheService {
                     "/v1/{}",
                     req.cached_content
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("cached_content"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("cached_content"))?
                         .name
                 ),
             )
@@ -4588,7 +4590,7 @@ impl crate::stubs::GenAiCacheService for GenAiCacheService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -4724,7 +4726,7 @@ impl crate::stubs::GenAiCacheService for GenAiCacheService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -4858,7 +4860,7 @@ impl crate::stubs::GenAiCacheService for GenAiCacheService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -5077,7 +5079,7 @@ impl crate::stubs::GenAiTuningService for GenAiTuningService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -5211,7 +5213,7 @@ impl crate::stubs::GenAiTuningService for GenAiTuningService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -5324,7 +5326,7 @@ impl crate::stubs::IndexEndpointService for IndexEndpointService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -5346,7 +5348,7 @@ impl crate::stubs::IndexEndpointService for IndexEndpointService {
                     "/v1/{}",
                     req.index_endpoint
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("index_endpoint"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("index_endpoint"))?
                         .name
                 ),
             )
@@ -5362,7 +5364,7 @@ impl crate::stubs::IndexEndpointService for IndexEndpointService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -5536,7 +5538,7 @@ impl crate::stubs::IndexEndpointService for IndexEndpointService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -5670,7 +5672,7 @@ impl crate::stubs::IndexEndpointService for IndexEndpointService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -5775,7 +5777,7 @@ impl crate::stubs::IndexService for IndexService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -5797,7 +5799,7 @@ impl crate::stubs::IndexService for IndexService {
                     "/v1/{}",
                     req.index
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("index"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("index"))?
                         .name
                 ),
             )
@@ -5813,7 +5815,7 @@ impl crate::stubs::IndexService for IndexService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.index), options).await
@@ -5963,7 +5965,7 @@ impl crate::stubs::IndexService for IndexService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -6097,7 +6099,7 @@ impl crate::stubs::IndexService for IndexService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -6210,7 +6212,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -6322,7 +6324,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -6435,7 +6437,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -6541,7 +6543,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -6696,7 +6698,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -6831,7 +6833,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -6853,7 +6855,7 @@ impl crate::stubs::JobService for JobService {
                     "/v1/{}",
                     req.model_deployment_monitoring_job
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing(
+                        .ok_or_else(|| gclient::path_parameter::missing(
                             "model_deployment_monitoring_job"
                         ))?
                         .name
@@ -6871,7 +6873,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -7017,7 +7019,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -7151,7 +7153,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -7321,7 +7323,7 @@ impl crate::stubs::LlmUtilityService for LlmUtilityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -7455,7 +7457,7 @@ impl crate::stubs::LlmUtilityService for LlmUtilityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -7611,7 +7613,7 @@ impl crate::stubs::MatchService for MatchService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -7745,7 +7747,7 @@ impl crate::stubs::MatchService for MatchService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -7944,7 +7946,7 @@ impl crate::stubs::MetadataService for MetadataService {
                     "/v1/{}",
                     req.artifact
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("artifact"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("artifact"))?
                         .name
                 ),
             )
@@ -7960,7 +7962,7 @@ impl crate::stubs::MetadataService for MetadataService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -8088,7 +8090,7 @@ impl crate::stubs::MetadataService for MetadataService {
                     "/v1/{}",
                     req.context
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("context"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("context"))?
                         .name
                 ),
             )
@@ -8104,7 +8106,7 @@ impl crate::stubs::MetadataService for MetadataService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -8318,7 +8320,7 @@ impl crate::stubs::MetadataService for MetadataService {
                     "/v1/{}",
                     req.execution
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("execution"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("execution"))?
                         .name
                 ),
             )
@@ -8334,7 +8336,7 @@ impl crate::stubs::MetadataService for MetadataService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -8601,7 +8603,7 @@ impl crate::stubs::MetadataService for MetadataService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -8735,7 +8737,7 @@ impl crate::stubs::MetadataService for MetadataService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -8905,7 +8907,7 @@ impl crate::stubs::MigrationService for MigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -9039,7 +9041,7 @@ impl crate::stubs::MigrationService for MigrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -9192,7 +9194,7 @@ impl crate::stubs::ModelGardenService for ModelGardenService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -9326,7 +9328,7 @@ impl crate::stubs::ModelGardenService for ModelGardenService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -9420,7 +9422,7 @@ impl crate::stubs::ModelService for ModelService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -9456,7 +9458,7 @@ impl crate::stubs::ModelService for ModelService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -9503,7 +9505,7 @@ impl crate::stubs::ModelService for ModelService {
                     "/v1/{}",
                     req.model
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("model"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("model"))?
                         .name
                 ),
             )
@@ -9519,7 +9521,7 @@ impl crate::stubs::ModelService for ModelService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.model), options).await
@@ -9749,7 +9751,7 @@ impl crate::stubs::ModelService for ModelService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -9800,7 +9802,7 @@ impl crate::stubs::ModelService for ModelService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -9893,7 +9895,7 @@ impl crate::stubs::ModelService for ModelService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -10027,7 +10029,7 @@ impl crate::stubs::ModelService for ModelService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -10144,7 +10146,7 @@ impl crate::stubs::NotebookService for NotebookService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -10186,7 +10188,9 @@ impl crate::stubs::NotebookService for NotebookService {
                     "/v1/{}",
                     req.notebook_runtime_template
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("notebook_runtime_template"))?
+                        .ok_or_else(|| gclient::path_parameter::missing(
+                            "notebook_runtime_template"
+                        ))?
                         .name
                 ),
             )
@@ -10202,7 +10206,7 @@ impl crate::stubs::NotebookService for NotebookService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -10276,7 +10280,7 @@ impl crate::stubs::NotebookService for NotebookService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -10529,7 +10533,7 @@ impl crate::stubs::NotebookService for NotebookService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -10663,7 +10667,7 @@ impl crate::stubs::NotebookService for NotebookService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -10807,7 +10811,7 @@ impl crate::stubs::PersistentResourceService for PersistentResourceService {
                     "/v1/{}",
                     req.persistent_resource
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("persistent_resource"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("persistent_resource"))?
                         .name
                 ),
             )
@@ -10823,7 +10827,7 @@ impl crate::stubs::PersistentResourceService for PersistentResourceService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -10933,7 +10937,7 @@ impl crate::stubs::PersistentResourceService for PersistentResourceService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -11067,7 +11071,7 @@ impl crate::stubs::PersistentResourceService for PersistentResourceService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -11180,7 +11184,7 @@ impl crate::stubs::PipelineService for PipelineService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -11294,7 +11298,7 @@ impl crate::stubs::PipelineService for PipelineService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -11463,7 +11467,7 @@ impl crate::stubs::PipelineService for PipelineService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -11597,7 +11601,7 @@ impl crate::stubs::PipelineService for PipelineService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -11847,7 +11851,7 @@ impl crate::stubs::PredictionService for PredictionService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -11981,7 +11985,7 @@ impl crate::stubs::PredictionService for PredictionService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -12114,7 +12118,7 @@ impl crate::stubs::ReasoningEngineExecutionService for ReasoningEngineExecutionS
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -12248,7 +12252,7 @@ impl crate::stubs::ReasoningEngineExecutionService for ReasoningEngineExecutionS
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -12359,7 +12363,7 @@ impl crate::stubs::ReasoningEngineService for ReasoningEngineService {
                     "/v1/{}",
                     req.reasoning_engine
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("reasoning_engine"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("reasoning_engine"))?
                         .name
                 ),
             )
@@ -12375,7 +12379,7 @@ impl crate::stubs::ReasoningEngineService for ReasoningEngineService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -12487,7 +12491,7 @@ impl crate::stubs::ReasoningEngineService for ReasoningEngineService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -12621,7 +12625,7 @@ impl crate::stubs::ReasoningEngineService for ReasoningEngineService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -12800,7 +12804,7 @@ impl crate::stubs::ScheduleService for ScheduleService {
                     "/v1/{}",
                     req.schedule
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("schedule"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("schedule"))?
                         .name
                 ),
             )
@@ -12816,7 +12820,7 @@ impl crate::stubs::ScheduleService for ScheduleService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -12909,7 +12913,7 @@ impl crate::stubs::ScheduleService for ScheduleService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -13043,7 +13047,7 @@ impl crate::stubs::ScheduleService for ScheduleService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -13155,7 +13159,7 @@ impl crate::stubs::SpecialistPoolService for SpecialistPoolService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -13197,7 +13201,7 @@ impl crate::stubs::SpecialistPoolService for SpecialistPoolService {
                     "/v1/{}",
                     req.specialist_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("specialist_pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("specialist_pool"))?
                         .name
                 ),
             )
@@ -13213,7 +13217,7 @@ impl crate::stubs::SpecialistPoolService for SpecialistPoolService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -13306,7 +13310,7 @@ impl crate::stubs::SpecialistPoolService for SpecialistPoolService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -13440,7 +13444,7 @@ impl crate::stubs::SpecialistPoolService for SpecialistPoolService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -13540,7 +13544,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
                     "/v1/{}",
                     req.tensorboard
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tensorboard"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tensorboard"))?
                         .name
                 ),
             )
@@ -13556,7 +13560,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -13592,7 +13596,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -13719,7 +13723,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
                     "/v1/{}",
                     req.tensorboard_experiment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tensorboard_experiment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tensorboard_experiment"))?
                         .name
                 ),
             )
@@ -13735,7 +13739,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -13771,7 +13775,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -13871,7 +13875,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
                     "/v1/{}",
                     req.tensorboard_run
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tensorboard_run"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tensorboard_run"))?
                         .name
                 ),
             )
@@ -13887,7 +13891,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -13920,7 +13924,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -14024,7 +14028,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
                     "/v1/{}",
                     req.tensorboard_time_series
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tensorboard_time_series"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tensorboard_time_series"))?
                         .name
                 ),
             )
@@ -14040,7 +14044,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -14076,7 +14080,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -14301,7 +14305,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -14435,7 +14439,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -14516,7 +14520,7 @@ impl crate::stubs::VertexRagDataService for VertexRagDataService {
                     "/v1/{}",
                     req.rag_corpus
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("rag_corpus"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("rag_corpus"))?
                         .name
                 ),
             )
@@ -14777,7 +14781,7 @@ impl crate::stubs::VertexRagDataService for VertexRagDataService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -14911,7 +14915,7 @@ impl crate::stubs::VertexRagDataService for VertexRagDataService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -15101,7 +15105,7 @@ impl crate::stubs::VertexRagService for VertexRagService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -15235,7 +15239,7 @@ impl crate::stubs::VertexRagService for VertexRagService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner
@@ -15637,7 +15641,7 @@ impl crate::stubs::VizierService for VizierService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -15771,7 +15775,7 @@ impl crate::stubs::VizierService for VizierService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "timeout")
             });
         self.inner

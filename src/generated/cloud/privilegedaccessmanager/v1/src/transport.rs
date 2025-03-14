@@ -192,7 +192,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                     "/v1/{}",
                     req.entitlement
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("entitlement"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("entitlement"))?
                         .name
                 ),
             )
@@ -208,7 +208,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

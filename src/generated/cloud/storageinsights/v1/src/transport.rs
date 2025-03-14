@@ -122,7 +122,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
                     "/v1/{}",
                     req.report_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("report_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("report_config"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

@@ -140,7 +140,7 @@ impl crate::stubs::AlertPolicyService for AlertPolicyService {
                     "/v3/{}",
                     req.alert_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("alert_policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("alert_policy"))?
                         .name
                 ),
             )
@@ -156,7 +156,7 @@ impl crate::stubs::AlertPolicyService for AlertPolicyService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -277,7 +277,7 @@ impl crate::stubs::GroupService for GroupService {
                     "/v3/{}",
                     req.group
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("group"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("group"))?
                         .name
                 ),
             )
@@ -334,7 +334,7 @@ impl crate::stubs::GroupService for GroupService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "interval")
             });
         self.inner
@@ -517,7 +517,7 @@ impl crate::stubs::MetricService for MetricService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "interval")
             });
         let builder = req
@@ -527,7 +527,7 @@ impl crate::stubs::MetricService for MetricService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "aggregation")
             });
         let builder = req
@@ -537,7 +537,7 @@ impl crate::stubs::MetricService for MetricService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "secondaryAggregation")
             });
         let builder = builder.query(&[("orderBy", &req.order_by)]);
@@ -736,7 +736,7 @@ impl crate::stubs::NotificationChannelService for NotificationChannelService {
                     "/v3/{}",
                     req.notification_channel
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("notification_channel"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("notification_channel"))?
                         .name
                 ),
             )
@@ -752,7 +752,7 @@ impl crate::stubs::NotificationChannelService for NotificationChannelService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -981,7 +981,7 @@ impl crate::stubs::ServiceMonitoringService for ServiceMonitoringService {
                     "/v3/{}",
                     req.service
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("service"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("service"))?
                         .name
                 ),
             )
@@ -997,7 +997,7 @@ impl crate::stubs::ServiceMonitoringService for ServiceMonitoringService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1108,7 +1108,7 @@ impl crate::stubs::ServiceMonitoringService for ServiceMonitoringService {
                     "/v3/{}",
                     req.service_level_objective
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("service_level_objective"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("service_level_objective"))?
                         .name
                 ),
             )
@@ -1124,7 +1124,7 @@ impl crate::stubs::ServiceMonitoringService for ServiceMonitoringService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1246,7 +1246,7 @@ impl crate::stubs::SnoozeService for SnoozeService {
                     "/v3/{}",
                     req.snooze
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("snooze"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("snooze"))?
                         .name
                 ),
             )
@@ -1262,7 +1262,7 @@ impl crate::stubs::SnoozeService for SnoozeService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.snooze), options).await
@@ -1371,7 +1371,7 @@ impl crate::stubs::UptimeCheckService for UptimeCheckService {
                     "/v3/{}",
                     req.uptime_check_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("uptime_check_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("uptime_check_config"))?
                         .name
                 ),
             )
@@ -1387,7 +1387,7 @@ impl crate::stubs::UptimeCheckService for UptimeCheckService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

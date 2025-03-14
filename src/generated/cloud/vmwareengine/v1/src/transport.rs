@@ -124,7 +124,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.private_cloud
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("private_cloud"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("private_cloud"))?
                         .name
                 ),
             )
@@ -140,7 +140,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -272,7 +272,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("cluster"))?
                         .name
                 ),
             )
@@ -288,7 +288,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -465,7 +465,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.external_address
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("external_address"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("external_address"))?
                         .name
                 ),
             )
@@ -481,7 +481,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -564,7 +564,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.subnet
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("subnet"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("subnet"))?
                         .name
                 ),
             )
@@ -580,7 +580,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.subnet), options).await
@@ -669,7 +669,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.external_access_rule
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("external_access_rule"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("external_access_rule"))?
                         .name
                 ),
             )
@@ -685,7 +685,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -797,7 +797,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.logging_server
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("logging_server"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("logging_server"))?
                         .name
                 ),
             )
@@ -813,7 +813,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1004,7 +1004,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.dns_forwarding
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("dns_forwarding"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("dns_forwarding"))?
                         .name
                 ),
             )
@@ -1020,7 +1020,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1132,7 +1132,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.network_peering
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("network_peering"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("network_peering"))?
                         .name
                 ),
             )
@@ -1148,7 +1148,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1332,7 +1332,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.network_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("network_policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("network_policy"))?
                         .name
                 ),
             )
@@ -1348,7 +1348,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1463,7 +1463,9 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.management_dns_zone_binding
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("management_dns_zone_binding"))?
+                        .ok_or_else(|| gclient::path_parameter::missing(
+                            "management_dns_zone_binding"
+                        ))?
                         .name
                 ),
             )
@@ -1479,7 +1481,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1563,7 +1565,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.vmware_engine_network
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("vmware_engine_network"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("vmware_engine_network"))?
                         .name
                 ),
             )
@@ -1579,7 +1581,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1737,7 +1739,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
                     "/v1/{}",
                     req.private_connection
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("private_connection"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("private_connection"))?
                         .name
                 ),
             )
@@ -1753,7 +1755,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1944,7 +1946,7 @@ impl crate::stubs::VmwareEngine for VmwareEngine {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

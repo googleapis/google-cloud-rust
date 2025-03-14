@@ -98,7 +98,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
                     "/v1/{}",
                     req.asset
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("asset"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("asset"))?
                         .name
                 ),
             )
@@ -114,7 +114,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -328,7 +328,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
                     "/v1/{}",
                     req.import_job
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("import_job"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("import_job"))?
                         .name
                 ),
             )
@@ -344,7 +344,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -551,7 +551,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
                     "/v1/{}",
                     req.group
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("group"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("group"))?
                         .name
                 ),
             )
@@ -567,7 +567,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -754,7 +754,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
                     "/v1/{}",
                     req.source
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("source"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("source"))?
                         .name
                 ),
             )
@@ -770,7 +770,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -879,7 +879,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
                     "/v1/{}",
                     req.preference_set
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("preference_set"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("preference_set"))?
                         .name
                 ),
             )
@@ -895,7 +895,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -957,7 +957,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
                     "/v1/{}",
                     req.settings
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("settings"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("settings"))?
                         .name
                 ),
             )
@@ -973,7 +973,7 @@ impl crate::stubs::MigrationCenter for MigrationCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

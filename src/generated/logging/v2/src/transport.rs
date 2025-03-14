@@ -308,7 +308,7 @@ impl crate::stubs::ConfigServiceV2 for ConfigServiceV2 {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.bucket), options).await
@@ -353,7 +353,7 @@ impl crate::stubs::ConfigServiceV2 for ConfigServiceV2 {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.bucket), options).await
@@ -474,7 +474,7 @@ impl crate::stubs::ConfigServiceV2 for ConfigServiceV2 {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.view), options).await
@@ -579,7 +579,7 @@ impl crate::stubs::ConfigServiceV2 for ConfigServiceV2 {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.sink), options).await
@@ -767,7 +767,7 @@ impl crate::stubs::ConfigServiceV2 for ConfigServiceV2 {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -840,7 +840,7 @@ impl crate::stubs::ConfigServiceV2 for ConfigServiceV2 {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -888,7 +888,7 @@ impl crate::stubs::ConfigServiceV2 for ConfigServiceV2 {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

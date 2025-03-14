@@ -74,7 +74,7 @@ impl crate::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
                     "/v1/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -623,7 +623,7 @@ impl crate::stubs::ClusterController for ClusterController {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "gracefulDecommissionTimeout")
             });
         let builder = req
@@ -633,7 +633,7 @@ impl crate::stubs::ClusterController for ClusterController {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1095,7 +1095,7 @@ impl crate::stubs::JobController for JobController {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.job), options).await
@@ -1597,7 +1597,7 @@ impl crate::stubs::SessionTemplateController for SessionTemplateController {
                     "/v1/{}",
                     req.session_template
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("session_template"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("session_template"))?
                         .name
                 ),
             )
@@ -2213,7 +2213,7 @@ impl crate::stubs::WorkflowTemplateService for WorkflowTemplateService {
                     "/v1/{}",
                     req.template
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("template"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("template"))?
                         .name
                 ),
             )

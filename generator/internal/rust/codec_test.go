@@ -1172,15 +1172,15 @@ func TestAsQueryParameter(t *testing.T) {
 		field *api.Field
 		want  string
 	}{
-		{optionsField, `let builder = req.options_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "optionsField") });`},
+		{optionsField, `let builder = req.options_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gclient::query_parameter::QueryParameter; v.add(builder, "optionsField") });`},
 		{requiredField, `let builder = builder.query(&[("requiredField", &req.required_field)]);`},
 		{optionalField, `let builder = req.optional_field.iter().fold(builder, |builder, p| builder.query(&[("optionalField", p)]));`},
 		{repeatedField, `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
 		{requiredEnumField, `let builder = builder.query(&[("requiredEnumField", &req.required_enum_field.value())]);`},
 		{optionalEnumField, `let builder = req.optional_enum_field.iter().fold(builder, |builder, p| builder.query(&[("optionalEnumField", p.value())]));`},
 		{repeatedEnumField, `let builder = req.repeated_enum_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
-		{requiredFieldMaskField, `let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.required_field_mask).map_err(Error::serde)?.add(builder, "requiredFieldMask") };`},
-		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "optionalFieldMask") });`},
+		{requiredFieldMaskField, `let builder = { use gclient::query_parameter::QueryParameter; serde_json::to_value(&req.required_field_mask).map_err(Error::serde)?.add(builder, "requiredFieldMask") };`},
+		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gclient::query_parameter::QueryParameter; v.add(builder, "optionalFieldMask") });`},
 	} {
 		got := addQueryParameter(test.field)
 		if test.want != got {
@@ -1273,13 +1273,13 @@ func TestOneOfAsQueryParameter(t *testing.T) {
 		field *api.Field
 		want  string
 	}{
-		{optionsField, `let builder = req.get_options_field().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; p.add(builder, "optionsField") });`},
+		{optionsField, `let builder = req.get_options_field().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gclient::query_parameter::QueryParameter; p.add(builder, "optionsField") });`},
 		{typeField, `let builder = req.get_type().iter().fold(builder, |builder, p| builder.query(&[("type", p)]));`},
 		{singularField, `let builder = req.get_singular_field().iter().fold(builder, |builder, p| builder.query(&[("singularField", p)]));`},
 		{repeatedField, `let builder = req.get_repeated_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
 		{singularEnumField, `let builder = req.get_singular_enum_field().iter().fold(builder, |builder, p| builder.query(&[("singularEnumField", p.value())]));`},
 		{repeatedEnumField, `let builder = req.get_repeated_enum_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
-		{singularFieldMaskField, `let builder = req.get_singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
+		{singularFieldMaskField, `let builder = req.get_singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gclient::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
 	} {
 		got := addQueryParameter(test.field)
 		if test.want != got {
@@ -2121,7 +2121,7 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.b.as_ref().ok_or_else(|| gax::path_parameter::missing("b"))?`},
+			[]string{`.b.as_ref().ok_or_else(|| gclient::path_parameter::missing("b"))?`},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2139,7 +2139,7 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.d.as_ref().ok_or_else(|| gax::path_parameter::missing("d"))?.value()`},
+			[]string{`.d.as_ref().ok_or_else(|| gclient::path_parameter::missing("d"))?.value()`},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2148,7 +2148,7 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?.a`},
+			[]string{`.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?.a`},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2157,8 +2157,8 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?` +
-				`.b.as_ref().ok_or_else(|| gax::path_parameter::missing("b"))?`},
+			[]string{`.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?` +
+				`.b.as_ref().ok_or_else(|| gclient::path_parameter::missing("b"))?`},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2167,7 +2167,7 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?` +
+			[]string{`.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?` +
 				`.c.value()`},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
@@ -2177,8 +2177,8 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?` +
-				`.d.as_ref().ok_or_else(|| gax::path_parameter::missing("d"))?` +
+			[]string{`.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?` +
+				`.d.as_ref().ok_or_else(|| gclient::path_parameter::missing("d"))?` +
 				`.value()`},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
@@ -2188,7 +2188,7 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{".a", `.b.as_ref().ok_or_else(|| gax::path_parameter::missing("b"))?`},
+			[]string{".a", `.b.as_ref().ok_or_else(|| gclient::path_parameter::missing("b"))?`},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),

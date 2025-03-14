@@ -428,7 +428,7 @@ impl crate::stubs::Jobs for Jobs {
                     "/v2/{}",
                     req.job
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("job"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("job"))?
                         .name
                 ),
             )
@@ -504,7 +504,7 @@ impl crate::stubs::Jobs for Jobs {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -924,7 +924,7 @@ impl crate::stubs::Services for Services {
                     "/v2/{}",
                     req.service
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("service"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("service"))?
                         .name
                 ),
             )
@@ -940,7 +940,7 @@ impl crate::stubs::Services for Services {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -995,7 +995,7 @@ impl crate::stubs::Services for Services {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

@@ -94,7 +94,7 @@ impl crate::stubs::CloudRedisCluster for CloudRedisCluster {
                     "/v1/{}",
                     req.cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("cluster"))?
                         .name
                 ),
             )
@@ -110,7 +110,7 @@ impl crate::stubs::CloudRedisCluster for CloudRedisCluster {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

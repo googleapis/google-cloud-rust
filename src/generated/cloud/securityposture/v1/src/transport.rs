@@ -142,7 +142,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
                     "/v1/{}",
                     req.posture
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("posture"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("posture"))?
                         .name
                 ),
             )
@@ -158,7 +158,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("revisionId", &req.revision_id)]);
@@ -288,7 +288,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
                     "/v1/{}",
                     req.posture_deployment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("posture_deployment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("posture_deployment"))?
                         .name
                 ),
             )
@@ -304,7 +304,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

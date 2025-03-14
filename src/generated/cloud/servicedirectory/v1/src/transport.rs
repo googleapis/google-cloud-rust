@@ -203,7 +203,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
                     "/v1/{}",
                     req.namespace
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("namespace"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("namespace"))?
                         .name
                 ),
             )
@@ -219,7 +219,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -325,7 +325,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
                     "/v1/{}",
                     req.service
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("service"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("service"))?
                         .name
                 ),
             )
@@ -341,7 +341,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -450,7 +450,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
                     "/v1/{}",
                     req.endpoint
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("endpoint"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("endpoint"))?
                         .name
                 ),
             )
@@ -466,7 +466,7 @@ impl crate::stubs::RegistrationService for RegistrationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

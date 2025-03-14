@@ -76,7 +76,7 @@ impl crate::stubs::EssentialContactsService for EssentialContactsService {
                     "/v1/{}",
                     req.contact
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("contact"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("contact"))?
                         .name
                 ),
             )
@@ -92,7 +92,7 @@ impl crate::stubs::EssentialContactsService for EssentialContactsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

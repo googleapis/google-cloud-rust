@@ -144,7 +144,7 @@ impl crate::stubs::AnalyticsHubService for AnalyticsHubService {
                     "/v1/{}",
                     req.data_exchange
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("data_exchange"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("data_exchange"))?
                         .name
                 ),
             )
@@ -160,7 +160,7 @@ impl crate::stubs::AnalyticsHubService for AnalyticsHubService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -264,7 +264,7 @@ impl crate::stubs::AnalyticsHubService for AnalyticsHubService {
                     "/v1/{}",
                     req.listing
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("listing"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("listing"))?
                         .name
                 ),
             )
@@ -280,7 +280,7 @@ impl crate::stubs::AnalyticsHubService for AnalyticsHubService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

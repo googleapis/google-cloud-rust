@@ -120,7 +120,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.trigger
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("trigger"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("trigger"))?
                         .name
                 ),
             )
@@ -136,7 +136,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -247,7 +247,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.channel
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("channel"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("channel"))?
                         .name
                 ),
             )
@@ -263,7 +263,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -455,7 +455,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.google_channel_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("google_channel_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("google_channel_config"))?
                         .name
                 ),
             )
@@ -471,7 +471,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -586,7 +586,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.message_bus
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("message_bus"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("message_bus"))?
                         .name
                 ),
             )
@@ -602,7 +602,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -717,7 +717,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.enrollment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("enrollment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("enrollment"))?
                         .name
                 ),
             )
@@ -733,7 +733,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -848,7 +848,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.pipeline
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("pipeline"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("pipeline"))?
                         .name
                 ),
             )
@@ -864,7 +864,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -979,7 +979,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.google_api_source
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("google_api_source"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("google_api_source"))?
                         .name
                 ),
             )
@@ -995,7 +995,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -1112,7 +1112,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

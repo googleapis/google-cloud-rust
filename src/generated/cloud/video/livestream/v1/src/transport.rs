@@ -141,7 +141,7 @@ impl crate::stubs::LivestreamService for LivestreamService {
                     "/v1/{}",
                     req.channel
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("channel"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("channel"))?
                         .name
                 ),
             )
@@ -157,7 +157,7 @@ impl crate::stubs::LivestreamService for LivestreamService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -295,7 +295,7 @@ impl crate::stubs::LivestreamService for LivestreamService {
                     "/v1/{}",
                     req.input
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("input"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("input"))?
                         .name
                 ),
             )
@@ -311,7 +311,7 @@ impl crate::stubs::LivestreamService for LivestreamService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -594,7 +594,7 @@ impl crate::stubs::LivestreamService for LivestreamService {
                     "/v1/{}",
                     req.pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("pool"))?
                         .name
                 ),
             )
@@ -610,7 +610,7 @@ impl crate::stubs::LivestreamService for LivestreamService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

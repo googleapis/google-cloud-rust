@@ -100,7 +100,7 @@ impl crate::stubs::Lineage for Lineage {
                     "/v1/{}",
                     req.process
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("process"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("process"))?
                         .name
                 ),
             )
@@ -116,7 +116,7 @@ impl crate::stubs::Lineage for Lineage {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -220,7 +220,7 @@ impl crate::stubs::Lineage for Lineage {
                     "/v1/{}",
                     req.run
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("run"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("run"))?
                         .name
                 ),
             )
@@ -236,7 +236,7 @@ impl crate::stubs::Lineage for Lineage {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);

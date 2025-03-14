@@ -173,7 +173,7 @@ impl crate::stubs::CatalogService for CatalogService {
                     "/v2/{}",
                     req.catalog
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("catalog"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("catalog"))?
                         .name
                 ),
             )
@@ -189,7 +189,7 @@ impl crate::stubs::CatalogService for CatalogService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -272,7 +272,7 @@ impl crate::stubs::CatalogService for CatalogService {
                     "/v2/{}",
                     req.completion_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("completion_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("completion_config"))?
                         .name
                 ),
             )
@@ -288,7 +288,7 @@ impl crate::stubs::CatalogService for CatalogService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -329,7 +329,7 @@ impl crate::stubs::CatalogService for CatalogService {
                     "/v2/{}",
                     req.attributes_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("attributes_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("attributes_config"))?
                         .name
                 ),
             )
@@ -345,7 +345,7 @@ impl crate::stubs::CatalogService for CatalogService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -667,7 +667,7 @@ impl crate::stubs::ControlService for ControlService {
                     "/v2/{}",
                     req.control
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("control"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("control"))?
                         .name
                 ),
             )
@@ -683,7 +683,7 @@ impl crate::stubs::ControlService for ControlService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -810,7 +810,7 @@ impl crate::stubs::GenerativeQuestionService for GenerativeQuestionService {
                     "/v2/{}/generativeQuestionFeature",
                     req.generative_questions_feature_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing(
+                        .ok_or_else(|| gclient::path_parameter::missing(
                             "generative_questions_feature_config"
                         ))?
                         .catalog
@@ -828,7 +828,7 @@ impl crate::stubs::GenerativeQuestionService for GenerativeQuestionService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -898,7 +898,9 @@ impl crate::stubs::GenerativeQuestionService for GenerativeQuestionService {
                     "/v2/{}/generativeQuestion",
                     req.generative_question_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("generative_question_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing(
+                            "generative_question_config"
+                        ))?
                         .catalog
                 ),
             )
@@ -914,7 +916,7 @@ impl crate::stubs::GenerativeQuestionService for GenerativeQuestionService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1131,7 +1133,7 @@ impl crate::stubs::ModelService for ModelService {
                     "/v2/{}",
                     req.model
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("model"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("model"))?
                         .name
                 ),
             )
@@ -1147,7 +1149,7 @@ impl crate::stubs::ModelService for ModelService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.model), options).await
@@ -1398,7 +1400,7 @@ impl crate::stubs::ProductService for ProductService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
@@ -1420,7 +1422,7 @@ impl crate::stubs::ProductService for ProductService {
                     "/v2/{}",
                     req.product
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("product"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("product"))?
                         .name
                 ),
             )
@@ -1436,7 +1438,7 @@ impl crate::stubs::ProductService for ProductService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -1518,7 +1520,7 @@ impl crate::stubs::ProductService for ProductService {
                     "/v2/{}:setInventory",
                     req.inventory
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("inventory"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("inventory"))?
                         .name
                 ),
             )
@@ -1828,7 +1830,7 @@ impl crate::stubs::ServingConfigService for ServingConfigService {
                     "/v2/{}",
                     req.serving_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("serving_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("serving_config"))?
                         .name
                 ),
             )
@@ -1844,7 +1846,7 @@ impl crate::stubs::ServingConfigService for ServingConfigService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

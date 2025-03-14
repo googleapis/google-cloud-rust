@@ -139,7 +139,7 @@ impl crate::stubs::ReservationService for ReservationService {
                     "/v1/{}",
                     req.reservation
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("reservation"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("reservation"))?
                         .name
                 ),
             )
@@ -155,7 +155,7 @@ impl crate::stubs::ReservationService for ReservationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -287,7 +287,7 @@ impl crate::stubs::ReservationService for ReservationService {
                     "/v1/{}",
                     req.capacity_commitment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("capacity_commitment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("capacity_commitment"))?
                         .name
                 ),
             )
@@ -303,7 +303,7 @@ impl crate::stubs::ReservationService for ReservationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -495,7 +495,7 @@ impl crate::stubs::ReservationService for ReservationService {
                     "/v1/{}",
                     req.assignment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("assignment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("assignment"))?
                         .name
                 ),
             )
@@ -511,7 +511,7 @@ impl crate::stubs::ReservationService for ReservationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -552,7 +552,7 @@ impl crate::stubs::ReservationService for ReservationService {
                     "/v1/{}",
                     req.bi_reservation
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("bi_reservation"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("bi_reservation"))?
                         .name
                 ),
             )
@@ -568,7 +568,7 @@ impl crate::stubs::ReservationService for ReservationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

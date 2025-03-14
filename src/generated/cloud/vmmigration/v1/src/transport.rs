@@ -115,7 +115,7 @@ impl crate::stubs::VmMigration for VmMigration {
                     "/v1/{}",
                     req.source
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("source"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("source"))?
                         .name
                 ),
             )
@@ -131,7 +131,7 @@ impl crate::stubs::VmMigration for VmMigration {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -466,7 +466,7 @@ impl crate::stubs::VmMigration for VmMigration {
                     "/v1/{}",
                     req.migrating_vm
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("migrating_vm"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("migrating_vm"))?
                         .name
                 ),
             )
@@ -482,7 +482,7 @@ impl crate::stubs::VmMigration for VmMigration {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -837,7 +837,7 @@ impl crate::stubs::VmMigration for VmMigration {
                     "/v1/{}",
                     req.group
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("group"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("group"))?
                         .name
                 ),
             )
@@ -853,7 +853,7 @@ impl crate::stubs::VmMigration for VmMigration {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1003,7 +1003,7 @@ impl crate::stubs::VmMigration for VmMigration {
                     "/v1/{}",
                     req.target_project
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("target_project"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("target_project"))?
                         .name
                 ),
             )
@@ -1019,7 +1019,7 @@ impl crate::stubs::VmMigration for VmMigration {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

@@ -245,7 +245,7 @@ impl crate::stubs::OsConfigService for OsConfigService {
                     "/v1/{}",
                     req.patch_deployment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("patch_deployment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("patch_deployment"))?
                         .name
                 ),
             )
@@ -261,7 +261,7 @@ impl crate::stubs::OsConfigService for OsConfigService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -399,7 +399,7 @@ impl crate::stubs::OsConfigZonalService for OsConfigZonalService {
                     "/v1/{}",
                     req.os_policy_assignment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("os_policy_assignment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("os_policy_assignment"))?
                         .name
                 ),
             )
@@ -415,7 +415,7 @@ impl crate::stubs::OsConfigZonalService for OsConfigZonalService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

@@ -122,7 +122,7 @@ impl crate::stubs::Speech for Speech {
                     "/v2/{}",
                     req.recognizer
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("recognizer"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("recognizer"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl crate::stubs::Speech for Speech {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -259,7 +259,7 @@ impl crate::stubs::Speech for Speech {
                     "/v2/{}",
                     req.config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("config"))?
                         .name
                 ),
             )
@@ -275,7 +275,7 @@ impl crate::stubs::Speech for Speech {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.config), options).await
@@ -363,7 +363,7 @@ impl crate::stubs::Speech for Speech {
                     "/v2/{}",
                     req.custom_class
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("custom_class"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("custom_class"))?
                         .name
                 ),
             )
@@ -379,7 +379,7 @@ impl crate::stubs::Speech for Speech {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -509,7 +509,7 @@ impl crate::stubs::Speech for Speech {
                     "/v2/{}",
                     req.phrase_set
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("phrase_set"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("phrase_set"))?
                         .name
                 ),
             )
@@ -525,7 +525,7 @@ impl crate::stubs::Speech for Speech {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);

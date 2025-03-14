@@ -122,7 +122,7 @@ impl crate::stubs::BackupForGKE for BackupForGKE {
                     "/v1/{}",
                     req.backup_plan
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup_plan"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup_plan"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl crate::stubs::BackupForGKE for BackupForGKE {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -240,7 +240,7 @@ impl crate::stubs::BackupForGKE for BackupForGKE {
                     "/v1/{}",
                     req.backup
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -256,7 +256,7 @@ impl crate::stubs::BackupForGKE for BackupForGKE {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.backup), options).await
@@ -410,7 +410,7 @@ impl crate::stubs::BackupForGKE for BackupForGKE {
                     "/v1/{}",
                     req.restore_plan
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("restore_plan"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("restore_plan"))?
                         .name
                 ),
             )
@@ -426,7 +426,7 @@ impl crate::stubs::BackupForGKE for BackupForGKE {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -534,7 +534,7 @@ impl crate::stubs::BackupForGKE for BackupForGKE {
                     "/v1/{}",
                     req.restore
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("restore"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("restore"))?
                         .name
                 ),
             )
@@ -550,7 +550,7 @@ impl crate::stubs::BackupForGKE for BackupForGKE {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -731,7 +731,7 @@ impl crate::stubs::BackupForGKE for BackupForGKE {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

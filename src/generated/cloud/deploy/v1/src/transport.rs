@@ -124,7 +124,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
                     "/v1/{}",
                     req.delivery_pipeline
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("delivery_pipeline"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("delivery_pipeline"))?
                         .name
                 ),
             )
@@ -140,7 +140,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -271,7 +271,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
                     "/v1/{}",
                     req.target
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("target"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("target"))?
                         .name
                 ),
             )
@@ -287,7 +287,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -403,7 +403,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
                     "/v1/{}",
                     req.custom_target_type
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("custom_target_type"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("custom_target_type"))?
                         .name
                 ),
             )
@@ -419,7 +419,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -582,7 +582,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
                     "/v1/{}",
                     req.deploy_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("deploy_policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("deploy_policy"))?
                         .name
                 ),
             )
@@ -598,7 +598,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -959,7 +959,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
                     "/v1/{}",
                     req.automation
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("automation"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("automation"))?
                         .name
                 ),
             )
@@ -975,7 +975,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1201,7 +1201,7 @@ impl crate::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

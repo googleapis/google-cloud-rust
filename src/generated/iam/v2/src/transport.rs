@@ -112,7 +112,7 @@ impl crate::stubs::Policies for Policies {
                     "/v2/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("policy"))?
                         .name
                 ),
             )

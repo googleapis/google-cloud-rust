@@ -120,7 +120,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                     "/v1/{}",
                     req.authorization_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("authorization_policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("authorization_policy"))?
                         .name
                 ),
             )
@@ -136,7 +136,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -243,7 +243,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                     "/v1/{}",
                     req.server_tls_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("server_tls_policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("server_tls_policy"))?
                         .name
                 ),
             )
@@ -259,7 +259,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -366,7 +366,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                     "/v1/{}",
                     req.client_tls_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("client_tls_policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("client_tls_policy"))?
                         .name
                 ),
             )
@@ -382,7 +382,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -494,7 +494,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

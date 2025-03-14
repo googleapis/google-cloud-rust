@@ -220,7 +220,7 @@ impl crate::stubs::TranslationService for TranslationService {
                     "/v3/{}",
                     req.glossary
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("glossary"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("glossary"))?
                         .name
                 ),
             )
@@ -236,7 +236,7 @@ impl crate::stubs::TranslationService for TranslationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -386,7 +386,7 @@ impl crate::stubs::TranslationService for TranslationService {
                     "/v3/{}",
                     req.glossary_entry
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("glossary_entry"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("glossary_entry"))?
                         .name
                 ),
             )

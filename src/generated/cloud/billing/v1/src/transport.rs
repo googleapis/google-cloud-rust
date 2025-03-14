@@ -103,7 +103,7 @@ impl crate::stubs::CloudBilling for CloudBilling {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -220,7 +220,7 @@ impl crate::stubs::CloudBilling for CloudBilling {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -350,7 +350,7 @@ impl crate::stubs::CloudCatalog for CloudCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "startTime")
             });
         let builder = req
@@ -360,7 +360,7 @@ impl crate::stubs::CloudCatalog for CloudCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "endTime")
             });
         let builder = builder.query(&[("currencyCode", &req.currency_code)]);

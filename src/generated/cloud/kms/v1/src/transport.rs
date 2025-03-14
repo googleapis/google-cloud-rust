@@ -192,7 +192,7 @@ impl crate::stubs::Autokey for Autokey {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -290,7 +290,7 @@ impl crate::stubs::AutokeyAdmin for AutokeyAdmin {
                     "/v1/{}",
                     req.autokey_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("autokey_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("autokey_config"))?
                         .name
                 ),
             )
@@ -306,7 +306,7 @@ impl crate::stubs::AutokeyAdmin for AutokeyAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -440,7 +440,7 @@ impl crate::stubs::AutokeyAdmin for AutokeyAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -592,7 +592,7 @@ impl crate::stubs::EkmService for EkmService {
                     "/v1/{}",
                     req.ekm_connection
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("ekm_connection"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("ekm_connection"))?
                         .name
                 ),
             )
@@ -608,7 +608,7 @@ impl crate::stubs::EkmService for EkmService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -649,7 +649,7 @@ impl crate::stubs::EkmService for EkmService {
                     "/v1/{}",
                     req.ekm_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("ekm_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("ekm_config"))?
                         .name
                 ),
             )
@@ -665,7 +665,7 @@ impl crate::stubs::EkmService for EkmService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -780,7 +780,7 @@ impl crate::stubs::EkmService for EkmService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
@@ -1178,7 +1178,7 @@ impl crate::stubs::KeyManagementService for KeyManagementService {
                     "/v1/{}",
                     req.crypto_key
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("crypto_key"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("crypto_key"))?
                         .name
                 ),
             )
@@ -1194,7 +1194,7 @@ impl crate::stubs::KeyManagementService for KeyManagementService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1216,7 +1216,7 @@ impl crate::stubs::KeyManagementService for KeyManagementService {
                     "/v1/{}",
                     req.crypto_key_version
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("crypto_key_version"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("crypto_key_version"))?
                         .name
                 ),
             )
@@ -1232,7 +1232,7 @@ impl crate::stubs::KeyManagementService for KeyManagementService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1547,7 +1547,7 @@ impl crate::stubs::KeyManagementService for KeyManagementService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner

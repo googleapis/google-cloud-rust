@@ -282,7 +282,7 @@ impl crate::stubs::EdgeNetwork for EdgeNetwork {
                     "/v1/{}",
                     req.subnet
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("subnet"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("subnet"))?
                         .name
                 ),
             )
@@ -298,7 +298,7 @@ impl crate::stubs::EdgeNetwork for EdgeNetwork {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -573,7 +573,7 @@ impl crate::stubs::EdgeNetwork for EdgeNetwork {
                     "/v1/{}",
                     req.router
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("router"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("router"))?
                         .name
                 ),
             )
@@ -589,7 +589,7 @@ impl crate::stubs::EdgeNetwork for EdgeNetwork {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);

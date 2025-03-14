@@ -134,7 +134,7 @@ impl crate::stubs::ManagedIdentitiesService for ManagedIdentitiesService {
                     "/v1/{}",
                     req.domain
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("domain"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("domain"))?
                         .name
                 ),
             )
@@ -150,7 +150,7 @@ impl crate::stubs::ManagedIdentitiesService for ManagedIdentitiesService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.domain), options).await
