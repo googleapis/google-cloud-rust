@@ -18,7 +18,8 @@ import 'package:google_cloud_rpc/rpc.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:test/test.dart';
 
-// Test round-tripping generated JSON encoding and decoding code.
+// Tests to validate the generated JSON encoding code using types from
+// package:google_cloud_rpc.
 
 void main() {
   // simple fields

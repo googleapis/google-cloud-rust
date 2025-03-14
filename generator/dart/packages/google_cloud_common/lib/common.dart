@@ -17,15 +17,19 @@ import 'dart:convert';
 import 'package:google_cloud_rpc/rpc.dart';
 import 'package:http/http.dart';
 
-const _clientName = 'dart-test-client';
+const String _clientName = 'dart-test-client';
 
-abstract class Jsonable {
+/// An abstract class that can return a JSON encodable representation of itself.
+///
+/// Classes that implement [JsonEncodable] will often have a `fromJson()`
+/// constructor.
+abstract class JsonEncodable {
   Object toJson();
 }
 
-abstract class CloudMessage implements Jsonable {}
+abstract class CloudMessage implements JsonEncodable {}
 
-abstract class CloudEnum implements Jsonable {
+abstract class CloudEnum implements JsonEncodable {
   final String value;
 
   const CloudEnum(this.value);
@@ -52,7 +56,7 @@ abstract class CloudService {
     return _processResponse(response);
   }
 
-  Future<Map<String, dynamic>> $post(Uri url, {Jsonable? body}) async {
+  Future<Map<String, dynamic>> $post(Uri url, {JsonEncodable? body}) async {
     final response = await client.post(
       url,
       body: body == null ? null : jsonEncode(body.toJson()),
@@ -64,7 +68,7 @@ abstract class CloudService {
     return _processResponse(response);
   }
 
-  Future<Map<String, dynamic>> $patch(Uri url, {Jsonable? body}) async {
+  Future<Map<String, dynamic>> $patch(Uri url, {JsonEncodable? body}) async {
     final response = await client.patch(
       url,
       body: body == null ? null : jsonEncode(body.toJson()),
@@ -132,10 +136,10 @@ Map<String, T>? $toMap<T>(
       .cast();
 }
 
-List? $fromList(List<Jsonable>? items) {
+List? $fromList(List<JsonEncodable>? items) {
   return items?.map((item) => item.toJson()).toList();
 }
 
-Map? $fromMap(Map<String, Jsonable>? items) {
+Map? $fromMap(Map<String, JsonEncodable>? items) {
   return items?.map((key, value) => MapEntry(key, value.toJson()));
 }
