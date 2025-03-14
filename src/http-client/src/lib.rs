@@ -38,6 +38,18 @@ use gax::retry_throttler::SharedRetryThrottler;
 use gax::Result;
 use std::sync::Arc;
 
+#[doc(hidden)]
+pub mod path_parameter {
+    pub use gax::path_parameter::missing;
+    pub use gax::path_parameter::Error;
+}
+
+#[doc(hidden)]
+pub mod query_parameter {
+    pub use gax::query_parameter::QueryParameter;
+}
+
+#[doc(hidden)]
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: reqwest::Client,
@@ -286,6 +298,7 @@ impl ReqwestClient {
     }
 }
 
+#[doc(hidden)]
 #[derive(serde::Serialize)]
 pub struct NoBody {}
 
