@@ -42,14 +42,14 @@ use std::sync::Arc;
 /// All other code uses this type indirectly, via the per-request builders.
 #[derive(Clone, Debug, Default)]
 pub struct RequestOptions {
-    pub(crate) idempotent: Option<bool>,
+    idempotent: Option<bool>,
     user_agent: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
-    pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
-    pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
-    pub(crate) retry_throttler: Option<SharedRetryThrottler>,
-    pub(crate) polling_policy: Option<Arc<dyn PollingPolicy>>,
-    pub(crate) polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    retry_policy: Option<Arc<dyn RetryPolicy>>,
+    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_throttler: Option<SharedRetryThrottler>,
+    polling_policy: Option<Arc<dyn PollingPolicy>>,
+    polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
 impl RequestOptions {
@@ -256,14 +256,14 @@ where
 /// override the default endpoint, the default authentication credentials,
 /// the retry policies, and/or other behaviors of the client.
 pub struct ClientConfig {
-    pub(crate) endpoint: Option<String>,
-    pub(crate) cred: Option<Credential>,
-    pub(crate) tracing: bool,
-    pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
-    pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
-    pub(crate) retry_throttler: SharedRetryThrottler,
-    pub(crate) polling_policy: Option<Arc<dyn PollingPolicy>>,
-    pub(crate) polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    endpoint: Option<String>,
+    cred: Option<Credential>,
+    tracing: bool,
+    retry_policy: Option<Arc<dyn RetryPolicy>>,
+    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_throttler: SharedRetryThrottler,
+    polling_policy: Option<Arc<dyn PollingPolicy>>,
+    polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
 const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
