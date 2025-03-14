@@ -255,7 +255,7 @@ class Duration extends CloudMessage {
     _validate();
   }
 
-  factory Duration.fromJson(String json)=> DurationHelper.decode(json);
+  factory Duration.fromJson(String json) => DurationHelper.decode(json);
 
   @override
   Object toJson() => DurationHelper.encode(this);
@@ -478,7 +478,7 @@ class FieldMask extends CloudMessage {
     this.paths,
   });
 
-  factory FieldMask.fromJson(String json)=> FieldMaskHelper.decode(json);
+  factory FieldMask.fromJson(String json) => FieldMaskHelper.decode(json);
 
   @override
   Object toJson() => FieldMaskHelper.encode(this);

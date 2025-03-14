@@ -133,7 +133,7 @@ class RetryInfo extends CloudMessage {
 
   factory RetryInfo.fromJson(Map<String, dynamic> json) {
     return RetryInfo(
-      retryDelay: $toCustom(json['retryDelay'], Duration.fromJson),
+      retryDelay: $decode(json['retryDelay'], Duration.fromJson),
     );
   }
 
@@ -208,14 +208,14 @@ class QuotaFailure extends CloudMessage {
 
   factory QuotaFailure.fromJson(Map<String, dynamic> json) {
     return QuotaFailure(
-      violations: $toMessageList(json['violations'], QuotaFailure$Violation.fromJson),
+      violations: $decodeList(json['violations'], QuotaFailure$Violation.fromJson),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (violations != null) 'violations': $fromList(violations),
+      if (violations != null) 'violations': $encodeList(violations),
     };
   }
 
@@ -287,14 +287,14 @@ class PreconditionFailure extends CloudMessage {
 
   factory PreconditionFailure.fromJson(Map<String, dynamic> json) {
     return PreconditionFailure(
-      violations: $toMessageList(json['violations'], PreconditionFailure$Violation.fromJson),
+      violations: $decodeList(json['violations'], PreconditionFailure$Violation.fromJson),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (violations != null) 'violations': $fromList(violations),
+      if (violations != null) 'violations': $encodeList(violations),
     };
   }
 
@@ -368,14 +368,14 @@ class BadRequest extends CloudMessage {
 
   factory BadRequest.fromJson(Map<String, dynamic> json) {
     return BadRequest(
-      fieldViolations: $toMessageList(json['fieldViolations'], BadRequest$FieldViolation.fromJson),
+      fieldViolations: $decodeList(json['fieldViolations'], BadRequest$FieldViolation.fromJson),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (fieldViolations != null) 'fieldViolations': $fromList(fieldViolations),
+      if (fieldViolations != null) 'fieldViolations': $encodeList(fieldViolations),
     };
   }
 
@@ -452,7 +452,7 @@ class BadRequest$FieldViolation extends CloudMessage {
       field: json['field'],
       description: json['description'],
       reason: json['reason'],
-      localizedMessage: $toMessage(json['localizedMessage'], LocalizedMessage.fromJson),
+      localizedMessage: $decode(json['localizedMessage'], LocalizedMessage.fromJson),
     );
   }
 
@@ -597,14 +597,14 @@ class Help extends CloudMessage {
 
   factory Help.fromJson(Map<String, dynamic> json) {
     return Help(
-      links: $toMessageList(json['links'], Help$Link.fromJson),
+      links: $decodeList(json['links'], Help$Link.fromJson),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (links != null) 'links': $fromList(links),
+      if (links != null) 'links': $encodeList(links),
     };
   }
 
@@ -720,7 +720,7 @@ class HttpRequest extends CloudMessage {
     return HttpRequest(
       method: json['method'],
       uri: json['uri'],
-      headers: $toMessageList(json['headers'], HttpHeader.fromJson),
+      headers: $decodeList(json['headers'], HttpHeader.fromJson),
       body: json['body'],
     );
   }
@@ -730,7 +730,7 @@ class HttpRequest extends CloudMessage {
     return {
       if (method != null) 'method': method,
       if (uri != null) 'uri': uri,
-      if (headers != null) 'headers': $fromList(headers),
+      if (headers != null) 'headers': $encodeList(headers),
       if (body != null) 'body': body,
     };
   }
@@ -773,7 +773,7 @@ class HttpResponse extends CloudMessage {
     return HttpResponse(
       status: json['status'],
       reason: json['reason'],
-      headers: $toMessageList(json['headers'], HttpHeader.fromJson),
+      headers: $decodeList(json['headers'], HttpHeader.fromJson),
       body: json['body'],
     );
   }
@@ -783,7 +783,7 @@ class HttpResponse extends CloudMessage {
     return {
       if (status != null) 'status': status,
       if (reason != null) 'reason': reason,
-      if (headers != null) 'headers': $fromList(headers),
+      if (headers != null) 'headers': $encodeList(headers),
       if (body != null) 'body': body,
     };
   }
@@ -871,7 +871,7 @@ class Status extends CloudMessage {
     return Status(
       code: json['code'],
       message: json['message'],
-      details: $toMessageList(json['details'], Any.fromJson),
+      details: $decodeList(json['details'], Any.fromJson),
     );
   }
 
@@ -880,7 +880,7 @@ class Status extends CloudMessage {
     return {
       if (code != null) 'code': code,
       if (message != null) 'message': message,
-      if (details != null) 'details': $fromList(details),
+      if (details != null) 'details': $encodeList(details),
     };
   }
 

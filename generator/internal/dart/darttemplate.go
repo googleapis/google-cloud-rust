@@ -66,8 +66,6 @@ type messageAnnotation struct {
 	ConstructorBody   string // A custom body for the message's constructor.
 	HasFields         bool
 	HasCustomEncoding bool
-	FromJsonLines     []string
-	ToJsonLines       []string
 	HasToStringLines  bool
 	ToStringLines     []string
 }
@@ -97,6 +95,9 @@ type fieldAnnotation struct {
 	Type     string
 	DocLines []string
 	Required bool
+	Nullable bool
+	FromJson string
+	ToJson   string
 }
 
 type enumAnnotation struct {
@@ -364,156 +365,99 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 		ConstructorBody:   constructorBody,
 		HasFields:         len(m.Fields) > 0,
 		HasCustomEncoding: hasCustomEncoding,
-		FromJsonLines:     createFromJsonLines(m, state),
-		ToJsonLines:       createToJsonLines(m, state),
 		HasToStringLines:  len(toStringLines) > 0,
 		ToStringLines:     toStringLines,
 	}
 }
 
-func createFromJsonLines(message *api.Message, state *api.APIState) []string {
-	_, hasCustomEncoding := usesCustomEncoding[message.ID]
-	if hasCustomEncoding {
-		return []string{}
+func createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
+	name := strcase.ToLowerCamel(field.Name)
+	message := state.MessageByID[field.TypezID]
+	typeName := ""
+
+	isList := field.Repeated
+	isMessage := field.Typez == api.MESSAGE_TYPE
+	isEnum := field.Typez == api.ENUM_TYPE
+	isMap := message != nil && message.IsMap
+	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
+
+	if isMessage {
+		typeName = messageName(message)
+	} else if isEnum {
+		enum := state.EnumByID[field.TypezID]
+		typeName = enumName(enum)
 	}
 
-	lines := []string{}
+	data := "json['" + name + "']"
+	fn := typeName + ".fromJson"
+	opt := ""
+	bang := "!"
+	if !required {
+		opt = "?"
+		bang = ""
+	}
 
-	for _, field := range message.Fields {
-		codec := field.Codec.(*fieldAnnotation)
-		name := codec.Name
-		message := state.MessageByID[field.TypezID]
-		typeName := ""
-
-		isCustom := false
-		isList := field.Repeated
-		isMessage := field.Typez == api.MESSAGE_TYPE
-		isEnum := field.Typez == api.ENUM_TYPE
-		isMap := message != nil && message.IsMap
-		isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
-		isRequired := codec.Required
-
-		if isMessage {
-			typeName = messageName(message)
-			_, isCustom = usesCustomEncoding[message.ID]
-		} else if isEnum {
-			enum := state.EnumByID[field.TypezID]
-			typeName = enumName(enum)
-		}
-
-		opt := ""
-		bang := "!"
-		if !isRequired {
-			opt = "?"
-			bang = ""
-		}
-
+	if isMap {
 		if isMessageMap {
-			// message maps
-			//   name: $toMap(json['name'], Status.fromJson)!,
-			//   name: $toMap(json['name'], Status.fromJson),
-			lines = append(lines, fmt.Sprintf("%s: $toMap(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
-		} else if isMap {
-			// primitive maps
-			//   name: (json['name'] as Map).cast(),
-			//   name: (json['name'] as Map?)?.cast(),
-			lines = append(lines, fmt.Sprintf("%s: (json['%s'] as Map%s)%s.cast(),", name, name, opt, opt))
-		} else if isList && isCustom {
-			// custom lists
-			//   name: $toCustomList(json['name'], FieldMask.fromJson)!,
-			//   name: $toCustomList(json['name'], FieldMask.fromJson),
-			lines = append(lines, fmt.Sprintf("%s: $toCustomList(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
-		} else if isList && isMessage {
-			// message lists
-			//   name: $toMessageList(json['name'], Status.fromJson)!,
-			//   name: $toMessageList(json['name'], Status.fromJson),
-			lines = append(lines, fmt.Sprintf("%s: $toMessageList(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
-		} else if isList {
-			// primitive lists
-			//   name: (json['name'] as List).cast(),
-			//   name: (json['name'] as List?)?.cast(),
-			lines = append(lines, fmt.Sprintf("%s: (json['%s'] as List%s)%s.cast(),", name, name, opt, opt))
-		} else if isEnum || isCustom {
-			// enum
-			if isRequired {
-				// name: FieldMask.fromJson(json['name']),
-				lines = append(lines, fmt.Sprintf("%s: %s.fromJson(json['%s']),", name, typeName, name))
-			} else {
-				// name: $toCustom(json['name'], FieldMask.fromJson),
-				lines = append(lines, fmt.Sprintf("%s: $toCustom(json['%s'], %s.fromJson),", name, name, typeName))
-			}
-		} else if isMessage {
-			// message
-			if isRequired {
-				// name: Status.fromJson(json['name']),
-				lines = append(lines, fmt.Sprintf("%s: %s.fromJson(json['%s']),", name, typeName, name))
-			} else {
-				// name: $toMessage(json['name'], Status.fromJson),
-				lines = append(lines, fmt.Sprintf("%s: $toMessage(json['%s'], %s.fromJson),", name, name, typeName))
-			}
+			// message maps: $decodeMap(json['name'], Status.fromJson)!,
+			return "$decodeMap(" + data + ", " + fn + ")" + bang
 		} else {
-			// primitive
-			// name: json['name'],
-			lines = append(lines, fmt.Sprintf("%s: json['%s'],", name, name))
+			// primitive maps: (json['name'] as Map?)?.cast(),
+			return "(" + data + " as Map" + opt + ")" + opt + ".cast()"
 		}
+	} else if isList {
+		if isMessage {
+			// message lists, custom lists: $decodeList(json['name'], FieldMask.fromJson)!,
+			return "$decodeList(" + data + ", " + fn + ")" + bang
+		} else {
+			// primitive lists: (json['name'] as List?)?.cast(),
+			return "(" + data + " as List" + opt + ")" + opt + ".cast()"
+		}
+	} else if isMessage || isEnum {
+		// enum or message
+		if required {
+			// FieldMask.fromJson(json['name']),
+			return fn + "(" + data + ")"
+		} else {
+			// $decode(json['name'], FieldMask.fromJson),
+			return "$decode(" + data + ", " + fn + ")"
+		}
+	} else {
+		// json['name']
+		return data
 	}
-
-	return lines
 }
 
-func createToJsonLines(message *api.Message, state *api.APIState) []string {
-	_, hasCustomEncoding := usesCustomEncoding[message.ID]
-	if hasCustomEncoding {
-		return []string{}
+func createToJsonLine(field *api.Field, state *api.APIState, required bool) string {
+	name := strcase.ToLowerCamel(field.Name)
+	message := state.MessageByID[field.TypezID]
+
+	isList := field.Repeated
+	isMessage := field.Typez == api.MESSAGE_TYPE
+	isEnum := field.Typez == api.ENUM_TYPE
+	isMap := message != nil && message.IsMap
+	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
+	bang := "!"
+	if required {
+		bang = ""
 	}
 
-	lines := []string{}
-
-	for _, field := range message.Fields {
-		codec := field.Codec.(*fieldAnnotation)
-		name := codec.Name
-		message := state.MessageByID[field.TypezID]
-
-		isList := field.Repeated
-		isMessage := field.Typez == api.MESSAGE_TYPE
-		isEnum := field.Typez == api.ENUM_TYPE
-		isMap := message != nil && message.IsMap
-		isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
-		isRequired := codec.Required
-
-		prefix := ""
-		if !isRequired {
-			prefix = fmt.Sprintf("if (%s != null) ", name)
-		}
-
-		if isMessageMap {
-			// message maps
-			//   'name': $fromMap(name),
-			//   if (name != null) 'name': $fromMap(name),
-			lines = append(lines, fmt.Sprintf("%s'%s': $fromMap(%s),", prefix, name, name))
-		} else if isList && (isMessage || isEnum) {
-			// message lists, custom lists, and enum lists
-			//   'name': $fromList(name),
-			//   if (name != null) 'name': $fromList(name),
-			lines = append(lines, fmt.Sprintf("%s'%s': $fromList(%s),", prefix, name, name))
-		} else if (isMessage && !isMap) || isEnum {
-			// message, enum, and custom
-			if isRequired {
-				// 'name': name.toJson(),
-				lines = append(lines, fmt.Sprintf("'%s': %s.toJson(),", name, name))
-			} else {
-				// if (name != null) 'name': name!.toJson(),
-				lines = append(lines, fmt.Sprintf("if (%s != null) '%s': %s!.toJson(),", name, name, name))
-			}
-		} else {
-			// primitive, primitive lists, and primitive maps
-			//   'name': name
-			//   if (name != null) 'name': name,
-			lines = append(lines, fmt.Sprintf("%s'%s': %s,", prefix, name, name))
-		}
+	if isMessageMap {
+		// message maps: $encodeMap(name)
+		return "$encodeMap(" + name + ")"
+	} else if isList && (isMessage || isEnum) {
+		// message lists, custom lists, and enum lists: $encodeList(name)
+		return "$encodeList(" + name + ")"
+	} else if isMap {
+		// primitive maps
+		return name
+	} else if isMessage || isEnum {
+		// message, enum, and custom: name!.toJson()
+		return name + bang + ".toJson()"
+	} else {
+		// primitive, primitive lists
+		return name
 	}
-
-	return lines
 }
 
 func createToStringLines(message *api.Message) []string {
@@ -580,13 +524,16 @@ func annotateOneOf(field *api.OneOf, state *api.APIState) {
 
 func annotateField(field *api.Field, state *api.APIState, packageMapping map[string]string,
 	imports map[string]string, requiredFields map[string]*api.Field) {
-	_, ok := requiredFields[field.ID]
+	_, required := requiredFields[field.ID]
 
 	field.Codec = &fieldAnnotation{
 		Name:     strcase.ToLowerCamel(field.Name),
 		Type:     fieldType(field, state, packageMapping, imports),
 		DocLines: formatDocComments(field.Documentation, state),
-		Required: ok,
+		Required: required,
+		Nullable: !required,
+		FromJson: createFromJsonLine(field, state, required),
+		ToJson:   createToJsonLine(field, state, required),
 	}
 }
 

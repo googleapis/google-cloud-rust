@@ -285,18 +285,18 @@ class Secret extends CloudMessage {
   factory Secret.fromJson(Map<String, dynamic> json) {
     return Secret(
       name: json['name'],
-      replication: $toMessage(json['replication'], Replication.fromJson),
-      createTime: $toMessage(json['createTime'], Timestamp.fromJson),
+      replication: $decode(json['replication'], Replication.fromJson),
+      createTime: $decode(json['createTime'], Timestamp.fromJson),
       labels: (json['labels'] as Map?)?.cast(),
-      topics: $toMessageList(json['topics'], Topic.fromJson),
-      expireTime: $toMessage(json['expireTime'], Timestamp.fromJson),
-      ttl: $toCustom(json['ttl'], Duration.fromJson),
+      topics: $decodeList(json['topics'], Topic.fromJson),
+      expireTime: $decode(json['expireTime'], Timestamp.fromJson),
+      ttl: $decode(json['ttl'], Duration.fromJson),
       etag: json['etag'],
-      rotation: $toMessage(json['rotation'], Rotation.fromJson),
+      rotation: $decode(json['rotation'], Rotation.fromJson),
       versionAliases: (json['versionAliases'] as Map?)?.cast(),
       annotations: (json['annotations'] as Map?)?.cast(),
-      versionDestroyTtl: $toCustom(json['versionDestroyTtl'], Duration.fromJson),
-      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
+      versionDestroyTtl: $decode(json['versionDestroyTtl'], Duration.fromJson),
+      customerManagedEncryption: $decode(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
     );
   }
 
@@ -307,7 +307,7 @@ class Secret extends CloudMessage {
       if (replication != null) 'replication': replication!.toJson(),
       if (createTime != null) 'createTime': createTime!.toJson(),
       if (labels != null) 'labels': labels,
-      if (topics != null) 'topics': $fromList(topics),
+      if (topics != null) 'topics': $encodeList(topics),
       if (expireTime != null) 'expireTime': expireTime!.toJson(),
       if (ttl != null) 'ttl': ttl!.toJson(),
       if (etag != null) 'etag': etag,
@@ -401,14 +401,14 @@ class SecretVersion extends CloudMessage {
   factory SecretVersion.fromJson(Map<String, dynamic> json) {
     return SecretVersion(
       name: json['name'],
-      createTime: $toMessage(json['createTime'], Timestamp.fromJson),
-      destroyTime: $toMessage(json['destroyTime'], Timestamp.fromJson),
-      state: $toCustom(json['state'], SecretVersion$State.fromJson),
-      replicationStatus: $toMessage(json['replicationStatus'], ReplicationStatus.fromJson),
+      createTime: $decode(json['createTime'], Timestamp.fromJson),
+      destroyTime: $decode(json['destroyTime'], Timestamp.fromJson),
+      state: $decode(json['state'], SecretVersion$State.fromJson),
+      replicationStatus: $decode(json['replicationStatus'], ReplicationStatus.fromJson),
       etag: json['etag'],
       clientSpecifiedPayloadChecksum: json['clientSpecifiedPayloadChecksum'],
-      scheduledDestroyTime: $toMessage(json['scheduledDestroyTime'], Timestamp.fromJson),
-      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
+      scheduledDestroyTime: $decode(json['scheduledDestroyTime'], Timestamp.fromJson),
+      customerManagedEncryption: $decode(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
     );
   }
 
@@ -492,8 +492,8 @@ class Replication extends CloudMessage {
 
   factory Replication.fromJson(Map<String, dynamic> json) {
     return Replication(
-      automatic: $toMessage(json['automatic'], Replication$Automatic.fromJson),
-      userManaged: $toMessage(json['userManaged'], Replication$UserManaged.fromJson),
+      automatic: $decode(json['automatic'], Replication$Automatic.fromJson),
+      userManaged: $decode(json['userManaged'], Replication$UserManaged.fromJson),
     );
   }
 
@@ -531,7 +531,7 @@ class Replication$Automatic extends CloudMessage {
 
   factory Replication$Automatic.fromJson(Map<String, dynamic> json) {
     return Replication$Automatic(
-      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
+      customerManagedEncryption: $decode(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
     );
   }
 
@@ -563,14 +563,14 @@ class Replication$UserManaged extends CloudMessage {
 
   factory Replication$UserManaged.fromJson(Map<String, dynamic> json) {
     return Replication$UserManaged(
-      replicas: $toMessageList(json['replicas'], Replication$UserManaged$Replica.fromJson),
+      replicas: $decodeList(json['replicas'], Replication$UserManaged$Replica.fromJson),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (replicas != null) 'replicas': $fromList(replicas),
+      if (replicas != null) 'replicas': $encodeList(replicas),
     };
   }
 
@@ -605,7 +605,7 @@ class Replication$UserManaged$Replica extends CloudMessage {
   factory Replication$UserManaged$Replica.fromJson(Map<String, dynamic> json) {
     return Replication$UserManaged$Replica(
       location: json['location'],
-      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
+      customerManagedEncryption: $decode(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
     );
   }
 
@@ -700,8 +700,8 @@ class ReplicationStatus extends CloudMessage {
 
   factory ReplicationStatus.fromJson(Map<String, dynamic> json) {
     return ReplicationStatus(
-      automatic: $toMessage(json['automatic'], ReplicationStatus$AutomaticStatus.fromJson),
-      userManaged: $toMessage(json['userManaged'], ReplicationStatus$UserManagedStatus.fromJson),
+      automatic: $decode(json['automatic'], ReplicationStatus$AutomaticStatus.fromJson),
+      userManaged: $decode(json['userManaged'], ReplicationStatus$UserManagedStatus.fromJson),
     );
   }
 
@@ -736,7 +736,7 @@ class ReplicationStatus$AutomaticStatus extends CloudMessage {
 
   factory ReplicationStatus$AutomaticStatus.fromJson(Map<String, dynamic> json) {
     return ReplicationStatus$AutomaticStatus(
-      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
+      customerManagedEncryption: $decode(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
     );
   }
 
@@ -769,14 +769,14 @@ class ReplicationStatus$UserManagedStatus extends CloudMessage {
 
   factory ReplicationStatus$UserManagedStatus.fromJson(Map<String, dynamic> json) {
     return ReplicationStatus$UserManagedStatus(
-      replicas: $toMessageList(json['replicas'], ReplicationStatus$UserManagedStatus$ReplicaStatus.fromJson),
+      replicas: $decodeList(json['replicas'], ReplicationStatus$UserManagedStatus$ReplicaStatus.fromJson),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (replicas != null) 'replicas': $fromList(replicas),
+      if (replicas != null) 'replicas': $encodeList(replicas),
     };
   }
 
@@ -805,7 +805,7 @@ class ReplicationStatus$UserManagedStatus$ReplicaStatus extends CloudMessage {
   factory ReplicationStatus$UserManagedStatus$ReplicaStatus.fromJson(Map<String, dynamic> json) {
     return ReplicationStatus$UserManagedStatus$ReplicaStatus(
       location: json['location'],
-      customerManagedEncryption: $toMessage(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
+      customerManagedEncryption: $decode(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
     );
   }
 
@@ -935,8 +935,8 @@ class Rotation extends CloudMessage {
 
   factory Rotation.fromJson(Map<String, dynamic> json) {
     return Rotation(
-      nextRotationTime: $toMessage(json['nextRotationTime'], Timestamp.fromJson),
-      rotationPeriod: $toCustom(json['rotationPeriod'], Duration.fromJson),
+      nextRotationTime: $decode(json['nextRotationTime'], Timestamp.fromJson),
+      rotationPeriod: $decode(json['rotationPeriod'], Duration.fromJson),
     );
   }
 
@@ -1098,7 +1098,7 @@ class ListSecretsResponse extends CloudMessage {
 
   factory ListSecretsResponse.fromJson(Map<String, dynamic> json) {
     return ListSecretsResponse(
-      secrets: $toMessageList(json['secrets'], Secret.fromJson),
+      secrets: $decodeList(json['secrets'], Secret.fromJson),
       nextPageToken: json['nextPageToken'],
       totalSize: json['totalSize'],
     );
@@ -1107,7 +1107,7 @@ class ListSecretsResponse extends CloudMessage {
   @override
   Object toJson() {
     return {
-      if (secrets != null) 'secrets': $fromList(secrets),
+      if (secrets != null) 'secrets': $encodeList(secrets),
       if (nextPageToken != null) 'nextPageToken': nextPageToken,
       if (totalSize != null) 'totalSize': totalSize,
     };
@@ -1198,7 +1198,7 @@ class AddSecretVersionRequest extends CloudMessage {
   factory AddSecretVersionRequest.fromJson(Map<String, dynamic> json) {
     return AddSecretVersionRequest(
       parent: json['parent'],
-      payload: $toMessage(json['payload'], SecretPayload.fromJson),
+      payload: $decode(json['payload'], SecretPayload.fromJson),
     );
   }
 
@@ -1346,7 +1346,7 @@ class ListSecretVersionsResponse extends CloudMessage {
 
   factory ListSecretVersionsResponse.fromJson(Map<String, dynamic> json) {
     return ListSecretVersionsResponse(
-      versions: $toMessageList(json['versions'], SecretVersion.fromJson),
+      versions: $decodeList(json['versions'], SecretVersion.fromJson),
       nextPageToken: json['nextPageToken'],
       totalSize: json['totalSize'],
     );
@@ -1355,7 +1355,7 @@ class ListSecretVersionsResponse extends CloudMessage {
   @override
   Object toJson() {
     return {
-      if (versions != null) 'versions': $fromList(versions),
+      if (versions != null) 'versions': $encodeList(versions),
       if (nextPageToken != null) 'nextPageToken': nextPageToken,
       if (totalSize != null) 'totalSize': totalSize,
     };
@@ -1431,7 +1431,7 @@ class UpdateSecretRequest extends CloudMessage {
   factory UpdateSecretRequest.fromJson(Map<String, dynamic> json) {
     return UpdateSecretRequest(
       secret: Secret.fromJson(json['secret']),
-      updateMask: $toCustom(json['updateMask'], FieldMask.fromJson),
+      updateMask: $decode(json['updateMask'], FieldMask.fromJson),
     );
   }
 
@@ -1509,7 +1509,7 @@ class AccessSecretVersionResponse extends CloudMessage {
   factory AccessSecretVersionResponse.fromJson(Map<String, dynamic> json) {
     return AccessSecretVersionResponse(
       name: json['name'],
-      payload: $toMessage(json['payload'], SecretPayload.fromJson),
+      payload: $decode(json['payload'], SecretPayload.fromJson),
     );
   }
 

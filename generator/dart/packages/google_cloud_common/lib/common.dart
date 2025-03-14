@@ -112,34 +112,25 @@ abstract class CloudService {
   }
 }
 
-T? $toMessage<T>(dynamic json, T Function(Map<String, dynamic>) decoder) {
+T? $decode<T, S>(dynamic json, T Function(S) decoder) {
   return json == null ? null : decoder(json);
 }
 
-T? $toCustom<T>(dynamic json, T Function(String) decoder) {
-  return json == null ? null : decoder(json);
-}
-
-List<T>? $toMessageList<T>(
-    dynamic json, T Function(Map<String, dynamic>) decoder) {
+List<T>? $decodeList<T, S>(dynamic json, T Function(S) decoder) {
   return (json as List?)?.map((item) => decoder(item)).toList().cast();
 }
 
-List<T>? $toCustomList<T>(dynamic json, T Function(String) decoder) {
-  return (json as List?)?.map((item) => decoder(item)).toList().cast();
-}
-
-Map<String, T>? $toMap<T>(
+Map<String, T>? $decodeMap<T>(
     dynamic json, T Function(Map<String, dynamic>) decoder) {
   return (json as Map?)
       ?.map((key, value) => MapEntry(key, decoder(value)))
       .cast();
 }
 
-List? $fromList(List<JsonEncodable>? items) {
+List? $encodeList(List<JsonEncodable>? items) {
   return items?.map((item) => item.toJson()).toList();
 }
 
-Map? $fromMap(Map<String, JsonEncodable>? items) {
+Map? $encodeMap(Map<String, JsonEncodable>? items) {
   return items?.map((key, value) => MapEntry(key, value.toJson()));
 }
