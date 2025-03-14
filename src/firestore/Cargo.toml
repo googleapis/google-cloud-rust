@@ -36,10 +36,7 @@ tonic       = "0.12"
 tokio       = { version = "1.42", features = ["macros", "rt-multi-thread"] }
 # Local crates
 auth  = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
-gax   = { version = "0.20.0", path = "../gax", package = "google-cloud-gax" }
+gax   = { version = "0.21.0", path = "../gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
 gtype = { version = "0.2", path = "../generated/type", package = "google-cloud-type" }
 rpc   = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
 wkt   = { version = "0.2", path = "../wkt", package = "google-cloud-wkt", features = ["prost"] }
-
-[features]
-unstable-stream = []

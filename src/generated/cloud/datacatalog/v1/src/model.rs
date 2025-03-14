@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate longrunning;
@@ -956,7 +957,6 @@ impl wkt::message::Message for SearchCatalogResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchCatalogResponse {
     type PageItem = crate::model::SearchCatalogResult;
 
@@ -1275,7 +1275,6 @@ impl wkt::message::Message for ListEntryGroupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEntryGroupsResponse {
     type PageItem = crate::model::EntryGroup;
 
@@ -5322,7 +5321,6 @@ impl wkt::message::Message for ListTagsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTagsResponse {
     type PageItem = crate::model::Tag;
 
@@ -5712,7 +5710,6 @@ impl wkt::message::Message for ListEntriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEntriesResponse {
     type PageItem = crate::model::Entry;
 
@@ -8011,7 +8008,6 @@ impl wkt::message::Message for ListTaxonomiesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTaxonomiesResponse {
     type PageItem = crate::model::Taxonomy;
 
@@ -8293,7 +8289,6 @@ impl wkt::message::Message for ListPolicyTagsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPolicyTagsResponse {
     type PageItem = crate::model::PolicyTag;
 

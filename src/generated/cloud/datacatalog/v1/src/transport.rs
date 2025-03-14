@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataCatalog](crate::stubs::DataCatalog) using a [gax::http_client::ReqwestClient].
+/// Implements [DataCatalog](crate::stubs::DataCatalog) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DataCatalog {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for DataCatalog {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for DataCatalog {
 }
 
 impl DataCatalog {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -101,11 +101,11 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -123,7 +123,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                     "/v1/{}",
                     req.entry_group
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("entry_group"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("entry_group"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -163,7 +163,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -187,7 +187,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -223,7 +223,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                     "/v1/{}",
                     req.entry
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("entry"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("entry"))?
                         .name
                 ),
             )
@@ -239,7 +239,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.entry), options).await
@@ -260,7 +260,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -279,7 +279,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -316,7 +316,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
         let builder = builder.query(&[("project", &req.project)]);
         let builder = builder.query(&[("location", &req.location)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -343,11 +343,11 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "readMask")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -429,7 +429,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -447,7 +447,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                     "/v1/{}",
                     req.tag_template
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tag_template"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tag_template"))?
                         .name
                 ),
             )
@@ -463,7 +463,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -487,7 +487,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -532,7 +532,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -590,7 +590,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -625,7 +625,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                     "/v1/{}",
                     req.tag
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tag"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tag"))?
                         .name
                 ),
             )
@@ -641,7 +641,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.tag), options).await
@@ -662,7 +662,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -683,7 +683,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -856,7 +856,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -878,7 +878,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -900,7 +900,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -919,7 +919,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -938,7 +938,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -957,7 +957,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -976,10 +976,10 @@ impl crate::stubs::DataCatalog for DataCatalog {
     }
 }
 
-/// Implements [PolicyTagManager](crate::stubs::PolicyTagManager) using a [gax::http_client::ReqwestClient].
+/// Implements [PolicyTagManager](crate::stubs::PolicyTagManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyTagManager {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for PolicyTagManager {
@@ -991,8 +991,8 @@ impl std::fmt::Debug for PolicyTagManager {
 }
 
 impl PolicyTagManager {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1035,7 +1035,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1053,7 +1053,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                     "/v1/{}",
                     req.taxonomy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("taxonomy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("taxonomy"))?
                         .name
                 ),
             )
@@ -1069,7 +1069,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1098,7 +1098,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1117,7 +1117,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1158,7 +1158,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1176,7 +1176,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                     "/v1/{}",
                     req.policy_tag
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy_tag"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("policy_tag"))?
                         .name
                 ),
             )
@@ -1192,7 +1192,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1220,7 +1220,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1239,7 +1239,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1321,7 +1321,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1340,7 +1340,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1359,7 +1359,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1378,15 +1378,15 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 }
 
-/// Implements [PolicyTagManagerSerialization](crate::stubs::PolicyTagManagerSerialization) using a [gax::http_client::ReqwestClient].
+/// Implements [PolicyTagManagerSerialization](crate::stubs::PolicyTagManagerSerialization) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyTagManagerSerialization {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for PolicyTagManagerSerialization {
@@ -1398,8 +1398,8 @@ impl std::fmt::Debug for PolicyTagManagerSerialization {
 }
 
 impl PolicyTagManagerSerialization {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1470,7 +1470,7 @@ impl crate::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerializati
                 builder.query(&[("serializedTaxonomies", p)])
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1492,7 +1492,7 @@ impl crate::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerializati
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1511,7 +1511,7 @@ impl crate::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerializati
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1530,7 +1530,7 @@ impl crate::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerializati
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1549,7 +1549,7 @@ impl crate::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerializati
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 }

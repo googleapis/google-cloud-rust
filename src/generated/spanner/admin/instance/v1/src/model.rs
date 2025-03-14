@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate longrunning;
@@ -2011,7 +2012,6 @@ impl wkt::message::Message for ListInstanceConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstanceConfigsResponse {
     type PageItem = crate::model::InstanceConfig;
 
@@ -2439,7 +2439,6 @@ impl wkt::message::Message for ListInstanceConfigOperationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstanceConfigOperationsResponse {
     type PageItem = longrunning::model::Operation;
 
@@ -2741,7 +2740,6 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
@@ -4156,7 +4154,6 @@ impl wkt::message::Message for ListInstancePartitionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstancePartitionsResponse {
     type PageItem = crate::model::InstancePartition;
 
@@ -4380,7 +4377,6 @@ impl wkt::message::Message for ListInstancePartitionOperationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstancePartitionOperationsResponse {
     type PageItem = longrunning::model::Operation;
 

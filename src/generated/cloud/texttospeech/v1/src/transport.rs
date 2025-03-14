@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TextToSpeech](crate::stubs::TextToSpeech) using a [gax::http_client::ReqwestClient].
+/// Implements [TextToSpeech](crate::stubs::TextToSpeech) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TextToSpeech {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for TextToSpeech {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for TextToSpeech {
 }
 
 impl TextToSpeech {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -56,7 +56,7 @@ impl crate::stubs::TextToSpeech for TextToSpeech {
             );
         let builder = builder.query(&[("languageCode", &req.language_code)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -95,7 +95,7 @@ impl crate::stubs::TextToSpeech for TextToSpeech {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -114,15 +114,15 @@ impl crate::stubs::TextToSpeech for TextToSpeech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 }
 
-/// Implements [TextToSpeechLongAudioSynthesize](crate::stubs::TextToSpeechLongAudioSynthesize) using a [gax::http_client::ReqwestClient].
+/// Implements [TextToSpeechLongAudioSynthesize](crate::stubs::TextToSpeechLongAudioSynthesize) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TextToSpeechLongAudioSynthesize {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for TextToSpeechLongAudioSynthesize {
@@ -134,8 +134,8 @@ impl std::fmt::Debug for TextToSpeechLongAudioSynthesize {
 }
 
 impl TextToSpeechLongAudioSynthesize {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -179,7 +179,7 @@ impl crate::stubs::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSynt
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -198,7 +198,7 @@ impl crate::stubs::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSynt
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

@@ -22,6 +22,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate longrunning;
@@ -1522,7 +1523,6 @@ impl wkt::message::Message for ListInventoriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInventoriesResponse {
     type PageItem = crate::model::Inventory;
 
@@ -4300,7 +4300,6 @@ impl wkt::message::Message for ListOSPolicyAssignmentReportsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOSPolicyAssignmentReportsResponse {
     type PageItem = crate::model::OSPolicyAssignmentReport;
 
@@ -5940,7 +5939,6 @@ impl wkt::message::Message for ListOSPolicyAssignmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOSPolicyAssignmentsResponse {
     type PageItem = crate::model::OSPolicyAssignment;
 
@@ -6048,7 +6046,6 @@ impl wkt::message::Message for ListOSPolicyAssignmentRevisionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOSPolicyAssignmentRevisionsResponse {
     type PageItem = crate::model::OSPolicyAssignment;
 
@@ -7186,7 +7183,6 @@ impl wkt::message::Message for ListPatchDeploymentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPatchDeploymentsResponse {
     type PageItem = crate::model::PatchDeployment;
 
@@ -7592,7 +7588,6 @@ impl wkt::message::Message for ListPatchJobInstanceDetailsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPatchJobInstanceDetailsResponse {
     type PageItem = crate::model::PatchJobInstanceDetails;
 
@@ -7788,7 +7783,6 @@ impl wkt::message::Message for ListPatchJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPatchJobsResponse {
     type PageItem = crate::model::PatchJob;
 
@@ -10358,7 +10352,6 @@ impl wkt::message::Message for ListVulnerabilityReportsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVulnerabilityReportsResponse {
     type PageItem = crate::model::VulnerabilityReport;
 

@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate reqwest;
@@ -13875,7 +13876,6 @@ impl wkt::message::Message for ListInspectTemplatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInspectTemplatesResponse {
     type PageItem = crate::model::InspectTemplate;
 
@@ -14405,7 +14405,6 @@ impl wkt::message::Message for ListDiscoveryConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDiscoveryConfigsResponse {
     type PageItem = crate::model::DiscoveryConfig;
 
@@ -14802,7 +14801,6 @@ impl wkt::message::Message for ListJobTriggersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListJobTriggersResponse {
     type PageItem = crate::model::JobTrigger;
 
@@ -22153,7 +22151,6 @@ impl wkt::message::Message for ListDlpJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDlpJobsResponse {
     type PageItem = crate::model::DlpJob;
 
@@ -22581,7 +22578,6 @@ impl wkt::message::Message for ListDeidentifyTemplatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDeidentifyTemplatesResponse {
     type PageItem = crate::model::DeidentifyTemplate;
 
@@ -23537,7 +23533,6 @@ impl wkt::message::Message for ListStoredInfoTypesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListStoredInfoTypesResponse {
     type PageItem = crate::model::StoredInfoType;
 
@@ -23997,7 +23992,6 @@ impl wkt::message::Message for ListProjectDataProfilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProjectDataProfilesResponse {
     type PageItem = crate::model::ProjectDataProfile;
 
@@ -24172,7 +24166,6 @@ impl wkt::message::Message for ListTableDataProfilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTableDataProfilesResponse {
     type PageItem = crate::model::TableDataProfile;
 
@@ -24348,7 +24341,6 @@ impl wkt::message::Message for ListColumnDataProfilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListColumnDataProfilesResponse {
     type PageItem = crate::model::ColumnDataProfile;
 
@@ -26705,7 +26697,6 @@ impl wkt::message::Message for ListFileStoreDataProfilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFileStoreDataProfilesResponse {
     type PageItem = crate::model::FileStoreDataProfile;
 
@@ -27458,7 +27449,6 @@ impl wkt::message::Message for ListConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
@@ -27518,7 +27508,6 @@ impl wkt::message::Message for SearchConnectionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchConnectionsResponse {
     type PageItem = crate::model::Connection;
 

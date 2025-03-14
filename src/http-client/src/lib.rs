@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,22 +12,44 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::backoff_policy::BackoffPolicy;
-use crate::error::Error;
-use crate::error::HttpError;
-use crate::error::ServiceError;
-use crate::exponential_backoff::ExponentialBackoff;
-use crate::loop_state::LoopState;
-use crate::options;
-use crate::polling_backoff_policy::PollingBackoffPolicy;
-use crate::polling_policy::Aip194Strict;
-use crate::polling_policy::PollingPolicy;
-use crate::retry_policy::RetryPolicy;
-use crate::retry_throttler::RetryThrottlerWrapped;
-use crate::Result;
+//! Implementation details for Google Cloud clients using HTTP as their
+//! transport.
+//!
+//! All the types, traits, and functions defined in this crate are **not**
+//! intended for general use. This crate will remain unstable for the
+//! foreseeable future, even if used in the implementation for stable client
+//! libraries. We (the Google Cloud Client Libraries for Rust team) control
+//! both and will change both if needed.
+
 use auth::credentials::{create_access_token_credential, Credential};
+use gax::backoff_policy::BackoffPolicy;
+use gax::error::Error;
+use gax::error::HttpError;
+use gax::error::ServiceError;
+use gax::exponential_backoff::ExponentialBackoff;
+use gax::loop_state::LoopState;
+use gax::options;
+pub use gax::options::ClientConfig;
+use gax::polling_backoff_policy::PollingBackoffPolicy;
+use gax::polling_policy::Aip194Strict;
+use gax::polling_policy::PollingPolicy;
+use gax::retry_policy::RetryPolicy;
+use gax::retry_throttler::SharedRetryThrottler;
+use gax::Result;
 use std::sync::Arc;
 
+#[doc(hidden)]
+pub mod path_parameter {
+    pub use gax::path_parameter::missing;
+    pub use gax::path_parameter::Error;
+}
+
+#[doc(hidden)]
+pub mod query_parameter {
+    pub use gax::query_parameter::QueryParameter;
+}
+
+#[doc(hidden)]
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: reqwest::Client,
@@ -35,7 +57,7 @@ pub struct ReqwestClient {
     endpoint: String,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
-    retry_throttler: RetryThrottlerWrapped,
+    retry_throttler: SharedRetryThrottler,
     polling_policy: Option<Arc<dyn PollingPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
@@ -43,7 +65,7 @@ pub struct ReqwestClient {
 impl ReqwestClient {
     pub async fn new(config: ClientConfig, default_endpoint: &str) -> Result<Self> {
         let inner = reqwest::Client::new();
-        let cred = if let Some(c) = config.cred {
+        let cred = if let Some(c) = config.credential().clone() {
             c
         } else {
             create_access_token_credential()
@@ -51,17 +73,18 @@ impl ReqwestClient {
                 .map_err(Error::authentication)?
         };
         let endpoint = config
-            .endpoint
+            .endpoint()
+            .clone()
             .unwrap_or_else(|| default_endpoint.to_string());
         Ok(Self {
             inner,
             cred,
             endpoint,
-            retry_policy: config.retry_policy,
-            backoff_policy: config.backoff_policy,
-            retry_throttler: config.retry_throttler,
-            polling_policy: config.polling_policy,
-            polling_backoff_policy: config.polling_backoff_policy,
+            retry_policy: config.retry_policy().clone(),
+            backoff_policy: config.backoff_policy().clone(),
+            retry_throttler: config.retry_throttler(),
+            polling_policy: config.polling_policy().clone(),
+            polling_backoff_policy: config.polling_backoff_policy().clone(),
         })
     }
 
@@ -134,7 +157,7 @@ impl ReqwestClient {
                     let flow = retry_policy.on_error(
                         loop_start,
                         attempt_count,
-                        options.idempotent.unwrap_or(false),
+                        options.idempotent().unwrap_or(false),
                         e,
                     );
                     let delay = backoff.on_failure(loop_start, attempt_count);
@@ -198,7 +221,7 @@ impl ReqwestClient {
         let status_code = response.status().as_u16();
         let headers = Self::convert_headers(response.headers());
         let body = response.bytes().await.map_err(Error::io)?;
-        let error = if let Ok(status) = crate::error::rpc::Status::try_from(&body) {
+        let error = if let Ok(status) = gax::error::rpc::Status::try_from(&body) {
             Error::rpc(
                 ServiceError::from(status)
                     .with_headers(headers)
@@ -226,7 +249,7 @@ impl ReqwestClient {
 
     fn get_retry_policy(&self, options: &options::RequestOptions) -> Option<Arc<dyn RetryPolicy>> {
         options
-            .retry_policy
+            .retry_policy()
             .clone()
             .or_else(|| self.retry_policy.clone())
     }
@@ -236,7 +259,7 @@ impl ReqwestClient {
         options: &options::RequestOptions,
     ) -> Arc<dyn BackoffPolicy> {
         options
-            .backoff_policy
+            .backoff_policy()
             .clone()
             .or_else(|| self.backoff_policy.clone())
             .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
@@ -245,9 +268,9 @@ impl ReqwestClient {
     pub(crate) fn get_retry_throttler(
         &self,
         options: &options::RequestOptions,
-    ) -> RetryThrottlerWrapped {
+    ) -> SharedRetryThrottler {
         options
-            .retry_throttler
+            .retry_throttler()
             .clone()
             .unwrap_or_else(|| self.retry_throttler.clone())
     }
@@ -255,9 +278,9 @@ impl ReqwestClient {
     pub fn get_polling_policy(
         &self,
         options: &options::RequestOptions,
-    ) -> Arc<dyn crate::polling_policy::PollingPolicy> {
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
         options
-            .polling_policy
+            .polling_policy()
             .clone()
             .or_else(|| self.polling_policy.clone())
             .unwrap_or_else(|| Arc::new(Aip194Strict))
@@ -266,21 +289,20 @@ impl ReqwestClient {
     pub fn get_polling_backoff_policy(
         &self,
         options: &options::RequestOptions,
-    ) -> Arc<dyn crate::polling_backoff_policy::PollingBackoffPolicy> {
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
         options
-            .polling_backoff_policy
+            .polling_backoff_policy()
             .clone()
             .or_else(|| self.polling_backoff_policy.clone())
             .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
     }
 }
 
+#[doc(hidden)]
 #[derive(serde::Serialize)]
 pub struct NoBody {}
 
 const SENSITIVE_HEADER: &str = "[sensitive]";
-
-pub type ClientConfig = crate::options::ClientConfig;
 
 #[cfg(test)]
 mod test {
@@ -369,18 +391,17 @@ mod test {
 
     #[tokio::test]
     async fn client_error_with_status() -> TestResult {
-        use crate::error::rpc::*;
-        use crate::error::ServiceError;
-        let status = Status {
-            code: 404,
-            message: "The thing is not there, oh noes!".to_string(),
-            status: Some("NOT_FOUND".to_string()),
-            details: vec![StatusDetails::LocalizedMessage(
+        use gax::error::rpc::*;
+        use gax::error::ServiceError;
+        let status = Status::default()
+            .set_code(404)
+            .set_message("The thing is not there, oh noes!")
+            .set_status("NOT_FOUND")
+            .set_details([StatusDetails::LocalizedMessage(
                 rpc::model::LocalizedMessage::default()
                     .set_locale("en-US")
                     .set_message("we searched everywhere, honest"),
-            )],
-        };
+            )]);
         let body = serde_json::json!({"error": serde_json::to_value(&status)?});
         let http_resp = http::Response::builder()
             .header("Content-Type", "application/json")

@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate iam_v1;
 extern crate lazy_static;
@@ -1240,7 +1241,6 @@ impl wkt::message::Message for ListReplayResultsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListReplayResultsResponse {
     type PageItem = crate::model::ReplayResult;
 

@@ -31,10 +31,10 @@ impl wkt::prost::Convert<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
         match self {
             {{#Fields}}
             {{^Codec.IsBoxed}}
-            Self::{{Codec.BranchName}}(v) => T::{{Codec.BranchName}}(v.cnv()),
+            Self::{{Codec.BranchName}}(v) => T::{{Codec.BranchName}}(v.{{Codec.ToProto}}()),
             {{/Codec.IsBoxed}}
             {{#Codec.IsBoxed}}
-            Self::{{Codec.BranchName}}(v) => T::{{Codec.BranchName}}((*v).cnv()),
+            Self::{{Codec.BranchName}}(v) => T::{{Codec.BranchName}}((*v).{{Codec.ToProto}}()),
             {{/Codec.IsBoxed}}
             {{/Fields}}
         }

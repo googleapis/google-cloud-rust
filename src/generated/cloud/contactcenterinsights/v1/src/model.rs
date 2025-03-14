@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate longrunning;
@@ -770,7 +771,6 @@ impl wkt::message::Message for ListConversationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListConversationsResponse {
     type PageItem = crate::model::Conversation;
 
@@ -1713,7 +1713,6 @@ impl wkt::message::Message for ListAnalysesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAnalysesResponse {
     type PageItem = crate::model::Analysis;
 
@@ -3834,7 +3833,6 @@ impl wkt::message::Message for ListPhraseMatchersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPhraseMatchersResponse {
     type PageItem = crate::model::PhraseMatcher;
 
@@ -4279,7 +4277,6 @@ impl wkt::message::Message for ListAnalysisRulesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAnalysisRulesResponse {
     type PageItem = crate::model::AnalysisRule;
 
@@ -4625,7 +4622,6 @@ impl wkt::message::Message for ListViewsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListViewsResponse {
     type PageItem = crate::model::View;
 
@@ -6171,7 +6167,6 @@ impl wkt::message::Message for ListQaQuestionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListQaQuestionsResponse {
     type PageItem = crate::model::QaQuestion;
 
@@ -7055,7 +7050,6 @@ impl wkt::message::Message for ListQaScorecardsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListQaScorecardsResponse {
     type PageItem = crate::model::QaScorecard;
 
@@ -7180,7 +7174,6 @@ impl wkt::message::Message for ListQaScorecardRevisionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListQaScorecardRevisionsResponse {
     type PageItem = crate::model::QaScorecardRevision;
 
@@ -7372,7 +7365,6 @@ impl wkt::message::Message for ListFeedbackLabelsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFeedbackLabelsResponse {
     type PageItem = crate::model::FeedbackLabel;
 
@@ -7610,7 +7602,6 @@ impl wkt::message::Message for ListAllFeedbackLabelsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAllFeedbackLabelsResponse {
     type PageItem = crate::model::FeedbackLabel;
 

@@ -1045,8 +1045,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAppProfilesResponse, gax::error::Error>
         {
@@ -1428,8 +1427,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListHotTabletsResponse, gax::error::Error>
         {
@@ -1514,8 +1512,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1910,8 +1907,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTablesResponse, gax::error::Error>
         {
@@ -2350,8 +2346,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAuthorizedViewsResponse, gax::error::Error>
         {
@@ -2993,8 +2988,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error>
         {
@@ -3331,8 +3325,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
@@ -3771,8 +3764,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {

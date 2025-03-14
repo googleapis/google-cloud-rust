@@ -285,6 +285,11 @@ func loadWellKnownTypes(s *api.APIState) {
 	for _, message := range wellKnownMessages {
 		s.MessageByID[message.ID] = message
 	}
+	s.EnumByID[".google.protobuf.NullValue"] = &api.Enum{
+		Name:    "NullValue",
+		Package: "google.protobuf",
+		ID:      ".google.protobuf.NullValue",
+	}
 }
 
 func resolveUsedPackages(model *api.API, extraPackages []*packagez) {
@@ -571,6 +576,15 @@ func mapType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationP
 	}
 }
 
+func toProto(f *api.Field) string {
+	switch f.Typez {
+	case api.ENUM_TYPE:
+		return "value"
+	default:
+		return "cnv"
+	}
+}
+
 // Returns the field type, ignoring any repeated or optional attributes.
 func baseFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
 	if f.Typez == api.MESSAGE_TYPE {
@@ -617,9 +631,9 @@ func addQueryParameter(f *api.Field) string {
 		// few requests use nested objects as query parameters. Furthermore,
 		// the conversion is skipped if the object field is `None`.`
 		if f.Optional || f.Repeated {
-			return fmt.Sprintf(`let builder = req.%s.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "%s") });`, fieldName, f.JSONName)
+			return fmt.Sprintf(`let builder = req.%s.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gclient::query_parameter::QueryParameter; v.add(builder, "%s") });`, fieldName, f.JSONName)
 		}
-		return fmt.Sprintf(`let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.%s).map_err(Error::serde)?.add(builder, "%s") };`, fieldName, f.JSONName)
+		return fmt.Sprintf(`let builder = { use gclient::query_parameter::QueryParameter; serde_json::to_value(&req.%s).map_err(Error::serde)?.add(builder, "%s") };`, fieldName, f.JSONName)
 	default:
 		if f.Optional || f.Repeated {
 			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
@@ -639,7 +653,7 @@ func addQueryParameterOneOf(f *api.Field) string {
 		// query. The conversion to `serde_json::Value` is expensive, but very
 		// few requests use nested objects as query parameters. Furthermore,
 		// the conversion is skipped if the object field is `None`.`
-		return fmt.Sprintf(`let builder = req.get_%s().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; p.add(builder, "%s") });`, fieldName, f.JSONName)
+		return fmt.Sprintf(`let builder = req.get_%s().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gclient::query_parameter::QueryParameter; p.add(builder, "%s") });`, fieldName, f.JSONName)
 	default:
 		return fmt.Sprintf(`let builder = req.get_%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
 	}
@@ -741,7 +755,7 @@ func httpPathFmt(m *api.PathInfo) string {
 
 func derefFieldExpr(name string, optional bool, nextMessage *api.Message) (string, *api.Message) {
 	const (
-		optionalFmt = `.%s.as_ref().ok_or_else(|| gax::path_parameter::missing("%s"))?`
+		optionalFmt = `.%s.as_ref().ok_or_else(|| gclient::path_parameter::missing("%s"))?`
 	)
 	if optional {
 		return fmt.Sprintf(optionalFmt, name, name), nextMessage
@@ -1503,53 +1517,6 @@ func PackageName(api *api.API, packageNameOverride string) string {
 		name = api.Name
 	}
 	return "google-cloud-" + name
-}
-
-func hasStreamingRPC(model *api.API) bool {
-	for _, m := range model.Messages {
-		if m.IsPageableResponse {
-			return true
-		}
-	}
-	// Sometimes the method with a pageable message is using an imported message
-	// or is part of a mixin.
-	for _, s := range model.Services {
-		for _, m := range s.Methods {
-			if output, ok := model.State.MessageByID[m.OutputTypeID]; ok {
-				if output.IsPageableResponse {
-					return true
-				}
-			}
-		}
-	}
-	return false
-}
-
-func addStreamingFeature(ann *modelAnnotations, api *api.API, extraPackages []*packagez) {
-	hasStreamingRPC := hasStreamingRPC(api)
-	if !hasStreamingRPC {
-		return
-	}
-	// Create a list of dependency features we need to enable. To avoid
-	// uninteresting changes, always sort the list.
-	feature := func(name string) string {
-		return fmt.Sprintf(`"%s/unstable-stream"`, name)
-	}
-	deps := []string{feature("gax")}
-	for _, p := range extraPackages {
-		if p.ignore || !p.used {
-			continue
-		}
-		// Only mixins are relevant here, and only longrunning and location have
-		// streaming features. Hardcoding the list is not a terrible problem.
-		if p.name == "location" || p.name == "longrunning" {
-			deps = append(deps, feature(p.name))
-		}
-	}
-	sort.Strings(deps)
-	features := fmt.Sprintf("unstable-stream = [%s]", strings.Join(deps, ", "))
-	ann.HasFeatures = true
-	ann.Features = append(ann.Features, features)
 }
 
 func generateMethod(m *api.Method) bool {

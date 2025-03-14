@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ParameterManager](crate::stubs::ParameterManager) using a [gax::http_client::ReqwestClient].
+/// Implements [ParameterManager](crate::stubs::ParameterManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ParameterManager {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for ParameterManager {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ParameterManager {
 }
 
 impl ParameterManager {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -123,7 +123,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
                     "/v1/{}",
                     req.parameter
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("parameter"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("parameter"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -164,7 +164,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -187,7 +187,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -207,7 +207,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -226,7 +226,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -268,7 +268,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
                     "/v1/{}",
                     req.parameter_version
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("parameter_version"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("parameter_version"))?
                         .name
                 ),
             )
@@ -284,7 +284,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -309,7 +309,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -331,7 +331,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -350,7 +350,7 @@ impl crate::stubs::ParameterManager for ParameterManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 }

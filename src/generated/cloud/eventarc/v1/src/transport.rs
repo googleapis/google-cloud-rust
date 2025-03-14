@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Eventarc](crate::stubs::Eventarc) using a [gax::http_client::ReqwestClient].
+/// Implements [Eventarc](crate::stubs::Eventarc) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Eventarc {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for Eventarc {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for Eventarc {
 }
 
 impl Eventarc {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -55,7 +55,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -78,7 +78,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -120,7 +120,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.trigger
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("trigger"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("trigger"))?
                         .name
                 ),
             )
@@ -136,7 +136,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -164,7 +164,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -183,7 +183,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -205,7 +205,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -247,7 +247,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.channel
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("channel"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("channel"))?
                         .name
                 ),
             )
@@ -263,7 +263,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -288,7 +288,7 @@ impl crate::stubs::Eventarc for Eventarc {
             );
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -307,7 +307,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -333,7 +333,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -352,7 +352,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -376,7 +376,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -418,7 +418,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -437,7 +437,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -455,7 +455,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.google_channel_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("google_channel_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("google_channel_config"))?
                         .name
                 ),
             )
@@ -471,7 +471,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -494,7 +494,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -520,7 +520,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -544,7 +544,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -586,7 +586,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.message_bus
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("message_bus"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("message_bus"))?
                         .name
                 ),
             )
@@ -602,7 +602,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -630,7 +630,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -649,7 +649,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -675,7 +675,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -717,7 +717,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.enrollment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("enrollment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("enrollment"))?
                         .name
                 ),
             )
@@ -733,7 +733,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -761,7 +761,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -780,7 +780,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -806,7 +806,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -848,7 +848,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.pipeline
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("pipeline"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("pipeline"))?
                         .name
                 ),
             )
@@ -864,7 +864,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -892,7 +892,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -911,7 +911,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -937,7 +937,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -979,7 +979,7 @@ impl crate::stubs::Eventarc for Eventarc {
                     "/v1/{}",
                     req.google_api_source
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("google_api_source"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("google_api_source"))?
                         .name
                 ),
             )
@@ -995,7 +995,7 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -1023,7 +1023,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1045,7 +1045,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1064,7 +1064,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1112,11 +1112,11 @@ impl crate::stubs::Eventarc for Eventarc {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1158,7 +1158,7 @@ impl crate::stubs::Eventarc for Eventarc {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1177,7 +1177,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1196,7 +1196,7 @@ impl crate::stubs::Eventarc for Eventarc {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

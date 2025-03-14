@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ApiHub](crate::stubs::ApiHub) using a [gax::http_client::ReqwestClient].
+/// Implements [ApiHub](crate::stubs::ApiHub) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiHub {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for ApiHub {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ApiHub {
 }
 
 impl ApiHub {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -73,7 +73,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -95,7 +95,7 @@ impl crate::stubs::ApiHub for ApiHub {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -113,7 +113,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.api
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("api"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("api"))?
                         .name
                 ),
             )
@@ -129,7 +129,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.api), options).await
@@ -151,7 +151,7 @@ impl crate::stubs::ApiHub for ApiHub {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -193,7 +193,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -215,7 +215,7 @@ impl crate::stubs::ApiHub for ApiHub {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -233,7 +233,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.version
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("version"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("version"))?
                         .name
                 ),
             )
@@ -249,7 +249,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -273,7 +273,7 @@ impl crate::stubs::ApiHub for ApiHub {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -310,7 +310,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -329,7 +329,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -351,7 +351,7 @@ impl crate::stubs::ApiHub for ApiHub {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -369,7 +369,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.spec
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("spec"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("spec"))?
                         .name
                 ),
             )
@@ -385,7 +385,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.spec), options).await
@@ -406,7 +406,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -425,7 +425,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -450,7 +450,7 @@ impl crate::stubs::ApiHub for ApiHub {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -469,7 +469,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -511,7 +511,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -536,7 +536,7 @@ impl crate::stubs::ApiHub for ApiHub {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -554,7 +554,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.deployment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("deployment"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("deployment"))?
                         .name
                 ),
             )
@@ -570,7 +570,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -593,7 +593,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -635,7 +635,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -653,7 +653,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.attribute
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("attribute"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("attribute"))?
                         .name
                 ),
             )
@@ -669,7 +669,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -692,7 +692,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -717,7 +717,7 @@ impl crate::stubs::ApiHub for ApiHub {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -779,7 +779,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -797,7 +797,7 @@ impl crate::stubs::ApiHub for ApiHub {
                     "/v1/{}",
                     req.external_api
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("external_api"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("external_api"))?
                         .name
                 ),
             )
@@ -813,7 +813,7 @@ impl crate::stubs::ApiHub for ApiHub {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -836,7 +836,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -860,7 +860,7 @@ impl crate::stubs::ApiHub for ApiHub {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -882,7 +882,7 @@ impl crate::stubs::ApiHub for ApiHub {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -901,7 +901,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -923,7 +923,7 @@ impl crate::stubs::ApiHub for ApiHub {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -942,7 +942,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -961,7 +961,7 @@ impl crate::stubs::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -983,10 +983,10 @@ impl crate::stubs::ApiHub for ApiHub {
     }
 }
 
-/// Implements [ApiHubDependencies](crate::stubs::ApiHubDependencies) using a [gax::http_client::ReqwestClient].
+/// Implements [ApiHubDependencies](crate::stubs::ApiHubDependencies) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiHubDependencies {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for ApiHubDependencies {
@@ -998,8 +998,8 @@ impl std::fmt::Debug for ApiHubDependencies {
 }
 
 impl ApiHubDependencies {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1043,7 +1043,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1061,7 +1061,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
                     "/v1/{}",
                     req.dependency
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("dependency"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("dependency"))?
                         .name
                 ),
             )
@@ -1077,7 +1077,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1100,7 +1100,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1125,7 +1125,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1147,7 +1147,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1166,7 +1166,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1188,7 +1188,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1207,7 +1207,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1226,7 +1226,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1248,10 +1248,10 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
     }
 }
 
-/// Implements [HostProjectRegistrationService](crate::stubs::HostProjectRegistrationService) using a [gax::http_client::ReqwestClient].
+/// Implements [HostProjectRegistrationService](crate::stubs::HostProjectRegistrationService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct HostProjectRegistrationService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for HostProjectRegistrationService {
@@ -1263,8 +1263,8 @@ impl std::fmt::Debug for HostProjectRegistrationService {
 }
 
 impl HostProjectRegistrationService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1311,7 +1311,7 @@ impl crate::stubs::HostProjectRegistrationService for HostProjectRegistrationSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1337,7 +1337,7 @@ impl crate::stubs::HostProjectRegistrationService for HostProjectRegistrationSer
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1359,7 +1359,7 @@ impl crate::stubs::HostProjectRegistrationService for HostProjectRegistrationSer
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1378,7 +1378,7 @@ impl crate::stubs::HostProjectRegistrationService for HostProjectRegistrationSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1400,7 +1400,7 @@ impl crate::stubs::HostProjectRegistrationService for HostProjectRegistrationSer
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1419,7 +1419,7 @@ impl crate::stubs::HostProjectRegistrationService for HostProjectRegistrationSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1438,7 +1438,7 @@ impl crate::stubs::HostProjectRegistrationService for HostProjectRegistrationSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1460,10 +1460,10 @@ impl crate::stubs::HostProjectRegistrationService for HostProjectRegistrationSer
     }
 }
 
-/// Implements [LintingService](crate::stubs::LintingService) using a [gax::http_client::ReqwestClient].
+/// Implements [LintingService](crate::stubs::LintingService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct LintingService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for LintingService {
@@ -1475,8 +1475,8 @@ impl std::fmt::Debug for LintingService {
 }
 
 impl LintingService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1497,7 +1497,7 @@ impl crate::stubs::LintingService for LintingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1515,7 +1515,7 @@ impl crate::stubs::LintingService for LintingService {
                     "/v1/{}",
                     req.style_guide
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("style_guide"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("style_guide"))?
                         .name
                 ),
             )
@@ -1531,7 +1531,7 @@ impl crate::stubs::LintingService for LintingService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1554,7 +1554,7 @@ impl crate::stubs::LintingService for LintingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1593,7 +1593,7 @@ impl crate::stubs::LintingService for LintingService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1612,7 +1612,7 @@ impl crate::stubs::LintingService for LintingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1634,7 +1634,7 @@ impl crate::stubs::LintingService for LintingService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1653,7 +1653,7 @@ impl crate::stubs::LintingService for LintingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1672,7 +1672,7 @@ impl crate::stubs::LintingService for LintingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1694,10 +1694,10 @@ impl crate::stubs::LintingService for LintingService {
     }
 }
 
-/// Implements [ApiHubPlugin](crate::stubs::ApiHubPlugin) using a [gax::http_client::ReqwestClient].
+/// Implements [ApiHubPlugin](crate::stubs::ApiHubPlugin) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiHubPlugin {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for ApiHubPlugin {
@@ -1709,8 +1709,8 @@ impl std::fmt::Debug for ApiHubPlugin {
 }
 
 impl ApiHubPlugin {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1731,7 +1731,7 @@ impl crate::stubs::ApiHubPlugin for ApiHubPlugin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1787,7 +1787,7 @@ impl crate::stubs::ApiHubPlugin for ApiHubPlugin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1806,7 +1806,7 @@ impl crate::stubs::ApiHubPlugin for ApiHubPlugin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1828,7 +1828,7 @@ impl crate::stubs::ApiHubPlugin for ApiHubPlugin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1847,7 +1847,7 @@ impl crate::stubs::ApiHubPlugin for ApiHubPlugin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1866,7 +1866,7 @@ impl crate::stubs::ApiHubPlugin for ApiHubPlugin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1888,10 +1888,10 @@ impl crate::stubs::ApiHubPlugin for ApiHubPlugin {
     }
 }
 
-/// Implements [Provisioning](crate::stubs::Provisioning) using a [gax::http_client::ReqwestClient].
+/// Implements [Provisioning](crate::stubs::Provisioning) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Provisioning {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for Provisioning {
@@ -1903,8 +1903,8 @@ impl std::fmt::Debug for Provisioning {
 }
 
 impl Provisioning {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1948,7 +1948,7 @@ impl crate::stubs::Provisioning for Provisioning {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1970,7 +1970,7 @@ impl crate::stubs::Provisioning for Provisioning {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1992,7 +1992,7 @@ impl crate::stubs::Provisioning for Provisioning {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2011,7 +2011,7 @@ impl crate::stubs::Provisioning for Provisioning {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2033,7 +2033,7 @@ impl crate::stubs::Provisioning for Provisioning {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2052,7 +2052,7 @@ impl crate::stubs::Provisioning for Provisioning {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2071,7 +2071,7 @@ impl crate::stubs::Provisioning for Provisioning {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2107,10 +2107,10 @@ impl crate::stubs::Provisioning for Provisioning {
     }
 }
 
-/// Implements [RuntimeProjectAttachmentService](crate::stubs::RuntimeProjectAttachmentService) using a [gax::http_client::ReqwestClient].
+/// Implements [RuntimeProjectAttachmentService](crate::stubs::RuntimeProjectAttachmentService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct RuntimeProjectAttachmentService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for RuntimeProjectAttachmentService {
@@ -2122,8 +2122,8 @@ impl std::fmt::Debug for RuntimeProjectAttachmentService {
 }
 
 impl RuntimeProjectAttachmentService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -2170,7 +2170,7 @@ impl crate::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentS
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2196,7 +2196,7 @@ impl crate::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentS
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2215,7 +2215,7 @@ impl crate::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentS
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2237,7 +2237,7 @@ impl crate::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentS
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2259,7 +2259,7 @@ impl crate::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentS
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2278,7 +2278,7 @@ impl crate::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentS
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2300,7 +2300,7 @@ impl crate::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentS
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2319,7 +2319,7 @@ impl crate::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentS
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -2338,7 +2338,7 @@ impl crate::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentS
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

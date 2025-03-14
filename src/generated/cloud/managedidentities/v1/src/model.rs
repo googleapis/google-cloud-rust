@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate longrunning;
 extern crate lro;
@@ -391,7 +392,6 @@ impl wkt::message::Message for ListDomainsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDomainsResponse {
     type PageItem = crate::model::Domain;
 

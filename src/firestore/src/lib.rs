@@ -25,6 +25,7 @@ pub(crate) mod google {
         #[allow(clippy::enum_variant_names)]
         pub mod v1 {
             include!("generated/protos/firestore/google.firestore.v1.rs");
+            include!("generated/convert/firestore/convert.rs");
         }
     }
     pub mod rpc {
@@ -37,3 +38,6 @@ pub(crate) mod google {
         include!("generated/convert/type/convert.rs");
     }
 }
+
+mod convert;
+pub mod status;

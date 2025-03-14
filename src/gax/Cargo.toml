@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-gax"
-version     = "0.20.0"
+version     = "0.21.0"
 description = "Google Cloud Client Libraries for Rust"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
@@ -25,12 +25,18 @@ keywords.workspace   = true
 license.workspace    = true
 repository.workspace = true
 
+[package.metadata.docs.rs]
+# We want to generate documentation for streaming APIs, gated by this feature.
+# We do not want to generate documentation for `unstable-sdk-client`, which
+# gates internal tpes.
+features = ["unstable-stream"]
+
 [dependencies]
 base64      = "0.22"
 bytes       = "1"
-futures     = { version = "0.3", optional = true }
+futures     = { version = "0.3" }
 http        = "1"
-pin-project = { version = "1", optional = true }
+pin-project = { version = "1" }
 rand        = "0.9"
 reqwest     = { version = "0.12", optional = true }
 serde       = "1"
@@ -44,15 +50,12 @@ rpc  = { version = "0.2", path = "../generated/rpc/types", package = "google-clo
 wkt  = { version = "0.2", path = "../wkt", package = "google-cloud-wkt" }
 
 [dev-dependencies]
-echo-server = { path = "echo-server" }
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
-axum        = "0.8"
-gax         = { path = ".", package = "google-cloud-gax", features = ["unstable-sdk-client", "unstable-stream"] }
+gax         = { path = ".", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
 mockall     = "0.13"
 serde       = { version = "1", features = ["serde_derive"] }
 serial_test = "3"
-tempfile    = "3"
 test-case   = "3"
 tokio       = { version = "1", features = ["test-util"] }
 
@@ -61,4 +64,4 @@ built = "0.7"
 
 [features]
 unstable-sdk-client = ["dep:reqwest"]
-unstable-stream     = ["dep:futures", "dep:pin-project"]
+unstable-stream     = []

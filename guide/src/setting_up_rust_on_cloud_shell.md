@@ -55,7 +55,7 @@ Cloud Shell is a great environment to run small examples and tests.
 1. Add the [Secret Manager] client library to the new project
 
    ```shell
-   cargo add google-cloud-secretmanager-v1 --features unstable-stream
+   cargo add google-cloud-secretmanager-v1
    ```
 
 1. Add the [tokio] crate to the new project

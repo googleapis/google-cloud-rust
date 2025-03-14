@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Recommender](crate::stubs::Recommender) using a [gax::http_client::ReqwestClient].
+/// Implements [Recommender](crate::stubs::Recommender) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Recommender {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for Recommender {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for Recommender {
 }
 
 impl Recommender {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -58,7 +58,7 @@ impl crate::stubs::Recommender for Recommender {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -77,7 +77,7 @@ impl crate::stubs::Recommender for Recommender {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -122,7 +122,7 @@ impl crate::stubs::Recommender for Recommender {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -141,7 +141,7 @@ impl crate::stubs::Recommender for Recommender {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -240,7 +240,7 @@ impl crate::stubs::Recommender for Recommender {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -258,7 +258,7 @@ impl crate::stubs::Recommender for Recommender {
                     "/v1/{}",
                     req.recommender_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("recommender_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("recommender_config"))?
                         .name
                 ),
             )
@@ -274,7 +274,7 @@ impl crate::stubs::Recommender for Recommender {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -298,7 +298,7 @@ impl crate::stubs::Recommender for Recommender {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -316,7 +316,7 @@ impl crate::stubs::Recommender for Recommender {
                     "/v1/{}",
                     req.insight_type_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("insight_type_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("insight_type_config"))?
                         .name
                 ),
             )
@@ -332,7 +332,7 @@ impl crate::stubs::Recommender for Recommender {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);

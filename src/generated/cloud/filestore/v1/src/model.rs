@@ -21,6 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate cloud_common;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate location;
 extern crate longrunning;
@@ -2276,7 +2277,6 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
@@ -2777,7 +2777,6 @@ impl wkt::message::Message for ListSnapshotsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSnapshotsResponse {
     type PageItem = crate::model::Snapshot;
 
@@ -3445,7 +3444,6 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 

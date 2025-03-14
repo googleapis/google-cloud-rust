@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [NetApp](crate::stubs::NetApp) using a [gax::http_client::ReqwestClient].
+/// Implements [NetApp](crate::stubs::NetApp) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct NetApp {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for NetApp {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for NetApp {
 }
 
 impl NetApp {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -104,7 +104,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -122,7 +122,7 @@ impl crate::stubs::NetApp for NetApp {
                     "/v1/{}",
                     req.storage_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("storage_pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("storage_pool"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl crate::stubs::NetApp for NetApp {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -161,7 +161,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -221,7 +221,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -240,7 +240,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -276,7 +276,7 @@ impl crate::stubs::NetApp for NetApp {
                     "/v1/{}",
                     req.volume
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("volume"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("volume"))?
                         .name
                 ),
             )
@@ -292,7 +292,7 @@ impl crate::stubs::NetApp for NetApp {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.volume), options).await
@@ -314,7 +314,7 @@ impl crate::stubs::NetApp for NetApp {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -357,7 +357,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -376,7 +376,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -418,7 +418,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -436,7 +436,7 @@ impl crate::stubs::NetApp for NetApp {
                     "/v1/{}",
                     req.snapshot
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("snapshot"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("snapshot"))?
                         .name
                 ),
             )
@@ -452,7 +452,7 @@ impl crate::stubs::NetApp for NetApp {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -482,7 +482,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -501,7 +501,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -542,7 +542,7 @@ impl crate::stubs::NetApp for NetApp {
                     "/v1/{}",
                     req.active_directory
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("active_directory"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("active_directory"))?
                         .name
                 ),
             )
@@ -558,7 +558,7 @@ impl crate::stubs::NetApp for NetApp {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -581,7 +581,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -607,7 +607,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -649,7 +649,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -667,7 +667,7 @@ impl crate::stubs::NetApp for NetApp {
                     "/v1/{}",
                     req.kms_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("kms_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("kms_config"))?
                         .name
                 ),
             )
@@ -683,7 +683,7 @@ impl crate::stubs::NetApp for NetApp {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -740,7 +740,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -766,7 +766,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -785,7 +785,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -827,7 +827,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -845,7 +845,7 @@ impl crate::stubs::NetApp for NetApp {
                     "/v1/{}",
                     req.replication
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("replication"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("replication"))?
                         .name
                 ),
             )
@@ -861,7 +861,7 @@ impl crate::stubs::NetApp for NetApp {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -998,7 +998,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1024,7 +1024,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1042,7 +1042,7 @@ impl crate::stubs::NetApp for NetApp {
                     "/v1/{}",
                     req.backup_vault
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup_vault"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup_vault"))?
                         .name
                 ),
             )
@@ -1058,7 +1058,7 @@ impl crate::stubs::NetApp for NetApp {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1081,7 +1081,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1118,7 +1118,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1141,7 +1141,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1160,7 +1160,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1178,7 +1178,7 @@ impl crate::stubs::NetApp for NetApp {
                     "/v1/{}",
                     req.backup
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -1194,7 +1194,7 @@ impl crate::stubs::NetApp for NetApp {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.backup), options).await
@@ -1238,7 +1238,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1264,7 +1264,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1282,7 +1282,7 @@ impl crate::stubs::NetApp for NetApp {
                     "/v1/{}",
                     req.backup_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup_policy"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup_policy"))?
                         .name
                 ),
             )
@@ -1298,7 +1298,7 @@ impl crate::stubs::NetApp for NetApp {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1321,7 +1321,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1347,7 +1347,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1366,7 +1366,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1407,7 +1407,7 @@ impl crate::stubs::NetApp for NetApp {
                     "/v1/{}",
                     req.quota_rule
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("quota_rule"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("quota_rule"))?
                         .name
                 ),
             )
@@ -1423,7 +1423,7 @@ impl crate::stubs::NetApp for NetApp {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1446,7 +1446,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1468,7 +1468,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1487,7 +1487,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1509,7 +1509,7 @@ impl crate::stubs::NetApp for NetApp {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1528,7 +1528,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1547,7 +1547,7 @@ impl crate::stubs::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

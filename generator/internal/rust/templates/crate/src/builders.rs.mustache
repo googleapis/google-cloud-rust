@@ -86,8 +86,7 @@ pub mod {{Codec.ModuleName}} {
         {{#IsPageable}}
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(self) -> gax::paginator::Paginator<{{OutputType.Codec.QualifiedName}}, gax::error::Error> {
+        pub async fn paginator(self) -> gax::paginator::Paginator<{{OutputType.Codec.QualifiedName}}, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
                 let mut builder = self.clone();

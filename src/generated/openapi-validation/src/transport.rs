@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecretManagerService](crate::stubs::SecretManagerService) using a [gax::http_client::ReqwestClient].
+/// Implements [SecretManagerService](crate::stubs::SecretManagerService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SecretManagerService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for SecretManagerService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for SecretManagerService {
 }
 
 impl SecretManagerService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -70,7 +70,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -92,7 +92,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -126,7 +126,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("filter", p)]));
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -186,7 +186,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("filter", p)]));
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -280,7 +280,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -306,7 +306,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("etag", p)]));
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -328,7 +328,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = {
-            use gax::query_parameter::QueryParameter;
+            use gclient::query_parameter::QueryParameter;
             serde_json::to_value(&req.update_mask)
                 .map_err(Error::serde)?
                 .add(builder, "updateMask")
@@ -359,7 +359,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -388,7 +388,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("etag", p)]));
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -413,7 +413,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = {
-            use gax::query_parameter::QueryParameter;
+            use gclient::query_parameter::QueryParameter;
             serde_json::to_value(&req.update_mask)
                 .map_err(Error::serde)?
                 .add(builder, "updateMask")
@@ -456,7 +456,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("filter", p)]));
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -493,7 +493,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("filter", p)]));
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -518,7 +518,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -543,7 +543,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -568,7 +568,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -593,7 +593,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -808,7 +808,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 builder.query(&[("options.requestedPolicyVersion", p)])
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -839,7 +839,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 builder.query(&[("options.requestedPolicyVersion", p)])
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

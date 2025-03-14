@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CertificateManager](crate::stubs::CertificateManager) using a [gax::http_client::ReqwestClient].
+/// Implements [CertificateManager](crate::stubs::CertificateManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CertificateManager {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for CertificateManager {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for CertificateManager {
 }
 
 impl CertificateManager {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -122,7 +122,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                     "/v1/{}",
                     req.certificate
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("certificate"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -161,7 +161,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -187,7 +187,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -206,7 +206,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -247,7 +247,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                     "/v1/{}",
                     req.certificate_map
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate_map"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("certificate_map"))?
                         .name
                 ),
             )
@@ -263,7 +263,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -286,7 +286,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -312,7 +312,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -331,7 +331,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -372,7 +372,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                     "/v1/{}",
                     req.certificate_map_entry
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate_map_entry"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("certificate_map_entry"))?
                         .name
                 ),
             )
@@ -388,7 +388,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -411,7 +411,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -437,7 +437,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -456,7 +456,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -497,7 +497,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                     "/v1/{}",
                     req.dns_authorization
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("dns_authorization"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("dns_authorization"))?
                         .name
                 ),
             )
@@ -513,7 +513,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -536,7 +536,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -562,7 +562,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -581,7 +581,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -626,7 +626,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -652,7 +652,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -671,7 +671,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -712,7 +712,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                     "/v1/{}",
                     req.trust_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("trust_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("trust_config"))?
                         .name
                 ),
             )
@@ -728,7 +728,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -752,7 +752,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -774,7 +774,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -793,7 +793,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -815,7 +815,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -834,7 +834,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -853,7 +853,7 @@ impl crate::stubs::CertificateManager for CertificateManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

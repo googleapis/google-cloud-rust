@@ -48,7 +48,7 @@ import 'package:google_cloud_protobuf/protobuf.dart';
 ///         "availableRegions": "us-central1,us-east2"
 ///       }
 ///     }
-class ErrorInfo extends CloudMessage {
+class ErrorInfo extends Message {
 
   /// The reason of the error. This is a constant value that identifies the
   /// proximate cause of the error. Error reasons are unique within a particular
@@ -122,7 +122,7 @@ class ErrorInfo extends CloudMessage {
 /// the delay between retries based on `retry_delay`, until either a maximum
 /// number of retries have been reached or a maximum retry delay cap has been
 /// reached.
-class RetryInfo extends CloudMessage {
+class RetryInfo extends Message {
 
   /// Clients should wait at least this long between retrying the same request.
   final Duration? retryDelay;
@@ -133,7 +133,7 @@ class RetryInfo extends CloudMessage {
 
   factory RetryInfo.fromJson(Map<String, dynamic> json) {
     return RetryInfo(
-      retryDelay: $toCustom(json['retryDelay'], Duration.fromJson),
+      retryDelay: $decode(json['retryDelay'], Duration.fromJson),
     );
   }
 
@@ -149,7 +149,7 @@ class RetryInfo extends CloudMessage {
 }
 
 /// Describes additional debugging info.
-class DebugInfo extends CloudMessage {
+class DebugInfo extends Message {
 
   /// The stack trace entries indicating where the error occurred.
   final List<String>? stackEntries;
@@ -197,7 +197,7 @@ class DebugInfo extends CloudMessage {
 ///
 /// Also see RetryInfo and Help types for other details about handling a
 /// quota failure.
-class QuotaFailure extends CloudMessage {
+class QuotaFailure extends Message {
 
   /// Describes all quota violations.
   final List<QuotaFailure$Violation>? violations;
@@ -208,14 +208,14 @@ class QuotaFailure extends CloudMessage {
 
   factory QuotaFailure.fromJson(Map<String, dynamic> json) {
     return QuotaFailure(
-      violations: $toMessageList(json['violations'], QuotaFailure$Violation.fromJson),
+      violations: $decodeList(json['violations'], QuotaFailure$Violation.fromJson),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (violations != null) 'violations': $fromList(violations),
+      if (violations != null) 'violations': $encodeList(violations),
     };
   }
 
@@ -225,7 +225,7 @@ class QuotaFailure extends CloudMessage {
 
 /// A message type used to describe a single quota violation.  For example, a
 /// daily quota or a custom quota that was exceeded.
-class QuotaFailure$Violation extends CloudMessage {
+class QuotaFailure$Violation extends Message {
 
   /// The subject on which the quota check failed.
   /// For example, "clientip:<ip address of client>" or "project:<Google
@@ -276,7 +276,7 @@ class QuotaFailure$Violation extends CloudMessage {
 /// For example, if an RPC failed because it required the Terms of Service to be
 /// acknowledged, it could list the terms of service violation in the
 /// PreconditionFailure message.
-class PreconditionFailure extends CloudMessage {
+class PreconditionFailure extends Message {
 
   /// Describes all precondition violations.
   final List<PreconditionFailure$Violation>? violations;
@@ -287,14 +287,14 @@ class PreconditionFailure extends CloudMessage {
 
   factory PreconditionFailure.fromJson(Map<String, dynamic> json) {
     return PreconditionFailure(
-      violations: $toMessageList(json['violations'], PreconditionFailure$Violation.fromJson),
+      violations: $decodeList(json['violations'], PreconditionFailure$Violation.fromJson),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (violations != null) 'violations': $fromList(violations),
+      if (violations != null) 'violations': $encodeList(violations),
     };
   }
 
@@ -303,7 +303,7 @@ class PreconditionFailure extends CloudMessage {
 }
 
 /// A message type used to describe a single precondition failure.
-class PreconditionFailure$Violation extends CloudMessage {
+class PreconditionFailure$Violation extends Message {
 
   /// The type of PreconditionFailure. We recommend using a service-specific
   /// enum type to define the supported precondition violation subjects. For
@@ -357,7 +357,7 @@ class PreconditionFailure$Violation extends CloudMessage {
 
 /// Describes violations in a client request. This error type focuses on the
 /// syntactic aspects of the request.
-class BadRequest extends CloudMessage {
+class BadRequest extends Message {
 
   /// Describes all violations in a client request.
   final List<BadRequest$FieldViolation>? fieldViolations;
@@ -368,14 +368,14 @@ class BadRequest extends CloudMessage {
 
   factory BadRequest.fromJson(Map<String, dynamic> json) {
     return BadRequest(
-      fieldViolations: $toMessageList(json['fieldViolations'], BadRequest$FieldViolation.fromJson),
+      fieldViolations: $decodeList(json['fieldViolations'], BadRequest$FieldViolation.fromJson),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (fieldViolations != null) 'fieldViolations': $fromList(fieldViolations),
+      if (fieldViolations != null) 'fieldViolations': $encodeList(fieldViolations),
     };
   }
 
@@ -384,7 +384,7 @@ class BadRequest extends CloudMessage {
 }
 
 /// A message type used to describe a single bad request field.
-class BadRequest$FieldViolation extends CloudMessage {
+class BadRequest$FieldViolation extends Message {
 
   /// A path that leads to a field in the request body. The value will be a
   /// sequence of dot-separated identifiers that identify a protocol buffer
@@ -452,7 +452,7 @@ class BadRequest$FieldViolation extends CloudMessage {
       field: json['field'],
       description: json['description'],
       reason: json['reason'],
-      localizedMessage: $toMessage(json['localizedMessage'], LocalizedMessage.fromJson),
+      localizedMessage: $decode(json['localizedMessage'], LocalizedMessage.fromJson),
     );
   }
 
@@ -479,7 +479,7 @@ class BadRequest$FieldViolation extends CloudMessage {
 
 /// Contains metadata about the request that clients can attach when filing a bug
 /// or providing other forms of feedback.
-class RequestInfo extends CloudMessage {
+class RequestInfo extends Message {
 
   /// An opaque string that should only be interpreted by the service generating
   /// it. For example, it can be used to identify requests in the service's logs.
@@ -520,7 +520,7 @@ class RequestInfo extends CloudMessage {
 }
 
 /// Describes the resource that is being accessed.
-class ResourceInfo extends CloudMessage {
+class ResourceInfo extends Message {
 
   /// A name for the type of resource being accessed, e.g. "sql table",
   /// "cloud storage bucket", "file", "Google calendar"; or the type URL
@@ -586,7 +586,7 @@ class ResourceInfo extends CloudMessage {
 /// For example, if a quota check failed with an error indicating the calling
 /// project hasn't enabled the accessed service, this can contain a URL pointing
 /// directly to the right place in the developer console to flip the bit.
-class Help extends CloudMessage {
+class Help extends Message {
 
   /// URL(s) pointing to additional information on handling the current error.
   final List<Help$Link>? links;
@@ -597,14 +597,14 @@ class Help extends CloudMessage {
 
   factory Help.fromJson(Map<String, dynamic> json) {
     return Help(
-      links: $toMessageList(json['links'], Help$Link.fromJson),
+      links: $decodeList(json['links'], Help$Link.fromJson),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (links != null) 'links': $fromList(links),
+      if (links != null) 'links': $encodeList(links),
     };
   }
 
@@ -613,7 +613,7 @@ class Help extends CloudMessage {
 }
 
 /// Describes a URL link.
-class Help$Link extends CloudMessage {
+class Help$Link extends Message {
 
   /// Describes what the link offers.
   final String? description;
@@ -653,7 +653,7 @@ class Help$Link extends CloudMessage {
 
 /// Provides a localized error message that is safe to return to the user
 /// which can be attached to an RPC error.
-class LocalizedMessage extends CloudMessage {
+class LocalizedMessage extends Message {
 
   /// The locale used following the specification defined at
   /// https://www.rfc-editor.org/rfc/bcp/bcp47.txt.
@@ -694,7 +694,7 @@ class LocalizedMessage extends CloudMessage {
 }
 
 /// Represents an HTTP request.
-class HttpRequest extends CloudMessage {
+class HttpRequest extends Message {
 
   /// The HTTP request method.
   final String? method;
@@ -720,7 +720,7 @@ class HttpRequest extends CloudMessage {
     return HttpRequest(
       method: json['method'],
       uri: json['uri'],
-      headers: $toMessageList(json['headers'], HttpHeader.fromJson),
+      headers: $decodeList(json['headers'], HttpHeader.fromJson),
       body: json['body'],
     );
   }
@@ -730,7 +730,7 @@ class HttpRequest extends CloudMessage {
     return {
       if (method != null) 'method': method,
       if (uri != null) 'uri': uri,
-      if (headers != null) 'headers': $fromList(headers),
+      if (headers != null) 'headers': $encodeList(headers),
       if (body != null) 'body': body,
     };
   }
@@ -747,7 +747,7 @@ class HttpRequest extends CloudMessage {
 }
 
 /// Represents an HTTP response.
-class HttpResponse extends CloudMessage {
+class HttpResponse extends Message {
 
   /// The HTTP status code, such as 200 or 404.
   final int? status;
@@ -773,7 +773,7 @@ class HttpResponse extends CloudMessage {
     return HttpResponse(
       status: json['status'],
       reason: json['reason'],
-      headers: $toMessageList(json['headers'], HttpHeader.fromJson),
+      headers: $decodeList(json['headers'], HttpHeader.fromJson),
       body: json['body'],
     );
   }
@@ -783,7 +783,7 @@ class HttpResponse extends CloudMessage {
     return {
       if (status != null) 'status': status,
       if (reason != null) 'reason': reason,
-      if (headers != null) 'headers': $fromList(headers),
+      if (headers != null) 'headers': $encodeList(headers),
       if (body != null) 'body': body,
     };
   }
@@ -800,7 +800,7 @@ class HttpResponse extends CloudMessage {
 }
 
 /// Represents an HTTP header.
-class HttpHeader extends CloudMessage {
+class HttpHeader extends Message {
 
   /// The HTTP header key. It is case insensitive.
   final String? key;
@@ -845,7 +845,7 @@ class HttpHeader extends CloudMessage {
 ///
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
-class Status extends CloudMessage {
+class Status extends Message {
 
   /// The status code, which should be an enum value of
   /// [google.rpc.Code][google.rpc.Code].
@@ -871,7 +871,7 @@ class Status extends CloudMessage {
     return Status(
       code: json['code'],
       message: json['message'],
-      details: $toMessageList(json['details'], Any.fromJson),
+      details: $decodeList(json['details'], Any.fromJson),
     );
   }
 
@@ -880,7 +880,7 @@ class Status extends CloudMessage {
     return {
       if (code != null) 'code': code,
       if (message != null) 'message': message,
-      if (details != null) 'details': $fromList(details),
+      if (details != null) 'details': $encodeList(details),
     };
   }
 
@@ -901,7 +901,7 @@ class Status extends CloudMessage {
 /// the most specific error code that applies.  For example, prefer
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
 /// Similarly prefer `NOT_FOUND` or `ALREADY_EXISTS` over `FAILED_PRECONDITION`.
-class Code extends CloudEnum {
+class Code extends Enum {
   /// Not an error; returned on success.
   ///
   /// HTTP Mapping: 200 OK

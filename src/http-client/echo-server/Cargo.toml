@@ -1,4 +1,4 @@
-# Copyright 2025 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,23 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: google_cloud_language_example
+[package]
+name              = "echo-server"
+description       = "A server used in the gax integration tests."
+version           = "0.0.0"
+edition.workspace = true
+publish           = false
 
-publish_to: none
-
-environment: 
-  sdk: ^3.6.0
-
-dependencies:
-  google_cloud_language: any
-  googleapis_auth: ^1.6.0
-
-dependency_overrides:
-  google_cloud_protobuf:
-    path: ../../google_cloud_protobuf
-  google_cloud_rpc:
-    path: ../../google_cloud_rpc
-  google_cloud_common:
-    path: ../../../google_cloud_common
-  google_cloud_language:
-    path: ..
+[dependencies]
+axum       = "0.8.1"
+serde_json = "1"
+tokio      = { version = "1.42", features = ["macros"] }
+gax        = { path = "../../gax", package = "google-cloud-gax" }
+rpc        = { path = "../../generated/rpc/types", package = "google-cloud-rpc" }

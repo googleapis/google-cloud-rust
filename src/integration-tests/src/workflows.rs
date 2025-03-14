@@ -220,13 +220,13 @@ async fn cleanup_stale_workflows(
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
-    let mut stream = client
+    let mut paginator = client
         .list_workflows(format!("projects/{project_id}/locations/{location_id}"))
-        .stream()
+        .paginator()
         .await
         .items();
     let mut stale_workflows = Vec::new();
-    while let Some(workflow) = stream.next().await {
+    while let Some(workflow) = paginator.next().await {
         let item = workflow?;
         if let Some("true") = item.labels.get("integration-test").map(String::as_str) {
             if let Some(true) = item.create_time.map(|v| v < stale_deadline) {

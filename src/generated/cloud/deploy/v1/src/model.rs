@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate iam_v1;
 extern crate lazy_static;
@@ -2059,7 +2060,6 @@ impl wkt::message::Message for ListDeliveryPipelinesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDeliveryPipelinesResponse {
     type PageItem = crate::model::DeliveryPipeline;
 
@@ -3732,7 +3732,6 @@ impl wkt::message::Message for ListTargetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTargetsResponse {
     type PageItem = crate::model::Target;
 
@@ -4759,7 +4758,6 @@ impl wkt::message::Message for ListCustomTargetTypesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCustomTargetTypesResponse {
     type PageItem = crate::model::CustomTargetType;
 
@@ -7261,7 +7259,6 @@ impl wkt::message::Message for ListDeployPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDeployPoliciesResponse {
     type PageItem = crate::model::DeployPolicy;
 
@@ -7781,7 +7778,6 @@ impl wkt::message::Message for ListReleasesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListReleasesResponse {
     type PageItem = crate::model::Release;
 
@@ -9818,7 +9814,6 @@ impl wkt::message::Message for ListRolloutsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRolloutsResponse {
     type PageItem = crate::model::Rollout;
 
@@ -11779,7 +11774,6 @@ impl wkt::message::Message for ListJobRunsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListJobRunsResponse {
     type PageItem = crate::model::JobRun;
 
@@ -13659,7 +13653,6 @@ impl wkt::message::Message for ListAutomationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutomationsResponse {
     type PageItem = crate::model::Automation;
 
@@ -14835,7 +14828,6 @@ impl wkt::message::Message for ListAutomationRunsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutomationRunsResponse {
     type PageItem = crate::model::AutomationRun;
 

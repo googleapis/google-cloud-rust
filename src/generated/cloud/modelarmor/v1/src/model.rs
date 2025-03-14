@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate location;
 extern crate reqwest;
@@ -458,7 +459,6 @@ impl wkt::message::Message for ListTemplatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTemplatesResponse {
     type PageItem = crate::model::Template;
 

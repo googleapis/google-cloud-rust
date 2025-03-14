@@ -21,6 +21,7 @@ extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate reqwest;
@@ -2850,7 +2851,6 @@ impl wkt::message::Message for ListAlertPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAlertPoliciesResponse {
     type PageItem = crate::model::AlertPolicy;
 
@@ -4200,7 +4200,6 @@ impl wkt::message::Message for ListGroupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGroupsResponse {
     type PageItem = crate::model::Group;
 
@@ -4536,7 +4535,6 @@ impl wkt::message::Message for ListGroupMembersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGroupMembersResponse {
     type PageItem = api::model::MonitoredResource;
 
@@ -5434,7 +5432,6 @@ impl wkt::message::Message for ListMonitoredResourceDescriptorsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMonitoredResourceDescriptorsResponse {
     type PageItem = api::model::MonitoredResourceDescriptor;
 
@@ -5627,7 +5624,6 @@ impl wkt::message::Message for ListMetricDescriptorsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMetricDescriptorsResponse {
     type PageItem = api::model::MetricDescriptor;
 
@@ -6056,7 +6052,6 @@ impl wkt::message::Message for ListTimeSeriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTimeSeriesResponse {
     type PageItem = crate::model::TimeSeries;
 
@@ -6419,7 +6414,6 @@ impl wkt::message::Message for QueryTimeSeriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for QueryTimeSeriesResponse {
     type PageItem = crate::model::TimeSeriesData;
 
@@ -7043,7 +7037,6 @@ impl wkt::message::Message for ListNotificationChannelDescriptorsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNotificationChannelDescriptorsResponse {
     type PageItem = crate::model::NotificationChannelDescriptor;
 
@@ -7297,7 +7290,6 @@ impl wkt::message::Message for ListNotificationChannelsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNotificationChannelsResponse {
     type PageItem = crate::model::NotificationChannel;
 
@@ -10240,7 +10232,6 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
@@ -10574,7 +10565,6 @@ impl wkt::message::Message for ListServiceLevelObjectivesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServiceLevelObjectivesResponse {
     type PageItem = crate::model::ServiceLevelObjective;
 
@@ -11005,7 +10995,6 @@ impl wkt::message::Message for ListSnoozesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSnoozesResponse {
     type PageItem = crate::model::Snooze;
 
@@ -13391,7 +13380,6 @@ impl wkt::message::Message for ListUptimeCheckConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUptimeCheckConfigsResponse {
     type PageItem = crate::model::UptimeCheckConfig;
 
@@ -13675,7 +13663,6 @@ impl wkt::message::Message for ListUptimeCheckIpsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUptimeCheckIpsResponse {
     type PageItem = crate::model::UptimeCheckIp;
 

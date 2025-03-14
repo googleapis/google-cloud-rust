@@ -24,6 +24,11 @@ keywords.workspace   = true
 license.workspace    = true
 repository.workspace = true
 
+[package.metadata.docs.rs]
+# Generate documentation for some of the optional conversions. It is too early
+# for `prost`.
+features = ["chrono", "time"]
+
 [features]
 chrono = ["dep:chrono"]
 prost  = ["dep:prost-types"]

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ArtifactRegistry](crate::stubs::ArtifactRegistry) using a [gax::http_client::ReqwestClient].
+/// Implements [ArtifactRegistry](crate::stubs::ArtifactRegistry) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ArtifactRegistry {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for ArtifactRegistry {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ArtifactRegistry {
 }
 
 impl ArtifactRegistry {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -61,7 +61,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -80,7 +80,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -104,7 +104,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -123,7 +123,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -147,7 +147,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -166,7 +166,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -190,7 +190,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -209,7 +209,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -275,7 +275,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -294,7 +294,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -335,7 +335,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.repository
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("repository"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("repository"))?
                         .name
                 ),
             )
@@ -351,7 +351,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -374,7 +374,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -397,7 +397,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -416,7 +416,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -435,7 +435,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -459,7 +459,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -479,7 +479,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -499,7 +499,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -537,7 +537,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.version
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("version"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("version"))?
                         .name
                 ),
             )
@@ -553,7 +553,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -580,7 +580,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -599,7 +599,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -618,7 +618,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -636,7 +636,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.file
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("file"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("file"))?
                         .name
                 ),
             )
@@ -652,7 +652,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.file), options).await
@@ -676,7 +676,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -695,7 +695,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -731,7 +731,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.tag
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tag"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tag"))?
                         .name
                 ),
             )
@@ -747,7 +747,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.tag), options).await
@@ -768,7 +768,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -807,7 +807,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -826,7 +826,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -844,7 +844,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.rule
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("rule"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("rule"))?
                         .name
                 ),
             )
@@ -860,7 +860,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.rule), options).await
@@ -881,7 +881,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -929,11 +929,11 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -972,7 +972,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -990,7 +990,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.project_settings
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("project_settings"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("project_settings"))?
                         .name
                 ),
             )
@@ -1006,7 +1006,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1029,7 +1029,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1047,7 +1047,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.vpcsc_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("vpcsc_config"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("vpcsc_config"))?
                         .name
                 ),
             )
@@ -1063,7 +1063,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1085,7 +1085,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                     "/v1/{}",
                     req.package
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("package"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("package"))?
                         .name
                 ),
             )
@@ -1101,7 +1101,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1130,7 +1130,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1149,7 +1149,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1191,7 +1191,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1213,7 +1213,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1232,7 +1232,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1251,7 +1251,7 @@ impl crate::stubs::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

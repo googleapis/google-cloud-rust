@@ -28,12 +28,11 @@ mod test {
     use gax::backoff_policy::BackoffPolicy;
     use gax::error::Error;
     use gax::exponential_backoff::ExponentialBackoffBuilder;
-    use gax::http_client::ReqwestClient;
     use gax::loop_state::LoopState;
     use gax::options::*;
     use gax::retry_policy::{LimitedAttemptCount, RetryPolicy};
     use gax::retry_throttler::{CircuitBreaker, RetryThrottler};
-    use google_cloud_gax as gax;
+    use google_cloud_http_client::ReqwestClient;
     use serde_json::json;
     use std::sync::{Arc, Mutex};
     use std::time::{Duration, Instant};

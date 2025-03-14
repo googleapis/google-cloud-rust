@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate location;
 extern crate longrunning;
@@ -160,7 +161,6 @@ impl wkt::message::Message for ListActiveDirectoriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListActiveDirectoriesResponse {
     type PageItem = crate::model::ActiveDirectory;
 
@@ -1151,7 +1151,6 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
@@ -1779,7 +1778,6 @@ impl wkt::message::Message for ListBackupPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupPoliciesResponse {
     type PageItem = crate::model::BackupPolicy;
 
@@ -2194,7 +2192,6 @@ impl wkt::message::Message for ListBackupVaultsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupVaultsResponse {
     type PageItem = crate::model::BackupVault;
 
@@ -2656,7 +2653,6 @@ impl wkt::message::Message for ListKmsConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListKmsConfigsResponse {
     type PageItem = crate::model::KmsConfig;
 
@@ -3272,7 +3268,6 @@ impl wkt::message::Message for ListQuotaRulesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListQuotaRulesResponse {
     type PageItem = crate::model::QuotaRule;
 
@@ -4689,7 +4684,6 @@ impl wkt::message::Message for ListReplicationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListReplicationsResponse {
     type PageItem = crate::model::Replication;
 
@@ -5301,7 +5295,6 @@ impl wkt::message::Message for ListSnapshotsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSnapshotsResponse {
     type PageItem = crate::model::Snapshot;
 
@@ -5816,7 +5809,6 @@ impl wkt::message::Message for ListStoragePoolsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListStoragePoolsResponse {
     type PageItem = crate::model::StoragePool;
 
@@ -6517,7 +6509,6 @@ impl wkt::message::Message for ListVolumesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVolumesResponse {
     type PageItem = crate::model::Volume;
 

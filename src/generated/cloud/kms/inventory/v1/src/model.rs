@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate kms;
 extern crate lazy_static;
 extern crate reqwest;
@@ -135,7 +136,6 @@ impl wkt::message::Message for ListCryptoKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCryptoKeysResponse {
     type PageItem = kms::model::CryptoKey;
 
@@ -439,7 +439,6 @@ impl wkt::message::Message for SearchProtectedResourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchProtectedResourcesResponse {
     type PageItem = crate::model::ProtectedResource;
 

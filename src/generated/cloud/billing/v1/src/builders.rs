@@ -115,8 +115,7 @@ pub mod cloud_billing {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBillingAccountsResponse, gax::error::Error>
         {
@@ -307,8 +306,7 @@ pub mod cloud_billing {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListProjectBillingInfoResponse,
@@ -718,8 +716,7 @@ pub mod cloud_catalog {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
@@ -780,8 +777,7 @@ pub mod cloud_catalog {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSkusResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);

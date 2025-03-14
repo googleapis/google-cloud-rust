@@ -21,6 +21,7 @@ extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate rpc;
@@ -1638,7 +1639,6 @@ impl wkt::message::Message for ListMigrationWorkflowsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMigrationWorkflowsResponse {
     type PageItem = crate::model::MigrationWorkflow;
 
@@ -1878,7 +1878,6 @@ impl wkt::message::Message for ListMigrationSubtasksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMigrationSubtasksResponse {
     type PageItem = crate::model::MigrationSubtask;
 

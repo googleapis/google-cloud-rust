@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gkehub_configmanagement_v1;
 extern crate gkehub_multiclusteringress_v1;
 extern crate lazy_static;
@@ -1861,7 +1862,6 @@ impl wkt::message::Message for ListMembershipsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListMembershipsResponse {
     type PageItem = crate::model::Membership;
 
@@ -2499,7 +2499,6 @@ impl wkt::message::Message for ListFeaturesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListFeaturesResponse {
     type PageItem = crate::model::Feature;
 

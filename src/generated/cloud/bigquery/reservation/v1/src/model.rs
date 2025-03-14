@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate rpc;
@@ -885,7 +886,6 @@ impl wkt::message::Message for ListReservationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListReservationsResponse {
     type PageItem = crate::model::Reservation;
 
@@ -1222,7 +1222,6 @@ impl wkt::message::Message for ListCapacityCommitmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCapacityCommitmentsResponse {
     type PageItem = crate::model::CapacityCommitment;
 
@@ -1900,7 +1899,6 @@ impl wkt::message::Message for ListAssignmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
@@ -2138,7 +2136,6 @@ impl wkt::message::Message for SearchAssignmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
@@ -2199,7 +2196,6 @@ impl wkt::message::Message for SearchAllAssignmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchAllAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 

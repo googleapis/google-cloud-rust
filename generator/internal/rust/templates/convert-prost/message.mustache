@@ -30,17 +30,17 @@ impl wkt::prost::Convert<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
         {{Codec.RelativeName}} {
             {{#Codec.SingularFields}}
             {{^Optional}}
-            {{Codec.FieldName}}: self.{{Codec.FieldName}}.cnv(),
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.{{Codec.ToProto}}(),
             {{/Optional}}
             {{#Optional}}
-            {{Codec.FieldName}}: self.{{Codec.FieldName}}.map(|v| v.cnv()),
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.map(|v| v.{{Codec.ToProto}}()),
             {{/Optional}}
             {{/Codec.SingularFields}}
             {{#Codec.RepeatedFields}}
-            {{Codec.FieldName}}: self.{{Codec.FieldName}}.into_iter().map(|v| v.cnv()).collect(),
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.into_iter().map(|v| v.{{Codec.ToProto}}()).collect(),
             {{/Codec.RepeatedFields}}
             {{#Codec.MapFields}}
-            {{Codec.FieldName}}: self.{{Codec.FieldName}}.into_iter().map(|(k, v)| (k.cnv(), v.cnv())).collect(),
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.into_iter().map(|(k, v)| (k.{{Codec.KeyToProto}}(), v.{{Codec.ValueToProto}}())).collect(),
             {{/Codec.MapFields}}
             {{#OneOfs}}
             {{Codec.FieldName}}: self.{{Codec.FieldName}}.map(|v| v.cnv()),

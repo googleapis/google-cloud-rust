@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate reqwest;
@@ -134,7 +135,6 @@ impl wkt::message::Message for ListTunnelDestGroupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTunnelDestGroupsResponse {
     type PageItem = crate::model::TunnelDestGroup;
 
@@ -1585,7 +1585,6 @@ impl wkt::message::Message for ListIdentityAwareProxyClientsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListIdentityAwareProxyClientsResponse {
     type PageItem = crate::model::IdentityAwareProxyClient;
 

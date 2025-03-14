@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate longrunning;
@@ -1897,7 +1898,6 @@ impl wkt::message::Message for ListRegistrationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRegistrationsResponse {
     type PageItem = crate::model::Registration;
 

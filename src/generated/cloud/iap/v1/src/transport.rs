@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [IdentityAwareProxyAdminService](crate::stubs::IdentityAwareProxyAdminService) using a [gax::http_client::ReqwestClient].
+/// Implements [IdentityAwareProxyAdminService](crate::stubs::IdentityAwareProxyAdminService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct IdentityAwareProxyAdminService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for IdentityAwareProxyAdminService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for IdentityAwareProxyAdminService {
 }
 
 impl IdentityAwareProxyAdminService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -118,7 +118,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -136,7 +136,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
                     "/v1/{}:iapSettings",
                     req.iap_settings
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("iap_settings"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("iap_settings"))?
                         .name
                 ),
             )
@@ -152,7 +152,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -180,7 +180,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -222,7 +222,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -241,7 +241,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -259,7 +259,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
                     "/v1/{}",
                     req.tunnel_dest_group
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tunnel_dest_group"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("tunnel_dest_group"))?
                         .name
                 ),
             )
@@ -275,7 +275,7 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -284,10 +284,10 @@ impl crate::stubs::IdentityAwareProxyAdminService for IdentityAwareProxyAdminSer
     }
 }
 
-/// Implements [IdentityAwareProxyOAuthService](crate::stubs::IdentityAwareProxyOAuthService) using a [gax::http_client::ReqwestClient].
+/// Implements [IdentityAwareProxyOAuthService](crate::stubs::IdentityAwareProxyOAuthService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct IdentityAwareProxyOAuthService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for IdentityAwareProxyOAuthService {
@@ -299,8 +299,8 @@ impl std::fmt::Debug for IdentityAwareProxyOAuthService {
 }
 
 impl IdentityAwareProxyOAuthService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -321,7 +321,7 @@ impl crate::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -357,7 +357,7 @@ impl crate::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -403,7 +403,7 @@ impl crate::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthSer
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -422,7 +422,7 @@ impl crate::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -461,7 +461,7 @@ impl crate::stubs::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthSer
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 }

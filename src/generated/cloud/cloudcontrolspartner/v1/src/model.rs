@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate reqwest;
@@ -238,7 +239,6 @@ impl wkt::message::Message for ListAccessApprovalRequestsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAccessApprovalRequestsResponse {
     type PageItem = crate::model::AccessApprovalRequest;
 
@@ -854,7 +854,6 @@ impl wkt::message::Message for ListWorkloadsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkloadsResponse {
     type PageItem = crate::model::Workload;
 
@@ -1260,7 +1259,6 @@ impl wkt::message::Message for ListCustomersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCustomersResponse {
     type PageItem = crate::model::Customer;
 
@@ -2914,7 +2912,6 @@ impl wkt::message::Message for ListViolationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListViolationsResponse {
     type PageItem = crate::model::Violation;
 

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudControlsPartnerCore](crate::stubs::CloudControlsPartnerCore) using a [gax::http_client::ReqwestClient].
+/// Implements [CloudControlsPartnerCore](crate::stubs::CloudControlsPartnerCore) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudControlsPartnerCore {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for CloudControlsPartnerCore {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for CloudControlsPartnerCore {
 }
 
 impl CloudControlsPartnerCore {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -55,7 +55,7 @@ impl crate::stubs::CloudControlsPartnerCore for CloudControlsPartnerCore {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl crate::stubs::CloudControlsPartnerCore for CloudControlsPartnerCore {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -100,7 +100,7 @@ impl crate::stubs::CloudControlsPartnerCore for CloudControlsPartnerCore {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -126,7 +126,7 @@ impl crate::stubs::CloudControlsPartnerCore for CloudControlsPartnerCore {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -145,7 +145,7 @@ impl crate::stubs::CloudControlsPartnerCore for CloudControlsPartnerCore {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -164,7 +164,7 @@ impl crate::stubs::CloudControlsPartnerCore for CloudControlsPartnerCore {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -190,7 +190,7 @@ impl crate::stubs::CloudControlsPartnerCore for CloudControlsPartnerCore {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -209,15 +209,15 @@ impl crate::stubs::CloudControlsPartnerCore for CloudControlsPartnerCore {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 }
 
-/// Implements [CloudControlsPartnerMonitoring](crate::stubs::CloudControlsPartnerMonitoring) using a [gax::http_client::ReqwestClient].
+/// Implements [CloudControlsPartnerMonitoring](crate::stubs::CloudControlsPartnerMonitoring) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudControlsPartnerMonitoring {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for CloudControlsPartnerMonitoring {
@@ -229,8 +229,8 @@ impl std::fmt::Debug for CloudControlsPartnerMonitoring {
 }
 
 impl CloudControlsPartnerMonitoring {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -264,11 +264,11 @@ impl crate::stubs::CloudControlsPartnerMonitoring for CloudControlsPartnerMonito
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "interval")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -287,7 +287,7 @@ impl crate::stubs::CloudControlsPartnerMonitoring for CloudControlsPartnerMonito
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 }

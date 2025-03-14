@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate location;
@@ -733,7 +734,6 @@ impl wkt::message::Message for ListClientConnectorServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListClientConnectorServicesResponse {
     type PageItem = crate::model::ClientConnectorService;
 

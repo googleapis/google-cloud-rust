@@ -69,7 +69,7 @@ class LanguageService extends CloudService {
 }
 
 /// Represents the input to API methods.
-class Document extends CloudMessage {
+class Document extends Message {
 
   /// Required. If the type is not set or is `TYPE_UNSPECIFIED`,
   /// returns an `INVALID_ARGUMENT` error.
@@ -104,7 +104,7 @@ class Document extends CloudMessage {
 
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
-      type: $toCustom(json['type'], Document$Type.fromJson),
+      type: $decode(json['type'], Document$Type.fromJson),
       content: json['content'],
       gcsContentUri: json['gcsContentUri'],
       languageCode: json['languageCode'],
@@ -134,7 +134,7 @@ class Document extends CloudMessage {
 }
 
 /// The document types enum.
-class Document$Type extends CloudEnum {
+class Document$Type extends Enum {
   /// The content type is not specified.
   static const typeUnspecified = Document$Type('TYPE_UNSPECIFIED');
 
@@ -157,7 +157,7 @@ class Document$Type extends CloudEnum {
 }
 
 /// Represents a sentence in the input document.
-class Sentence extends CloudMessage {
+class Sentence extends Message {
 
   /// The sentence text.
   final TextSpan? text;
@@ -174,8 +174,8 @@ class Sentence extends CloudMessage {
 
   factory Sentence.fromJson(Map<String, dynamic> json) {
     return Sentence(
-      text: $toMessage(json['text'], TextSpan.fromJson),
-      sentiment: $toMessage(json['sentiment'], Sentiment.fromJson),
+      text: $decode(json['text'], TextSpan.fromJson),
+      sentiment: $decode(json['sentiment'], Sentiment.fromJson),
     );
   }
 
@@ -194,7 +194,7 @@ class Sentence extends CloudMessage {
 /// Represents a phrase in the text that is a known entity, such as
 /// a person, an organization, or location. The API associates information, such
 /// as probability and mentions, with entities.
-class Entity extends CloudMessage {
+class Entity extends Message {
 
   /// The representative name for the entity.
   final String? name;
@@ -229,10 +229,10 @@ class Entity extends CloudMessage {
   factory Entity.fromJson(Map<String, dynamic> json) {
     return Entity(
       name: json['name'],
-      type: $toCustom(json['type'], Entity$Type.fromJson),
+      type: $decode(json['type'], Entity$Type.fromJson),
       metadata: (json['metadata'] as Map?)?.cast(),
-      mentions: $toMessageList(json['mentions'], EntityMention.fromJson),
-      sentiment: $toMessage(json['sentiment'], Sentiment.fromJson),
+      mentions: $decodeList(json['mentions'], EntityMention.fromJson),
+      sentiment: $decode(json['sentiment'], Sentiment.fromJson),
     );
   }
 
@@ -242,7 +242,7 @@ class Entity extends CloudMessage {
       if (name != null) 'name': name,
       if (type != null) 'type': type!.toJson(),
       if (metadata != null) 'metadata': metadata,
-      if (mentions != null) 'mentions': $fromList(mentions),
+      if (mentions != null) 'mentions': $encodeList(mentions),
       if (sentiment != null) 'sentiment': sentiment!.toJson(),
     };
   }
@@ -260,7 +260,7 @@ class Entity extends CloudMessage {
 /// The type of the entity. The table
 /// below lists the associated fields for entities that have different
 /// metadata.
-class Entity$Type extends CloudEnum {
+class Entity$Type extends Enum {
   /// Unknown
   static const unknown = Entity$Type('UNKNOWN');
 
@@ -348,7 +348,7 @@ class Entity$Type extends CloudEnum {
 
 /// Represents the feeling associated with the entire text or entities in
 /// the text.
-class Sentiment extends CloudMessage {
+class Sentiment extends Message {
 
   /// A non-negative number in the [0, +inf) range, which represents
   /// the absolute magnitude of sentiment regardless of score (positive or
@@ -391,7 +391,7 @@ class Sentiment extends CloudMessage {
 
 /// Represents a mention for an entity in the text. Currently, proper noun
 /// mentions are supported.
-class EntityMention extends CloudMessage {
+class EntityMention extends Message {
 
   /// The mention text.
   final TextSpan? text;
@@ -420,9 +420,9 @@ class EntityMention extends CloudMessage {
 
   factory EntityMention.fromJson(Map<String, dynamic> json) {
     return EntityMention(
-      text: $toMessage(json['text'], TextSpan.fromJson),
-      type: $toCustom(json['type'], EntityMention$Type.fromJson),
-      sentiment: $toMessage(json['sentiment'], Sentiment.fromJson),
+      text: $decode(json['text'], TextSpan.fromJson),
+      type: $decode(json['type'], EntityMention$Type.fromJson),
+      sentiment: $decode(json['sentiment'], Sentiment.fromJson),
       probability: json['probability'],
     );
   }
@@ -448,7 +448,7 @@ class EntityMention extends CloudMessage {
 }
 
 /// The supported types of mentions.
-class EntityMention$Type extends CloudEnum {
+class EntityMention$Type extends Enum {
   /// Unknown
   static const typeUnknown = EntityMention$Type('TYPE_UNKNOWN');
 
@@ -471,7 +471,7 @@ class EntityMention$Type extends CloudEnum {
 }
 
 /// Represents a text span in the input document.
-class TextSpan extends CloudMessage {
+class TextSpan extends Message {
 
   /// The content of the text span, which is a substring of the document.
   final String? content;
@@ -513,7 +513,7 @@ class TextSpan extends CloudMessage {
 }
 
 /// Represents a category returned from the text classifier.
-class ClassificationCategory extends CloudMessage {
+class ClassificationCategory extends Message {
 
   /// The name of the category representing the document.
   final String? name;
@@ -562,7 +562,7 @@ class ClassificationCategory extends CloudMessage {
 }
 
 /// The sentiment analysis request message.
-class AnalyzeSentimentRequest extends CloudMessage {
+class AnalyzeSentimentRequest extends Message {
 
   /// Required. Input document.
   final Document? document;
@@ -577,8 +577,8 @@ class AnalyzeSentimentRequest extends CloudMessage {
 
   factory AnalyzeSentimentRequest.fromJson(Map<String, dynamic> json) {
     return AnalyzeSentimentRequest(
-      document: $toMessage(json['document'], Document.fromJson),
-      encodingType: $toCustom(json['encodingType'], EncodingType.fromJson),
+      document: $decode(json['document'], Document.fromJson),
+      encodingType: $decode(json['encodingType'], EncodingType.fromJson),
     );
   }
 
@@ -600,7 +600,7 @@ class AnalyzeSentimentRequest extends CloudMessage {
 }
 
 /// The sentiment analysis response message.
-class AnalyzeSentimentResponse extends CloudMessage {
+class AnalyzeSentimentResponse extends Message {
 
   /// The overall sentiment of the input document.
   final Sentiment? documentSentiment;
@@ -627,9 +627,9 @@ class AnalyzeSentimentResponse extends CloudMessage {
 
   factory AnalyzeSentimentResponse.fromJson(Map<String, dynamic> json) {
     return AnalyzeSentimentResponse(
-      documentSentiment: $toMessage(json['documentSentiment'], Sentiment.fromJson),
+      documentSentiment: $decode(json['documentSentiment'], Sentiment.fromJson),
       languageCode: json['languageCode'],
-      sentences: $toMessageList(json['sentences'], Sentence.fromJson),
+      sentences: $decodeList(json['sentences'], Sentence.fromJson),
       languageSupported: json['languageSupported'],
     );
   }
@@ -639,7 +639,7 @@ class AnalyzeSentimentResponse extends CloudMessage {
     return {
       if (documentSentiment != null) 'documentSentiment': documentSentiment!.toJson(),
       if (languageCode != null) 'languageCode': languageCode,
-      if (sentences != null) 'sentences': $fromList(sentences),
+      if (sentences != null) 'sentences': $encodeList(sentences),
       if (languageSupported != null) 'languageSupported': languageSupported,
     };
   }
@@ -655,7 +655,7 @@ class AnalyzeSentimentResponse extends CloudMessage {
 }
 
 /// The entity analysis request message.
-class AnalyzeEntitiesRequest extends CloudMessage {
+class AnalyzeEntitiesRequest extends Message {
 
   /// Required. Input document.
   final Document? document;
@@ -670,8 +670,8 @@ class AnalyzeEntitiesRequest extends CloudMessage {
 
   factory AnalyzeEntitiesRequest.fromJson(Map<String, dynamic> json) {
     return AnalyzeEntitiesRequest(
-      document: $toMessage(json['document'], Document.fromJson),
-      encodingType: $toCustom(json['encodingType'], EncodingType.fromJson),
+      document: $decode(json['document'], Document.fromJson),
+      encodingType: $decode(json['encodingType'], EncodingType.fromJson),
     );
   }
 
@@ -693,7 +693,7 @@ class AnalyzeEntitiesRequest extends CloudMessage {
 }
 
 /// The entity analysis response message.
-class AnalyzeEntitiesResponse extends CloudMessage {
+class AnalyzeEntitiesResponse extends Message {
 
   /// The recognized entities in the input document.
   final List<Entity>? entities;
@@ -716,7 +716,7 @@ class AnalyzeEntitiesResponse extends CloudMessage {
 
   factory AnalyzeEntitiesResponse.fromJson(Map<String, dynamic> json) {
     return AnalyzeEntitiesResponse(
-      entities: $toMessageList(json['entities'], Entity.fromJson),
+      entities: $decodeList(json['entities'], Entity.fromJson),
       languageCode: json['languageCode'],
       languageSupported: json['languageSupported'],
     );
@@ -725,7 +725,7 @@ class AnalyzeEntitiesResponse extends CloudMessage {
   @override
   Object toJson() {
     return {
-      if (entities != null) 'entities': $fromList(entities),
+      if (entities != null) 'entities': $encodeList(entities),
       if (languageCode != null) 'languageCode': languageCode,
       if (languageSupported != null) 'languageSupported': languageSupported,
     };
@@ -742,7 +742,7 @@ class AnalyzeEntitiesResponse extends CloudMessage {
 }
 
 /// The document classification request message.
-class ClassifyTextRequest extends CloudMessage {
+class ClassifyTextRequest extends Message {
 
   /// Required. Input document.
   final Document? document;
@@ -753,7 +753,7 @@ class ClassifyTextRequest extends CloudMessage {
 
   factory ClassifyTextRequest.fromJson(Map<String, dynamic> json) {
     return ClassifyTextRequest(
-      document: $toMessage(json['document'], Document.fromJson),
+      document: $decode(json['document'], Document.fromJson),
     );
   }
 
@@ -769,7 +769,7 @@ class ClassifyTextRequest extends CloudMessage {
 }
 
 /// The document classification response message.
-class ClassifyTextResponse extends CloudMessage {
+class ClassifyTextResponse extends Message {
 
   /// Categories representing the input document.
   final List<ClassificationCategory>? categories;
@@ -792,7 +792,7 @@ class ClassifyTextResponse extends CloudMessage {
 
   factory ClassifyTextResponse.fromJson(Map<String, dynamic> json) {
     return ClassifyTextResponse(
-      categories: $toMessageList(json['categories'], ClassificationCategory.fromJson),
+      categories: $decodeList(json['categories'], ClassificationCategory.fromJson),
       languageCode: json['languageCode'],
       languageSupported: json['languageSupported'],
     );
@@ -801,7 +801,7 @@ class ClassifyTextResponse extends CloudMessage {
   @override
   Object toJson() {
     return {
-      if (categories != null) 'categories': $fromList(categories),
+      if (categories != null) 'categories': $encodeList(categories),
       if (languageCode != null) 'languageCode': languageCode,
       if (languageSupported != null) 'languageSupported': languageSupported,
     };
@@ -818,7 +818,7 @@ class ClassifyTextResponse extends CloudMessage {
 }
 
 /// The document moderation request message.
-class ModerateTextRequest extends CloudMessage {
+class ModerateTextRequest extends Message {
 
   /// Required. Input document.
   final Document? document;
@@ -833,8 +833,8 @@ class ModerateTextRequest extends CloudMessage {
 
   factory ModerateTextRequest.fromJson(Map<String, dynamic> json) {
     return ModerateTextRequest(
-      document: $toMessage(json['document'], Document.fromJson),
-      modelVersion: $toCustom(json['modelVersion'], ModerateTextRequest$ModelVersion.fromJson),
+      document: $decode(json['document'], Document.fromJson),
+      modelVersion: $decode(json['modelVersion'], ModerateTextRequest$ModelVersion.fromJson),
     );
   }
 
@@ -856,7 +856,7 @@ class ModerateTextRequest extends CloudMessage {
 }
 
 /// The model version to use for ModerateText.
-class ModerateTextRequest$ModelVersion extends CloudEnum {
+class ModerateTextRequest$ModelVersion extends Enum {
   /// The default model version.
   static const modelVersionUnspecified = ModerateTextRequest$ModelVersion('MODEL_VERSION_UNSPECIFIED');
 
@@ -883,7 +883,7 @@ class ModerateTextRequest$ModelVersion extends CloudEnum {
 }
 
 /// The document moderation response message.
-class ModerateTextResponse extends CloudMessage {
+class ModerateTextResponse extends Message {
 
   /// Harmful and sensitive categories representing the input document.
   final List<ClassificationCategory>? moderationCategories;
@@ -906,7 +906,7 @@ class ModerateTextResponse extends CloudMessage {
 
   factory ModerateTextResponse.fromJson(Map<String, dynamic> json) {
     return ModerateTextResponse(
-      moderationCategories: $toMessageList(json['moderationCategories'], ClassificationCategory.fromJson),
+      moderationCategories: $decodeList(json['moderationCategories'], ClassificationCategory.fromJson),
       languageCode: json['languageCode'],
       languageSupported: json['languageSupported'],
     );
@@ -915,7 +915,7 @@ class ModerateTextResponse extends CloudMessage {
   @override
   Object toJson() {
     return {
-      if (moderationCategories != null) 'moderationCategories': $fromList(moderationCategories),
+      if (moderationCategories != null) 'moderationCategories': $encodeList(moderationCategories),
       if (languageCode != null) 'languageCode': languageCode,
       if (languageSupported != null) 'languageSupported': languageSupported,
     };
@@ -933,7 +933,7 @@ class ModerateTextResponse extends CloudMessage {
 
 /// The request message for the text annotation API, which can perform multiple
 /// analysis types in one call.
-class AnnotateTextRequest extends CloudMessage {
+class AnnotateTextRequest extends Message {
 
   /// Required. Input document.
   final Document? document;
@@ -952,9 +952,9 @@ class AnnotateTextRequest extends CloudMessage {
 
   factory AnnotateTextRequest.fromJson(Map<String, dynamic> json) {
     return AnnotateTextRequest(
-      document: $toMessage(json['document'], Document.fromJson),
-      features: $toMessage(json['features'], AnnotateTextRequest$Features.fromJson),
-      encodingType: $toCustom(json['encodingType'], EncodingType.fromJson),
+      document: $decode(json['document'], Document.fromJson),
+      features: $decode(json['features'], AnnotateTextRequest$Features.fromJson),
+      encodingType: $decode(json['encodingType'], EncodingType.fromJson),
     );
   }
 
@@ -978,7 +978,7 @@ class AnnotateTextRequest extends CloudMessage {
 
 /// All available features.
 /// Setting each one to true will enable that specific analysis for the input.
-class AnnotateTextRequest$Features extends CloudMessage {
+class AnnotateTextRequest$Features extends Message {
 
   /// Optional. Extract entities.
   final bool? extractEntities;
@@ -1031,7 +1031,7 @@ class AnnotateTextRequest$Features extends CloudMessage {
 }
 
 /// The text annotations response message.
-class AnnotateTextResponse extends CloudMessage {
+class AnnotateTextResponse extends Message {
 
   /// Sentences in the input document. Populated if the user enables
   /// [AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_document_sentiment].
@@ -1076,12 +1076,12 @@ class AnnotateTextResponse extends CloudMessage {
 
   factory AnnotateTextResponse.fromJson(Map<String, dynamic> json) {
     return AnnotateTextResponse(
-      sentences: $toMessageList(json['sentences'], Sentence.fromJson),
-      entities: $toMessageList(json['entities'], Entity.fromJson),
-      documentSentiment: $toMessage(json['documentSentiment'], Sentiment.fromJson),
+      sentences: $decodeList(json['sentences'], Sentence.fromJson),
+      entities: $decodeList(json['entities'], Entity.fromJson),
+      documentSentiment: $decode(json['documentSentiment'], Sentiment.fromJson),
       languageCode: json['languageCode'],
-      categories: $toMessageList(json['categories'], ClassificationCategory.fromJson),
-      moderationCategories: $toMessageList(json['moderationCategories'], ClassificationCategory.fromJson),
+      categories: $decodeList(json['categories'], ClassificationCategory.fromJson),
+      moderationCategories: $decodeList(json['moderationCategories'], ClassificationCategory.fromJson),
       languageSupported: json['languageSupported'],
     );
   }
@@ -1089,12 +1089,12 @@ class AnnotateTextResponse extends CloudMessage {
   @override
   Object toJson() {
     return {
-      if (sentences != null) 'sentences': $fromList(sentences),
-      if (entities != null) 'entities': $fromList(entities),
+      if (sentences != null) 'sentences': $encodeList(sentences),
+      if (entities != null) 'entities': $encodeList(entities),
       if (documentSentiment != null) 'documentSentiment': documentSentiment!.toJson(),
       if (languageCode != null) 'languageCode': languageCode,
-      if (categories != null) 'categories': $fromList(categories),
-      if (moderationCategories != null) 'moderationCategories': $fromList(moderationCategories),
+      if (categories != null) 'categories': $encodeList(categories),
+      if (moderationCategories != null) 'moderationCategories': $encodeList(moderationCategories),
       if (languageSupported != null) 'languageSupported': languageSupported,
     };
   }
@@ -1114,7 +1114,7 @@ class AnnotateTextResponse extends CloudMessage {
 /// beginning offsets for various outputs, such as tokens and mentions, and
 /// languages that natively use different text encodings may access offsets
 /// differently.
-class EncodingType extends CloudEnum {
+class EncodingType extends Enum {
   /// If `EncodingType` is not specified, encoding-dependent information (such as
   /// `begin_offset`) will be set at `-1`.
   static const none = EncodingType('NONE');

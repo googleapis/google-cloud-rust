@@ -113,31 +113,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ace50bade8e6234aa140d9a2f552bbee1db4d353f69b8217bc503490fc1a9f26"
 
 [[package]]
-name = "aws-lc-rs"
-version = "1.12.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5e4e8200b9a4a5801a769d50eeabc05670fec7e959a8cb7a63a93e4e519942ae"
-dependencies = [
- "aws-lc-sys",
- "paste",
- "zeroize",
-]
-
-[[package]]
-name = "aws-lc-sys"
-version = "0.26.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0f9dd2e03ee80ca2822dd6ea431163d2ef259f2066a4d6ccaca6d9dcb386aa43"
-dependencies = [
- "bindgen",
- "cc",
- "cmake",
- "dunce",
- "fs_extra",
- "paste",
-]
-
-[[package]]
 name = "axum"
 version = "0.7.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -266,29 +241,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8c3c1a368f70d6cf7302d78f8f7093da241fb8e8807c05cc9e51a125895a6d5b"
 
 [[package]]
-name = "bindgen"
-version = "0.69.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "271383c67ccabffb7381723dea0672a673f292304fcb45c01cc648c7a8d58088"
-dependencies = [
- "bitflags",
- "cexpr",
- "clang-sys",
- "itertools",
- "lazy_static",
- "lazycell",
- "log",
- "prettyplease",
- "proc-macro2",
- "quote",
- "regex",
- "rustc-hash",
- "shlex",
- "syn",
- "which",
-]
-
-[[package]]
 name = "bitflags"
 version = "2.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -352,18 +304,7 @@ version = "1.2.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "be714c154be609ec7f5dad223a33bf1482fff90472de28f7362806e6d4832b8c"
 dependencies = [
- "jobserver",
- "libc",
  "shlex",
-]
-
-[[package]]
-name = "cexpr"
-version = "0.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6fac387a98bb7c37292057cffc56d62ecb629900026402633ae9160df93a8766"
-dependencies = [
- "nom",
 ]
 
 [[package]]
@@ -392,26 +333,6 @@ dependencies = [
  "serde",
  "wasm-bindgen",
  "windows-link",
-]
-
-[[package]]
-name = "clang-sys"
-version = "1.8.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0b023947811758c97c59bf9d1c188fd619ad4718dcaa767947df1cadb14f39f4"
-dependencies = [
- "glob",
- "libc",
- "libloading",
-]
-
-[[package]]
-name = "cmake"
-version = "0.1.54"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e7caa3f9de89ddbe2c607f4101924c5abec803763ae9534e4f4d7d8f84aa81f0"
-dependencies = [
- "cc",
 ]
 
 [[package]]
@@ -570,12 +491,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1435fa1053d8b2fbbe9be7e97eca7f33d37b28409959813daefc1446a14247f1"
 
 [[package]]
-name = "dunce"
-version = "1.0.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "92773504d58c093f6de2459af4af33faa518c13451eb8f2b5698ed3d36e7c813"
-
-[[package]]
 name = "echo-server"
 version = "0.0.0"
 dependencies = [
@@ -658,12 +573,6 @@ name = "fragile"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6c2141d6d6c8512188a7891b4b01590a45f6dac67afb4f255c4124dbb86d4eaa"
-
-[[package]]
-name = "fs_extra"
-version = "1.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "42703706b716c37f96a77aea830392ad231f44c9e9a67872fa5548707e11b11c"
 
 [[package]]
 name = "futures"
@@ -798,18 +707,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "07e28edb80900c19c28f1072f2e8aeca7fa06b23cd4169cefe1af5aa3260783f"
 
 [[package]]
-name = "glob"
-version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a8d1add55171497b4705a648c6b583acafb01d58050a51727785f0b2c8e0a2b2"
-
-[[package]]
 name = "google-cloud-accessapproval-v1"
 version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -826,6 +730,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -843,6 +748,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -876,6 +782,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -909,6 +816,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-logging-type",
  "google-cloud-rpc",
  "google-cloud-wkt",
@@ -927,6 +835,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-rpc-context",
  "google-cloud-wkt",
@@ -946,6 +855,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -967,6 +877,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -986,6 +897,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -1005,6 +917,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -1022,6 +935,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -1042,6 +956,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -1061,6 +976,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -1080,6 +996,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1177,6 +1094,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1200,6 +1118,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-identity-accesscontextmanager-v1",
  "google-cloud-longrunning",
@@ -1225,6 +1144,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -1273,6 +1193,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1296,6 +1217,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -1320,6 +1242,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1341,6 +1264,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1362,6 +1286,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1383,6 +1308,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1404,6 +1330,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1425,6 +1352,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -1445,6 +1373,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
@@ -1462,6 +1391,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
@@ -1479,6 +1409,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-rpc",
  "google-cloud-wkt",
@@ -1498,6 +1429,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -1515,6 +1447,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -1532,6 +1465,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -1553,6 +1487,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-type",
  "google-cloud-wkt",
@@ -1572,6 +1507,7 @@ dependencies = [
  "bytes",
  "google-cloud-gax",
  "google-cloud-grafeas-v1",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -1589,6 +1525,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -1609,6 +1546,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -1629,6 +1567,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -1649,6 +1588,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
@@ -1666,6 +1606,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1688,6 +1629,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -1717,6 +1659,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-rpc",
  "google-cloud-wkt",
@@ -1735,6 +1678,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1757,6 +1701,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1778,6 +1723,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
@@ -1799,6 +1745,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -1817,6 +1764,7 @@ dependencies = [
  "bytes",
  "google-cloud-gax",
  "google-cloud-grafeas-v1",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
@@ -1834,6 +1782,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -1853,6 +1802,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -1874,6 +1824,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -1893,6 +1844,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -1914,6 +1866,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -1933,6 +1886,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -1953,6 +1907,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -1975,6 +1930,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -1995,6 +1951,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2017,6 +1974,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2040,6 +1998,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
@@ -2062,6 +2021,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2084,6 +2044,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-type",
@@ -2104,6 +2065,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2125,6 +2087,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2145,6 +2108,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -2161,6 +2125,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -2184,6 +2149,7 @@ dependencies = [
  "bytes",
  "google-cloud-common",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2204,6 +2170,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2244,6 +2211,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-type",
@@ -2264,6 +2232,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -2281,13 +2250,11 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax"
-version = "0.20.0"
+version = "0.21.0"
 dependencies = [
- "axum 0.8.1",
  "base64",
  "built",
  "bytes",
- "echo-server",
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
@@ -2302,7 +2269,6 @@ dependencies = [
  "serde_json",
  "serde_with",
  "serial_test",
- "tempfile",
  "test-case",
  "thiserror",
  "tokio",
@@ -2315,6 +2281,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -2337,6 +2304,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -2375,6 +2343,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-gkehub-configmanagement-v1",
  "google-cloud-gkehub-multiclusteringress-v1",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -2394,6 +2363,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-type",
@@ -2414,6 +2384,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -2438,6 +2409,7 @@ dependencies = [
  "google-cloud-apps-script-type-sheets",
  "google-cloud-apps-script-type-slides",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -2448,12 +2420,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-http-client"
+version = "0.1.0"
+dependencies = [
+ "axum 0.8.1",
+ "bytes",
+ "echo-server",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-rpc",
+ "http",
+ "mockall",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serial_test",
+ "tokio",
+]
+
+[[package]]
 name = "google-cloud-iam-admin-v1"
 version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-type",
  "google-cloud-wkt",
@@ -2472,6 +2464,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -2488,6 +2481,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
@@ -2505,6 +2499,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-type",
@@ -2525,6 +2520,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-type",
@@ -2545,6 +2541,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
@@ -2572,6 +2569,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-identity-accesscontextmanager-type",
  "google-cloud-longrunning",
@@ -2594,6 +2592,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -2613,6 +2612,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-kms-v1",
  "google-cloud-wkt",
  "lazy_static",
@@ -2630,6 +2630,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -2651,6 +2652,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -2667,6 +2669,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -2694,6 +2697,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-logging-type",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2715,6 +2719,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -2733,6 +2738,7 @@ dependencies = [
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
@@ -2751,6 +2757,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -2770,6 +2777,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2791,6 +2799,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2811,6 +2820,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -2833,6 +2843,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2854,6 +2865,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
@@ -2872,6 +2884,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
@@ -2889,6 +2902,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -2909,6 +2923,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
@@ -2927,6 +2942,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -2947,6 +2963,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -2968,6 +2985,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -2990,6 +3008,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -3011,6 +3030,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -3032,6 +3052,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -3053,6 +3074,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-type",
@@ -3073,6 +3095,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3094,6 +3117,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-type",
@@ -3124,6 +3148,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
@@ -3141,6 +3166,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-type",
@@ -3171,6 +3197,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-oslogin-common",
  "google-cloud-wkt",
  "lazy_static",
@@ -3188,6 +3215,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3209,6 +3237,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-wkt",
@@ -3227,6 +3256,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3249,6 +3279,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-iam-v2",
  "google-cloud-rpc",
@@ -3269,6 +3300,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-rpc",
  "google-cloud-type",
@@ -3288,6 +3320,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
@@ -3306,6 +3339,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3327,6 +3361,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -3343,6 +3378,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3363,6 +3399,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -3391,6 +3428,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
@@ -3408,6 +3446,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3429,6 +3468,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3450,6 +3490,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3471,6 +3512,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
@@ -3513,6 +3555,7 @@ dependencies = [
  "bytes",
  "google-cloud-api",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3534,6 +3577,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-rpc",
  "google-cloud-wkt",
@@ -3552,6 +3596,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-wkt",
@@ -3570,6 +3615,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -3591,6 +3637,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -3613,6 +3660,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -3629,6 +3677,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3649,6 +3698,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3670,6 +3720,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-wkt",
@@ -3688,6 +3739,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
@@ -3705,6 +3757,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -3724,6 +3777,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3745,6 +3799,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3765,6 +3820,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3786,6 +3842,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-rpc",
@@ -3806,6 +3863,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
@@ -3827,6 +3885,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -3843,6 +3902,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
@@ -3864,6 +3924,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-rpc",
@@ -3883,6 +3944,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3903,6 +3965,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -3922,6 +3985,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -3939,6 +4003,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -3961,6 +4026,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -3978,6 +4044,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -4009,6 +4076,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -4031,6 +4099,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -4050,6 +4119,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -4067,6 +4137,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
@@ -4087,6 +4158,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
@@ -4108,6 +4180,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -4129,6 +4202,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-longrunning",
@@ -4150,6 +4224,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -4170,6 +4245,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -4189,6 +4265,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -4221,6 +4298,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -4237,6 +4315,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -4257,6 +4336,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -4307,15 +4387,6 @@ name = "hex"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
-
-[[package]]
-name = "home"
-version = "0.5.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "589533453244b0995c858700322199b2becb13b627df2851f64a2775d024abcf"
-dependencies = [
- "windows-sys 0.59.0",
-]
 
 [[package]]
 name = "http"
@@ -4687,15 +4758,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d75a2a4b1b190afb6f5425f10f6a8f959d2ea0b9c2b1d79553551850539e4674"
 
 [[package]]
-name = "jobserver"
-version = "0.1.32"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "48d1dbcbbeb6a7fec7e059840aa538bd62aaccf972c7346c4d9d2059312853d0"
-dependencies = [
- "libc",
-]
-
-[[package]]
 name = "js-sys"
 version = "0.3.77"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4715,38 +4777,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "lazycell"
-version = "1.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "830d08ce1d1d941e6b30645f1a0eb5643013d835ce3779a5fc208261dbe10f55"
-
-[[package]]
 name = "libc"
 version = "0.2.170"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "875b3680cb2f8f71bdcf9a30f38d48282f5d3c95cbf9b3fa57269bb5d5c06828"
 
 [[package]]
-name = "libloading"
-version = "0.8.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc2f4eb4bc735547cfed7c0a4922cbd04a4655978c09b54f1f7b228750664c34"
-dependencies = [
- "cfg-if",
- "windows-targets",
-]
-
-[[package]]
 name = "libm"
 version = "0.2.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8355be11b20d696c8f18f6cc018c4e372165b1fa8126cef092399c9951984ffa"
-
-[[package]]
-name = "linux-raw-sys"
-version = "0.4.15"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d26c52dbd32dccf2d10cac7725f8eae5296885fb5703b261f7d0a0739ec807ab"
 
 [[package]]
 name = "linux-raw-sys"
@@ -4799,12 +4839,6 @@ name = "mime"
 version = "0.3.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
-
-[[package]]
-name = "minimal-lexical"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "68354c5c6bd36d73ff3feceb05efa59b6acb7626617f4962be322a825e61f79a"
 
 [[package]]
 name = "miniz_oxide"
@@ -4867,16 +4901,6 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "tempfile",
-]
-
-[[package]]
-name = "nom"
-version = "7.1.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d273983c5a657a70a3e8f2a01329822f3b8c8172b73826411a55751e404a0a4a"
-dependencies = [
- "memchr",
- "minimal-lexical",
 ]
 
 [[package]]
@@ -5029,12 +5053,6 @@ dependencies = [
  "smallvec",
  "windows-targets",
 ]
-
-[[package]]
-name = "paste"
-version = "1.0.15"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
 
 [[package]]
 name = "pem-rfc7468"
@@ -5394,31 +5412,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "719b953e2095829ee67db738b3bfa9fa368c94900df327b3f07fe6e794d2fe1f"
 
 [[package]]
-name = "rustc-hash"
-version = "1.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "08d43f7aa6b08d49f382cde6a7982047c3426db949b1424bc4b7ec9ae12c6ce2"
-
-[[package]]
 name = "rustc_version"
 version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cfcb3a22ef46e85b45de6ee7e79d063319ebb6594faafcf1c225ea92ab6e9b92"
 dependencies = [
  "semver",
-]
-
-[[package]]
-name = "rustix"
-version = "0.38.44"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fdb5bc1ae2baa591800df16c9ca78619bf65c0488b41b96ccec5d11220d8c154"
-dependencies = [
- "bitflags",
- "errno",
- "libc",
- "linux-raw-sys 0.4.15",
- "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -5430,7 +5429,7 @@ dependencies = [
  "bitflags",
  "errno",
  "libc",
- "linux-raw-sys 0.9.2",
+ "linux-raw-sys",
  "windows-sys 0.59.0",
 ]
 
@@ -5440,9 +5439,9 @@ version = "0.23.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "47796c98c480fce5406ef69d1c76378375492c3b0a0de587be0c1d9feb12f395"
 dependencies = [
- "aws-lc-rs",
  "log",
  "once_cell",
+ "ring",
  "rustls-pki-types",
  "rustls-webpki",
  "subtle",
@@ -5470,7 +5469,6 @@ version = "0.102.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "64ca1bc8749bd4cf37b5ce386cc146580777b4e8572c7b97baf22c83f444bee9"
 dependencies = [
- "aws-lc-rs",
  "ring",
  "rustls-pki-types",
  "untrusted",
@@ -5531,6 +5529,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
+ "google-cloud-http-client",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -5833,7 +5832,7 @@ dependencies = [
  "fastrand",
  "getrandom 0.3.1",
  "once_cell",
- "rustix 1.0.2",
+ "rustix",
  "windows-sys 0.59.0",
 ]
 
@@ -6348,18 +6347,6 @@ checksum = "33b6dd2ef9186f1f2072e409e99cd22a975331a6b3591b12c764e0e55c60d5d2"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
-]
-
-[[package]]
-name = "which"
-version = "4.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87ba24419a2078cd2b0f2ede2691b6c66d8e47836da3b6db8265ebad47afbfc7"
-dependencies = [
- "either",
- "home",
- "once_cell",
- "rustix 0.38.44",
 ]
 
 [[package]]

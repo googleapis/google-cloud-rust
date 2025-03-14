@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [PolicyBindings](crate::stubs::PolicyBindings) using a [gax::http_client::ReqwestClient].
+/// Implements [PolicyBindings](crate::stubs::PolicyBindings) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyBindings {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for PolicyBindings {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for PolicyBindings {
 }
 
 impl PolicyBindings {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -79,7 +79,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -97,7 +97,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
                     "/v3/{}",
                     req.policy_binding
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy_binding"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("policy_binding"))?
                         .name
                 ),
             )
@@ -114,7 +114,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -139,7 +139,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -164,7 +164,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -192,7 +192,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -211,7 +211,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -230,10 +230,10 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
     }
 }
 
-/// Implements [PrincipalAccessBoundaryPolicies](crate::stubs::PrincipalAccessBoundaryPolicies) using a [gax::http_client::ReqwestClient].
+/// Implements [PrincipalAccessBoundaryPolicies](crate::stubs::PrincipalAccessBoundaryPolicies) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PrincipalAccessBoundaryPolicies {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for PrincipalAccessBoundaryPolicies {
@@ -245,8 +245,8 @@ impl std::fmt::Debug for PrincipalAccessBoundaryPolicies {
 }
 
 impl PrincipalAccessBoundaryPolicies {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -294,7 +294,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -312,7 +312,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
                     "/v3/{}",
                     req.principal_access_boundary_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing(
+                        .ok_or_else(|| gclient::path_parameter::missing(
                             "principal_access_boundary_policy"
                         ))?
                         .name
@@ -331,7 +331,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -357,7 +357,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -381,7 +381,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -405,7 +405,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -424,7 +424,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

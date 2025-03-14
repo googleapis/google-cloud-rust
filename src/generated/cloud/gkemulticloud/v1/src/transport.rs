@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AttachedClusters](crate::stubs::AttachedClusters) using a [gax::http_client::ReqwestClient].
+/// Implements [AttachedClusters](crate::stubs::AttachedClusters) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AttachedClusters {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for AttachedClusters {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for AttachedClusters {
 }
 
 impl AttachedClusters {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -78,7 +78,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                     "/v1/{}",
                     req.attached_cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("attached_cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("attached_cluster"))?
                         .name
                 ),
             )
@@ -95,7 +95,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -138,7 +138,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -162,7 +162,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -185,7 +185,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
         let builder = builder.query(&[("ignoreErrors", &req.ignore_errors)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -204,7 +204,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -234,11 +234,11 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "proxyConfig")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -283,7 +283,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -302,7 +302,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -321,7 +321,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -357,10 +357,10 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
     }
 }
 
-/// Implements [AwsClusters](crate::stubs::AwsClusters) using a [gax::http_client::ReqwestClient].
+/// Implements [AwsClusters](crate::stubs::AwsClusters) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AwsClusters {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for AwsClusters {
@@ -372,8 +372,8 @@ impl std::fmt::Debug for AwsClusters {
 }
 
 impl AwsClusters {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -417,7 +417,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                     "/v1/{}",
                     req.aws_cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("aws_cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("aws_cluster"))?
                         .name
                 ),
             )
@@ -434,7 +434,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -457,7 +457,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -481,7 +481,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -504,7 +504,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = builder.query(&[("ignoreErrors", &req.ignore_errors)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -546,7 +546,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -588,7 +588,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                     "/v1/{}",
                     req.aws_node_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("aws_node_pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("aws_node_pool"))?
                         .name
                 ),
             )
@@ -605,7 +605,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -645,7 +645,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -669,7 +669,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -692,7 +692,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = builder.query(&[("ignoreErrors", &req.ignore_errors)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -714,7 +714,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -736,7 +736,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -755,7 +755,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -777,7 +777,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -796,7 +796,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -815,7 +815,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -851,10 +851,10 @@ impl crate::stubs::AwsClusters for AwsClusters {
     }
 }
 
-/// Implements [AzureClusters](crate::stubs::AzureClusters) using a [gax::http_client::ReqwestClient].
+/// Implements [AzureClusters](crate::stubs::AzureClusters) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AzureClusters {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for AzureClusters {
@@ -866,8 +866,8 @@ impl std::fmt::Debug for AzureClusters {
 }
 
 impl AzureClusters {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -912,7 +912,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -936,7 +936,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -957,7 +957,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -999,7 +999,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                     "/v1/{}",
                     req.azure_cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("azure_cluster"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("azure_cluster"))?
                         .name
                 ),
             )
@@ -1016,7 +1016,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1039,7 +1039,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1063,7 +1063,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1086,7 +1086,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("ignoreErrors", &req.ignore_errors)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1128,7 +1128,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1170,7 +1170,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                     "/v1/{}",
                     req.azure_node_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("azure_node_pool"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("azure_node_pool"))?
                         .name
                 ),
             )
@@ -1187,7 +1187,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1210,7 +1210,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1234,7 +1234,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1257,7 +1257,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("ignoreErrors", &req.ignore_errors)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1279,7 +1279,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1301,7 +1301,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1320,7 +1320,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1342,7 +1342,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1361,7 +1361,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1380,7 +1380,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

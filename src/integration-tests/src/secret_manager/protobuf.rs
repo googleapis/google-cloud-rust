@@ -301,13 +301,13 @@ async fn run_many_secret_versions(
     let want = want;
 
     const PAGE_SIZE: i32 = 2;
-    let mut stream = client
+    let mut paginator = client
         .list_secret_versions(secret_name)
         .set_page_size(PAGE_SIZE)
-        .stream()
+        .paginator()
         .await;
     let mut got = BTreeSet::new();
-    while let Some(page) = stream.next().await {
+    while let Some(page) = paginator.next().await {
         let page = page?;
         assert!(page.versions.len() <= PAGE_SIZE as usize, "{page:?}");
         page.versions.into_iter().for_each(|v| {
@@ -361,12 +361,12 @@ async fn get_all_secret_names(
     project_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
-    let mut stream = client
+    let mut paginator = client
         .list_secrets(format!("projects/{project_id}"))
-        .stream()
+        .paginator()
         .await
         .items();
-    while let Some(response) = stream.next().await {
+    while let Some(response) = paginator.next().await {
         let item = response?;
         names.push(item.name);
     }
@@ -386,12 +386,12 @@ async fn cleanup_stale_secrets(
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
     let mut stale_secrets = Vec::new();
-    let mut stream = client
+    let mut paginator = client
         .list_secrets(format!("projects/{project_id}"))
-        .stream()
+        .paginator()
         .await
         .items();
-    while let Some(secret) = stream.next().await {
+    while let Some(secret) = paginator.next().await {
         let secret = secret?;
         if secret
             .name

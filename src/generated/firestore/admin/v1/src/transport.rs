@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [FirestoreAdmin](crate::stubs::FirestoreAdmin) using a [gax::http_client::ReqwestClient].
+/// Implements [FirestoreAdmin](crate::stubs::FirestoreAdmin) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct FirestoreAdmin {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for FirestoreAdmin {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for FirestoreAdmin {
 }
 
 impl FirestoreAdmin {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -75,7 +75,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -94,7 +94,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -113,7 +113,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -132,7 +132,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -150,7 +150,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                     "/v1/{}",
                     req.field
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("field"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("field"))?
                         .name
                 ),
             )
@@ -166,7 +166,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.field), options).await
@@ -190,7 +190,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -292,7 +292,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -315,7 +315,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
             );
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -333,7 +333,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                     "/v1/{}",
                     req.database
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("database"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("database"))?
                         .name
                 ),
             )
@@ -349,7 +349,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -373,7 +373,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -392,7 +392,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -412,7 +412,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
             );
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -431,7 +431,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -492,7 +492,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -514,7 +514,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -532,7 +532,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                     "/v1/{}",
                     req.backup_schedule
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backup_schedule"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("backup_schedule"))?
                         .name
                 ),
             )
@@ -548,7 +548,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -571,7 +571,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -593,7 +593,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -612,7 +612,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -631,7 +631,7 @@ impl crate::stubs::FirestoreAdmin for FirestoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

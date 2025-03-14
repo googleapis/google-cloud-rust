@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ContactCenterInsights](crate::stubs::ContactCenterInsights) using a [gax::http_client::ReqwestClient].
+/// Implements [ContactCenterInsights](crate::stubs::ContactCenterInsights) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ContactCenterInsights {
-    inner: gax::http_client::ReqwestClient,
+    inner: gclient::ReqwestClient,
 }
 
 impl std::fmt::Debug for ContactCenterInsights {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ContactCenterInsights {
 }
 
 impl ContactCenterInsights {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
+        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -97,7 +97,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}",
                     req.conversation
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("conversation"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("conversation"))?
                         .name
                 ),
             )
@@ -113,7 +113,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -137,7 +137,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -164,7 +164,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -184,7 +184,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -225,7 +225,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -247,7 +247,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -266,7 +266,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -386,7 +386,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}",
                     req.issue_model
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("issue_model"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("issue_model"))?
                         .name
                 ),
             )
@@ -402,7 +402,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -425,7 +425,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -447,7 +447,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -466,7 +466,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -556,7 +556,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -575,7 +575,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -593,7 +593,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}",
                     req.issue
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("issue"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("issue"))?
                         .name
                 ),
             )
@@ -609,7 +609,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.issue), options).await
@@ -630,7 +630,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -652,7 +652,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -693,7 +693,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -718,7 +718,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -737,7 +737,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -755,7 +755,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}",
                     req.phrase_matcher
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("phrase_matcher"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("phrase_matcher"))?
                         .name
                 ),
             )
@@ -771,7 +771,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -798,7 +798,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             );
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -817,7 +817,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -835,7 +835,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}",
                     req.settings
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("settings"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("settings"))?
                         .name
                 ),
             )
@@ -851,7 +851,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -896,7 +896,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -920,7 +920,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -938,7 +938,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}",
                     req.analysis_rule
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("analysis_rule"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("analysis_rule"))?
                         .name
                 ),
             )
@@ -954,7 +954,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -977,7 +977,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -996,7 +996,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1014,7 +1014,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}:initialize",
                     req.encryption_spec
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("encryption_spec"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("encryption_spec"))?
                         .name
                 ),
             )
@@ -1058,7 +1058,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1079,7 +1079,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1097,7 +1097,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}",
                     req.view
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("view"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("view"))?
                         .name
                 ),
             )
@@ -1113,7 +1113,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.view), options).await
@@ -1134,7 +1134,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1196,7 +1196,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1214,7 +1214,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}",
                     req.qa_question
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("qa_question"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("qa_question"))?
                         .name
                 ),
             )
@@ -1230,7 +1230,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1253,7 +1253,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1277,7 +1277,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1319,7 +1319,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1337,7 +1337,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}",
                     req.qa_scorecard
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("qa_scorecard"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("qa_scorecard"))?
                         .name
                 ),
             )
@@ -1353,7 +1353,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1377,7 +1377,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1401,7 +1401,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1443,7 +1443,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1517,7 +1517,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1542,7 +1542,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1590,7 +1590,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1609,7 +1609,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1627,7 +1627,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                     "/v1/{}",
                     req.feedback_label
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("feedback_label"))?
+                        .ok_or_else(|| gclient::path_parameter::missing("feedback_label"))?
                         .name
                 ),
             )
@@ -1643,7 +1643,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gclient::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1666,7 +1666,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1691,7 +1691,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1753,7 +1753,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1772,7 +1772,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 
@@ -1791,7 +1791,7 @@ impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gclient::NoBody>, options)
             .await
     }
 

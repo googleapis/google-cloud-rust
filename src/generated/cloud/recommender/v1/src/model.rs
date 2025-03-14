@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gclient;
 extern crate gtype;
 extern crate lazy_static;
 extern crate reqwest;
@@ -2335,7 +2336,6 @@ impl wkt::message::Message for ListInsightsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInsightsResponse {
     type PageItem = crate::model::Insight;
 
@@ -2587,7 +2587,6 @@ impl wkt::message::Message for ListRecommendationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRecommendationsResponse {
     type PageItem = crate::model::Recommendation;
 
