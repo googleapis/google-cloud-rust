@@ -12,13 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Google Cloud Client Libraries for Rust - Firestore
+//!
+//! **WARNING:** this crate is under active development. We expect multiple
+//! breaking changes in the upcoming releases. Testing is also incomplete, we do
+//! **not** recommend that you use this crate in production. We welcome feedback
+//! about the APIs, documentation, missing features, bugs, etc.
+//!
+//! This crate contains traits, types, and functions to interact with Firestore.
+//! Most applications will use the structs defined in the [client] module.
+//! More specifically:
+//!
+//! * [Firestore](client/struct.Firestore.html)
+
 pub use gax::error::Error;
 pub use gax::Result;
 // TODO(#1549) - remove this workaround once all code is generated.
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
+pub use generated::gapic::builders;
+pub use generated::gapic::client;
 pub use generated::gapic::model;
+pub use generated::gapic::stubs;
 
 pub(crate) mod google {
     pub mod firestore {

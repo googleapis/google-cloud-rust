@@ -106,6 +106,8 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 			codec.disabledRustdocWarnings = strings.Split(definition, ",")
 		case key == "template-override":
 			codec.templateOverride = definition
+		case key == "grpc-client-module":
+			codec.gRPCClientModule = definition
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -205,6 +207,8 @@ type codec struct {
 	systemParameters []systemParameter
 	// Overrides the template sudirectory.
 	templateOverride string
+	// Defines the tonic module, only used in with gRPC-based clients
+	gRPCClientModule string
 }
 
 type systemParameter struct {
@@ -814,6 +818,29 @@ func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pa
 	for _, arg := range h.PathTemplate {
 		if arg.FieldPath != nil {
 			params = append(params, pathArg{
+				Name:     *arg.FieldPath,
+				Accessor: derefFieldPath(*arg.FieldPath, message, state),
+			})
+		}
+	}
+	return params
+}
+
+type requestParam struct {
+	Name     string
+	Accessor string
+}
+
+func requestParams(h *api.PathInfo, method *api.Method, state *api.APIState) []requestParam {
+	message, ok := state.MessageByID[method.InputTypeID]
+	if !ok {
+		slog.Error("cannot find input message for", "method", method)
+		return []requestParam{}
+	}
+	var params []requestParam
+	for _, arg := range h.PathTemplate {
+		if arg.FieldPath != nil {
+			params = append(params, requestParam{
 				Name:     *arg.FieldPath,
 				Accessor: derefFieldPath(*arg.FieldPath, message, state),
 			})

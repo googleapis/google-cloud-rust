@@ -17,3 +17,19 @@
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
 pub mod model;
+
+#[allow(rustdoc::invalid_html_tags)]
+#[allow(rustdoc::redundant_explicit_links)]
+pub mod stubs;
+
+/// Request builders.
+pub mod builders;
+
+/// The client(s) for this client library.
+pub mod client;
+
+#[doc(hidden)]
+pub(crate) mod tracing;
+
+#[doc(hidden)]
+pub(crate) mod transport;

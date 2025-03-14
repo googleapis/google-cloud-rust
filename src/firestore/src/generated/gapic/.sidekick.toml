@@ -17,5 +17,6 @@ language             = 'rust'
 specification-source = 'google/firestore/v1'
 
 [codec]
-copyright-year    = '2025'
-template-override = 'templates/mod-prost'
+copyright-year     = '2025'
+template-override  = 'templates/grpc-client'
+grpc-client-module = 'crate::google::firestore::v1'

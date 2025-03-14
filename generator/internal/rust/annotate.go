@@ -69,8 +69,9 @@ type serviceAnnotations struct {
 	Methods     []*api.Method
 	DefaultHost string
 	// If true, this service includes methods that return long-running operations.
-	HasLROs  bool
-	APITitle string
+	HasLROs          bool
+	APITitle         string
+	GrpcClientModule string
 }
 
 type messageAnnotation struct {
@@ -98,6 +99,8 @@ type messageAnnotation struct {
 	// If true, this is a synthetic message, some generation is skipped for
 	// synthetic messages
 	HasSyntheticFields bool
+	// If true, this is the `google.protobuf.Empty` type
+	IsWktEmpty bool
 }
 
 type methodAnnotation struct {
@@ -315,10 +318,11 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 		ModuleName: toSnake(s.Name),
 		DocLines: formatDocComments(
 			s.Documentation, s.ID, model.State, c.modulePath, []string{s.ID, s.Package}, c.packageMapping),
-		Methods:     methods,
-		DefaultHost: s.DefaultHost,
-		HasLROs:     hasLROs,
-		APITitle:    model.Title,
+		Methods:          methods,
+		DefaultHost:      s.DefaultHost,
+		HasLROs:          hasLROs,
+		APITitle:         model.Title,
+		GrpcClientModule: c.gRPCClientModule,
 	}
 	s.Codec = ann
 }
@@ -397,6 +401,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		RepeatedFields:     partition.repeatedFields,
 		MapFields:          partition.mapFields,
 		HasSyntheticFields: hasSyntheticFields,
+		IsWktEmpty:         m.ID == ".google.protobuf.Empty",
 	}
 }
 

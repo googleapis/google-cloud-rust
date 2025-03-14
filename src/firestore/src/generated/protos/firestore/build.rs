@@ -58,6 +58,7 @@ fn main() {
             .disable_comments("google.firestore.v1.Firestore.BatchWrite")
             .disable_comments("google.firestore.v1.Firestore.CreateDocument")
             .build_server(false)
+            .build_client(false)
             .out_dir(".")
             .compile_protos_with_config(config, files, includes)
             .unwrap();
