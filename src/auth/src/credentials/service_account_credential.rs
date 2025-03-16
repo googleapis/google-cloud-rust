@@ -91,8 +91,12 @@ impl TokenProvider for ServiceAccountTokenProvider {
                 alg
             ))),
         }?;
-        let signer = signing_key.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256, rustls::SignatureScheme::ECDSA_NISTP256_SHA256])
-            .ok_or_else(|| CredentialError::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 or ECDSA_NISTP256_SHA256 signing scheme as it is not supported by current signer"))?;
+        let signer = signing_key
+            .choose_scheme(&[
+                rustls::SignatureScheme::RSA_PKCS1_SHA256,
+                rustls::SignatureScheme::ECDSA_NISTP256_SHA256,
+            ])
+            .unwrap();
 
         let expires_at = std::time::Instant::now() - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
         // The claims encode a unix timestamp. `std::time::Instant` has no
