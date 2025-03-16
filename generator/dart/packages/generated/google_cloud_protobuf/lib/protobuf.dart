@@ -111,7 +111,6 @@ part 'src/protobuf.p.dart';
 ///       "value": "1.212s"
 ///     }
 class Any extends Message {
-
   /// A URL/resource name that uniquely identifies the type of the serialized
   /// protocol buffer message. This string must contain at least
   /// one "/" character. The last segment of the URL's path must represent
@@ -234,7 +233,6 @@ class Any extends Message {
 /// be expressed in JSON format as "3.000000001s", and 3 seconds and 1
 /// microsecond should be expressed in JSON format as "3.000001s".
 class Duration extends Message {
-
   /// Signed seconds of the span of time. Must be from -315,576,000,000
   /// to +315,576,000,000 inclusive. Note: these bounds are computed from:
   /// 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years
@@ -470,7 +468,6 @@ class Duration extends Message {
 /// request should verify the included field paths, and return an
 /// `INVALID_ARGUMENT` error if any path is unmappable.
 class FieldMask extends Message {
-
   /// The set of field mask paths.
   final List<String>? paths;
 

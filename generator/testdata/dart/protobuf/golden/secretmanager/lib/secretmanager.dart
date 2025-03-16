@@ -38,43 +38,56 @@ class SecretManagerService extends CloudService {
   SecretManagerService({required super.client});
 
   /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
-  Future<ListSecretsResponse> listSecrets(ListSecretsRequest request) {
-    throw UnimplementedError('listSecrets');
+  Future<ListSecretsResponse> listSecrets(ListSecretsRequest request) async {
+    final url = Uri.https(host, '/v1/${request.parent}/secrets');
+    final response = await $get(url);
+    return ListSecretsResponse.fromJson(response);
   }
 
   /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
-  Future<Secret> createSecret(CreateSecretRequest request) {
-    throw UnimplementedError('createSecret');
+  Future<Secret> createSecret(CreateSecretRequest request) async {
+    final url = Uri.https(host, '/v1/${request.parent}/secrets');
+    final response = await $post(url, body: request.secret);
+    return Secret.fromJson(response);
   }
 
   /// Creates a new [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
   /// containing secret data and attaches it to an existing
   /// [Secret][google.cloud.secretmanager.v1.Secret].
-  Future<SecretVersion> addSecretVersion(AddSecretVersionRequest request) {
-    throw UnimplementedError('addSecretVersion');
+  Future<SecretVersion> addSecretVersion(AddSecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.parent}:addVersion');
+    final response = await $post(url, body: request);
+    return SecretVersion.fromJson(response);
   }
 
   /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
-  Future<Secret> getSecret(GetSecretRequest request) {
-    throw UnimplementedError('getSecret');
+  Future<Secret> getSecret(GetSecretRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}');
+    final response = await $get(url);
+    return Secret.fromJson(response);
   }
 
   /// Updates metadata of an existing
   /// [Secret][google.cloud.secretmanager.v1.Secret].
-  Future<Secret> updateSecret(UpdateSecretRequest request) {
-    throw UnimplementedError('updateSecret');
+  Future<Secret> updateSecret(UpdateSecretRequest request) async {
+    final url = Uri.https(host, '/v1/${request.secret.name}');
+    final response = await $patch(url, body: request.secret);
+    return Secret.fromJson(response);
   }
 
   /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
-  Future<void> deleteSecret(DeleteSecretRequest request) {
-    throw UnimplementedError('deleteSecret');
+  Future<void> deleteSecret(DeleteSecretRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}');
+    await $delete(url);
   }
 
   /// Lists [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]. This
   /// call does not return secret data.
-  Future<ListSecretVersionsResponse> listSecretVersions(ListSecretVersionsRequest request) {
-    throw UnimplementedError('listSecretVersions');
+  Future<ListSecretVersionsResponse> listSecretVersions(ListSecretVersionsRequest request) async {
+    final url = Uri.https(host, '/v1/${request.parent}/versions');
+    final response = await $get(url);
+    return ListSecretVersionsResponse.fromJson(response);
   }
 
   /// Gets metadata for a
@@ -82,8 +95,10 @@ class SecretManagerService extends CloudService {
   ///
   /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
   /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  Future<SecretVersion> getSecretVersion(GetSecretVersionRequest request) {
-    throw UnimplementedError('getSecretVersion');
+  Future<SecretVersion> getSecretVersion(GetSecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}');
+    final response = await $get(url);
+    return SecretVersion.fromJson(response);
   }
 
   /// Accesses a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -91,8 +106,10 @@ class SecretManagerService extends CloudService {
   ///
   /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
   /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  Future<AccessSecretVersionResponse> accessSecretVersion(AccessSecretVersionRequest request) {
-    throw UnimplementedError('accessSecretVersion');
+  Future<AccessSecretVersionResponse> accessSecretVersion(AccessSecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}:access');
+    final response = await $get(url);
+    return AccessSecretVersionResponse.fromJson(response);
   }
 
   /// Disables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -100,8 +117,10 @@ class SecretManagerService extends CloudService {
   /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
   /// [DISABLED][google.cloud.secretmanager.v1.SecretVersion.State.DISABLED].
-  Future<SecretVersion> disableSecretVersion(DisableSecretVersionRequest request) {
-    throw UnimplementedError('disableSecretVersion');
+  Future<SecretVersion> disableSecretVersion(DisableSecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}:disable');
+    final response = await $post(url, body: request);
+    return SecretVersion.fromJson(response);
   }
 
   /// Enables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -109,8 +128,10 @@ class SecretManagerService extends CloudService {
   /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
   /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED].
-  Future<SecretVersion> enableSecretVersion(EnableSecretVersionRequest request) {
-    throw UnimplementedError('enableSecretVersion');
+  Future<SecretVersion> enableSecretVersion(EnableSecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}:enable');
+    final response = await $post(url, body: request);
+    return SecretVersion.fromJson(response);
   }
 
   /// Destroys a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -119,8 +140,10 @@ class SecretManagerService extends CloudService {
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
   /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]
   /// and irrevocably destroys the secret data.
-  Future<SecretVersion> destroySecretVersion(DestroySecretVersionRequest request) {
-    throw UnimplementedError('destroySecretVersion');
+  Future<SecretVersion> destroySecretVersion(DestroySecretVersionRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}:destroy');
+    final response = await $post(url, body: request);
+    return SecretVersion.fromJson(response);
   }
 
   /// Sets the access control policy on the specified secret. Replaces any
@@ -130,14 +153,18 @@ class SecretManagerService extends CloudService {
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] are enforced
   /// according to the policy set on the associated
   /// [Secret][google.cloud.secretmanager.v1.Secret].
-  Future<Policy> setIamPolicy(SetIamPolicyRequest request) {
-    throw UnimplementedError('setIamPolicy');
+  Future<Policy> setIamPolicy(SetIamPolicyRequest request) async {
+    final url = Uri.https(host, '/v1/${request.resource}:setIamPolicy');
+    final response = await $post(url, body: request);
+    return Policy.fromJson(response);
   }
 
   /// Gets the access control policy for a secret.
   /// Returns empty policy if the secret exists and does not have a policy set.
-  Future<Policy> getIamPolicy(GetIamPolicyRequest request) {
-    throw UnimplementedError('getIamPolicy');
+  Future<Policy> getIamPolicy(GetIamPolicyRequest request) async {
+    final url = Uri.https(host, '/v1/${request.resource}:getIamPolicy');
+    final response = await $get(url);
+    return Policy.fromJson(response);
   }
 
   /// Returns permissions that a caller has for the specified secret.
@@ -147,18 +174,24 @@ class SecretManagerService extends CloudService {
   /// Note: This operation is designed to be used for building permission-aware
   /// UIs and command-line tools, not for authorization checking. This operation
   /// may "fail open" without warning.
-  Future<TestIamPermissionsResponse> testIamPermissions(TestIamPermissionsRequest request) {
-    throw UnimplementedError('testIamPermissions');
+  Future<TestIamPermissionsResponse> testIamPermissions(TestIamPermissionsRequest request) async {
+    final url = Uri.https(host, '/v1/${request.resource}:testIamPermissions');
+    final response = await $post(url, body: request);
+    return TestIamPermissionsResponse.fromJson(response);
   }
 
   /// Lists information about the supported locations for this service.
-  Future<ListLocationsResponse> listLocations(ListLocationsRequest request) {
-    throw UnimplementedError('listLocations');
+  Future<ListLocationsResponse> listLocations(ListLocationsRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}/locations');
+    final response = await $get(url);
+    return ListLocationsResponse.fromJson(response);
   }
 
   /// Gets information about a location.
-  Future<Location> getLocation(GetLocationRequest request) {
-    throw UnimplementedError('getLocation');
+  Future<Location> getLocation(GetLocationRequest request) async {
+    final url = Uri.https(host, '/v1/${request.name}');
+    final response = await $get(url);
+    return Location.fromJson(response);
   }
 }
 
@@ -169,7 +202,6 @@ class SecretManagerService extends CloudService {
 /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] that represent
 /// the secret data.
 class Secret extends Message {
-
   /// Output only. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] in the format
   /// `projects/*/secrets/*`.
@@ -331,7 +363,6 @@ class Secret extends Message {
 
 /// A secret version resource in the Secret Manager API.
 class SecretVersion extends Message {
-
   /// Output only. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*`.
@@ -476,7 +507,6 @@ class SecretVersion$State extends Enum {
 
 /// A policy that defines the replication and encryption configuration of data.
 class Replication extends Message {
-
   /// The [Secret][google.cloud.secretmanager.v1.Secret] will automatically be
   /// replicated without any restrictions.
   final Replication$Automatic? automatic;
@@ -513,7 +543,6 @@ class Replication extends Message {
 /// [Secret][google.cloud.secretmanager.v1.Secret] payload without any
 /// restrictions.
 class Replication$Automatic extends Message {
-
   /// Optional. The customer-managed encryption configuration of the
   /// [Secret][google.cloud.secretmanager.v1.Secret]. If no configuration is
   /// provided, Google-managed default encryption is used.
@@ -550,7 +579,6 @@ class Replication$Automatic extends Message {
 /// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
 /// specified in [Secret.replication.user_managed.replicas][]
 class Replication$UserManaged extends Message {
-
   /// Required. The list of Replicas for this
   /// [Secret][google.cloud.secretmanager.v1.Secret].
   ///
@@ -581,7 +609,6 @@ class Replication$UserManaged extends Message {
 /// Represents a Replica for this
 /// [Secret][google.cloud.secretmanager.v1.Secret].
 class Replication$UserManaged$Replica extends Message {
-
   /// The canonical IDs of the location to replicate data.
   /// For example: `"us-east1"`.
   final String? location;
@@ -629,7 +656,6 @@ class Replication$UserManaged$Replica extends Message {
 /// Configuration for encrypting secret payloads using customer-managed
 /// encryption keys (CMEK).
 class CustomerManagedEncryption extends Message {
-
   /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt
   /// secret payloads.
   ///
@@ -674,7 +700,6 @@ class CustomerManagedEncryption extends Message {
 /// The replication status of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 class ReplicationStatus extends Message {
-
   /// Describes the replication status of a
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
   /// automatic replication.
@@ -724,7 +749,6 @@ class ReplicationStatus extends Message {
 /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
 /// has an automatic replication policy.
 class ReplicationStatus$AutomaticStatus extends Message {
-
   /// Output only. The customer-managed encryption status of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
   /// populated if customer-managed encryption is used.
@@ -758,7 +782,6 @@ class ReplicationStatus$AutomaticStatus extends Message {
 /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
 /// has a user-managed replication policy.
 class ReplicationStatus$UserManagedStatus extends Message {
-
   /// Output only. The list of replica statuses for the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
   final List<ReplicationStatus$UserManagedStatus$ReplicaStatus>? replicas;
@@ -787,7 +810,6 @@ class ReplicationStatus$UserManagedStatus extends Message {
 /// Describes the status of a user-managed replica for the
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 class ReplicationStatus$UserManagedStatus$ReplicaStatus extends Message {
-
   /// Output only. The canonical ID of the replica location.
   /// For example: `"us-east1"`.
   final String? location;
@@ -828,7 +850,6 @@ class ReplicationStatus$UserManagedStatus$ReplicaStatus extends Message {
 
 /// Describes the status of customer-managed encryption.
 class CustomerManagedEncryptionStatus extends Message {
-
   /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to
   /// encrypt the secret payload, in the following format:
   /// `projects/*/locations/*/keyRings/*/cryptoKeys/*/versions/*`.
@@ -863,7 +884,6 @@ class CustomerManagedEncryptionStatus extends Message {
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
 class Topic extends Message {
-
   /// Required. The resource name of the Pub/Sub topic that will be published to,
   /// in the following format: `projects/*/topics/*`. For publication to succeed,
   /// the Secret Manager service agent must have the `pubsub.topic.publish`
@@ -903,7 +923,6 @@ class Topic extends Message {
 /// Secret. [Secret.topics][google.cloud.secretmanager.v1.Secret.topics] must be
 /// set to configure rotation.
 class Rotation extends Message {
-
   /// Optional. Timestamp in UTC at which the
   /// [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to rotate.
   /// Cannot be set to less than 300s (5 min) in the future and at most
@@ -956,7 +975,6 @@ class Rotation extends Message {
 /// sensitive secret payload that is associated with a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 class SecretPayload extends Message {
-
   /// The secret data. Must be no larger than 64KiB.
   final Uint8List? data;
 
@@ -1011,7 +1029,6 @@ class SecretPayload extends Message {
 /// Request message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 class ListSecretsRequest extends Message {
-
   /// Required. The resource name of the project associated with the
   /// [Secrets][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
   /// or `projects/*/locations/*`
@@ -1074,7 +1091,6 @@ class ListSecretsRequest extends Message {
 /// Response message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 class ListSecretsResponse extends Message {
-
   /// The list of [Secrets][google.cloud.secretmanager.v1.Secret] sorted in
   /// reverse by create_time (newest first).
   final List<Secret>? secrets;
@@ -1126,7 +1142,6 @@ class ListSecretsResponse extends Message {
 /// Request message for
 /// [SecretManagerService.CreateSecret][google.cloud.secretmanager.v1.SecretManagerService.CreateSecret].
 class CreateSecretRequest extends Message {
-
   /// Required. The resource name of the project to associate with the
   /// [Secret][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
   /// or `projects/*/locations/*`.
@@ -1179,7 +1194,6 @@ class CreateSecretRequest extends Message {
 /// Request message for
 /// [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
 class AddSecretVersionRequest extends Message {
-
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] to associate with the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
@@ -1222,7 +1236,6 @@ class AddSecretVersionRequest extends Message {
 /// Request message for
 /// [SecretManagerService.GetSecret][google.cloud.secretmanager.v1.SecretManagerService.GetSecret].
 class GetSecretRequest extends Message {
-
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret], in the format
   /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
@@ -1257,7 +1270,6 @@ class GetSecretRequest extends Message {
 /// Request message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 class ListSecretVersionsRequest extends Message {
-
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] associated with the
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] to list, in
@@ -1321,7 +1333,6 @@ class ListSecretVersionsRequest extends Message {
 /// Response message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 class ListSecretVersionsResponse extends Message {
-
   /// The list of [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]
   /// sorted in reverse by create_time (newest first).
   final List<SecretVersion>? versions;
@@ -1374,7 +1385,6 @@ class ListSecretVersionsResponse extends Message {
 /// Request message for
 /// [SecretManagerService.GetSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion].
 class GetSecretVersionRequest extends Message {
-
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*` or
@@ -1415,7 +1425,6 @@ class GetSecretVersionRequest extends Message {
 /// Request message for
 /// [SecretManagerService.UpdateSecret][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret].
 class UpdateSecretRequest extends Message {
-
   /// Required. [Secret][google.cloud.secretmanager.v1.Secret] with updated field
   /// values.
   final Secret secret;
@@ -1450,7 +1459,6 @@ class UpdateSecretRequest extends Message {
 /// Request message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 class AccessSecretVersionRequest extends Message {
-
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*` or
@@ -1491,7 +1499,6 @@ class AccessSecretVersionRequest extends Message {
 /// Response message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 class AccessSecretVersionResponse extends Message {
-
   /// The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*` or
@@ -1533,7 +1540,6 @@ class AccessSecretVersionResponse extends Message {
 /// Request message for
 /// [SecretManagerService.DeleteSecret][google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret].
 class DeleteSecretRequest extends Message {
-
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] to delete in the format
   /// `projects/*/secrets/*`.
@@ -1577,7 +1583,6 @@ class DeleteSecretRequest extends Message {
 /// Request message for
 /// [SecretManagerService.DisableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion].
 class DisableSecretVersionRequest extends Message {
-
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to disable in
   /// the format `projects/*/secrets/*/versions/*` or
@@ -1623,7 +1628,6 @@ class DisableSecretVersionRequest extends Message {
 /// Request message for
 /// [SecretManagerService.EnableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion].
 class EnableSecretVersionRequest extends Message {
-
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to enable in
   /// the format `projects/*/secrets/*/versions/*` or
@@ -1669,7 +1673,6 @@ class EnableSecretVersionRequest extends Message {
 /// Request message for
 /// [SecretManagerService.DestroySecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion].
 class DestroySecretVersionRequest extends Message {
-
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to destroy in
   /// the format `projects/*/secrets/*/versions/*` or
