@@ -41,15 +41,16 @@ bon            = "3.4.0"
 
 
 [dev-dependencies]
-axum        = "0.8"
-mockall     = "0.13"
-rand        = "0.8"
-regex       = "1"
-rsa         = { version = "0.9", features = ["pem"] }
-scoped-env  = "2"
-serial_test = "3"
-tempfile    = "3"
-test-case   = "3"
-tokio       = { version = "1", features = ["macros", "rt-multi-thread", "test-util"] }
-tokio-test  = "0.4"
-p256        = "0.13"
+axum          = "0.8"
+mockall       = "0.13"
+rand          = "0.8"
+regex         = "1"
+rsa           = { version = "0.9", features = ["pem"] }
+scoped-env    = "2"
+serial_test   = "3"
+tempfile      = "3"
+test-case     = "3"
+tokio         = { version = "1", features = ["macros", "rt-multi-thread", "test-util"] }
+tokio-test    = "0.4"
+p256          = "0.13"
+ed25519-dalek = { version = "2.1.1", features = ["pkcs8", "rand_core"] }

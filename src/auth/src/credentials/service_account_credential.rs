@@ -83,12 +83,13 @@ struct ServiceAccountTokenProvider {
 impl TokenProvider for ServiceAccountTokenProvider {
     async fn get_token(&self) -> Result<Token> {
         let signing_key = self.get_signing_key(&self.service_account_info.private_key)?;
-        let signing_algorithm = match signing_key.algorithm().as_str() {
-            Some("RSA") => Ok("RS256"),
-            Some("ECDSA") => Ok("ES256"),
-            _ => Err(CredentialError::non_retryable_from_str(
-                "Unsupported signing algorithm %s ",
-            )),
+        let signing_algorithm = match signing_key.algorithm().as_str().unwrap() {
+            "RSA" => Ok("RS256"),
+            "ECDSA" => Ok("ES256"),
+            alg => Err(CredentialError::non_retryable_from_str(format!(
+                "Unsupported signing algorithm {} ",
+                alg
+            ))),
         }?;
         let signer = signing_key.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256, rustls::SignatureScheme::ECDSA_NISTP256_SHA256])
             .ok_or_else(|| CredentialError::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 or ECDSA_NISTP256_SHA256 signing scheme as it is not supported by current signer"))?;
@@ -191,6 +192,7 @@ mod test {
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use base64::Engine;
+    use ed25519_dalek::SigningKey as EdSigningKey;
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::EncodePrivateKey;
     use rsa::pkcs8::LineEnding;
@@ -347,6 +349,14 @@ mod test {
                     .expect("Failed to encode key to PKCS#8 PEM")
                     .to_string()
             }
+            SignatureScheme::ED25519 => {
+                let signing_key = EdSigningKey::generate(&mut rng);
+                // Convert the SigningKey to PKCS#8
+                signing_key
+                    .to_pkcs8_pem(LineEnding::LF)
+                    .expect("Failed to encode key to PKCS#8 PEM")
+                    .to_string()
+            }
             _ => {
                 panic!("Unsupported signature scheme");
             }
@@ -395,7 +405,6 @@ mod test {
         Ok(())
     }
 
-    #[cfg(feature = "default-crypto-provider")]
     #[tokio::test]
     async fn get_service_account_token_esa_pkcs8_key_success() -> TestResult {
         let mut service_account_info = get_mock_service_account();
@@ -428,7 +437,19 @@ mod test {
         Ok(())
     }
 
-    #[cfg(feature = "default-crypto-provider")]
+    #[tokio::test]
+    async fn get_service_account_token_ed25519_pkcs8_key_failure() -> TestResult {
+        let mut service_account_info = get_mock_service_account();
+        service_account_info.private_key = generate_pkcs8_key(rustls::SignatureScheme::ED25519);
+        let token_provider = ServiceAccountTokenProvider {
+            service_account_info,
+        };
+        let token = token_provider.get_token().await;
+        let expected_error_message = "Unsupported signing algorithm ED25519";
+        assert!(token.is_err_and(|e| e.to_string().contains(expected_error_message)));
+        Ok(())
+    }
+
     #[tokio::test]
     async fn get_service_account_token_invalid_key_failure() -> TestResult {
         let mut service_account_info = get_mock_service_account();
