@@ -42,6 +42,10 @@ var usesCustomEncoding = map[string]string{
 	".google.protobuf.FieldMask": ".google.protobuf.FieldMask",
 }
 
+var reservedNames = map[string]string{
+	"Function": "",
+}
+
 func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	_, err := annotateModel(model, cfg.Codec)
 	if err != nil {
@@ -156,21 +160,18 @@ func resolveTypeName(message *api.Message, packageMapping map[string]string, imp
 	return messageName(message)
 }
 
-var messageRenames = map[string]string{
-	// 'Function' is a reserved keyword: https://dart.dev/language/keywords.
-	".google.cloud.functions.v2.Function": "CloudFunction",
-}
-
 func messageName(m *api.Message) string {
-	name, ok := messageRenames[m.ID]
-	if !ok {
-		name = strcase.ToCamel(m.Name)
-	}
+	name := strcase.ToCamel(m.Name)
 
-	if m.Parent != nil {
-		return messageName(m.Parent) + "$" + name
+	if m.Parent == nil {
+		// For top-most symbols, check for conflicts with reserved names.
+		if _, hasConflict := reservedNames[name]; hasConflict {
+			return name + "$"
+		} else {
+			return name
+		}
 	} else {
-		return name
+		return messageName(m.Parent) + "$" + name
 	}
 }
 
@@ -186,23 +187,30 @@ func enumValueName(e *api.EnumValue) string {
 }
 
 func httpPathFmt(pathInfo *api.PathInfo) string {
-	fmt := ""
+	var builder strings.Builder
+
 	for _, segment := range pathInfo.PathTemplate {
-		if segment.Literal != nil {
-			fmt = fmt + "/" + *segment.Literal
-		} else if segment.FieldPath != nil {
+		switch {
+		case segment.Literal != nil:
+			builder.WriteString("/")
+			builder.WriteString(*segment.Literal)
+		case segment.FieldPath != nil:
 			fieldPath := *segment.FieldPath
 			paths := strings.Split(fieldPath, ".")
 			for i, p := range paths {
 				paths[i] = strcase.ToLowerCamel(p)
 			}
 			fieldPath = strings.Join(paths, ".")
-			fmt = fmt + "/${request." + fieldPath + "}"
-		} else if segment.Verb != nil {
-			fmt = fmt + ":" + *segment.Verb
+			builder.WriteString("/${request.")
+			builder.WriteString(fieldPath)
+			builder.WriteString("}")
+		case segment.Verb != nil:
+			builder.WriteString(":")
+			builder.WriteString(*segment.Verb)
 		}
 	}
-	return fmt
+
+	return builder.String()
 }
 
 func httpPathArgs(_ *api.PathInfo) []string {

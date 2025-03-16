@@ -53,7 +53,6 @@ import 'package:google_cloud_common/common.dart';
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
 class Expr extends Message {
-
   /// Textual representation of an expression in Common Expression Language
   /// syntax.
   final String? expression;

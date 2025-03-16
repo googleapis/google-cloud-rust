@@ -49,7 +49,6 @@ import 'package:google_cloud_protobuf/protobuf.dart';
 ///       }
 ///     }
 class ErrorInfo extends Message {
-
   /// The reason of the error. This is a constant value that identifies the
   /// proximate cause of the error. Error reasons are unique within a particular
   /// domain of errors. This should be at most 63 characters and match a
@@ -123,7 +122,6 @@ class ErrorInfo extends Message {
 /// number of retries have been reached or a maximum retry delay cap has been
 /// reached.
 class RetryInfo extends Message {
-
   /// Clients should wait at least this long between retrying the same request.
   final Duration? retryDelay;
 
@@ -150,7 +148,6 @@ class RetryInfo extends Message {
 
 /// Describes additional debugging info.
 class DebugInfo extends Message {
-
   /// The stack trace entries indicating where the error occurred.
   final List<String>? stackEntries;
 
@@ -198,7 +195,6 @@ class DebugInfo extends Message {
 /// Also see RetryInfo and Help types for other details about handling a
 /// quota failure.
 class QuotaFailure extends Message {
-
   /// Describes all quota violations.
   final List<QuotaFailure$Violation>? violations;
 
@@ -226,7 +222,6 @@ class QuotaFailure extends Message {
 /// A message type used to describe a single quota violation.  For example, a
 /// daily quota or a custom quota that was exceeded.
 class QuotaFailure$Violation extends Message {
-
   /// The subject on which the quota check failed.
   /// For example, "clientip:<ip address of client>" or "project:<Google
   /// developer project id>".
@@ -277,7 +272,6 @@ class QuotaFailure$Violation extends Message {
 /// acknowledged, it could list the terms of service violation in the
 /// PreconditionFailure message.
 class PreconditionFailure extends Message {
-
   /// Describes all precondition violations.
   final List<PreconditionFailure$Violation>? violations;
 
@@ -304,7 +298,6 @@ class PreconditionFailure extends Message {
 
 /// A message type used to describe a single precondition failure.
 class PreconditionFailure$Violation extends Message {
-
   /// The type of PreconditionFailure. We recommend using a service-specific
   /// enum type to define the supported precondition violation subjects. For
   /// example, "TOS" for "Terms of Service violation".
@@ -358,7 +351,6 @@ class PreconditionFailure$Violation extends Message {
 /// Describes violations in a client request. This error type focuses on the
 /// syntactic aspects of the request.
 class BadRequest extends Message {
-
   /// Describes all violations in a client request.
   final List<BadRequest$FieldViolation>? fieldViolations;
 
@@ -385,7 +377,6 @@ class BadRequest extends Message {
 
 /// A message type used to describe a single bad request field.
 class BadRequest$FieldViolation extends Message {
-
   /// A path that leads to a field in the request body. The value will be a
   /// sequence of dot-separated identifiers that identify a protocol buffer
   /// field.
@@ -480,7 +471,6 @@ class BadRequest$FieldViolation extends Message {
 /// Contains metadata about the request that clients can attach when filing a bug
 /// or providing other forms of feedback.
 class RequestInfo extends Message {
-
   /// An opaque string that should only be interpreted by the service generating
   /// it. For example, it can be used to identify requests in the service's logs.
   final String? requestId;
@@ -521,7 +511,6 @@ class RequestInfo extends Message {
 
 /// Describes the resource that is being accessed.
 class ResourceInfo extends Message {
-
   /// A name for the type of resource being accessed, e.g. "sql table",
   /// "cloud storage bucket", "file", "Google calendar"; or the type URL
   /// of the resource: e.g. "type.googleapis.com/google.pubsub.v1.Topic".
@@ -587,7 +576,6 @@ class ResourceInfo extends Message {
 /// project hasn't enabled the accessed service, this can contain a URL pointing
 /// directly to the right place in the developer console to flip the bit.
 class Help extends Message {
-
   /// URL(s) pointing to additional information on handling the current error.
   final List<Help$Link>? links;
 
@@ -614,7 +602,6 @@ class Help extends Message {
 
 /// Describes a URL link.
 class Help$Link extends Message {
-
   /// Describes what the link offers.
   final String? description;
 
@@ -654,7 +641,6 @@ class Help$Link extends Message {
 /// Provides a localized error message that is safe to return to the user
 /// which can be attached to an RPC error.
 class LocalizedMessage extends Message {
-
   /// The locale used following the specification defined at
   /// https://www.rfc-editor.org/rfc/bcp/bcp47.txt.
   /// Examples are: "en-US", "fr-CH", "es-MX"
@@ -695,7 +681,6 @@ class LocalizedMessage extends Message {
 
 /// Represents an HTTP request.
 class HttpRequest extends Message {
-
   /// The HTTP request method.
   final String? method;
 
@@ -748,7 +733,6 @@ class HttpRequest extends Message {
 
 /// Represents an HTTP response.
 class HttpResponse extends Message {
-
   /// The HTTP status code, such as 200 or 404.
   final int? status;
 
@@ -801,7 +785,6 @@ class HttpResponse extends Message {
 
 /// Represents an HTTP header.
 class HttpHeader extends Message {
-
   /// The HTTP header key. It is case insensitive.
   final String? key;
 
@@ -846,7 +829,6 @@ class HttpHeader extends Message {
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
 class Status extends Message {
-
   /// The status code, which should be an enum value of
   /// [google.rpc.Code][google.rpc.Code].
   final int? code;

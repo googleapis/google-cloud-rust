@@ -22,7 +22,6 @@ class {{Codec.Name}} extends Message {
   {{#Fields}}
   {{> field}}
   {{/Fields}}
-
   {{Codec.Name}}({{#Codec.HasFields}}{
   {{#Fields}}
     {{#Codec.Required}}required {{/Codec.Required}}this.{{Codec.Name}},
