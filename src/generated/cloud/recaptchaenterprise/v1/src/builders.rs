@@ -268,7 +268,8 @@ pub mod recaptcha_enterprise_service {
         pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -677,7 +678,8 @@ pub mod recaptcha_enterprise_service {
             self,
         ) -> gax::paginator::Paginator<crate::model::ListIpOverridesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -847,7 +849,8 @@ pub mod recaptcha_enterprise_service {
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFirewallPoliciesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1132,7 +1135,8 @@ pub mod recaptcha_enterprise_service {
             crate::model::ListRelatedAccountGroupsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1210,7 +1214,8 @@ pub mod recaptcha_enterprise_service {
             crate::model::ListRelatedAccountGroupMembershipsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1288,7 +1293,8 @@ pub mod recaptcha_enterprise_service {
             crate::model::SearchRelatedAccountGroupMembershipsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);

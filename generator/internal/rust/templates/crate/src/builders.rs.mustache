@@ -83,19 +83,25 @@ pub mod {{Codec.ModuleName}} {
             }}
             (*self.0.stub).{{Codec.Name}}(self.0.request, self.0.options).await
         }
-        {{#IsPageable}}
+        {{#Pagination}}
 
         /// Streams the responses back.
         pub async fn paginator(self) -> gax::paginator::Paginator<{{OutputType.Codec.QualifiedName}}, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            {{#Optional}}
+            let token = self.0.request.{{Codec.FieldName}}.clone().unwrap_or_default();
+            {{/Optional}}
+            {{^Optional}}
+            let token = self.0.request.{{Codec.FieldName}}.clone();
+            {{/Optional}}
             let execute = move |token: String| {
                 let mut builder = self.clone();
-                builder.0.request = builder.0.request.set_page_token(token);
+                builder.0.request = builder.0.request.set_{{Codec.SetterName}}(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
         }
-        {{/IsPageable}}
+        {{/Pagination}}
         {{#OperationInfo}}
 
         /// Creates a [Poller][lro::Poller] to work with `{{Method.Codec.Name}}`.

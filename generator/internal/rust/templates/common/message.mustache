@@ -164,7 +164,7 @@ impl wkt::message::Message for {{Codec.Name}} {
     }
 }
 {{/Codec.HasSyntheticFields}}
-{{#IsPageableResponse}}
+{{#Pagination}}
 
 impl gax::paginator::PageableResponse for {{Name}} {
     {{#PageableItem}}
@@ -175,11 +175,19 @@ impl gax::paginator::PageableResponse for {{Name}} {
     }
 
     {{/PageableItem}}
+    {{#NextPageToken}}
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        {{^Optional}}
+        self.{{Codec.FieldName}}.clone()
+        {{/Optional}}
+        {{#Optional}}
+        self.{{Codec.FieldName}}.clone().unwrap_or_default()
+        {{/Optional}}
     }
+    {{/NextPageToken}}
 }
-{{/IsPageableResponse}}
+{{/Pagination}}
 {{#Codec.HasNestedTypes}}
 
 /// Defines additional types related to {{Name}}

@@ -1022,7 +1022,12 @@ func TestProtobuf_Pagination(t *testing.T) {
 					},
 					QueryParameters: map[string]bool{"page_size": true, "page_token": true},
 				},
-				IsPageable: true,
+				Pagination: &api.Field{
+					Name:     "page_token",
+					ID:       ".test.ListFooRequest.page_token",
+					Typez:    9,
+					JSONName: "pageToken",
+				},
 			},
 			{
 				Name:         "ListFooMissingNextPageToken",
@@ -1093,10 +1098,9 @@ func TestProtobuf_Pagination(t *testing.T) {
 		return
 	}
 	checkMessage(t, resp, &api.Message{
-		Name:               "ListFooResponse",
-		ID:                 ".test.ListFooResponse",
-		Package:            "test",
-		IsPageableResponse: true,
+		Name:    "ListFooResponse",
+		ID:      ".test.ListFooResponse",
+		Package: "test",
 		Fields: []*api.Field{
 			{
 				Name:     "next_page_token",
@@ -1119,13 +1123,21 @@ func TestProtobuf_Pagination(t *testing.T) {
 				JSONName: "totalSize",
 			},
 		},
-		PageableItem: &api.Field{
-			Name:     "foos",
-			ID:       ".test.ListFooResponse.foos",
-			Typez:    11,
-			TypezID:  ".test.Foo",
-			JSONName: "foos",
-			Repeated: true,
+		Pagination: &api.PaginationInfo{
+			NextPageToken: &api.Field{
+				Name:     "next_page_token",
+				ID:       ".test.ListFooResponse.next_page_token",
+				Typez:    9,
+				JSONName: "nextPageToken",
+			},
+			PageableItem: &api.Field{
+				Name:     "foos",
+				ID:       ".test.ListFooResponse.foos",
+				Typez:    11,
+				TypezID:  ".test.Foo",
+				JSONName: "foos",
+				Repeated: true,
+			},
 		},
 	})
 }

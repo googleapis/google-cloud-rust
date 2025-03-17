@@ -177,41 +177,6 @@ where
     }
 }
 
-#[cfg(feature = "unstable-sdk-client")]
-pub use sdk_util::*;
-
-#[cfg(feature = "unstable-sdk-client")]
-mod sdk_util {
-    /// Extracts a token value from the input provided.
-    pub fn extract_token<T>(input: T) -> String
-    where
-        T: TokenExtractor,
-    {
-        T::extract(&input)
-    }
-
-    /// [TokenExtractor] is a trait representing types that be be turned into a
-    /// pagination token.
-    pub trait TokenExtractor {
-        fn extract(&self) -> String;
-    }
-
-    impl TokenExtractor for &String {
-        fn extract(&self) -> String {
-            self.to_string()
-        }
-    }
-
-    impl TokenExtractor for &Option<String> {
-        fn extract(&self) -> String {
-            match self {
-                Some(v) => v.clone(),
-                None => String::new(),
-            }
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -395,13 +360,6 @@ mod tests {
             }
         }
         assert_eq!(count, 1);
-    }
-
-    #[test]
-    fn test_extract_token() {
-        assert_eq!(sdk_util::extract_token(&"abc".to_string()), "abc");
-        assert_eq!(sdk_util::extract_token(&Some("abc".to_string())), "abc");
-        assert_eq!(sdk_util::extract_token(&None::<String>), "");
     }
 
     #[cfg(feature = "unstable-stream")]
