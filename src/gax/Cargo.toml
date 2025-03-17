@@ -42,7 +42,7 @@ serde       = "1"
 serde_json  = "1"
 tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
 # Local crates
-auth = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
+auth = { version = "0.18", path = "../auth", package = "google-cloud-auth" }
 rpc  = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
 wkt  = { version = "0.2", path = "../wkt", package = "google-cloud-wkt" }
 
