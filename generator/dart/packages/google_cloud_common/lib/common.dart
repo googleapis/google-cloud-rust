@@ -15,7 +15,7 @@
 import 'dart:convert';
 
 import 'package:google_cloud_rpc/rpc.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 const String _clientName = 'dart-test-client';
 
@@ -41,13 +41,13 @@ abstract class Enum implements JsonEncodable {
   Object toJson() => value;
 }
 
-abstract class CloudService {
-  final Client client;
+class ServiceClient {
+  final http.Client httpClient;
 
-  CloudService({required this.client});
+  ServiceClient({required this.httpClient});
 
-  Future<Map<String, dynamic>> $get(Uri url) async {
-    final response = await client.get(
+  Future<Map<String, dynamic>> get(Uri url) async {
+    final response = await httpClient.get(
       url,
       headers: {
         'x-goog-api-client': _clientName,
@@ -56,20 +56,8 @@ abstract class CloudService {
     return _processResponse(response);
   }
 
-  Future<Map<String, dynamic>> $post(Uri url, {JsonEncodable? body}) async {
-    final response = await client.post(
-      url,
-      body: body == null ? null : jsonEncode(body.toJson()),
-      headers: {
-        'x-goog-api-client': _clientName,
-        if (body != null) 'content-type': 'application/json',
-      },
-    );
-    return _processResponse(response);
-  }
-
-  Future<Map<String, dynamic>> $patch(Uri url, {JsonEncodable? body}) async {
-    final response = await client.patch(
+  Future<Map<String, dynamic>> post(Uri url, {JsonEncodable? body}) async {
+    final response = await httpClient.post(
       url,
       body: body == null ? null : jsonEncode(body.toJson()),
       headers: {
@@ -80,8 +68,20 @@ abstract class CloudService {
     return _processResponse(response);
   }
 
-  Future<Map<String, dynamic>> $delete(Uri url) async {
-    final response = await client.delete(
+  Future<Map<String, dynamic>> patch(Uri url, {JsonEncodable? body}) async {
+    final response = await httpClient.patch(
+      url,
+      body: body == null ? null : jsonEncode(body.toJson()),
+      headers: {
+        'x-goog-api-client': _clientName,
+        if (body != null) 'content-type': 'application/json',
+      },
+    );
+    return _processResponse(response);
+  }
+
+  Future<Map<String, dynamic>> delete(Uri url) async {
+    final response = await httpClient.delete(
       url,
       headers: {
         'x-goog-api-client': _clientName,
@@ -90,7 +90,12 @@ abstract class CloudService {
     return _processResponse(response);
   }
 
-  Map<String, dynamic> _processResponse(Response response) {
+  /// Closes the client and cleans up any resources associated with it.
+  ///
+  /// Once [close] is called, no other methods should be called.
+  void close() => httpClient.close();
+
+  Map<String, dynamic> _processResponse(http.Response response) {
     final statusOK = response.statusCode >= 200 && response.statusCode < 300;
     if (statusOK) {
       final body = response.body;
@@ -105,32 +110,10 @@ abstract class CloudService {
     } catch (_) {
       // If we're not able to parse the Status error, return a general HTTP
       // exception.
-      throw ClientException('${response.statusCode}: ${response.reasonPhrase}');
+      throw http.ClientException(
+          '${response.statusCode}: ${response.reasonPhrase}');
     }
 
     throw status;
   }
-}
-
-T? $decode<T, S>(dynamic json, T Function(S) decoder) {
-  return json == null ? null : decoder(json);
-}
-
-List<T>? $decodeList<T, S>(dynamic json, T Function(S) decoder) {
-  return (json as List?)?.map((item) => decoder(item)).toList().cast();
-}
-
-Map<String, T>? $decodeMap<T>(
-    dynamic json, T Function(Map<String, dynamic>) decoder) {
-  return (json as Map?)
-      ?.map((key, value) => MapEntry(key, decoder(value)))
-      .cast();
-}
-
-List? $encodeList(List<JsonEncodable>? items) {
-  return items?.map((item) => item.toJson()).toList();
-}
-
-Map? $encodeMap(Map<String, JsonEncodable>? items) {
-  return items?.map((key, value) => MapEntry(key, value.toJson()));
 }
