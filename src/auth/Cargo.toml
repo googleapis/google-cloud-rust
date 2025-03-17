@@ -53,4 +53,4 @@ test-case     = "3"
 tokio         = { version = "1", features = ["macros", "rt-multi-thread", "test-util"] }
 tokio-test    = "0.4"
 p256          = "0.13"
-ed25519-dalek = { version = "2.1.1", features = ["pkcs8", "rand_core"] }
+ed25519-dalek = { version = "2", features = ["pkcs8", "rand_core"] }
