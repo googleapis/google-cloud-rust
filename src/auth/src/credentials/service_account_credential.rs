@@ -87,9 +87,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
             "RSA" => Ok("RS256"),
             "ECDSA" => Ok("ES256"),
             alg => Err(CredentialError::non_retryable_from_str(format!(
-                "Unsupported signing algorithm {} ",
-                alg
-            ))),
+                "Unsupported signing algorithm {alg}"))),
         }?;
         let signer = signing_key
             .choose_scheme(&[
