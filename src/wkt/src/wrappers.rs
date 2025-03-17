@@ -110,3 +110,56 @@ pub type StringValue = String;
 ///
 /// The JSON representation for `BytesValue` is JSON string.
 pub type BytesValue = bytes::Bytes;
+
+impl crate::message::Message for BoolValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.BoolValue"
+    }
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
+    where
+        Self: serde::ser::Serialize + Sized,
+    {
+        let map: crate::message::Map = [
+            (
+                "@type",
+                serde_json::Value::String(Self::typename().to_string()),
+            ),
+            ("value", serde_json::Value::Bool(*self)),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+        Ok(map)
+    }
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
+    where
+        Self: serde::de::DeserializeOwned,
+    {
+        map.get("value")
+            .and_then(|v| v.as_bool())
+            .ok_or_else(crate::message::missing_value_field)
+    }
+}
+
+#[cfg(test)]
+mod test {
+
+    use super::*;
+    use crate::Any;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[test]
+    fn test_bool_value() -> Result {
+        let input: BoolValue = true;
+        let any = Any::try_from(&input)?;
+        let got = serde_json::to_value(&any)?;
+        let want = serde_json::json!({
+            "@type": "type.googleapis.com/google.protobuf.BoolValue",
+            "value": true
+        });
+        assert_eq!(got, want);
+        let output = any.try_into_message::<BoolValue>()?;
+        assert_eq!(output, input);
+        Ok(())
+    }
+}
