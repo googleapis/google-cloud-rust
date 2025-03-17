@@ -33,7 +33,7 @@ serde       = { version = "1", features = ["serde_derive"] }
 serde_json  = { version = "1" }
 serde_with  = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 tonic       = "0.12"
-tokio       = { version = "1.42", features = ["macros", "rt-multi-thread"] }
+tokio       = { version = "1.44", features = ["macros", "rt-multi-thread"] }
 # Local crates
 auth  = { version = "0.18.0", path = "../auth", package = "google-cloud-auth" }
 gax   = { version = "0.21.0", path = "../gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
