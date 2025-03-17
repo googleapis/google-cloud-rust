@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudDeploy](crate::stubs::CloudDeploy) using a [gclient::ReqwestClient].
+/// Implements [CloudDeploy](super::stubs::CloudDeploy) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudDeploy {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudDeploy {
     }
 }
 
-impl crate::stubs::CloudDeploy for CloudDeploy {
+impl super::stubs::CloudDeploy for CloudDeploy {
     async fn list_delivery_pipelines(
         &self,
         req: crate::model::ListDeliveryPipelinesRequest,

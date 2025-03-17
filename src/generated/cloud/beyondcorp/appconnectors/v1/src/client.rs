@@ -51,7 +51,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AppConnectorsService {
-    inner: Arc<dyn crate::stubs::dynamic::AppConnectorsService>,
+    inner: Arc<dyn super::stubs::dynamic::AppConnectorsService>,
 }
 
 impl AppConnectorsService {
@@ -72,7 +72,7 @@ impl AppConnectorsService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AppConnectorsService + 'static,
+        T: super::stubs::AppConnectorsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -81,7 +81,7 @@ impl AppConnectorsService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AppConnectorsService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AppConnectorsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -90,24 +90,24 @@ impl AppConnectorsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AppConnectorsService> {
-        crate::transport::AppConnectorsService::new(conf).await
+    ) -> Result<impl super::stubs::AppConnectorsService> {
+        super::transport::AppConnectorsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AppConnectorsService> {
+    ) -> Result<impl super::stubs::AppConnectorsService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AppConnectorsService::new)
+            .map(super::tracing::AppConnectorsService::new)
     }
 
     /// Lists AppConnectors in a given project and location.
     pub fn list_app_connectors(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::ListAppConnectors {
-        crate::builders::app_connectors_service::ListAppConnectors::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::ListAppConnectors {
+        super::builders::app_connectors_service::ListAppConnectors::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,8 +115,8 @@ impl AppConnectorsService {
     pub fn get_app_connector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::GetAppConnector {
-        crate::builders::app_connectors_service::GetAppConnector::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::GetAppConnector {
+        super::builders::app_connectors_service::GetAppConnector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -134,8 +134,8 @@ impl AppConnectorsService {
     pub fn create_app_connector(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::CreateAppConnector {
-        crate::builders::app_connectors_service::CreateAppConnector::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::CreateAppConnector {
+        super::builders::app_connectors_service::CreateAppConnector::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +153,8 @@ impl AppConnectorsService {
     pub fn update_app_connector(
         &self,
         app_connector: impl Into<crate::model::AppConnector>,
-    ) -> crate::builders::app_connectors_service::UpdateAppConnector {
-        crate::builders::app_connectors_service::UpdateAppConnector::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::UpdateAppConnector {
+        super::builders::app_connectors_service::UpdateAppConnector::new(self.inner.clone())
             .set_app_connector(app_connector.into())
     }
 
@@ -172,8 +172,8 @@ impl AppConnectorsService {
     pub fn delete_app_connector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::DeleteAppConnector {
-        crate::builders::app_connectors_service::DeleteAppConnector::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::DeleteAppConnector {
+        super::builders::app_connectors_service::DeleteAppConnector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -191,8 +191,8 @@ impl AppConnectorsService {
     pub fn report_status(
         &self,
         app_connector: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::ReportStatus {
-        crate::builders::app_connectors_service::ReportStatus::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::ReportStatus {
+        super::builders::app_connectors_service::ReportStatus::new(self.inner.clone())
             .set_app_connector(app_connector.into())
     }
 
@@ -200,8 +200,8 @@ impl AppConnectorsService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::ListLocations {
-        crate::builders::app_connectors_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::ListLocations {
+        super::builders::app_connectors_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -209,8 +209,8 @@ impl AppConnectorsService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::GetLocation {
-        crate::builders::app_connectors_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::GetLocation {
+        super::builders::app_connectors_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -222,8 +222,8 @@ impl AppConnectorsService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::SetIamPolicy {
-        crate::builders::app_connectors_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::SetIamPolicy {
+        super::builders::app_connectors_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -232,8 +232,8 @@ impl AppConnectorsService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::GetIamPolicy {
-        crate::builders::app_connectors_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::GetIamPolicy {
+        super::builders::app_connectors_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -247,8 +247,8 @@ impl AppConnectorsService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::TestIamPermissions {
-        crate::builders::app_connectors_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::TestIamPermissions {
+        super::builders::app_connectors_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -258,8 +258,8 @@ impl AppConnectorsService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::ListOperations {
-        crate::builders::app_connectors_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::ListOperations {
+        super::builders::app_connectors_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -269,8 +269,8 @@ impl AppConnectorsService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::GetOperation {
-        crate::builders::app_connectors_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::GetOperation {
+        super::builders::app_connectors_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -280,8 +280,8 @@ impl AppConnectorsService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::DeleteOperation {
-        crate::builders::app_connectors_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::DeleteOperation {
+        super::builders::app_connectors_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -291,8 +291,8 @@ impl AppConnectorsService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connectors_service::CancelOperation {
-        crate::builders::app_connectors_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::app_connectors_service::CancelOperation {
+        super::builders::app_connectors_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

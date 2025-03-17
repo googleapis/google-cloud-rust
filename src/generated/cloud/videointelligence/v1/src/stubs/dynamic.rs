@@ -60,9 +60,9 @@ pub trait VideoIntelligenceService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::VideoIntelligenceService] also implement [VideoIntelligenceService].
+/// All implementations of [super::VideoIntelligenceService] also implement [VideoIntelligenceService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::VideoIntelligenceService> VideoIntelligenceService for T {
+impl<T: super::VideoIntelligenceService> VideoIntelligenceService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn annotate_video(
         &self,

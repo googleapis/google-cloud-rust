@@ -300,9 +300,9 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::TranslationService] also implement [TranslationService].
+/// All implementations of [super::TranslationService] also implement [TranslationService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TranslationService> TranslationService for T {
+impl<T: super::TranslationService> TranslationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn translate_text(
         &self,

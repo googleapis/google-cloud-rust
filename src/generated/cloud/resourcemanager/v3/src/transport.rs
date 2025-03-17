@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Folders](crate::stubs::Folders) using a [gclient::ReqwestClient].
+/// Implements [Folders](super::stubs::Folders) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Folders {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Folders {
     }
 }
 
-impl crate::stubs::Folders for Folders {
+impl super::stubs::Folders for Folders {
     async fn get_folder(
         &self,
         req: crate::model::GetFolderRequest,
@@ -304,7 +304,7 @@ impl crate::stubs::Folders for Folders {
     }
 }
 
-/// Implements [Organizations](crate::stubs::Organizations) using a [gclient::ReqwestClient].
+/// Implements [Organizations](super::stubs::Organizations) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Organizations {
     inner: gclient::ReqwestClient,
@@ -325,7 +325,7 @@ impl Organizations {
     }
 }
 
-impl crate::stubs::Organizations for Organizations {
+impl super::stubs::Organizations for Organizations {
     async fn get_organization(
         &self,
         req: crate::model::GetOrganizationRequest,
@@ -447,7 +447,7 @@ impl crate::stubs::Organizations for Organizations {
     }
 }
 
-/// Implements [Projects](crate::stubs::Projects) using a [gclient::ReqwestClient].
+/// Implements [Projects](super::stubs::Projects) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Projects {
     inner: gclient::ReqwestClient,
@@ -468,7 +468,7 @@ impl Projects {
     }
 }
 
-impl crate::stubs::Projects for Projects {
+impl super::stubs::Projects for Projects {
     async fn get_project(
         &self,
         req: crate::model::GetProjectRequest,
@@ -737,7 +737,7 @@ impl crate::stubs::Projects for Projects {
     }
 }
 
-/// Implements [TagBindings](crate::stubs::TagBindings) using a [gclient::ReqwestClient].
+/// Implements [TagBindings](super::stubs::TagBindings) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TagBindings {
     inner: gclient::ReqwestClient,
@@ -758,7 +758,7 @@ impl TagBindings {
     }
 }
 
-impl crate::stubs::TagBindings for TagBindings {
+impl super::stubs::TagBindings for TagBindings {
     async fn list_tag_bindings(
         &self,
         req: crate::model::ListTagBindingsRequest,
@@ -876,7 +876,7 @@ impl crate::stubs::TagBindings for TagBindings {
     }
 }
 
-/// Implements [TagHolds](crate::stubs::TagHolds) using a [gclient::ReqwestClient].
+/// Implements [TagHolds](super::stubs::TagHolds) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TagHolds {
     inner: gclient::ReqwestClient,
@@ -897,7 +897,7 @@ impl TagHolds {
     }
 }
 
-impl crate::stubs::TagHolds for TagHolds {
+impl super::stubs::TagHolds for TagHolds {
     async fn create_tag_hold(
         &self,
         req: crate::model::CreateTagHoldRequest,
@@ -997,7 +997,7 @@ impl crate::stubs::TagHolds for TagHolds {
     }
 }
 
-/// Implements [TagKeys](crate::stubs::TagKeys) using a [gclient::ReqwestClient].
+/// Implements [TagKeys](super::stubs::TagKeys) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TagKeys {
     inner: gclient::ReqwestClient,
@@ -1018,7 +1018,7 @@ impl TagKeys {
     }
 }
 
-impl crate::stubs::TagKeys for TagKeys {
+impl super::stubs::TagKeys for TagKeys {
     async fn list_tag_keys(
         &self,
         req: crate::model::ListTagKeysRequest,
@@ -1254,7 +1254,7 @@ impl crate::stubs::TagKeys for TagKeys {
     }
 }
 
-/// Implements [TagValues](crate::stubs::TagValues) using a [gclient::ReqwestClient].
+/// Implements [TagValues](super::stubs::TagValues) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TagValues {
     inner: gclient::ReqwestClient,
@@ -1275,7 +1275,7 @@ impl TagValues {
     }
 }
 
-impl crate::stubs::TagValues for TagValues {
+impl super::stubs::TagValues for TagValues {
     async fn list_tag_values(
         &self,
         req: crate::model::ListTagValuesRequest,

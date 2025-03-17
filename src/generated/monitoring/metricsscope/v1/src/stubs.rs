@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::MetricsScopes].
+/// Defines the trait used to implement [super::client::MetricsScopes].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::MetricsScopes`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::MetricsScopes::get_metrics_scope].
+    /// Implements [super::client::MetricsScopes::get_metrics_scope].
     fn get_metrics_scope(
         &self,
         _req: crate::model::GetMetricsScopeRequest,
@@ -52,7 +52,7 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetricsScopes::list_metrics_scopes_by_monitored_project].
+    /// Implements [super::client::MetricsScopes::list_metrics_scopes_by_monitored_project].
     fn list_metrics_scopes_by_monitored_project(
         &self,
         _req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
@@ -65,7 +65,7 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::MetricsScopes::create_monitored_project].
+    /// Implements [super::client::MetricsScopes::create_monitored_project].
     fn create_monitored_project(
         &self,
         _req: crate::model::CreateMonitoredProjectRequest,
@@ -77,7 +77,7 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetricsScopes::delete_monitored_project].
+    /// Implements [super::client::MetricsScopes::delete_monitored_project].
     fn delete_monitored_project(
         &self,
         _req: crate::model::DeleteMonitoredProjectRequest,
@@ -89,7 +89,7 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetricsScopes::get_operation].
+    /// Implements [super::client::MetricsScopes::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

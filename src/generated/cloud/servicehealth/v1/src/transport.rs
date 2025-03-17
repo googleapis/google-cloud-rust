@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ServiceHealth](crate::stubs::ServiceHealth) using a [gclient::ReqwestClient].
+/// Implements [ServiceHealth](super::stubs::ServiceHealth) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceHealth {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ServiceHealth {
     }
 }
 
-impl crate::stubs::ServiceHealth for ServiceHealth {
+impl super::stubs::ServiceHealth for ServiceHealth {
     async fn list_events(
         &self,
         req: crate::model::ListEventsRequest,

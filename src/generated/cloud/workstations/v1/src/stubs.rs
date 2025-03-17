@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Workstations].
+/// Defines the trait used to implement [super::client::Workstations].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Workstations`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Workstations: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Workstations::get_workstation_cluster].
+    /// Implements [super::client::Workstations::get_workstation_cluster].
     fn get_workstation_cluster(
         &self,
         _req: crate::model::GetWorkstationClusterRequest,
@@ -53,7 +53,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::list_workstation_clusters].
+    /// Implements [super::client::Workstations::list_workstation_clusters].
     fn list_workstation_clusters(
         &self,
         _req: crate::model::ListWorkstationClustersRequest,
@@ -66,7 +66,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Workstations::create_workstation_cluster].
+    /// Implements [super::client::Workstations::create_workstation_cluster].
     fn create_workstation_cluster(
         &self,
         _req: crate::model::CreateWorkstationClusterRequest,
@@ -78,7 +78,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::update_workstation_cluster].
+    /// Implements [super::client::Workstations::update_workstation_cluster].
     fn update_workstation_cluster(
         &self,
         _req: crate::model::UpdateWorkstationClusterRequest,
@@ -90,7 +90,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::delete_workstation_cluster].
+    /// Implements [super::client::Workstations::delete_workstation_cluster].
     fn delete_workstation_cluster(
         &self,
         _req: crate::model::DeleteWorkstationClusterRequest,
@@ -102,7 +102,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::get_workstation_config].
+    /// Implements [super::client::Workstations::get_workstation_config].
     fn get_workstation_config(
         &self,
         _req: crate::model::GetWorkstationConfigRequest,
@@ -114,7 +114,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::list_workstation_configs].
+    /// Implements [super::client::Workstations::list_workstation_configs].
     fn list_workstation_configs(
         &self,
         _req: crate::model::ListWorkstationConfigsRequest,
@@ -126,7 +126,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Workstations::list_usable_workstation_configs].
+    /// Implements [super::client::Workstations::list_usable_workstation_configs].
     fn list_usable_workstation_configs(
         &self,
         _req: crate::model::ListUsableWorkstationConfigsRequest,
@@ -139,7 +139,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::Workstations::create_workstation_config].
+    /// Implements [super::client::Workstations::create_workstation_config].
     fn create_workstation_config(
         &self,
         _req: crate::model::CreateWorkstationConfigRequest,
@@ -151,7 +151,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::update_workstation_config].
+    /// Implements [super::client::Workstations::update_workstation_config].
     fn update_workstation_config(
         &self,
         _req: crate::model::UpdateWorkstationConfigRequest,
@@ -163,7 +163,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::delete_workstation_config].
+    /// Implements [super::client::Workstations::delete_workstation_config].
     fn delete_workstation_config(
         &self,
         _req: crate::model::DeleteWorkstationConfigRequest,
@@ -175,7 +175,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::get_workstation].
+    /// Implements [super::client::Workstations::get_workstation].
     fn get_workstation(
         &self,
         _req: crate::model::GetWorkstationRequest,
@@ -186,7 +186,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::list_workstations].
+    /// Implements [super::client::Workstations::list_workstations].
     fn list_workstations(
         &self,
         _req: crate::model::ListWorkstationsRequest,
@@ -198,7 +198,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Workstations::list_usable_workstations].
+    /// Implements [super::client::Workstations::list_usable_workstations].
     fn list_usable_workstations(
         &self,
         _req: crate::model::ListUsableWorkstationsRequest,
@@ -210,7 +210,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Workstations::create_workstation].
+    /// Implements [super::client::Workstations::create_workstation].
     fn create_workstation(
         &self,
         _req: crate::model::CreateWorkstationRequest,
@@ -222,7 +222,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::update_workstation].
+    /// Implements [super::client::Workstations::update_workstation].
     fn update_workstation(
         &self,
         _req: crate::model::UpdateWorkstationRequest,
@@ -234,7 +234,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::delete_workstation].
+    /// Implements [super::client::Workstations::delete_workstation].
     fn delete_workstation(
         &self,
         _req: crate::model::DeleteWorkstationRequest,
@@ -246,7 +246,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::start_workstation].
+    /// Implements [super::client::Workstations::start_workstation].
     fn start_workstation(
         &self,
         _req: crate::model::StartWorkstationRequest,
@@ -258,7 +258,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::stop_workstation].
+    /// Implements [super::client::Workstations::stop_workstation].
     fn stop_workstation(
         &self,
         _req: crate::model::StopWorkstationRequest,
@@ -270,7 +270,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::generate_access_token].
+    /// Implements [super::client::Workstations::generate_access_token].
     fn generate_access_token(
         &self,
         _req: crate::model::GenerateAccessTokenRequest,
@@ -282,7 +282,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Workstations::set_iam_policy].
+    /// Implements [super::client::Workstations::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -293,7 +293,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::get_iam_policy].
+    /// Implements [super::client::Workstations::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -304,7 +304,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::test_iam_permissions].
+    /// Implements [super::client::Workstations::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -316,7 +316,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Workstations::list_operations].
+    /// Implements [super::client::Workstations::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -328,7 +328,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Workstations::get_operation].
+    /// Implements [super::client::Workstations::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -340,7 +340,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workstations::delete_operation].
+    /// Implements [super::client::Workstations::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -349,7 +349,7 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Workstations::cancel_operation].
+    /// Implements [super::client::Workstations::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

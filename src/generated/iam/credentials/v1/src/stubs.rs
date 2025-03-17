@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::IAMCredentials].
+/// Defines the trait used to implement [super::client::IAMCredentials].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::IAMCredentials`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::IAMCredentials::generate_access_token].
+    /// Implements [super::client::IAMCredentials::generate_access_token].
     fn generate_access_token(
         &self,
         _req: crate::model::GenerateAccessTokenRequest,
@@ -52,7 +52,7 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IAMCredentials::generate_id_token].
+    /// Implements [super::client::IAMCredentials::generate_id_token].
     fn generate_id_token(
         &self,
         _req: crate::model::GenerateIdTokenRequest,
@@ -64,7 +64,7 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IAMCredentials::sign_blob].
+    /// Implements [super::client::IAMCredentials::sign_blob].
     fn sign_blob(
         &self,
         _req: crate::model::SignBlobRequest,
@@ -76,7 +76,7 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IAMCredentials::sign_jwt].
+    /// Implements [super::client::IAMCredentials::sign_jwt].
     fn sign_jwt(
         &self,
         _req: crate::model::SignJwtRequest,

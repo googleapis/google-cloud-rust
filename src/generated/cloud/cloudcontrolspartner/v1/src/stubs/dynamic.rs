@@ -66,9 +66,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Partner>;
 }
 
-/// All implementations of [crate::stubs::CloudControlsPartnerCore] also implement [CloudControlsPartnerCore].
+/// All implementations of [super::CloudControlsPartnerCore] also implement [CloudControlsPartnerCore].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
+impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_workload(
         &self,
@@ -158,9 +158,9 @@ pub trait CloudControlsPartnerMonitoring: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Violation>;
 }
 
-/// All implementations of [crate::stubs::CloudControlsPartnerMonitoring] also implement [CloudControlsPartnerMonitoring].
+/// All implementations of [super::CloudControlsPartnerMonitoring] also implement [CloudControlsPartnerMonitoring].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudControlsPartnerMonitoring> CloudControlsPartnerMonitoring for T {
+impl<T: super::CloudControlsPartnerMonitoring> CloudControlsPartnerMonitoring for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_violations(
         &self,

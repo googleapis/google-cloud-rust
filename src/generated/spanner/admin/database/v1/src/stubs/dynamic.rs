@@ -210,9 +210,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DatabaseAdmin] also implement [DatabaseAdmin].
+/// All implementations of [super::DatabaseAdmin] also implement [DatabaseAdmin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DatabaseAdmin> DatabaseAdmin for T {
+impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_databases(
         &self,

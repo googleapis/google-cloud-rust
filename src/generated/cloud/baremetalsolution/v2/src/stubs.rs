@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::BareMetalSolution].
+/// Defines the trait used to implement [super::client::BareMetalSolution].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::BareMetalSolution`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::BareMetalSolution::list_instances].
+    /// Implements [super::client::BareMetalSolution::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -53,7 +53,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::get_instance].
+    /// Implements [super::client::BareMetalSolution::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -64,7 +64,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::update_instance].
+    /// Implements [super::client::BareMetalSolution::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -76,7 +76,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::rename_instance].
+    /// Implements [super::client::BareMetalSolution::rename_instance].
     fn rename_instance(
         &self,
         _req: crate::model::RenameInstanceRequest,
@@ -87,7 +87,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::reset_instance].
+    /// Implements [super::client::BareMetalSolution::reset_instance].
     fn reset_instance(
         &self,
         _req: crate::model::ResetInstanceRequest,
@@ -99,7 +99,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::start_instance].
+    /// Implements [super::client::BareMetalSolution::start_instance].
     fn start_instance(
         &self,
         _req: crate::model::StartInstanceRequest,
@@ -111,7 +111,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::stop_instance].
+    /// Implements [super::client::BareMetalSolution::stop_instance].
     fn stop_instance(
         &self,
         _req: crate::model::StopInstanceRequest,
@@ -123,7 +123,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::enable_interactive_serial_console].
+    /// Implements [super::client::BareMetalSolution::enable_interactive_serial_console].
     fn enable_interactive_serial_console(
         &self,
         _req: crate::model::EnableInteractiveSerialConsoleRequest,
@@ -135,7 +135,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::disable_interactive_serial_console].
+    /// Implements [super::client::BareMetalSolution::disable_interactive_serial_console].
     fn disable_interactive_serial_console(
         &self,
         _req: crate::model::DisableInteractiveSerialConsoleRequest,
@@ -147,7 +147,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::detach_lun].
+    /// Implements [super::client::BareMetalSolution::detach_lun].
     fn detach_lun(
         &self,
         _req: crate::model::DetachLunRequest,
@@ -159,7 +159,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::list_ssh_keys].
+    /// Implements [super::client::BareMetalSolution::list_ssh_keys].
     fn list_ssh_keys(
         &self,
         _req: crate::model::ListSSHKeysRequest,
@@ -171,7 +171,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::create_ssh_key].
+    /// Implements [super::client::BareMetalSolution::create_ssh_key].
     fn create_ssh_key(
         &self,
         _req: crate::model::CreateSSHKeyRequest,
@@ -182,7 +182,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::delete_ssh_key].
+    /// Implements [super::client::BareMetalSolution::delete_ssh_key].
     fn delete_ssh_key(
         &self,
         _req: crate::model::DeleteSSHKeyRequest,
@@ -191,7 +191,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BareMetalSolution::list_volumes].
+    /// Implements [super::client::BareMetalSolution::list_volumes].
     fn list_volumes(
         &self,
         _req: crate::model::ListVolumesRequest,
@@ -203,7 +203,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::get_volume].
+    /// Implements [super::client::BareMetalSolution::get_volume].
     fn get_volume(
         &self,
         _req: crate::model::GetVolumeRequest,
@@ -214,7 +214,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::update_volume].
+    /// Implements [super::client::BareMetalSolution::update_volume].
     fn update_volume(
         &self,
         _req: crate::model::UpdateVolumeRequest,
@@ -226,7 +226,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::rename_volume].
+    /// Implements [super::client::BareMetalSolution::rename_volume].
     fn rename_volume(
         &self,
         _req: crate::model::RenameVolumeRequest,
@@ -237,7 +237,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::evict_volume].
+    /// Implements [super::client::BareMetalSolution::evict_volume].
     fn evict_volume(
         &self,
         _req: crate::model::EvictVolumeRequest,
@@ -249,7 +249,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::resize_volume].
+    /// Implements [super::client::BareMetalSolution::resize_volume].
     fn resize_volume(
         &self,
         _req: crate::model::ResizeVolumeRequest,
@@ -261,7 +261,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::list_networks].
+    /// Implements [super::client::BareMetalSolution::list_networks].
     fn list_networks(
         &self,
         _req: crate::model::ListNetworksRequest,
@@ -273,7 +273,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::list_network_usage].
+    /// Implements [super::client::BareMetalSolution::list_network_usage].
     fn list_network_usage(
         &self,
         _req: crate::model::ListNetworkUsageRequest,
@@ -285,7 +285,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BareMetalSolution::get_network].
+    /// Implements [super::client::BareMetalSolution::get_network].
     fn get_network(
         &self,
         _req: crate::model::GetNetworkRequest,
@@ -296,7 +296,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::update_network].
+    /// Implements [super::client::BareMetalSolution::update_network].
     fn update_network(
         &self,
         _req: crate::model::UpdateNetworkRequest,
@@ -308,7 +308,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::create_volume_snapshot].
+    /// Implements [super::client::BareMetalSolution::create_volume_snapshot].
     fn create_volume_snapshot(
         &self,
         _req: crate::model::CreateVolumeSnapshotRequest,
@@ -319,7 +319,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::restore_volume_snapshot].
+    /// Implements [super::client::BareMetalSolution::restore_volume_snapshot].
     fn restore_volume_snapshot(
         &self,
         _req: crate::model::RestoreVolumeSnapshotRequest,
@@ -331,7 +331,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::delete_volume_snapshot].
+    /// Implements [super::client::BareMetalSolution::delete_volume_snapshot].
     fn delete_volume_snapshot(
         &self,
         _req: crate::model::DeleteVolumeSnapshotRequest,
@@ -340,7 +340,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BareMetalSolution::get_volume_snapshot].
+    /// Implements [super::client::BareMetalSolution::get_volume_snapshot].
     fn get_volume_snapshot(
         &self,
         _req: crate::model::GetVolumeSnapshotRequest,
@@ -351,7 +351,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::list_volume_snapshots].
+    /// Implements [super::client::BareMetalSolution::list_volume_snapshots].
     fn list_volume_snapshots(
         &self,
         _req: crate::model::ListVolumeSnapshotsRequest,
@@ -363,7 +363,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BareMetalSolution::get_lun].
+    /// Implements [super::client::BareMetalSolution::get_lun].
     fn get_lun(
         &self,
         _req: crate::model::GetLunRequest,
@@ -372,7 +372,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Lun>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BareMetalSolution::list_luns].
+    /// Implements [super::client::BareMetalSolution::list_luns].
     fn list_luns(
         &self,
         _req: crate::model::ListLunsRequest,
@@ -384,7 +384,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::evict_lun].
+    /// Implements [super::client::BareMetalSolution::evict_lun].
     fn evict_lun(
         &self,
         _req: crate::model::EvictLunRequest,
@@ -396,7 +396,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::get_nfs_share].
+    /// Implements [super::client::BareMetalSolution::get_nfs_share].
     fn get_nfs_share(
         &self,
         _req: crate::model::GetNfsShareRequest,
@@ -407,7 +407,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::list_nfs_shares].
+    /// Implements [super::client::BareMetalSolution::list_nfs_shares].
     fn list_nfs_shares(
         &self,
         _req: crate::model::ListNfsSharesRequest,
@@ -419,7 +419,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::update_nfs_share].
+    /// Implements [super::client::BareMetalSolution::update_nfs_share].
     fn update_nfs_share(
         &self,
         _req: crate::model::UpdateNfsShareRequest,
@@ -431,7 +431,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::create_nfs_share].
+    /// Implements [super::client::BareMetalSolution::create_nfs_share].
     fn create_nfs_share(
         &self,
         _req: crate::model::CreateNfsShareRequest,
@@ -443,7 +443,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::rename_nfs_share].
+    /// Implements [super::client::BareMetalSolution::rename_nfs_share].
     fn rename_nfs_share(
         &self,
         _req: crate::model::RenameNfsShareRequest,
@@ -454,7 +454,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::delete_nfs_share].
+    /// Implements [super::client::BareMetalSolution::delete_nfs_share].
     fn delete_nfs_share(
         &self,
         _req: crate::model::DeleteNfsShareRequest,
@@ -466,7 +466,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::list_provisioning_quotas].
+    /// Implements [super::client::BareMetalSolution::list_provisioning_quotas].
     fn list_provisioning_quotas(
         &self,
         _req: crate::model::ListProvisioningQuotasRequest,
@@ -478,7 +478,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BareMetalSolution::submit_provisioning_config].
+    /// Implements [super::client::BareMetalSolution::submit_provisioning_config].
     fn submit_provisioning_config(
         &self,
         _req: crate::model::SubmitProvisioningConfigRequest,
@@ -491,7 +491,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BareMetalSolution::get_provisioning_config].
+    /// Implements [super::client::BareMetalSolution::get_provisioning_config].
     fn get_provisioning_config(
         &self,
         _req: crate::model::GetProvisioningConfigRequest,
@@ -503,7 +503,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::create_provisioning_config].
+    /// Implements [super::client::BareMetalSolution::create_provisioning_config].
     fn create_provisioning_config(
         &self,
         _req: crate::model::CreateProvisioningConfigRequest,
@@ -515,7 +515,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::update_provisioning_config].
+    /// Implements [super::client::BareMetalSolution::update_provisioning_config].
     fn update_provisioning_config(
         &self,
         _req: crate::model::UpdateProvisioningConfigRequest,
@@ -527,7 +527,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::rename_network].
+    /// Implements [super::client::BareMetalSolution::rename_network].
     fn rename_network(
         &self,
         _req: crate::model::RenameNetworkRequest,
@@ -538,7 +538,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::list_os_images].
+    /// Implements [super::client::BareMetalSolution::list_os_images].
     fn list_os_images(
         &self,
         _req: crate::model::ListOSImagesRequest,
@@ -550,7 +550,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::list_locations].
+    /// Implements [super::client::BareMetalSolution::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -562,7 +562,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BareMetalSolution::get_location].
+    /// Implements [super::client::BareMetalSolution::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -573,7 +573,7 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BareMetalSolution::get_operation].
+    /// Implements [super::client::BareMetalSolution::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

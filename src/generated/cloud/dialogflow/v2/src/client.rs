@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Agents {
-    inner: Arc<dyn crate::stubs::dynamic::Agents>,
+    inner: Arc<dyn super::stubs::dynamic::Agents>,
 }
 
 impl Agents {
@@ -61,7 +61,7 @@ impl Agents {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Agents + 'static,
+        T: super::stubs::Agents + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl Agents {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Agents>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Agents>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,24 +79,24 @@ impl Agents {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Agents> {
-        crate::transport::Agents::new(conf).await
+    ) -> Result<impl super::stubs::Agents> {
+        super::transport::Agents::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Agents> {
+    ) -> Result<impl super::stubs::Agents> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Agents::new)
+            .map(super::tracing::Agents::new)
     }
 
     /// Retrieves the specified agent.
     pub fn get_agent(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::agents::GetAgent {
-        crate::builders::agents::GetAgent::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::agents::GetAgent {
+        super::builders::agents::GetAgent::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Creates/updates the specified agent.
@@ -107,16 +107,16 @@ impl Agents {
     pub fn set_agent(
         &self,
         agent: impl Into<crate::model::Agent>,
-    ) -> crate::builders::agents::SetAgent {
-        crate::builders::agents::SetAgent::new(self.inner.clone()).set_agent(agent.into())
+    ) -> super::builders::agents::SetAgent {
+        super::builders::agents::SetAgent::new(self.inner.clone()).set_agent(agent.into())
     }
 
     /// Deletes the specified agent.
     pub fn delete_agent(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::agents::DeleteAgent {
-        crate::builders::agents::DeleteAgent::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::agents::DeleteAgent {
+        super::builders::agents::DeleteAgent::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Returns the list of agents.
@@ -129,8 +129,8 @@ impl Agents {
     pub fn search_agents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::agents::SearchAgents {
-        crate::builders::agents::SearchAgents::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::agents::SearchAgents {
+        super::builders::agents::SearchAgents::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Trains the specified agent.
@@ -160,8 +160,8 @@ impl Agents {
     pub fn train_agent(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::agents::TrainAgent {
-        crate::builders::agents::TrainAgent::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::agents::TrainAgent {
+        super::builders::agents::TrainAgent::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Exports the specified agent to a ZIP file.
@@ -189,8 +189,8 @@ impl Agents {
     pub fn export_agent(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::agents::ExportAgent {
-        crate::builders::agents::ExportAgent::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::agents::ExportAgent {
+        super::builders::agents::ExportAgent::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Imports the specified agent from a ZIP file.
@@ -236,8 +236,8 @@ impl Agents {
     pub fn import_agent(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::agents::ImportAgent {
-        crate::builders::agents::ImportAgent::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::agents::ImportAgent {
+        super::builders::agents::ImportAgent::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Restores the specified agent from a ZIP file.
@@ -280,8 +280,8 @@ impl Agents {
     pub fn restore_agent(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::agents::RestoreAgent {
-        crate::builders::agents::RestoreAgent::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::agents::RestoreAgent {
+        super::builders::agents::RestoreAgent::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets agent validation result. Agent validation is performed during
@@ -289,8 +289,8 @@ impl Agents {
     pub fn get_validation_result(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::agents::GetValidationResult {
-        crate::builders::agents::GetValidationResult::new(self.inner.clone())
+    ) -> super::builders::agents::GetValidationResult {
+        super::builders::agents::GetValidationResult::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -298,16 +298,16 @@ impl Agents {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::agents::ListLocations {
-        crate::builders::agents::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::agents::ListLocations {
+        super::builders::agents::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::agents::GetLocation {
-        crate::builders::agents::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::agents::GetLocation {
+        super::builders::agents::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -316,8 +316,8 @@ impl Agents {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::agents::ListOperations {
-        crate::builders::agents::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::agents::ListOperations {
+        super::builders::agents::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -326,8 +326,8 @@ impl Agents {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::agents::GetOperation {
-        crate::builders::agents::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::agents::GetOperation {
+        super::builders::agents::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -336,8 +336,8 @@ impl Agents {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::agents::CancelOperation {
-        crate::builders::agents::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::agents::CancelOperation {
+        super::builders::agents::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -363,7 +363,7 @@ impl Agents {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AnswerRecords {
-    inner: Arc<dyn crate::stubs::dynamic::AnswerRecords>,
+    inner: Arc<dyn super::stubs::dynamic::AnswerRecords>,
 }
 
 impl AnswerRecords {
@@ -384,7 +384,7 @@ impl AnswerRecords {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AnswerRecords + 'static,
+        T: super::stubs::AnswerRecords + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -393,7 +393,7 @@ impl AnswerRecords {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AnswerRecords>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AnswerRecords>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -402,16 +402,16 @@ impl AnswerRecords {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AnswerRecords> {
-        crate::transport::AnswerRecords::new(conf).await
+    ) -> Result<impl super::stubs::AnswerRecords> {
+        super::transport::AnswerRecords::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AnswerRecords> {
+    ) -> Result<impl super::stubs::AnswerRecords> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AnswerRecords::new)
+            .map(super::tracing::AnswerRecords::new)
     }
 
     /// Returns the list of all answer records in the specified project in reverse
@@ -419,8 +419,8 @@ impl AnswerRecords {
     pub fn list_answer_records(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::answer_records::ListAnswerRecords {
-        crate::builders::answer_records::ListAnswerRecords::new(self.inner.clone())
+    ) -> super::builders::answer_records::ListAnswerRecords {
+        super::builders::answer_records::ListAnswerRecords::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -428,8 +428,8 @@ impl AnswerRecords {
     pub fn update_answer_record(
         &self,
         answer_record: impl Into<crate::model::AnswerRecord>,
-    ) -> crate::builders::answer_records::UpdateAnswerRecord {
-        crate::builders::answer_records::UpdateAnswerRecord::new(self.inner.clone())
+    ) -> super::builders::answer_records::UpdateAnswerRecord {
+        super::builders::answer_records::UpdateAnswerRecord::new(self.inner.clone())
             .set_answer_record(answer_record.into())
     }
 
@@ -437,8 +437,8 @@ impl AnswerRecords {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::answer_records::ListLocations {
-        crate::builders::answer_records::ListLocations::new(self.inner.clone())
+    ) -> super::builders::answer_records::ListLocations {
+        super::builders::answer_records::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -446,8 +446,8 @@ impl AnswerRecords {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::answer_records::GetLocation {
-        crate::builders::answer_records::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::answer_records::GetLocation {
+        super::builders::answer_records::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -456,8 +456,8 @@ impl AnswerRecords {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::answer_records::ListOperations {
-        crate::builders::answer_records::ListOperations::new(self.inner.clone())
+    ) -> super::builders::answer_records::ListOperations {
+        super::builders::answer_records::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -467,8 +467,8 @@ impl AnswerRecords {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::answer_records::GetOperation {
-        crate::builders::answer_records::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::answer_records::GetOperation {
+        super::builders::answer_records::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -477,8 +477,8 @@ impl AnswerRecords {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::answer_records::CancelOperation {
-        crate::builders::answer_records::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::answer_records::CancelOperation {
+        super::builders::answer_records::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -504,7 +504,7 @@ impl AnswerRecords {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Contexts {
-    inner: Arc<dyn crate::stubs::dynamic::Contexts>,
+    inner: Arc<dyn super::stubs::dynamic::Contexts>,
 }
 
 impl Contexts {
@@ -525,7 +525,7 @@ impl Contexts {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Contexts + 'static,
+        T: super::stubs::Contexts + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -534,7 +534,7 @@ impl Contexts {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Contexts>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Contexts>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -543,32 +543,32 @@ impl Contexts {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Contexts> {
-        crate::transport::Contexts::new(conf).await
+    ) -> Result<impl super::stubs::Contexts> {
+        super::transport::Contexts::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Contexts> {
+    ) -> Result<impl super::stubs::Contexts> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Contexts::new)
+            .map(super::tracing::Contexts::new)
     }
 
     /// Returns the list of all contexts in the specified session.
     pub fn list_contexts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contexts::ListContexts {
-        crate::builders::contexts::ListContexts::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::contexts::ListContexts {
+        super::builders::contexts::ListContexts::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves the specified context.
     pub fn get_context(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contexts::GetContext {
-        crate::builders::contexts::GetContext::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::contexts::GetContext {
+        super::builders::contexts::GetContext::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a context.
@@ -577,16 +577,16 @@ impl Contexts {
     pub fn create_context(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contexts::CreateContext {
-        crate::builders::contexts::CreateContext::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::contexts::CreateContext {
+        super::builders::contexts::CreateContext::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the specified context.
     pub fn update_context(
         &self,
         context: impl Into<crate::model::Context>,
-    ) -> crate::builders::contexts::UpdateContext {
-        crate::builders::contexts::UpdateContext::new(self.inner.clone())
+    ) -> super::builders::contexts::UpdateContext {
+        super::builders::contexts::UpdateContext::new(self.inner.clone())
             .set_context(context.into())
     }
 
@@ -594,16 +594,16 @@ impl Contexts {
     pub fn delete_context(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contexts::DeleteContext {
-        crate::builders::contexts::DeleteContext::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::contexts::DeleteContext {
+        super::builders::contexts::DeleteContext::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes all active contexts in the specified session.
     pub fn delete_all_contexts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contexts::DeleteAllContexts {
-        crate::builders::contexts::DeleteAllContexts::new(self.inner.clone())
+    ) -> super::builders::contexts::DeleteAllContexts {
+        super::builders::contexts::DeleteAllContexts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -611,16 +611,16 @@ impl Contexts {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contexts::ListLocations {
-        crate::builders::contexts::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::contexts::ListLocations {
+        super::builders::contexts::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contexts::GetLocation {
-        crate::builders::contexts::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::contexts::GetLocation {
+        super::builders::contexts::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -629,8 +629,8 @@ impl Contexts {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contexts::ListOperations {
-        crate::builders::contexts::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::contexts::ListOperations {
+        super::builders::contexts::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -639,8 +639,8 @@ impl Contexts {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contexts::GetOperation {
-        crate::builders::contexts::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::contexts::GetOperation {
+        super::builders::contexts::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -649,8 +649,8 @@ impl Contexts {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contexts::CancelOperation {
-        crate::builders::contexts::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::contexts::CancelOperation {
+        super::builders::contexts::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -676,7 +676,7 @@ impl Contexts {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Conversations {
-    inner: Arc<dyn crate::stubs::dynamic::Conversations>,
+    inner: Arc<dyn super::stubs::dynamic::Conversations>,
 }
 
 impl Conversations {
@@ -697,7 +697,7 @@ impl Conversations {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Conversations + 'static,
+        T: super::stubs::Conversations + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -706,7 +706,7 @@ impl Conversations {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Conversations>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Conversations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -715,16 +715,16 @@ impl Conversations {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Conversations> {
-        crate::transport::Conversations::new(conf).await
+    ) -> Result<impl super::stubs::Conversations> {
+        super::transport::Conversations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Conversations> {
+    ) -> Result<impl super::stubs::Conversations> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Conversations::new)
+            .map(super::tracing::Conversations::new)
     }
 
     /// Creates a new conversation. Conversations are auto-completed after 24
@@ -755,8 +755,8 @@ impl Conversations {
     pub fn create_conversation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::CreateConversation {
-        crate::builders::conversations::CreateConversation::new(self.inner.clone())
+    ) -> super::builders::conversations::CreateConversation {
+        super::builders::conversations::CreateConversation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -764,8 +764,8 @@ impl Conversations {
     pub fn list_conversations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::ListConversations {
-        crate::builders::conversations::ListConversations::new(self.inner.clone())
+    ) -> super::builders::conversations::ListConversations {
+        super::builders::conversations::ListConversations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -773,8 +773,8 @@ impl Conversations {
     pub fn get_conversation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::GetConversation {
-        crate::builders::conversations::GetConversation::new(self.inner.clone())
+    ) -> super::builders::conversations::GetConversation {
+        super::builders::conversations::GetConversation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -783,8 +783,8 @@ impl Conversations {
     pub fn complete_conversation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::CompleteConversation {
-        crate::builders::conversations::CompleteConversation::new(self.inner.clone())
+    ) -> super::builders::conversations::CompleteConversation {
+        super::builders::conversations::CompleteConversation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -793,8 +793,8 @@ impl Conversations {
     pub fn ingest_context_references(
         &self,
         conversation: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::IngestContextReferences {
-        crate::builders::conversations::IngestContextReferences::new(self.inner.clone())
+    ) -> super::builders::conversations::IngestContextReferences {
+        super::builders::conversations::IngestContextReferences::new(self.inner.clone())
             .set_conversation(conversation.into())
     }
 
@@ -806,8 +806,8 @@ impl Conversations {
     pub fn list_messages(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::ListMessages {
-        crate::builders::conversations::ListMessages::new(self.inner.clone())
+    ) -> super::builders::conversations::ListMessages {
+        super::builders::conversations::ListMessages::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -817,8 +817,8 @@ impl Conversations {
     pub fn suggest_conversation_summary(
         &self,
         conversation: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::SuggestConversationSummary {
-        crate::builders::conversations::SuggestConversationSummary::new(self.inner.clone())
+    ) -> super::builders::conversations::SuggestConversationSummary {
+        super::builders::conversations::SuggestConversationSummary::new(self.inner.clone())
             .set_conversation(conversation.into())
     }
 
@@ -829,8 +829,8 @@ impl Conversations {
         stateless_conversation: impl Into<
             crate::model::generate_stateless_summary_request::MinimalConversation,
         >,
-    ) -> crate::builders::conversations::GenerateStatelessSummary {
-        crate::builders::conversations::GenerateStatelessSummary::new(self.inner.clone())
+    ) -> super::builders::conversations::GenerateStatelessSummary {
+        super::builders::conversations::GenerateStatelessSummary::new(self.inner.clone())
             .set_stateless_conversation(stateless_conversation.into())
     }
 
@@ -839,8 +839,8 @@ impl Conversations {
     pub fn generate_stateless_suggestion(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::GenerateStatelessSuggestion {
-        crate::builders::conversations::GenerateStatelessSuggestion::new(self.inner.clone())
+    ) -> super::builders::conversations::GenerateStatelessSuggestion {
+        super::builders::conversations::GenerateStatelessSuggestion::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -848,8 +848,8 @@ impl Conversations {
     pub fn search_knowledge(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::SearchKnowledge {
-        crate::builders::conversations::SearchKnowledge::new(self.inner.clone())
+    ) -> super::builders::conversations::SearchKnowledge {
+        super::builders::conversations::SearchKnowledge::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -859,8 +859,8 @@ impl Conversations {
     pub fn generate_suggestions(
         &self,
         conversation: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::GenerateSuggestions {
-        crate::builders::conversations::GenerateSuggestions::new(self.inner.clone())
+    ) -> super::builders::conversations::GenerateSuggestions {
+        super::builders::conversations::GenerateSuggestions::new(self.inner.clone())
             .set_conversation(conversation.into())
     }
 
@@ -868,16 +868,16 @@ impl Conversations {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::ListLocations {
-        crate::builders::conversations::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::conversations::ListLocations {
+        super::builders::conversations::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::GetLocation {
-        crate::builders::conversations::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::conversations::GetLocation {
+        super::builders::conversations::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -886,8 +886,8 @@ impl Conversations {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::ListOperations {
-        crate::builders::conversations::ListOperations::new(self.inner.clone())
+    ) -> super::builders::conversations::ListOperations {
+        super::builders::conversations::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -897,8 +897,8 @@ impl Conversations {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::GetOperation {
-        crate::builders::conversations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::conversations::GetOperation {
+        super::builders::conversations::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -907,8 +907,8 @@ impl Conversations {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversations::CancelOperation {
-        crate::builders::conversations::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::conversations::CancelOperation {
+        super::builders::conversations::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -935,7 +935,7 @@ impl Conversations {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ConversationDatasets {
-    inner: Arc<dyn crate::stubs::dynamic::ConversationDatasets>,
+    inner: Arc<dyn super::stubs::dynamic::ConversationDatasets>,
 }
 
 impl ConversationDatasets {
@@ -956,7 +956,7 @@ impl ConversationDatasets {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ConversationDatasets + 'static,
+        T: super::stubs::ConversationDatasets + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -965,7 +965,7 @@ impl ConversationDatasets {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ConversationDatasets>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ConversationDatasets>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -974,16 +974,16 @@ impl ConversationDatasets {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ConversationDatasets> {
-        crate::transport::ConversationDatasets::new(conf).await
+    ) -> Result<impl super::stubs::ConversationDatasets> {
+        super::transport::ConversationDatasets::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ConversationDatasets> {
+    ) -> Result<impl super::stubs::ConversationDatasets> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ConversationDatasets::new)
+            .map(super::tracing::ConversationDatasets::new)
     }
 
     /// Creates a new conversation dataset.
@@ -1012,8 +1012,8 @@ impl ConversationDatasets {
     pub fn create_conversation_dataset(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_datasets::CreateConversationDataset {
-        crate::builders::conversation_datasets::CreateConversationDataset::new(self.inner.clone())
+    ) -> super::builders::conversation_datasets::CreateConversationDataset {
+        super::builders::conversation_datasets::CreateConversationDataset::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1021,8 +1021,8 @@ impl ConversationDatasets {
     pub fn get_conversation_dataset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_datasets::GetConversationDataset {
-        crate::builders::conversation_datasets::GetConversationDataset::new(self.inner.clone())
+    ) -> super::builders::conversation_datasets::GetConversationDataset {
+        super::builders::conversation_datasets::GetConversationDataset::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1031,8 +1031,8 @@ impl ConversationDatasets {
     pub fn list_conversation_datasets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_datasets::ListConversationDatasets {
-        crate::builders::conversation_datasets::ListConversationDatasets::new(self.inner.clone())
+    ) -> super::builders::conversation_datasets::ListConversationDatasets {
+        super::builders::conversation_datasets::ListConversationDatasets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1061,8 +1061,8 @@ impl ConversationDatasets {
     pub fn delete_conversation_dataset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_datasets::DeleteConversationDataset {
-        crate::builders::conversation_datasets::DeleteConversationDataset::new(self.inner.clone())
+    ) -> super::builders::conversation_datasets::DeleteConversationDataset {
+        super::builders::conversation_datasets::DeleteConversationDataset::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1094,8 +1094,8 @@ impl ConversationDatasets {
     pub fn import_conversation_data(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_datasets::ImportConversationData {
-        crate::builders::conversation_datasets::ImportConversationData::new(self.inner.clone())
+    ) -> super::builders::conversation_datasets::ImportConversationData {
+        super::builders::conversation_datasets::ImportConversationData::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1103,8 +1103,8 @@ impl ConversationDatasets {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_datasets::ListLocations {
-        crate::builders::conversation_datasets::ListLocations::new(self.inner.clone())
+    ) -> super::builders::conversation_datasets::ListLocations {
+        super::builders::conversation_datasets::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1112,8 +1112,8 @@ impl ConversationDatasets {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_datasets::GetLocation {
-        crate::builders::conversation_datasets::GetLocation::new(self.inner.clone())
+    ) -> super::builders::conversation_datasets::GetLocation {
+        super::builders::conversation_datasets::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1123,8 +1123,8 @@ impl ConversationDatasets {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_datasets::ListOperations {
-        crate::builders::conversation_datasets::ListOperations::new(self.inner.clone())
+    ) -> super::builders::conversation_datasets::ListOperations {
+        super::builders::conversation_datasets::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1134,8 +1134,8 @@ impl ConversationDatasets {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_datasets::GetOperation {
-        crate::builders::conversation_datasets::GetOperation::new(self.inner.clone())
+    ) -> super::builders::conversation_datasets::GetOperation {
+        super::builders::conversation_datasets::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1145,8 +1145,8 @@ impl ConversationDatasets {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_datasets::CancelOperation {
-        crate::builders::conversation_datasets::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::conversation_datasets::CancelOperation {
+        super::builders::conversation_datasets::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1170,7 +1170,7 @@ impl ConversationDatasets {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ConversationModels {
-    inner: Arc<dyn crate::stubs::dynamic::ConversationModels>,
+    inner: Arc<dyn super::stubs::dynamic::ConversationModels>,
 }
 
 impl ConversationModels {
@@ -1191,7 +1191,7 @@ impl ConversationModels {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ConversationModels + 'static,
+        T: super::stubs::ConversationModels + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1200,7 +1200,7 @@ impl ConversationModels {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ConversationModels>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ConversationModels>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1209,16 +1209,16 @@ impl ConversationModels {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ConversationModels> {
-        crate::transport::ConversationModels::new(conf).await
+    ) -> Result<impl super::stubs::ConversationModels> {
+        super::transport::ConversationModels::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ConversationModels> {
+    ) -> Result<impl super::stubs::ConversationModels> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ConversationModels::new)
+            .map(super::tracing::ConversationModels::new)
     }
 
     /// Creates a model.
@@ -1247,8 +1247,8 @@ impl ConversationModels {
     pub fn create_conversation_model(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::CreateConversationModel {
-        crate::builders::conversation_models::CreateConversationModel::new(self.inner.clone())
+    ) -> super::builders::conversation_models::CreateConversationModel {
+        super::builders::conversation_models::CreateConversationModel::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1256,8 +1256,8 @@ impl ConversationModels {
     pub fn get_conversation_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::GetConversationModel {
-        crate::builders::conversation_models::GetConversationModel::new(self.inner.clone())
+    ) -> super::builders::conversation_models::GetConversationModel {
+        super::builders::conversation_models::GetConversationModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1265,8 +1265,8 @@ impl ConversationModels {
     pub fn list_conversation_models(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::ListConversationModels {
-        crate::builders::conversation_models::ListConversationModels::new(self.inner.clone())
+    ) -> super::builders::conversation_models::ListConversationModels {
+        super::builders::conversation_models::ListConversationModels::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1295,8 +1295,8 @@ impl ConversationModels {
     pub fn delete_conversation_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::DeleteConversationModel {
-        crate::builders::conversation_models::DeleteConversationModel::new(self.inner.clone())
+    ) -> super::builders::conversation_models::DeleteConversationModel {
+        super::builders::conversation_models::DeleteConversationModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1328,8 +1328,8 @@ impl ConversationModels {
     pub fn deploy_conversation_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::DeployConversationModel {
-        crate::builders::conversation_models::DeployConversationModel::new(self.inner.clone())
+    ) -> super::builders::conversation_models::DeployConversationModel {
+        super::builders::conversation_models::DeployConversationModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1362,8 +1362,8 @@ impl ConversationModels {
     pub fn undeploy_conversation_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::UndeployConversationModel {
-        crate::builders::conversation_models::UndeployConversationModel::new(self.inner.clone())
+    ) -> super::builders::conversation_models::UndeployConversationModel {
+        super::builders::conversation_models::UndeployConversationModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1371,8 +1371,8 @@ impl ConversationModels {
     pub fn get_conversation_model_evaluation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::GetConversationModelEvaluation {
-        crate::builders::conversation_models::GetConversationModelEvaluation::new(
+    ) -> super::builders::conversation_models::GetConversationModelEvaluation {
+        super::builders::conversation_models::GetConversationModelEvaluation::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1382,8 +1382,8 @@ impl ConversationModels {
     pub fn list_conversation_model_evaluations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::ListConversationModelEvaluations {
-        crate::builders::conversation_models::ListConversationModelEvaluations::new(
+    ) -> super::builders::conversation_models::ListConversationModelEvaluations {
+        super::builders::conversation_models::ListConversationModelEvaluations::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1403,8 +1403,8 @@ impl ConversationModels {
     pub fn create_conversation_model_evaluation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::CreateConversationModelEvaluation {
-        crate::builders::conversation_models::CreateConversationModelEvaluation::new(
+    ) -> super::builders::conversation_models::CreateConversationModelEvaluation {
+        super::builders::conversation_models::CreateConversationModelEvaluation::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1414,8 +1414,8 @@ impl ConversationModels {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::ListLocations {
-        crate::builders::conversation_models::ListLocations::new(self.inner.clone())
+    ) -> super::builders::conversation_models::ListLocations {
+        super::builders::conversation_models::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1423,8 +1423,8 @@ impl ConversationModels {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::GetLocation {
-        crate::builders::conversation_models::GetLocation::new(self.inner.clone())
+    ) -> super::builders::conversation_models::GetLocation {
+        super::builders::conversation_models::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1434,8 +1434,8 @@ impl ConversationModels {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::ListOperations {
-        crate::builders::conversation_models::ListOperations::new(self.inner.clone())
+    ) -> super::builders::conversation_models::ListOperations {
+        super::builders::conversation_models::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1445,8 +1445,8 @@ impl ConversationModels {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::GetOperation {
-        crate::builders::conversation_models::GetOperation::new(self.inner.clone())
+    ) -> super::builders::conversation_models::GetOperation {
+        super::builders::conversation_models::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1456,8 +1456,8 @@ impl ConversationModels {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_models::CancelOperation {
-        crate::builders::conversation_models::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::conversation_models::CancelOperation {
+        super::builders::conversation_models::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1484,7 +1484,7 @@ impl ConversationModels {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ConversationProfiles {
-    inner: Arc<dyn crate::stubs::dynamic::ConversationProfiles>,
+    inner: Arc<dyn super::stubs::dynamic::ConversationProfiles>,
 }
 
 impl ConversationProfiles {
@@ -1505,7 +1505,7 @@ impl ConversationProfiles {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ConversationProfiles + 'static,
+        T: super::stubs::ConversationProfiles + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1514,7 +1514,7 @@ impl ConversationProfiles {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ConversationProfiles>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ConversationProfiles>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1523,24 +1523,24 @@ impl ConversationProfiles {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ConversationProfiles> {
-        crate::transport::ConversationProfiles::new(conf).await
+    ) -> Result<impl super::stubs::ConversationProfiles> {
+        super::transport::ConversationProfiles::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ConversationProfiles> {
+    ) -> Result<impl super::stubs::ConversationProfiles> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ConversationProfiles::new)
+            .map(super::tracing::ConversationProfiles::new)
     }
 
     /// Returns the list of all conversation profiles in the specified project.
     pub fn list_conversation_profiles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::ListConversationProfiles {
-        crate::builders::conversation_profiles::ListConversationProfiles::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::ListConversationProfiles {
+        super::builders::conversation_profiles::ListConversationProfiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1548,8 +1548,8 @@ impl ConversationProfiles {
     pub fn get_conversation_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::GetConversationProfile {
-        crate::builders::conversation_profiles::GetConversationProfile::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::GetConversationProfile {
+        super::builders::conversation_profiles::GetConversationProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1568,8 +1568,8 @@ impl ConversationProfiles {
     pub fn create_conversation_profile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::CreateConversationProfile {
-        crate::builders::conversation_profiles::CreateConversationProfile::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::CreateConversationProfile {
+        super::builders::conversation_profiles::CreateConversationProfile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1588,8 +1588,8 @@ impl ConversationProfiles {
     pub fn update_conversation_profile(
         &self,
         conversation_profile: impl Into<crate::model::ConversationProfile>,
-    ) -> crate::builders::conversation_profiles::UpdateConversationProfile {
-        crate::builders::conversation_profiles::UpdateConversationProfile::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::UpdateConversationProfile {
+        super::builders::conversation_profiles::UpdateConversationProfile::new(self.inner.clone())
             .set_conversation_profile(conversation_profile.into())
     }
 
@@ -1597,8 +1597,8 @@ impl ConversationProfiles {
     pub fn delete_conversation_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::DeleteConversationProfile {
-        crate::builders::conversation_profiles::DeleteConversationProfile::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::DeleteConversationProfile {
+        super::builders::conversation_profiles::DeleteConversationProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1636,8 +1636,8 @@ impl ConversationProfiles {
     pub fn set_suggestion_feature_config(
         &self,
         conversation_profile: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::SetSuggestionFeatureConfig {
-        crate::builders::conversation_profiles::SetSuggestionFeatureConfig::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::SetSuggestionFeatureConfig {
+        super::builders::conversation_profiles::SetSuggestionFeatureConfig::new(self.inner.clone())
             .set_conversation_profile(conversation_profile.into())
     }
 
@@ -1668,8 +1668,8 @@ impl ConversationProfiles {
     pub fn clear_suggestion_feature_config(
         &self,
         conversation_profile: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::ClearSuggestionFeatureConfig {
-        crate::builders::conversation_profiles::ClearSuggestionFeatureConfig::new(
+    ) -> super::builders::conversation_profiles::ClearSuggestionFeatureConfig {
+        super::builders::conversation_profiles::ClearSuggestionFeatureConfig::new(
             self.inner.clone(),
         )
         .set_conversation_profile(conversation_profile.into())
@@ -1679,8 +1679,8 @@ impl ConversationProfiles {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::ListLocations {
-        crate::builders::conversation_profiles::ListLocations::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::ListLocations {
+        super::builders::conversation_profiles::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1688,8 +1688,8 @@ impl ConversationProfiles {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::GetLocation {
-        crate::builders::conversation_profiles::GetLocation::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::GetLocation {
+        super::builders::conversation_profiles::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1699,8 +1699,8 @@ impl ConversationProfiles {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::ListOperations {
-        crate::builders::conversation_profiles::ListOperations::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::ListOperations {
+        super::builders::conversation_profiles::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1710,8 +1710,8 @@ impl ConversationProfiles {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::GetOperation {
-        crate::builders::conversation_profiles::GetOperation::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::GetOperation {
+        super::builders::conversation_profiles::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1721,8 +1721,8 @@ impl ConversationProfiles {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::conversation_profiles::CancelOperation {
-        crate::builders::conversation_profiles::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::conversation_profiles::CancelOperation {
+        super::builders::conversation_profiles::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1749,7 +1749,7 @@ impl ConversationProfiles {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Documents {
-    inner: Arc<dyn crate::stubs::dynamic::Documents>,
+    inner: Arc<dyn super::stubs::dynamic::Documents>,
 }
 
 impl Documents {
@@ -1770,7 +1770,7 @@ impl Documents {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Documents + 'static,
+        T: super::stubs::Documents + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1779,7 +1779,7 @@ impl Documents {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Documents>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Documents>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1788,32 +1788,32 @@ impl Documents {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Documents> {
-        crate::transport::Documents::new(conf).await
+    ) -> Result<impl super::stubs::Documents> {
+        super::transport::Documents::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Documents> {
+    ) -> Result<impl super::stubs::Documents> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Documents::new)
+            .map(super::tracing::Documents::new)
     }
 
     /// Returns the list of all documents of the knowledge base.
     pub fn list_documents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::documents::ListDocuments {
-        crate::builders::documents::ListDocuments::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::documents::ListDocuments {
+        super::builders::documents::ListDocuments::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves the specified document.
     pub fn get_document(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::documents::GetDocument {
-        crate::builders::documents::GetDocument::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::documents::GetDocument {
+        super::builders::documents::GetDocument::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new document.
@@ -1841,8 +1841,8 @@ impl Documents {
     pub fn create_document(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::documents::CreateDocument {
-        crate::builders::documents::CreateDocument::new(self.inner.clone())
+    ) -> super::builders::documents::CreateDocument {
+        super::builders::documents::CreateDocument::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1874,8 +1874,8 @@ impl Documents {
     pub fn import_documents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::documents::ImportDocuments {
-        crate::builders::documents::ImportDocuments::new(self.inner.clone())
+    ) -> super::builders::documents::ImportDocuments {
+        super::builders::documents::ImportDocuments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1904,8 +1904,8 @@ impl Documents {
     pub fn delete_document(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::documents::DeleteDocument {
-        crate::builders::documents::DeleteDocument::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::documents::DeleteDocument {
+        super::builders::documents::DeleteDocument::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the specified document.
@@ -1933,8 +1933,8 @@ impl Documents {
     pub fn update_document(
         &self,
         document: impl Into<crate::model::Document>,
-    ) -> crate::builders::documents::UpdateDocument {
-        crate::builders::documents::UpdateDocument::new(self.inner.clone())
+    ) -> super::builders::documents::UpdateDocument {
+        super::builders::documents::UpdateDocument::new(self.inner.clone())
             .set_document(document.into())
     }
 
@@ -1969,8 +1969,8 @@ impl Documents {
     pub fn reload_document(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::documents::ReloadDocument {
-        crate::builders::documents::ReloadDocument::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::documents::ReloadDocument {
+        super::builders::documents::ReloadDocument::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Exports a smart messaging candidate document into the specified
@@ -1999,24 +1999,24 @@ impl Documents {
     pub fn export_document(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::documents::ExportDocument {
-        crate::builders::documents::ExportDocument::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::documents::ExportDocument {
+        super::builders::documents::ExportDocument::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::documents::ListLocations {
-        crate::builders::documents::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::documents::ListLocations {
+        super::builders::documents::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::documents::GetLocation {
-        crate::builders::documents::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::documents::GetLocation {
+        super::builders::documents::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2025,8 +2025,8 @@ impl Documents {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::documents::ListOperations {
-        crate::builders::documents::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::documents::ListOperations {
+        super::builders::documents::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2035,8 +2035,8 @@ impl Documents {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::documents::GetOperation {
-        crate::builders::documents::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::documents::GetOperation {
+        super::builders::documents::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2045,8 +2045,8 @@ impl Documents {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::documents::CancelOperation {
-        crate::builders::documents::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::documents::CancelOperation {
+        super::builders::documents::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -2069,7 +2069,7 @@ impl Documents {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct EncryptionSpecService {
-    inner: Arc<dyn crate::stubs::dynamic::EncryptionSpecService>,
+    inner: Arc<dyn super::stubs::dynamic::EncryptionSpecService>,
 }
 
 impl EncryptionSpecService {
@@ -2090,7 +2090,7 @@ impl EncryptionSpecService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::EncryptionSpecService + 'static,
+        T: super::stubs::EncryptionSpecService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -2099,7 +2099,7 @@ impl EncryptionSpecService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::EncryptionSpecService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::EncryptionSpecService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2108,24 +2108,24 @@ impl EncryptionSpecService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::EncryptionSpecService> {
-        crate::transport::EncryptionSpecService::new(conf).await
+    ) -> Result<impl super::stubs::EncryptionSpecService> {
+        super::transport::EncryptionSpecService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::EncryptionSpecService> {
+    ) -> Result<impl super::stubs::EncryptionSpecService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::EncryptionSpecService::new)
+            .map(super::tracing::EncryptionSpecService::new)
     }
 
     /// Gets location-level encryption key specification.
     pub fn get_encryption_spec(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::encryption_spec_service::GetEncryptionSpec {
-        crate::builders::encryption_spec_service::GetEncryptionSpec::new(self.inner.clone())
+    ) -> super::builders::encryption_spec_service::GetEncryptionSpec {
+        super::builders::encryption_spec_service::GetEncryptionSpec::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2147,8 +2147,8 @@ impl EncryptionSpecService {
     pub fn initialize_encryption_spec(
         &self,
         encryption_spec: impl Into<crate::model::EncryptionSpec>,
-    ) -> crate::builders::encryption_spec_service::InitializeEncryptionSpec {
-        crate::builders::encryption_spec_service::InitializeEncryptionSpec::new(self.inner.clone())
+    ) -> super::builders::encryption_spec_service::InitializeEncryptionSpec {
+        super::builders::encryption_spec_service::InitializeEncryptionSpec::new(self.inner.clone())
             .set_encryption_spec(encryption_spec.into())
     }
 
@@ -2156,8 +2156,8 @@ impl EncryptionSpecService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::encryption_spec_service::ListLocations {
-        crate::builders::encryption_spec_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::encryption_spec_service::ListLocations {
+        super::builders::encryption_spec_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2165,8 +2165,8 @@ impl EncryptionSpecService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::encryption_spec_service::GetLocation {
-        crate::builders::encryption_spec_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::encryption_spec_service::GetLocation {
+        super::builders::encryption_spec_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2176,8 +2176,8 @@ impl EncryptionSpecService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::encryption_spec_service::ListOperations {
-        crate::builders::encryption_spec_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::encryption_spec_service::ListOperations {
+        super::builders::encryption_spec_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2187,8 +2187,8 @@ impl EncryptionSpecService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::encryption_spec_service::GetOperation {
-        crate::builders::encryption_spec_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::encryption_spec_service::GetOperation {
+        super::builders::encryption_spec_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2198,8 +2198,8 @@ impl EncryptionSpecService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::encryption_spec_service::CancelOperation {
-        crate::builders::encryption_spec_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::encryption_spec_service::CancelOperation {
+        super::builders::encryption_spec_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -2225,7 +2225,7 @@ impl EncryptionSpecService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct EntityTypes {
-    inner: Arc<dyn crate::stubs::dynamic::EntityTypes>,
+    inner: Arc<dyn super::stubs::dynamic::EntityTypes>,
 }
 
 impl EntityTypes {
@@ -2246,7 +2246,7 @@ impl EntityTypes {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::EntityTypes + 'static,
+        T: super::stubs::EntityTypes + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -2255,7 +2255,7 @@ impl EntityTypes {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::EntityTypes>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::EntityTypes>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2264,24 +2264,24 @@ impl EntityTypes {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::EntityTypes> {
-        crate::transport::EntityTypes::new(conf).await
+    ) -> Result<impl super::stubs::EntityTypes> {
+        super::transport::EntityTypes::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::EntityTypes> {
+    ) -> Result<impl super::stubs::EntityTypes> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::EntityTypes::new)
+            .map(super::tracing::EntityTypes::new)
     }
 
     /// Returns the list of all entity types in the specified agent.
     pub fn list_entity_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::ListEntityTypes {
-        crate::builders::entity_types::ListEntityTypes::new(self.inner.clone())
+    ) -> super::builders::entity_types::ListEntityTypes {
+        super::builders::entity_types::ListEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2289,8 +2289,8 @@ impl EntityTypes {
     pub fn get_entity_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::GetEntityType {
-        crate::builders::entity_types::GetEntityType::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::entity_types::GetEntityType {
+        super::builders::entity_types::GetEntityType::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an entity type in the specified agent.
@@ -2301,8 +2301,8 @@ impl EntityTypes {
     pub fn create_entity_type(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::CreateEntityType {
-        crate::builders::entity_types::CreateEntityType::new(self.inner.clone())
+    ) -> super::builders::entity_types::CreateEntityType {
+        super::builders::entity_types::CreateEntityType::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2314,8 +2314,8 @@ impl EntityTypes {
     pub fn update_entity_type(
         &self,
         entity_type: impl Into<crate::model::EntityType>,
-    ) -> crate::builders::entity_types::UpdateEntityType {
-        crate::builders::entity_types::UpdateEntityType::new(self.inner.clone())
+    ) -> super::builders::entity_types::UpdateEntityType {
+        super::builders::entity_types::UpdateEntityType::new(self.inner.clone())
             .set_entity_type(entity_type.into())
     }
 
@@ -2327,8 +2327,8 @@ impl EntityTypes {
     pub fn delete_entity_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::DeleteEntityType {
-        crate::builders::entity_types::DeleteEntityType::new(self.inner.clone())
+    ) -> super::builders::entity_types::DeleteEntityType {
+        super::builders::entity_types::DeleteEntityType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2361,8 +2361,8 @@ impl EntityTypes {
     pub fn batch_update_entity_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::BatchUpdateEntityTypes {
-        crate::builders::entity_types::BatchUpdateEntityTypes::new(self.inner.clone())
+    ) -> super::builders::entity_types::BatchUpdateEntityTypes {
+        super::builders::entity_types::BatchUpdateEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2393,8 +2393,8 @@ impl EntityTypes {
     pub fn batch_delete_entity_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::BatchDeleteEntityTypes {
-        crate::builders::entity_types::BatchDeleteEntityTypes::new(self.inner.clone())
+    ) -> super::builders::entity_types::BatchDeleteEntityTypes {
+        super::builders::entity_types::BatchDeleteEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2425,8 +2425,8 @@ impl EntityTypes {
     pub fn batch_create_entities(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::BatchCreateEntities {
-        crate::builders::entity_types::BatchCreateEntities::new(self.inner.clone())
+    ) -> super::builders::entity_types::BatchCreateEntities {
+        super::builders::entity_types::BatchCreateEntities::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2459,8 +2459,8 @@ impl EntityTypes {
     pub fn batch_update_entities(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::BatchUpdateEntities {
-        crate::builders::entity_types::BatchUpdateEntities::new(self.inner.clone())
+    ) -> super::builders::entity_types::BatchUpdateEntities {
+        super::builders::entity_types::BatchUpdateEntities::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2491,8 +2491,8 @@ impl EntityTypes {
     pub fn batch_delete_entities(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::BatchDeleteEntities {
-        crate::builders::entity_types::BatchDeleteEntities::new(self.inner.clone())
+    ) -> super::builders::entity_types::BatchDeleteEntities {
+        super::builders::entity_types::BatchDeleteEntities::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2500,16 +2500,16 @@ impl EntityTypes {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::ListLocations {
-        crate::builders::entity_types::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::entity_types::ListLocations {
+        super::builders::entity_types::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::GetLocation {
-        crate::builders::entity_types::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::entity_types::GetLocation {
+        super::builders::entity_types::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2518,8 +2518,8 @@ impl EntityTypes {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::ListOperations {
-        crate::builders::entity_types::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::entity_types::ListOperations {
+        super::builders::entity_types::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2528,8 +2528,8 @@ impl EntityTypes {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::GetOperation {
-        crate::builders::entity_types::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::entity_types::GetOperation {
+        super::builders::entity_types::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2538,8 +2538,8 @@ impl EntityTypes {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::entity_types::CancelOperation {
-        crate::builders::entity_types::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::entity_types::CancelOperation {
+        super::builders::entity_types::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -2565,7 +2565,7 @@ impl EntityTypes {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Environments {
-    inner: Arc<dyn crate::stubs::dynamic::Environments>,
+    inner: Arc<dyn super::stubs::dynamic::Environments>,
 }
 
 impl Environments {
@@ -2586,7 +2586,7 @@ impl Environments {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Environments + 'static,
+        T: super::stubs::Environments + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -2595,7 +2595,7 @@ impl Environments {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Environments>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Environments>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2604,24 +2604,24 @@ impl Environments {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Environments> {
-        crate::transport::Environments::new(conf).await
+    ) -> Result<impl super::stubs::Environments> {
+        super::transport::Environments::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Environments> {
+    ) -> Result<impl super::stubs::Environments> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Environments::new)
+            .map(super::tracing::Environments::new)
     }
 
     /// Returns the list of all non-default environments of the specified agent.
     pub fn list_environments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::environments::ListEnvironments {
-        crate::builders::environments::ListEnvironments::new(self.inner.clone())
+    ) -> super::builders::environments::ListEnvironments {
+        super::builders::environments::ListEnvironments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2629,16 +2629,16 @@ impl Environments {
     pub fn get_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::environments::GetEnvironment {
-        crate::builders::environments::GetEnvironment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::environments::GetEnvironment {
+        super::builders::environments::GetEnvironment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an agent environment.
     pub fn create_environment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::environments::CreateEnvironment {
-        crate::builders::environments::CreateEnvironment::new(self.inner.clone())
+    ) -> super::builders::environments::CreateEnvironment {
+        super::builders::environments::CreateEnvironment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2657,8 +2657,8 @@ impl Environments {
     pub fn update_environment(
         &self,
         environment: impl Into<crate::model::Environment>,
-    ) -> crate::builders::environments::UpdateEnvironment {
-        crate::builders::environments::UpdateEnvironment::new(self.inner.clone())
+    ) -> super::builders::environments::UpdateEnvironment {
+        super::builders::environments::UpdateEnvironment::new(self.inner.clone())
             .set_environment(environment.into())
     }
 
@@ -2666,8 +2666,8 @@ impl Environments {
     pub fn delete_environment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::environments::DeleteEnvironment {
-        crate::builders::environments::DeleteEnvironment::new(self.inner.clone())
+    ) -> super::builders::environments::DeleteEnvironment {
+        super::builders::environments::DeleteEnvironment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -2675,8 +2675,8 @@ impl Environments {
     pub fn get_environment_history(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::environments::GetEnvironmentHistory {
-        crate::builders::environments::GetEnvironmentHistory::new(self.inner.clone())
+    ) -> super::builders::environments::GetEnvironmentHistory {
+        super::builders::environments::GetEnvironmentHistory::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2684,16 +2684,16 @@ impl Environments {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::environments::ListLocations {
-        crate::builders::environments::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::environments::ListLocations {
+        super::builders::environments::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::environments::GetLocation {
-        crate::builders::environments::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::environments::GetLocation {
+        super::builders::environments::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2702,8 +2702,8 @@ impl Environments {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::environments::ListOperations {
-        crate::builders::environments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::environments::ListOperations {
+        super::builders::environments::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2712,8 +2712,8 @@ impl Environments {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::environments::GetOperation {
-        crate::builders::environments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::environments::GetOperation {
+        super::builders::environments::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2722,8 +2722,8 @@ impl Environments {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::environments::CancelOperation {
-        crate::builders::environments::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::environments::CancelOperation {
+        super::builders::environments::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -2749,7 +2749,7 @@ impl Environments {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Fulfillments {
-    inner: Arc<dyn crate::stubs::dynamic::Fulfillments>,
+    inner: Arc<dyn super::stubs::dynamic::Fulfillments>,
 }
 
 impl Fulfillments {
@@ -2770,7 +2770,7 @@ impl Fulfillments {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Fulfillments + 'static,
+        T: super::stubs::Fulfillments + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -2779,7 +2779,7 @@ impl Fulfillments {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Fulfillments>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Fulfillments>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2788,32 +2788,32 @@ impl Fulfillments {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Fulfillments> {
-        crate::transport::Fulfillments::new(conf).await
+    ) -> Result<impl super::stubs::Fulfillments> {
+        super::transport::Fulfillments::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Fulfillments> {
+    ) -> Result<impl super::stubs::Fulfillments> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Fulfillments::new)
+            .map(super::tracing::Fulfillments::new)
     }
 
     /// Retrieves the fulfillment.
     pub fn get_fulfillment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::fulfillments::GetFulfillment {
-        crate::builders::fulfillments::GetFulfillment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::fulfillments::GetFulfillment {
+        super::builders::fulfillments::GetFulfillment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the fulfillment.
     pub fn update_fulfillment(
         &self,
         fulfillment: impl Into<crate::model::Fulfillment>,
-    ) -> crate::builders::fulfillments::UpdateFulfillment {
-        crate::builders::fulfillments::UpdateFulfillment::new(self.inner.clone())
+    ) -> super::builders::fulfillments::UpdateFulfillment {
+        super::builders::fulfillments::UpdateFulfillment::new(self.inner.clone())
             .set_fulfillment(fulfillment.into())
     }
 
@@ -2821,16 +2821,16 @@ impl Fulfillments {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::fulfillments::ListLocations {
-        crate::builders::fulfillments::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::fulfillments::ListLocations {
+        super::builders::fulfillments::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::fulfillments::GetLocation {
-        crate::builders::fulfillments::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::fulfillments::GetLocation {
+        super::builders::fulfillments::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2839,8 +2839,8 @@ impl Fulfillments {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::fulfillments::ListOperations {
-        crate::builders::fulfillments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::fulfillments::ListOperations {
+        super::builders::fulfillments::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2849,8 +2849,8 @@ impl Fulfillments {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::fulfillments::GetOperation {
-        crate::builders::fulfillments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::fulfillments::GetOperation {
+        super::builders::fulfillments::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2859,8 +2859,8 @@ impl Fulfillments {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::fulfillments::CancelOperation {
-        crate::builders::fulfillments::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::fulfillments::CancelOperation {
+        super::builders::fulfillments::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -2888,7 +2888,7 @@ impl Fulfillments {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Generators {
-    inner: Arc<dyn crate::stubs::dynamic::Generators>,
+    inner: Arc<dyn super::stubs::dynamic::Generators>,
 }
 
 impl Generators {
@@ -2909,7 +2909,7 @@ impl Generators {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Generators + 'static,
+        T: super::stubs::Generators + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -2918,7 +2918,7 @@ impl Generators {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Generators>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Generators>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2927,24 +2927,24 @@ impl Generators {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Generators> {
-        crate::transport::Generators::new(conf).await
+    ) -> Result<impl super::stubs::Generators> {
+        super::transport::Generators::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Generators> {
+    ) -> Result<impl super::stubs::Generators> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Generators::new)
+            .map(super::tracing::Generators::new)
     }
 
     /// Creates a generator.
     pub fn create_generator(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::generators::CreateGenerator {
-        crate::builders::generators::CreateGenerator::new(self.inner.clone())
+    ) -> super::builders::generators::CreateGenerator {
+        super::builders::generators::CreateGenerator::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2952,16 +2952,16 @@ impl Generators {
     pub fn get_generator(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::generators::GetGenerator {
-        crate::builders::generators::GetGenerator::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::generators::GetGenerator {
+        super::builders::generators::GetGenerator::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists generators.
     pub fn list_generators(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::generators::ListGenerators {
-        crate::builders::generators::ListGenerators::new(self.inner.clone())
+    ) -> super::builders::generators::ListGenerators {
+        super::builders::generators::ListGenerators::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -2969,16 +2969,16 @@ impl Generators {
     pub fn delete_generator(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::generators::DeleteGenerator {
-        crate::builders::generators::DeleteGenerator::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::generators::DeleteGenerator {
+        super::builders::generators::DeleteGenerator::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a generator.
     pub fn update_generator(
         &self,
         generator: impl Into<crate::model::Generator>,
-    ) -> crate::builders::generators::UpdateGenerator {
-        crate::builders::generators::UpdateGenerator::new(self.inner.clone())
+    ) -> super::builders::generators::UpdateGenerator {
+        super::builders::generators::UpdateGenerator::new(self.inner.clone())
             .set_generator(generator.into())
     }
 
@@ -2986,16 +2986,16 @@ impl Generators {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::generators::ListLocations {
-        crate::builders::generators::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::generators::ListLocations {
+        super::builders::generators::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::generators::GetLocation {
-        crate::builders::generators::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::generators::GetLocation {
+        super::builders::generators::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3004,8 +3004,8 @@ impl Generators {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::generators::ListOperations {
-        crate::builders::generators::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::generators::ListOperations {
+        super::builders::generators::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3014,8 +3014,8 @@ impl Generators {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::generators::GetOperation {
-        crate::builders::generators::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::generators::GetOperation {
+        super::builders::generators::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3024,8 +3024,8 @@ impl Generators {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::generators::CancelOperation {
-        crate::builders::generators::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::generators::CancelOperation {
+        super::builders::generators::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -3050,7 +3050,7 @@ impl Generators {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Intents {
-    inner: Arc<dyn crate::stubs::dynamic::Intents>,
+    inner: Arc<dyn super::stubs::dynamic::Intents>,
 }
 
 impl Intents {
@@ -3071,7 +3071,7 @@ impl Intents {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Intents + 'static,
+        T: super::stubs::Intents + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -3080,7 +3080,7 @@ impl Intents {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Intents>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Intents>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3089,32 +3089,32 @@ impl Intents {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Intents> {
-        crate::transport::Intents::new(conf).await
+    ) -> Result<impl super::stubs::Intents> {
+        super::transport::Intents::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Intents> {
+    ) -> Result<impl super::stubs::Intents> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Intents::new)
+            .map(super::tracing::Intents::new)
     }
 
     /// Returns the list of all intents in the specified agent.
     pub fn list_intents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::intents::ListIntents {
-        crate::builders::intents::ListIntents::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::intents::ListIntents {
+        super::builders::intents::ListIntents::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves the specified intent.
     pub fn get_intent(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::intents::GetIntent {
-        crate::builders::intents::GetIntent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::intents::GetIntent {
+        super::builders::intents::GetIntent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an intent in the specified agent.
@@ -3125,8 +3125,8 @@ impl Intents {
     pub fn create_intent(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::intents::CreateIntent {
-        crate::builders::intents::CreateIntent::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::intents::CreateIntent {
+        super::builders::intents::CreateIntent::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the specified intent.
@@ -3137,8 +3137,8 @@ impl Intents {
     pub fn update_intent(
         &self,
         intent: impl Into<crate::model::Intent>,
-    ) -> crate::builders::intents::UpdateIntent {
-        crate::builders::intents::UpdateIntent::new(self.inner.clone()).set_intent(intent.into())
+    ) -> super::builders::intents::UpdateIntent {
+        super::builders::intents::UpdateIntent::new(self.inner.clone()).set_intent(intent.into())
     }
 
     /// Deletes the specified intent and its direct or indirect followup intents.
@@ -3149,8 +3149,8 @@ impl Intents {
     pub fn delete_intent(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::intents::DeleteIntent {
-        crate::builders::intents::DeleteIntent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::intents::DeleteIntent {
+        super::builders::intents::DeleteIntent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates/Creates multiple intents in the specified agent.
@@ -3182,8 +3182,8 @@ impl Intents {
     pub fn batch_update_intents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::intents::BatchUpdateIntents {
-        crate::builders::intents::BatchUpdateIntents::new(self.inner.clone())
+    ) -> super::builders::intents::BatchUpdateIntents {
+        super::builders::intents::BatchUpdateIntents::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3214,8 +3214,8 @@ impl Intents {
     pub fn batch_delete_intents(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::intents::BatchDeleteIntents {
-        crate::builders::intents::BatchDeleteIntents::new(self.inner.clone())
+    ) -> super::builders::intents::BatchDeleteIntents {
+        super::builders::intents::BatchDeleteIntents::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3223,16 +3223,16 @@ impl Intents {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::intents::ListLocations {
-        crate::builders::intents::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::intents::ListLocations {
+        super::builders::intents::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::intents::GetLocation {
-        crate::builders::intents::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::intents::GetLocation {
+        super::builders::intents::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3241,8 +3241,8 @@ impl Intents {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::intents::ListOperations {
-        crate::builders::intents::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::intents::ListOperations {
+        super::builders::intents::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3251,8 +3251,8 @@ impl Intents {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::intents::GetOperation {
-        crate::builders::intents::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::intents::GetOperation {
+        super::builders::intents::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3261,8 +3261,8 @@ impl Intents {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::intents::CancelOperation {
-        crate::builders::intents::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::intents::CancelOperation {
+        super::builders::intents::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -3288,7 +3288,7 @@ impl Intents {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct KnowledgeBases {
-    inner: Arc<dyn crate::stubs::dynamic::KnowledgeBases>,
+    inner: Arc<dyn super::stubs::dynamic::KnowledgeBases>,
 }
 
 impl KnowledgeBases {
@@ -3309,7 +3309,7 @@ impl KnowledgeBases {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::KnowledgeBases + 'static,
+        T: super::stubs::KnowledgeBases + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -3318,7 +3318,7 @@ impl KnowledgeBases {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::KnowledgeBases>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::KnowledgeBases>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3327,24 +3327,24 @@ impl KnowledgeBases {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::KnowledgeBases> {
-        crate::transport::KnowledgeBases::new(conf).await
+    ) -> Result<impl super::stubs::KnowledgeBases> {
+        super::transport::KnowledgeBases::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::KnowledgeBases> {
+    ) -> Result<impl super::stubs::KnowledgeBases> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::KnowledgeBases::new)
+            .map(super::tracing::KnowledgeBases::new)
     }
 
     /// Returns the list of all knowledge bases of the specified agent.
     pub fn list_knowledge_bases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::knowledge_bases::ListKnowledgeBases {
-        crate::builders::knowledge_bases::ListKnowledgeBases::new(self.inner.clone())
+    ) -> super::builders::knowledge_bases::ListKnowledgeBases {
+        super::builders::knowledge_bases::ListKnowledgeBases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3352,8 +3352,8 @@ impl KnowledgeBases {
     pub fn get_knowledge_base(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::knowledge_bases::GetKnowledgeBase {
-        crate::builders::knowledge_bases::GetKnowledgeBase::new(self.inner.clone())
+    ) -> super::builders::knowledge_bases::GetKnowledgeBase {
+        super::builders::knowledge_bases::GetKnowledgeBase::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3361,8 +3361,8 @@ impl KnowledgeBases {
     pub fn create_knowledge_base(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::knowledge_bases::CreateKnowledgeBase {
-        crate::builders::knowledge_bases::CreateKnowledgeBase::new(self.inner.clone())
+    ) -> super::builders::knowledge_bases::CreateKnowledgeBase {
+        super::builders::knowledge_bases::CreateKnowledgeBase::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3370,8 +3370,8 @@ impl KnowledgeBases {
     pub fn delete_knowledge_base(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::knowledge_bases::DeleteKnowledgeBase {
-        crate::builders::knowledge_bases::DeleteKnowledgeBase::new(self.inner.clone())
+    ) -> super::builders::knowledge_bases::DeleteKnowledgeBase {
+        super::builders::knowledge_bases::DeleteKnowledgeBase::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3379,8 +3379,8 @@ impl KnowledgeBases {
     pub fn update_knowledge_base(
         &self,
         knowledge_base: impl Into<crate::model::KnowledgeBase>,
-    ) -> crate::builders::knowledge_bases::UpdateKnowledgeBase {
-        crate::builders::knowledge_bases::UpdateKnowledgeBase::new(self.inner.clone())
+    ) -> super::builders::knowledge_bases::UpdateKnowledgeBase {
+        super::builders::knowledge_bases::UpdateKnowledgeBase::new(self.inner.clone())
             .set_knowledge_base(knowledge_base.into())
     }
 
@@ -3388,8 +3388,8 @@ impl KnowledgeBases {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::knowledge_bases::ListLocations {
-        crate::builders::knowledge_bases::ListLocations::new(self.inner.clone())
+    ) -> super::builders::knowledge_bases::ListLocations {
+        super::builders::knowledge_bases::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3397,8 +3397,8 @@ impl KnowledgeBases {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::knowledge_bases::GetLocation {
-        crate::builders::knowledge_bases::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::knowledge_bases::GetLocation {
+        super::builders::knowledge_bases::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3407,8 +3407,8 @@ impl KnowledgeBases {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::knowledge_bases::ListOperations {
-        crate::builders::knowledge_bases::ListOperations::new(self.inner.clone())
+    ) -> super::builders::knowledge_bases::ListOperations {
+        super::builders::knowledge_bases::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3418,8 +3418,8 @@ impl KnowledgeBases {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::knowledge_bases::GetOperation {
-        crate::builders::knowledge_bases::GetOperation::new(self.inner.clone())
+    ) -> super::builders::knowledge_bases::GetOperation {
+        super::builders::knowledge_bases::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3429,8 +3429,8 @@ impl KnowledgeBases {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::knowledge_bases::CancelOperation {
-        crate::builders::knowledge_bases::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::knowledge_bases::CancelOperation {
+        super::builders::knowledge_bases::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -3456,7 +3456,7 @@ impl KnowledgeBases {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Participants {
-    inner: Arc<dyn crate::stubs::dynamic::Participants>,
+    inner: Arc<dyn super::stubs::dynamic::Participants>,
 }
 
 impl Participants {
@@ -3477,7 +3477,7 @@ impl Participants {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Participants + 'static,
+        T: super::stubs::Participants + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -3486,7 +3486,7 @@ impl Participants {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Participants>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Participants>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3495,24 +3495,24 @@ impl Participants {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Participants> {
-        crate::transport::Participants::new(conf).await
+    ) -> Result<impl super::stubs::Participants> {
+        super::transport::Participants::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Participants> {
+    ) -> Result<impl super::stubs::Participants> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Participants::new)
+            .map(super::tracing::Participants::new)
     }
 
     /// Creates a new participant in a conversation.
     pub fn create_participant(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::participants::CreateParticipant {
-        crate::builders::participants::CreateParticipant::new(self.inner.clone())
+    ) -> super::builders::participants::CreateParticipant {
+        super::builders::participants::CreateParticipant::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3520,16 +3520,16 @@ impl Participants {
     pub fn get_participant(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::participants::GetParticipant {
-        crate::builders::participants::GetParticipant::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::participants::GetParticipant {
+        super::builders::participants::GetParticipant::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns the list of all participants in the specified conversation.
     pub fn list_participants(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::participants::ListParticipants {
-        crate::builders::participants::ListParticipants::new(self.inner.clone())
+    ) -> super::builders::participants::ListParticipants {
+        super::builders::participants::ListParticipants::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3537,8 +3537,8 @@ impl Participants {
     pub fn update_participant(
         &self,
         participant: impl Into<crate::model::Participant>,
-    ) -> crate::builders::participants::UpdateParticipant {
-        crate::builders::participants::UpdateParticipant::new(self.inner.clone())
+    ) -> super::builders::participants::UpdateParticipant {
+        super::builders::participants::UpdateParticipant::new(self.inner.clone())
             .set_participant(participant.into())
     }
 
@@ -3551,8 +3551,8 @@ impl Participants {
     pub fn analyze_content(
         &self,
         participant: impl Into<std::string::String>,
-    ) -> crate::builders::participants::AnalyzeContent {
-        crate::builders::participants::AnalyzeContent::new(self.inner.clone())
+    ) -> super::builders::participants::AnalyzeContent {
+        super::builders::participants::AnalyzeContent::new(self.inner.clone())
             .set_participant(participant.into())
     }
 
@@ -3561,8 +3561,8 @@ impl Participants {
     pub fn suggest_articles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::participants::SuggestArticles {
-        crate::builders::participants::SuggestArticles::new(self.inner.clone())
+    ) -> super::builders::participants::SuggestArticles {
+        super::builders::participants::SuggestArticles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3571,8 +3571,8 @@ impl Participants {
     pub fn suggest_faq_answers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::participants::SuggestFaqAnswers {
-        crate::builders::participants::SuggestFaqAnswers::new(self.inner.clone())
+    ) -> super::builders::participants::SuggestFaqAnswers {
+        super::builders::participants::SuggestFaqAnswers::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3581,8 +3581,8 @@ impl Participants {
     pub fn suggest_smart_replies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::participants::SuggestSmartReplies {
-        crate::builders::participants::SuggestSmartReplies::new(self.inner.clone())
+    ) -> super::builders::participants::SuggestSmartReplies {
+        super::builders::participants::SuggestSmartReplies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3590,8 +3590,8 @@ impl Participants {
     pub fn suggest_knowledge_assist(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::participants::SuggestKnowledgeAssist {
-        crate::builders::participants::SuggestKnowledgeAssist::new(self.inner.clone())
+    ) -> super::builders::participants::SuggestKnowledgeAssist {
+        super::builders::participants::SuggestKnowledgeAssist::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3599,16 +3599,16 @@ impl Participants {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::participants::ListLocations {
-        crate::builders::participants::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::participants::ListLocations {
+        super::builders::participants::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::participants::GetLocation {
-        crate::builders::participants::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::participants::GetLocation {
+        super::builders::participants::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3617,8 +3617,8 @@ impl Participants {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::participants::ListOperations {
-        crate::builders::participants::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::participants::ListOperations {
+        super::builders::participants::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3627,8 +3627,8 @@ impl Participants {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::participants::GetOperation {
-        crate::builders::participants::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::participants::GetOperation {
+        super::builders::participants::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3637,8 +3637,8 @@ impl Participants {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::participants::CancelOperation {
-        crate::builders::participants::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::participants::CancelOperation {
+        super::builders::participants::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -3665,7 +3665,7 @@ impl Participants {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Sessions {
-    inner: Arc<dyn crate::stubs::dynamic::Sessions>,
+    inner: Arc<dyn super::stubs::dynamic::Sessions>,
 }
 
 impl Sessions {
@@ -3686,7 +3686,7 @@ impl Sessions {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Sessions + 'static,
+        T: super::stubs::Sessions + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -3695,7 +3695,7 @@ impl Sessions {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Sessions>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Sessions>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3704,16 +3704,16 @@ impl Sessions {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Sessions> {
-        crate::transport::Sessions::new(conf).await
+    ) -> Result<impl super::stubs::Sessions> {
+        super::transport::Sessions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Sessions> {
+    ) -> Result<impl super::stubs::Sessions> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Sessions::new)
+            .map(super::tracing::Sessions::new)
     }
 
     /// Processes a natural language query and returns structured, actionable data
@@ -3736,24 +3736,24 @@ impl Sessions {
     pub fn detect_intent(
         &self,
         session: impl Into<std::string::String>,
-    ) -> crate::builders::sessions::DetectIntent {
-        crate::builders::sessions::DetectIntent::new(self.inner.clone()).set_session(session.into())
+    ) -> super::builders::sessions::DetectIntent {
+        super::builders::sessions::DetectIntent::new(self.inner.clone()).set_session(session.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::sessions::ListLocations {
-        crate::builders::sessions::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::sessions::ListLocations {
+        super::builders::sessions::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::sessions::GetLocation {
-        crate::builders::sessions::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::sessions::GetLocation {
+        super::builders::sessions::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3762,8 +3762,8 @@ impl Sessions {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::sessions::ListOperations {
-        crate::builders::sessions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::sessions::ListOperations {
+        super::builders::sessions::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3772,8 +3772,8 @@ impl Sessions {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::sessions::GetOperation {
-        crate::builders::sessions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::sessions::GetOperation {
+        super::builders::sessions::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3782,8 +3782,8 @@ impl Sessions {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::sessions::CancelOperation {
-        crate::builders::sessions::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::sessions::CancelOperation {
+        super::builders::sessions::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -3809,7 +3809,7 @@ impl Sessions {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SessionEntityTypes {
-    inner: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>,
+    inner: Arc<dyn super::stubs::dynamic::SessionEntityTypes>,
 }
 
 impl SessionEntityTypes {
@@ -3830,7 +3830,7 @@ impl SessionEntityTypes {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::SessionEntityTypes + 'static,
+        T: super::stubs::SessionEntityTypes + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -3839,7 +3839,7 @@ impl SessionEntityTypes {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::SessionEntityTypes>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::SessionEntityTypes>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -3848,16 +3848,16 @@ impl SessionEntityTypes {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SessionEntityTypes> {
-        crate::transport::SessionEntityTypes::new(conf).await
+    ) -> Result<impl super::stubs::SessionEntityTypes> {
+        super::transport::SessionEntityTypes::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SessionEntityTypes> {
+    ) -> Result<impl super::stubs::SessionEntityTypes> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::SessionEntityTypes::new)
+            .map(super::tracing::SessionEntityTypes::new)
     }
 
     /// Returns the list of all session entity types in the specified session.
@@ -3868,8 +3868,8 @@ impl SessionEntityTypes {
     pub fn list_session_entity_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::session_entity_types::ListSessionEntityTypes {
-        crate::builders::session_entity_types::ListSessionEntityTypes::new(self.inner.clone())
+    ) -> super::builders::session_entity_types::ListSessionEntityTypes {
+        super::builders::session_entity_types::ListSessionEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3881,8 +3881,8 @@ impl SessionEntityTypes {
     pub fn get_session_entity_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_entity_types::GetSessionEntityType {
-        crate::builders::session_entity_types::GetSessionEntityType::new(self.inner.clone())
+    ) -> super::builders::session_entity_types::GetSessionEntityType {
+        super::builders::session_entity_types::GetSessionEntityType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3897,8 +3897,8 @@ impl SessionEntityTypes {
     pub fn create_session_entity_type(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::session_entity_types::CreateSessionEntityType {
-        crate::builders::session_entity_types::CreateSessionEntityType::new(self.inner.clone())
+    ) -> super::builders::session_entity_types::CreateSessionEntityType {
+        super::builders::session_entity_types::CreateSessionEntityType::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -3910,8 +3910,8 @@ impl SessionEntityTypes {
     pub fn update_session_entity_type(
         &self,
         session_entity_type: impl Into<crate::model::SessionEntityType>,
-    ) -> crate::builders::session_entity_types::UpdateSessionEntityType {
-        crate::builders::session_entity_types::UpdateSessionEntityType::new(self.inner.clone())
+    ) -> super::builders::session_entity_types::UpdateSessionEntityType {
+        super::builders::session_entity_types::UpdateSessionEntityType::new(self.inner.clone())
             .set_session_entity_type(session_entity_type.into())
     }
 
@@ -3923,8 +3923,8 @@ impl SessionEntityTypes {
     pub fn delete_session_entity_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_entity_types::DeleteSessionEntityType {
-        crate::builders::session_entity_types::DeleteSessionEntityType::new(self.inner.clone())
+    ) -> super::builders::session_entity_types::DeleteSessionEntityType {
+        super::builders::session_entity_types::DeleteSessionEntityType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3932,8 +3932,8 @@ impl SessionEntityTypes {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_entity_types::ListLocations {
-        crate::builders::session_entity_types::ListLocations::new(self.inner.clone())
+    ) -> super::builders::session_entity_types::ListLocations {
+        super::builders::session_entity_types::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3941,8 +3941,8 @@ impl SessionEntityTypes {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_entity_types::GetLocation {
-        crate::builders::session_entity_types::GetLocation::new(self.inner.clone())
+    ) -> super::builders::session_entity_types::GetLocation {
+        super::builders::session_entity_types::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3952,8 +3952,8 @@ impl SessionEntityTypes {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_entity_types::ListOperations {
-        crate::builders::session_entity_types::ListOperations::new(self.inner.clone())
+    ) -> super::builders::session_entity_types::ListOperations {
+        super::builders::session_entity_types::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3963,8 +3963,8 @@ impl SessionEntityTypes {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_entity_types::GetOperation {
-        crate::builders::session_entity_types::GetOperation::new(self.inner.clone())
+    ) -> super::builders::session_entity_types::GetOperation {
+        super::builders::session_entity_types::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -3974,8 +3974,8 @@ impl SessionEntityTypes {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_entity_types::CancelOperation {
-        crate::builders::session_entity_types::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::session_entity_types::CancelOperation {
+        super::builders::session_entity_types::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -4001,7 +4001,7 @@ impl SessionEntityTypes {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Versions {
-    inner: Arc<dyn crate::stubs::dynamic::Versions>,
+    inner: Arc<dyn super::stubs::dynamic::Versions>,
 }
 
 impl Versions {
@@ -4022,7 +4022,7 @@ impl Versions {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Versions + 'static,
+        T: super::stubs::Versions + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -4031,7 +4031,7 @@ impl Versions {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Versions>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Versions>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -4040,32 +4040,32 @@ impl Versions {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Versions> {
-        crate::transport::Versions::new(conf).await
+    ) -> Result<impl super::stubs::Versions> {
+        super::transport::Versions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Versions> {
+    ) -> Result<impl super::stubs::Versions> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Versions::new)
+            .map(super::tracing::Versions::new)
     }
 
     /// Returns the list of all versions of the specified agent.
     pub fn list_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::versions::ListVersions {
-        crate::builders::versions::ListVersions::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::versions::ListVersions {
+        super::builders::versions::ListVersions::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves the specified agent version.
     pub fn get_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::GetVersion {
-        crate::builders::versions::GetVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::GetVersion {
+        super::builders::versions::GetVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an agent version.
@@ -4074,8 +4074,8 @@ impl Versions {
     pub fn create_version(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::versions::CreateVersion {
-        crate::builders::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::versions::CreateVersion {
+        super::builders::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the specified agent version.
@@ -4086,8 +4086,8 @@ impl Versions {
     pub fn update_version(
         &self,
         version: impl Into<crate::model::Version>,
-    ) -> crate::builders::versions::UpdateVersion {
-        crate::builders::versions::UpdateVersion::new(self.inner.clone())
+    ) -> super::builders::versions::UpdateVersion {
+        super::builders::versions::UpdateVersion::new(self.inner.clone())
             .set_version(version.into())
     }
 
@@ -4095,24 +4095,24 @@ impl Versions {
     pub fn delete_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::DeleteVersion {
-        crate::builders::versions::DeleteVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::DeleteVersion {
+        super::builders::versions::DeleteVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::ListLocations {
-        crate::builders::versions::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::ListLocations {
+        super::builders::versions::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::GetLocation {
-        crate::builders::versions::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::GetLocation {
+        super::builders::versions::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -4121,8 +4121,8 @@ impl Versions {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::ListOperations {
-        crate::builders::versions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::ListOperations {
+        super::builders::versions::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -4131,8 +4131,8 @@ impl Versions {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::GetOperation {
-        crate::builders::versions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::GetOperation {
+        super::builders::versions::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -4141,7 +4141,7 @@ impl Versions {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::CancelOperation {
-        crate::builders::versions::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::CancelOperation {
+        super::builders::versions::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

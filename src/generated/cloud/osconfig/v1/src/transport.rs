@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OsConfigService](crate::stubs::OsConfigService) using a [gclient::ReqwestClient].
+/// Implements [OsConfigService](super::stubs::OsConfigService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct OsConfigService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl OsConfigService {
     }
 }
 
-impl crate::stubs::OsConfigService for OsConfigService {
+impl super::stubs::OsConfigService for OsConfigService {
     async fn execute_patch_job(
         &self,
         req: crate::model::ExecutePatchJobRequest,
@@ -340,7 +340,7 @@ impl crate::stubs::OsConfigService for OsConfigService {
     }
 }
 
-/// Implements [OsConfigZonalService](crate::stubs::OsConfigZonalService) using a [gclient::ReqwestClient].
+/// Implements [OsConfigZonalService](super::stubs::OsConfigZonalService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct OsConfigZonalService {
     inner: gclient::ReqwestClient,
@@ -361,7 +361,7 @@ impl OsConfigZonalService {
     }
 }
 
-impl crate::stubs::OsConfigZonalService for OsConfigZonalService {
+impl super::stubs::OsConfigZonalService for OsConfigZonalService {
     async fn create_os_policy_assignment(
         &self,
         req: crate::model::CreateOSPolicyAssignmentRequest,

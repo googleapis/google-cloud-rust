@@ -234,9 +234,9 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::BackupForGKE] also implement [BackupForGKE].
+/// All implementations of [super::BackupForGKE] also implement [BackupForGKE].
 #[async_trait::async_trait]
-impl<T: crate::stubs::BackupForGKE> BackupForGKE for T {
+impl<T: super::BackupForGKE> BackupForGKE for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_backup_plan(
         &self,

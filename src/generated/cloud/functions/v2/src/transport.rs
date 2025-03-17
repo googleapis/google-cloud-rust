@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [FunctionService](crate::stubs::FunctionService) using a [gclient::ReqwestClient].
+/// Implements [FunctionService](super::stubs::FunctionService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct FunctionService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl FunctionService {
     }
 }
 
-impl crate::stubs::FunctionService for FunctionService {
+impl super::stubs::FunctionService for FunctionService {
     async fn get_function(
         &self,
         req: crate::model::GetFunctionRequest,

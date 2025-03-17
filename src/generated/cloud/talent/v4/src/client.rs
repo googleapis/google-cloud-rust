@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CompanyService {
-    inner: Arc<dyn crate::stubs::dynamic::CompanyService>,
+    inner: Arc<dyn super::stubs::dynamic::CompanyService>,
 }
 
 impl CompanyService {
@@ -59,7 +59,7 @@ impl CompanyService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CompanyService + 'static,
+        T: super::stubs::CompanyService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl CompanyService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CompanyService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CompanyService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl CompanyService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CompanyService> {
-        crate::transport::CompanyService::new(conf).await
+    ) -> Result<impl super::stubs::CompanyService> {
+        super::transport::CompanyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CompanyService> {
+    ) -> Result<impl super::stubs::CompanyService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CompanyService::new)
+            .map(super::tracing::CompanyService::new)
     }
 
     /// Creates a new company entity.
     pub fn create_company(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::company_service::CreateCompany {
-        crate::builders::company_service::CreateCompany::new(self.inner.clone())
+    ) -> super::builders::company_service::CreateCompany {
+        super::builders::company_service::CreateCompany::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,16 +102,16 @@ impl CompanyService {
     pub fn get_company(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::company_service::GetCompany {
-        crate::builders::company_service::GetCompany::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::company_service::GetCompany {
+        super::builders::company_service::GetCompany::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates specified company.
     pub fn update_company(
         &self,
         company: impl Into<crate::model::Company>,
-    ) -> crate::builders::company_service::UpdateCompany {
-        crate::builders::company_service::UpdateCompany::new(self.inner.clone())
+    ) -> super::builders::company_service::UpdateCompany {
+        super::builders::company_service::UpdateCompany::new(self.inner.clone())
             .set_company(company.into())
     }
 
@@ -120,8 +120,8 @@ impl CompanyService {
     pub fn delete_company(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::company_service::DeleteCompany {
-        crate::builders::company_service::DeleteCompany::new(self.inner.clone())
+    ) -> super::builders::company_service::DeleteCompany {
+        super::builders::company_service::DeleteCompany::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -129,8 +129,8 @@ impl CompanyService {
     pub fn list_companies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::company_service::ListCompanies {
-        crate::builders::company_service::ListCompanies::new(self.inner.clone())
+    ) -> super::builders::company_service::ListCompanies {
+        super::builders::company_service::ListCompanies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +140,8 @@ impl CompanyService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::company_service::GetOperation {
-        crate::builders::company_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::company_service::GetOperation {
+        super::builders::company_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -165,7 +165,7 @@ impl CompanyService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Completion {
-    inner: Arc<dyn crate::stubs::dynamic::Completion>,
+    inner: Arc<dyn super::stubs::dynamic::Completion>,
 }
 
 impl Completion {
@@ -186,7 +186,7 @@ impl Completion {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Completion + 'static,
+        T: super::stubs::Completion + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -195,7 +195,7 @@ impl Completion {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Completion>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Completion>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -204,16 +204,16 @@ impl Completion {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Completion> {
-        crate::transport::Completion::new(conf).await
+    ) -> Result<impl super::stubs::Completion> {
+        super::transport::Completion::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Completion> {
+    ) -> Result<impl super::stubs::Completion> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Completion::new)
+            .map(super::tracing::Completion::new)
     }
 
     /// Completes the specified prefix with keyword suggestions.
@@ -221,8 +221,8 @@ impl Completion {
     pub fn complete_query(
         &self,
         tenant: impl Into<std::string::String>,
-    ) -> crate::builders::completion::CompleteQuery {
-        crate::builders::completion::CompleteQuery::new(self.inner.clone())
+    ) -> super::builders::completion::CompleteQuery {
+        super::builders::completion::CompleteQuery::new(self.inner.clone())
             .set_tenant(tenant.into())
     }
 
@@ -232,8 +232,8 @@ impl Completion {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::completion::GetOperation {
-        crate::builders::completion::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::completion::GetOperation {
+        super::builders::completion::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -256,7 +256,7 @@ impl Completion {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct EventService {
-    inner: Arc<dyn crate::stubs::dynamic::EventService>,
+    inner: Arc<dyn super::stubs::dynamic::EventService>,
 }
 
 impl EventService {
@@ -277,7 +277,7 @@ impl EventService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::EventService + 'static,
+        T: super::stubs::EventService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -286,7 +286,7 @@ impl EventService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::EventService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::EventService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -295,16 +295,16 @@ impl EventService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::EventService> {
-        crate::transport::EventService::new(conf).await
+    ) -> Result<impl super::stubs::EventService> {
+        super::transport::EventService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::EventService> {
+    ) -> Result<impl super::stubs::EventService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::EventService::new)
+            .map(super::tracing::EventService::new)
     }
 
     /// Report events issued when end user interacts with customer's application
@@ -317,8 +317,8 @@ impl EventService {
     pub fn create_client_event(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::event_service::CreateClientEvent {
-        crate::builders::event_service::CreateClientEvent::new(self.inner.clone())
+    ) -> super::builders::event_service::CreateClientEvent {
+        super::builders::event_service::CreateClientEvent::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -328,8 +328,8 @@ impl EventService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::event_service::GetOperation {
-        crate::builders::event_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::event_service::GetOperation {
+        super::builders::event_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -352,7 +352,7 @@ impl EventService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct JobService {
-    inner: Arc<dyn crate::stubs::dynamic::JobService>,
+    inner: Arc<dyn super::stubs::dynamic::JobService>,
 }
 
 impl JobService {
@@ -373,7 +373,7 @@ impl JobService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::JobService + 'static,
+        T: super::stubs::JobService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -382,7 +382,7 @@ impl JobService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::JobService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::JobService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -391,16 +391,16 @@ impl JobService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::JobService> {
-        crate::transport::JobService::new(conf).await
+    ) -> Result<impl super::stubs::JobService> {
+        super::transport::JobService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::JobService> {
+    ) -> Result<impl super::stubs::JobService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::JobService::new)
+            .map(super::tracing::JobService::new)
     }
 
     /// Creates a new job.
@@ -410,8 +410,8 @@ impl JobService {
     pub fn create_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::job_service::CreateJob {
-        crate::builders::job_service::CreateJob::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::job_service::CreateJob {
+        super::builders::job_service::CreateJob::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Begins executing a batch create jobs operation.
@@ -428,8 +428,8 @@ impl JobService {
     pub fn batch_create_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::job_service::BatchCreateJobs {
-        crate::builders::job_service::BatchCreateJobs::new(self.inner.clone())
+    ) -> super::builders::job_service::BatchCreateJobs {
+        super::builders::job_service::BatchCreateJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -438,8 +438,8 @@ impl JobService {
     pub fn get_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::job_service::GetJob {
-        crate::builders::job_service::GetJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::job_service::GetJob {
+        super::builders::job_service::GetJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates specified job.
@@ -449,8 +449,8 @@ impl JobService {
     pub fn update_job(
         &self,
         job: impl Into<crate::model::Job>,
-    ) -> crate::builders::job_service::UpdateJob {
-        crate::builders::job_service::UpdateJob::new(self.inner.clone()).set_job(job.into())
+    ) -> super::builders::job_service::UpdateJob {
+        super::builders::job_service::UpdateJob::new(self.inner.clone()).set_job(job.into())
     }
 
     /// Begins executing a batch update jobs operation.
@@ -467,8 +467,8 @@ impl JobService {
     pub fn batch_update_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::job_service::BatchUpdateJobs {
-        crate::builders::job_service::BatchUpdateJobs::new(self.inner.clone())
+    ) -> super::builders::job_service::BatchUpdateJobs {
+        super::builders::job_service::BatchUpdateJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -479,8 +479,8 @@ impl JobService {
     pub fn delete_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::job_service::DeleteJob {
-        crate::builders::job_service::DeleteJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::job_service::DeleteJob {
+        super::builders::job_service::DeleteJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Begins executing a batch delete jobs operation.
@@ -497,8 +497,8 @@ impl JobService {
     pub fn batch_delete_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::job_service::BatchDeleteJobs {
-        crate::builders::job_service::BatchDeleteJobs::new(self.inner.clone())
+    ) -> super::builders::job_service::BatchDeleteJobs {
+        super::builders::job_service::BatchDeleteJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -506,8 +506,8 @@ impl JobService {
     pub fn list_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::job_service::ListJobs {
-        crate::builders::job_service::ListJobs::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::job_service::ListJobs {
+        super::builders::job_service::ListJobs::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Searches for jobs using the provided
@@ -523,8 +523,8 @@ impl JobService {
     pub fn search_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::job_service::SearchJobs {
-        crate::builders::job_service::SearchJobs::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::job_service::SearchJobs {
+        super::builders::job_service::SearchJobs::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Searches for jobs using the provided
@@ -545,8 +545,8 @@ impl JobService {
     pub fn search_jobs_for_alert(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::job_service::SearchJobsForAlert {
-        crate::builders::job_service::SearchJobsForAlert::new(self.inner.clone())
+    ) -> super::builders::job_service::SearchJobsForAlert {
+        super::builders::job_service::SearchJobsForAlert::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -556,8 +556,8 @@ impl JobService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::job_service::GetOperation {
-        crate::builders::job_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::job_service::GetOperation {
+        super::builders::job_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -580,7 +580,7 @@ impl JobService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TenantService {
-    inner: Arc<dyn crate::stubs::dynamic::TenantService>,
+    inner: Arc<dyn super::stubs::dynamic::TenantService>,
 }
 
 impl TenantService {
@@ -601,7 +601,7 @@ impl TenantService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::TenantService + 'static,
+        T: super::stubs::TenantService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -610,7 +610,7 @@ impl TenantService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::TenantService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::TenantService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -619,24 +619,24 @@ impl TenantService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TenantService> {
-        crate::transport::TenantService::new(conf).await
+    ) -> Result<impl super::stubs::TenantService> {
+        super::transport::TenantService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TenantService> {
+    ) -> Result<impl super::stubs::TenantService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::TenantService::new)
+            .map(super::tracing::TenantService::new)
     }
 
     /// Creates a new tenant entity.
     pub fn create_tenant(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::tenant_service::CreateTenant {
-        crate::builders::tenant_service::CreateTenant::new(self.inner.clone())
+    ) -> super::builders::tenant_service::CreateTenant {
+        super::builders::tenant_service::CreateTenant::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -644,16 +644,16 @@ impl TenantService {
     pub fn get_tenant(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tenant_service::GetTenant {
-        crate::builders::tenant_service::GetTenant::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tenant_service::GetTenant {
+        super::builders::tenant_service::GetTenant::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates specified tenant.
     pub fn update_tenant(
         &self,
         tenant: impl Into<crate::model::Tenant>,
-    ) -> crate::builders::tenant_service::UpdateTenant {
-        crate::builders::tenant_service::UpdateTenant::new(self.inner.clone())
+    ) -> super::builders::tenant_service::UpdateTenant {
+        super::builders::tenant_service::UpdateTenant::new(self.inner.clone())
             .set_tenant(tenant.into())
     }
 
@@ -661,16 +661,16 @@ impl TenantService {
     pub fn delete_tenant(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tenant_service::DeleteTenant {
-        crate::builders::tenant_service::DeleteTenant::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tenant_service::DeleteTenant {
+        super::builders::tenant_service::DeleteTenant::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists all tenants associated with the project.
     pub fn list_tenants(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::tenant_service::ListTenants {
-        crate::builders::tenant_service::ListTenants::new(self.inner.clone())
+    ) -> super::builders::tenant_service::ListTenants {
+        super::builders::tenant_service::ListTenants::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -680,7 +680,7 @@ impl TenantService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tenant_service::GetOperation {
-        crate::builders::tenant_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tenant_service::GetOperation {
+        super::builders::tenant_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

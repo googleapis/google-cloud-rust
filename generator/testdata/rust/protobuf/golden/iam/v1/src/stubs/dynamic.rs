@@ -37,9 +37,9 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::IAMPolicy] also implement [IAMPolicy].
+/// All implementations of [super::IAMPolicy] also implement [IAMPolicy].
 #[async_trait::async_trait]
-impl<T: crate::stubs::IAMPolicy> IAMPolicy for T {
+impl<T: super::IAMPolicy> IAMPolicy for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,

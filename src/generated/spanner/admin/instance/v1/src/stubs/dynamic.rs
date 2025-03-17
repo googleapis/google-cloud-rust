@@ -180,9 +180,9 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::InstanceAdmin] also implement [InstanceAdmin].
+/// All implementations of [super::InstanceAdmin] also implement [InstanceAdmin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::InstanceAdmin> InstanceAdmin for T {
+impl<T: super::InstanceAdmin> InstanceAdmin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_instance_configs(
         &self,

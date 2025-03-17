@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ContactCenterInsights](crate::stubs::ContactCenterInsights) using a [gclient::ReqwestClient].
+/// Implements [ContactCenterInsights](super::stubs::ContactCenterInsights) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ContactCenterInsights {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ContactCenterInsights {
     }
 }
 
-impl crate::stubs::ContactCenterInsights for ContactCenterInsights {
+impl super::stubs::ContactCenterInsights for ContactCenterInsights {
     async fn create_conversation(
         &self,
         req: crate::model::CreateConversationRequest,

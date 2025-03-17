@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Memorystore](crate::stubs::Memorystore) using a [gclient::ReqwestClient].
+/// Implements [Memorystore](super::stubs::Memorystore) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Memorystore {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Memorystore {
     }
 }
 
-impl crate::stubs::Memorystore for Memorystore {
+impl super::stubs::Memorystore for Memorystore {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,

@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct HubService {
-    inner: Arc<dyn crate::stubs::dynamic::HubService>,
+    inner: Arc<dyn super::stubs::dynamic::HubService>,
 }
 
 impl HubService {
@@ -61,7 +61,7 @@ impl HubService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::HubService + 'static,
+        T: super::stubs::HubService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl HubService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::HubService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::HubService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,32 +79,32 @@ impl HubService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::HubService> {
-        crate::transport::HubService::new(conf).await
+    ) -> Result<impl super::stubs::HubService> {
+        super::transport::HubService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::HubService> {
+    ) -> Result<impl super::stubs::HubService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::HubService::new)
+            .map(super::tracing::HubService::new)
     }
 
     /// Lists the Network Connectivity Center hubs associated with a given project.
     pub fn list_hubs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::ListHubs {
-        crate::builders::hub_service::ListHubs::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::hub_service::ListHubs {
+        super::builders::hub_service::ListHubs::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details about a Network Connectivity Center hub.
     pub fn get_hub(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::GetHub {
-        crate::builders::hub_service::GetHub::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::GetHub {
+        super::builders::hub_service::GetHub::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Network Connectivity Center hub in the specified project.
@@ -121,8 +121,8 @@ impl HubService {
     pub fn create_hub(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::CreateHub {
-        crate::builders::hub_service::CreateHub::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::hub_service::CreateHub {
+        super::builders::hub_service::CreateHub::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the description and/or labels of a Network Connectivity Center
@@ -140,8 +140,8 @@ impl HubService {
     pub fn update_hub(
         &self,
         hub: impl Into<crate::model::Hub>,
-    ) -> crate::builders::hub_service::UpdateHub {
-        crate::builders::hub_service::UpdateHub::new(self.inner.clone()).set_hub(hub.into())
+    ) -> super::builders::hub_service::UpdateHub {
+        super::builders::hub_service::UpdateHub::new(self.inner.clone()).set_hub(hub.into())
     }
 
     /// Deletes a Network Connectivity Center hub.
@@ -158,8 +158,8 @@ impl HubService {
     pub fn delete_hub(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::DeleteHub {
-        crate::builders::hub_service::DeleteHub::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::DeleteHub {
+        super::builders::hub_service::DeleteHub::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists the Network Connectivity Center spokes associated with a
@@ -168,8 +168,8 @@ impl HubService {
     pub fn list_hub_spokes(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::ListHubSpokes {
-        crate::builders::hub_service::ListHubSpokes::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::ListHubSpokes {
+        super::builders::hub_service::ListHubSpokes::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Query the Private Service Connect propagation status of a Network
@@ -177,8 +177,8 @@ impl HubService {
     pub fn query_hub_status(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::QueryHubStatus {
-        crate::builders::hub_service::QueryHubStatus::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::QueryHubStatus {
+        super::builders::hub_service::QueryHubStatus::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists the Network Connectivity Center spokes in a specified project and
@@ -186,16 +186,16 @@ impl HubService {
     pub fn list_spokes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::ListSpokes {
-        crate::builders::hub_service::ListSpokes::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::hub_service::ListSpokes {
+        super::builders::hub_service::ListSpokes::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details about a Network Connectivity Center spoke.
     pub fn get_spoke(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::GetSpoke {
-        crate::builders::hub_service::GetSpoke::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::GetSpoke {
+        super::builders::hub_service::GetSpoke::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a Network Connectivity Center spoke.
@@ -212,8 +212,8 @@ impl HubService {
     pub fn create_spoke(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::CreateSpoke {
-        crate::builders::hub_service::CreateSpoke::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::hub_service::CreateSpoke {
+        super::builders::hub_service::CreateSpoke::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the parameters of a Network Connectivity Center spoke.
@@ -230,8 +230,8 @@ impl HubService {
     pub fn update_spoke(
         &self,
         spoke: impl Into<crate::model::Spoke>,
-    ) -> crate::builders::hub_service::UpdateSpoke {
-        crate::builders::hub_service::UpdateSpoke::new(self.inner.clone()).set_spoke(spoke.into())
+    ) -> super::builders::hub_service::UpdateSpoke {
+        super::builders::hub_service::UpdateSpoke::new(self.inner.clone()).set_spoke(spoke.into())
     }
 
     /// Rejects a Network Connectivity Center spoke from being attached to a hub.
@@ -251,8 +251,8 @@ impl HubService {
     pub fn reject_hub_spoke(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::RejectHubSpoke {
-        crate::builders::hub_service::RejectHubSpoke::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::RejectHubSpoke {
+        super::builders::hub_service::RejectHubSpoke::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Accepts a proposal to attach a Network Connectivity Center spoke
@@ -270,8 +270,8 @@ impl HubService {
     pub fn accept_hub_spoke(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::AcceptHubSpoke {
-        crate::builders::hub_service::AcceptHubSpoke::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::AcceptHubSpoke {
+        super::builders::hub_service::AcceptHubSpoke::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a Network Connectivity Center spoke.
@@ -288,40 +288,40 @@ impl HubService {
     pub fn delete_spoke(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::DeleteSpoke {
-        crate::builders::hub_service::DeleteSpoke::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::DeleteSpoke {
+        super::builders::hub_service::DeleteSpoke::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets details about a Network Connectivity Center route table.
     pub fn get_route_table(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::GetRouteTable {
-        crate::builders::hub_service::GetRouteTable::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::GetRouteTable {
+        super::builders::hub_service::GetRouteTable::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets details about the specified route.
     pub fn get_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::GetRoute {
-        crate::builders::hub_service::GetRoute::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::GetRoute {
+        super::builders::hub_service::GetRoute::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists routes in a given route table.
     pub fn list_routes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::ListRoutes {
-        crate::builders::hub_service::ListRoutes::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::hub_service::ListRoutes {
+        super::builders::hub_service::ListRoutes::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists route tables in a given hub.
     pub fn list_route_tables(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::ListRouteTables {
-        crate::builders::hub_service::ListRouteTables::new(self.inner.clone())
+    ) -> super::builders::hub_service::ListRouteTables {
+        super::builders::hub_service::ListRouteTables::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -329,16 +329,16 @@ impl HubService {
     pub fn get_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::GetGroup {
-        crate::builders::hub_service::GetGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::GetGroup {
+        super::builders::hub_service::GetGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists groups in a given hub.
     pub fn list_groups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::ListGroups {
-        crate::builders::hub_service::ListGroups::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::hub_service::ListGroups {
+        super::builders::hub_service::ListGroups::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the parameters of a Network Connectivity Center group.
@@ -355,24 +355,24 @@ impl HubService {
     pub fn update_group(
         &self,
         group: impl Into<crate::model::Group>,
-    ) -> crate::builders::hub_service::UpdateGroup {
-        crate::builders::hub_service::UpdateGroup::new(self.inner.clone()).set_group(group.into())
+    ) -> super::builders::hub_service::UpdateGroup {
+        super::builders::hub_service::UpdateGroup::new(self.inner.clone()).set_group(group.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::ListLocations {
-        crate::builders::hub_service::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::ListLocations {
+        super::builders::hub_service::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::GetLocation {
-        crate::builders::hub_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::GetLocation {
+        super::builders::hub_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -383,8 +383,8 @@ impl HubService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::SetIamPolicy {
-        crate::builders::hub_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::hub_service::SetIamPolicy {
+        super::builders::hub_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -393,8 +393,8 @@ impl HubService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::GetIamPolicy {
-        crate::builders::hub_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::hub_service::GetIamPolicy {
+        super::builders::hub_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -408,8 +408,8 @@ impl HubService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::TestIamPermissions {
-        crate::builders::hub_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::hub_service::TestIamPermissions {
+        super::builders::hub_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -419,8 +419,8 @@ impl HubService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::ListOperations {
-        crate::builders::hub_service::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::ListOperations {
+        super::builders::hub_service::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -429,8 +429,8 @@ impl HubService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::GetOperation {
-        crate::builders::hub_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::GetOperation {
+        super::builders::hub_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -439,8 +439,8 @@ impl HubService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::DeleteOperation {
-        crate::builders::hub_service::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::DeleteOperation {
+        super::builders::hub_service::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -449,8 +449,8 @@ impl HubService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::hub_service::CancelOperation {
-        crate::builders::hub_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::hub_service::CancelOperation {
+        super::builders::hub_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -474,7 +474,7 @@ impl HubService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PolicyBasedRoutingService {
-    inner: Arc<dyn crate::stubs::dynamic::PolicyBasedRoutingService>,
+    inner: Arc<dyn super::stubs::dynamic::PolicyBasedRoutingService>,
 }
 
 impl PolicyBasedRoutingService {
@@ -495,7 +495,7 @@ impl PolicyBasedRoutingService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::PolicyBasedRoutingService + 'static,
+        T: super::stubs::PolicyBasedRoutingService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -504,7 +504,7 @@ impl PolicyBasedRoutingService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::PolicyBasedRoutingService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::PolicyBasedRoutingService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -513,24 +513,24 @@ impl PolicyBasedRoutingService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::PolicyBasedRoutingService> {
-        crate::transport::PolicyBasedRoutingService::new(conf).await
+    ) -> Result<impl super::stubs::PolicyBasedRoutingService> {
+        super::transport::PolicyBasedRoutingService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::PolicyBasedRoutingService> {
+    ) -> Result<impl super::stubs::PolicyBasedRoutingService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::PolicyBasedRoutingService::new)
+            .map(super::tracing::PolicyBasedRoutingService::new)
     }
 
     /// Lists PolicyBasedRoutes in a given project and location.
     pub fn list_policy_based_routes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::ListPolicyBasedRoutes {
-        crate::builders::policy_based_routing_service::ListPolicyBasedRoutes::new(
+    ) -> super::builders::policy_based_routing_service::ListPolicyBasedRoutes {
+        super::builders::policy_based_routing_service::ListPolicyBasedRoutes::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -540,8 +540,8 @@ impl PolicyBasedRoutingService {
     pub fn get_policy_based_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::GetPolicyBasedRoute {
-        crate::builders::policy_based_routing_service::GetPolicyBasedRoute::new(self.inner.clone())
+    ) -> super::builders::policy_based_routing_service::GetPolicyBasedRoute {
+        super::builders::policy_based_routing_service::GetPolicyBasedRoute::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -559,8 +559,8 @@ impl PolicyBasedRoutingService {
     pub fn create_policy_based_route(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::CreatePolicyBasedRoute {
-        crate::builders::policy_based_routing_service::CreatePolicyBasedRoute::new(
+    ) -> super::builders::policy_based_routing_service::CreatePolicyBasedRoute {
+        super::builders::policy_based_routing_service::CreatePolicyBasedRoute::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -580,8 +580,8 @@ impl PolicyBasedRoutingService {
     pub fn delete_policy_based_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::DeletePolicyBasedRoute {
-        crate::builders::policy_based_routing_service::DeletePolicyBasedRoute::new(
+    ) -> super::builders::policy_based_routing_service::DeletePolicyBasedRoute {
+        super::builders::policy_based_routing_service::DeletePolicyBasedRoute::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -591,8 +591,8 @@ impl PolicyBasedRoutingService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::ListLocations {
-        crate::builders::policy_based_routing_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::policy_based_routing_service::ListLocations {
+        super::builders::policy_based_routing_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -600,8 +600,8 @@ impl PolicyBasedRoutingService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::GetLocation {
-        crate::builders::policy_based_routing_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::policy_based_routing_service::GetLocation {
+        super::builders::policy_based_routing_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -613,8 +613,8 @@ impl PolicyBasedRoutingService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::SetIamPolicy {
-        crate::builders::policy_based_routing_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::policy_based_routing_service::SetIamPolicy {
+        super::builders::policy_based_routing_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -623,8 +623,8 @@ impl PolicyBasedRoutingService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::GetIamPolicy {
-        crate::builders::policy_based_routing_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::policy_based_routing_service::GetIamPolicy {
+        super::builders::policy_based_routing_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -638,8 +638,8 @@ impl PolicyBasedRoutingService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::TestIamPermissions {
-        crate::builders::policy_based_routing_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::policy_based_routing_service::TestIamPermissions {
+        super::builders::policy_based_routing_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -649,8 +649,8 @@ impl PolicyBasedRoutingService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::ListOperations {
-        crate::builders::policy_based_routing_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::policy_based_routing_service::ListOperations {
+        super::builders::policy_based_routing_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -660,8 +660,8 @@ impl PolicyBasedRoutingService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::GetOperation {
-        crate::builders::policy_based_routing_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::policy_based_routing_service::GetOperation {
+        super::builders::policy_based_routing_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -671,8 +671,8 @@ impl PolicyBasedRoutingService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::DeleteOperation {
-        crate::builders::policy_based_routing_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::policy_based_routing_service::DeleteOperation {
+        super::builders::policy_based_routing_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -682,8 +682,8 @@ impl PolicyBasedRoutingService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_based_routing_service::CancelOperation {
-        crate::builders::policy_based_routing_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::policy_based_routing_service::CancelOperation {
+        super::builders::policy_based_routing_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

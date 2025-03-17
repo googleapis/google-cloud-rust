@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ApiKeys].
+/// Defines the trait used to implement [super::client::ApiKeys].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ApiKeys`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ApiKeys: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ApiKeys::create_key].
+    /// Implements [super::client::ApiKeys::create_key].
     fn create_key(
         &self,
         _req: crate::model::CreateKeyRequest,
@@ -53,7 +53,7 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiKeys::list_keys].
+    /// Implements [super::client::ApiKeys::list_keys].
     fn list_keys(
         &self,
         _req: crate::model::ListKeysRequest,
@@ -65,7 +65,7 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiKeys::get_key].
+    /// Implements [super::client::ApiKeys::get_key].
     fn get_key(
         &self,
         _req: crate::model::GetKeyRequest,
@@ -74,7 +74,7 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Key>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiKeys::get_key_string].
+    /// Implements [super::client::ApiKeys::get_key_string].
     fn get_key_string(
         &self,
         _req: crate::model::GetKeyStringRequest,
@@ -86,7 +86,7 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiKeys::update_key].
+    /// Implements [super::client::ApiKeys::update_key].
     fn update_key(
         &self,
         _req: crate::model::UpdateKeyRequest,
@@ -98,7 +98,7 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiKeys::delete_key].
+    /// Implements [super::client::ApiKeys::delete_key].
     fn delete_key(
         &self,
         _req: crate::model::DeleteKeyRequest,
@@ -110,7 +110,7 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiKeys::undelete_key].
+    /// Implements [super::client::ApiKeys::undelete_key].
     fn undelete_key(
         &self,
         _req: crate::model::UndeleteKeyRequest,
@@ -122,7 +122,7 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiKeys::lookup_key].
+    /// Implements [super::client::ApiKeys::lookup_key].
     fn lookup_key(
         &self,
         _req: crate::model::LookupKeyRequest,
@@ -134,7 +134,7 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiKeys::get_operation].
+    /// Implements [super::client::ApiKeys::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

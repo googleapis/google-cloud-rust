@@ -18,10 +18,10 @@ pub mod folders {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Folders] request builders.
+    /// Common implementation for [super::super::client::Folders] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Folders>,
+        stub: Arc<dyn super::super::stubs::dynamic::Folders>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod folders {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod folders {
     pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
 
     impl GetFolder {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -85,7 +85,7 @@ pub mod folders {
     pub struct ListFolders(RequestBuilder<crate::model::ListFoldersRequest>);
 
     impl ListFolders {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -158,7 +158,7 @@ pub mod folders {
     pub struct SearchFolders(RequestBuilder<crate::model::SearchFoldersRequest>);
 
     impl SearchFolders {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -225,7 +225,7 @@ pub mod folders {
     pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
 
     impl CreateFolder {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -246,7 +246,7 @@ pub mod folders {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_folder][crate::client::Folders::create_folder].
+        /// on [create_folder][super::super::client::Folders::create_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_folder(self.0.request, self.0.options)
@@ -307,7 +307,7 @@ pub mod folders {
     pub struct UpdateFolder(RequestBuilder<crate::model::UpdateFolderRequest>);
 
     impl UpdateFolder {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -328,7 +328,7 @@ pub mod folders {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_folder][crate::client::Folders::update_folder].
+        /// on [update_folder][super::super::client::Folders::update_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_folder(self.0.request, self.0.options)
@@ -398,7 +398,7 @@ pub mod folders {
     pub struct MoveFolder(RequestBuilder<crate::model::MoveFolderRequest>);
 
     impl MoveFolder {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -419,7 +419,7 @@ pub mod folders {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [move_folder][crate::client::Folders::move_folder].
+        /// on [move_folder][super::super::client::Folders::move_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .move_folder(self.0.request, self.0.options)
@@ -482,7 +482,7 @@ pub mod folders {
     pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
 
     impl DeleteFolder {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -503,7 +503,7 @@ pub mod folders {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_folder][crate::client::Folders::delete_folder].
+        /// on [delete_folder][super::super::client::Folders::delete_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_folder(self.0.request, self.0.options)
@@ -561,7 +561,7 @@ pub mod folders {
     pub struct UndeleteFolder(RequestBuilder<crate::model::UndeleteFolderRequest>);
 
     impl UndeleteFolder {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -582,7 +582,7 @@ pub mod folders {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_folder][crate::client::Folders::undelete_folder].
+        /// on [undelete_folder][super::super::client::Folders::undelete_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_folder(self.0.request, self.0.options)
@@ -640,7 +640,7 @@ pub mod folders {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -690,7 +690,7 @@ pub mod folders {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -749,7 +749,7 @@ pub mod folders {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -804,7 +804,7 @@ pub mod folders {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -848,10 +848,10 @@ pub mod organizations {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Organizations] request builders.
+    /// Common implementation for [super::super::client::Organizations] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Organizations>,
+        stub: Arc<dyn super::super::stubs::dynamic::Organizations>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -860,7 +860,7 @@ pub mod organizations {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Organizations>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -874,7 +874,7 @@ pub mod organizations {
     pub struct GetOrganization(RequestBuilder<crate::model::GetOrganizationRequest>);
 
     impl GetOrganization {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Organizations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -915,7 +915,7 @@ pub mod organizations {
     pub struct SearchOrganizations(RequestBuilder<crate::model::SearchOrganizationsRequest>);
 
     impl SearchOrganizations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Organizations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -985,7 +985,7 @@ pub mod organizations {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Organizations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1035,7 +1035,7 @@ pub mod organizations {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Organizations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1094,7 +1094,7 @@ pub mod organizations {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Organizations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1149,7 +1149,7 @@ pub mod organizations {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Organizations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1193,10 +1193,10 @@ pub mod projects {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Projects] request builders.
+    /// Common implementation for [super::super::client::Projects] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Projects>,
+        stub: Arc<dyn super::super::stubs::dynamic::Projects>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1205,7 +1205,7 @@ pub mod projects {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1219,7 +1219,7 @@ pub mod projects {
     pub struct GetProject(RequestBuilder<crate::model::GetProjectRequest>);
 
     impl GetProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1260,7 +1260,7 @@ pub mod projects {
     pub struct ListProjects(RequestBuilder<crate::model::ListProjectsRequest>);
 
     impl ListProjects {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1333,7 +1333,7 @@ pub mod projects {
     pub struct SearchProjects(RequestBuilder<crate::model::SearchProjectsRequest>);
 
     impl SearchProjects {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1400,7 +1400,7 @@ pub mod projects {
     pub struct CreateProject(RequestBuilder<crate::model::CreateProjectRequest>);
 
     impl CreateProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1421,7 +1421,7 @@ pub mod projects {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_project][crate::client::Projects::create_project].
+        /// on [create_project][super::super::client::Projects::create_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_project(self.0.request, self.0.options)
@@ -1482,7 +1482,7 @@ pub mod projects {
     pub struct UpdateProject(RequestBuilder<crate::model::UpdateProjectRequest>);
 
     impl UpdateProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1503,7 +1503,7 @@ pub mod projects {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_project][crate::client::Projects::update_project].
+        /// on [update_project][super::super::client::Projects::update_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_project(self.0.request, self.0.options)
@@ -1573,7 +1573,7 @@ pub mod projects {
     pub struct MoveProject(RequestBuilder<crate::model::MoveProjectRequest>);
 
     impl MoveProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1594,7 +1594,7 @@ pub mod projects {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [move_project][crate::client::Projects::move_project].
+        /// on [move_project][super::super::client::Projects::move_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .move_project(self.0.request, self.0.options)
@@ -1658,7 +1658,7 @@ pub mod projects {
     pub struct DeleteProject(RequestBuilder<crate::model::DeleteProjectRequest>);
 
     impl DeleteProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1679,7 +1679,7 @@ pub mod projects {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_project][crate::client::Projects::delete_project].
+        /// on [delete_project][super::super::client::Projects::delete_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_project(self.0.request, self.0.options)
@@ -1737,7 +1737,7 @@ pub mod projects {
     pub struct UndeleteProject(RequestBuilder<crate::model::UndeleteProjectRequest>);
 
     impl UndeleteProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1758,7 +1758,7 @@ pub mod projects {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_project][crate::client::Projects::undelete_project].
+        /// on [undelete_project][super::super::client::Projects::undelete_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_project(self.0.request, self.0.options)
@@ -1817,7 +1817,7 @@ pub mod projects {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1867,7 +1867,7 @@ pub mod projects {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1926,7 +1926,7 @@ pub mod projects {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1981,7 +1981,7 @@ pub mod projects {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2025,10 +2025,10 @@ pub mod tag_bindings {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TagBindings] request builders.
+    /// Common implementation for [super::super::client::TagBindings] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TagBindings>,
+        stub: Arc<dyn super::super::stubs::dynamic::TagBindings>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2037,7 +2037,7 @@ pub mod tag_bindings {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagBindings>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2051,7 +2051,7 @@ pub mod tag_bindings {
     pub struct ListTagBindings(RequestBuilder<crate::model::ListTagBindingsRequest>);
 
     impl ListTagBindings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2118,7 +2118,7 @@ pub mod tag_bindings {
     pub struct CreateTagBinding(RequestBuilder<crate::model::CreateTagBindingRequest>);
 
     impl CreateTagBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2142,7 +2142,7 @@ pub mod tag_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_tag_binding][crate::client::TagBindings::create_tag_binding].
+        /// on [create_tag_binding][super::super::client::TagBindings::create_tag_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_tag_binding(self.0.request, self.0.options)
@@ -2210,7 +2210,7 @@ pub mod tag_bindings {
     pub struct DeleteTagBinding(RequestBuilder<crate::model::DeleteTagBindingRequest>);
 
     impl DeleteTagBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2234,7 +2234,7 @@ pub mod tag_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_tag_binding][crate::client::TagBindings::delete_tag_binding].
+        /// on [delete_tag_binding][super::super::client::TagBindings::delete_tag_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_tag_binding(self.0.request, self.0.options)
@@ -2291,7 +2291,7 @@ pub mod tag_bindings {
     pub struct ListEffectiveTags(RequestBuilder<crate::model::ListEffectiveTagsRequest>);
 
     impl ListEffectiveTags {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2361,7 +2361,7 @@ pub mod tag_bindings {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2405,10 +2405,10 @@ pub mod tag_holds {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TagHolds] request builders.
+    /// Common implementation for [super::super::client::TagHolds] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TagHolds>,
+        stub: Arc<dyn super::super::stubs::dynamic::TagHolds>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2417,7 +2417,7 @@ pub mod tag_holds {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagHolds>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagHolds>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2431,7 +2431,7 @@ pub mod tag_holds {
     pub struct CreateTagHold(RequestBuilder<crate::model::CreateTagHoldRequest>);
 
     impl CreateTagHold {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagHolds>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagHolds>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2452,7 +2452,7 @@ pub mod tag_holds {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_tag_hold][crate::client::TagHolds::create_tag_hold].
+        /// on [create_tag_hold][super::super::client::TagHolds::create_tag_hold].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_tag_hold(self.0.request, self.0.options)
@@ -2525,7 +2525,7 @@ pub mod tag_holds {
     pub struct DeleteTagHold(RequestBuilder<crate::model::DeleteTagHoldRequest>);
 
     impl DeleteTagHold {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagHolds>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagHolds>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2546,7 +2546,7 @@ pub mod tag_holds {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_tag_hold][crate::client::TagHolds::delete_tag_hold].
+        /// on [delete_tag_hold][super::super::client::TagHolds::delete_tag_hold].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_tag_hold(self.0.request, self.0.options)
@@ -2607,7 +2607,7 @@ pub mod tag_holds {
     pub struct ListTagHolds(RequestBuilder<crate::model::ListTagHoldsRequest>);
 
     impl ListTagHolds {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagHolds>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagHolds>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2680,7 +2680,7 @@ pub mod tag_holds {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagHolds>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagHolds>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2724,10 +2724,10 @@ pub mod tag_keys {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TagKeys] request builders.
+    /// Common implementation for [super::super::client::TagKeys] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TagKeys>,
+        stub: Arc<dyn super::super::stubs::dynamic::TagKeys>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2736,7 +2736,7 @@ pub mod tag_keys {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2750,7 +2750,7 @@ pub mod tag_keys {
     pub struct ListTagKeys(RequestBuilder<crate::model::ListTagKeysRequest>);
 
     impl ListTagKeys {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2817,7 +2817,7 @@ pub mod tag_keys {
     pub struct GetTagKey(RequestBuilder<crate::model::GetTagKeyRequest>);
 
     impl GetTagKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2858,7 +2858,7 @@ pub mod tag_keys {
     pub struct GetNamespacedTagKey(RequestBuilder<crate::model::GetNamespacedTagKeyRequest>);
 
     impl GetNamespacedTagKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2902,7 +2902,7 @@ pub mod tag_keys {
     pub struct CreateTagKey(RequestBuilder<crate::model::CreateTagKeyRequest>);
 
     impl CreateTagKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2923,7 +2923,7 @@ pub mod tag_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_tag_key][crate::client::TagKeys::create_tag_key].
+        /// on [create_tag_key][super::super::client::TagKeys::create_tag_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_tag_key(self.0.request, self.0.options)
@@ -2990,7 +2990,7 @@ pub mod tag_keys {
     pub struct UpdateTagKey(RequestBuilder<crate::model::UpdateTagKeyRequest>);
 
     impl UpdateTagKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3011,7 +3011,7 @@ pub mod tag_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_tag_key][crate::client::TagKeys::update_tag_key].
+        /// on [update_tag_key][super::super::client::TagKeys::update_tag_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_tag_key(self.0.request, self.0.options)
@@ -3087,7 +3087,7 @@ pub mod tag_keys {
     pub struct DeleteTagKey(RequestBuilder<crate::model::DeleteTagKeyRequest>);
 
     impl DeleteTagKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3108,7 +3108,7 @@ pub mod tag_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_tag_key][crate::client::TagKeys::delete_tag_key].
+        /// on [delete_tag_key][super::super::client::TagKeys::delete_tag_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_tag_key(self.0.request, self.0.options)
@@ -3178,7 +3178,7 @@ pub mod tag_keys {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3228,7 +3228,7 @@ pub mod tag_keys {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3287,7 +3287,7 @@ pub mod tag_keys {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3342,7 +3342,7 @@ pub mod tag_keys {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3386,10 +3386,10 @@ pub mod tag_values {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TagValues] request builders.
+    /// Common implementation for [super::super::client::TagValues] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TagValues>,
+        stub: Arc<dyn super::super::stubs::dynamic::TagValues>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3398,7 +3398,7 @@ pub mod tag_values {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3412,7 +3412,7 @@ pub mod tag_values {
     pub struct ListTagValues(RequestBuilder<crate::model::ListTagValuesRequest>);
 
     impl ListTagValues {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3479,7 +3479,7 @@ pub mod tag_values {
     pub struct GetTagValue(RequestBuilder<crate::model::GetTagValueRequest>);
 
     impl GetTagValue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3520,7 +3520,7 @@ pub mod tag_values {
     pub struct GetNamespacedTagValue(RequestBuilder<crate::model::GetNamespacedTagValueRequest>);
 
     impl GetNamespacedTagValue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3564,7 +3564,7 @@ pub mod tag_values {
     pub struct CreateTagValue(RequestBuilder<crate::model::CreateTagValueRequest>);
 
     impl CreateTagValue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3585,7 +3585,7 @@ pub mod tag_values {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_tag_value][crate::client::TagValues::create_tag_value].
+        /// on [create_tag_value][super::super::client::TagValues::create_tag_value].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_tag_value(self.0.request, self.0.options)
@@ -3653,7 +3653,7 @@ pub mod tag_values {
     pub struct UpdateTagValue(RequestBuilder<crate::model::UpdateTagValueRequest>);
 
     impl UpdateTagValue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3674,7 +3674,7 @@ pub mod tag_values {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_tag_value][crate::client::TagValues::update_tag_value].
+        /// on [update_tag_value][super::super::client::TagValues::update_tag_value].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_tag_value(self.0.request, self.0.options)
@@ -3751,7 +3751,7 @@ pub mod tag_values {
     pub struct DeleteTagValue(RequestBuilder<crate::model::DeleteTagValueRequest>);
 
     impl DeleteTagValue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3772,7 +3772,7 @@ pub mod tag_values {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_tag_value][crate::client::TagValues::delete_tag_value].
+        /// on [delete_tag_value][super::super::client::TagValues::delete_tag_value].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_tag_value(self.0.request, self.0.options)
@@ -3843,7 +3843,7 @@ pub mod tag_values {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3893,7 +3893,7 @@ pub mod tag_values {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3952,7 +3952,7 @@ pub mod tag_values {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4007,7 +4007,7 @@ pub mod tag_values {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TagValues>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

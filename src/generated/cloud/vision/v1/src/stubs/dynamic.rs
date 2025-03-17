@@ -60,9 +60,9 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ImageAnnotator] also implement [ImageAnnotator].
+/// All implementations of [super::ImageAnnotator] also implement [ImageAnnotator].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ImageAnnotator> ImageAnnotator for T {
+impl<T: super::ImageAnnotator> ImageAnnotator for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn batch_annotate_images(
         &self,
@@ -257,9 +257,9 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ProductSearch] also implement [ProductSearch].
+/// All implementations of [super::ProductSearch] also implement [ProductSearch].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ProductSearch> ProductSearch for T {
+impl<T: super::ProductSearch> ProductSearch for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_product_set(
         &self,

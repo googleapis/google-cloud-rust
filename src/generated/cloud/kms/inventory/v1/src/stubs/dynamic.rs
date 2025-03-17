@@ -24,9 +24,9 @@ pub trait KeyDashboardService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ListCryptoKeysResponse>;
 }
 
-/// All implementations of [crate::stubs::KeyDashboardService] also implement [KeyDashboardService].
+/// All implementations of [super::KeyDashboardService] also implement [KeyDashboardService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::KeyDashboardService> KeyDashboardService for T {
+impl<T: super::KeyDashboardService> KeyDashboardService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_crypto_keys(
         &self,
@@ -53,9 +53,9 @@ pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::SearchProtectedResourcesResponse>;
 }
 
-/// All implementations of [crate::stubs::KeyTrackingService] also implement [KeyTrackingService].
+/// All implementations of [super::KeyTrackingService] also implement [KeyTrackingService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::KeyTrackingService> KeyTrackingService for T {
+impl<T: super::KeyTrackingService> KeyTrackingService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_protected_resources_summary(
         &self,

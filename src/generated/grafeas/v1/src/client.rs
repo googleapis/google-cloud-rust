@@ -51,7 +51,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Grafeas {
-    inner: Arc<dyn crate::stubs::dynamic::Grafeas>,
+    inner: Arc<dyn super::stubs::dynamic::Grafeas>,
 }
 
 impl Grafeas {
@@ -72,7 +72,7 @@ impl Grafeas {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Grafeas + 'static,
+        T: super::stubs::Grafeas + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -81,7 +81,7 @@ impl Grafeas {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Grafeas>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Grafeas>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -90,32 +90,32 @@ impl Grafeas {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Grafeas> {
-        crate::transport::Grafeas::new(conf).await
+    ) -> Result<impl super::stubs::Grafeas> {
+        super::transport::Grafeas::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Grafeas> {
+    ) -> Result<impl super::stubs::Grafeas> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Grafeas::new)
+            .map(super::tracing::Grafeas::new)
     }
 
     /// Gets the specified occurrence.
     pub fn get_occurrence(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::GetOccurrence {
-        crate::builders::grafeas::GetOccurrence::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::grafeas::GetOccurrence {
+        super::builders::grafeas::GetOccurrence::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists occurrences for the specified project.
     pub fn list_occurrences(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::ListOccurrences {
-        crate::builders::grafeas::ListOccurrences::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::grafeas::ListOccurrences {
+        super::builders::grafeas::ListOccurrences::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes the specified occurrence. For example, use this method to delete an
@@ -124,16 +124,16 @@ impl Grafeas {
     pub fn delete_occurrence(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::DeleteOccurrence {
-        crate::builders::grafeas::DeleteOccurrence::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::grafeas::DeleteOccurrence {
+        super::builders::grafeas::DeleteOccurrence::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new occurrence.
     pub fn create_occurrence(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::CreateOccurrence {
-        crate::builders::grafeas::CreateOccurrence::new(self.inner.clone())
+    ) -> super::builders::grafeas::CreateOccurrence {
+        super::builders::grafeas::CreateOccurrence::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -141,8 +141,8 @@ impl Grafeas {
     pub fn batch_create_occurrences(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::BatchCreateOccurrences {
-        crate::builders::grafeas::BatchCreateOccurrences::new(self.inner.clone())
+    ) -> super::builders::grafeas::BatchCreateOccurrences {
+        super::builders::grafeas::BatchCreateOccurrences::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -150,8 +150,8 @@ impl Grafeas {
     pub fn update_occurrence(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::UpdateOccurrence {
-        crate::builders::grafeas::UpdateOccurrence::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::grafeas::UpdateOccurrence {
+        super::builders::grafeas::UpdateOccurrence::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the note attached to the specified occurrence. Consumer projects can
@@ -159,48 +159,48 @@ impl Grafeas {
     pub fn get_occurrence_note(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::GetOccurrenceNote {
-        crate::builders::grafeas::GetOccurrenceNote::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::grafeas::GetOccurrenceNote {
+        super::builders::grafeas::GetOccurrenceNote::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the specified note.
     pub fn get_note(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::GetNote {
-        crate::builders::grafeas::GetNote::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::grafeas::GetNote {
+        super::builders::grafeas::GetNote::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists notes for the specified project.
     pub fn list_notes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::ListNotes {
-        crate::builders::grafeas::ListNotes::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::grafeas::ListNotes {
+        super::builders::grafeas::ListNotes::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes the specified note.
     pub fn delete_note(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::DeleteNote {
-        crate::builders::grafeas::DeleteNote::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::grafeas::DeleteNote {
+        super::builders::grafeas::DeleteNote::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new note.
     pub fn create_note(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::CreateNote {
-        crate::builders::grafeas::CreateNote::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::grafeas::CreateNote {
+        super::builders::grafeas::CreateNote::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Creates new notes in batch.
     pub fn batch_create_notes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::BatchCreateNotes {
-        crate::builders::grafeas::BatchCreateNotes::new(self.inner.clone())
+    ) -> super::builders::grafeas::BatchCreateNotes {
+        super::builders::grafeas::BatchCreateNotes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -208,8 +208,8 @@ impl Grafeas {
     pub fn update_note(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::UpdateNote {
-        crate::builders::grafeas::UpdateNote::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::grafeas::UpdateNote {
+        super::builders::grafeas::UpdateNote::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists occurrences referencing the specified note. Provider projects can use
@@ -218,7 +218,7 @@ impl Grafeas {
     pub fn list_note_occurrences(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::grafeas::ListNoteOccurrences {
-        crate::builders::grafeas::ListNoteOccurrences::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::grafeas::ListNoteOccurrences {
+        super::builders::grafeas::ListNoteOccurrences::new(self.inner.clone()).set_name(name.into())
     }
 }

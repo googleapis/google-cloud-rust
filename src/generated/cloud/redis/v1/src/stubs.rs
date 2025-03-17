@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudRedis].
+/// Defines the trait used to implement [super::client::CloudRedis].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudRedis`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudRedis: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudRedis::list_instances].
+    /// Implements [super::client::CloudRedis::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -53,7 +53,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::get_instance].
+    /// Implements [super::client::CloudRedis::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -64,7 +64,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::get_instance_auth_string].
+    /// Implements [super::client::CloudRedis::get_instance_auth_string].
     fn get_instance_auth_string(
         &self,
         _req: crate::model::GetInstanceAuthStringRequest,
@@ -76,7 +76,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::create_instance].
+    /// Implements [super::client::CloudRedis::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -88,7 +88,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::update_instance].
+    /// Implements [super::client::CloudRedis::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -100,7 +100,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::upgrade_instance].
+    /// Implements [super::client::CloudRedis::upgrade_instance].
     fn upgrade_instance(
         &self,
         _req: crate::model::UpgradeInstanceRequest,
@@ -112,7 +112,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::import_instance].
+    /// Implements [super::client::CloudRedis::import_instance].
     fn import_instance(
         &self,
         _req: crate::model::ImportInstanceRequest,
@@ -124,7 +124,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::export_instance].
+    /// Implements [super::client::CloudRedis::export_instance].
     fn export_instance(
         &self,
         _req: crate::model::ExportInstanceRequest,
@@ -136,7 +136,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::failover_instance].
+    /// Implements [super::client::CloudRedis::failover_instance].
     fn failover_instance(
         &self,
         _req: crate::model::FailoverInstanceRequest,
@@ -148,7 +148,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::delete_instance].
+    /// Implements [super::client::CloudRedis::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -160,7 +160,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::reschedule_maintenance].
+    /// Implements [super::client::CloudRedis::reschedule_maintenance].
     fn reschedule_maintenance(
         &self,
         _req: crate::model::RescheduleMaintenanceRequest,
@@ -172,7 +172,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::list_locations].
+    /// Implements [super::client::CloudRedis::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -184,7 +184,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudRedis::get_location].
+    /// Implements [super::client::CloudRedis::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -195,7 +195,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::list_operations].
+    /// Implements [super::client::CloudRedis::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -207,7 +207,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudRedis::get_operation].
+    /// Implements [super::client::CloudRedis::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -219,7 +219,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedis::delete_operation].
+    /// Implements [super::client::CloudRedis::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -228,7 +228,7 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudRedis::cancel_operation].
+    /// Implements [super::client::CloudRedis::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Autokey](crate::stubs::Autokey) using a [gclient::ReqwestClient].
+/// Implements [Autokey](super::stubs::Autokey) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Autokey {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Autokey {
     }
 }
 
-impl crate::stubs::Autokey for Autokey {
+impl super::stubs::Autokey for Autokey {
     async fn create_key_handle(
         &self,
         req: crate::model::CreateKeyHandleRequest,
@@ -254,7 +254,7 @@ impl crate::stubs::Autokey for Autokey {
     }
 }
 
-/// Implements [AutokeyAdmin](crate::stubs::AutokeyAdmin) using a [gclient::ReqwestClient].
+/// Implements [AutokeyAdmin](super::stubs::AutokeyAdmin) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AutokeyAdmin {
     inner: gclient::ReqwestClient,
@@ -275,7 +275,7 @@ impl AutokeyAdmin {
     }
 }
 
-impl crate::stubs::AutokeyAdmin for AutokeyAdmin {
+impl super::stubs::AutokeyAdmin for AutokeyAdmin {
     async fn update_autokey_config(
         &self,
         req: crate::model::UpdateAutokeyConfigRequest,
@@ -488,7 +488,7 @@ impl crate::stubs::AutokeyAdmin for AutokeyAdmin {
     }
 }
 
-/// Implements [EkmService](crate::stubs::EkmService) using a [gclient::ReqwestClient].
+/// Implements [EkmService](super::stubs::EkmService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct EkmService {
     inner: gclient::ReqwestClient,
@@ -509,7 +509,7 @@ impl EkmService {
     }
 }
 
-impl crate::stubs::EkmService for EkmService {
+impl super::stubs::EkmService for EkmService {
     async fn list_ekm_connections(
         &self,
         req: crate::model::ListEkmConnectionsRequest,
@@ -828,7 +828,7 @@ impl crate::stubs::EkmService for EkmService {
     }
 }
 
-/// Implements [KeyManagementService](crate::stubs::KeyManagementService) using a [gclient::ReqwestClient].
+/// Implements [KeyManagementService](super::stubs::KeyManagementService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct KeyManagementService {
     inner: gclient::ReqwestClient,
@@ -849,7 +849,7 @@ impl KeyManagementService {
     }
 }
 
-impl crate::stubs::KeyManagementService for KeyManagementService {
+impl super::stubs::KeyManagementService for KeyManagementService {
     async fn list_key_rings(
         &self,
         req: crate::model::ListKeyRingsRequest,

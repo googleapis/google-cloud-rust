@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::VideoIntelligenceService].
+/// Defines the trait used to implement [super::client::VideoIntelligenceService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::VideoIntelligenceService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait VideoIntelligenceService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::VideoIntelligenceService::annotate_video].
+    /// Implements [super::client::VideoIntelligenceService::annotate_video].
     fn annotate_video(
         &self,
         _req: crate::model::AnnotateVideoRequest,
@@ -53,7 +53,7 @@ pub trait VideoIntelligenceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoIntelligenceService::list_operations].
+    /// Implements [super::client::VideoIntelligenceService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -65,7 +65,7 @@ pub trait VideoIntelligenceService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VideoIntelligenceService::get_operation].
+    /// Implements [super::client::VideoIntelligenceService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -77,7 +77,7 @@ pub trait VideoIntelligenceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoIntelligenceService::delete_operation].
+    /// Implements [super::client::VideoIntelligenceService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -86,7 +86,7 @@ pub trait VideoIntelligenceService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VideoIntelligenceService::cancel_operation].
+    /// Implements [super::client::VideoIntelligenceService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

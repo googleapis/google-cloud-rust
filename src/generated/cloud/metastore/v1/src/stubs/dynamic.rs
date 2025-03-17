@@ -192,9 +192,9 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DataprocMetastore] also implement [DataprocMetastore].
+/// All implementations of [super::DataprocMetastore] also implement [DataprocMetastore].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DataprocMetastore> DataprocMetastore for T {
+impl<T: super::DataprocMetastore> DataprocMetastore for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_services(
         &self,
@@ -551,9 +551,9 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DataprocMetastoreFederation] also implement [DataprocMetastoreFederation].
+/// All implementations of [super::DataprocMetastoreFederation] also implement [DataprocMetastoreFederation].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
+impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_federations(
         &self,

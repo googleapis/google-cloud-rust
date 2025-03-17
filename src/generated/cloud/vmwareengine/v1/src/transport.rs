@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [VmwareEngine](crate::stubs::VmwareEngine) using a [gclient::ReqwestClient].
+/// Implements [VmwareEngine](super::stubs::VmwareEngine) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct VmwareEngine {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl VmwareEngine {
     }
 }
 
-impl crate::stubs::VmwareEngine for VmwareEngine {
+impl super::stubs::VmwareEngine for VmwareEngine {
     async fn list_private_clouds(
         &self,
         req: crate::model::ListPrivateCloudsRequest,

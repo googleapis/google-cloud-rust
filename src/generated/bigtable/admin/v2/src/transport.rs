@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BigtableInstanceAdmin](crate::stubs::BigtableInstanceAdmin) using a [gclient::ReqwestClient].
+/// Implements [BigtableInstanceAdmin](super::stubs::BigtableInstanceAdmin) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct BigtableInstanceAdmin {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl BigtableInstanceAdmin {
     }
 }
 
-impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
+impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
     async fn create_instance(
         &self,
         req: crate::model::CreateInstanceRequest,
@@ -636,7 +636,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
     }
 }
 
-/// Implements [BigtableTableAdmin](crate::stubs::BigtableTableAdmin) using a [gclient::ReqwestClient].
+/// Implements [BigtableTableAdmin](super::stubs::BigtableTableAdmin) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct BigtableTableAdmin {
     inner: gclient::ReqwestClient,
@@ -657,7 +657,7 @@ impl BigtableTableAdmin {
     }
 }
 
-impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
+impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
     async fn create_table(
         &self,
         req: crate::model::CreateTableRequest,

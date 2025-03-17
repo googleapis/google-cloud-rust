@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [IAMPolicy](crate::stubs::IAMPolicy) using a [gclient::ReqwestClient].
+/// Implements [IAMPolicy](super::stubs::IAMPolicy) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct IAMPolicy {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl IAMPolicy {
     }
 }
 
-impl crate::stubs::IAMPolicy for IAMPolicy {
+impl super::stubs::IAMPolicy for IAMPolicy {
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,

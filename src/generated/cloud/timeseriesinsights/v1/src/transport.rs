@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TimeseriesInsightsController](crate::stubs::TimeseriesInsightsController) using a [gclient::ReqwestClient].
+/// Implements [TimeseriesInsightsController](super::stubs::TimeseriesInsightsController) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TimeseriesInsightsController {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl TimeseriesInsightsController {
     }
 }
 
-impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController {
+impl super::stubs::TimeseriesInsightsController for TimeseriesInsightsController {
     async fn list_data_sets(
         &self,
         req: crate::model::ListDataSetsRequest,

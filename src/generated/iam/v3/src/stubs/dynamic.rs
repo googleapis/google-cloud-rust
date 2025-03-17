@@ -72,9 +72,9 @@ pub trait PolicyBindings: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::PolicyBindings] also implement [PolicyBindings].
+/// All implementations of [super::PolicyBindings] also implement [PolicyBindings].
 #[async_trait::async_trait]
-impl<T: crate::stubs::PolicyBindings> PolicyBindings for T {
+impl<T: super::PolicyBindings> PolicyBindings for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_policy_binding(
         &self,
@@ -209,9 +209,9 @@ pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::PrincipalAccessBoundaryPolicies] also implement [PrincipalAccessBoundaryPolicies].
+/// All implementations of [super::PrincipalAccessBoundaryPolicies] also implement [PrincipalAccessBoundaryPolicies].
 #[async_trait::async_trait]
-impl<T: crate::stubs::PrincipalAccessBoundaryPolicies> PrincipalAccessBoundaryPolicies for T {
+impl<T: super::PrincipalAccessBoundaryPolicies> PrincipalAccessBoundaryPolicies for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_principal_access_boundary_policy(
         &self,

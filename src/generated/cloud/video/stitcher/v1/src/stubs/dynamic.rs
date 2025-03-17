@@ -234,9 +234,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::VideoStitcherService] also implement [VideoStitcherService].
+/// All implementations of [super::VideoStitcherService] also implement [VideoStitcherService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::VideoStitcherService> VideoStitcherService for T {
+impl<T: super::VideoStitcherService> VideoStitcherService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_cdn_key(
         &self,

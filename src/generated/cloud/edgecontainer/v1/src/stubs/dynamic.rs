@@ -186,9 +186,9 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::EdgeContainer] also implement [EdgeContainer].
+/// All implementations of [super::EdgeContainer] also implement [EdgeContainer].
 #[async_trait::async_trait]
-impl<T: crate::stubs::EdgeContainer> EdgeContainer for T {
+impl<T: super::EdgeContainer> EdgeContainer for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_clusters(
         &self,

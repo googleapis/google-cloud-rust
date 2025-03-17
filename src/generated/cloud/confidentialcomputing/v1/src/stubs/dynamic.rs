@@ -42,9 +42,9 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<location::model::Location>;
 }
 
-/// All implementations of [crate::stubs::ConfidentialComputing] also implement [ConfidentialComputing].
+/// All implementations of [super::ConfidentialComputing] also implement [ConfidentialComputing].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ConfidentialComputing> ConfidentialComputing for T {
+impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_challenge(
         &self,

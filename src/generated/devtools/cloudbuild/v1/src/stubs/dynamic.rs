@@ -150,9 +150,9 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::CloudBuild] also implement [CloudBuild].
+/// All implementations of [super::CloudBuild] also implement [CloudBuild].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudBuild> CloudBuild for T {
+impl<T: super::CloudBuild> CloudBuild for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_build(
         &self,

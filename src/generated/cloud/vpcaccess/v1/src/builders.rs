@@ -18,10 +18,10 @@ pub mod vpc_access_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::VpcAccessService] request builders.
+    /// Common implementation for [super::super::client::VpcAccessService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::VpcAccessService>,
+        stub: Arc<dyn super::super::stubs::dynamic::VpcAccessService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod vpc_access_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcAccessService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod vpc_access_service {
     pub struct CreateConnector(RequestBuilder<crate::model::CreateConnectorRequest>);
 
     impl CreateConnector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcAccessService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +65,7 @@ pub mod vpc_access_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connector][crate::client::VpcAccessService::create_connector].
+        /// on [create_connector][super::super::client::VpcAccessService::create_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connector(self.0.request, self.0.options)
@@ -138,7 +138,7 @@ pub mod vpc_access_service {
     pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
 
     impl GetConnector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcAccessService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,7 +179,7 @@ pub mod vpc_access_service {
     pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
 
     impl ListConnectors {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcAccessService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -246,7 +246,7 @@ pub mod vpc_access_service {
     pub struct DeleteConnector(RequestBuilder<crate::model::DeleteConnectorRequest>);
 
     impl DeleteConnector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcAccessService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -267,7 +267,7 @@ pub mod vpc_access_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connector][crate::client::VpcAccessService::delete_connector].
+        /// on [delete_connector][super::super::client::VpcAccessService::delete_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connector(self.0.request, self.0.options)
@@ -322,7 +322,7 @@ pub mod vpc_access_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcAccessService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -398,7 +398,7 @@ pub mod vpc_access_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcAccessService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -474,7 +474,7 @@ pub mod vpc_access_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcAccessService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

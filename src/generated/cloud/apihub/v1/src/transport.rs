@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ApiHub](crate::stubs::ApiHub) using a [gclient::ReqwestClient].
+/// Implements [ApiHub](super::stubs::ApiHub) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiHub {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ApiHub {
     }
 }
 
-impl crate::stubs::ApiHub for ApiHub {
+impl super::stubs::ApiHub for ApiHub {
     async fn create_api(
         &self,
         req: crate::model::CreateApiRequest,
@@ -983,7 +983,7 @@ impl crate::stubs::ApiHub for ApiHub {
     }
 }
 
-/// Implements [ApiHubDependencies](crate::stubs::ApiHubDependencies) using a [gclient::ReqwestClient].
+/// Implements [ApiHubDependencies](super::stubs::ApiHubDependencies) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiHubDependencies {
     inner: gclient::ReqwestClient,
@@ -1004,7 +1004,7 @@ impl ApiHubDependencies {
     }
 }
 
-impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
+impl super::stubs::ApiHubDependencies for ApiHubDependencies {
     async fn create_dependency(
         &self,
         req: crate::model::CreateDependencyRequest,
@@ -1248,7 +1248,7 @@ impl crate::stubs::ApiHubDependencies for ApiHubDependencies {
     }
 }
 
-/// Implements [HostProjectRegistrationService](crate::stubs::HostProjectRegistrationService) using a [gclient::ReqwestClient].
+/// Implements [HostProjectRegistrationService](super::stubs::HostProjectRegistrationService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct HostProjectRegistrationService {
     inner: gclient::ReqwestClient,
@@ -1269,7 +1269,7 @@ impl HostProjectRegistrationService {
     }
 }
 
-impl crate::stubs::HostProjectRegistrationService for HostProjectRegistrationService {
+impl super::stubs::HostProjectRegistrationService for HostProjectRegistrationService {
     async fn create_host_project_registration(
         &self,
         req: crate::model::CreateHostProjectRegistrationRequest,
@@ -1460,7 +1460,7 @@ impl crate::stubs::HostProjectRegistrationService for HostProjectRegistrationSer
     }
 }
 
-/// Implements [LintingService](crate::stubs::LintingService) using a [gclient::ReqwestClient].
+/// Implements [LintingService](super::stubs::LintingService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct LintingService {
     inner: gclient::ReqwestClient,
@@ -1481,7 +1481,7 @@ impl LintingService {
     }
 }
 
-impl crate::stubs::LintingService for LintingService {
+impl super::stubs::LintingService for LintingService {
     async fn get_style_guide(
         &self,
         req: crate::model::GetStyleGuideRequest,
@@ -1694,7 +1694,7 @@ impl crate::stubs::LintingService for LintingService {
     }
 }
 
-/// Implements [ApiHubPlugin](crate::stubs::ApiHubPlugin) using a [gclient::ReqwestClient].
+/// Implements [ApiHubPlugin](super::stubs::ApiHubPlugin) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiHubPlugin {
     inner: gclient::ReqwestClient,
@@ -1715,7 +1715,7 @@ impl ApiHubPlugin {
     }
 }
 
-impl crate::stubs::ApiHubPlugin for ApiHubPlugin {
+impl super::stubs::ApiHubPlugin for ApiHubPlugin {
     async fn get_plugin(
         &self,
         req: crate::model::GetPluginRequest,
@@ -1888,7 +1888,7 @@ impl crate::stubs::ApiHubPlugin for ApiHubPlugin {
     }
 }
 
-/// Implements [Provisioning](crate::stubs::Provisioning) using a [gclient::ReqwestClient].
+/// Implements [Provisioning](super::stubs::Provisioning) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Provisioning {
     inner: gclient::ReqwestClient,
@@ -1909,7 +1909,7 @@ impl Provisioning {
     }
 }
 
-impl crate::stubs::Provisioning for Provisioning {
+impl super::stubs::Provisioning for Provisioning {
     async fn create_api_hub_instance(
         &self,
         req: crate::model::CreateApiHubInstanceRequest,
@@ -2107,7 +2107,7 @@ impl crate::stubs::Provisioning for Provisioning {
     }
 }
 
-/// Implements [RuntimeProjectAttachmentService](crate::stubs::RuntimeProjectAttachmentService) using a [gclient::ReqwestClient].
+/// Implements [RuntimeProjectAttachmentService](super::stubs::RuntimeProjectAttachmentService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct RuntimeProjectAttachmentService {
     inner: gclient::ReqwestClient,
@@ -2128,7 +2128,7 @@ impl RuntimeProjectAttachmentService {
     }
 }
 
-impl crate::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentService {
+impl super::stubs::RuntimeProjectAttachmentService for RuntimeProjectAttachmentService {
     async fn create_runtime_project_attachment(
         &self,
         req: crate::model::CreateRuntimeProjectAttachmentRequest,

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ArtifactRegistry].
+/// Defines the trait used to implement [super::client::ArtifactRegistry].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ArtifactRegistry`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ArtifactRegistry::list_docker_images].
+    /// Implements [super::client::ArtifactRegistry::list_docker_images].
     fn list_docker_images(
         &self,
         _req: crate::model::ListDockerImagesRequest,
@@ -53,7 +53,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_docker_image].
+    /// Implements [super::client::ArtifactRegistry::get_docker_image].
     fn get_docker_image(
         &self,
         _req: crate::model::GetDockerImageRequest,
@@ -64,7 +64,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_maven_artifacts].
+    /// Implements [super::client::ArtifactRegistry::list_maven_artifacts].
     fn list_maven_artifacts(
         &self,
         _req: crate::model::ListMavenArtifactsRequest,
@@ -76,7 +76,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_maven_artifact].
+    /// Implements [super::client::ArtifactRegistry::get_maven_artifact].
     fn get_maven_artifact(
         &self,
         _req: crate::model::GetMavenArtifactRequest,
@@ -87,7 +87,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_npm_packages].
+    /// Implements [super::client::ArtifactRegistry::list_npm_packages].
     fn list_npm_packages(
         &self,
         _req: crate::model::ListNpmPackagesRequest,
@@ -99,7 +99,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_npm_package].
+    /// Implements [super::client::ArtifactRegistry::get_npm_package].
     fn get_npm_package(
         &self,
         _req: crate::model::GetNpmPackageRequest,
@@ -110,7 +110,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_python_packages].
+    /// Implements [super::client::ArtifactRegistry::list_python_packages].
     fn list_python_packages(
         &self,
         _req: crate::model::ListPythonPackagesRequest,
@@ -122,7 +122,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_python_package].
+    /// Implements [super::client::ArtifactRegistry::get_python_package].
     fn get_python_package(
         &self,
         _req: crate::model::GetPythonPackageRequest,
@@ -133,7 +133,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::import_apt_artifacts].
+    /// Implements [super::client::ArtifactRegistry::import_apt_artifacts].
     fn import_apt_artifacts(
         &self,
         _req: crate::model::ImportAptArtifactsRequest,
@@ -145,7 +145,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::import_yum_artifacts].
+    /// Implements [super::client::ArtifactRegistry::import_yum_artifacts].
     fn import_yum_artifacts(
         &self,
         _req: crate::model::ImportYumArtifactsRequest,
@@ -157,7 +157,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_repositories].
+    /// Implements [super::client::ArtifactRegistry::list_repositories].
     fn list_repositories(
         &self,
         _req: crate::model::ListRepositoriesRequest,
@@ -169,7 +169,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_repository].
+    /// Implements [super::client::ArtifactRegistry::get_repository].
     fn get_repository(
         &self,
         _req: crate::model::GetRepositoryRequest,
@@ -180,7 +180,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::create_repository].
+    /// Implements [super::client::ArtifactRegistry::create_repository].
     fn create_repository(
         &self,
         _req: crate::model::CreateRepositoryRequest,
@@ -192,7 +192,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::update_repository].
+    /// Implements [super::client::ArtifactRegistry::update_repository].
     fn update_repository(
         &self,
         _req: crate::model::UpdateRepositoryRequest,
@@ -203,7 +203,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::delete_repository].
+    /// Implements [super::client::ArtifactRegistry::delete_repository].
     fn delete_repository(
         &self,
         _req: crate::model::DeleteRepositoryRequest,
@@ -215,7 +215,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_packages].
+    /// Implements [super::client::ArtifactRegistry::list_packages].
     fn list_packages(
         &self,
         _req: crate::model::ListPackagesRequest,
@@ -227,7 +227,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_package].
+    /// Implements [super::client::ArtifactRegistry::get_package].
     fn get_package(
         &self,
         _req: crate::model::GetPackageRequest,
@@ -238,7 +238,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::delete_package].
+    /// Implements [super::client::ArtifactRegistry::delete_package].
     fn delete_package(
         &self,
         _req: crate::model::DeletePackageRequest,
@@ -250,7 +250,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_versions].
+    /// Implements [super::client::ArtifactRegistry::list_versions].
     fn list_versions(
         &self,
         _req: crate::model::ListVersionsRequest,
@@ -262,7 +262,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_version].
+    /// Implements [super::client::ArtifactRegistry::get_version].
     fn get_version(
         &self,
         _req: crate::model::GetVersionRequest,
@@ -273,7 +273,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::delete_version].
+    /// Implements [super::client::ArtifactRegistry::delete_version].
     fn delete_version(
         &self,
         _req: crate::model::DeleteVersionRequest,
@@ -285,7 +285,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::batch_delete_versions].
+    /// Implements [super::client::ArtifactRegistry::batch_delete_versions].
     fn batch_delete_versions(
         &self,
         _req: crate::model::BatchDeleteVersionsRequest,
@@ -297,7 +297,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::update_version].
+    /// Implements [super::client::ArtifactRegistry::update_version].
     fn update_version(
         &self,
         _req: crate::model::UpdateVersionRequest,
@@ -308,7 +308,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_files].
+    /// Implements [super::client::ArtifactRegistry::list_files].
     fn list_files(
         &self,
         _req: crate::model::ListFilesRequest,
@@ -320,7 +320,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_file].
+    /// Implements [super::client::ArtifactRegistry::get_file].
     fn get_file(
         &self,
         _req: crate::model::GetFileRequest,
@@ -329,7 +329,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::File>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::delete_file].
+    /// Implements [super::client::ArtifactRegistry::delete_file].
     fn delete_file(
         &self,
         _req: crate::model::DeleteFileRequest,
@@ -341,7 +341,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::update_file].
+    /// Implements [super::client::ArtifactRegistry::update_file].
     fn update_file(
         &self,
         _req: crate::model::UpdateFileRequest,
@@ -350,7 +350,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::File>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_tags].
+    /// Implements [super::client::ArtifactRegistry::list_tags].
     fn list_tags(
         &self,
         _req: crate::model::ListTagsRequest,
@@ -362,7 +362,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_tag].
+    /// Implements [super::client::ArtifactRegistry::get_tag].
     fn get_tag(
         &self,
         _req: crate::model::GetTagRequest,
@@ -371,7 +371,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Tag>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::create_tag].
+    /// Implements [super::client::ArtifactRegistry::create_tag].
     fn create_tag(
         &self,
         _req: crate::model::CreateTagRequest,
@@ -380,7 +380,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Tag>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::update_tag].
+    /// Implements [super::client::ArtifactRegistry::update_tag].
     fn update_tag(
         &self,
         _req: crate::model::UpdateTagRequest,
@@ -389,7 +389,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Tag>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::delete_tag].
+    /// Implements [super::client::ArtifactRegistry::delete_tag].
     fn delete_tag(
         &self,
         _req: crate::model::DeleteTagRequest,
@@ -398,7 +398,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::create_rule].
+    /// Implements [super::client::ArtifactRegistry::create_rule].
     fn create_rule(
         &self,
         _req: crate::model::CreateRuleRequest,
@@ -407,7 +407,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Rule>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_rules].
+    /// Implements [super::client::ArtifactRegistry::list_rules].
     fn list_rules(
         &self,
         _req: crate::model::ListRulesRequest,
@@ -419,7 +419,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_rule].
+    /// Implements [super::client::ArtifactRegistry::get_rule].
     fn get_rule(
         &self,
         _req: crate::model::GetRuleRequest,
@@ -428,7 +428,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Rule>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::update_rule].
+    /// Implements [super::client::ArtifactRegistry::update_rule].
     fn update_rule(
         &self,
         _req: crate::model::UpdateRuleRequest,
@@ -437,7 +437,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Rule>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::delete_rule].
+    /// Implements [super::client::ArtifactRegistry::delete_rule].
     fn delete_rule(
         &self,
         _req: crate::model::DeleteRuleRequest,
@@ -446,7 +446,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::set_iam_policy].
+    /// Implements [super::client::ArtifactRegistry::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -457,7 +457,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_iam_policy].
+    /// Implements [super::client::ArtifactRegistry::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -468,7 +468,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::test_iam_permissions].
+    /// Implements [super::client::ArtifactRegistry::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -480,7 +480,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_project_settings].
+    /// Implements [super::client::ArtifactRegistry::get_project_settings].
     fn get_project_settings(
         &self,
         _req: crate::model::GetProjectSettingsRequest,
@@ -492,7 +492,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::update_project_settings].
+    /// Implements [super::client::ArtifactRegistry::update_project_settings].
     fn update_project_settings(
         &self,
         _req: crate::model::UpdateProjectSettingsRequest,
@@ -504,7 +504,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_vpcsc_config].
+    /// Implements [super::client::ArtifactRegistry::get_vpcsc_config].
     fn get_vpcsc_config(
         &self,
         _req: crate::model::GetVPCSCConfigRequest,
@@ -515,7 +515,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::update_vpcsc_config].
+    /// Implements [super::client::ArtifactRegistry::update_vpcsc_config].
     fn update_vpcsc_config(
         &self,
         _req: crate::model::UpdateVPCSCConfigRequest,
@@ -526,7 +526,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::update_package].
+    /// Implements [super::client::ArtifactRegistry::update_package].
     fn update_package(
         &self,
         _req: crate::model::UpdatePackageRequest,
@@ -537,7 +537,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_attachments].
+    /// Implements [super::client::ArtifactRegistry::list_attachments].
     fn list_attachments(
         &self,
         _req: crate::model::ListAttachmentsRequest,
@@ -549,7 +549,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_attachment].
+    /// Implements [super::client::ArtifactRegistry::get_attachment].
     fn get_attachment(
         &self,
         _req: crate::model::GetAttachmentRequest,
@@ -560,7 +560,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::create_attachment].
+    /// Implements [super::client::ArtifactRegistry::create_attachment].
     fn create_attachment(
         &self,
         _req: crate::model::CreateAttachmentRequest,
@@ -572,7 +572,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::delete_attachment].
+    /// Implements [super::client::ArtifactRegistry::delete_attachment].
     fn delete_attachment(
         &self,
         _req: crate::model::DeleteAttachmentRequest,
@@ -584,7 +584,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::list_locations].
+    /// Implements [super::client::ArtifactRegistry::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -596,7 +596,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_location].
+    /// Implements [super::client::ArtifactRegistry::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -607,7 +607,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ArtifactRegistry::get_operation].
+    /// Implements [super::client::ArtifactRegistry::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

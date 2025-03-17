@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [PolicyTroubleshooter](crate::stubs::PolicyTroubleshooter) using a [gclient::ReqwestClient].
+/// Implements [PolicyTroubleshooter](super::stubs::PolicyTroubleshooter) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyTroubleshooter {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl PolicyTroubleshooter {
     }
 }
 
-impl crate::stubs::PolicyTroubleshooter for PolicyTroubleshooter {
+impl super::stubs::PolicyTroubleshooter for PolicyTroubleshooter {
     async fn troubleshoot_iam_policy(
         &self,
         req: crate::model::TroubleshootIamPolicyRequest,

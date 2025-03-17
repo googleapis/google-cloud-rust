@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DeveloperConnect](crate::stubs::DeveloperConnect) using a [gclient::ReqwestClient].
+/// Implements [DeveloperConnect](super::stubs::DeveloperConnect) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DeveloperConnect {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl DeveloperConnect {
     }
 }
 
-impl crate::stubs::DeveloperConnect for DeveloperConnect {
+impl super::stubs::DeveloperConnect for DeveloperConnect {
     async fn list_connections(
         &self,
         req: crate::model::ListConnectionsRequest,

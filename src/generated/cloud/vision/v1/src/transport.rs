@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ImageAnnotator](crate::stubs::ImageAnnotator) using a [gclient::ReqwestClient].
+/// Implements [ImageAnnotator](super::stubs::ImageAnnotator) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ImageAnnotator {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ImageAnnotator {
     }
 }
 
-impl crate::stubs::ImageAnnotator for ImageAnnotator {
+impl super::stubs::ImageAnnotator for ImageAnnotator {
     async fn batch_annotate_images(
         &self,
         req: crate::model::BatchAnnotateImagesRequest,
@@ -148,7 +148,7 @@ impl crate::stubs::ImageAnnotator for ImageAnnotator {
     }
 }
 
-/// Implements [ProductSearch](crate::stubs::ProductSearch) using a [gclient::ReqwestClient].
+/// Implements [ProductSearch](super::stubs::ProductSearch) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ProductSearch {
     inner: gclient::ReqwestClient,
@@ -169,7 +169,7 @@ impl ProductSearch {
     }
 }
 
-impl crate::stubs::ProductSearch for ProductSearch {
+impl super::stubs::ProductSearch for ProductSearch {
     async fn create_product_set(
         &self,
         req: crate::model::CreateProductSetRequest,

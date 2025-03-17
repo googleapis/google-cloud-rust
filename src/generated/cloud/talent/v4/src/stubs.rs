@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CompanyService].
+/// Defines the trait used to implement [super::client::CompanyService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CompanyService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CompanyService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CompanyService::create_company].
+    /// Implements [super::client::CompanyService::create_company].
     fn create_company(
         &self,
         _req: crate::model::CreateCompanyRequest,
@@ -52,7 +52,7 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CompanyService::get_company].
+    /// Implements [super::client::CompanyService::get_company].
     fn get_company(
         &self,
         _req: crate::model::GetCompanyRequest,
@@ -63,7 +63,7 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CompanyService::update_company].
+    /// Implements [super::client::CompanyService::update_company].
     fn update_company(
         &self,
         _req: crate::model::UpdateCompanyRequest,
@@ -74,7 +74,7 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CompanyService::delete_company].
+    /// Implements [super::client::CompanyService::delete_company].
     fn delete_company(
         &self,
         _req: crate::model::DeleteCompanyRequest,
@@ -83,7 +83,7 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CompanyService::list_companies].
+    /// Implements [super::client::CompanyService::list_companies].
     fn list_companies(
         &self,
         _req: crate::model::ListCompaniesRequest,
@@ -95,7 +95,7 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CompanyService::get_operation].
+    /// Implements [super::client::CompanyService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -108,7 +108,7 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Completion].
+/// Defines the trait used to implement [super::client::Completion].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Completion`.  In other use-cases, application developers only
@@ -120,7 +120,7 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Completion: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Completion::complete_query].
+    /// Implements [super::client::Completion::complete_query].
     fn complete_query(
         &self,
         _req: crate::model::CompleteQueryRequest,
@@ -132,7 +132,7 @@ pub trait Completion: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Completion::get_operation].
+    /// Implements [super::client::Completion::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -145,7 +145,7 @@ pub trait Completion: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::EventService].
+/// Defines the trait used to implement [super::client::EventService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::EventService`.  In other use-cases, application developers only
@@ -157,7 +157,7 @@ pub trait Completion: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait EventService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::EventService::create_client_event].
+    /// Implements [super::client::EventService::create_client_event].
     fn create_client_event(
         &self,
         _req: crate::model::CreateClientEventRequest,
@@ -168,7 +168,7 @@ pub trait EventService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EventService::get_operation].
+    /// Implements [super::client::EventService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -181,7 +181,7 @@ pub trait EventService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::JobService].
+/// Defines the trait used to implement [super::client::JobService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::JobService`.  In other use-cases, application developers only
@@ -193,7 +193,7 @@ pub trait EventService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait JobService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::JobService::create_job].
+    /// Implements [super::client::JobService::create_job].
     fn create_job(
         &self,
         _req: crate::model::CreateJobRequest,
@@ -202,7 +202,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::batch_create_jobs].
+    /// Implements [super::client::JobService::batch_create_jobs].
     fn batch_create_jobs(
         &self,
         _req: crate::model::BatchCreateJobsRequest,
@@ -214,7 +214,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::get_job].
+    /// Implements [super::client::JobService::get_job].
     fn get_job(
         &self,
         _req: crate::model::GetJobRequest,
@@ -223,7 +223,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::update_job].
+    /// Implements [super::client::JobService::update_job].
     fn update_job(
         &self,
         _req: crate::model::UpdateJobRequest,
@@ -232,7 +232,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::batch_update_jobs].
+    /// Implements [super::client::JobService::batch_update_jobs].
     fn batch_update_jobs(
         &self,
         _req: crate::model::BatchUpdateJobsRequest,
@@ -244,7 +244,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::delete_job].
+    /// Implements [super::client::JobService::delete_job].
     fn delete_job(
         &self,
         _req: crate::model::DeleteJobRequest,
@@ -253,7 +253,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::batch_delete_jobs].
+    /// Implements [super::client::JobService::batch_delete_jobs].
     fn batch_delete_jobs(
         &self,
         _req: crate::model::BatchDeleteJobsRequest,
@@ -265,7 +265,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::list_jobs].
+    /// Implements [super::client::JobService::list_jobs].
     fn list_jobs(
         &self,
         _req: crate::model::ListJobsRequest,
@@ -277,7 +277,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::search_jobs].
+    /// Implements [super::client::JobService::search_jobs].
     fn search_jobs(
         &self,
         _req: crate::model::SearchJobsRequest,
@@ -289,7 +289,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::search_jobs_for_alert].
+    /// Implements [super::client::JobService::search_jobs_for_alert].
     fn search_jobs_for_alert(
         &self,
         _req: crate::model::SearchJobsRequest,
@@ -301,7 +301,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::get_operation].
+    /// Implements [super::client::JobService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -336,7 +336,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::TenantService].
+/// Defines the trait used to implement [super::client::TenantService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TenantService`.  In other use-cases, application developers only
@@ -348,7 +348,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TenantService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TenantService::create_tenant].
+    /// Implements [super::client::TenantService::create_tenant].
     fn create_tenant(
         &self,
         _req: crate::model::CreateTenantRequest,
@@ -359,7 +359,7 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TenantService::get_tenant].
+    /// Implements [super::client::TenantService::get_tenant].
     fn get_tenant(
         &self,
         _req: crate::model::GetTenantRequest,
@@ -370,7 +370,7 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TenantService::update_tenant].
+    /// Implements [super::client::TenantService::update_tenant].
     fn update_tenant(
         &self,
         _req: crate::model::UpdateTenantRequest,
@@ -381,7 +381,7 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TenantService::delete_tenant].
+    /// Implements [super::client::TenantService::delete_tenant].
     fn delete_tenant(
         &self,
         _req: crate::model::DeleteTenantRequest,
@@ -390,7 +390,7 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TenantService::list_tenants].
+    /// Implements [super::client::TenantService::list_tenants].
     fn list_tenants(
         &self,
         _req: crate::model::ListTenantsRequest,
@@ -402,7 +402,7 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TenantService::get_operation].
+    /// Implements [super::client::TenantService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

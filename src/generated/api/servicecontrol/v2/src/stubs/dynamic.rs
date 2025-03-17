@@ -30,9 +30,9 @@ pub trait ServiceController: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ReportResponse>;
 }
 
-/// All implementations of [crate::stubs::ServiceController] also implement [ServiceController].
+/// All implementations of [super::ServiceController] also implement [ServiceController].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ServiceController> ServiceController for T {
+impl<T: super::ServiceController> ServiceController for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn check(
         &self,

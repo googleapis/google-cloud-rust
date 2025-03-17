@@ -18,10 +18,10 @@ pub mod secure_source_manager {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SecureSourceManager] request builders.
+    /// Common implementation for [super::super::client::SecureSourceManager] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>,
+        stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod secure_source_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod secure_source_manager {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -123,7 +127,9 @@ pub mod secure_source_manager {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -164,7 +170,9 @@ pub mod secure_source_manager {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -185,7 +193,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][crate::client::SecureSourceManager::create_instance].
+        /// on [create_instance][super::super::client::SecureSourceManager::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -264,7 +272,9 @@ pub mod secure_source_manager {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -285,7 +295,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][crate::client::SecureSourceManager::delete_instance].
+        /// on [delete_instance][super::super::client::SecureSourceManager::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -346,7 +356,9 @@ pub mod secure_source_manager {
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -428,7 +440,9 @@ pub mod secure_source_manager {
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -469,7 +483,9 @@ pub mod secure_source_manager {
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -493,7 +509,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_repository][crate::client::SecureSourceManager::create_repository].
+        /// on [create_repository][super::super::client::SecureSourceManager::create_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
@@ -566,7 +582,9 @@ pub mod secure_source_manager {
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -590,7 +608,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_repository][crate::client::SecureSourceManager::delete_repository].
+        /// on [delete_repository][super::super::client::SecureSourceManager::delete_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
@@ -651,7 +669,9 @@ pub mod secure_source_manager {
     pub struct GetIamPolicyRepo(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicyRepo {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -701,7 +721,9 @@ pub mod secure_source_manager {
     pub struct SetIamPolicyRepo(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicyRepo {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -760,7 +782,9 @@ pub mod secure_source_manager {
     pub struct TestIamPermissionsRepo(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissionsRepo {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -815,7 +839,9 @@ pub mod secure_source_manager {
     pub struct CreateBranchRule(RequestBuilder<crate::model::CreateBranchRuleRequest>);
 
     impl CreateBranchRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -839,7 +865,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_branch_rule][crate::client::SecureSourceManager::create_branch_rule].
+        /// on [create_branch_rule][super::super::client::SecureSourceManager::create_branch_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_branch_rule(self.0.request, self.0.options)
@@ -912,7 +938,9 @@ pub mod secure_source_manager {
     pub struct ListBranchRules(RequestBuilder<crate::model::ListBranchRulesRequest>);
 
     impl ListBranchRules {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -979,7 +1007,9 @@ pub mod secure_source_manager {
     pub struct GetBranchRule(RequestBuilder<crate::model::GetBranchRuleRequest>);
 
     impl GetBranchRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1020,7 +1050,9 @@ pub mod secure_source_manager {
     pub struct UpdateBranchRule(RequestBuilder<crate::model::UpdateBranchRuleRequest>);
 
     impl UpdateBranchRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1044,7 +1076,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_branch_rule][crate::client::SecureSourceManager::update_branch_rule].
+        /// on [update_branch_rule][super::super::client::SecureSourceManager::update_branch_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_branch_rule(self.0.request, self.0.options)
@@ -1120,7 +1152,9 @@ pub mod secure_source_manager {
     pub struct DeleteBranchRule(RequestBuilder<crate::model::DeleteBranchRuleRequest>);
 
     impl DeleteBranchRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1144,7 +1178,7 @@ pub mod secure_source_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_branch_rule][crate::client::SecureSourceManager::delete_branch_rule].
+        /// on [delete_branch_rule][super::super::client::SecureSourceManager::delete_branch_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_branch_rule(self.0.request, self.0.options)
@@ -1205,7 +1239,9 @@ pub mod secure_source_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1281,7 +1317,9 @@ pub mod secure_source_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1322,7 +1360,9 @@ pub mod secure_source_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1381,7 +1421,9 @@ pub mod secure_source_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1431,7 +1473,9 @@ pub mod secure_source_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1486,7 +1530,9 @@ pub mod secure_source_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1562,7 +1608,9 @@ pub mod secure_source_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1606,7 +1654,9 @@ pub mod secure_source_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1650,7 +1700,9 @@ pub mod secure_source_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecureSourceManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecureSourceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

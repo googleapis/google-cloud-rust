@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::TelcoAutomation].
+/// Defines the trait used to implement [super::client::TelcoAutomation].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TelcoAutomation`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TelcoAutomation::list_orchestration_clusters].
+    /// Implements [super::client::TelcoAutomation::list_orchestration_clusters].
     fn list_orchestration_clusters(
         &self,
         _req: crate::model::ListOrchestrationClustersRequest,
@@ -54,7 +54,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::get_orchestration_cluster].
+    /// Implements [super::client::TelcoAutomation::get_orchestration_cluster].
     fn get_orchestration_cluster(
         &self,
         _req: crate::model::GetOrchestrationClusterRequest,
@@ -66,7 +66,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::create_orchestration_cluster].
+    /// Implements [super::client::TelcoAutomation::create_orchestration_cluster].
     fn create_orchestration_cluster(
         &self,
         _req: crate::model::CreateOrchestrationClusterRequest,
@@ -78,7 +78,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::delete_orchestration_cluster].
+    /// Implements [super::client::TelcoAutomation::delete_orchestration_cluster].
     fn delete_orchestration_cluster(
         &self,
         _req: crate::model::DeleteOrchestrationClusterRequest,
@@ -90,7 +90,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::list_edge_slms].
+    /// Implements [super::client::TelcoAutomation::list_edge_slms].
     fn list_edge_slms(
         &self,
         _req: crate::model::ListEdgeSlmsRequest,
@@ -102,7 +102,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::get_edge_slm].
+    /// Implements [super::client::TelcoAutomation::get_edge_slm].
     fn get_edge_slm(
         &self,
         _req: crate::model::GetEdgeSlmRequest,
@@ -113,7 +113,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::create_edge_slm].
+    /// Implements [super::client::TelcoAutomation::create_edge_slm].
     fn create_edge_slm(
         &self,
         _req: crate::model::CreateEdgeSlmRequest,
@@ -125,7 +125,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::delete_edge_slm].
+    /// Implements [super::client::TelcoAutomation::delete_edge_slm].
     fn delete_edge_slm(
         &self,
         _req: crate::model::DeleteEdgeSlmRequest,
@@ -137,7 +137,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::create_blueprint].
+    /// Implements [super::client::TelcoAutomation::create_blueprint].
     fn create_blueprint(
         &self,
         _req: crate::model::CreateBlueprintRequest,
@@ -148,7 +148,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::update_blueprint].
+    /// Implements [super::client::TelcoAutomation::update_blueprint].
     fn update_blueprint(
         &self,
         _req: crate::model::UpdateBlueprintRequest,
@@ -159,7 +159,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::get_blueprint].
+    /// Implements [super::client::TelcoAutomation::get_blueprint].
     fn get_blueprint(
         &self,
         _req: crate::model::GetBlueprintRequest,
@@ -170,7 +170,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::delete_blueprint].
+    /// Implements [super::client::TelcoAutomation::delete_blueprint].
     fn delete_blueprint(
         &self,
         _req: crate::model::DeleteBlueprintRequest,
@@ -179,7 +179,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TelcoAutomation::list_blueprints].
+    /// Implements [super::client::TelcoAutomation::list_blueprints].
     fn list_blueprints(
         &self,
         _req: crate::model::ListBlueprintsRequest,
@@ -191,7 +191,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::approve_blueprint].
+    /// Implements [super::client::TelcoAutomation::approve_blueprint].
     fn approve_blueprint(
         &self,
         _req: crate::model::ApproveBlueprintRequest,
@@ -202,7 +202,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::propose_blueprint].
+    /// Implements [super::client::TelcoAutomation::propose_blueprint].
     fn propose_blueprint(
         &self,
         _req: crate::model::ProposeBlueprintRequest,
@@ -213,7 +213,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::reject_blueprint].
+    /// Implements [super::client::TelcoAutomation::reject_blueprint].
     fn reject_blueprint(
         &self,
         _req: crate::model::RejectBlueprintRequest,
@@ -224,7 +224,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::list_blueprint_revisions].
+    /// Implements [super::client::TelcoAutomation::list_blueprint_revisions].
     fn list_blueprint_revisions(
         &self,
         _req: crate::model::ListBlueprintRevisionsRequest,
@@ -236,7 +236,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::search_blueprint_revisions].
+    /// Implements [super::client::TelcoAutomation::search_blueprint_revisions].
     fn search_blueprint_revisions(
         &self,
         _req: crate::model::SearchBlueprintRevisionsRequest,
@@ -249,7 +249,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::search_deployment_revisions].
+    /// Implements [super::client::TelcoAutomation::search_deployment_revisions].
     fn search_deployment_revisions(
         &self,
         _req: crate::model::SearchDeploymentRevisionsRequest,
@@ -262,7 +262,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::discard_blueprint_changes].
+    /// Implements [super::client::TelcoAutomation::discard_blueprint_changes].
     fn discard_blueprint_changes(
         &self,
         _req: crate::model::DiscardBlueprintChangesRequest,
@@ -275,7 +275,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::list_public_blueprints].
+    /// Implements [super::client::TelcoAutomation::list_public_blueprints].
     fn list_public_blueprints(
         &self,
         _req: crate::model::ListPublicBlueprintsRequest,
@@ -287,7 +287,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::get_public_blueprint].
+    /// Implements [super::client::TelcoAutomation::get_public_blueprint].
     fn get_public_blueprint(
         &self,
         _req: crate::model::GetPublicBlueprintRequest,
@@ -299,7 +299,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::create_deployment].
+    /// Implements [super::client::TelcoAutomation::create_deployment].
     fn create_deployment(
         &self,
         _req: crate::model::CreateDeploymentRequest,
@@ -310,7 +310,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::update_deployment].
+    /// Implements [super::client::TelcoAutomation::update_deployment].
     fn update_deployment(
         &self,
         _req: crate::model::UpdateDeploymentRequest,
@@ -321,7 +321,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::get_deployment].
+    /// Implements [super::client::TelcoAutomation::get_deployment].
     fn get_deployment(
         &self,
         _req: crate::model::GetDeploymentRequest,
@@ -332,7 +332,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::remove_deployment].
+    /// Implements [super::client::TelcoAutomation::remove_deployment].
     fn remove_deployment(
         &self,
         _req: crate::model::RemoveDeploymentRequest,
@@ -341,7 +341,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TelcoAutomation::list_deployments].
+    /// Implements [super::client::TelcoAutomation::list_deployments].
     fn list_deployments(
         &self,
         _req: crate::model::ListDeploymentsRequest,
@@ -353,7 +353,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::list_deployment_revisions].
+    /// Implements [super::client::TelcoAutomation::list_deployment_revisions].
     fn list_deployment_revisions(
         &self,
         _req: crate::model::ListDeploymentRevisionsRequest,
@@ -366,7 +366,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::discard_deployment_changes].
+    /// Implements [super::client::TelcoAutomation::discard_deployment_changes].
     fn discard_deployment_changes(
         &self,
         _req: crate::model::DiscardDeploymentChangesRequest,
@@ -379,7 +379,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::apply_deployment].
+    /// Implements [super::client::TelcoAutomation::apply_deployment].
     fn apply_deployment(
         &self,
         _req: crate::model::ApplyDeploymentRequest,
@@ -390,7 +390,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::compute_deployment_status].
+    /// Implements [super::client::TelcoAutomation::compute_deployment_status].
     fn compute_deployment_status(
         &self,
         _req: crate::model::ComputeDeploymentStatusRequest,
@@ -403,7 +403,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::rollback_deployment].
+    /// Implements [super::client::TelcoAutomation::rollback_deployment].
     fn rollback_deployment(
         &self,
         _req: crate::model::RollbackDeploymentRequest,
@@ -414,7 +414,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::get_hydrated_deployment].
+    /// Implements [super::client::TelcoAutomation::get_hydrated_deployment].
     fn get_hydrated_deployment(
         &self,
         _req: crate::model::GetHydratedDeploymentRequest,
@@ -426,7 +426,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::list_hydrated_deployments].
+    /// Implements [super::client::TelcoAutomation::list_hydrated_deployments].
     fn list_hydrated_deployments(
         &self,
         _req: crate::model::ListHydratedDeploymentsRequest,
@@ -439,7 +439,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::update_hydrated_deployment].
+    /// Implements [super::client::TelcoAutomation::update_hydrated_deployment].
     fn update_hydrated_deployment(
         &self,
         _req: crate::model::UpdateHydratedDeploymentRequest,
@@ -451,7 +451,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::apply_hydrated_deployment].
+    /// Implements [super::client::TelcoAutomation::apply_hydrated_deployment].
     fn apply_hydrated_deployment(
         &self,
         _req: crate::model::ApplyHydratedDeploymentRequest,
@@ -463,7 +463,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::list_locations].
+    /// Implements [super::client::TelcoAutomation::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -475,7 +475,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::get_location].
+    /// Implements [super::client::TelcoAutomation::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -486,7 +486,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::list_operations].
+    /// Implements [super::client::TelcoAutomation::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -498,7 +498,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TelcoAutomation::get_operation].
+    /// Implements [super::client::TelcoAutomation::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -510,7 +510,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TelcoAutomation::delete_operation].
+    /// Implements [super::client::TelcoAutomation::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -519,7 +519,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TelcoAutomation::cancel_operation].
+    /// Implements [super::client::TelcoAutomation::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

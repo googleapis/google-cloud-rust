@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Lineage].
+/// Defines the trait used to implement [super::client::Lineage].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Lineage`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Lineage: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Lineage::process_open_lineage_run_event].
+    /// Implements [super::client::Lineage::process_open_lineage_run_event].
     fn process_open_lineage_run_event(
         &self,
         _req: crate::model::ProcessOpenLineageRunEventRequest,
@@ -54,7 +54,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Lineage::create_process].
+    /// Implements [super::client::Lineage::create_process].
     fn create_process(
         &self,
         _req: crate::model::CreateProcessRequest,
@@ -65,7 +65,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::update_process].
+    /// Implements [super::client::Lineage::update_process].
     fn update_process(
         &self,
         _req: crate::model::UpdateProcessRequest,
@@ -76,7 +76,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::get_process].
+    /// Implements [super::client::Lineage::get_process].
     fn get_process(
         &self,
         _req: crate::model::GetProcessRequest,
@@ -87,7 +87,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::list_processes].
+    /// Implements [super::client::Lineage::list_processes].
     fn list_processes(
         &self,
         _req: crate::model::ListProcessesRequest,
@@ -99,7 +99,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::delete_process].
+    /// Implements [super::client::Lineage::delete_process].
     fn delete_process(
         &self,
         _req: crate::model::DeleteProcessRequest,
@@ -111,7 +111,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::create_run].
+    /// Implements [super::client::Lineage::create_run].
     fn create_run(
         &self,
         _req: crate::model::CreateRunRequest,
@@ -120,7 +120,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Run>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Lineage::update_run].
+    /// Implements [super::client::Lineage::update_run].
     fn update_run(
         &self,
         _req: crate::model::UpdateRunRequest,
@@ -129,7 +129,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Run>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Lineage::get_run].
+    /// Implements [super::client::Lineage::get_run].
     fn get_run(
         &self,
         _req: crate::model::GetRunRequest,
@@ -138,7 +138,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Run>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Lineage::list_runs].
+    /// Implements [super::client::Lineage::list_runs].
     fn list_runs(
         &self,
         _req: crate::model::ListRunsRequest,
@@ -150,7 +150,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::delete_run].
+    /// Implements [super::client::Lineage::delete_run].
     fn delete_run(
         &self,
         _req: crate::model::DeleteRunRequest,
@@ -162,7 +162,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::create_lineage_event].
+    /// Implements [super::client::Lineage::create_lineage_event].
     fn create_lineage_event(
         &self,
         _req: crate::model::CreateLineageEventRequest,
@@ -173,7 +173,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::get_lineage_event].
+    /// Implements [super::client::Lineage::get_lineage_event].
     fn get_lineage_event(
         &self,
         _req: crate::model::GetLineageEventRequest,
@@ -184,7 +184,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::list_lineage_events].
+    /// Implements [super::client::Lineage::list_lineage_events].
     fn list_lineage_events(
         &self,
         _req: crate::model::ListLineageEventsRequest,
@@ -196,7 +196,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Lineage::delete_lineage_event].
+    /// Implements [super::client::Lineage::delete_lineage_event].
     fn delete_lineage_event(
         &self,
         _req: crate::model::DeleteLineageEventRequest,
@@ -205,7 +205,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Lineage::search_links].
+    /// Implements [super::client::Lineage::search_links].
     fn search_links(
         &self,
         _req: crate::model::SearchLinksRequest,
@@ -217,7 +217,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::batch_search_link_processes].
+    /// Implements [super::client::Lineage::batch_search_link_processes].
     fn batch_search_link_processes(
         &self,
         _req: crate::model::BatchSearchLinkProcessesRequest,
@@ -230,7 +230,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Lineage::list_operations].
+    /// Implements [super::client::Lineage::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -242,7 +242,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Lineage::get_operation].
+    /// Implements [super::client::Lineage::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -254,7 +254,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Lineage::delete_operation].
+    /// Implements [super::client::Lineage::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -263,7 +263,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Lineage::cancel_operation].
+    /// Implements [super::client::Lineage::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AutoscalingPolicyService](crate::stubs::AutoscalingPolicyService) using a [gclient::ReqwestClient].
+/// Implements [AutoscalingPolicyService](super::stubs::AutoscalingPolicyService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AutoscalingPolicyService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl AutoscalingPolicyService {
     }
 }
 
-impl crate::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
+impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
     async fn create_autoscaling_policy(
         &self,
         req: crate::model::CreateAutoscalingPolicyRequest,
@@ -288,7 +288,7 @@ impl crate::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
     }
 }
 
-/// Implements [BatchController](crate::stubs::BatchController) using a [gclient::ReqwestClient].
+/// Implements [BatchController](super::stubs::BatchController) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct BatchController {
     inner: gclient::ReqwestClient,
@@ -309,7 +309,7 @@ impl BatchController {
     }
 }
 
-impl crate::stubs::BatchController for BatchController {
+impl super::stubs::BatchController for BatchController {
     async fn create_batch(
         &self,
         req: crate::model::CreateBatchRequest,
@@ -544,7 +544,7 @@ impl crate::stubs::BatchController for BatchController {
     }
 }
 
-/// Implements [ClusterController](crate::stubs::ClusterController) using a [gclient::ReqwestClient].
+/// Implements [ClusterController](super::stubs::ClusterController) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ClusterController {
     inner: gclient::ReqwestClient,
@@ -565,7 +565,7 @@ impl ClusterController {
     }
 }
 
-impl crate::stubs::ClusterController for ClusterController {
+impl super::stubs::ClusterController for ClusterController {
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
@@ -945,7 +945,7 @@ impl crate::stubs::ClusterController for ClusterController {
     }
 }
 
-/// Implements [JobController](crate::stubs::JobController) using a [gclient::ReqwestClient].
+/// Implements [JobController](super::stubs::JobController) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct JobController {
     inner: gclient::ReqwestClient,
@@ -966,7 +966,7 @@ impl JobController {
     }
 }
 
-impl crate::stubs::JobController for JobController {
+impl super::stubs::JobController for JobController {
     async fn submit_job(
         &self,
         req: crate::model::SubmitJobRequest,
@@ -1303,7 +1303,7 @@ impl crate::stubs::JobController for JobController {
     }
 }
 
-/// Implements [NodeGroupController](crate::stubs::NodeGroupController) using a [gclient::ReqwestClient].
+/// Implements [NodeGroupController](super::stubs::NodeGroupController) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct NodeGroupController {
     inner: gclient::ReqwestClient,
@@ -1324,7 +1324,7 @@ impl NodeGroupController {
     }
 }
 
-impl crate::stubs::NodeGroupController for NodeGroupController {
+impl super::stubs::NodeGroupController for NodeGroupController {
     async fn create_node_group(
         &self,
         req: crate::model::CreateNodeGroupRequest,
@@ -1539,7 +1539,7 @@ impl crate::stubs::NodeGroupController for NodeGroupController {
     }
 }
 
-/// Implements [SessionTemplateController](crate::stubs::SessionTemplateController) using a [gclient::ReqwestClient].
+/// Implements [SessionTemplateController](super::stubs::SessionTemplateController) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SessionTemplateController {
     inner: gclient::ReqwestClient,
@@ -1560,7 +1560,7 @@ impl SessionTemplateController {
     }
 }
 
-impl crate::stubs::SessionTemplateController for SessionTemplateController {
+impl super::stubs::SessionTemplateController for SessionTemplateController {
     async fn create_session_template(
         &self,
         req: crate::model::CreateSessionTemplateRequest,
@@ -1814,7 +1814,7 @@ impl crate::stubs::SessionTemplateController for SessionTemplateController {
     }
 }
 
-/// Implements [SessionController](crate::stubs::SessionController) using a [gclient::ReqwestClient].
+/// Implements [SessionController](super::stubs::SessionController) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SessionController {
     inner: gclient::ReqwestClient,
@@ -1835,7 +1835,7 @@ impl SessionController {
     }
 }
 
-impl crate::stubs::SessionController for SessionController {
+impl super::stubs::SessionController for SessionController {
     async fn create_session(
         &self,
         req: crate::model::CreateSessionRequest,
@@ -2092,7 +2092,7 @@ impl crate::stubs::SessionController for SessionController {
     }
 }
 
-/// Implements [WorkflowTemplateService](crate::stubs::WorkflowTemplateService) using a [gclient::ReqwestClient].
+/// Implements [WorkflowTemplateService](super::stubs::WorkflowTemplateService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct WorkflowTemplateService {
     inner: gclient::ReqwestClient,
@@ -2113,7 +2113,7 @@ impl WorkflowTemplateService {
     }
 }
 
-impl crate::stubs::WorkflowTemplateService for WorkflowTemplateService {
+impl super::stubs::WorkflowTemplateService for WorkflowTemplateService {
     async fn create_workflow_template(
         &self,
         req: crate::model::CreateWorkflowTemplateRequest,

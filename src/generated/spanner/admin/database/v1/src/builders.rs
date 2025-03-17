@@ -18,10 +18,10 @@ pub mod database_admin {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DatabaseAdmin] request builders.
+    /// Common implementation for [super::super::client::DatabaseAdmin] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>,
+        stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod database_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod database_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -111,7 +111,7 @@ pub mod database_admin {
     pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
 
     impl CreateDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -132,7 +132,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_database][crate::client::DatabaseAdmin::create_database].
+        /// on [create_database][super::super::client::DatabaseAdmin::create_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_database(self.0.request, self.0.options)
@@ -234,7 +234,7 @@ pub mod database_admin {
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -275,7 +275,7 @@ pub mod database_admin {
     pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
     impl UpdateDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,7 +296,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_database][crate::client::DatabaseAdmin::update_database].
+        /// on [update_database][super::super::client::DatabaseAdmin::update_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_database(self.0.request, self.0.options)
@@ -367,7 +367,7 @@ pub mod database_admin {
     pub struct UpdateDatabaseDdl(RequestBuilder<crate::model::UpdateDatabaseDdlRequest>);
 
     impl UpdateDatabaseDdl {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -391,7 +391,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_database_ddl][crate::client::DatabaseAdmin::update_database_ddl].
+        /// on [update_database_ddl][super::super::client::DatabaseAdmin::update_database_ddl].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_database_ddl(self.0.request, self.0.options)
@@ -471,7 +471,7 @@ pub mod database_admin {
     pub struct DropDatabase(RequestBuilder<crate::model::DropDatabaseRequest>);
 
     impl DropDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -512,7 +512,7 @@ pub mod database_admin {
     pub struct GetDatabaseDdl(RequestBuilder<crate::model::GetDatabaseDdlRequest>);
 
     impl GetDatabaseDdl {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -553,7 +553,7 @@ pub mod database_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -612,7 +612,7 @@ pub mod database_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -662,7 +662,7 @@ pub mod database_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -717,7 +717,7 @@ pub mod database_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -738,7 +738,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][crate::client::DatabaseAdmin::create_backup].
+        /// on [create_backup][super::super::client::DatabaseAdmin::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -822,7 +822,7 @@ pub mod database_admin {
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -843,7 +843,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [copy_backup][crate::client::DatabaseAdmin::copy_backup].
+        /// on [copy_backup][super::super::client::DatabaseAdmin::copy_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .copy_backup(self.0.request, self.0.options)
@@ -932,7 +932,7 @@ pub mod database_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -973,7 +973,7 @@ pub mod database_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1026,7 +1026,7 @@ pub mod database_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1067,7 +1067,7 @@ pub mod database_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1140,7 +1140,7 @@ pub mod database_admin {
     pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
     impl RestoreDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1161,7 +1161,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_database][crate::client::DatabaseAdmin::restore_database].
+        /// on [restore_database][super::super::client::DatabaseAdmin::restore_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_database(self.0.request, self.0.options)
@@ -1246,7 +1246,7 @@ pub mod database_admin {
     pub struct ListDatabaseOperations(RequestBuilder<crate::model::ListDatabaseOperationsRequest>);
 
     impl ListDatabaseOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1324,7 +1324,7 @@ pub mod database_admin {
     pub struct ListBackupOperations(RequestBuilder<crate::model::ListBackupOperationsRequest>);
 
     impl ListBackupOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1400,7 +1400,7 @@ pub mod database_admin {
     pub struct ListDatabaseRoles(RequestBuilder<crate::model::ListDatabaseRolesRequest>);
 
     impl ListDatabaseRoles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1470,7 +1470,7 @@ pub mod database_admin {
     pub struct AddSplitPoints(RequestBuilder<crate::model::AddSplitPointsRequest>);
 
     impl AddSplitPoints {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1528,7 +1528,7 @@ pub mod database_admin {
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
 
     impl CreateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1587,7 +1587,7 @@ pub mod database_admin {
     pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
     impl GetBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1631,7 +1631,7 @@ pub mod database_admin {
     pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
 
     impl UpdateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1687,7 +1687,7 @@ pub mod database_admin {
     pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
 
     impl DeleteBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1731,7 +1731,7 @@ pub mod database_admin {
     pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
 
     impl ListBackupSchedules {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1801,7 +1801,7 @@ pub mod database_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1877,7 +1877,7 @@ pub mod database_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1921,7 +1921,7 @@ pub mod database_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1965,7 +1965,7 @@ pub mod database_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatabaseAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

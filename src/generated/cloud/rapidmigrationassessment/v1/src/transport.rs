@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [RapidMigrationAssessment](crate::stubs::RapidMigrationAssessment) using a [gclient::ReqwestClient].
+/// Implements [RapidMigrationAssessment](super::stubs::RapidMigrationAssessment) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct RapidMigrationAssessment {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl RapidMigrationAssessment {
     }
 }
 
-impl crate::stubs::RapidMigrationAssessment for RapidMigrationAssessment {
+impl super::stubs::RapidMigrationAssessment for RapidMigrationAssessment {
     async fn create_collector(
         &self,
         req: crate::model::CreateCollectorRequest,

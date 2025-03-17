@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Folders {
-    inner: Arc<dyn crate::stubs::dynamic::Folders>,
+    inner: Arc<dyn super::stubs::dynamic::Folders>,
 }
 
 impl Folders {
@@ -61,7 +61,7 @@ impl Folders {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Folders + 'static,
+        T: super::stubs::Folders + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl Folders {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Folders>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Folders>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,16 +79,16 @@ impl Folders {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Folders> {
-        crate::transport::Folders::new(conf).await
+    ) -> Result<impl super::stubs::Folders> {
+        super::transport::Folders::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Folders> {
+    ) -> Result<impl super::stubs::Folders> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Folders::new)
+            .map(super::tracing::Folders::new)
     }
 
     /// Retrieves a folder identified by the supplied resource name.
@@ -99,8 +99,8 @@ impl Folders {
     pub fn get_folder(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::folders::GetFolder {
-        crate::builders::folders::GetFolder::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::folders::GetFolder {
+        super::builders::folders::GetFolder::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists the folders that are direct descendants of supplied parent resource.
@@ -110,8 +110,8 @@ impl Folders {
     /// of their display_name.
     /// The caller must have `resourcemanager.folders.list` permission on the
     /// identified parent.
-    pub fn list_folders(&self) -> crate::builders::folders::ListFolders {
-        crate::builders::folders::ListFolders::new(self.inner.clone())
+    pub fn list_folders(&self) -> super::builders::folders::ListFolders {
+        super::builders::folders::ListFolders::new(self.inner.clone())
     }
 
     /// Search for folders that match specific filter criteria.
@@ -120,8 +120,8 @@ impl Folders {
     ///
     /// This will only return folders on which the caller has the
     /// permission `resourcemanager.folders.get`.
-    pub fn search_folders(&self) -> crate::builders::folders::SearchFolders {
-        crate::builders::folders::SearchFolders::new(self.inner.clone())
+    pub fn search_folders(&self) -> super::builders::folders::SearchFolders {
+        super::builders::folders::SearchFolders::new(self.inner.clone())
     }
 
     /// Creates a folder in the resource hierarchy.
@@ -161,8 +161,8 @@ impl Folders {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_folder(&self) -> crate::builders::folders::CreateFolder {
-        crate::builders::folders::CreateFolder::new(self.inner.clone())
+    pub fn create_folder(&self) -> super::builders::folders::CreateFolder {
+        super::builders::folders::CreateFolder::new(self.inner.clone())
     }
 
     /// Updates a folder, changing its `display_name`.
@@ -197,8 +197,8 @@ impl Folders {
     pub fn update_folder(
         &self,
         folder: impl Into<crate::model::Folder>,
-    ) -> crate::builders::folders::UpdateFolder {
-        crate::builders::folders::UpdateFolder::new(self.inner.clone()).set_folder(folder.into())
+    ) -> super::builders::folders::UpdateFolder {
+        super::builders::folders::UpdateFolder::new(self.inner.clone()).set_folder(folder.into())
     }
 
     /// Moves a folder under a new resource parent.
@@ -233,8 +233,8 @@ impl Folders {
     pub fn move_folder(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::folders::MoveFolder {
-        crate::builders::folders::MoveFolder::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::folders::MoveFolder {
+        super::builders::folders::MoveFolder::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Requests deletion of a folder. The folder is moved into the
@@ -264,8 +264,8 @@ impl Folders {
     pub fn delete_folder(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::folders::DeleteFolder {
-        crate::builders::folders::DeleteFolder::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::folders::DeleteFolder {
+        super::builders::folders::DeleteFolder::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Cancels the deletion request for a folder. This method may be called on a
@@ -295,8 +295,8 @@ impl Folders {
     pub fn undelete_folder(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::folders::UndeleteFolder {
-        crate::builders::folders::UndeleteFolder::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::folders::UndeleteFolder {
+        super::builders::folders::UndeleteFolder::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the access control policy for a folder. The returned policy may be
@@ -307,8 +307,8 @@ impl Folders {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::folders::GetIamPolicy {
-        crate::builders::folders::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::folders::GetIamPolicy {
+        super::builders::folders::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -320,8 +320,8 @@ impl Folders {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::folders::SetIamPolicy {
-        crate::builders::folders::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::folders::SetIamPolicy {
+        super::builders::folders::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -333,8 +333,8 @@ impl Folders {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::folders::TestIamPermissions {
-        crate::builders::folders::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::folders::TestIamPermissions {
+        super::builders::folders::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -344,8 +344,8 @@ impl Folders {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::folders::GetOperation {
-        crate::builders::folders::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::folders::GetOperation {
+        super::builders::folders::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -368,7 +368,7 @@ impl Folders {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Organizations {
-    inner: Arc<dyn crate::stubs::dynamic::Organizations>,
+    inner: Arc<dyn super::stubs::dynamic::Organizations>,
 }
 
 impl Organizations {
@@ -389,7 +389,7 @@ impl Organizations {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Organizations + 'static,
+        T: super::stubs::Organizations + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -398,7 +398,7 @@ impl Organizations {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Organizations>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Organizations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -407,24 +407,24 @@ impl Organizations {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Organizations> {
-        crate::transport::Organizations::new(conf).await
+    ) -> Result<impl super::stubs::Organizations> {
+        super::transport::Organizations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Organizations> {
+    ) -> Result<impl super::stubs::Organizations> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Organizations::new)
+            .map(super::tracing::Organizations::new)
     }
 
     /// Fetches an organization resource identified by the specified resource name.
     pub fn get_organization(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::organizations::GetOrganization {
-        crate::builders::organizations::GetOrganization::new(self.inner.clone())
+    ) -> super::builders::organizations::GetOrganization {
+        super::builders::organizations::GetOrganization::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -435,8 +435,8 @@ impl Organizations {
     ///
     /// Search will only return organizations on which the user has the permission
     /// `resourcemanager.organizations.get`
-    pub fn search_organizations(&self) -> crate::builders::organizations::SearchOrganizations {
-        crate::builders::organizations::SearchOrganizations::new(self.inner.clone())
+    pub fn search_organizations(&self) -> super::builders::organizations::SearchOrganizations {
+        super::builders::organizations::SearchOrganizations::new(self.inner.clone())
     }
 
     /// Gets the access control policy for an organization resource. The policy may
@@ -448,8 +448,8 @@ impl Organizations {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::organizations::GetIamPolicy {
-        crate::builders::organizations::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::organizations::GetIamPolicy {
+        super::builders::organizations::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -462,8 +462,8 @@ impl Organizations {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::organizations::SetIamPolicy {
-        crate::builders::organizations::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::organizations::SetIamPolicy {
+        super::builders::organizations::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -475,8 +475,8 @@ impl Organizations {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::organizations::TestIamPermissions {
-        crate::builders::organizations::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::organizations::TestIamPermissions {
+        super::builders::organizations::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -486,8 +486,8 @@ impl Organizations {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::organizations::GetOperation {
-        crate::builders::organizations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::organizations::GetOperation {
+        super::builders::organizations::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -510,7 +510,7 @@ impl Organizations {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Projects {
-    inner: Arc<dyn crate::stubs::dynamic::Projects>,
+    inner: Arc<dyn super::stubs::dynamic::Projects>,
 }
 
 impl Projects {
@@ -531,7 +531,7 @@ impl Projects {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Projects + 'static,
+        T: super::stubs::Projects + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -540,7 +540,7 @@ impl Projects {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Projects>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Projects>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -549,16 +549,16 @@ impl Projects {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Projects> {
-        crate::transport::Projects::new(conf).await
+    ) -> Result<impl super::stubs::Projects> {
+        super::transport::Projects::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Projects> {
+    ) -> Result<impl super::stubs::Projects> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Projects::new)
+            .map(super::tracing::Projects::new)
     }
 
     /// Retrieves the project identified by the specified `name` (for example,
@@ -569,8 +569,8 @@ impl Projects {
     pub fn get_project(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::projects::GetProject {
-        crate::builders::projects::GetProject::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::projects::GetProject {
+        super::builders::projects::GetProject::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists projects that are direct children of the specified folder or
@@ -579,8 +579,8 @@ impl Projects {
     /// projects sorted based upon the (ascending) lexical ordering of their
     /// `display_name`. The caller must have `resourcemanager.projects.list`
     /// permission on the identified parent.
-    pub fn list_projects(&self) -> crate::builders::projects::ListProjects {
-        crate::builders::projects::ListProjects::new(self.inner.clone())
+    pub fn list_projects(&self) -> super::builders::projects::ListProjects {
+        super::builders::projects::ListProjects::new(self.inner.clone())
     }
 
     /// Search for projects that the caller has both `resourcemanager.projects.get`
@@ -595,8 +595,8 @@ impl Projects {
     /// [GetProject][google.cloud.resourcemanager.v3.Projects.GetProject] method.
     ///
     /// [google.cloud.resourcemanager.v3.Projects.GetProject]: crate::client::Projects::get_project
-    pub fn search_projects(&self) -> crate::builders::projects::SearchProjects {
-        crate::builders::projects::SearchProjects::new(self.inner.clone())
+    pub fn search_projects(&self) -> super::builders::projects::SearchProjects {
+        super::builders::projects::SearchProjects::new(self.inner.clone())
     }
 
     /// Request that a new project be created. The result is an `Operation` which
@@ -614,8 +614,8 @@ impl Projects {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_project(&self) -> crate::builders::projects::CreateProject {
-        crate::builders::projects::CreateProject::new(self.inner.clone())
+    pub fn create_project(&self) -> super::builders::projects::CreateProject {
+        super::builders::projects::CreateProject::new(self.inner.clone())
     }
 
     /// Updates the `display_name` and labels of the project identified by the
@@ -637,8 +637,8 @@ impl Projects {
     pub fn update_project(
         &self,
         project: impl Into<crate::model::Project>,
-    ) -> crate::builders::projects::UpdateProject {
-        crate::builders::projects::UpdateProject::new(self.inner.clone())
+    ) -> super::builders::projects::UpdateProject {
+        super::builders::projects::UpdateProject::new(self.inner.clone())
             .set_project(project.into())
     }
 
@@ -669,8 +669,8 @@ impl Projects {
     pub fn move_project(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::projects::MoveProject {
-        crate::builders::projects::MoveProject::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::projects::MoveProject {
+        super::builders::projects::MoveProject::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Marks the project identified by the specified
@@ -723,8 +723,8 @@ impl Projects {
     pub fn delete_project(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::projects::DeleteProject {
-        crate::builders::projects::DeleteProject::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::projects::DeleteProject {
+        super::builders::projects::DeleteProject::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Restores the project identified by the specified
@@ -749,8 +749,8 @@ impl Projects {
     pub fn undelete_project(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::projects::UndeleteProject {
-        crate::builders::projects::UndeleteProject::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::projects::UndeleteProject {
+        super::builders::projects::UndeleteProject::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns the IAM access control policy for the specified project, in the
@@ -759,8 +759,8 @@ impl Projects {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::projects::GetIamPolicy {
-        crate::builders::projects::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::projects::GetIamPolicy {
+        super::builders::projects::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -809,8 +809,8 @@ impl Projects {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::projects::SetIamPolicy {
-        crate::builders::projects::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::projects::SetIamPolicy {
+        super::builders::projects::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -819,8 +819,8 @@ impl Projects {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::projects::TestIamPermissions {
-        crate::builders::projects::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::projects::TestIamPermissions {
+        super::builders::projects::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -830,8 +830,8 @@ impl Projects {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::projects::GetOperation {
-        crate::builders::projects::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::projects::GetOperation {
+        super::builders::projects::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -855,7 +855,7 @@ impl Projects {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TagBindings {
-    inner: Arc<dyn crate::stubs::dynamic::TagBindings>,
+    inner: Arc<dyn super::stubs::dynamic::TagBindings>,
 }
 
 impl TagBindings {
@@ -876,7 +876,7 @@ impl TagBindings {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::TagBindings + 'static,
+        T: super::stubs::TagBindings + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -885,7 +885,7 @@ impl TagBindings {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::TagBindings>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::TagBindings>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -894,16 +894,16 @@ impl TagBindings {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TagBindings> {
-        crate::transport::TagBindings::new(conf).await
+    ) -> Result<impl super::stubs::TagBindings> {
+        super::transport::TagBindings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TagBindings> {
+    ) -> Result<impl super::stubs::TagBindings> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::TagBindings::new)
+            .map(super::tracing::TagBindings::new)
     }
 
     /// Lists the TagBindings for the given Google Cloud resource, as specified
@@ -911,8 +911,8 @@ impl TagBindings {
     ///
     /// NOTE: The `parent` field is expected to be a full resource name:
     /// <https://cloud.google.com/apis/design/resource_names#full_resource_name>
-    pub fn list_tag_bindings(&self) -> crate::builders::tag_bindings::ListTagBindings {
-        crate::builders::tag_bindings::ListTagBindings::new(self.inner.clone())
+    pub fn list_tag_bindings(&self) -> super::builders::tag_bindings::ListTagBindings {
+        super::builders::tag_bindings::ListTagBindings::new(self.inner.clone())
     }
 
     /// Creates a TagBinding between a TagValue and a Google Cloud resource.
@@ -926,8 +926,8 @@ impl TagBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tag_binding(&self) -> crate::builders::tag_bindings::CreateTagBinding {
-        crate::builders::tag_bindings::CreateTagBinding::new(self.inner.clone())
+    pub fn create_tag_binding(&self) -> super::builders::tag_bindings::CreateTagBinding {
+        super::builders::tag_bindings::CreateTagBinding::new(self.inner.clone())
     }
 
     /// Deletes a TagBinding.
@@ -944,15 +944,15 @@ impl TagBindings {
     pub fn delete_tag_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tag_bindings::DeleteTagBinding {
-        crate::builders::tag_bindings::DeleteTagBinding::new(self.inner.clone())
+    ) -> super::builders::tag_bindings::DeleteTagBinding {
+        super::builders::tag_bindings::DeleteTagBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
     /// Return a list of effective tags for the given Google Cloud resource, as
     /// specified in `parent`.
-    pub fn list_effective_tags(&self) -> crate::builders::tag_bindings::ListEffectiveTags {
-        crate::builders::tag_bindings::ListEffectiveTags::new(self.inner.clone())
+    pub fn list_effective_tags(&self) -> super::builders::tag_bindings::ListEffectiveTags {
+        super::builders::tag_bindings::ListEffectiveTags::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -961,8 +961,8 @@ impl TagBindings {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tag_bindings::GetOperation {
-        crate::builders::tag_bindings::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tag_bindings::GetOperation {
+        super::builders::tag_bindings::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -989,7 +989,7 @@ impl TagBindings {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TagHolds {
-    inner: Arc<dyn crate::stubs::dynamic::TagHolds>,
+    inner: Arc<dyn super::stubs::dynamic::TagHolds>,
 }
 
 impl TagHolds {
@@ -1010,7 +1010,7 @@ impl TagHolds {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::TagHolds + 'static,
+        T: super::stubs::TagHolds + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1019,7 +1019,7 @@ impl TagHolds {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::TagHolds>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::TagHolds>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1028,16 +1028,16 @@ impl TagHolds {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TagHolds> {
-        crate::transport::TagHolds::new(conf).await
+    ) -> Result<impl super::stubs::TagHolds> {
+        super::transport::TagHolds::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TagHolds> {
+    ) -> Result<impl super::stubs::TagHolds> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::TagHolds::new)
+            .map(super::tracing::TagHolds::new)
     }
 
     /// Creates a TagHold. Returns ALREADY_EXISTS if a TagHold with the same
@@ -1055,8 +1055,8 @@ impl TagHolds {
     pub fn create_tag_hold(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::tag_holds::CreateTagHold {
-        crate::builders::tag_holds::CreateTagHold::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::tag_holds::CreateTagHold {
+        super::builders::tag_holds::CreateTagHold::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a TagHold.
@@ -1073,16 +1073,16 @@ impl TagHolds {
     pub fn delete_tag_hold(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tag_holds::DeleteTagHold {
-        crate::builders::tag_holds::DeleteTagHold::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tag_holds::DeleteTagHold {
+        super::builders::tag_holds::DeleteTagHold::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists TagHolds under a TagValue.
     pub fn list_tag_holds(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::tag_holds::ListTagHolds {
-        crate::builders::tag_holds::ListTagHolds::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::tag_holds::ListTagHolds {
+        super::builders::tag_holds::ListTagHolds::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1091,8 +1091,8 @@ impl TagHolds {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tag_holds::GetOperation {
-        crate::builders::tag_holds::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tag_holds::GetOperation {
+        super::builders::tag_holds::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -1115,7 +1115,7 @@ impl TagHolds {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TagKeys {
-    inner: Arc<dyn crate::stubs::dynamic::TagKeys>,
+    inner: Arc<dyn super::stubs::dynamic::TagKeys>,
 }
 
 impl TagKeys {
@@ -1136,7 +1136,7 @@ impl TagKeys {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::TagKeys + 'static,
+        T: super::stubs::TagKeys + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1145,7 +1145,7 @@ impl TagKeys {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::TagKeys>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::TagKeys>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1154,21 +1154,21 @@ impl TagKeys {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TagKeys> {
-        crate::transport::TagKeys::new(conf).await
+    ) -> Result<impl super::stubs::TagKeys> {
+        super::transport::TagKeys::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TagKeys> {
+    ) -> Result<impl super::stubs::TagKeys> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::TagKeys::new)
+            .map(super::tracing::TagKeys::new)
     }
 
     /// Lists all TagKeys for a parent resource.
-    pub fn list_tag_keys(&self) -> crate::builders::tag_keys::ListTagKeys {
-        crate::builders::tag_keys::ListTagKeys::new(self.inner.clone())
+    pub fn list_tag_keys(&self) -> super::builders::tag_keys::ListTagKeys {
+        super::builders::tag_keys::ListTagKeys::new(self.inner.clone())
     }
 
     /// Retrieves a TagKey. This method will return `PERMISSION_DENIED` if the
@@ -1176,15 +1176,15 @@ impl TagKeys {
     pub fn get_tag_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tag_keys::GetTagKey {
-        crate::builders::tag_keys::GetTagKey::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tag_keys::GetTagKey {
+        super::builders::tag_keys::GetTagKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Retrieves a TagKey by its namespaced name.
     /// This method will return `PERMISSION_DENIED` if the key does not exist
     /// or the user does not have permission to view it.
-    pub fn get_namespaced_tag_key(&self) -> crate::builders::tag_keys::GetNamespacedTagKey {
-        crate::builders::tag_keys::GetNamespacedTagKey::new(self.inner.clone())
+    pub fn get_namespaced_tag_key(&self) -> super::builders::tag_keys::GetNamespacedTagKey {
+        super::builders::tag_keys::GetNamespacedTagKey::new(self.inner.clone())
     }
 
     /// Creates a new TagKey. If another request with the same parameters is
@@ -1201,8 +1201,8 @@ impl TagKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tag_key(&self) -> crate::builders::tag_keys::CreateTagKey {
-        crate::builders::tag_keys::CreateTagKey::new(self.inner.clone())
+    pub fn create_tag_key(&self) -> super::builders::tag_keys::CreateTagKey {
+        super::builders::tag_keys::CreateTagKey::new(self.inner.clone())
     }
 
     /// Updates the attributes of the TagKey resource.
@@ -1219,8 +1219,8 @@ impl TagKeys {
     pub fn update_tag_key(
         &self,
         tag_key: impl Into<crate::model::TagKey>,
-    ) -> crate::builders::tag_keys::UpdateTagKey {
-        crate::builders::tag_keys::UpdateTagKey::new(self.inner.clone()).set_tag_key(tag_key.into())
+    ) -> super::builders::tag_keys::UpdateTagKey {
+        super::builders::tag_keys::UpdateTagKey::new(self.inner.clone()).set_tag_key(tag_key.into())
     }
 
     /// Deletes a TagKey. The TagKey cannot be deleted if it has any child
@@ -1238,8 +1238,8 @@ impl TagKeys {
     pub fn delete_tag_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tag_keys::DeleteTagKey {
-        crate::builders::tag_keys::DeleteTagKey::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tag_keys::DeleteTagKey {
+        super::builders::tag_keys::DeleteTagKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the access control policy for a TagKey. The returned policy may be
@@ -1251,8 +1251,8 @@ impl TagKeys {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::tag_keys::GetIamPolicy {
-        crate::builders::tag_keys::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::tag_keys::GetIamPolicy {
+        super::builders::tag_keys::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1264,8 +1264,8 @@ impl TagKeys {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::tag_keys::SetIamPolicy {
-        crate::builders::tag_keys::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::tag_keys::SetIamPolicy {
+        super::builders::tag_keys::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1277,8 +1277,8 @@ impl TagKeys {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::tag_keys::TestIamPermissions {
-        crate::builders::tag_keys::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::tag_keys::TestIamPermissions {
+        super::builders::tag_keys::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1288,8 +1288,8 @@ impl TagKeys {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tag_keys::GetOperation {
-        crate::builders::tag_keys::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tag_keys::GetOperation {
+        super::builders::tag_keys::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -1312,7 +1312,7 @@ impl TagKeys {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TagValues {
-    inner: Arc<dyn crate::stubs::dynamic::TagValues>,
+    inner: Arc<dyn super::stubs::dynamic::TagValues>,
 }
 
 impl TagValues {
@@ -1333,7 +1333,7 @@ impl TagValues {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::TagValues + 'static,
+        T: super::stubs::TagValues + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1342,7 +1342,7 @@ impl TagValues {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::TagValues>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::TagValues>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1351,21 +1351,21 @@ impl TagValues {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TagValues> {
-        crate::transport::TagValues::new(conf).await
+    ) -> Result<impl super::stubs::TagValues> {
+        super::transport::TagValues::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TagValues> {
+    ) -> Result<impl super::stubs::TagValues> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::TagValues::new)
+            .map(super::tracing::TagValues::new)
     }
 
     /// Lists all TagValues for a specific TagKey.
-    pub fn list_tag_values(&self) -> crate::builders::tag_values::ListTagValues {
-        crate::builders::tag_values::ListTagValues::new(self.inner.clone())
+    pub fn list_tag_values(&self) -> super::builders::tag_values::ListTagValues {
+        super::builders::tag_values::ListTagValues::new(self.inner.clone())
     }
 
     /// Retrieves a TagValue. This method will return `PERMISSION_DENIED` if the
@@ -1373,15 +1373,15 @@ impl TagValues {
     pub fn get_tag_value(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tag_values::GetTagValue {
-        crate::builders::tag_values::GetTagValue::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tag_values::GetTagValue {
+        super::builders::tag_values::GetTagValue::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Retrieves a TagValue by its namespaced name.
     /// This method will return `PERMISSION_DENIED` if the value does not exist
     /// or the user does not have permission to view it.
-    pub fn get_namespaced_tag_value(&self) -> crate::builders::tag_values::GetNamespacedTagValue {
-        crate::builders::tag_values::GetNamespacedTagValue::new(self.inner.clone())
+    pub fn get_namespaced_tag_value(&self) -> super::builders::tag_values::GetNamespacedTagValue {
+        super::builders::tag_values::GetNamespacedTagValue::new(self.inner.clone())
     }
 
     /// Creates a TagValue as a child of the specified TagKey. If a another
@@ -1398,8 +1398,8 @@ impl TagValues {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tag_value(&self) -> crate::builders::tag_values::CreateTagValue {
-        crate::builders::tag_values::CreateTagValue::new(self.inner.clone())
+    pub fn create_tag_value(&self) -> super::builders::tag_values::CreateTagValue {
+        super::builders::tag_values::CreateTagValue::new(self.inner.clone())
     }
 
     /// Updates the attributes of the TagValue resource.
@@ -1416,8 +1416,8 @@ impl TagValues {
     pub fn update_tag_value(
         &self,
         tag_value: impl Into<crate::model::TagValue>,
-    ) -> crate::builders::tag_values::UpdateTagValue {
-        crate::builders::tag_values::UpdateTagValue::new(self.inner.clone())
+    ) -> super::builders::tag_values::UpdateTagValue {
+        super::builders::tag_values::UpdateTagValue::new(self.inner.clone())
             .set_tag_value(tag_value.into())
     }
 
@@ -1436,8 +1436,8 @@ impl TagValues {
     pub fn delete_tag_value(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tag_values::DeleteTagValue {
-        crate::builders::tag_values::DeleteTagValue::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tag_values::DeleteTagValue {
+        super::builders::tag_values::DeleteTagValue::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the access control policy for a TagValue. The returned policy may be
@@ -1449,8 +1449,8 @@ impl TagValues {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::tag_values::GetIamPolicy {
-        crate::builders::tag_values::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::tag_values::GetIamPolicy {
+        super::builders::tag_values::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1462,8 +1462,8 @@ impl TagValues {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::tag_values::SetIamPolicy {
-        crate::builders::tag_values::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::tag_values::SetIamPolicy {
+        super::builders::tag_values::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1475,8 +1475,8 @@ impl TagValues {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::tag_values::TestIamPermissions {
-        crate::builders::tag_values::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::tag_values::TestIamPermissions {
+        super::builders::tag_values::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1486,7 +1486,7 @@ impl TagValues {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::tag_values::GetOperation {
-        crate::builders::tag_values::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::tag_values::GetOperation {
+        super::builders::tag_values::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

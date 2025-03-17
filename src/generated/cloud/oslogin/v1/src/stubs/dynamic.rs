@@ -60,9 +60,9 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<oslogin_common::model::SshPublicKey>;
 }
 
-/// All implementations of [crate::stubs::OsLoginService] also implement [OsLoginService].
+/// All implementations of [super::OsLoginService] also implement [OsLoginService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::OsLoginService> OsLoginService for T {
+impl<T: super::OsLoginService> OsLoginService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_ssh_public_key(
         &self,

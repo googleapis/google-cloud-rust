@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct EdgeContainer {
-    inner: Arc<dyn crate::stubs::dynamic::EdgeContainer>,
+    inner: Arc<dyn super::stubs::dynamic::EdgeContainer>,
 }
 
 impl EdgeContainer {
@@ -60,7 +60,7 @@ impl EdgeContainer {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::EdgeContainer + 'static,
+        T: super::stubs::EdgeContainer + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl EdgeContainer {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::EdgeContainer>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::EdgeContainer>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,24 +78,24 @@ impl EdgeContainer {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::EdgeContainer> {
-        crate::transport::EdgeContainer::new(conf).await
+    ) -> Result<impl super::stubs::EdgeContainer> {
+        super::transport::EdgeContainer::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::EdgeContainer> {
+    ) -> Result<impl super::stubs::EdgeContainer> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::EdgeContainer::new)
+            .map(super::tracing::EdgeContainer::new)
     }
 
     /// Lists Clusters in a given project and location.
     pub fn list_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::ListClusters {
-        crate::builders::edge_container::ListClusters::new(self.inner.clone())
+    ) -> super::builders::edge_container::ListClusters {
+        super::builders::edge_container::ListClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -103,8 +103,8 @@ impl EdgeContainer {
     pub fn get_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::GetCluster {
-        crate::builders::edge_container::GetCluster::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::edge_container::GetCluster {
+        super::builders::edge_container::GetCluster::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Cluster in a given project and location.
@@ -121,8 +121,8 @@ impl EdgeContainer {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::CreateCluster {
-        crate::builders::edge_container::CreateCluster::new(self.inner.clone())
+    ) -> super::builders::edge_container::CreateCluster {
+        super::builders::edge_container::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +140,8 @@ impl EdgeContainer {
     pub fn update_cluster(
         &self,
         cluster: impl Into<crate::model::Cluster>,
-    ) -> crate::builders::edge_container::UpdateCluster {
-        crate::builders::edge_container::UpdateCluster::new(self.inner.clone())
+    ) -> super::builders::edge_container::UpdateCluster {
+        super::builders::edge_container::UpdateCluster::new(self.inner.clone())
             .set_cluster(cluster.into())
     }
 
@@ -159,8 +159,8 @@ impl EdgeContainer {
     pub fn upgrade_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::UpgradeCluster {
-        crate::builders::edge_container::UpgradeCluster::new(self.inner.clone())
+    ) -> super::builders::edge_container::UpgradeCluster {
+        super::builders::edge_container::UpgradeCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -178,8 +178,8 @@ impl EdgeContainer {
     pub fn delete_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::DeleteCluster {
-        crate::builders::edge_container::DeleteCluster::new(self.inner.clone())
+    ) -> super::builders::edge_container::DeleteCluster {
+        super::builders::edge_container::DeleteCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -187,8 +187,8 @@ impl EdgeContainer {
     pub fn generate_access_token(
         &self,
         cluster: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::GenerateAccessToken {
-        crate::builders::edge_container::GenerateAccessToken::new(self.inner.clone())
+    ) -> super::builders::edge_container::GenerateAccessToken {
+        super::builders::edge_container::GenerateAccessToken::new(self.inner.clone())
             .set_cluster(cluster.into())
     }
 
@@ -196,8 +196,8 @@ impl EdgeContainer {
     pub fn generate_offline_credential(
         &self,
         cluster: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::GenerateOfflineCredential {
-        crate::builders::edge_container::GenerateOfflineCredential::new(self.inner.clone())
+    ) -> super::builders::edge_container::GenerateOfflineCredential {
+        super::builders::edge_container::GenerateOfflineCredential::new(self.inner.clone())
             .set_cluster(cluster.into())
     }
 
@@ -205,8 +205,8 @@ impl EdgeContainer {
     pub fn list_node_pools(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::ListNodePools {
-        crate::builders::edge_container::ListNodePools::new(self.inner.clone())
+    ) -> super::builders::edge_container::ListNodePools {
+        super::builders::edge_container::ListNodePools::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -214,8 +214,8 @@ impl EdgeContainer {
     pub fn get_node_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::GetNodePool {
-        crate::builders::edge_container::GetNodePool::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::edge_container::GetNodePool {
+        super::builders::edge_container::GetNodePool::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new NodePool in a given project and location.
@@ -232,8 +232,8 @@ impl EdgeContainer {
     pub fn create_node_pool(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::CreateNodePool {
-        crate::builders::edge_container::CreateNodePool::new(self.inner.clone())
+    ) -> super::builders::edge_container::CreateNodePool {
+        super::builders::edge_container::CreateNodePool::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -251,8 +251,8 @@ impl EdgeContainer {
     pub fn update_node_pool(
         &self,
         node_pool: impl Into<crate::model::NodePool>,
-    ) -> crate::builders::edge_container::UpdateNodePool {
-        crate::builders::edge_container::UpdateNodePool::new(self.inner.clone())
+    ) -> super::builders::edge_container::UpdateNodePool {
+        super::builders::edge_container::UpdateNodePool::new(self.inner.clone())
             .set_node_pool(node_pool.into())
     }
 
@@ -270,8 +270,8 @@ impl EdgeContainer {
     pub fn delete_node_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::DeleteNodePool {
-        crate::builders::edge_container::DeleteNodePool::new(self.inner.clone())
+    ) -> super::builders::edge_container::DeleteNodePool {
+        super::builders::edge_container::DeleteNodePool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -279,8 +279,8 @@ impl EdgeContainer {
     pub fn list_machines(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::ListMachines {
-        crate::builders::edge_container::ListMachines::new(self.inner.clone())
+    ) -> super::builders::edge_container::ListMachines {
+        super::builders::edge_container::ListMachines::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -288,16 +288,16 @@ impl EdgeContainer {
     pub fn get_machine(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::GetMachine {
-        crate::builders::edge_container::GetMachine::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::edge_container::GetMachine {
+        super::builders::edge_container::GetMachine::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists VPN connections in a given project and location.
     pub fn list_vpn_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::ListVpnConnections {
-        crate::builders::edge_container::ListVpnConnections::new(self.inner.clone())
+    ) -> super::builders::edge_container::ListVpnConnections {
+        super::builders::edge_container::ListVpnConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -305,8 +305,8 @@ impl EdgeContainer {
     pub fn get_vpn_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::GetVpnConnection {
-        crate::builders::edge_container::GetVpnConnection::new(self.inner.clone())
+    ) -> super::builders::edge_container::GetVpnConnection {
+        super::builders::edge_container::GetVpnConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -324,8 +324,8 @@ impl EdgeContainer {
     pub fn create_vpn_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::CreateVpnConnection {
-        crate::builders::edge_container::CreateVpnConnection::new(self.inner.clone())
+    ) -> super::builders::edge_container::CreateVpnConnection {
+        super::builders::edge_container::CreateVpnConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -343,8 +343,8 @@ impl EdgeContainer {
     pub fn delete_vpn_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::DeleteVpnConnection {
-        crate::builders::edge_container::DeleteVpnConnection::new(self.inner.clone())
+    ) -> super::builders::edge_container::DeleteVpnConnection {
+        super::builders::edge_container::DeleteVpnConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -352,8 +352,8 @@ impl EdgeContainer {
     pub fn get_server_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::GetServerConfig {
-        crate::builders::edge_container::GetServerConfig::new(self.inner.clone())
+    ) -> super::builders::edge_container::GetServerConfig {
+        super::builders::edge_container::GetServerConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -361,8 +361,8 @@ impl EdgeContainer {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::ListLocations {
-        crate::builders::edge_container::ListLocations::new(self.inner.clone())
+    ) -> super::builders::edge_container::ListLocations {
+        super::builders::edge_container::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -370,8 +370,8 @@ impl EdgeContainer {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::GetLocation {
-        crate::builders::edge_container::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::edge_container::GetLocation {
+        super::builders::edge_container::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -380,8 +380,8 @@ impl EdgeContainer {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::ListOperations {
-        crate::builders::edge_container::ListOperations::new(self.inner.clone())
+    ) -> super::builders::edge_container::ListOperations {
+        super::builders::edge_container::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -391,8 +391,8 @@ impl EdgeContainer {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::GetOperation {
-        crate::builders::edge_container::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::edge_container::GetOperation {
+        super::builders::edge_container::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -401,8 +401,8 @@ impl EdgeContainer {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::DeleteOperation {
-        crate::builders::edge_container::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::edge_container::DeleteOperation {
+        super::builders::edge_container::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -412,8 +412,8 @@ impl EdgeContainer {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::edge_container::CancelOperation {
-        crate::builders::edge_container::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::edge_container::CancelOperation {
+        super::builders::edge_container::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

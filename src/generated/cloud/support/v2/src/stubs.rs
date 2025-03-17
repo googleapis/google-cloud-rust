@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CaseAttachmentService].
+/// Defines the trait used to implement [super::client::CaseAttachmentService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CaseAttachmentService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CaseAttachmentService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CaseAttachmentService::list_attachments].
+    /// Implements [super::client::CaseAttachmentService::list_attachments].
     fn list_attachments(
         &self,
         _req: crate::model::ListAttachmentsRequest,
@@ -53,7 +53,7 @@ pub trait CaseAttachmentService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::CaseService].
+/// Defines the trait used to implement [super::client::CaseService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CaseService`.  In other use-cases, application developers only
@@ -65,7 +65,7 @@ pub trait CaseAttachmentService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CaseService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CaseService::get_case].
+    /// Implements [super::client::CaseService::get_case].
     fn get_case(
         &self,
         _req: crate::model::GetCaseRequest,
@@ -74,7 +74,7 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Case>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CaseService::list_cases].
+    /// Implements [super::client::CaseService::list_cases].
     fn list_cases(
         &self,
         _req: crate::model::ListCasesRequest,
@@ -86,7 +86,7 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CaseService::search_cases].
+    /// Implements [super::client::CaseService::search_cases].
     fn search_cases(
         &self,
         _req: crate::model::SearchCasesRequest,
@@ -98,7 +98,7 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CaseService::create_case].
+    /// Implements [super::client::CaseService::create_case].
     fn create_case(
         &self,
         _req: crate::model::CreateCaseRequest,
@@ -107,7 +107,7 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Case>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CaseService::update_case].
+    /// Implements [super::client::CaseService::update_case].
     fn update_case(
         &self,
         _req: crate::model::UpdateCaseRequest,
@@ -116,7 +116,7 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Case>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CaseService::escalate_case].
+    /// Implements [super::client::CaseService::escalate_case].
     fn escalate_case(
         &self,
         _req: crate::model::EscalateCaseRequest,
@@ -125,7 +125,7 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Case>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CaseService::close_case].
+    /// Implements [super::client::CaseService::close_case].
     fn close_case(
         &self,
         _req: crate::model::CloseCaseRequest,
@@ -134,7 +134,7 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Case>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CaseService::search_case_classifications].
+    /// Implements [super::client::CaseService::search_case_classifications].
     fn search_case_classifications(
         &self,
         _req: crate::model::SearchCaseClassificationsRequest,
@@ -148,7 +148,7 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::CommentService].
+/// Defines the trait used to implement [super::client::CommentService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CommentService`.  In other use-cases, application developers only
@@ -160,7 +160,7 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CommentService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CommentService::list_comments].
+    /// Implements [super::client::CommentService::list_comments].
     fn list_comments(
         &self,
         _req: crate::model::ListCommentsRequest,
@@ -172,7 +172,7 @@ pub trait CommentService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CommentService::create_comment].
+    /// Implements [super::client::CommentService::create_comment].
     fn create_comment(
         &self,
         _req: crate::model::CreateCommentRequest,

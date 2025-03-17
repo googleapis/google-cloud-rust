@@ -18,10 +18,10 @@ pub mod alloy_db_admin {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AlloyDBAdmin] request builders.
+    /// Common implementation for [super::super::client::AlloyDBAdmin] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>,
+        stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod alloy_db_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod alloy_db_admin {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -123,7 +123,7 @@ pub mod alloy_db_admin {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -170,7 +170,7 @@ pub mod alloy_db_admin {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -191,7 +191,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][crate::client::AlloyDBAdmin::create_cluster].
+        /// on [create_cluster][super::super::client::AlloyDBAdmin::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -275,7 +275,7 @@ pub mod alloy_db_admin {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,7 +296,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][crate::client::AlloyDBAdmin::update_cluster].
+        /// on [update_cluster][super::super::client::AlloyDBAdmin::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -383,7 +383,7 @@ pub mod alloy_db_admin {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -404,7 +404,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][crate::client::AlloyDBAdmin::delete_cluster].
+        /// on [delete_cluster][super::super::client::AlloyDBAdmin::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -483,7 +483,7 @@ pub mod alloy_db_admin {
     pub struct PromoteCluster(RequestBuilder<crate::model::PromoteClusterRequest>);
 
     impl PromoteCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -504,7 +504,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [promote_cluster][crate::client::AlloyDBAdmin::promote_cluster].
+        /// on [promote_cluster][super::super::client::AlloyDBAdmin::promote_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .promote_cluster(self.0.request, self.0.options)
@@ -579,7 +579,7 @@ pub mod alloy_db_admin {
     pub struct SwitchoverCluster(RequestBuilder<crate::model::SwitchoverClusterRequest>);
 
     impl SwitchoverCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -603,7 +603,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [switchover_cluster][crate::client::AlloyDBAdmin::switchover_cluster].
+        /// on [switchover_cluster][super::super::client::AlloyDBAdmin::switchover_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .switchover_cluster(self.0.request, self.0.options)
@@ -672,7 +672,7 @@ pub mod alloy_db_admin {
     pub struct RestoreCluster(RequestBuilder<crate::model::RestoreClusterRequest>);
 
     impl RestoreCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -693,7 +693,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_cluster][crate::client::AlloyDBAdmin::restore_cluster].
+        /// on [restore_cluster][super::super::client::AlloyDBAdmin::restore_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_cluster(self.0.request, self.0.options)
@@ -786,7 +786,7 @@ pub mod alloy_db_admin {
     pub struct CreateSecondaryCluster(RequestBuilder<crate::model::CreateSecondaryClusterRequest>);
 
     impl CreateSecondaryCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -810,7 +810,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_secondary_cluster][crate::client::AlloyDBAdmin::create_secondary_cluster].
+        /// on [create_secondary_cluster][super::super::client::AlloyDBAdmin::create_secondary_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_secondary_cluster(self.0.request, self.0.options)
@@ -894,7 +894,7 @@ pub mod alloy_db_admin {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -973,7 +973,7 @@ pub mod alloy_db_admin {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1020,7 +1020,7 @@ pub mod alloy_db_admin {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1041,7 +1041,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][crate::client::AlloyDBAdmin::create_instance].
+        /// on [create_instance][super::super::client::AlloyDBAdmin::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -1128,7 +1128,7 @@ pub mod alloy_db_admin {
     );
 
     impl CreateSecondaryInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1152,7 +1152,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_secondary_instance][crate::client::AlloyDBAdmin::create_secondary_instance].
+        /// on [create_secondary_instance][super::super::client::AlloyDBAdmin::create_secondary_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_secondary_instance(self.0.request, self.0.options)
@@ -1237,7 +1237,7 @@ pub mod alloy_db_admin {
     pub struct BatchCreateInstances(RequestBuilder<crate::model::BatchCreateInstancesRequest>);
 
     impl BatchCreateInstances {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1261,7 +1261,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_create_instances][crate::client::AlloyDBAdmin::batch_create_instances].
+        /// on [batch_create_instances][super::super::client::AlloyDBAdmin::batch_create_instances].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_create_instances(self.0.request, self.0.options)
@@ -1337,7 +1337,7 @@ pub mod alloy_db_admin {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1358,7 +1358,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][crate::client::AlloyDBAdmin::update_instance].
+        /// on [update_instance][super::super::client::AlloyDBAdmin::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -1446,7 +1446,7 @@ pub mod alloy_db_admin {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1467,7 +1467,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][crate::client::AlloyDBAdmin::delete_instance].
+        /// on [delete_instance][super::super::client::AlloyDBAdmin::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -1540,7 +1540,7 @@ pub mod alloy_db_admin {
     pub struct FailoverInstance(RequestBuilder<crate::model::FailoverInstanceRequest>);
 
     impl FailoverInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1564,7 +1564,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [failover_instance][crate::client::AlloyDBAdmin::failover_instance].
+        /// on [failover_instance][super::super::client::AlloyDBAdmin::failover_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .failover_instance(self.0.request, self.0.options)
@@ -1634,7 +1634,7 @@ pub mod alloy_db_admin {
     pub struct InjectFault(RequestBuilder<crate::model::InjectFaultRequest>);
 
     impl InjectFault {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1655,7 +1655,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [inject_fault][crate::client::AlloyDBAdmin::inject_fault].
+        /// on [inject_fault][super::super::client::AlloyDBAdmin::inject_fault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .inject_fault(self.0.request, self.0.options)
@@ -1734,7 +1734,7 @@ pub mod alloy_db_admin {
     pub struct RestartInstance(RequestBuilder<crate::model::RestartInstanceRequest>);
 
     impl RestartInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1755,7 +1755,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restart_instance][crate::client::AlloyDBAdmin::restart_instance].
+        /// on [restart_instance][super::super::client::AlloyDBAdmin::restart_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restart_instance(self.0.request, self.0.options)
@@ -1836,7 +1836,7 @@ pub mod alloy_db_admin {
     pub struct ExecuteSql(RequestBuilder<crate::model::ExecuteSqlRequest>);
 
     impl ExecuteSql {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1906,7 +1906,7 @@ pub mod alloy_db_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1985,7 +1985,7 @@ pub mod alloy_db_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2026,7 +2026,7 @@ pub mod alloy_db_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2047,7 +2047,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][crate::client::AlloyDBAdmin::create_backup].
+        /// on [create_backup][super::super::client::AlloyDBAdmin::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -2131,7 +2131,7 @@ pub mod alloy_db_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2152,7 +2152,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][crate::client::AlloyDBAdmin::update_backup].
+        /// on [update_backup][super::super::client::AlloyDBAdmin::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -2239,7 +2239,7 @@ pub mod alloy_db_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2260,7 +2260,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][crate::client::AlloyDBAdmin::delete_backup].
+        /// on [delete_backup][super::super::client::AlloyDBAdmin::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -2335,7 +2335,7 @@ pub mod alloy_db_admin {
     );
 
     impl ListSupportedDatabaseFlags {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2409,7 +2409,7 @@ pub mod alloy_db_admin {
     );
 
     impl GenerateClientCertificate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2480,7 +2480,7 @@ pub mod alloy_db_admin {
     pub struct GetConnectionInfo(RequestBuilder<crate::model::GetConnectionInfoRequest>);
 
     impl GetConnectionInfo {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2530,7 +2530,7 @@ pub mod alloy_db_admin {
     pub struct ListUsers(RequestBuilder<crate::model::ListUsersRequest>);
 
     impl ListUsers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2608,7 +2608,7 @@ pub mod alloy_db_admin {
     pub struct GetUser(RequestBuilder<crate::model::GetUserRequest>);
 
     impl GetUser {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2649,7 +2649,7 @@ pub mod alloy_db_admin {
     pub struct CreateUser(RequestBuilder<crate::model::CreateUserRequest>);
 
     impl CreateUser {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2714,7 +2714,7 @@ pub mod alloy_db_admin {
     pub struct UpdateUser(RequestBuilder<crate::model::UpdateUserRequest>);
 
     impl UpdateUser {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2782,7 +2782,7 @@ pub mod alloy_db_admin {
     pub struct DeleteUser(RequestBuilder<crate::model::DeleteUserRequest>);
 
     impl DeleteUser {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2835,7 +2835,7 @@ pub mod alloy_db_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2908,7 +2908,7 @@ pub mod alloy_db_admin {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2984,7 +2984,7 @@ pub mod alloy_db_admin {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3025,7 +3025,7 @@ pub mod alloy_db_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3101,7 +3101,7 @@ pub mod alloy_db_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3145,7 +3145,7 @@ pub mod alloy_db_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3189,7 +3189,7 @@ pub mod alloy_db_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlloyDBAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlloyDBAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

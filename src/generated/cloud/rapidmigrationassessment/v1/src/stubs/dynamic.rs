@@ -126,9 +126,9 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::RapidMigrationAssessment] also implement [RapidMigrationAssessment].
+/// All implementations of [super::RapidMigrationAssessment] also implement [RapidMigrationAssessment].
 #[async_trait::async_trait]
-impl<T: crate::stubs::RapidMigrationAssessment> RapidMigrationAssessment for T {
+impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_collector(
         &self,

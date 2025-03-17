@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ParameterManager](crate::stubs::ParameterManager) using a [gclient::ReqwestClient].
+/// Implements [ParameterManager](super::stubs::ParameterManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ParameterManager {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ParameterManager {
     }
 }
 
-impl crate::stubs::ParameterManager for ParameterManager {
+impl super::stubs::ParameterManager for ParameterManager {
     async fn list_parameters(
         &self,
         req: crate::model::ListParametersRequest,

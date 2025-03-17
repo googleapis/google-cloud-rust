@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ApiKeys](crate::stubs::ApiKeys) using a [gclient::ReqwestClient].
+/// Implements [ApiKeys](super::stubs::ApiKeys) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiKeys {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ApiKeys {
     }
 }
 
-impl crate::stubs::ApiKeys for ApiKeys {
+impl super::stubs::ApiKeys for ApiKeys {
     async fn create_key(
         &self,
         req: crate::model::CreateKeyRequest,

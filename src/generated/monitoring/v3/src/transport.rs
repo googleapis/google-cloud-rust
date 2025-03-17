@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AlertPolicyService](crate::stubs::AlertPolicyService) using a [gclient::ReqwestClient].
+/// Implements [AlertPolicyService](super::stubs::AlertPolicyService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AlertPolicyService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl AlertPolicyService {
     }
 }
 
-impl crate::stubs::AlertPolicyService for AlertPolicyService {
+impl super::stubs::AlertPolicyService for AlertPolicyService {
     async fn list_alert_policies(
         &self,
         req: crate::model::ListAlertPoliciesRequest,
@@ -165,7 +165,7 @@ impl crate::stubs::AlertPolicyService for AlertPolicyService {
     }
 }
 
-/// Implements [GroupService](crate::stubs::GroupService) using a [gclient::ReqwestClient].
+/// Implements [GroupService](super::stubs::GroupService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct GroupService {
     inner: gclient::ReqwestClient,
@@ -186,7 +186,7 @@ impl GroupService {
     }
 }
 
-impl crate::stubs::GroupService for GroupService {
+impl super::stubs::GroupService for GroupService {
     async fn list_groups(
         &self,
         req: crate::model::ListGroupsRequest,
@@ -343,7 +343,7 @@ impl crate::stubs::GroupService for GroupService {
     }
 }
 
-/// Implements [MetricService](crate::stubs::MetricService) using a [gclient::ReqwestClient].
+/// Implements [MetricService](super::stubs::MetricService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct MetricService {
     inner: gclient::ReqwestClient,
@@ -364,7 +364,7 @@ impl MetricService {
     }
 }
 
-impl crate::stubs::MetricService for MetricService {
+impl super::stubs::MetricService for MetricService {
     async fn list_monitored_resource_descriptors(
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
@@ -590,7 +590,7 @@ impl crate::stubs::MetricService for MetricService {
     }
 }
 
-/// Implements [NotificationChannelService](crate::stubs::NotificationChannelService) using a [gclient::ReqwestClient].
+/// Implements [NotificationChannelService](super::stubs::NotificationChannelService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct NotificationChannelService {
     inner: gclient::ReqwestClient,
@@ -611,7 +611,7 @@ impl NotificationChannelService {
     }
 }
 
-impl crate::stubs::NotificationChannelService for NotificationChannelService {
+impl super::stubs::NotificationChannelService for NotificationChannelService {
     async fn list_notification_channel_descriptors(
         &self,
         req: crate::model::ListNotificationChannelDescriptorsRequest,
@@ -838,7 +838,7 @@ impl crate::stubs::NotificationChannelService for NotificationChannelService {
     }
 }
 
-/// Implements [QueryService](crate::stubs::QueryService) using a [gclient::ReqwestClient].
+/// Implements [QueryService](super::stubs::QueryService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct QueryService {
     inner: gclient::ReqwestClient,
@@ -859,7 +859,7 @@ impl QueryService {
     }
 }
 
-impl crate::stubs::QueryService for QueryService {
+impl super::stubs::QueryService for QueryService {
     async fn query_time_series(
         &self,
         req: crate::model::QueryTimeSeriesRequest,
@@ -881,7 +881,7 @@ impl crate::stubs::QueryService for QueryService {
     }
 }
 
-/// Implements [ServiceMonitoringService](crate::stubs::ServiceMonitoringService) using a [gclient::ReqwestClient].
+/// Implements [ServiceMonitoringService](super::stubs::ServiceMonitoringService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceMonitoringService {
     inner: gclient::ReqwestClient,
@@ -902,7 +902,7 @@ impl ServiceMonitoringService {
     }
 }
 
-impl crate::stubs::ServiceMonitoringService for ServiceMonitoringService {
+impl super::stubs::ServiceMonitoringService for ServiceMonitoringService {
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
@@ -1152,7 +1152,7 @@ impl crate::stubs::ServiceMonitoringService for ServiceMonitoringService {
     }
 }
 
-/// Implements [SnoozeService](crate::stubs::SnoozeService) using a [gclient::ReqwestClient].
+/// Implements [SnoozeService](super::stubs::SnoozeService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SnoozeService {
     inner: gclient::ReqwestClient,
@@ -1173,7 +1173,7 @@ impl SnoozeService {
     }
 }
 
-impl crate::stubs::SnoozeService for SnoozeService {
+impl super::stubs::SnoozeService for SnoozeService {
     async fn create_snooze(
         &self,
         req: crate::model::CreateSnoozeRequest,
@@ -1269,7 +1269,7 @@ impl crate::stubs::SnoozeService for SnoozeService {
     }
 }
 
-/// Implements [UptimeCheckService](crate::stubs::UptimeCheckService) using a [gclient::ReqwestClient].
+/// Implements [UptimeCheckService](super::stubs::UptimeCheckService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct UptimeCheckService {
     inner: gclient::ReqwestClient,
@@ -1290,7 +1290,7 @@ impl UptimeCheckService {
     }
 }
 
-impl crate::stubs::UptimeCheckService for UptimeCheckService {
+impl super::stubs::UptimeCheckService for UptimeCheckService {
     async fn list_uptime_check_configs(
         &self,
         req: crate::model::ListUptimeCheckConfigsRequest,

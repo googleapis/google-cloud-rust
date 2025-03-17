@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Speech](crate::stubs::Speech) using a [gclient::ReqwestClient].
+/// Implements [Speech](super::stubs::Speech) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Speech {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Speech {
     }
 }
 
-impl crate::stubs::Speech for Speech {
+impl super::stubs::Speech for Speech {
     async fn create_recognizer(
         &self,
         req: crate::model::CreateRecognizerRequest,

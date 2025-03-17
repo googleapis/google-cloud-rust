@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ReachabilityService](crate::stubs::ReachabilityService) using a [gclient::ReqwestClient].
+/// Implements [ReachabilityService](super::stubs::ReachabilityService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ReachabilityService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ReachabilityService {
     }
 }
 
-impl crate::stubs::ReachabilityService for ReachabilityService {
+impl super::stubs::ReachabilityService for ReachabilityService {
     async fn list_connectivity_tests(
         &self,
         req: crate::model::ListConnectivityTestsRequest,
@@ -387,7 +387,7 @@ impl crate::stubs::ReachabilityService for ReachabilityService {
     }
 }
 
-/// Implements [VpcFlowLogsService](crate::stubs::VpcFlowLogsService) using a [gclient::ReqwestClient].
+/// Implements [VpcFlowLogsService](super::stubs::VpcFlowLogsService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct VpcFlowLogsService {
     inner: gclient::ReqwestClient,
@@ -408,7 +408,7 @@ impl VpcFlowLogsService {
     }
 }
 
-impl crate::stubs::VpcFlowLogsService for VpcFlowLogsService {
+impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
     async fn list_vpc_flow_logs_configs(
         &self,
         req: crate::model::ListVpcFlowLogsConfigsRequest,

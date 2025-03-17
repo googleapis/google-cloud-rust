@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::EssentialContactsService].
+/// Defines the trait used to implement [super::client::EssentialContactsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::EssentialContactsService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::EssentialContactsService::create_contact].
+    /// Implements [super::client::EssentialContactsService::create_contact].
     fn create_contact(
         &self,
         _req: crate::model::CreateContactRequest,
@@ -51,7 +51,7 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EssentialContactsService::update_contact].
+    /// Implements [super::client::EssentialContactsService::update_contact].
     fn update_contact(
         &self,
         _req: crate::model::UpdateContactRequest,
@@ -62,7 +62,7 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EssentialContactsService::list_contacts].
+    /// Implements [super::client::EssentialContactsService::list_contacts].
     fn list_contacts(
         &self,
         _req: crate::model::ListContactsRequest,
@@ -74,7 +74,7 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EssentialContactsService::get_contact].
+    /// Implements [super::client::EssentialContactsService::get_contact].
     fn get_contact(
         &self,
         _req: crate::model::GetContactRequest,
@@ -85,7 +85,7 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EssentialContactsService::delete_contact].
+    /// Implements [super::client::EssentialContactsService::delete_contact].
     fn delete_contact(
         &self,
         _req: crate::model::DeleteContactRequest,
@@ -94,7 +94,7 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::EssentialContactsService::compute_contacts].
+    /// Implements [super::client::EssentialContactsService::compute_contacts].
     fn compute_contacts(
         &self,
         _req: crate::model::ComputeContactsRequest,
@@ -106,7 +106,7 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EssentialContactsService::send_test_message].
+    /// Implements [super::client::EssentialContactsService::send_test_message].
     fn send_test_message(
         &self,
         _req: crate::model::SendTestMessageRequest,

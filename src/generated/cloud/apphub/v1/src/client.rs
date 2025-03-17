@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AppHub {
-    inner: Arc<dyn crate::stubs::dynamic::AppHub>,
+    inner: Arc<dyn super::stubs::dynamic::AppHub>,
 }
 
 impl AppHub {
@@ -59,7 +59,7 @@ impl AppHub {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AppHub + 'static,
+        T: super::stubs::AppHub + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl AppHub {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AppHub>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AppHub>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl AppHub {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AppHub> {
-        crate::transport::AppHub::new(conf).await
+    ) -> Result<impl super::stubs::AppHub> {
+        super::transport::AppHub::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AppHub> {
+    ) -> Result<impl super::stubs::AppHub> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AppHub::new)
+            .map(super::tracing::AppHub::new)
     }
 
     /// Lists a service project attachment for a given service project. You can
@@ -94,8 +94,8 @@ impl AppHub {
     pub fn lookup_service_project_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::LookupServiceProjectAttachment {
-        crate::builders::app_hub::LookupServiceProjectAttachment::new(self.inner.clone())
+    ) -> super::builders::app_hub::LookupServiceProjectAttachment {
+        super::builders::app_hub::LookupServiceProjectAttachment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -103,8 +103,8 @@ impl AppHub {
     pub fn list_service_project_attachments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::ListServiceProjectAttachments {
-        crate::builders::app_hub::ListServiceProjectAttachments::new(self.inner.clone())
+    ) -> super::builders::app_hub::ListServiceProjectAttachments {
+        super::builders::app_hub::ListServiceProjectAttachments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -122,8 +122,8 @@ impl AppHub {
     pub fn create_service_project_attachment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::CreateServiceProjectAttachment {
-        crate::builders::app_hub::CreateServiceProjectAttachment::new(self.inner.clone())
+    ) -> super::builders::app_hub::CreateServiceProjectAttachment {
+        super::builders::app_hub::CreateServiceProjectAttachment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -131,8 +131,8 @@ impl AppHub {
     pub fn get_service_project_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::GetServiceProjectAttachment {
-        crate::builders::app_hub::GetServiceProjectAttachment::new(self.inner.clone())
+    ) -> super::builders::app_hub::GetServiceProjectAttachment {
+        super::builders::app_hub::GetServiceProjectAttachment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -150,8 +150,8 @@ impl AppHub {
     pub fn delete_service_project_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::DeleteServiceProjectAttachment {
-        crate::builders::app_hub::DeleteServiceProjectAttachment::new(self.inner.clone())
+    ) -> super::builders::app_hub::DeleteServiceProjectAttachment {
+        super::builders::app_hub::DeleteServiceProjectAttachment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -161,8 +161,8 @@ impl AppHub {
     pub fn detach_service_project_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::DetachServiceProjectAttachment {
-        crate::builders::app_hub::DetachServiceProjectAttachment::new(self.inner.clone())
+    ) -> super::builders::app_hub::DetachServiceProjectAttachment {
+        super::builders::app_hub::DetachServiceProjectAttachment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -171,8 +171,8 @@ impl AppHub {
     pub fn list_discovered_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::ListDiscoveredServices {
-        crate::builders::app_hub::ListDiscoveredServices::new(self.inner.clone())
+    ) -> super::builders::app_hub::ListDiscoveredServices {
+        super::builders::app_hub::ListDiscoveredServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -180,8 +180,8 @@ impl AppHub {
     pub fn get_discovered_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::GetDiscoveredService {
-        crate::builders::app_hub::GetDiscoveredService::new(self.inner.clone())
+    ) -> super::builders::app_hub::GetDiscoveredService {
+        super::builders::app_hub::GetDiscoveredService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -190,8 +190,8 @@ impl AppHub {
     pub fn lookup_discovered_service(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::LookupDiscoveredService {
-        crate::builders::app_hub::LookupDiscoveredService::new(self.inner.clone())
+    ) -> super::builders::app_hub::LookupDiscoveredService {
+        super::builders::app_hub::LookupDiscoveredService::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -199,8 +199,8 @@ impl AppHub {
     pub fn list_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::ListServices {
-        crate::builders::app_hub::ListServices::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::app_hub::ListServices {
+        super::builders::app_hub::ListServices::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Creates a Service in an Application.
@@ -217,16 +217,16 @@ impl AppHub {
     pub fn create_service(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::CreateService {
-        crate::builders::app_hub::CreateService::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::app_hub::CreateService {
+        super::builders::app_hub::CreateService::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a Service in an Application.
     pub fn get_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::GetService {
-        crate::builders::app_hub::GetService::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::GetService {
+        super::builders::app_hub::GetService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a Service in an Application.
@@ -243,8 +243,8 @@ impl AppHub {
     pub fn update_service(
         &self,
         service: impl Into<crate::model::Service>,
-    ) -> crate::builders::app_hub::UpdateService {
-        crate::builders::app_hub::UpdateService::new(self.inner.clone()).set_service(service.into())
+    ) -> super::builders::app_hub::UpdateService {
+        super::builders::app_hub::UpdateService::new(self.inner.clone()).set_service(service.into())
     }
 
     /// Deletes a Service from an Application.
@@ -261,8 +261,8 @@ impl AppHub {
     pub fn delete_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::DeleteService {
-        crate::builders::app_hub::DeleteService::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::DeleteService {
+        super::builders::app_hub::DeleteService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Discovered Workloads that can be added to an Application in a host
@@ -270,8 +270,8 @@ impl AppHub {
     pub fn list_discovered_workloads(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::ListDiscoveredWorkloads {
-        crate::builders::app_hub::ListDiscoveredWorkloads::new(self.inner.clone())
+    ) -> super::builders::app_hub::ListDiscoveredWorkloads {
+        super::builders::app_hub::ListDiscoveredWorkloads::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -279,8 +279,8 @@ impl AppHub {
     pub fn get_discovered_workload(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::GetDiscoveredWorkload {
-        crate::builders::app_hub::GetDiscoveredWorkload::new(self.inner.clone())
+    ) -> super::builders::app_hub::GetDiscoveredWorkload {
+        super::builders::app_hub::GetDiscoveredWorkload::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -289,8 +289,8 @@ impl AppHub {
     pub fn lookup_discovered_workload(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::LookupDiscoveredWorkload {
-        crate::builders::app_hub::LookupDiscoveredWorkload::new(self.inner.clone())
+    ) -> super::builders::app_hub::LookupDiscoveredWorkload {
+        super::builders::app_hub::LookupDiscoveredWorkload::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -298,8 +298,8 @@ impl AppHub {
     pub fn list_workloads(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::ListWorkloads {
-        crate::builders::app_hub::ListWorkloads::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::app_hub::ListWorkloads {
+        super::builders::app_hub::ListWorkloads::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Creates a Workload in an Application.
@@ -316,16 +316,16 @@ impl AppHub {
     pub fn create_workload(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::CreateWorkload {
-        crate::builders::app_hub::CreateWorkload::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::app_hub::CreateWorkload {
+        super::builders::app_hub::CreateWorkload::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a Workload in an Application.
     pub fn get_workload(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::GetWorkload {
-        crate::builders::app_hub::GetWorkload::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::GetWorkload {
+        super::builders::app_hub::GetWorkload::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a Workload in an Application.
@@ -342,8 +342,8 @@ impl AppHub {
     pub fn update_workload(
         &self,
         workload: impl Into<crate::model::Workload>,
-    ) -> crate::builders::app_hub::UpdateWorkload {
-        crate::builders::app_hub::UpdateWorkload::new(self.inner.clone())
+    ) -> super::builders::app_hub::UpdateWorkload {
+        super::builders::app_hub::UpdateWorkload::new(self.inner.clone())
             .set_workload(workload.into())
     }
 
@@ -361,16 +361,16 @@ impl AppHub {
     pub fn delete_workload(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::DeleteWorkload {
-        crate::builders::app_hub::DeleteWorkload::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::DeleteWorkload {
+        super::builders::app_hub::DeleteWorkload::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Applications in a host project and location.
     pub fn list_applications(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::ListApplications {
-        crate::builders::app_hub::ListApplications::new(self.inner.clone())
+    ) -> super::builders::app_hub::ListApplications {
+        super::builders::app_hub::ListApplications::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -388,8 +388,8 @@ impl AppHub {
     pub fn create_application(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::CreateApplication {
-        crate::builders::app_hub::CreateApplication::new(self.inner.clone())
+    ) -> super::builders::app_hub::CreateApplication {
+        super::builders::app_hub::CreateApplication::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -397,8 +397,8 @@ impl AppHub {
     pub fn get_application(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::GetApplication {
-        crate::builders::app_hub::GetApplication::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::GetApplication {
+        super::builders::app_hub::GetApplication::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates an Application in a host project and location.
@@ -415,8 +415,8 @@ impl AppHub {
     pub fn update_application(
         &self,
         application: impl Into<crate::model::Application>,
-    ) -> crate::builders::app_hub::UpdateApplication {
-        crate::builders::app_hub::UpdateApplication::new(self.inner.clone())
+    ) -> super::builders::app_hub::UpdateApplication {
+        super::builders::app_hub::UpdateApplication::new(self.inner.clone())
             .set_application(application.into())
     }
 
@@ -434,24 +434,24 @@ impl AppHub {
     pub fn delete_application(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::DeleteApplication {
-        crate::builders::app_hub::DeleteApplication::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::DeleteApplication {
+        super::builders::app_hub::DeleteApplication::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::ListLocations {
-        crate::builders::app_hub::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::ListLocations {
+        super::builders::app_hub::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::GetLocation {
-        crate::builders::app_hub::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::GetLocation {
+        super::builders::app_hub::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -462,8 +462,8 @@ impl AppHub {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::SetIamPolicy {
-        crate::builders::app_hub::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::app_hub::SetIamPolicy {
+        super::builders::app_hub::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -472,8 +472,8 @@ impl AppHub {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::GetIamPolicy {
-        crate::builders::app_hub::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::app_hub::GetIamPolicy {
+        super::builders::app_hub::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -487,8 +487,8 @@ impl AppHub {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::TestIamPermissions {
-        crate::builders::app_hub::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::app_hub::TestIamPermissions {
+        super::builders::app_hub::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -498,8 +498,8 @@ impl AppHub {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::ListOperations {
-        crate::builders::app_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::ListOperations {
+        super::builders::app_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -508,8 +508,8 @@ impl AppHub {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::GetOperation {
-        crate::builders::app_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::GetOperation {
+        super::builders::app_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -518,8 +518,8 @@ impl AppHub {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::DeleteOperation {
-        crate::builders::app_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::DeleteOperation {
+        super::builders::app_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -528,7 +528,7 @@ impl AppHub {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_hub::CancelOperation {
-        crate::builders::app_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::app_hub::CancelOperation {
+        super::builders::app_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

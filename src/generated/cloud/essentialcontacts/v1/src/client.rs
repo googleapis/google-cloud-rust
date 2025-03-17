@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct EssentialContactsService {
-    inner: Arc<dyn crate::stubs::dynamic::EssentialContactsService>,
+    inner: Arc<dyn super::stubs::dynamic::EssentialContactsService>,
 }
 
 impl EssentialContactsService {
@@ -59,7 +59,7 @@ impl EssentialContactsService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::EssentialContactsService + 'static,
+        T: super::stubs::EssentialContactsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl EssentialContactsService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::EssentialContactsService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::EssentialContactsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl EssentialContactsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::EssentialContactsService> {
-        crate::transport::EssentialContactsService::new(conf).await
+    ) -> Result<impl super::stubs::EssentialContactsService> {
+        super::transport::EssentialContactsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::EssentialContactsService> {
+    ) -> Result<impl super::stubs::EssentialContactsService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::EssentialContactsService::new)
+            .map(super::tracing::EssentialContactsService::new)
     }
 
     /// Adds a new contact for a resource.
     pub fn create_contact(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::essential_contacts_service::CreateContact {
-        crate::builders::essential_contacts_service::CreateContact::new(self.inner.clone())
+    ) -> super::builders::essential_contacts_service::CreateContact {
+        super::builders::essential_contacts_service::CreateContact::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -103,8 +103,8 @@ impl EssentialContactsService {
     pub fn update_contact(
         &self,
         contact: impl Into<crate::model::Contact>,
-    ) -> crate::builders::essential_contacts_service::UpdateContact {
-        crate::builders::essential_contacts_service::UpdateContact::new(self.inner.clone())
+    ) -> super::builders::essential_contacts_service::UpdateContact {
+        super::builders::essential_contacts_service::UpdateContact::new(self.inner.clone())
             .set_contact(contact.into())
     }
 
@@ -112,8 +112,8 @@ impl EssentialContactsService {
     pub fn list_contacts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::essential_contacts_service::ListContacts {
-        crate::builders::essential_contacts_service::ListContacts::new(self.inner.clone())
+    ) -> super::builders::essential_contacts_service::ListContacts {
+        super::builders::essential_contacts_service::ListContacts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +121,8 @@ impl EssentialContactsService {
     pub fn get_contact(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::essential_contacts_service::GetContact {
-        crate::builders::essential_contacts_service::GetContact::new(self.inner.clone())
+    ) -> super::builders::essential_contacts_service::GetContact {
+        super::builders::essential_contacts_service::GetContact::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -130,8 +130,8 @@ impl EssentialContactsService {
     pub fn delete_contact(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::essential_contacts_service::DeleteContact {
-        crate::builders::essential_contacts_service::DeleteContact::new(self.inner.clone())
+    ) -> super::builders::essential_contacts_service::DeleteContact {
+        super::builders::essential_contacts_service::DeleteContact::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -141,8 +141,8 @@ impl EssentialContactsService {
     pub fn compute_contacts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::essential_contacts_service::ComputeContacts {
-        crate::builders::essential_contacts_service::ComputeContacts::new(self.inner.clone())
+    ) -> super::builders::essential_contacts_service::ComputeContacts {
+        super::builders::essential_contacts_service::ComputeContacts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -151,8 +151,8 @@ impl EssentialContactsService {
     pub fn send_test_message(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::essential_contacts_service::SendTestMessage {
-        crate::builders::essential_contacts_service::SendTestMessage::new(self.inner.clone())
+    ) -> super::builders::essential_contacts_service::SendTestMessage {
+        super::builders::essential_contacts_service::SendTestMessage::new(self.inner.clone())
             .set_resource(resource.into())
     }
 }

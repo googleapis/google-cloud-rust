@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AutoscalingPolicyService {
-    inner: Arc<dyn crate::stubs::dynamic::AutoscalingPolicyService>,
+    inner: Arc<dyn super::stubs::dynamic::AutoscalingPolicyService>,
 }
 
 impl AutoscalingPolicyService {
@@ -60,7 +60,7 @@ impl AutoscalingPolicyService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AutoscalingPolicyService + 'static,
+        T: super::stubs::AutoscalingPolicyService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl AutoscalingPolicyService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AutoscalingPolicyService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AutoscalingPolicyService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,24 +78,24 @@ impl AutoscalingPolicyService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AutoscalingPolicyService> {
-        crate::transport::AutoscalingPolicyService::new(conf).await
+    ) -> Result<impl super::stubs::AutoscalingPolicyService> {
+        super::transport::AutoscalingPolicyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AutoscalingPolicyService> {
+    ) -> Result<impl super::stubs::AutoscalingPolicyService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AutoscalingPolicyService::new)
+            .map(super::tracing::AutoscalingPolicyService::new)
     }
 
     /// Creates new autoscaling policy.
     pub fn create_autoscaling_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::CreateAutoscalingPolicy {
-        crate::builders::autoscaling_policy_service::CreateAutoscalingPolicy::new(
+    ) -> super::builders::autoscaling_policy_service::CreateAutoscalingPolicy {
+        super::builders::autoscaling_policy_service::CreateAutoscalingPolicy::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -108,8 +108,8 @@ impl AutoscalingPolicyService {
     pub fn update_autoscaling_policy(
         &self,
         policy: impl Into<crate::model::AutoscalingPolicy>,
-    ) -> crate::builders::autoscaling_policy_service::UpdateAutoscalingPolicy {
-        crate::builders::autoscaling_policy_service::UpdateAutoscalingPolicy::new(
+    ) -> super::builders::autoscaling_policy_service::UpdateAutoscalingPolicy {
+        super::builders::autoscaling_policy_service::UpdateAutoscalingPolicy::new(
             self.inner.clone(),
         )
         .set_policy(policy.into())
@@ -119,8 +119,8 @@ impl AutoscalingPolicyService {
     pub fn get_autoscaling_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::GetAutoscalingPolicy {
-        crate::builders::autoscaling_policy_service::GetAutoscalingPolicy::new(self.inner.clone())
+    ) -> super::builders::autoscaling_policy_service::GetAutoscalingPolicy {
+        super::builders::autoscaling_policy_service::GetAutoscalingPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -128,8 +128,8 @@ impl AutoscalingPolicyService {
     pub fn list_autoscaling_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::ListAutoscalingPolicies {
-        crate::builders::autoscaling_policy_service::ListAutoscalingPolicies::new(
+    ) -> super::builders::autoscaling_policy_service::ListAutoscalingPolicies {
+        super::builders::autoscaling_policy_service::ListAutoscalingPolicies::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -140,8 +140,8 @@ impl AutoscalingPolicyService {
     pub fn delete_autoscaling_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::DeleteAutoscalingPolicy {
-        crate::builders::autoscaling_policy_service::DeleteAutoscalingPolicy::new(
+    ) -> super::builders::autoscaling_policy_service::DeleteAutoscalingPolicy {
+        super::builders::autoscaling_policy_service::DeleteAutoscalingPolicy::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -155,8 +155,8 @@ impl AutoscalingPolicyService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::SetIamPolicy {
-        crate::builders::autoscaling_policy_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::autoscaling_policy_service::SetIamPolicy {
+        super::builders::autoscaling_policy_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -165,8 +165,8 @@ impl AutoscalingPolicyService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::GetIamPolicy {
-        crate::builders::autoscaling_policy_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::autoscaling_policy_service::GetIamPolicy {
+        super::builders::autoscaling_policy_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -180,8 +180,8 @@ impl AutoscalingPolicyService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::TestIamPermissions {
-        crate::builders::autoscaling_policy_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::autoscaling_policy_service::TestIamPermissions {
+        super::builders::autoscaling_policy_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -191,8 +191,8 @@ impl AutoscalingPolicyService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::ListOperations {
-        crate::builders::autoscaling_policy_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::autoscaling_policy_service::ListOperations {
+        super::builders::autoscaling_policy_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -202,8 +202,8 @@ impl AutoscalingPolicyService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::GetOperation {
-        crate::builders::autoscaling_policy_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::autoscaling_policy_service::GetOperation {
+        super::builders::autoscaling_policy_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -213,8 +213,8 @@ impl AutoscalingPolicyService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::DeleteOperation {
-        crate::builders::autoscaling_policy_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::autoscaling_policy_service::DeleteOperation {
+        super::builders::autoscaling_policy_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -224,8 +224,8 @@ impl AutoscalingPolicyService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::autoscaling_policy_service::CancelOperation {
-        crate::builders::autoscaling_policy_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::autoscaling_policy_service::CancelOperation {
+        super::builders::autoscaling_policy_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -249,7 +249,7 @@ impl AutoscalingPolicyService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct BatchController {
-    inner: Arc<dyn crate::stubs::dynamic::BatchController>,
+    inner: Arc<dyn super::stubs::dynamic::BatchController>,
 }
 
 impl BatchController {
@@ -270,7 +270,7 @@ impl BatchController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::BatchController + 'static,
+        T: super::stubs::BatchController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -279,7 +279,7 @@ impl BatchController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::BatchController>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::BatchController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -288,16 +288,16 @@ impl BatchController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::BatchController> {
-        crate::transport::BatchController::new(conf).await
+    ) -> Result<impl super::stubs::BatchController> {
+        super::transport::BatchController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::BatchController> {
+    ) -> Result<impl super::stubs::BatchController> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::BatchController::new)
+            .map(super::tracing::BatchController::new)
     }
 
     /// Creates a batch workload that executes asynchronously.
@@ -314,8 +314,8 @@ impl BatchController {
     pub fn create_batch(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::CreateBatch {
-        crate::builders::batch_controller::CreateBatch::new(self.inner.clone())
+    ) -> super::builders::batch_controller::CreateBatch {
+        super::builders::batch_controller::CreateBatch::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -323,16 +323,16 @@ impl BatchController {
     pub fn get_batch(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::GetBatch {
-        crate::builders::batch_controller::GetBatch::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::batch_controller::GetBatch {
+        super::builders::batch_controller::GetBatch::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists batch workloads.
     pub fn list_batches(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::ListBatches {
-        crate::builders::batch_controller::ListBatches::new(self.inner.clone())
+    ) -> super::builders::batch_controller::ListBatches {
+        super::builders::batch_controller::ListBatches::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -341,8 +341,8 @@ impl BatchController {
     pub fn delete_batch(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::DeleteBatch {
-        crate::builders::batch_controller::DeleteBatch::new(self.inner.clone())
+    ) -> super::builders::batch_controller::DeleteBatch {
+        super::builders::batch_controller::DeleteBatch::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -354,8 +354,8 @@ impl BatchController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::SetIamPolicy {
-        crate::builders::batch_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::batch_controller::SetIamPolicy {
+        super::builders::batch_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -364,8 +364,8 @@ impl BatchController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::GetIamPolicy {
-        crate::builders::batch_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::batch_controller::GetIamPolicy {
+        super::builders::batch_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -379,8 +379,8 @@ impl BatchController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::TestIamPermissions {
-        crate::builders::batch_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::batch_controller::TestIamPermissions {
+        super::builders::batch_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -390,8 +390,8 @@ impl BatchController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::ListOperations {
-        crate::builders::batch_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builders::batch_controller::ListOperations {
+        super::builders::batch_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -401,8 +401,8 @@ impl BatchController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::GetOperation {
-        crate::builders::batch_controller::GetOperation::new(self.inner.clone())
+    ) -> super::builders::batch_controller::GetOperation {
+        super::builders::batch_controller::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -412,8 +412,8 @@ impl BatchController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::DeleteOperation {
-        crate::builders::batch_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::batch_controller::DeleteOperation {
+        super::builders::batch_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -423,8 +423,8 @@ impl BatchController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::batch_controller::CancelOperation {
-        crate::builders::batch_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::batch_controller::CancelOperation {
+        super::builders::batch_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -449,7 +449,7 @@ impl BatchController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ClusterController {
-    inner: Arc<dyn crate::stubs::dynamic::ClusterController>,
+    inner: Arc<dyn super::stubs::dynamic::ClusterController>,
 }
 
 impl ClusterController {
@@ -470,7 +470,7 @@ impl ClusterController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ClusterController + 'static,
+        T: super::stubs::ClusterController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -479,7 +479,7 @@ impl ClusterController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ClusterController>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ClusterController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -488,16 +488,16 @@ impl ClusterController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ClusterController> {
-        crate::transport::ClusterController::new(conf).await
+    ) -> Result<impl super::stubs::ClusterController> {
+        super::transport::ClusterController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ClusterController> {
+    ) -> Result<impl super::stubs::ClusterController> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ClusterController::new)
+            .map(super::tracing::ClusterController::new)
     }
 
     /// Creates a cluster in a project. The returned
@@ -519,8 +519,8 @@ impl ClusterController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::CreateCluster {
-        crate::builders::cluster_controller::CreateCluster::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::CreateCluster {
+        super::builders::cluster_controller::CreateCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
     }
@@ -549,8 +549,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::UpdateCluster {
-        crate::builders::cluster_controller::UpdateCluster::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::UpdateCluster {
+        super::builders::cluster_controller::UpdateCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -572,8 +572,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::StopCluster {
-        crate::builders::cluster_controller::StopCluster::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::StopCluster {
+        super::builders::cluster_controller::StopCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -595,8 +595,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::StartCluster {
-        crate::builders::cluster_controller::StartCluster::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::StartCluster {
+        super::builders::cluster_controller::StartCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -622,8 +622,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::DeleteCluster {
-        crate::builders::cluster_controller::DeleteCluster::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::DeleteCluster {
+        super::builders::cluster_controller::DeleteCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -635,8 +635,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::GetCluster {
-        crate::builders::cluster_controller::GetCluster::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::GetCluster {
+        super::builders::cluster_controller::GetCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -647,8 +647,8 @@ impl ClusterController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::ListClusters {
-        crate::builders::cluster_controller::ListClusters::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::ListClusters {
+        super::builders::cluster_controller::ListClusters::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
     }
@@ -678,8 +678,8 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::DiagnoseCluster {
-        crate::builders::cluster_controller::DiagnoseCluster::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::DiagnoseCluster {
+        super::builders::cluster_controller::DiagnoseCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
@@ -693,8 +693,8 @@ impl ClusterController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::SetIamPolicy {
-        crate::builders::cluster_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::SetIamPolicy {
+        super::builders::cluster_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -703,8 +703,8 @@ impl ClusterController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::GetIamPolicy {
-        crate::builders::cluster_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::GetIamPolicy {
+        super::builders::cluster_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -718,8 +718,8 @@ impl ClusterController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::TestIamPermissions {
-        crate::builders::cluster_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::TestIamPermissions {
+        super::builders::cluster_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -729,8 +729,8 @@ impl ClusterController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::ListOperations {
-        crate::builders::cluster_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::ListOperations {
+        super::builders::cluster_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -740,8 +740,8 @@ impl ClusterController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::GetOperation {
-        crate::builders::cluster_controller::GetOperation::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::GetOperation {
+        super::builders::cluster_controller::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -751,8 +751,8 @@ impl ClusterController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::DeleteOperation {
-        crate::builders::cluster_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::DeleteOperation {
+        super::builders::cluster_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -762,8 +762,8 @@ impl ClusterController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_controller::CancelOperation {
-        crate::builders::cluster_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::cluster_controller::CancelOperation {
+        super::builders::cluster_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -787,7 +787,7 @@ impl ClusterController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct JobController {
-    inner: Arc<dyn crate::stubs::dynamic::JobController>,
+    inner: Arc<dyn super::stubs::dynamic::JobController>,
 }
 
 impl JobController {
@@ -808,7 +808,7 @@ impl JobController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::JobController + 'static,
+        T: super::stubs::JobController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -817,7 +817,7 @@ impl JobController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::JobController>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::JobController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -826,16 +826,16 @@ impl JobController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::JobController> {
-        crate::transport::JobController::new(conf).await
+    ) -> Result<impl super::stubs::JobController> {
+        super::transport::JobController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::JobController> {
+    ) -> Result<impl super::stubs::JobController> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::JobController::new)
+            .map(super::tracing::JobController::new)
     }
 
     /// Submits a job to a cluster.
@@ -843,8 +843,8 @@ impl JobController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::SubmitJob {
-        crate::builders::job_controller::SubmitJob::new(self.inner.clone())
+    ) -> super::builders::job_controller::SubmitJob {
+        super::builders::job_controller::SubmitJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
     }
@@ -864,8 +864,8 @@ impl JobController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::SubmitJobAsOperation {
-        crate::builders::job_controller::SubmitJobAsOperation::new(self.inner.clone())
+    ) -> super::builders::job_controller::SubmitJobAsOperation {
+        super::builders::job_controller::SubmitJobAsOperation::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
     }
@@ -876,8 +876,8 @@ impl JobController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         job_id: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::GetJob {
-        crate::builders::job_controller::GetJob::new(self.inner.clone())
+    ) -> super::builders::job_controller::GetJob {
+        super::builders::job_controller::GetJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_job_id(job_id.into())
@@ -888,8 +888,8 @@ impl JobController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::ListJobs {
-        crate::builders::job_controller::ListJobs::new(self.inner.clone())
+    ) -> super::builders::job_controller::ListJobs {
+        super::builders::job_controller::ListJobs::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
     }
@@ -900,8 +900,8 @@ impl JobController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         job_id: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::UpdateJob {
-        crate::builders::job_controller::UpdateJob::new(self.inner.clone())
+    ) -> super::builders::job_controller::UpdateJob {
+        super::builders::job_controller::UpdateJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_job_id(job_id.into())
@@ -917,8 +917,8 @@ impl JobController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         job_id: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::CancelJob {
-        crate::builders::job_controller::CancelJob::new(self.inner.clone())
+    ) -> super::builders::job_controller::CancelJob {
+        super::builders::job_controller::CancelJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_job_id(job_id.into())
@@ -931,8 +931,8 @@ impl JobController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         job_id: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::DeleteJob {
-        crate::builders::job_controller::DeleteJob::new(self.inner.clone())
+    ) -> super::builders::job_controller::DeleteJob {
+        super::builders::job_controller::DeleteJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_job_id(job_id.into())
@@ -946,8 +946,8 @@ impl JobController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::SetIamPolicy {
-        crate::builders::job_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::job_controller::SetIamPolicy {
+        super::builders::job_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -956,8 +956,8 @@ impl JobController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::GetIamPolicy {
-        crate::builders::job_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::job_controller::GetIamPolicy {
+        super::builders::job_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -971,8 +971,8 @@ impl JobController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::TestIamPermissions {
-        crate::builders::job_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::job_controller::TestIamPermissions {
+        super::builders::job_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -982,8 +982,8 @@ impl JobController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::ListOperations {
-        crate::builders::job_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builders::job_controller::ListOperations {
+        super::builders::job_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -993,8 +993,8 @@ impl JobController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::GetOperation {
-        crate::builders::job_controller::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::job_controller::GetOperation {
+        super::builders::job_controller::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1003,8 +1003,8 @@ impl JobController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::DeleteOperation {
-        crate::builders::job_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::job_controller::DeleteOperation {
+        super::builders::job_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1014,8 +1014,8 @@ impl JobController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::job_controller::CancelOperation {
-        crate::builders::job_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::job_controller::CancelOperation {
+        super::builders::job_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1040,7 +1040,7 @@ impl JobController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct NodeGroupController {
-    inner: Arc<dyn crate::stubs::dynamic::NodeGroupController>,
+    inner: Arc<dyn super::stubs::dynamic::NodeGroupController>,
 }
 
 impl NodeGroupController {
@@ -1061,7 +1061,7 @@ impl NodeGroupController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::NodeGroupController + 'static,
+        T: super::stubs::NodeGroupController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1070,7 +1070,7 @@ impl NodeGroupController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::NodeGroupController>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::NodeGroupController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1079,16 +1079,16 @@ impl NodeGroupController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::NodeGroupController> {
-        crate::transport::NodeGroupController::new(conf).await
+    ) -> Result<impl super::stubs::NodeGroupController> {
+        super::transport::NodeGroupController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::NodeGroupController> {
+    ) -> Result<impl super::stubs::NodeGroupController> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::NodeGroupController::new)
+            .map(super::tracing::NodeGroupController::new)
     }
 
     /// Creates a node group in a cluster. The returned
@@ -1109,8 +1109,8 @@ impl NodeGroupController {
     pub fn create_node_group(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::node_group_controller::CreateNodeGroup {
-        crate::builders::node_group_controller::CreateNodeGroup::new(self.inner.clone())
+    ) -> super::builders::node_group_controller::CreateNodeGroup {
+        super::builders::node_group_controller::CreateNodeGroup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1132,8 +1132,8 @@ impl NodeGroupController {
     pub fn resize_node_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::node_group_controller::ResizeNodeGroup {
-        crate::builders::node_group_controller::ResizeNodeGroup::new(self.inner.clone())
+    ) -> super::builders::node_group_controller::ResizeNodeGroup {
+        super::builders::node_group_controller::ResizeNodeGroup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1142,8 +1142,8 @@ impl NodeGroupController {
     pub fn get_node_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::node_group_controller::GetNodeGroup {
-        crate::builders::node_group_controller::GetNodeGroup::new(self.inner.clone())
+    ) -> super::builders::node_group_controller::GetNodeGroup {
+        super::builders::node_group_controller::GetNodeGroup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1155,8 +1155,8 @@ impl NodeGroupController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::node_group_controller::SetIamPolicy {
-        crate::builders::node_group_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::node_group_controller::SetIamPolicy {
+        super::builders::node_group_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1165,8 +1165,8 @@ impl NodeGroupController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::node_group_controller::GetIamPolicy {
-        crate::builders::node_group_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::node_group_controller::GetIamPolicy {
+        super::builders::node_group_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1180,8 +1180,8 @@ impl NodeGroupController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::node_group_controller::TestIamPermissions {
-        crate::builders::node_group_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::node_group_controller::TestIamPermissions {
+        super::builders::node_group_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1191,8 +1191,8 @@ impl NodeGroupController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::node_group_controller::ListOperations {
-        crate::builders::node_group_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builders::node_group_controller::ListOperations {
+        super::builders::node_group_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1202,8 +1202,8 @@ impl NodeGroupController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::node_group_controller::GetOperation {
-        crate::builders::node_group_controller::GetOperation::new(self.inner.clone())
+    ) -> super::builders::node_group_controller::GetOperation {
+        super::builders::node_group_controller::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1213,8 +1213,8 @@ impl NodeGroupController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::node_group_controller::DeleteOperation {
-        crate::builders::node_group_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::node_group_controller::DeleteOperation {
+        super::builders::node_group_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1224,8 +1224,8 @@ impl NodeGroupController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::node_group_controller::CancelOperation {
-        crate::builders::node_group_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::node_group_controller::CancelOperation {
+        super::builders::node_group_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1249,7 +1249,7 @@ impl NodeGroupController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SessionTemplateController {
-    inner: Arc<dyn crate::stubs::dynamic::SessionTemplateController>,
+    inner: Arc<dyn super::stubs::dynamic::SessionTemplateController>,
 }
 
 impl SessionTemplateController {
@@ -1270,7 +1270,7 @@ impl SessionTemplateController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::SessionTemplateController + 'static,
+        T: super::stubs::SessionTemplateController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1279,7 +1279,7 @@ impl SessionTemplateController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::SessionTemplateController>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::SessionTemplateController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1288,24 +1288,24 @@ impl SessionTemplateController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SessionTemplateController> {
-        crate::transport::SessionTemplateController::new(conf).await
+    ) -> Result<impl super::stubs::SessionTemplateController> {
+        super::transport::SessionTemplateController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SessionTemplateController> {
+    ) -> Result<impl super::stubs::SessionTemplateController> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::SessionTemplateController::new)
+            .map(super::tracing::SessionTemplateController::new)
     }
 
     /// Create a session template synchronously.
     pub fn create_session_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::CreateSessionTemplate {
-        crate::builders::session_template_controller::CreateSessionTemplate::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::CreateSessionTemplate {
+        super::builders::session_template_controller::CreateSessionTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1313,8 +1313,8 @@ impl SessionTemplateController {
     pub fn update_session_template(
         &self,
         session_template: impl Into<crate::model::SessionTemplate>,
-    ) -> crate::builders::session_template_controller::UpdateSessionTemplate {
-        crate::builders::session_template_controller::UpdateSessionTemplate::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::UpdateSessionTemplate {
+        super::builders::session_template_controller::UpdateSessionTemplate::new(self.inner.clone())
             .set_session_template(session_template.into())
     }
 
@@ -1322,8 +1322,8 @@ impl SessionTemplateController {
     pub fn get_session_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::GetSessionTemplate {
-        crate::builders::session_template_controller::GetSessionTemplate::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::GetSessionTemplate {
+        super::builders::session_template_controller::GetSessionTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1331,8 +1331,8 @@ impl SessionTemplateController {
     pub fn list_session_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::ListSessionTemplates {
-        crate::builders::session_template_controller::ListSessionTemplates::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::ListSessionTemplates {
+        super::builders::session_template_controller::ListSessionTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1340,8 +1340,8 @@ impl SessionTemplateController {
     pub fn delete_session_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::DeleteSessionTemplate {
-        crate::builders::session_template_controller::DeleteSessionTemplate::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::DeleteSessionTemplate {
+        super::builders::session_template_controller::DeleteSessionTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1353,8 +1353,8 @@ impl SessionTemplateController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::SetIamPolicy {
-        crate::builders::session_template_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::SetIamPolicy {
+        super::builders::session_template_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1363,8 +1363,8 @@ impl SessionTemplateController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::GetIamPolicy {
-        crate::builders::session_template_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::GetIamPolicy {
+        super::builders::session_template_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1378,8 +1378,8 @@ impl SessionTemplateController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::TestIamPermissions {
-        crate::builders::session_template_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::TestIamPermissions {
+        super::builders::session_template_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1389,8 +1389,8 @@ impl SessionTemplateController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::ListOperations {
-        crate::builders::session_template_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::ListOperations {
+        super::builders::session_template_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1400,8 +1400,8 @@ impl SessionTemplateController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::GetOperation {
-        crate::builders::session_template_controller::GetOperation::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::GetOperation {
+        super::builders::session_template_controller::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1411,8 +1411,8 @@ impl SessionTemplateController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::DeleteOperation {
-        crate::builders::session_template_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::DeleteOperation {
+        super::builders::session_template_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1422,8 +1422,8 @@ impl SessionTemplateController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_template_controller::CancelOperation {
-        crate::builders::session_template_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::session_template_controller::CancelOperation {
+        super::builders::session_template_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1447,7 +1447,7 @@ impl SessionTemplateController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SessionController {
-    inner: Arc<dyn crate::stubs::dynamic::SessionController>,
+    inner: Arc<dyn super::stubs::dynamic::SessionController>,
 }
 
 impl SessionController {
@@ -1468,7 +1468,7 @@ impl SessionController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::SessionController + 'static,
+        T: super::stubs::SessionController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1477,7 +1477,7 @@ impl SessionController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::SessionController>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::SessionController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1486,16 +1486,16 @@ impl SessionController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SessionController> {
-        crate::transport::SessionController::new(conf).await
+    ) -> Result<impl super::stubs::SessionController> {
+        super::transport::SessionController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SessionController> {
+    ) -> Result<impl super::stubs::SessionController> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::SessionController::new)
+            .map(super::tracing::SessionController::new)
     }
 
     /// Create an interactive session asynchronously.
@@ -1512,8 +1512,8 @@ impl SessionController {
     pub fn create_session(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::CreateSession {
-        crate::builders::session_controller::CreateSession::new(self.inner.clone())
+    ) -> super::builders::session_controller::CreateSession {
+        super::builders::session_controller::CreateSession::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1521,8 +1521,8 @@ impl SessionController {
     pub fn get_session(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::GetSession {
-        crate::builders::session_controller::GetSession::new(self.inner.clone())
+    ) -> super::builders::session_controller::GetSession {
+        super::builders::session_controller::GetSession::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1530,8 +1530,8 @@ impl SessionController {
     pub fn list_sessions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::ListSessions {
-        crate::builders::session_controller::ListSessions::new(self.inner.clone())
+    ) -> super::builders::session_controller::ListSessions {
+        super::builders::session_controller::ListSessions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1549,8 +1549,8 @@ impl SessionController {
     pub fn terminate_session(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::TerminateSession {
-        crate::builders::session_controller::TerminateSession::new(self.inner.clone())
+    ) -> super::builders::session_controller::TerminateSession {
+        super::builders::session_controller::TerminateSession::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1569,8 +1569,8 @@ impl SessionController {
     pub fn delete_session(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::DeleteSession {
-        crate::builders::session_controller::DeleteSession::new(self.inner.clone())
+    ) -> super::builders::session_controller::DeleteSession {
+        super::builders::session_controller::DeleteSession::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1582,8 +1582,8 @@ impl SessionController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::SetIamPolicy {
-        crate::builders::session_controller::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::session_controller::SetIamPolicy {
+        super::builders::session_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1592,8 +1592,8 @@ impl SessionController {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::GetIamPolicy {
-        crate::builders::session_controller::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::session_controller::GetIamPolicy {
+        super::builders::session_controller::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1607,8 +1607,8 @@ impl SessionController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::TestIamPermissions {
-        crate::builders::session_controller::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::session_controller::TestIamPermissions {
+        super::builders::session_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1618,8 +1618,8 @@ impl SessionController {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::ListOperations {
-        crate::builders::session_controller::ListOperations::new(self.inner.clone())
+    ) -> super::builders::session_controller::ListOperations {
+        super::builders::session_controller::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1629,8 +1629,8 @@ impl SessionController {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::GetOperation {
-        crate::builders::session_controller::GetOperation::new(self.inner.clone())
+    ) -> super::builders::session_controller::GetOperation {
+        super::builders::session_controller::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1640,8 +1640,8 @@ impl SessionController {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::DeleteOperation {
-        crate::builders::session_controller::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::session_controller::DeleteOperation {
+        super::builders::session_controller::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1651,8 +1651,8 @@ impl SessionController {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::session_controller::CancelOperation {
-        crate::builders::session_controller::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::session_controller::CancelOperation {
+        super::builders::session_controller::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1677,7 +1677,7 @@ impl SessionController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct WorkflowTemplateService {
-    inner: Arc<dyn crate::stubs::dynamic::WorkflowTemplateService>,
+    inner: Arc<dyn super::stubs::dynamic::WorkflowTemplateService>,
 }
 
 impl WorkflowTemplateService {
@@ -1698,7 +1698,7 @@ impl WorkflowTemplateService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::WorkflowTemplateService + 'static,
+        T: super::stubs::WorkflowTemplateService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1707,7 +1707,7 @@ impl WorkflowTemplateService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::WorkflowTemplateService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::WorkflowTemplateService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1716,24 +1716,24 @@ impl WorkflowTemplateService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::WorkflowTemplateService> {
-        crate::transport::WorkflowTemplateService::new(conf).await
+    ) -> Result<impl super::stubs::WorkflowTemplateService> {
+        super::transport::WorkflowTemplateService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::WorkflowTemplateService> {
+    ) -> Result<impl super::stubs::WorkflowTemplateService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::WorkflowTemplateService::new)
+            .map(super::tracing::WorkflowTemplateService::new)
     }
 
     /// Creates new workflow template.
     pub fn create_workflow_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::CreateWorkflowTemplate {
-        crate::builders::workflow_template_service::CreateWorkflowTemplate::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::CreateWorkflowTemplate {
+        super::builders::workflow_template_service::CreateWorkflowTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1744,8 +1744,8 @@ impl WorkflowTemplateService {
     pub fn get_workflow_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::GetWorkflowTemplate {
-        crate::builders::workflow_template_service::GetWorkflowTemplate::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::GetWorkflowTemplate {
+        super::builders::workflow_template_service::GetWorkflowTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1786,8 +1786,8 @@ impl WorkflowTemplateService {
     pub fn instantiate_workflow_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::InstantiateWorkflowTemplate {
-        crate::builders::workflow_template_service::InstantiateWorkflowTemplate::new(
+    ) -> super::builders::workflow_template_service::InstantiateWorkflowTemplate {
+        super::builders::workflow_template_service::InstantiateWorkflowTemplate::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1838,8 +1838,8 @@ impl WorkflowTemplateService {
     pub fn instantiate_inline_workflow_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::InstantiateInlineWorkflowTemplate {
-        crate::builders::workflow_template_service::InstantiateInlineWorkflowTemplate::new(
+    ) -> super::builders::workflow_template_service::InstantiateInlineWorkflowTemplate {
+        super::builders::workflow_template_service::InstantiateInlineWorkflowTemplate::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1850,8 +1850,8 @@ impl WorkflowTemplateService {
     pub fn update_workflow_template(
         &self,
         template: impl Into<crate::model::WorkflowTemplate>,
-    ) -> crate::builders::workflow_template_service::UpdateWorkflowTemplate {
-        crate::builders::workflow_template_service::UpdateWorkflowTemplate::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::UpdateWorkflowTemplate {
+        super::builders::workflow_template_service::UpdateWorkflowTemplate::new(self.inner.clone())
             .set_template(template.into())
     }
 
@@ -1859,8 +1859,8 @@ impl WorkflowTemplateService {
     pub fn list_workflow_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::ListWorkflowTemplates {
-        crate::builders::workflow_template_service::ListWorkflowTemplates::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::ListWorkflowTemplates {
+        super::builders::workflow_template_service::ListWorkflowTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1868,8 +1868,8 @@ impl WorkflowTemplateService {
     pub fn delete_workflow_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::DeleteWorkflowTemplate {
-        crate::builders::workflow_template_service::DeleteWorkflowTemplate::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::DeleteWorkflowTemplate {
+        super::builders::workflow_template_service::DeleteWorkflowTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1881,8 +1881,8 @@ impl WorkflowTemplateService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::SetIamPolicy {
-        crate::builders::workflow_template_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::SetIamPolicy {
+        super::builders::workflow_template_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1891,8 +1891,8 @@ impl WorkflowTemplateService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::GetIamPolicy {
-        crate::builders::workflow_template_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::GetIamPolicy {
+        super::builders::workflow_template_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1906,8 +1906,8 @@ impl WorkflowTemplateService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::TestIamPermissions {
-        crate::builders::workflow_template_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::TestIamPermissions {
+        super::builders::workflow_template_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1917,8 +1917,8 @@ impl WorkflowTemplateService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::ListOperations {
-        crate::builders::workflow_template_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::ListOperations {
+        super::builders::workflow_template_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1928,8 +1928,8 @@ impl WorkflowTemplateService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::GetOperation {
-        crate::builders::workflow_template_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::GetOperation {
+        super::builders::workflow_template_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1939,8 +1939,8 @@ impl WorkflowTemplateService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::DeleteOperation {
-        crate::builders::workflow_template_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::DeleteOperation {
+        super::builders::workflow_template_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1950,8 +1950,8 @@ impl WorkflowTemplateService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workflow_template_service::CancelOperation {
-        crate::builders::workflow_template_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::workflow_template_service::CancelOperation {
+        super::builders::workflow_template_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

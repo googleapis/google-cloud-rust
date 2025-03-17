@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [RepositoryManager](crate::stubs::RepositoryManager) using a [gclient::ReqwestClient].
+/// Implements [RepositoryManager](super::stubs::RepositoryManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct RepositoryManager {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl RepositoryManager {
     }
 }
 
-impl crate::stubs::RepositoryManager for RepositoryManager {
+impl super::stubs::RepositoryManager for RepositoryManager {
     async fn create_connection(
         &self,
         req: crate::model::CreateConnectionRequest,

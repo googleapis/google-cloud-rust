@@ -312,9 +312,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::BareMetalSolution] also implement [BareMetalSolution].
+/// All implementations of [super::BareMetalSolution] also implement [BareMetalSolution].
 #[async_trait::async_trait]
-impl<T: crate::stubs::BareMetalSolution> BareMetalSolution for T {
+impl<T: super::BareMetalSolution> BareMetalSolution for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_instances(
         &self,

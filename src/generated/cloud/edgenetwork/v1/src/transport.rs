@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [EdgeNetwork](crate::stubs::EdgeNetwork) using a [gclient::ReqwestClient].
+/// Implements [EdgeNetwork](super::stubs::EdgeNetwork) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct EdgeNetwork {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl EdgeNetwork {
     }
 }
 
-impl crate::stubs::EdgeNetwork for EdgeNetwork {
+impl super::stubs::EdgeNetwork for EdgeNetwork {
     async fn initialize_zone(
         &self,
         req: crate::model::InitializeZoneRequest,

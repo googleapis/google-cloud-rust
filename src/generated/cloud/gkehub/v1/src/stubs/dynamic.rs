@@ -120,9 +120,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::GkeHub] also implement [GkeHub].
+/// All implementations of [super::GkeHub] also implement [GkeHub].
 #[async_trait::async_trait]
-impl<T: crate::stubs::GkeHub> GkeHub for T {
+impl<T: super::GkeHub> GkeHub for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_memberships(
         &self,

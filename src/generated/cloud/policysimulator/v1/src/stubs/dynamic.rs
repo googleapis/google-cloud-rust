@@ -60,9 +60,9 @@ pub trait Simulator: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Simulator] also implement [Simulator].
+/// All implementations of [super::Simulator] also implement [Simulator].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Simulator> Simulator for T {
+impl<T: super::Simulator> Simulator for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_replay(
         &self,

@@ -246,9 +246,9 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AppHub] also implement [AppHub].
+/// All implementations of [super::AppHub] also implement [AppHub].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AppHub> AppHub for T {
+impl<T: super::AppHub> AppHub for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn lookup_service_project_attachment(
         &self,

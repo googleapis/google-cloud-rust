@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::VideoStitcherService].
+/// Defines the trait used to implement [super::client::VideoStitcherService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::VideoStitcherService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::VideoStitcherService::create_cdn_key].
+    /// Implements [super::client::VideoStitcherService::create_cdn_key].
     fn create_cdn_key(
         &self,
         _req: crate::model::CreateCdnKeyRequest,
@@ -53,7 +53,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::list_cdn_keys].
+    /// Implements [super::client::VideoStitcherService::list_cdn_keys].
     fn list_cdn_keys(
         &self,
         _req: crate::model::ListCdnKeysRequest,
@@ -65,7 +65,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::get_cdn_key].
+    /// Implements [super::client::VideoStitcherService::get_cdn_key].
     fn get_cdn_key(
         &self,
         _req: crate::model::GetCdnKeyRequest,
@@ -76,7 +76,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::delete_cdn_key].
+    /// Implements [super::client::VideoStitcherService::delete_cdn_key].
     fn delete_cdn_key(
         &self,
         _req: crate::model::DeleteCdnKeyRequest,
@@ -88,7 +88,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::update_cdn_key].
+    /// Implements [super::client::VideoStitcherService::update_cdn_key].
     fn update_cdn_key(
         &self,
         _req: crate::model::UpdateCdnKeyRequest,
@@ -100,7 +100,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::create_vod_session].
+    /// Implements [super::client::VideoStitcherService::create_vod_session].
     fn create_vod_session(
         &self,
         _req: crate::model::CreateVodSessionRequest,
@@ -111,7 +111,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::get_vod_session].
+    /// Implements [super::client::VideoStitcherService::get_vod_session].
     fn get_vod_session(
         &self,
         _req: crate::model::GetVodSessionRequest,
@@ -122,7 +122,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::list_vod_stitch_details].
+    /// Implements [super::client::VideoStitcherService::list_vod_stitch_details].
     fn list_vod_stitch_details(
         &self,
         _req: crate::model::ListVodStitchDetailsRequest,
@@ -134,7 +134,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VideoStitcherService::get_vod_stitch_detail].
+    /// Implements [super::client::VideoStitcherService::get_vod_stitch_detail].
     fn get_vod_stitch_detail(
         &self,
         _req: crate::model::GetVodStitchDetailRequest,
@@ -146,7 +146,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::list_vod_ad_tag_details].
+    /// Implements [super::client::VideoStitcherService::list_vod_ad_tag_details].
     fn list_vod_ad_tag_details(
         &self,
         _req: crate::model::ListVodAdTagDetailsRequest,
@@ -158,7 +158,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VideoStitcherService::get_vod_ad_tag_detail].
+    /// Implements [super::client::VideoStitcherService::get_vod_ad_tag_detail].
     fn get_vod_ad_tag_detail(
         &self,
         _req: crate::model::GetVodAdTagDetailRequest,
@@ -169,7 +169,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::list_live_ad_tag_details].
+    /// Implements [super::client::VideoStitcherService::list_live_ad_tag_details].
     fn list_live_ad_tag_details(
         &self,
         _req: crate::model::ListLiveAdTagDetailsRequest,
@@ -181,7 +181,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VideoStitcherService::get_live_ad_tag_detail].
+    /// Implements [super::client::VideoStitcherService::get_live_ad_tag_detail].
     fn get_live_ad_tag_detail(
         &self,
         _req: crate::model::GetLiveAdTagDetailRequest,
@@ -193,7 +193,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::create_slate].
+    /// Implements [super::client::VideoStitcherService::create_slate].
     fn create_slate(
         &self,
         _req: crate::model::CreateSlateRequest,
@@ -205,7 +205,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::list_slates].
+    /// Implements [super::client::VideoStitcherService::list_slates].
     fn list_slates(
         &self,
         _req: crate::model::ListSlatesRequest,
@@ -217,7 +217,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::get_slate].
+    /// Implements [super::client::VideoStitcherService::get_slate].
     fn get_slate(
         &self,
         _req: crate::model::GetSlateRequest,
@@ -226,7 +226,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Slate>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VideoStitcherService::update_slate].
+    /// Implements [super::client::VideoStitcherService::update_slate].
     fn update_slate(
         &self,
         _req: crate::model::UpdateSlateRequest,
@@ -238,7 +238,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::delete_slate].
+    /// Implements [super::client::VideoStitcherService::delete_slate].
     fn delete_slate(
         &self,
         _req: crate::model::DeleteSlateRequest,
@@ -250,7 +250,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::create_live_session].
+    /// Implements [super::client::VideoStitcherService::create_live_session].
     fn create_live_session(
         &self,
         _req: crate::model::CreateLiveSessionRequest,
@@ -261,7 +261,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::get_live_session].
+    /// Implements [super::client::VideoStitcherService::get_live_session].
     fn get_live_session(
         &self,
         _req: crate::model::GetLiveSessionRequest,
@@ -272,7 +272,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::create_live_config].
+    /// Implements [super::client::VideoStitcherService::create_live_config].
     fn create_live_config(
         &self,
         _req: crate::model::CreateLiveConfigRequest,
@@ -284,7 +284,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::list_live_configs].
+    /// Implements [super::client::VideoStitcherService::list_live_configs].
     fn list_live_configs(
         &self,
         _req: crate::model::ListLiveConfigsRequest,
@@ -296,7 +296,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VideoStitcherService::get_live_config].
+    /// Implements [super::client::VideoStitcherService::get_live_config].
     fn get_live_config(
         &self,
         _req: crate::model::GetLiveConfigRequest,
@@ -307,7 +307,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::delete_live_config].
+    /// Implements [super::client::VideoStitcherService::delete_live_config].
     fn delete_live_config(
         &self,
         _req: crate::model::DeleteLiveConfigRequest,
@@ -319,7 +319,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::update_live_config].
+    /// Implements [super::client::VideoStitcherService::update_live_config].
     fn update_live_config(
         &self,
         _req: crate::model::UpdateLiveConfigRequest,
@@ -331,7 +331,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::create_vod_config].
+    /// Implements [super::client::VideoStitcherService::create_vod_config].
     fn create_vod_config(
         &self,
         _req: crate::model::CreateVodConfigRequest,
@@ -343,7 +343,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::list_vod_configs].
+    /// Implements [super::client::VideoStitcherService::list_vod_configs].
     fn list_vod_configs(
         &self,
         _req: crate::model::ListVodConfigsRequest,
@@ -355,7 +355,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VideoStitcherService::get_vod_config].
+    /// Implements [super::client::VideoStitcherService::get_vod_config].
     fn get_vod_config(
         &self,
         _req: crate::model::GetVodConfigRequest,
@@ -366,7 +366,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::delete_vod_config].
+    /// Implements [super::client::VideoStitcherService::delete_vod_config].
     fn delete_vod_config(
         &self,
         _req: crate::model::DeleteVodConfigRequest,
@@ -378,7 +378,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::update_vod_config].
+    /// Implements [super::client::VideoStitcherService::update_vod_config].
     fn update_vod_config(
         &self,
         _req: crate::model::UpdateVodConfigRequest,
@@ -390,7 +390,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::list_operations].
+    /// Implements [super::client::VideoStitcherService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -402,7 +402,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VideoStitcherService::get_operation].
+    /// Implements [super::client::VideoStitcherService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -414,7 +414,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VideoStitcherService::delete_operation].
+    /// Implements [super::client::VideoStitcherService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -423,7 +423,7 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VideoStitcherService::cancel_operation].
+    /// Implements [super::client::VideoStitcherService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

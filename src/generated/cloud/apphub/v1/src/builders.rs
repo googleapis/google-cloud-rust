@@ -18,10 +18,10 @@ pub mod app_hub {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AppHub] request builders.
+    /// Common implementation for [super::super::client::AppHub] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AppHub>,
+        stub: Arc<dyn super::super::stubs::dynamic::AppHub>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod app_hub {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -46,7 +46,7 @@ pub mod app_hub {
     );
 
     impl LookupServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -92,7 +92,7 @@ pub mod app_hub {
     );
 
     impl ListServiceProjectAttachments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -178,7 +178,7 @@ pub mod app_hub {
     );
 
     impl CreateServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -202,7 +202,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_project_attachment][crate::client::AppHub::create_service_project_attachment].
+        /// on [create_service_project_attachment][super::super::client::AppHub::create_service_project_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_project_attachment(self.0.request, self.0.options)
@@ -291,7 +291,7 @@ pub mod app_hub {
     );
 
     impl GetServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -337,7 +337,7 @@ pub mod app_hub {
     );
 
     impl DeleteServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -361,7 +361,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_project_attachment][crate::client::AppHub::delete_service_project_attachment].
+        /// on [delete_service_project_attachment][super::super::client::AppHub::delete_service_project_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_project_attachment(self.0.request, self.0.options)
@@ -424,7 +424,7 @@ pub mod app_hub {
     );
 
     impl DetachServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -468,7 +468,7 @@ pub mod app_hub {
     pub struct ListDiscoveredServices(RequestBuilder<crate::model::ListDiscoveredServicesRequest>);
 
     impl ListDiscoveredServices {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -552,7 +552,7 @@ pub mod app_hub {
     pub struct GetDiscoveredService(RequestBuilder<crate::model::GetDiscoveredServiceRequest>);
 
     impl GetDiscoveredService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -598,7 +598,7 @@ pub mod app_hub {
     );
 
     impl LookupDiscoveredService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -648,7 +648,7 @@ pub mod app_hub {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -727,7 +727,7 @@ pub mod app_hub {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -748,7 +748,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service][crate::client::AppHub::create_service].
+        /// on [create_service][super::super::client::AppHub::create_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
@@ -826,7 +826,7 @@ pub mod app_hub {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -867,7 +867,7 @@ pub mod app_hub {
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -888,7 +888,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service][crate::client::AppHub::update_service].
+        /// on [update_service][super::super::client::AppHub::update_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
@@ -963,7 +963,7 @@ pub mod app_hub {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -984,7 +984,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service][crate::client::AppHub::delete_service].
+        /// on [delete_service][super::super::client::AppHub::delete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
@@ -1047,7 +1047,7 @@ pub mod app_hub {
     );
 
     impl ListDiscoveredWorkloads {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1131,7 +1131,7 @@ pub mod app_hub {
     pub struct GetDiscoveredWorkload(RequestBuilder<crate::model::GetDiscoveredWorkloadRequest>);
 
     impl GetDiscoveredWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1177,7 +1177,7 @@ pub mod app_hub {
     );
 
     impl LookupDiscoveredWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1227,7 +1227,7 @@ pub mod app_hub {
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1306,7 +1306,7 @@ pub mod app_hub {
     pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
 
     impl CreateWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1327,7 +1327,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workload][crate::client::AppHub::create_workload].
+        /// on [create_workload][super::super::client::AppHub::create_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workload(self.0.request, self.0.options)
@@ -1406,7 +1406,7 @@ pub mod app_hub {
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1447,7 +1447,7 @@ pub mod app_hub {
     pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
     impl UpdateWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1468,7 +1468,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workload][crate::client::AppHub::update_workload].
+        /// on [update_workload][super::super::client::AppHub::update_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workload(self.0.request, self.0.options)
@@ -1544,7 +1544,7 @@ pub mod app_hub {
     pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
     impl DeleteWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1565,7 +1565,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workload][crate::client::AppHub::delete_workload].
+        /// on [delete_workload][super::super::client::AppHub::delete_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workload(self.0.request, self.0.options)
@@ -1626,7 +1626,7 @@ pub mod app_hub {
     pub struct ListApplications(RequestBuilder<crate::model::ListApplicationsRequest>);
 
     impl ListApplications {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1708,7 +1708,7 @@ pub mod app_hub {
     pub struct CreateApplication(RequestBuilder<crate::model::CreateApplicationRequest>);
 
     impl CreateApplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1732,7 +1732,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_application][crate::client::AppHub::create_application].
+        /// on [create_application][super::super::client::AppHub::create_application].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_application(self.0.request, self.0.options)
@@ -1811,7 +1811,7 @@ pub mod app_hub {
     pub struct GetApplication(RequestBuilder<crate::model::GetApplicationRequest>);
 
     impl GetApplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1852,7 +1852,7 @@ pub mod app_hub {
     pub struct UpdateApplication(RequestBuilder<crate::model::UpdateApplicationRequest>);
 
     impl UpdateApplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1876,7 +1876,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_application][crate::client::AppHub::update_application].
+        /// on [update_application][super::super::client::AppHub::update_application].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_application(self.0.request, self.0.options)
@@ -1952,7 +1952,7 @@ pub mod app_hub {
     pub struct DeleteApplication(RequestBuilder<crate::model::DeleteApplicationRequest>);
 
     impl DeleteApplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1976,7 +1976,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_application][crate::client::AppHub::delete_application].
+        /// on [delete_application][super::super::client::AppHub::delete_application].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_application(self.0.request, self.0.options)
@@ -2037,7 +2037,7 @@ pub mod app_hub {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2113,7 +2113,7 @@ pub mod app_hub {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2154,7 +2154,7 @@ pub mod app_hub {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2213,7 +2213,7 @@ pub mod app_hub {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2263,7 +2263,7 @@ pub mod app_hub {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2318,7 +2318,7 @@ pub mod app_hub {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2394,7 +2394,7 @@ pub mod app_hub {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2438,7 +2438,7 @@ pub mod app_hub {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2482,7 +2482,7 @@ pub mod app_hub {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -90,9 +90,9 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::OrgPolicy] also implement [OrgPolicy].
+/// All implementations of [super::OrgPolicy] also implement [OrgPolicy].
 #[async_trait::async_trait]
-impl<T: crate::stubs::OrgPolicy> OrgPolicy for T {
+impl<T: super::OrgPolicy> OrgPolicy for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_constraints(
         &self,

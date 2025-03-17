@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Config](crate::stubs::Config) using a [gclient::ReqwestClient].
+/// Implements [Config](super::stubs::Config) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Config {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Config {
     }
 }
 
-impl crate::stubs::Config for Config {
+impl super::stubs::Config for Config {
     async fn list_deployments(
         &self,
         req: crate::model::ListDeploymentsRequest,

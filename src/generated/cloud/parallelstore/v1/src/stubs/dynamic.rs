@@ -108,9 +108,9 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Parallelstore] also implement [Parallelstore].
+/// All implementations of [super::Parallelstore] also implement [Parallelstore].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Parallelstore> Parallelstore for T {
+impl<T: super::Parallelstore> Parallelstore for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_instances(
         &self,

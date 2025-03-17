@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OracleDatabase](crate::stubs::OracleDatabase) using a [gclient::ReqwestClient].
+/// Implements [OracleDatabase](super::stubs::OracleDatabase) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct OracleDatabase {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl OracleDatabase {
     }
 }
 
-impl crate::stubs::OracleDatabase for OracleDatabase {
+impl super::stubs::OracleDatabase for OracleDatabase {
     async fn list_cloud_exadata_infrastructures(
         &self,
         req: crate::model::ListCloudExadataInfrastructuresRequest,

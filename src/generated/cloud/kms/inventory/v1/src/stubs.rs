@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::KeyDashboardService].
+/// Defines the trait used to implement [super::client::KeyDashboardService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::KeyDashboardService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait KeyDashboardService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::KeyDashboardService::list_crypto_keys].
+    /// Implements [super::client::KeyDashboardService::list_crypto_keys].
     fn list_crypto_keys(
         &self,
         _req: crate::model::ListCryptoKeysRequest,
@@ -53,7 +53,7 @@ pub trait KeyDashboardService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::KeyTrackingService].
+/// Defines the trait used to implement [super::client::KeyTrackingService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::KeyTrackingService`.  In other use-cases, application developers only
@@ -65,7 +65,7 @@ pub trait KeyDashboardService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::KeyTrackingService::get_protected_resources_summary].
+    /// Implements [super::client::KeyTrackingService::get_protected_resources_summary].
     fn get_protected_resources_summary(
         &self,
         _req: crate::model::GetProtectedResourcesSummaryRequest,
@@ -77,7 +77,7 @@ pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::KeyTrackingService::search_protected_resources].
+    /// Implements [super::client::KeyTrackingService::search_protected_resources].
     fn search_protected_resources(
         &self,
         _req: crate::model::SearchProtectedResourcesRequest,

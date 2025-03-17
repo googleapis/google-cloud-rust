@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Eventarc].
+/// Defines the trait used to implement [super::client::Eventarc].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Eventarc`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Eventarc: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Eventarc::get_trigger].
+    /// Implements [super::client::Eventarc::get_trigger].
     fn get_trigger(
         &self,
         _req: crate::model::GetTriggerRequest,
@@ -52,7 +52,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::list_triggers].
+    /// Implements [super::client::Eventarc::list_triggers].
     fn list_triggers(
         &self,
         _req: crate::model::ListTriggersRequest,
@@ -64,7 +64,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::create_trigger].
+    /// Implements [super::client::Eventarc::create_trigger].
     fn create_trigger(
         &self,
         _req: crate::model::CreateTriggerRequest,
@@ -76,7 +76,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::update_trigger].
+    /// Implements [super::client::Eventarc::update_trigger].
     fn update_trigger(
         &self,
         _req: crate::model::UpdateTriggerRequest,
@@ -88,7 +88,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::delete_trigger].
+    /// Implements [super::client::Eventarc::delete_trigger].
     fn delete_trigger(
         &self,
         _req: crate::model::DeleteTriggerRequest,
@@ -100,7 +100,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::get_channel].
+    /// Implements [super::client::Eventarc::get_channel].
     fn get_channel(
         &self,
         _req: crate::model::GetChannelRequest,
@@ -111,7 +111,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::list_channels].
+    /// Implements [super::client::Eventarc::list_channels].
     fn list_channels(
         &self,
         _req: crate::model::ListChannelsRequest,
@@ -123,7 +123,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::create_channel].
+    /// Implements [super::client::Eventarc::create_channel].
     fn create_channel(
         &self,
         _req: crate::model::CreateChannelRequest,
@@ -135,7 +135,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::update_channel].
+    /// Implements [super::client::Eventarc::update_channel].
     fn update_channel(
         &self,
         _req: crate::model::UpdateChannelRequest,
@@ -147,7 +147,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::delete_channel].
+    /// Implements [super::client::Eventarc::delete_channel].
     fn delete_channel(
         &self,
         _req: crate::model::DeleteChannelRequest,
@@ -159,7 +159,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::get_provider].
+    /// Implements [super::client::Eventarc::get_provider].
     fn get_provider(
         &self,
         _req: crate::model::GetProviderRequest,
@@ -170,7 +170,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::list_providers].
+    /// Implements [super::client::Eventarc::list_providers].
     fn list_providers(
         &self,
         _req: crate::model::ListProvidersRequest,
@@ -182,7 +182,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::get_channel_connection].
+    /// Implements [super::client::Eventarc::get_channel_connection].
     fn get_channel_connection(
         &self,
         _req: crate::model::GetChannelConnectionRequest,
@@ -194,7 +194,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::list_channel_connections].
+    /// Implements [super::client::Eventarc::list_channel_connections].
     fn list_channel_connections(
         &self,
         _req: crate::model::ListChannelConnectionsRequest,
@@ -206,7 +206,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Eventarc::create_channel_connection].
+    /// Implements [super::client::Eventarc::create_channel_connection].
     fn create_channel_connection(
         &self,
         _req: crate::model::CreateChannelConnectionRequest,
@@ -218,7 +218,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::delete_channel_connection].
+    /// Implements [super::client::Eventarc::delete_channel_connection].
     fn delete_channel_connection(
         &self,
         _req: crate::model::DeleteChannelConnectionRequest,
@@ -230,7 +230,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::get_google_channel_config].
+    /// Implements [super::client::Eventarc::get_google_channel_config].
     fn get_google_channel_config(
         &self,
         _req: crate::model::GetGoogleChannelConfigRequest,
@@ -242,7 +242,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::update_google_channel_config].
+    /// Implements [super::client::Eventarc::update_google_channel_config].
     fn update_google_channel_config(
         &self,
         _req: crate::model::UpdateGoogleChannelConfigRequest,
@@ -254,7 +254,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::get_message_bus].
+    /// Implements [super::client::Eventarc::get_message_bus].
     fn get_message_bus(
         &self,
         _req: crate::model::GetMessageBusRequest,
@@ -265,7 +265,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::list_message_buses].
+    /// Implements [super::client::Eventarc::list_message_buses].
     fn list_message_buses(
         &self,
         _req: crate::model::ListMessageBusesRequest,
@@ -277,7 +277,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Eventarc::list_message_bus_enrollments].
+    /// Implements [super::client::Eventarc::list_message_bus_enrollments].
     fn list_message_bus_enrollments(
         &self,
         _req: crate::model::ListMessageBusEnrollmentsRequest,
@@ -290,7 +290,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Eventarc::create_message_bus].
+    /// Implements [super::client::Eventarc::create_message_bus].
     fn create_message_bus(
         &self,
         _req: crate::model::CreateMessageBusRequest,
@@ -302,7 +302,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::update_message_bus].
+    /// Implements [super::client::Eventarc::update_message_bus].
     fn update_message_bus(
         &self,
         _req: crate::model::UpdateMessageBusRequest,
@@ -314,7 +314,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::delete_message_bus].
+    /// Implements [super::client::Eventarc::delete_message_bus].
     fn delete_message_bus(
         &self,
         _req: crate::model::DeleteMessageBusRequest,
@@ -326,7 +326,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::get_enrollment].
+    /// Implements [super::client::Eventarc::get_enrollment].
     fn get_enrollment(
         &self,
         _req: crate::model::GetEnrollmentRequest,
@@ -337,7 +337,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::list_enrollments].
+    /// Implements [super::client::Eventarc::list_enrollments].
     fn list_enrollments(
         &self,
         _req: crate::model::ListEnrollmentsRequest,
@@ -349,7 +349,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Eventarc::create_enrollment].
+    /// Implements [super::client::Eventarc::create_enrollment].
     fn create_enrollment(
         &self,
         _req: crate::model::CreateEnrollmentRequest,
@@ -361,7 +361,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::update_enrollment].
+    /// Implements [super::client::Eventarc::update_enrollment].
     fn update_enrollment(
         &self,
         _req: crate::model::UpdateEnrollmentRequest,
@@ -373,7 +373,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::delete_enrollment].
+    /// Implements [super::client::Eventarc::delete_enrollment].
     fn delete_enrollment(
         &self,
         _req: crate::model::DeleteEnrollmentRequest,
@@ -385,7 +385,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::get_pipeline].
+    /// Implements [super::client::Eventarc::get_pipeline].
     fn get_pipeline(
         &self,
         _req: crate::model::GetPipelineRequest,
@@ -396,7 +396,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::list_pipelines].
+    /// Implements [super::client::Eventarc::list_pipelines].
     fn list_pipelines(
         &self,
         _req: crate::model::ListPipelinesRequest,
@@ -408,7 +408,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::create_pipeline].
+    /// Implements [super::client::Eventarc::create_pipeline].
     fn create_pipeline(
         &self,
         _req: crate::model::CreatePipelineRequest,
@@ -420,7 +420,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::update_pipeline].
+    /// Implements [super::client::Eventarc::update_pipeline].
     fn update_pipeline(
         &self,
         _req: crate::model::UpdatePipelineRequest,
@@ -432,7 +432,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::delete_pipeline].
+    /// Implements [super::client::Eventarc::delete_pipeline].
     fn delete_pipeline(
         &self,
         _req: crate::model::DeletePipelineRequest,
@@ -444,7 +444,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::get_google_api_source].
+    /// Implements [super::client::Eventarc::get_google_api_source].
     fn get_google_api_source(
         &self,
         _req: crate::model::GetGoogleApiSourceRequest,
@@ -456,7 +456,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::list_google_api_sources].
+    /// Implements [super::client::Eventarc::list_google_api_sources].
     fn list_google_api_sources(
         &self,
         _req: crate::model::ListGoogleApiSourcesRequest,
@@ -468,7 +468,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Eventarc::create_google_api_source].
+    /// Implements [super::client::Eventarc::create_google_api_source].
     fn create_google_api_source(
         &self,
         _req: crate::model::CreateGoogleApiSourceRequest,
@@ -480,7 +480,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::update_google_api_source].
+    /// Implements [super::client::Eventarc::update_google_api_source].
     fn update_google_api_source(
         &self,
         _req: crate::model::UpdateGoogleApiSourceRequest,
@@ -492,7 +492,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::delete_google_api_source].
+    /// Implements [super::client::Eventarc::delete_google_api_source].
     fn delete_google_api_source(
         &self,
         _req: crate::model::DeleteGoogleApiSourceRequest,
@@ -504,7 +504,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::list_locations].
+    /// Implements [super::client::Eventarc::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -516,7 +516,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Eventarc::get_location].
+    /// Implements [super::client::Eventarc::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -527,7 +527,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::set_iam_policy].
+    /// Implements [super::client::Eventarc::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -538,7 +538,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::get_iam_policy].
+    /// Implements [super::client::Eventarc::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -549,7 +549,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::test_iam_permissions].
+    /// Implements [super::client::Eventarc::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -561,7 +561,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Eventarc::list_operations].
+    /// Implements [super::client::Eventarc::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -573,7 +573,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Eventarc::get_operation].
+    /// Implements [super::client::Eventarc::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -585,7 +585,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Eventarc::delete_operation].
+    /// Implements [super::client::Eventarc::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -594,7 +594,7 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Eventarc::cancel_operation].
+    /// Implements [super::client::Eventarc::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

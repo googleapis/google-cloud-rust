@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudBuild](crate::stubs::CloudBuild) using a [gclient::ReqwestClient].
+/// Implements [CloudBuild](super::stubs::CloudBuild) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudBuild {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudBuild {
     }
 }
 
-impl crate::stubs::CloudBuild for CloudBuild {
+impl super::stubs::CloudBuild for CloudBuild {
     async fn create_build(
         &self,
         req: crate::model::CreateBuildRequest,

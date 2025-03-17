@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ClientConnectorServicesService].
+/// Defines the trait used to implement [super::client::ClientConnectorServicesService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ClientConnectorServicesService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ClientConnectorServicesService::list_client_connector_services].
+    /// Implements [super::client::ClientConnectorServicesService::list_client_connector_services].
     fn list_client_connector_services(
         &self,
         _req: crate::model::ListClientConnectorServicesRequest,
@@ -54,7 +54,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::get_client_connector_service].
+    /// Implements [super::client::ClientConnectorServicesService::get_client_connector_service].
     fn get_client_connector_service(
         &self,
         _req: crate::model::GetClientConnectorServiceRequest,
@@ -66,7 +66,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::create_client_connector_service].
+    /// Implements [super::client::ClientConnectorServicesService::create_client_connector_service].
     fn create_client_connector_service(
         &self,
         _req: crate::model::CreateClientConnectorServiceRequest,
@@ -78,7 +78,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::update_client_connector_service].
+    /// Implements [super::client::ClientConnectorServicesService::update_client_connector_service].
     fn update_client_connector_service(
         &self,
         _req: crate::model::UpdateClientConnectorServiceRequest,
@@ -90,7 +90,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::delete_client_connector_service].
+    /// Implements [super::client::ClientConnectorServicesService::delete_client_connector_service].
     fn delete_client_connector_service(
         &self,
         _req: crate::model::DeleteClientConnectorServiceRequest,
@@ -102,7 +102,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::list_locations].
+    /// Implements [super::client::ClientConnectorServicesService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -114,7 +114,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::get_location].
+    /// Implements [super::client::ClientConnectorServicesService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -125,7 +125,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::set_iam_policy].
+    /// Implements [super::client::ClientConnectorServicesService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -136,7 +136,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::get_iam_policy].
+    /// Implements [super::client::ClientConnectorServicesService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -147,7 +147,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::test_iam_permissions].
+    /// Implements [super::client::ClientConnectorServicesService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -159,7 +159,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::list_operations].
+    /// Implements [super::client::ClientConnectorServicesService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -171,7 +171,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::get_operation].
+    /// Implements [super::client::ClientConnectorServicesService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -183,7 +183,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::delete_operation].
+    /// Implements [super::client::ClientConnectorServicesService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -192,7 +192,7 @@ pub trait ClientConnectorServicesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ClientConnectorServicesService::cancel_operation].
+    /// Implements [super::client::ClientConnectorServicesService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -84,9 +84,9 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Autokey] also implement [Autokey].
+/// All implementations of [super::Autokey] also implement [Autokey].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Autokey> Autokey for T {
+impl<T: super::Autokey> Autokey for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_key_handle(
         &self,
@@ -241,9 +241,9 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::AutokeyAdmin] also implement [AutokeyAdmin].
+/// All implementations of [super::AutokeyAdmin] also implement [AutokeyAdmin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AutokeyAdmin> AutokeyAdmin for T {
+impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn update_autokey_config(
         &self,
@@ -408,9 +408,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::EkmService] also implement [EkmService].
+/// All implementations of [super::EkmService] also implement [EkmService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::EkmService> EkmService for T {
+impl<T: super::EkmService> EkmService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_ekm_connections(
         &self,
@@ -737,9 +737,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::KeyManagementService] also implement [KeyManagementService].
+/// All implementations of [super::KeyManagementService] also implement [KeyManagementService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::KeyManagementService> KeyManagementService for T {
+impl<T: super::KeyManagementService> KeyManagementService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_key_rings(
         &self,

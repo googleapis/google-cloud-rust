@@ -168,9 +168,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AnalyticsHubService] also implement [AnalyticsHubService].
+/// All implementations of [super::AnalyticsHubService] also implement [AnalyticsHubService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AnalyticsHubService> AnalyticsHubService for T {
+impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_data_exchanges(
         &self,

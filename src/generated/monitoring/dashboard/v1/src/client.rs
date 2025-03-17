@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DashboardsService {
-    inner: Arc<dyn crate::stubs::dynamic::DashboardsService>,
+    inner: Arc<dyn super::stubs::dynamic::DashboardsService>,
 }
 
 impl DashboardsService {
@@ -60,7 +60,7 @@ impl DashboardsService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::DashboardsService + 'static,
+        T: super::stubs::DashboardsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl DashboardsService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::DashboardsService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::DashboardsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,16 +78,16 @@ impl DashboardsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DashboardsService> {
-        crate::transport::DashboardsService::new(conf).await
+    ) -> Result<impl super::stubs::DashboardsService> {
+        super::transport::DashboardsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DashboardsService> {
+    ) -> Result<impl super::stubs::DashboardsService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::DashboardsService::new)
+            .map(super::tracing::DashboardsService::new)
     }
 
     /// Creates a new custom dashboard. For examples on how you can use this API to
@@ -99,8 +99,8 @@ impl DashboardsService {
     pub fn create_dashboard(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::dashboards_service::CreateDashboard {
-        crate::builders::dashboards_service::CreateDashboard::new(self.inner.clone())
+    ) -> super::builders::dashboards_service::CreateDashboard {
+        super::builders::dashboards_service::CreateDashboard::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -112,8 +112,8 @@ impl DashboardsService {
     pub fn list_dashboards(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::dashboards_service::ListDashboards {
-        crate::builders::dashboards_service::ListDashboards::new(self.inner.clone())
+    ) -> super::builders::dashboards_service::ListDashboards {
+        super::builders::dashboards_service::ListDashboards::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -125,8 +125,8 @@ impl DashboardsService {
     pub fn get_dashboard(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dashboards_service::GetDashboard {
-        crate::builders::dashboards_service::GetDashboard::new(self.inner.clone())
+    ) -> super::builders::dashboards_service::GetDashboard {
+        super::builders::dashboards_service::GetDashboard::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -138,8 +138,8 @@ impl DashboardsService {
     pub fn delete_dashboard(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dashboards_service::DeleteDashboard {
-        crate::builders::dashboards_service::DeleteDashboard::new(self.inner.clone())
+    ) -> super::builders::dashboards_service::DeleteDashboard {
+        super::builders::dashboards_service::DeleteDashboard::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -151,8 +151,8 @@ impl DashboardsService {
     pub fn update_dashboard(
         &self,
         dashboard: impl Into<crate::model::Dashboard>,
-    ) -> crate::builders::dashboards_service::UpdateDashboard {
-        crate::builders::dashboards_service::UpdateDashboard::new(self.inner.clone())
+    ) -> super::builders::dashboards_service::UpdateDashboard {
+        super::builders::dashboards_service::UpdateDashboard::new(self.inner.clone())
             .set_dashboard(dashboard.into())
     }
 }

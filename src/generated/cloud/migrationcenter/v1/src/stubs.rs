@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::MigrationCenter].
+/// Defines the trait used to implement [super::client::MigrationCenter].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::MigrationCenter`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::MigrationCenter::list_assets].
+    /// Implements [super::client::MigrationCenter::list_assets].
     fn list_assets(
         &self,
         _req: crate::model::ListAssetsRequest,
@@ -53,7 +53,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_asset].
+    /// Implements [super::client::MigrationCenter::get_asset].
     fn get_asset(
         &self,
         _req: crate::model::GetAssetRequest,
@@ -62,7 +62,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Asset>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MigrationCenter::update_asset].
+    /// Implements [super::client::MigrationCenter::update_asset].
     fn update_asset(
         &self,
         _req: crate::model::UpdateAssetRequest,
@@ -71,7 +71,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Asset>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MigrationCenter::batch_update_assets].
+    /// Implements [super::client::MigrationCenter::batch_update_assets].
     fn batch_update_assets(
         &self,
         _req: crate::model::BatchUpdateAssetsRequest,
@@ -83,7 +83,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationCenter::delete_asset].
+    /// Implements [super::client::MigrationCenter::delete_asset].
     fn delete_asset(
         &self,
         _req: crate::model::DeleteAssetRequest,
@@ -92,7 +92,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MigrationCenter::batch_delete_assets].
+    /// Implements [super::client::MigrationCenter::batch_delete_assets].
     fn batch_delete_assets(
         &self,
         _req: crate::model::BatchDeleteAssetsRequest,
@@ -101,7 +101,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MigrationCenter::report_asset_frames].
+    /// Implements [super::client::MigrationCenter::report_asset_frames].
     fn report_asset_frames(
         &self,
         _req: crate::model::ReportAssetFramesRequest,
@@ -113,7 +113,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationCenter::aggregate_assets_values].
+    /// Implements [super::client::MigrationCenter::aggregate_assets_values].
     fn aggregate_assets_values(
         &self,
         _req: crate::model::AggregateAssetsValuesRequest,
@@ -125,7 +125,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationCenter::create_import_job].
+    /// Implements [super::client::MigrationCenter::create_import_job].
     fn create_import_job(
         &self,
         _req: crate::model::CreateImportJobRequest,
@@ -137,7 +137,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::list_import_jobs].
+    /// Implements [super::client::MigrationCenter::list_import_jobs].
     fn list_import_jobs(
         &self,
         _req: crate::model::ListImportJobsRequest,
@@ -149,7 +149,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_import_job].
+    /// Implements [super::client::MigrationCenter::get_import_job].
     fn get_import_job(
         &self,
         _req: crate::model::GetImportJobRequest,
@@ -160,7 +160,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::delete_import_job].
+    /// Implements [super::client::MigrationCenter::delete_import_job].
     fn delete_import_job(
         &self,
         _req: crate::model::DeleteImportJobRequest,
@@ -172,7 +172,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::update_import_job].
+    /// Implements [super::client::MigrationCenter::update_import_job].
     fn update_import_job(
         &self,
         _req: crate::model::UpdateImportJobRequest,
@@ -184,7 +184,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::validate_import_job].
+    /// Implements [super::client::MigrationCenter::validate_import_job].
     fn validate_import_job(
         &self,
         _req: crate::model::ValidateImportJobRequest,
@@ -196,7 +196,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::run_import_job].
+    /// Implements [super::client::MigrationCenter::run_import_job].
     fn run_import_job(
         &self,
         _req: crate::model::RunImportJobRequest,
@@ -208,7 +208,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_import_data_file].
+    /// Implements [super::client::MigrationCenter::get_import_data_file].
     fn get_import_data_file(
         &self,
         _req: crate::model::GetImportDataFileRequest,
@@ -219,7 +219,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::list_import_data_files].
+    /// Implements [super::client::MigrationCenter::list_import_data_files].
     fn list_import_data_files(
         &self,
         _req: crate::model::ListImportDataFilesRequest,
@@ -231,7 +231,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationCenter::create_import_data_file].
+    /// Implements [super::client::MigrationCenter::create_import_data_file].
     fn create_import_data_file(
         &self,
         _req: crate::model::CreateImportDataFileRequest,
@@ -243,7 +243,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::delete_import_data_file].
+    /// Implements [super::client::MigrationCenter::delete_import_data_file].
     fn delete_import_data_file(
         &self,
         _req: crate::model::DeleteImportDataFileRequest,
@@ -255,7 +255,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::list_groups].
+    /// Implements [super::client::MigrationCenter::list_groups].
     fn list_groups(
         &self,
         _req: crate::model::ListGroupsRequest,
@@ -267,7 +267,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_group].
+    /// Implements [super::client::MigrationCenter::get_group].
     fn get_group(
         &self,
         _req: crate::model::GetGroupRequest,
@@ -276,7 +276,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Group>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MigrationCenter::create_group].
+    /// Implements [super::client::MigrationCenter::create_group].
     fn create_group(
         &self,
         _req: crate::model::CreateGroupRequest,
@@ -288,7 +288,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::update_group].
+    /// Implements [super::client::MigrationCenter::update_group].
     fn update_group(
         &self,
         _req: crate::model::UpdateGroupRequest,
@@ -300,7 +300,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::delete_group].
+    /// Implements [super::client::MigrationCenter::delete_group].
     fn delete_group(
         &self,
         _req: crate::model::DeleteGroupRequest,
@@ -312,7 +312,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::add_assets_to_group].
+    /// Implements [super::client::MigrationCenter::add_assets_to_group].
     fn add_assets_to_group(
         &self,
         _req: crate::model::AddAssetsToGroupRequest,
@@ -324,7 +324,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::remove_assets_from_group].
+    /// Implements [super::client::MigrationCenter::remove_assets_from_group].
     fn remove_assets_from_group(
         &self,
         _req: crate::model::RemoveAssetsFromGroupRequest,
@@ -336,7 +336,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::list_error_frames].
+    /// Implements [super::client::MigrationCenter::list_error_frames].
     fn list_error_frames(
         &self,
         _req: crate::model::ListErrorFramesRequest,
@@ -348,7 +348,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_error_frame].
+    /// Implements [super::client::MigrationCenter::get_error_frame].
     fn get_error_frame(
         &self,
         _req: crate::model::GetErrorFrameRequest,
@@ -359,7 +359,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::list_sources].
+    /// Implements [super::client::MigrationCenter::list_sources].
     fn list_sources(
         &self,
         _req: crate::model::ListSourcesRequest,
@@ -371,7 +371,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_source].
+    /// Implements [super::client::MigrationCenter::get_source].
     fn get_source(
         &self,
         _req: crate::model::GetSourceRequest,
@@ -382,7 +382,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::create_source].
+    /// Implements [super::client::MigrationCenter::create_source].
     fn create_source(
         &self,
         _req: crate::model::CreateSourceRequest,
@@ -394,7 +394,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::update_source].
+    /// Implements [super::client::MigrationCenter::update_source].
     fn update_source(
         &self,
         _req: crate::model::UpdateSourceRequest,
@@ -406,7 +406,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::delete_source].
+    /// Implements [super::client::MigrationCenter::delete_source].
     fn delete_source(
         &self,
         _req: crate::model::DeleteSourceRequest,
@@ -418,7 +418,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::list_preference_sets].
+    /// Implements [super::client::MigrationCenter::list_preference_sets].
     fn list_preference_sets(
         &self,
         _req: crate::model::ListPreferenceSetsRequest,
@@ -430,7 +430,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_preference_set].
+    /// Implements [super::client::MigrationCenter::get_preference_set].
     fn get_preference_set(
         &self,
         _req: crate::model::GetPreferenceSetRequest,
@@ -441,7 +441,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::create_preference_set].
+    /// Implements [super::client::MigrationCenter::create_preference_set].
     fn create_preference_set(
         &self,
         _req: crate::model::CreatePreferenceSetRequest,
@@ -453,7 +453,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::update_preference_set].
+    /// Implements [super::client::MigrationCenter::update_preference_set].
     fn update_preference_set(
         &self,
         _req: crate::model::UpdatePreferenceSetRequest,
@@ -465,7 +465,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::delete_preference_set].
+    /// Implements [super::client::MigrationCenter::delete_preference_set].
     fn delete_preference_set(
         &self,
         _req: crate::model::DeletePreferenceSetRequest,
@@ -477,7 +477,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_settings].
+    /// Implements [super::client::MigrationCenter::get_settings].
     fn get_settings(
         &self,
         _req: crate::model::GetSettingsRequest,
@@ -488,7 +488,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::update_settings].
+    /// Implements [super::client::MigrationCenter::update_settings].
     fn update_settings(
         &self,
         _req: crate::model::UpdateSettingsRequest,
@@ -500,7 +500,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::create_report_config].
+    /// Implements [super::client::MigrationCenter::create_report_config].
     fn create_report_config(
         &self,
         _req: crate::model::CreateReportConfigRequest,
@@ -512,7 +512,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_report_config].
+    /// Implements [super::client::MigrationCenter::get_report_config].
     fn get_report_config(
         &self,
         _req: crate::model::GetReportConfigRequest,
@@ -523,7 +523,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::list_report_configs].
+    /// Implements [super::client::MigrationCenter::list_report_configs].
     fn list_report_configs(
         &self,
         _req: crate::model::ListReportConfigsRequest,
@@ -535,7 +535,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationCenter::delete_report_config].
+    /// Implements [super::client::MigrationCenter::delete_report_config].
     fn delete_report_config(
         &self,
         _req: crate::model::DeleteReportConfigRequest,
@@ -547,7 +547,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::create_report].
+    /// Implements [super::client::MigrationCenter::create_report].
     fn create_report(
         &self,
         _req: crate::model::CreateReportRequest,
@@ -559,7 +559,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_report].
+    /// Implements [super::client::MigrationCenter::get_report].
     fn get_report(
         &self,
         _req: crate::model::GetReportRequest,
@@ -570,7 +570,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::list_reports].
+    /// Implements [super::client::MigrationCenter::list_reports].
     fn list_reports(
         &self,
         _req: crate::model::ListReportsRequest,
@@ -582,7 +582,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::delete_report].
+    /// Implements [super::client::MigrationCenter::delete_report].
     fn delete_report(
         &self,
         _req: crate::model::DeleteReportRequest,
@@ -594,7 +594,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::list_locations].
+    /// Implements [super::client::MigrationCenter::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -606,7 +606,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_location].
+    /// Implements [super::client::MigrationCenter::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -617,7 +617,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::list_operations].
+    /// Implements [super::client::MigrationCenter::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -629,7 +629,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationCenter::get_operation].
+    /// Implements [super::client::MigrationCenter::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -641,7 +641,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationCenter::delete_operation].
+    /// Implements [super::client::MigrationCenter::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -650,7 +650,7 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MigrationCenter::cancel_operation].
+    /// Implements [super::client::MigrationCenter::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

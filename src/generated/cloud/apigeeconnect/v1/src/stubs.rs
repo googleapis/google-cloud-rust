@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ConnectionService].
+/// Defines the trait used to implement [super::client::ConnectionService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ConnectionService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ConnectionService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ConnectionService::list_connections].
+    /// Implements [super::client::ConnectionService::list_connections].
     fn list_connections(
         &self,
         _req: crate::model::ListConnectionsRequest,

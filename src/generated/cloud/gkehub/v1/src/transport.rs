@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [GkeHub](crate::stubs::GkeHub) using a [gclient::ReqwestClient].
+/// Implements [GkeHub](super::stubs::GkeHub) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct GkeHub {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl GkeHub {
     }
 }
 
-impl crate::stubs::GkeHub for GkeHub {
+impl super::stubs::GkeHub for GkeHub {
     async fn list_memberships(
         &self,
         req: crate::model::ListMembershipsRequest,

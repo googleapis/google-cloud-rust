@@ -18,10 +18,10 @@ pub mod api_keys {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ApiKeys] request builders.
+    /// Common implementation for [super::super::client::ApiKeys] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ApiKeys>,
+        stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod api_keys {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod api_keys {
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
     impl CreateKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +65,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_key][crate::client::ApiKeys::create_key].
+        /// on [create_key][super::super::client::ApiKeys::create_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_key(self.0.request, self.0.options)
@@ -132,7 +132,7 @@ pub mod api_keys {
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
     impl ListKeys {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -204,7 +204,7 @@ pub mod api_keys {
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
     impl GetKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -243,7 +243,7 @@ pub mod api_keys {
     pub struct GetKeyString(RequestBuilder<crate::model::GetKeyStringRequest>);
 
     impl GetKeyString {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -284,7 +284,7 @@ pub mod api_keys {
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
     impl UpdateKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -305,7 +305,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_key][crate::client::ApiKeys::update_key].
+        /// on [update_key][super::super::client::ApiKeys::update_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_key(self.0.request, self.0.options)
@@ -369,7 +369,7 @@ pub mod api_keys {
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
     impl DeleteKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -390,7 +390,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_key][crate::client::ApiKeys::delete_key].
+        /// on [delete_key][super::super::client::ApiKeys::delete_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_key(self.0.request, self.0.options)
@@ -451,7 +451,7 @@ pub mod api_keys {
     pub struct UndeleteKey(RequestBuilder<crate::model::UndeleteKeyRequest>);
 
     impl UndeleteKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -472,7 +472,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_key][crate::client::ApiKeys::undelete_key].
+        /// on [undelete_key][super::super::client::ApiKeys::undelete_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_key(self.0.request, self.0.options)
@@ -527,7 +527,7 @@ pub mod api_keys {
     pub struct LookupKey(RequestBuilder<crate::model::LookupKeyRequest>);
 
     impl LookupKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -568,7 +568,7 @@ pub mod api_keys {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

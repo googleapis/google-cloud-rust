@@ -18,10 +18,10 @@ pub mod cloud_controls_partner_core {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudControlsPartnerCore] request builders.
+    /// Common implementation for [super::super::client::CloudControlsPartnerCore] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod cloud_controls_partner_core {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod cloud_controls_partner_core {
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -85,7 +89,9 @@ pub mod cloud_controls_partner_core {
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -164,7 +170,9 @@ pub mod cloud_controls_partner_core {
     pub struct GetCustomer(RequestBuilder<crate::model::GetCustomerRequest>);
 
     impl GetCustomer {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -205,7 +213,9 @@ pub mod cloud_controls_partner_core {
     pub struct ListCustomers(RequestBuilder<crate::model::ListCustomersRequest>);
 
     impl ListCustomers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -284,7 +294,9 @@ pub mod cloud_controls_partner_core {
     pub struct GetEkmConnections(RequestBuilder<crate::model::GetEkmConnectionsRequest>);
 
     impl GetEkmConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -328,7 +340,9 @@ pub mod cloud_controls_partner_core {
     pub struct GetPartnerPermissions(RequestBuilder<crate::model::GetPartnerPermissionsRequest>);
 
     impl GetPartnerPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -374,7 +388,9 @@ pub mod cloud_controls_partner_core {
     );
 
     impl ListAccessApprovalRequests {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -458,7 +474,9 @@ pub mod cloud_controls_partner_core {
     pub struct GetPartner(RequestBuilder<crate::model::GetPartnerRequest>);
 
     impl GetPartner {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -499,10 +517,10 @@ pub mod cloud_controls_partner_monitoring {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudControlsPartnerMonitoring] request builders.
+    /// Common implementation for [super::super::client::CloudControlsPartnerMonitoring] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerMonitoring>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerMonitoring>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -512,7 +530,7 @@ pub mod cloud_controls_partner_monitoring {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerMonitoring>,
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerMonitoring>,
         ) -> Self {
             Self {
                 stub,
@@ -528,7 +546,7 @@ pub mod cloud_controls_partner_monitoring {
 
     impl ListViolations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerMonitoring>,
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerMonitoring>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -618,7 +636,7 @@ pub mod cloud_controls_partner_monitoring {
 
     impl GetViolation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerMonitoring>,
+            stub: Arc<dyn super::super::stubs::dynamic::CloudControlsPartnerMonitoring>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

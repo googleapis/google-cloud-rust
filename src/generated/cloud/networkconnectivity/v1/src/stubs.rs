@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::HubService].
+/// Defines the trait used to implement [super::client::HubService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::HubService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait HubService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::HubService::list_hubs].
+    /// Implements [super::client::HubService::list_hubs].
     fn list_hubs(
         &self,
         _req: crate::model::ListHubsRequest,
@@ -53,7 +53,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::get_hub].
+    /// Implements [super::client::HubService::get_hub].
     fn get_hub(
         &self,
         _req: crate::model::GetHubRequest,
@@ -62,7 +62,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Hub>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::HubService::create_hub].
+    /// Implements [super::client::HubService::create_hub].
     fn create_hub(
         &self,
         _req: crate::model::CreateHubRequest,
@@ -74,7 +74,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::update_hub].
+    /// Implements [super::client::HubService::update_hub].
     fn update_hub(
         &self,
         _req: crate::model::UpdateHubRequest,
@@ -86,7 +86,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::delete_hub].
+    /// Implements [super::client::HubService::delete_hub].
     fn delete_hub(
         &self,
         _req: crate::model::DeleteHubRequest,
@@ -98,7 +98,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::list_hub_spokes].
+    /// Implements [super::client::HubService::list_hub_spokes].
     fn list_hub_spokes(
         &self,
         _req: crate::model::ListHubSpokesRequest,
@@ -110,7 +110,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::query_hub_status].
+    /// Implements [super::client::HubService::query_hub_status].
     fn query_hub_status(
         &self,
         _req: crate::model::QueryHubStatusRequest,
@@ -122,7 +122,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::HubService::list_spokes].
+    /// Implements [super::client::HubService::list_spokes].
     fn list_spokes(
         &self,
         _req: crate::model::ListSpokesRequest,
@@ -134,7 +134,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::get_spoke].
+    /// Implements [super::client::HubService::get_spoke].
     fn get_spoke(
         &self,
         _req: crate::model::GetSpokeRequest,
@@ -143,7 +143,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Spoke>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::HubService::create_spoke].
+    /// Implements [super::client::HubService::create_spoke].
     fn create_spoke(
         &self,
         _req: crate::model::CreateSpokeRequest,
@@ -155,7 +155,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::update_spoke].
+    /// Implements [super::client::HubService::update_spoke].
     fn update_spoke(
         &self,
         _req: crate::model::UpdateSpokeRequest,
@@ -167,7 +167,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::reject_hub_spoke].
+    /// Implements [super::client::HubService::reject_hub_spoke].
     fn reject_hub_spoke(
         &self,
         _req: crate::model::RejectHubSpokeRequest,
@@ -179,7 +179,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::accept_hub_spoke].
+    /// Implements [super::client::HubService::accept_hub_spoke].
     fn accept_hub_spoke(
         &self,
         _req: crate::model::AcceptHubSpokeRequest,
@@ -191,7 +191,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::delete_spoke].
+    /// Implements [super::client::HubService::delete_spoke].
     fn delete_spoke(
         &self,
         _req: crate::model::DeleteSpokeRequest,
@@ -203,7 +203,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::get_route_table].
+    /// Implements [super::client::HubService::get_route_table].
     fn get_route_table(
         &self,
         _req: crate::model::GetRouteTableRequest,
@@ -214,7 +214,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::get_route].
+    /// Implements [super::client::HubService::get_route].
     fn get_route(
         &self,
         _req: crate::model::GetRouteRequest,
@@ -223,7 +223,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Route>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::HubService::list_routes].
+    /// Implements [super::client::HubService::list_routes].
     fn list_routes(
         &self,
         _req: crate::model::ListRoutesRequest,
@@ -235,7 +235,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::list_route_tables].
+    /// Implements [super::client::HubService::list_route_tables].
     fn list_route_tables(
         &self,
         _req: crate::model::ListRouteTablesRequest,
@@ -247,7 +247,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::HubService::get_group].
+    /// Implements [super::client::HubService::get_group].
     fn get_group(
         &self,
         _req: crate::model::GetGroupRequest,
@@ -256,7 +256,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Group>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::HubService::list_groups].
+    /// Implements [super::client::HubService::list_groups].
     fn list_groups(
         &self,
         _req: crate::model::ListGroupsRequest,
@@ -268,7 +268,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::update_group].
+    /// Implements [super::client::HubService::update_group].
     fn update_group(
         &self,
         _req: crate::model::UpdateGroupRequest,
@@ -280,7 +280,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::list_locations].
+    /// Implements [super::client::HubService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -292,7 +292,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::HubService::get_location].
+    /// Implements [super::client::HubService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -303,7 +303,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::set_iam_policy].
+    /// Implements [super::client::HubService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -314,7 +314,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::get_iam_policy].
+    /// Implements [super::client::HubService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -325,7 +325,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::test_iam_permissions].
+    /// Implements [super::client::HubService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -337,7 +337,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::HubService::list_operations].
+    /// Implements [super::client::HubService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -349,7 +349,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::HubService::get_operation].
+    /// Implements [super::client::HubService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -361,7 +361,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HubService::delete_operation].
+    /// Implements [super::client::HubService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -370,7 +370,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::HubService::cancel_operation].
+    /// Implements [super::client::HubService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -402,7 +402,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::PolicyBasedRoutingService].
+/// Defines the trait used to implement [super::client::PolicyBasedRoutingService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PolicyBasedRoutingService`.  In other use-cases, application developers only
@@ -414,7 +414,7 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PolicyBasedRoutingService::list_policy_based_routes].
+    /// Implements [super::client::PolicyBasedRoutingService::list_policy_based_routes].
     fn list_policy_based_routes(
         &self,
         _req: crate::model::ListPolicyBasedRoutesRequest,
@@ -426,7 +426,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::get_policy_based_route].
+    /// Implements [super::client::PolicyBasedRoutingService::get_policy_based_route].
     fn get_policy_based_route(
         &self,
         _req: crate::model::GetPolicyBasedRouteRequest,
@@ -438,7 +438,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::create_policy_based_route].
+    /// Implements [super::client::PolicyBasedRoutingService::create_policy_based_route].
     fn create_policy_based_route(
         &self,
         _req: crate::model::CreatePolicyBasedRouteRequest,
@@ -450,7 +450,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::delete_policy_based_route].
+    /// Implements [super::client::PolicyBasedRoutingService::delete_policy_based_route].
     fn delete_policy_based_route(
         &self,
         _req: crate::model::DeletePolicyBasedRouteRequest,
@@ -462,7 +462,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::list_locations].
+    /// Implements [super::client::PolicyBasedRoutingService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -474,7 +474,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::get_location].
+    /// Implements [super::client::PolicyBasedRoutingService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -485,7 +485,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::set_iam_policy].
+    /// Implements [super::client::PolicyBasedRoutingService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -496,7 +496,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::get_iam_policy].
+    /// Implements [super::client::PolicyBasedRoutingService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -507,7 +507,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::test_iam_permissions].
+    /// Implements [super::client::PolicyBasedRoutingService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -519,7 +519,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::list_operations].
+    /// Implements [super::client::PolicyBasedRoutingService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -531,7 +531,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::get_operation].
+    /// Implements [super::client::PolicyBasedRoutingService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -543,7 +543,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::delete_operation].
+    /// Implements [super::client::PolicyBasedRoutingService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -552,7 +552,7 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PolicyBasedRoutingService::cancel_operation].
+    /// Implements [super::client::PolicyBasedRoutingService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

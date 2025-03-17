@@ -18,10 +18,10 @@ pub mod data_migration_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DataMigrationService] request builders.
+    /// Common implementation for [super::super::client::DataMigrationService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>,
+        stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod data_migration_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod data_migration_service {
     pub struct ListMigrationJobs(RequestBuilder<crate::model::ListMigrationJobsRequest>);
 
     impl ListMigrationJobs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -126,7 +130,9 @@ pub mod data_migration_service {
     pub struct GetMigrationJob(RequestBuilder<crate::model::GetMigrationJobRequest>);
 
     impl GetMigrationJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -167,7 +173,9 @@ pub mod data_migration_service {
     pub struct CreateMigrationJob(RequestBuilder<crate::model::CreateMigrationJobRequest>);
 
     impl CreateMigrationJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -191,7 +199,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_migration_job][crate::client::DataMigrationService::create_migration_job].
+        /// on [create_migration_job][super::super::client::DataMigrationService::create_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_migration_job(self.0.request, self.0.options)
@@ -270,7 +278,9 @@ pub mod data_migration_service {
     pub struct UpdateMigrationJob(RequestBuilder<crate::model::UpdateMigrationJobRequest>);
 
     impl UpdateMigrationJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -294,7 +304,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_migration_job][crate::client::DataMigrationService::update_migration_job].
+        /// on [update_migration_job][super::super::client::DataMigrationService::update_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_migration_job(self.0.request, self.0.options)
@@ -370,7 +380,9 @@ pub mod data_migration_service {
     pub struct DeleteMigrationJob(RequestBuilder<crate::model::DeleteMigrationJobRequest>);
 
     impl DeleteMigrationJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -394,7 +406,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_migration_job][crate::client::DataMigrationService::delete_migration_job].
+        /// on [delete_migration_job][super::super::client::DataMigrationService::delete_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_migration_job(self.0.request, self.0.options)
@@ -461,7 +473,9 @@ pub mod data_migration_service {
     pub struct StartMigrationJob(RequestBuilder<crate::model::StartMigrationJobRequest>);
 
     impl StartMigrationJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -485,7 +499,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_migration_job][crate::client::DataMigrationService::start_migration_job].
+        /// on [start_migration_job][super::super::client::DataMigrationService::start_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_migration_job(self.0.request, self.0.options)
@@ -549,7 +563,9 @@ pub mod data_migration_service {
     pub struct StopMigrationJob(RequestBuilder<crate::model::StopMigrationJobRequest>);
 
     impl StopMigrationJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -573,7 +589,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_migration_job][crate::client::DataMigrationService::stop_migration_job].
+        /// on [stop_migration_job][super::super::client::DataMigrationService::stop_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_migration_job(self.0.request, self.0.options)
@@ -631,7 +647,9 @@ pub mod data_migration_service {
     pub struct ResumeMigrationJob(RequestBuilder<crate::model::ResumeMigrationJobRequest>);
 
     impl ResumeMigrationJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -655,7 +673,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_migration_job][crate::client::DataMigrationService::resume_migration_job].
+        /// on [resume_migration_job][super::super::client::DataMigrationService::resume_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_migration_job(self.0.request, self.0.options)
@@ -713,7 +731,9 @@ pub mod data_migration_service {
     pub struct PromoteMigrationJob(RequestBuilder<crate::model::PromoteMigrationJobRequest>);
 
     impl PromoteMigrationJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -737,7 +757,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [promote_migration_job][crate::client::DataMigrationService::promote_migration_job].
+        /// on [promote_migration_job][super::super::client::DataMigrationService::promote_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .promote_migration_job(self.0.request, self.0.options)
@@ -795,7 +815,9 @@ pub mod data_migration_service {
     pub struct VerifyMigrationJob(RequestBuilder<crate::model::VerifyMigrationJobRequest>);
 
     impl VerifyMigrationJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -819,7 +841,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [verify_migration_job][crate::client::DataMigrationService::verify_migration_job].
+        /// on [verify_migration_job][super::super::client::DataMigrationService::verify_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .verify_migration_job(self.0.request, self.0.options)
@@ -895,7 +917,9 @@ pub mod data_migration_service {
     pub struct RestartMigrationJob(RequestBuilder<crate::model::RestartMigrationJobRequest>);
 
     impl RestartMigrationJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -919,7 +943,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restart_migration_job][crate::client::DataMigrationService::restart_migration_job].
+        /// on [restart_migration_job][super::super::client::DataMigrationService::restart_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restart_migration_job(self.0.request, self.0.options)
@@ -983,7 +1007,9 @@ pub mod data_migration_service {
     pub struct GenerateSshScript(RequestBuilder<crate::model::GenerateSshScriptRequest>);
 
     impl GenerateSshScript {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1050,7 +1076,9 @@ pub mod data_migration_service {
     pub struct GenerateTcpProxyScript(RequestBuilder<crate::model::GenerateTcpProxyScriptRequest>);
 
     impl GenerateTcpProxyScript {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1118,7 +1146,9 @@ pub mod data_migration_service {
     pub struct ListConnectionProfiles(RequestBuilder<crate::model::ListConnectionProfilesRequest>);
 
     impl ListConnectionProfiles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1202,7 +1232,9 @@ pub mod data_migration_service {
     pub struct GetConnectionProfile(RequestBuilder<crate::model::GetConnectionProfileRequest>);
 
     impl GetConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1248,7 +1280,9 @@ pub mod data_migration_service {
     );
 
     impl CreateConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1272,7 +1306,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection_profile][crate::client::DataMigrationService::create_connection_profile].
+        /// on [create_connection_profile][super::super::client::DataMigrationService::create_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection_profile(self.0.request, self.0.options)
@@ -1368,7 +1402,9 @@ pub mod data_migration_service {
     );
 
     impl UpdateConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1392,7 +1428,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection_profile][crate::client::DataMigrationService::update_connection_profile].
+        /// on [update_connection_profile][super::super::client::DataMigrationService::update_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection_profile(self.0.request, self.0.options)
@@ -1485,7 +1521,9 @@ pub mod data_migration_service {
     );
 
     impl DeleteConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1509,7 +1547,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection_profile][crate::client::DataMigrationService::delete_connection_profile].
+        /// on [delete_connection_profile][super::super::client::DataMigrationService::delete_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection_profile(self.0.request, self.0.options)
@@ -1578,7 +1616,9 @@ pub mod data_migration_service {
     );
 
     impl CreatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1602,7 +1642,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_private_connection][crate::client::DataMigrationService::create_private_connection].
+        /// on [create_private_connection][super::super::client::DataMigrationService::create_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
@@ -1690,7 +1730,9 @@ pub mod data_migration_service {
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
     impl GetPrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1734,7 +1776,9 @@ pub mod data_migration_service {
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
     impl ListPrivateConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1820,7 +1864,9 @@ pub mod data_migration_service {
     );
 
     impl DeletePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1844,7 +1890,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_private_connection][crate::client::DataMigrationService::delete_private_connection].
+        /// on [delete_private_connection][super::super::client::DataMigrationService::delete_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
@@ -1905,7 +1951,9 @@ pub mod data_migration_service {
     pub struct GetConversionWorkspace(RequestBuilder<crate::model::GetConversionWorkspaceRequest>);
 
     impl GetConversionWorkspace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1951,7 +1999,9 @@ pub mod data_migration_service {
     );
 
     impl ListConversionWorkspaces {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2031,7 +2081,9 @@ pub mod data_migration_service {
     );
 
     impl CreateConversionWorkspace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2055,7 +2107,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_conversion_workspace][crate::client::DataMigrationService::create_conversion_workspace].
+        /// on [create_conversion_workspace][super::super::client::DataMigrationService::create_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_conversion_workspace(self.0.request, self.0.options)
@@ -2139,7 +2191,9 @@ pub mod data_migration_service {
     );
 
     impl UpdateConversionWorkspace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2163,7 +2217,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_conversion_workspace][crate::client::DataMigrationService::update_conversion_workspace].
+        /// on [update_conversion_workspace][super::super::client::DataMigrationService::update_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_conversion_workspace(self.0.request, self.0.options)
@@ -2244,7 +2298,9 @@ pub mod data_migration_service {
     );
 
     impl DeleteConversionWorkspace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2268,7 +2324,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_conversion_workspace][crate::client::DataMigrationService::delete_conversion_workspace].
+        /// on [delete_conversion_workspace][super::super::client::DataMigrationService::delete_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_conversion_workspace(self.0.request, self.0.options)
@@ -2335,7 +2391,9 @@ pub mod data_migration_service {
     pub struct CreateMappingRule(RequestBuilder<crate::model::CreateMappingRuleRequest>);
 
     impl CreateMappingRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2400,7 +2458,9 @@ pub mod data_migration_service {
     pub struct DeleteMappingRule(RequestBuilder<crate::model::DeleteMappingRuleRequest>);
 
     impl DeleteMappingRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2450,7 +2510,9 @@ pub mod data_migration_service {
     pub struct ListMappingRules(RequestBuilder<crate::model::ListMappingRulesRequest>);
 
     impl ListMappingRules {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2520,7 +2582,9 @@ pub mod data_migration_service {
     pub struct GetMappingRule(RequestBuilder<crate::model::GetMappingRuleRequest>);
 
     impl GetMappingRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2563,7 +2627,9 @@ pub mod data_migration_service {
     );
 
     impl SeedConversionWorkspace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2587,7 +2653,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [seed_conversion_workspace][crate::client::DataMigrationService::seed_conversion_workspace].
+        /// on [seed_conversion_workspace][super::super::client::DataMigrationService::seed_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .seed_conversion_workspace(self.0.request, self.0.options)
@@ -2663,7 +2729,9 @@ pub mod data_migration_service {
     pub struct ImportMappingRules(RequestBuilder<crate::model::ImportMappingRulesRequest>);
 
     impl ImportMappingRules {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2687,7 +2755,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_mapping_rules][crate::client::DataMigrationService::import_mapping_rules].
+        /// on [import_mapping_rules][super::super::client::DataMigrationService::import_mapping_rules].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_mapping_rules(self.0.request, self.0.options)
@@ -2774,7 +2842,9 @@ pub mod data_migration_service {
     );
 
     impl ConvertConversionWorkspace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2798,7 +2868,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [convert_conversion_workspace][crate::client::DataMigrationService::convert_conversion_workspace].
+        /// on [convert_conversion_workspace][super::super::client::DataMigrationService::convert_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .convert_conversion_workspace(self.0.request, self.0.options)
@@ -2877,7 +2947,9 @@ pub mod data_migration_service {
     );
 
     impl CommitConversionWorkspace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2901,7 +2973,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [commit_conversion_workspace][crate::client::DataMigrationService::commit_conversion_workspace].
+        /// on [commit_conversion_workspace][super::super::client::DataMigrationService::commit_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .commit_conversion_workspace(self.0.request, self.0.options)
@@ -2968,7 +3040,9 @@ pub mod data_migration_service {
     );
 
     impl RollbackConversionWorkspace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2992,7 +3066,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rollback_conversion_workspace][crate::client::DataMigrationService::rollback_conversion_workspace].
+        /// on [rollback_conversion_workspace][super::super::client::DataMigrationService::rollback_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rollback_conversion_workspace(self.0.request, self.0.options)
@@ -3053,7 +3127,9 @@ pub mod data_migration_service {
     );
 
     impl ApplyConversionWorkspace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3077,7 +3153,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [apply_conversion_workspace][crate::client::DataMigrationService::apply_conversion_workspace].
+        /// on [apply_conversion_workspace][super::super::client::DataMigrationService::apply_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .apply_conversion_workspace(self.0.request, self.0.options)
@@ -3167,7 +3243,9 @@ pub mod data_migration_service {
     );
 
     impl DescribeDatabaseEntities {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3272,7 +3350,9 @@ pub mod data_migration_service {
     pub struct SearchBackgroundJobs(RequestBuilder<crate::model::SearchBackgroundJobsRequest>);
 
     impl SearchBackgroundJobs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3339,7 +3419,9 @@ pub mod data_migration_service {
     );
 
     impl DescribeConversionWorkspaceRevisions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3391,7 +3473,9 @@ pub mod data_migration_service {
     pub struct FetchStaticIps(RequestBuilder<crate::model::FetchStaticIpsRequest>);
 
     impl FetchStaticIps {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3444,7 +3528,9 @@ pub mod data_migration_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3520,7 +3606,9 @@ pub mod data_migration_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3561,7 +3649,9 @@ pub mod data_migration_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3620,7 +3710,9 @@ pub mod data_migration_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3670,7 +3762,9 @@ pub mod data_migration_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3725,7 +3819,9 @@ pub mod data_migration_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3801,7 +3897,9 @@ pub mod data_migration_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3845,7 +3943,9 @@ pub mod data_migration_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3889,7 +3989,9 @@ pub mod data_migration_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataMigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DataMigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

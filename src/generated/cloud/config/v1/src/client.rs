@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Config {
-    inner: Arc<dyn crate::stubs::dynamic::Config>,
+    inner: Arc<dyn super::stubs::dynamic::Config>,
 }
 
 impl Config {
@@ -60,7 +60,7 @@ impl Config {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Config + 'static,
+        T: super::stubs::Config + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl Config {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Config>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Config>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,16 +78,16 @@ impl Config {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Config> {
-        crate::transport::Config::new(conf).await
+    ) -> Result<impl super::stubs::Config> {
+        super::transport::Config::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Config> {
+    ) -> Result<impl super::stubs::Config> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Config::new)
+            .map(super::tracing::Config::new)
     }
 
     /// Lists [Deployment][google.cloud.config.v1.Deployment]s in a given project
@@ -97,8 +97,8 @@ impl Config {
     pub fn list_deployments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::ListDeployments {
-        crate::builders::config::ListDeployments::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::config::ListDeployments {
+        super::builders::config::ListDeployments::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details about a [Deployment][google.cloud.config.v1.Deployment].
@@ -107,8 +107,8 @@ impl Config {
     pub fn get_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::GetDeployment {
-        crate::builders::config::GetDeployment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::GetDeployment {
+        super::builders::config::GetDeployment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a [Deployment][google.cloud.config.v1.Deployment].
@@ -127,8 +127,8 @@ impl Config {
     pub fn create_deployment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::CreateDeployment {
-        crate::builders::config::CreateDeployment::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::config::CreateDeployment {
+        super::builders::config::CreateDeployment::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates a [Deployment][google.cloud.config.v1.Deployment].
@@ -147,8 +147,8 @@ impl Config {
     pub fn update_deployment(
         &self,
         deployment: impl Into<crate::model::Deployment>,
-    ) -> crate::builders::config::UpdateDeployment {
-        crate::builders::config::UpdateDeployment::new(self.inner.clone())
+    ) -> super::builders::config::UpdateDeployment {
+        super::builders::config::UpdateDeployment::new(self.inner.clone())
             .set_deployment(deployment.into())
     }
 
@@ -168,8 +168,8 @@ impl Config {
     pub fn delete_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::DeleteDeployment {
-        crate::builders::config::DeleteDeployment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::DeleteDeployment {
+        super::builders::config::DeleteDeployment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists [Revision][google.cloud.config.v1.Revision]s of a deployment.
@@ -178,8 +178,8 @@ impl Config {
     pub fn list_revisions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::ListRevisions {
-        crate::builders::config::ListRevisions::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::config::ListRevisions {
+        super::builders::config::ListRevisions::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details about a [Revision][google.cloud.config.v1.Revision].
@@ -188,8 +188,8 @@ impl Config {
     pub fn get_revision(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::GetRevision {
-        crate::builders::config::GetRevision::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::GetRevision {
+        super::builders::config::GetRevision::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets details about a [Resource][google.cloud.config.v1.Resource] deployed
@@ -199,8 +199,8 @@ impl Config {
     pub fn get_resource(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::GetResource {
-        crate::builders::config::GetResource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::GetResource {
+        super::builders::config::GetResource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists [Resources][google.cloud.config.v1.Resource] in a given revision.
@@ -209,16 +209,16 @@ impl Config {
     pub fn list_resources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::ListResources {
-        crate::builders::config::ListResources::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::config::ListResources {
+        super::builders::config::ListResources::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Exports Terraform state file from a given deployment.
     pub fn export_deployment_statefile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::ExportDeploymentStatefile {
-        crate::builders::config::ExportDeploymentStatefile::new(self.inner.clone())
+    ) -> super::builders::config::ExportDeploymentStatefile {
+        super::builders::config::ExportDeploymentStatefile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -226,8 +226,8 @@ impl Config {
     pub fn export_revision_statefile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::ExportRevisionStatefile {
-        crate::builders::config::ExportRevisionStatefile::new(self.inner.clone())
+    ) -> super::builders::config::ExportRevisionStatefile {
+        super::builders::config::ExportRevisionStatefile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -236,16 +236,16 @@ impl Config {
     pub fn import_statefile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::ImportStatefile {
-        crate::builders::config::ImportStatefile::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::config::ImportStatefile {
+        super::builders::config::ImportStatefile::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes Terraform state file in a given deployment.
     pub fn delete_statefile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::DeleteStatefile {
-        crate::builders::config::DeleteStatefile::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::DeleteStatefile {
+        super::builders::config::DeleteStatefile::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Locks a deployment.
@@ -262,8 +262,8 @@ impl Config {
     pub fn lock_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::LockDeployment {
-        crate::builders::config::LockDeployment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::LockDeployment {
+        super::builders::config::LockDeployment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Unlocks a locked deployment.
@@ -280,16 +280,16 @@ impl Config {
     pub fn unlock_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::UnlockDeployment {
-        crate::builders::config::UnlockDeployment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::UnlockDeployment {
+        super::builders::config::UnlockDeployment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Exports the lock info on a locked deployment.
     pub fn export_lock_info(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::ExportLockInfo {
-        crate::builders::config::ExportLockInfo::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::ExportLockInfo {
+        super::builders::config::ExportLockInfo::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a [Preview][google.cloud.config.v1.Preview].
@@ -308,8 +308,8 @@ impl Config {
     pub fn create_preview(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::CreatePreview {
-        crate::builders::config::CreatePreview::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::config::CreatePreview {
+        super::builders::config::CreatePreview::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details about a [Preview][google.cloud.config.v1.Preview].
@@ -318,8 +318,8 @@ impl Config {
     pub fn get_preview(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::GetPreview {
-        crate::builders::config::GetPreview::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::GetPreview {
+        super::builders::config::GetPreview::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists [Preview][google.cloud.config.v1.Preview]s in a given project and
@@ -329,8 +329,8 @@ impl Config {
     pub fn list_previews(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::ListPreviews {
-        crate::builders::config::ListPreviews::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::config::ListPreviews {
+        super::builders::config::ListPreviews::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a [Preview][google.cloud.config.v1.Preview].
@@ -349,8 +349,8 @@ impl Config {
     pub fn delete_preview(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::DeletePreview {
-        crate::builders::config::DeletePreview::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::DeletePreview {
+        super::builders::config::DeletePreview::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Export [Preview][google.cloud.config.v1.Preview] results.
@@ -359,8 +359,8 @@ impl Config {
     pub fn export_preview_result(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::ExportPreviewResult {
-        crate::builders::config::ExportPreviewResult::new(self.inner.clone())
+    ) -> super::builders::config::ExportPreviewResult {
+        super::builders::config::ExportPreviewResult::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -371,8 +371,8 @@ impl Config {
     pub fn list_terraform_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::config::ListTerraformVersions {
-        crate::builders::config::ListTerraformVersions::new(self.inner.clone())
+    ) -> super::builders::config::ListTerraformVersions {
+        super::builders::config::ListTerraformVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -383,24 +383,24 @@ impl Config {
     pub fn get_terraform_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::GetTerraformVersion {
-        crate::builders::config::GetTerraformVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::GetTerraformVersion {
+        super::builders::config::GetTerraformVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::ListLocations {
-        crate::builders::config::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::ListLocations {
+        super::builders::config::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::GetLocation {
-        crate::builders::config::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::GetLocation {
+        super::builders::config::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -411,8 +411,8 @@ impl Config {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::config::SetIamPolicy {
-        crate::builders::config::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    ) -> super::builders::config::SetIamPolicy {
+        super::builders::config::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -420,8 +420,8 @@ impl Config {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::config::GetIamPolicy {
-        crate::builders::config::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    ) -> super::builders::config::GetIamPolicy {
+        super::builders::config::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -434,8 +434,8 @@ impl Config {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::config::TestIamPermissions {
-        crate::builders::config::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::config::TestIamPermissions {
+        super::builders::config::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -445,8 +445,8 @@ impl Config {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::ListOperations {
-        crate::builders::config::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::ListOperations {
+        super::builders::config::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -455,8 +455,8 @@ impl Config {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::GetOperation {
-        crate::builders::config::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::GetOperation {
+        super::builders::config::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -465,8 +465,8 @@ impl Config {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::DeleteOperation {
-        crate::builders::config::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::DeleteOperation {
+        super::builders::config::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -475,7 +475,7 @@ impl Config {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::config::CancelOperation {
-        crate::builders::config::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::config::CancelOperation {
+        super::builders::config::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

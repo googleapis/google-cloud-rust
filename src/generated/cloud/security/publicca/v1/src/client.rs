@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PublicCertificateAuthorityService {
-    inner: Arc<dyn crate::stubs::dynamic::PublicCertificateAuthorityService>,
+    inner: Arc<dyn super::stubs::dynamic::PublicCertificateAuthorityService>,
 }
 
 impl PublicCertificateAuthorityService {
@@ -61,7 +61,7 @@ impl PublicCertificateAuthorityService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::PublicCertificateAuthorityService + 'static,
+        T: super::stubs::PublicCertificateAuthorityService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl PublicCertificateAuthorityService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::PublicCertificateAuthorityService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::PublicCertificateAuthorityService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,16 +79,16 @@ impl PublicCertificateAuthorityService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::PublicCertificateAuthorityService> {
-        crate::transport::PublicCertificateAuthorityService::new(conf).await
+    ) -> Result<impl super::stubs::PublicCertificateAuthorityService> {
+        super::transport::PublicCertificateAuthorityService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::PublicCertificateAuthorityService> {
+    ) -> Result<impl super::stubs::PublicCertificateAuthorityService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::PublicCertificateAuthorityService::new)
+            .map(super::tracing::PublicCertificateAuthorityService::new)
     }
 
     /// Creates a new
@@ -99,8 +99,8 @@ impl PublicCertificateAuthorityService {
     pub fn create_external_account_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::public_certificate_authority_service::CreateExternalAccountKey {
-        crate::builders::public_certificate_authority_service::CreateExternalAccountKey::new(
+    ) -> super::builders::public_certificate_authority_service::CreateExternalAccountKey {
+        super::builders::public_certificate_authority_service::CreateExternalAccountKey::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())

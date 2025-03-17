@@ -72,9 +72,9 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::InstallStatus>;
 }
 
-/// All implementations of [crate::stubs::GSuiteAddOns] also implement [GSuiteAddOns].
+/// All implementations of [super::GSuiteAddOns] also implement [GSuiteAddOns].
 #[async_trait::async_trait]
-impl<T: crate::stubs::GSuiteAddOns> GSuiteAddOns for T {
+impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_authorization(
         &self,

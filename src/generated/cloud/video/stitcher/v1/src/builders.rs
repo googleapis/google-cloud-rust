@@ -18,10 +18,10 @@ pub mod video_stitcher_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::VideoStitcherService] request builders.
+    /// Common implementation for [super::super::client::VideoStitcherService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>,
+        stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod video_stitcher_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod video_stitcher_service {
     pub struct CreateCdnKey(RequestBuilder<crate::model::CreateCdnKeyRequest>);
 
     impl CreateCdnKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +69,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cdn_key][crate::client::VideoStitcherService::create_cdn_key].
+        /// on [create_cdn_key][super::super::client::VideoStitcherService::create_cdn_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cdn_key(self.0.request, self.0.options)
@@ -137,7 +141,9 @@ pub mod video_stitcher_service {
     pub struct ListCdnKeys(RequestBuilder<crate::model::ListCdnKeysRequest>);
 
     impl ListCdnKeys {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -216,7 +222,9 @@ pub mod video_stitcher_service {
     pub struct GetCdnKey(RequestBuilder<crate::model::GetCdnKeyRequest>);
 
     impl GetCdnKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -257,7 +265,9 @@ pub mod video_stitcher_service {
     pub struct DeleteCdnKey(RequestBuilder<crate::model::DeleteCdnKeyRequest>);
 
     impl DeleteCdnKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -278,7 +288,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cdn_key][crate::client::VideoStitcherService::delete_cdn_key].
+        /// on [delete_cdn_key][super::super::client::VideoStitcherService::delete_cdn_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cdn_key(self.0.request, self.0.options)
@@ -333,7 +343,9 @@ pub mod video_stitcher_service {
     pub struct UpdateCdnKey(RequestBuilder<crate::model::UpdateCdnKeyRequest>);
 
     impl UpdateCdnKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -354,7 +366,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cdn_key][crate::client::VideoStitcherService::update_cdn_key].
+        /// on [update_cdn_key][super::super::client::VideoStitcherService::update_cdn_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cdn_key(self.0.request, self.0.options)
@@ -423,7 +435,9 @@ pub mod video_stitcher_service {
     pub struct CreateVodSession(RequestBuilder<crate::model::CreateVodSessionRequest>);
 
     impl CreateVodSession {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -476,7 +490,9 @@ pub mod video_stitcher_service {
     pub struct GetVodSession(RequestBuilder<crate::model::GetVodSessionRequest>);
 
     impl GetVodSession {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -517,7 +533,9 @@ pub mod video_stitcher_service {
     pub struct ListVodStitchDetails(RequestBuilder<crate::model::ListVodStitchDetailsRequest>);
 
     impl ListVodStitchDetails {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -587,7 +605,9 @@ pub mod video_stitcher_service {
     pub struct GetVodStitchDetail(RequestBuilder<crate::model::GetVodStitchDetailRequest>);
 
     impl GetVodStitchDetail {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -631,7 +651,9 @@ pub mod video_stitcher_service {
     pub struct ListVodAdTagDetails(RequestBuilder<crate::model::ListVodAdTagDetailsRequest>);
 
     impl ListVodAdTagDetails {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -701,7 +723,9 @@ pub mod video_stitcher_service {
     pub struct GetVodAdTagDetail(RequestBuilder<crate::model::GetVodAdTagDetailRequest>);
 
     impl GetVodAdTagDetail {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -745,7 +769,9 @@ pub mod video_stitcher_service {
     pub struct ListLiveAdTagDetails(RequestBuilder<crate::model::ListLiveAdTagDetailsRequest>);
 
     impl ListLiveAdTagDetails {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -815,7 +841,9 @@ pub mod video_stitcher_service {
     pub struct GetLiveAdTagDetail(RequestBuilder<crate::model::GetLiveAdTagDetailRequest>);
 
     impl GetLiveAdTagDetail {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -859,7 +887,9 @@ pub mod video_stitcher_service {
     pub struct CreateSlate(RequestBuilder<crate::model::CreateSlateRequest>);
 
     impl CreateSlate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -880,7 +910,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_slate][crate::client::VideoStitcherService::create_slate].
+        /// on [create_slate][super::super::client::VideoStitcherService::create_slate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_slate(self.0.request, self.0.options)
@@ -958,7 +988,9 @@ pub mod video_stitcher_service {
     pub struct ListSlates(RequestBuilder<crate::model::ListSlatesRequest>);
 
     impl ListSlates {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1037,7 +1069,9 @@ pub mod video_stitcher_service {
     pub struct GetSlate(RequestBuilder<crate::model::GetSlateRequest>);
 
     impl GetSlate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1078,7 +1112,9 @@ pub mod video_stitcher_service {
     pub struct UpdateSlate(RequestBuilder<crate::model::UpdateSlateRequest>);
 
     impl UpdateSlate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1099,7 +1135,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_slate][crate::client::VideoStitcherService::update_slate].
+        /// on [update_slate][super::super::client::VideoStitcherService::update_slate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_slate(self.0.request, self.0.options)
@@ -1168,7 +1204,9 @@ pub mod video_stitcher_service {
     pub struct DeleteSlate(RequestBuilder<crate::model::DeleteSlateRequest>);
 
     impl DeleteSlate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1189,7 +1227,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_slate][crate::client::VideoStitcherService::delete_slate].
+        /// on [delete_slate][super::super::client::VideoStitcherService::delete_slate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_slate(self.0.request, self.0.options)
@@ -1244,7 +1282,9 @@ pub mod video_stitcher_service {
     pub struct CreateLiveSession(RequestBuilder<crate::model::CreateLiveSessionRequest>);
 
     impl CreateLiveSession {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1297,7 +1337,9 @@ pub mod video_stitcher_service {
     pub struct GetLiveSession(RequestBuilder<crate::model::GetLiveSessionRequest>);
 
     impl GetLiveSession {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1338,7 +1380,9 @@ pub mod video_stitcher_service {
     pub struct CreateLiveConfig(RequestBuilder<crate::model::CreateLiveConfigRequest>);
 
     impl CreateLiveConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1362,7 +1406,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_live_config][crate::client::VideoStitcherService::create_live_config].
+        /// on [create_live_config][super::super::client::VideoStitcherService::create_live_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_live_config(self.0.request, self.0.options)
@@ -1441,7 +1485,9 @@ pub mod video_stitcher_service {
     pub struct ListLiveConfigs(RequestBuilder<crate::model::ListLiveConfigsRequest>);
 
     impl ListLiveConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1520,7 +1566,9 @@ pub mod video_stitcher_service {
     pub struct GetLiveConfig(RequestBuilder<crate::model::GetLiveConfigRequest>);
 
     impl GetLiveConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1561,7 +1609,9 @@ pub mod video_stitcher_service {
     pub struct DeleteLiveConfig(RequestBuilder<crate::model::DeleteLiveConfigRequest>);
 
     impl DeleteLiveConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1585,7 +1635,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_live_config][crate::client::VideoStitcherService::delete_live_config].
+        /// on [delete_live_config][super::super::client::VideoStitcherService::delete_live_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_live_config(self.0.request, self.0.options)
@@ -1640,7 +1690,9 @@ pub mod video_stitcher_service {
     pub struct UpdateLiveConfig(RequestBuilder<crate::model::UpdateLiveConfigRequest>);
 
     impl UpdateLiveConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1664,7 +1716,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_live_config][crate::client::VideoStitcherService::update_live_config].
+        /// on [update_live_config][super::super::client::VideoStitcherService::update_live_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_live_config(self.0.request, self.0.options)
@@ -1734,7 +1786,9 @@ pub mod video_stitcher_service {
     pub struct CreateVodConfig(RequestBuilder<crate::model::CreateVodConfigRequest>);
 
     impl CreateVodConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1755,7 +1809,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vod_config][crate::client::VideoStitcherService::create_vod_config].
+        /// on [create_vod_config][super::super::client::VideoStitcherService::create_vod_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vod_config(self.0.request, self.0.options)
@@ -1834,7 +1888,9 @@ pub mod video_stitcher_service {
     pub struct ListVodConfigs(RequestBuilder<crate::model::ListVodConfigsRequest>);
 
     impl ListVodConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1913,7 +1969,9 @@ pub mod video_stitcher_service {
     pub struct GetVodConfig(RequestBuilder<crate::model::GetVodConfigRequest>);
 
     impl GetVodConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1954,7 +2012,9 @@ pub mod video_stitcher_service {
     pub struct DeleteVodConfig(RequestBuilder<crate::model::DeleteVodConfigRequest>);
 
     impl DeleteVodConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1975,7 +2035,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vod_config][crate::client::VideoStitcherService::delete_vod_config].
+        /// on [delete_vod_config][super::super::client::VideoStitcherService::delete_vod_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vod_config(self.0.request, self.0.options)
@@ -2030,7 +2090,9 @@ pub mod video_stitcher_service {
     pub struct UpdateVodConfig(RequestBuilder<crate::model::UpdateVodConfigRequest>);
 
     impl UpdateVodConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2051,7 +2113,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_vod_config][crate::client::VideoStitcherService::update_vod_config].
+        /// on [update_vod_config][super::super::client::VideoStitcherService::update_vod_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_vod_config(self.0.request, self.0.options)
@@ -2121,7 +2183,9 @@ pub mod video_stitcher_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2197,7 +2261,9 @@ pub mod video_stitcher_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2241,7 +2307,9 @@ pub mod video_stitcher_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2285,7 +2353,9 @@ pub mod video_stitcher_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VideoStitcherService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::VideoStitcherService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

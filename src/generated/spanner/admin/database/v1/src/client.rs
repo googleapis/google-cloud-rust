@@ -45,7 +45,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DatabaseAdmin {
-    inner: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>,
+    inner: Arc<dyn super::stubs::dynamic::DatabaseAdmin>,
 }
 
 impl DatabaseAdmin {
@@ -66,7 +66,7 @@ impl DatabaseAdmin {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::DatabaseAdmin + 'static,
+        T: super::stubs::DatabaseAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -75,7 +75,7 @@ impl DatabaseAdmin {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::DatabaseAdmin>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::DatabaseAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -84,24 +84,24 @@ impl DatabaseAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DatabaseAdmin> {
-        crate::transport::DatabaseAdmin::new(conf).await
+    ) -> Result<impl super::stubs::DatabaseAdmin> {
+        super::transport::DatabaseAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DatabaseAdmin> {
+    ) -> Result<impl super::stubs::DatabaseAdmin> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::DatabaseAdmin::new)
+            .map(super::tracing::DatabaseAdmin::new)
     }
 
     /// Lists Cloud Spanner databases.
     pub fn list_databases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::ListDatabases {
-        crate::builders::database_admin::ListDatabases::new(self.inner.clone())
+    ) -> super::builders::database_admin::ListDatabases {
+        super::builders::database_admin::ListDatabases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -132,8 +132,8 @@ impl DatabaseAdmin {
     pub fn create_database(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::CreateDatabase {
-        crate::builders::database_admin::CreateDatabase::new(self.inner.clone())
+    ) -> super::builders::database_admin::CreateDatabase {
+        super::builders::database_admin::CreateDatabase::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -141,8 +141,8 @@ impl DatabaseAdmin {
     pub fn get_database(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::GetDatabase {
-        crate::builders::database_admin::GetDatabase::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::database_admin::GetDatabase {
+        super::builders::database_admin::GetDatabase::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a Cloud Spanner database. The returned
@@ -202,8 +202,8 @@ impl DatabaseAdmin {
     pub fn update_database(
         &self,
         database: impl Into<crate::model::Database>,
-    ) -> crate::builders::database_admin::UpdateDatabase {
-        crate::builders::database_admin::UpdateDatabase::new(self.inner.clone())
+    ) -> super::builders::database_admin::UpdateDatabase {
+        super::builders::database_admin::UpdateDatabase::new(self.inner.clone())
             .set_database(database.into())
     }
 
@@ -232,8 +232,8 @@ impl DatabaseAdmin {
     pub fn update_database_ddl(
         &self,
         database: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::UpdateDatabaseDdl {
-        crate::builders::database_admin::UpdateDatabaseDdl::new(self.inner.clone())
+    ) -> super::builders::database_admin::UpdateDatabaseDdl {
+        super::builders::database_admin::UpdateDatabaseDdl::new(self.inner.clone())
             .set_database(database.into())
     }
 
@@ -245,8 +245,8 @@ impl DatabaseAdmin {
     pub fn drop_database(
         &self,
         database: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::DropDatabase {
-        crate::builders::database_admin::DropDatabase::new(self.inner.clone())
+    ) -> super::builders::database_admin::DropDatabase {
+        super::builders::database_admin::DropDatabase::new(self.inner.clone())
             .set_database(database.into())
     }
 
@@ -258,8 +258,8 @@ impl DatabaseAdmin {
     pub fn get_database_ddl(
         &self,
         database: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::GetDatabaseDdl {
-        crate::builders::database_admin::GetDatabaseDdl::new(self.inner.clone())
+    ) -> super::builders::database_admin::GetDatabaseDdl {
+        super::builders::database_admin::GetDatabaseDdl::new(self.inner.clone())
             .set_database(database.into())
     }
 
@@ -275,8 +275,8 @@ impl DatabaseAdmin {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::SetIamPolicy {
-        crate::builders::database_admin::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::database_admin::SetIamPolicy {
+        super::builders::database_admin::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -293,8 +293,8 @@ impl DatabaseAdmin {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::GetIamPolicy {
-        crate::builders::database_admin::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::database_admin::GetIamPolicy {
+        super::builders::database_admin::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -311,8 +311,8 @@ impl DatabaseAdmin {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::TestIamPermissions {
-        crate::builders::database_admin::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::database_admin::TestIamPermissions {
+        super::builders::database_admin::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -347,8 +347,8 @@ impl DatabaseAdmin {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::CreateBackup {
-        crate::builders::database_admin::CreateBackup::new(self.inner.clone())
+    ) -> super::builders::database_admin::CreateBackup {
+        super::builders::database_admin::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -384,8 +384,8 @@ impl DatabaseAdmin {
     pub fn copy_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::CopyBackup {
-        crate::builders::database_admin::CopyBackup::new(self.inner.clone())
+    ) -> super::builders::database_admin::CopyBackup {
+        super::builders::database_admin::CopyBackup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -396,8 +396,8 @@ impl DatabaseAdmin {
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::GetBackup {
-        crate::builders::database_admin::GetBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::database_admin::GetBackup {
+        super::builders::database_admin::GetBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a pending or completed
@@ -407,8 +407,8 @@ impl DatabaseAdmin {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
-    ) -> crate::builders::database_admin::UpdateBackup {
-        crate::builders::database_admin::UpdateBackup::new(self.inner.clone())
+    ) -> super::builders::database_admin::UpdateBackup {
+        super::builders::database_admin::UpdateBackup::new(self.inner.clone())
             .set_backup(backup.into())
     }
 
@@ -419,8 +419,8 @@ impl DatabaseAdmin {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::DeleteBackup {
-        crate::builders::database_admin::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::database_admin::DeleteBackup {
+        super::builders::database_admin::DeleteBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists completed and pending backups.
@@ -429,8 +429,8 @@ impl DatabaseAdmin {
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::ListBackups {
-        crate::builders::database_admin::ListBackups::new(self.inner.clone())
+    ) -> super::builders::database_admin::ListBackups {
+        super::builders::database_admin::ListBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -470,8 +470,8 @@ impl DatabaseAdmin {
     pub fn restore_database(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::RestoreDatabase {
-        crate::builders::database_admin::RestoreDatabase::new(self.inner.clone())
+    ) -> super::builders::database_admin::RestoreDatabase {
+        super::builders::database_admin::RestoreDatabase::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -489,8 +489,8 @@ impl DatabaseAdmin {
     pub fn list_database_operations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::ListDatabaseOperations {
-        crate::builders::database_admin::ListDatabaseOperations::new(self.inner.clone())
+    ) -> super::builders::database_admin::ListDatabaseOperations {
+        super::builders::database_admin::ListDatabaseOperations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -510,8 +510,8 @@ impl DatabaseAdmin {
     pub fn list_backup_operations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::ListBackupOperations {
-        crate::builders::database_admin::ListBackupOperations::new(self.inner.clone())
+    ) -> super::builders::database_admin::ListBackupOperations {
+        super::builders::database_admin::ListBackupOperations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -519,8 +519,8 @@ impl DatabaseAdmin {
     pub fn list_database_roles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::ListDatabaseRoles {
-        crate::builders::database_admin::ListDatabaseRoles::new(self.inner.clone())
+    ) -> super::builders::database_admin::ListDatabaseRoles {
+        super::builders::database_admin::ListDatabaseRoles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -528,8 +528,8 @@ impl DatabaseAdmin {
     pub fn add_split_points(
         &self,
         database: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::AddSplitPoints {
-        crate::builders::database_admin::AddSplitPoints::new(self.inner.clone())
+    ) -> super::builders::database_admin::AddSplitPoints {
+        super::builders::database_admin::AddSplitPoints::new(self.inner.clone())
             .set_database(database.into())
     }
 
@@ -537,8 +537,8 @@ impl DatabaseAdmin {
     pub fn create_backup_schedule(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::CreateBackupSchedule {
-        crate::builders::database_admin::CreateBackupSchedule::new(self.inner.clone())
+    ) -> super::builders::database_admin::CreateBackupSchedule {
+        super::builders::database_admin::CreateBackupSchedule::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -546,8 +546,8 @@ impl DatabaseAdmin {
     pub fn get_backup_schedule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::GetBackupSchedule {
-        crate::builders::database_admin::GetBackupSchedule::new(self.inner.clone())
+    ) -> super::builders::database_admin::GetBackupSchedule {
+        super::builders::database_admin::GetBackupSchedule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -555,8 +555,8 @@ impl DatabaseAdmin {
     pub fn update_backup_schedule(
         &self,
         backup_schedule: impl Into<crate::model::BackupSchedule>,
-    ) -> crate::builders::database_admin::UpdateBackupSchedule {
-        crate::builders::database_admin::UpdateBackupSchedule::new(self.inner.clone())
+    ) -> super::builders::database_admin::UpdateBackupSchedule {
+        super::builders::database_admin::UpdateBackupSchedule::new(self.inner.clone())
             .set_backup_schedule(backup_schedule.into())
     }
 
@@ -564,8 +564,8 @@ impl DatabaseAdmin {
     pub fn delete_backup_schedule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::DeleteBackupSchedule {
-        crate::builders::database_admin::DeleteBackupSchedule::new(self.inner.clone())
+    ) -> super::builders::database_admin::DeleteBackupSchedule {
+        super::builders::database_admin::DeleteBackupSchedule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -573,8 +573,8 @@ impl DatabaseAdmin {
     pub fn list_backup_schedules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::ListBackupSchedules {
-        crate::builders::database_admin::ListBackupSchedules::new(self.inner.clone())
+    ) -> super::builders::database_admin::ListBackupSchedules {
+        super::builders::database_admin::ListBackupSchedules::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -584,8 +584,8 @@ impl DatabaseAdmin {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::ListOperations {
-        crate::builders::database_admin::ListOperations::new(self.inner.clone())
+    ) -> super::builders::database_admin::ListOperations {
+        super::builders::database_admin::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -595,8 +595,8 @@ impl DatabaseAdmin {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::GetOperation {
-        crate::builders::database_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::database_admin::GetOperation {
+        super::builders::database_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -605,8 +605,8 @@ impl DatabaseAdmin {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::DeleteOperation {
-        crate::builders::database_admin::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::database_admin::DeleteOperation {
+        super::builders::database_admin::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -616,8 +616,8 @@ impl DatabaseAdmin {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::database_admin::CancelOperation {
-        crate::builders::database_admin::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::database_admin::CancelOperation {
+        super::builders::database_admin::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ClusterManager {
-    inner: Arc<dyn crate::stubs::dynamic::ClusterManager>,
+    inner: Arc<dyn super::stubs::dynamic::ClusterManager>,
 }
 
 impl ClusterManager {
@@ -59,7 +59,7 @@ impl ClusterManager {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ClusterManager + 'static,
+        T: super::stubs::ClusterManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl ClusterManager {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ClusterManager>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ClusterManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl ClusterManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ClusterManager> {
-        crate::transport::ClusterManager::new(conf).await
+    ) -> Result<impl super::stubs::ClusterManager> {
+        super::transport::ClusterManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ClusterManager> {
+    ) -> Result<impl super::stubs::ClusterManager> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ClusterManager::new)
+            .map(super::tracing::ClusterManager::new)
     }
 
     /// Lists all clusters owned by a project in either the specified zone or all
@@ -94,8 +94,8 @@ impl ClusterManager {
     pub fn list_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::ListClusters {
-        crate::builders::cluster_manager::ListClusters::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::ListClusters {
+        super::builders::cluster_manager::ListClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -103,8 +103,8 @@ impl ClusterManager {
     pub fn get_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::GetCluster {
-        crate::builders::cluster_manager::GetCluster::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cluster_manager::GetCluster {
+        super::builders::cluster_manager::GetCluster::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a cluster, consisting of the specified number and type of Google
@@ -124,8 +124,8 @@ impl ClusterManager {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::CreateCluster {
-        crate::builders::cluster_manager::CreateCluster::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::CreateCluster {
+        super::builders::cluster_manager::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -133,8 +133,8 @@ impl ClusterManager {
     pub fn update_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::UpdateCluster {
-        crate::builders::cluster_manager::UpdateCluster::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::UpdateCluster {
+        super::builders::cluster_manager::UpdateCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -142,8 +142,8 @@ impl ClusterManager {
     pub fn update_node_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::UpdateNodePool {
-        crate::builders::cluster_manager::UpdateNodePool::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::UpdateNodePool {
+        super::builders::cluster_manager::UpdateNodePool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -151,8 +151,8 @@ impl ClusterManager {
     pub fn set_node_pool_autoscaling(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetNodePoolAutoscaling {
-        crate::builders::cluster_manager::SetNodePoolAutoscaling::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetNodePoolAutoscaling {
+        super::builders::cluster_manager::SetNodePoolAutoscaling::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -160,8 +160,8 @@ impl ClusterManager {
     pub fn set_logging_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetLoggingService {
-        crate::builders::cluster_manager::SetLoggingService::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetLoggingService {
+        super::builders::cluster_manager::SetLoggingService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -169,8 +169,8 @@ impl ClusterManager {
     pub fn set_monitoring_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetMonitoringService {
-        crate::builders::cluster_manager::SetMonitoringService::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetMonitoringService {
+        super::builders::cluster_manager::SetMonitoringService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -178,8 +178,8 @@ impl ClusterManager {
     pub fn set_addons_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetAddonsConfig {
-        crate::builders::cluster_manager::SetAddonsConfig::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetAddonsConfig {
+        super::builders::cluster_manager::SetAddonsConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -190,8 +190,8 @@ impl ClusterManager {
     pub fn set_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetLocations {
-        crate::builders::cluster_manager::SetLocations::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetLocations {
+        super::builders::cluster_manager::SetLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -199,8 +199,8 @@ impl ClusterManager {
     pub fn update_master(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::UpdateMaster {
-        crate::builders::cluster_manager::UpdateMaster::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::UpdateMaster {
+        super::builders::cluster_manager::UpdateMaster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -210,8 +210,8 @@ impl ClusterManager {
     pub fn set_master_auth(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetMasterAuth {
-        crate::builders::cluster_manager::SetMasterAuth::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetMasterAuth {
+        super::builders::cluster_manager::SetMasterAuth::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -227,8 +227,8 @@ impl ClusterManager {
     pub fn delete_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::DeleteCluster {
-        crate::builders::cluster_manager::DeleteCluster::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::DeleteCluster {
+        super::builders::cluster_manager::DeleteCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -236,8 +236,8 @@ impl ClusterManager {
     pub fn list_operations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::ListOperations {
-        crate::builders::cluster_manager::ListOperations::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::ListOperations {
+        super::builders::cluster_manager::ListOperations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -245,8 +245,8 @@ impl ClusterManager {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::GetOperation {
-        crate::builders::cluster_manager::GetOperation::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::GetOperation {
+        super::builders::cluster_manager::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -254,8 +254,8 @@ impl ClusterManager {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::CancelOperation {
-        crate::builders::cluster_manager::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::CancelOperation {
+        super::builders::cluster_manager::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -263,8 +263,8 @@ impl ClusterManager {
     pub fn get_server_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::GetServerConfig {
-        crate::builders::cluster_manager::GetServerConfig::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::GetServerConfig {
+        super::builders::cluster_manager::GetServerConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -273,8 +273,8 @@ impl ClusterManager {
     pub fn get_json_web_keys(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::GetJSONWebKeys {
-        crate::builders::cluster_manager::GetJSONWebKeys::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::GetJSONWebKeys {
+        super::builders::cluster_manager::GetJSONWebKeys::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -282,8 +282,8 @@ impl ClusterManager {
     pub fn list_node_pools(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::ListNodePools {
-        crate::builders::cluster_manager::ListNodePools::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::ListNodePools {
+        super::builders::cluster_manager::ListNodePools::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -291,16 +291,16 @@ impl ClusterManager {
     pub fn get_node_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::GetNodePool {
-        crate::builders::cluster_manager::GetNodePool::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cluster_manager::GetNodePool {
+        super::builders::cluster_manager::GetNodePool::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a node pool for a cluster.
     pub fn create_node_pool(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::CreateNodePool {
-        crate::builders::cluster_manager::CreateNodePool::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::CreateNodePool {
+        super::builders::cluster_manager::CreateNodePool::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -308,8 +308,8 @@ impl ClusterManager {
     pub fn delete_node_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::DeleteNodePool {
-        crate::builders::cluster_manager::DeleteNodePool::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::DeleteNodePool {
+        super::builders::cluster_manager::DeleteNodePool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -318,8 +318,8 @@ impl ClusterManager {
     pub fn complete_node_pool_upgrade(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::CompleteNodePoolUpgrade {
-        crate::builders::cluster_manager::CompleteNodePoolUpgrade::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::CompleteNodePoolUpgrade {
+        super::builders::cluster_manager::CompleteNodePoolUpgrade::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -328,8 +328,8 @@ impl ClusterManager {
     pub fn rollback_node_pool_upgrade(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::RollbackNodePoolUpgrade {
-        crate::builders::cluster_manager::RollbackNodePoolUpgrade::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::RollbackNodePoolUpgrade {
+        super::builders::cluster_manager::RollbackNodePoolUpgrade::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -337,8 +337,8 @@ impl ClusterManager {
     pub fn set_node_pool_management(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetNodePoolManagement {
-        crate::builders::cluster_manager::SetNodePoolManagement::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetNodePoolManagement {
+        super::builders::cluster_manager::SetNodePoolManagement::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -346,16 +346,16 @@ impl ClusterManager {
     pub fn set_labels(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetLabels {
-        crate::builders::cluster_manager::SetLabels::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cluster_manager::SetLabels {
+        super::builders::cluster_manager::SetLabels::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Enables or disables the ABAC authorization mechanism on a cluster.
     pub fn set_legacy_abac(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetLegacyAbac {
-        crate::builders::cluster_manager::SetLegacyAbac::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetLegacyAbac {
+        super::builders::cluster_manager::SetLegacyAbac::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -363,8 +363,8 @@ impl ClusterManager {
     pub fn start_ip_rotation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::StartIPRotation {
-        crate::builders::cluster_manager::StartIPRotation::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::StartIPRotation {
+        super::builders::cluster_manager::StartIPRotation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -372,8 +372,8 @@ impl ClusterManager {
     pub fn complete_ip_rotation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::CompleteIPRotation {
-        crate::builders::cluster_manager::CompleteIPRotation::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::CompleteIPRotation {
+        super::builders::cluster_manager::CompleteIPRotation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -385,8 +385,8 @@ impl ClusterManager {
     pub fn set_node_pool_size(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetNodePoolSize {
-        crate::builders::cluster_manager::SetNodePoolSize::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetNodePoolSize {
+        super::builders::cluster_manager::SetNodePoolSize::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -394,8 +394,8 @@ impl ClusterManager {
     pub fn set_network_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetNetworkPolicy {
-        crate::builders::cluster_manager::SetNetworkPolicy::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetNetworkPolicy {
+        super::builders::cluster_manager::SetNetworkPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -403,8 +403,8 @@ impl ClusterManager {
     pub fn set_maintenance_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::SetMaintenancePolicy {
-        crate::builders::cluster_manager::SetMaintenancePolicy::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::SetMaintenancePolicy {
+        super::builders::cluster_manager::SetMaintenancePolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -412,8 +412,8 @@ impl ClusterManager {
     pub fn list_usable_subnetworks(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::ListUsableSubnetworks {
-        crate::builders::cluster_manager::ListUsableSubnetworks::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::ListUsableSubnetworks {
+        super::builders::cluster_manager::ListUsableSubnetworks::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -422,8 +422,8 @@ impl ClusterManager {
     pub fn check_autopilot_compatibility(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cluster_manager::CheckAutopilotCompatibility {
-        crate::builders::cluster_manager::CheckAutopilotCompatibility::new(self.inner.clone())
+    ) -> super::builders::cluster_manager::CheckAutopilotCompatibility {
+        super::builders::cluster_manager::CheckAutopilotCompatibility::new(self.inner.clone())
             .set_name(name.into())
     }
 }

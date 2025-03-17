@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [RecaptchaEnterpriseService](crate::stubs::RecaptchaEnterpriseService) using a [gclient::ReqwestClient].
+/// Implements [RecaptchaEnterpriseService](super::stubs::RecaptchaEnterpriseService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct RecaptchaEnterpriseService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl RecaptchaEnterpriseService {
     }
 }
 
-impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
+impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
     async fn create_assessment(
         &self,
         req: crate::model::CreateAssessmentRequest,

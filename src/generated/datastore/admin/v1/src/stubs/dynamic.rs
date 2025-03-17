@@ -90,9 +90,9 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DatastoreAdmin] also implement [DatastoreAdmin].
+/// All implementations of [super::DatastoreAdmin] also implement [DatastoreAdmin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DatastoreAdmin> DatastoreAdmin for T {
+impl<T: super::DatastoreAdmin> DatastoreAdmin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn export_entities(
         &self,

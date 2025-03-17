@@ -222,9 +222,9 @@ pub trait Config: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Config] also implement [Config].
+/// All implementations of [super::Config] also implement [Config].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Config> Config for T {
+impl<T: super::Config> Config for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_deployments(
         &self,

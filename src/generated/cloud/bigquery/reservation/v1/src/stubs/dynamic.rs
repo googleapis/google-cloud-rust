@@ -150,9 +150,9 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::BiReservation>;
 }
 
-/// All implementations of [crate::stubs::ReservationService] also implement [ReservationService].
+/// All implementations of [super::ReservationService] also implement [ReservationService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ReservationService> ReservationService for T {
+impl<T: super::ReservationService> ReservationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_reservation(
         &self,

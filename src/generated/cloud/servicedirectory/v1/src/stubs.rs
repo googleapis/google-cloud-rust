@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::LookupService].
+/// Defines the trait used to implement [super::client::LookupService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::LookupService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait LookupService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::LookupService::resolve_service].
+    /// Implements [super::client::LookupService::resolve_service].
     fn resolve_service(
         &self,
         _req: crate::model::ResolveServiceRequest,
@@ -52,7 +52,7 @@ pub trait LookupService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LookupService::list_locations].
+    /// Implements [super::client::LookupService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -64,7 +64,7 @@ pub trait LookupService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LookupService::get_location].
+    /// Implements [super::client::LookupService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -76,7 +76,7 @@ pub trait LookupService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::RegistrationService].
+/// Defines the trait used to implement [super::client::RegistrationService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::RegistrationService`.  In other use-cases, application developers only
@@ -88,7 +88,7 @@ pub trait LookupService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait RegistrationService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::RegistrationService::create_namespace].
+    /// Implements [super::client::RegistrationService::create_namespace].
     fn create_namespace(
         &self,
         _req: crate::model::CreateNamespaceRequest,
@@ -99,7 +99,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::list_namespaces].
+    /// Implements [super::client::RegistrationService::list_namespaces].
     fn list_namespaces(
         &self,
         _req: crate::model::ListNamespacesRequest,
@@ -111,7 +111,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RegistrationService::get_namespace].
+    /// Implements [super::client::RegistrationService::get_namespace].
     fn get_namespace(
         &self,
         _req: crate::model::GetNamespaceRequest,
@@ -122,7 +122,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::update_namespace].
+    /// Implements [super::client::RegistrationService::update_namespace].
     fn update_namespace(
         &self,
         _req: crate::model::UpdateNamespaceRequest,
@@ -133,7 +133,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::delete_namespace].
+    /// Implements [super::client::RegistrationService::delete_namespace].
     fn delete_namespace(
         &self,
         _req: crate::model::DeleteNamespaceRequest,
@@ -142,7 +142,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RegistrationService::create_service].
+    /// Implements [super::client::RegistrationService::create_service].
     fn create_service(
         &self,
         _req: crate::model::CreateServiceRequest,
@@ -153,7 +153,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::list_services].
+    /// Implements [super::client::RegistrationService::list_services].
     fn list_services(
         &self,
         _req: crate::model::ListServicesRequest,
@@ -165,7 +165,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::get_service].
+    /// Implements [super::client::RegistrationService::get_service].
     fn get_service(
         &self,
         _req: crate::model::GetServiceRequest,
@@ -176,7 +176,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::update_service].
+    /// Implements [super::client::RegistrationService::update_service].
     fn update_service(
         &self,
         _req: crate::model::UpdateServiceRequest,
@@ -187,7 +187,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::delete_service].
+    /// Implements [super::client::RegistrationService::delete_service].
     fn delete_service(
         &self,
         _req: crate::model::DeleteServiceRequest,
@@ -196,7 +196,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RegistrationService::create_endpoint].
+    /// Implements [super::client::RegistrationService::create_endpoint].
     fn create_endpoint(
         &self,
         _req: crate::model::CreateEndpointRequest,
@@ -207,7 +207,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::list_endpoints].
+    /// Implements [super::client::RegistrationService::list_endpoints].
     fn list_endpoints(
         &self,
         _req: crate::model::ListEndpointsRequest,
@@ -219,7 +219,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::get_endpoint].
+    /// Implements [super::client::RegistrationService::get_endpoint].
     fn get_endpoint(
         &self,
         _req: crate::model::GetEndpointRequest,
@@ -230,7 +230,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::update_endpoint].
+    /// Implements [super::client::RegistrationService::update_endpoint].
     fn update_endpoint(
         &self,
         _req: crate::model::UpdateEndpointRequest,
@@ -241,7 +241,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::delete_endpoint].
+    /// Implements [super::client::RegistrationService::delete_endpoint].
     fn delete_endpoint(
         &self,
         _req: crate::model::DeleteEndpointRequest,
@@ -250,7 +250,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RegistrationService::get_iam_policy].
+    /// Implements [super::client::RegistrationService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -261,7 +261,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::set_iam_policy].
+    /// Implements [super::client::RegistrationService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -272,7 +272,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RegistrationService::test_iam_permissions].
+    /// Implements [super::client::RegistrationService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -284,7 +284,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RegistrationService::list_locations].
+    /// Implements [super::client::RegistrationService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -296,7 +296,7 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RegistrationService::get_location].
+    /// Implements [super::client::RegistrationService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,

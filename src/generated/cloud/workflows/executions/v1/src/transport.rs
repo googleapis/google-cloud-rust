@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Executions](crate::stubs::Executions) using a [gclient::ReqwestClient].
+/// Implements [Executions](super::stubs::Executions) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Executions {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Executions {
     }
 }
 
-impl crate::stubs::Executions for Executions {
+impl super::stubs::Executions for Executions {
     async fn list_executions(
         &self,
         req: crate::model::ListExecutionsRequest,

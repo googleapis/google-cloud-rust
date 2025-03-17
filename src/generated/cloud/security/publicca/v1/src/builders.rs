@@ -18,10 +18,10 @@ pub mod public_certificate_authority_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::PublicCertificateAuthorityService] request builders.
+    /// Common implementation for [super::super::client::PublicCertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::PublicCertificateAuthorityService>,
+        stub: Arc<dyn super::super::stubs::dynamic::PublicCertificateAuthorityService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -31,7 +31,7 @@ pub mod public_certificate_authority_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::PublicCertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::PublicCertificateAuthorityService>,
         ) -> Self {
             Self {
                 stub,
@@ -49,7 +49,7 @@ pub mod public_certificate_authority_service {
 
     impl CreateExternalAccountKey {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::PublicCertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::PublicCertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

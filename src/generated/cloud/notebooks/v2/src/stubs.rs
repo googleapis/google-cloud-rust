@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::NotebookService].
+/// Defines the trait used to implement [super::client::NotebookService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::NotebookService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait NotebookService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::NotebookService::list_instances].
+    /// Implements [super::client::NotebookService::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -53,7 +53,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::get_instance].
+    /// Implements [super::client::NotebookService::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -64,7 +64,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::create_instance].
+    /// Implements [super::client::NotebookService::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -76,7 +76,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::update_instance].
+    /// Implements [super::client::NotebookService::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -88,7 +88,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::delete_instance].
+    /// Implements [super::client::NotebookService::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -100,7 +100,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::start_instance].
+    /// Implements [super::client::NotebookService::start_instance].
     fn start_instance(
         &self,
         _req: crate::model::StartInstanceRequest,
@@ -112,7 +112,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::stop_instance].
+    /// Implements [super::client::NotebookService::stop_instance].
     fn stop_instance(
         &self,
         _req: crate::model::StopInstanceRequest,
@@ -124,7 +124,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::reset_instance].
+    /// Implements [super::client::NotebookService::reset_instance].
     fn reset_instance(
         &self,
         _req: crate::model::ResetInstanceRequest,
@@ -136,7 +136,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::check_instance_upgradability].
+    /// Implements [super::client::NotebookService::check_instance_upgradability].
     fn check_instance_upgradability(
         &self,
         _req: crate::model::CheckInstanceUpgradabilityRequest,
@@ -149,7 +149,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::upgrade_instance].
+    /// Implements [super::client::NotebookService::upgrade_instance].
     fn upgrade_instance(
         &self,
         _req: crate::model::UpgradeInstanceRequest,
@@ -161,7 +161,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::rollback_instance].
+    /// Implements [super::client::NotebookService::rollback_instance].
     fn rollback_instance(
         &self,
         _req: crate::model::RollbackInstanceRequest,
@@ -173,7 +173,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::diagnose_instance].
+    /// Implements [super::client::NotebookService::diagnose_instance].
     fn diagnose_instance(
         &self,
         _req: crate::model::DiagnoseInstanceRequest,
@@ -185,7 +185,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::list_locations].
+    /// Implements [super::client::NotebookService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -197,7 +197,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::get_location].
+    /// Implements [super::client::NotebookService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -208,7 +208,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::set_iam_policy].
+    /// Implements [super::client::NotebookService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -219,7 +219,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::get_iam_policy].
+    /// Implements [super::client::NotebookService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -230,7 +230,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::test_iam_permissions].
+    /// Implements [super::client::NotebookService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -242,7 +242,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::list_operations].
+    /// Implements [super::client::NotebookService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -254,7 +254,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::get_operation].
+    /// Implements [super::client::NotebookService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -266,7 +266,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::delete_operation].
+    /// Implements [super::client::NotebookService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -275,7 +275,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::NotebookService::cancel_operation].
+    /// Implements [super::client::NotebookService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::SqlBackupRunsService].
+/// Defines the trait used to implement [super::client::SqlBackupRunsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SqlBackupRunsService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// error.
 pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::SqlBackupRunsService::delete].
+    /// Implements [super::client::SqlBackupRunsService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlBackupRunsDeleteRequest,
@@ -50,7 +50,7 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlBackupRunsService::get].
+    /// Implements [super::client::SqlBackupRunsService::get].
     fn get(
         &self,
         _req: crate::model::SqlBackupRunsGetRequest,
@@ -59,7 +59,7 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::BackupRun>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlBackupRunsService::insert].
+    /// Implements [super::client::SqlBackupRunsService::insert].
     fn insert(
         &self,
         _req: crate::model::SqlBackupRunsInsertRequest,
@@ -68,7 +68,7 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlBackupRunsService::list].
+    /// Implements [super::client::SqlBackupRunsService::list].
     fn list(
         &self,
         _req: crate::model::SqlBackupRunsListRequest,
@@ -78,7 +78,7 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SqlConnectService].
+/// Defines the trait used to implement [super::client::SqlConnectService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SqlConnectService`.  In other use-cases, application developers only
@@ -91,7 +91,7 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
 /// error.
 pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::SqlConnectService::get_connect_settings].
+    /// Implements [super::client::SqlConnectService::get_connect_settings].
     fn get_connect_settings(
         &self,
         _req: crate::model::GetConnectSettingsRequest,
@@ -100,7 +100,7 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::ConnectSettings>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlConnectService::generate_ephemeral_cert].
+    /// Implements [super::client::SqlConnectService::generate_ephemeral_cert].
     fn generate_ephemeral_cert(
         &self,
         _req: crate::model::GenerateEphemeralCertRequest,
@@ -110,7 +110,7 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SqlDatabasesService].
+/// Defines the trait used to implement [super::client::SqlDatabasesService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SqlDatabasesService`.  In other use-cases, application developers only
@@ -123,7 +123,7 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
 /// error.
 pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::SqlDatabasesService::delete].
+    /// Implements [super::client::SqlDatabasesService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlDatabasesDeleteRequest,
@@ -132,7 +132,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlDatabasesService::get].
+    /// Implements [super::client::SqlDatabasesService::get].
     fn get(
         &self,
         _req: crate::model::SqlDatabasesGetRequest,
@@ -141,7 +141,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Database>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlDatabasesService::insert].
+    /// Implements [super::client::SqlDatabasesService::insert].
     fn insert(
         &self,
         _req: crate::model::SqlDatabasesInsertRequest,
@@ -150,7 +150,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlDatabasesService::list].
+    /// Implements [super::client::SqlDatabasesService::list].
     fn list(
         &self,
         _req: crate::model::SqlDatabasesListRequest,
@@ -159,7 +159,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::DatabasesListResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlDatabasesService::patch].
+    /// Implements [super::client::SqlDatabasesService::patch].
     fn patch(
         &self,
         _req: crate::model::SqlDatabasesUpdateRequest,
@@ -168,7 +168,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlDatabasesService::update].
+    /// Implements [super::client::SqlDatabasesService::update].
     fn update(
         &self,
         _req: crate::model::SqlDatabasesUpdateRequest,
@@ -178,7 +178,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SqlFlagsService].
+/// Defines the trait used to implement [super::client::SqlFlagsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SqlFlagsService`.  In other use-cases, application developers only
@@ -191,7 +191,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
 /// error.
 pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::SqlFlagsService::list].
+    /// Implements [super::client::SqlFlagsService::list].
     fn list(
         &self,
         _req: crate::model::SqlFlagsListRequest,
@@ -201,7 +201,7 @@ pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SqlInstancesService].
+/// Defines the trait used to implement [super::client::SqlInstancesService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SqlInstancesService`.  In other use-cases, application developers only
@@ -214,7 +214,7 @@ pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
 /// error.
 pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::SqlInstancesService::add_server_ca].
+    /// Implements [super::client::SqlInstancesService::add_server_ca].
     fn add_server_ca(
         &self,
         _req: crate::model::SqlInstancesAddServerCaRequest,
@@ -223,7 +223,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::clone].
+    /// Implements [super::client::SqlInstancesService::clone].
     fn clone(
         &self,
         _req: crate::model::SqlInstancesCloneRequest,
@@ -232,7 +232,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::delete].
+    /// Implements [super::client::SqlInstancesService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlInstancesDeleteRequest,
@@ -241,7 +241,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::demote_master].
+    /// Implements [super::client::SqlInstancesService::demote_master].
     fn demote_master(
         &self,
         _req: crate::model::SqlInstancesDemoteMasterRequest,
@@ -250,7 +250,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::demote].
+    /// Implements [super::client::SqlInstancesService::demote].
     fn demote(
         &self,
         _req: crate::model::SqlInstancesDemoteRequest,
@@ -259,7 +259,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::export].
+    /// Implements [super::client::SqlInstancesService::export].
     fn export(
         &self,
         _req: crate::model::SqlInstancesExportRequest,
@@ -268,7 +268,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::failover].
+    /// Implements [super::client::SqlInstancesService::failover].
     fn failover(
         &self,
         _req: crate::model::SqlInstancesFailoverRequest,
@@ -277,7 +277,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::reencrypt].
+    /// Implements [super::client::SqlInstancesService::reencrypt].
     fn reencrypt(
         &self,
         _req: crate::model::SqlInstancesReencryptRequest,
@@ -286,7 +286,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::get].
+    /// Implements [super::client::SqlInstancesService::get].
     fn get(
         &self,
         _req: crate::model::SqlInstancesGetRequest,
@@ -295,7 +295,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::DatabaseInstance>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::import].
+    /// Implements [super::client::SqlInstancesService::import].
     fn import(
         &self,
         _req: crate::model::SqlInstancesImportRequest,
@@ -304,7 +304,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::insert].
+    /// Implements [super::client::SqlInstancesService::insert].
     fn insert(
         &self,
         _req: crate::model::SqlInstancesInsertRequest,
@@ -313,7 +313,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::list].
+    /// Implements [super::client::SqlInstancesService::list].
     fn list(
         &self,
         _req: crate::model::SqlInstancesListRequest,
@@ -322,7 +322,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::InstancesListResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::list_server_cas].
+    /// Implements [super::client::SqlInstancesService::list_server_cas].
     fn list_server_cas(
         &self,
         _req: crate::model::SqlInstancesListServerCasRequest,
@@ -331,7 +331,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::InstancesListServerCasResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::patch].
+    /// Implements [super::client::SqlInstancesService::patch].
     fn patch(
         &self,
         _req: crate::model::SqlInstancesPatchRequest,
@@ -340,7 +340,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::promote_replica].
+    /// Implements [super::client::SqlInstancesService::promote_replica].
     fn promote_replica(
         &self,
         _req: crate::model::SqlInstancesPromoteReplicaRequest,
@@ -349,7 +349,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::switchover].
+    /// Implements [super::client::SqlInstancesService::switchover].
     fn switchover(
         &self,
         _req: crate::model::SqlInstancesSwitchoverRequest,
@@ -358,7 +358,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::reset_ssl_config].
+    /// Implements [super::client::SqlInstancesService::reset_ssl_config].
     fn reset_ssl_config(
         &self,
         _req: crate::model::SqlInstancesResetSslConfigRequest,
@@ -367,7 +367,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::restart].
+    /// Implements [super::client::SqlInstancesService::restart].
     fn restart(
         &self,
         _req: crate::model::SqlInstancesRestartRequest,
@@ -376,7 +376,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::restore_backup].
+    /// Implements [super::client::SqlInstancesService::restore_backup].
     fn restore_backup(
         &self,
         _req: crate::model::SqlInstancesRestoreBackupRequest,
@@ -385,7 +385,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::rotate_server_ca].
+    /// Implements [super::client::SqlInstancesService::rotate_server_ca].
     fn rotate_server_ca(
         &self,
         _req: crate::model::SqlInstancesRotateServerCaRequest,
@@ -394,7 +394,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::start_replica].
+    /// Implements [super::client::SqlInstancesService::start_replica].
     fn start_replica(
         &self,
         _req: crate::model::SqlInstancesStartReplicaRequest,
@@ -403,7 +403,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::stop_replica].
+    /// Implements [super::client::SqlInstancesService::stop_replica].
     fn stop_replica(
         &self,
         _req: crate::model::SqlInstancesStopReplicaRequest,
@@ -412,7 +412,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::truncate_log].
+    /// Implements [super::client::SqlInstancesService::truncate_log].
     fn truncate_log(
         &self,
         _req: crate::model::SqlInstancesTruncateLogRequest,
@@ -421,7 +421,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::update].
+    /// Implements [super::client::SqlInstancesService::update].
     fn update(
         &self,
         _req: crate::model::SqlInstancesUpdateRequest,
@@ -430,7 +430,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::create_ephemeral].
+    /// Implements [super::client::SqlInstancesService::create_ephemeral].
     fn create_ephemeral(
         &self,
         _req: crate::model::SqlInstancesCreateEphemeralCertRequest,
@@ -439,7 +439,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SslCert>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::reschedule_maintenance].
+    /// Implements [super::client::SqlInstancesService::reschedule_maintenance].
     fn reschedule_maintenance(
         &self,
         _req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
@@ -448,7 +448,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::verify_external_sync_settings].
+    /// Implements [super::client::SqlInstancesService::verify_external_sync_settings].
     fn verify_external_sync_settings(
         &self,
         _req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
@@ -457,7 +457,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::start_external_sync].
+    /// Implements [super::client::SqlInstancesService::start_external_sync].
     fn start_external_sync(
         &self,
         _req: crate::model::SqlInstancesStartExternalSyncRequest,
@@ -466,7 +466,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::perform_disk_shrink].
+    /// Implements [super::client::SqlInstancesService::perform_disk_shrink].
     fn perform_disk_shrink(
         &self,
         _req: crate::model::SqlInstancesPerformDiskShrinkRequest,
@@ -475,7 +475,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::get_disk_shrink_config].
+    /// Implements [super::client::SqlInstancesService::get_disk_shrink_config].
     fn get_disk_shrink_config(
         &self,
         _req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
@@ -484,7 +484,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::reset_replica_size].
+    /// Implements [super::client::SqlInstancesService::reset_replica_size].
     fn reset_replica_size(
         &self,
         _req: crate::model::SqlInstancesResetReplicaSizeRequest,
@@ -493,7 +493,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::get_latest_recovery_time].
+    /// Implements [super::client::SqlInstancesService::get_latest_recovery_time].
     fn get_latest_recovery_time(
         &self,
         _req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
@@ -502,7 +502,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::acquire_ssrs_lease].
+    /// Implements [super::client::SqlInstancesService::acquire_ssrs_lease].
     fn acquire_ssrs_lease(
         &self,
         _req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
@@ -511,7 +511,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SqlInstancesAcquireSsrsLeaseResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlInstancesService::release_ssrs_lease].
+    /// Implements [super::client::SqlInstancesService::release_ssrs_lease].
     fn release_ssrs_lease(
         &self,
         _req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
@@ -521,7 +521,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SqlOperationsService].
+/// Defines the trait used to implement [super::client::SqlOperationsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SqlOperationsService`.  In other use-cases, application developers only
@@ -534,7 +534,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
 /// error.
 pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::SqlOperationsService::get].
+    /// Implements [super::client::SqlOperationsService::get].
     fn get(
         &self,
         _req: crate::model::SqlOperationsGetRequest,
@@ -543,7 +543,7 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlOperationsService::list].
+    /// Implements [super::client::SqlOperationsService::list].
     fn list(
         &self,
         _req: crate::model::SqlOperationsListRequest,
@@ -552,7 +552,7 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::OperationsListResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlOperationsService::cancel].
+    /// Implements [super::client::SqlOperationsService::cancel].
     fn cancel(
         &self,
         _req: crate::model::SqlOperationsCancelRequest,
@@ -562,7 +562,7 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SqlSslCertsService].
+/// Defines the trait used to implement [super::client::SqlSslCertsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SqlSslCertsService`.  In other use-cases, application developers only
@@ -575,7 +575,7 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
 /// error.
 pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::SqlSslCertsService::delete].
+    /// Implements [super::client::SqlSslCertsService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlSslCertsDeleteRequest,
@@ -584,7 +584,7 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlSslCertsService::get].
+    /// Implements [super::client::SqlSslCertsService::get].
     fn get(
         &self,
         _req: crate::model::SqlSslCertsGetRequest,
@@ -593,7 +593,7 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SslCert>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlSslCertsService::insert].
+    /// Implements [super::client::SqlSslCertsService::insert].
     fn insert(
         &self,
         _req: crate::model::SqlSslCertsInsertRequest,
@@ -602,7 +602,7 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SslCertsInsertResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlSslCertsService::list].
+    /// Implements [super::client::SqlSslCertsService::list].
     fn list(
         &self,
         _req: crate::model::SqlSslCertsListRequest,
@@ -612,7 +612,7 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SqlTiersService].
+/// Defines the trait used to implement [super::client::SqlTiersService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SqlTiersService`.  In other use-cases, application developers only
@@ -625,7 +625,7 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
 /// error.
 pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::SqlTiersService::list].
+    /// Implements [super::client::SqlTiersService::list].
     fn list(
         &self,
         _req: crate::model::SqlTiersListRequest,
@@ -635,7 +635,7 @@ pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SqlUsersService].
+/// Defines the trait used to implement [super::client::SqlUsersService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SqlUsersService`.  In other use-cases, application developers only
@@ -648,7 +648,7 @@ pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
 /// error.
 pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::SqlUsersService::delete].
+    /// Implements [super::client::SqlUsersService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlUsersDeleteRequest,
@@ -657,7 +657,7 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlUsersService::get].
+    /// Implements [super::client::SqlUsersService::get].
     fn get(
         &self,
         _req: crate::model::SqlUsersGetRequest,
@@ -666,7 +666,7 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::User>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlUsersService::insert].
+    /// Implements [super::client::SqlUsersService::insert].
     fn insert(
         &self,
         _req: crate::model::SqlUsersInsertRequest,
@@ -675,7 +675,7 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlUsersService::list].
+    /// Implements [super::client::SqlUsersService::list].
     fn list(
         &self,
         _req: crate::model::SqlUsersListRequest,
@@ -684,7 +684,7 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::UsersListResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SqlUsersService::update].
+    /// Implements [super::client::SqlUsersService::update].
     fn update(
         &self,
         _req: crate::model::SqlUsersUpdateRequest,

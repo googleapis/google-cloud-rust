@@ -192,9 +192,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AccessContextManager] also implement [AccessContextManager].
+/// All implementations of [super::AccessContextManager] also implement [AccessContextManager].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AccessContextManager> AccessContextManager for T {
+impl<T: super::AccessContextManager> AccessContextManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_access_policies(
         &self,

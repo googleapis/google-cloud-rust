@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudRedis](crate::stubs::CloudRedis) using a [gclient::ReqwestClient].
+/// Implements [CloudRedis](super::stubs::CloudRedis) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudRedis {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudRedis {
     }
 }
 
-impl crate::stubs::CloudRedis for CloudRedis {
+impl super::stubs::CloudRedis for CloudRedis {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ServiceUsage](crate::stubs::ServiceUsage) using a [gclient::ReqwestClient].
+/// Implements [ServiceUsage](super::stubs::ServiceUsage) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceUsage {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ServiceUsage {
     }
 }
 
-impl crate::stubs::ServiceUsage for ServiceUsage {
+impl super::stubs::ServiceUsage for ServiceUsage {
     async fn enable_service(
         &self,
         req: crate::model::EnableServiceRequest,

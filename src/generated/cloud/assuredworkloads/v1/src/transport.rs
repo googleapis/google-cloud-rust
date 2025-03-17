@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AssuredWorkloadsService](crate::stubs::AssuredWorkloadsService) using a [gclient::ReqwestClient].
+/// Implements [AssuredWorkloadsService](super::stubs::AssuredWorkloadsService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AssuredWorkloadsService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl AssuredWorkloadsService {
     }
 }
 
-impl crate::stubs::AssuredWorkloadsService for AssuredWorkloadsService {
+impl super::stubs::AssuredWorkloadsService for AssuredWorkloadsService {
     async fn create_workload(
         &self,
         req: crate::model::CreateWorkloadRequest,

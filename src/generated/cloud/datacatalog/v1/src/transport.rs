@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataCatalog](crate::stubs::DataCatalog) using a [gclient::ReqwestClient].
+/// Implements [DataCatalog](super::stubs::DataCatalog) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DataCatalog {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataCatalog {
     }
 }
 
-impl crate::stubs::DataCatalog for DataCatalog {
+impl super::stubs::DataCatalog for DataCatalog {
     async fn search_catalog(
         &self,
         req: crate::model::SearchCatalogRequest,
@@ -976,7 +976,7 @@ impl crate::stubs::DataCatalog for DataCatalog {
     }
 }
 
-/// Implements [PolicyTagManager](crate::stubs::PolicyTagManager) using a [gclient::ReqwestClient].
+/// Implements [PolicyTagManager](super::stubs::PolicyTagManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyTagManager {
     inner: gclient::ReqwestClient,
@@ -997,7 +997,7 @@ impl PolicyTagManager {
     }
 }
 
-impl crate::stubs::PolicyTagManager for PolicyTagManager {
+impl super::stubs::PolicyTagManager for PolicyTagManager {
     async fn create_taxonomy(
         &self,
         req: crate::model::CreateTaxonomyRequest,
@@ -1383,7 +1383,7 @@ impl crate::stubs::PolicyTagManager for PolicyTagManager {
     }
 }
 
-/// Implements [PolicyTagManagerSerialization](crate::stubs::PolicyTagManagerSerialization) using a [gclient::ReqwestClient].
+/// Implements [PolicyTagManagerSerialization](super::stubs::PolicyTagManagerSerialization) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PolicyTagManagerSerialization {
     inner: gclient::ReqwestClient,
@@ -1404,7 +1404,7 @@ impl PolicyTagManagerSerialization {
     }
 }
 
-impl crate::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerialization {
+impl super::stubs::PolicyTagManagerSerialization for PolicyTagManagerSerialization {
     async fn replace_taxonomy(
         &self,
         req: crate::model::ReplaceTaxonomyRequest,

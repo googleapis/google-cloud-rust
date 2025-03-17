@@ -18,10 +18,10 @@ pub mod gateway_control {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::GatewayControl] request builders.
+    /// Common implementation for [super::super::client::GatewayControl] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::GatewayControl>,
+        stub: Arc<dyn super::super::stubs::dynamic::GatewayControl>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod gateway_control {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GatewayControl>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GatewayControl>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod gateway_control {
     pub struct GenerateCredentials(RequestBuilder<crate::model::GenerateCredentialsRequest>);
 
     impl GenerateCredentials {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GatewayControl>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GatewayControl>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

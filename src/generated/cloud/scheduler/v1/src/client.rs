@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudScheduler {
-    inner: Arc<dyn crate::stubs::dynamic::CloudScheduler>,
+    inner: Arc<dyn super::stubs::dynamic::CloudScheduler>,
 }
 
 impl CloudScheduler {
@@ -60,7 +60,7 @@ impl CloudScheduler {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CloudScheduler + 'static,
+        T: super::stubs::CloudScheduler + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl CloudScheduler {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CloudScheduler>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CloudScheduler>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,24 +78,24 @@ impl CloudScheduler {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudScheduler> {
-        crate::transport::CloudScheduler::new(conf).await
+    ) -> Result<impl super::stubs::CloudScheduler> {
+        super::transport::CloudScheduler::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudScheduler> {
+    ) -> Result<impl super::stubs::CloudScheduler> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CloudScheduler::new)
+            .map(super::tracing::CloudScheduler::new)
     }
 
     /// Lists jobs.
     pub fn list_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_scheduler::ListJobs {
-        crate::builders::cloud_scheduler::ListJobs::new(self.inner.clone())
+    ) -> super::builders::cloud_scheduler::ListJobs {
+        super::builders::cloud_scheduler::ListJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -103,16 +103,16 @@ impl CloudScheduler {
     pub fn get_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_scheduler::GetJob {
-        crate::builders::cloud_scheduler::GetJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_scheduler::GetJob {
+        super::builders::cloud_scheduler::GetJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a job.
     pub fn create_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_scheduler::CreateJob {
-        crate::builders::cloud_scheduler::CreateJob::new(self.inner.clone())
+    ) -> super::builders::cloud_scheduler::CreateJob {
+        super::builders::cloud_scheduler::CreateJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -132,16 +132,16 @@ impl CloudScheduler {
     pub fn update_job(
         &self,
         job: impl Into<crate::model::Job>,
-    ) -> crate::builders::cloud_scheduler::UpdateJob {
-        crate::builders::cloud_scheduler::UpdateJob::new(self.inner.clone()).set_job(job.into())
+    ) -> super::builders::cloud_scheduler::UpdateJob {
+        super::builders::cloud_scheduler::UpdateJob::new(self.inner.clone()).set_job(job.into())
     }
 
     /// Deletes a job.
     pub fn delete_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_scheduler::DeleteJob {
-        crate::builders::cloud_scheduler::DeleteJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_scheduler::DeleteJob {
+        super::builders::cloud_scheduler::DeleteJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Pauses a job.
@@ -162,8 +162,8 @@ impl CloudScheduler {
     pub fn pause_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_scheduler::PauseJob {
-        crate::builders::cloud_scheduler::PauseJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_scheduler::PauseJob {
+        super::builders::cloud_scheduler::PauseJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Resume a job.
@@ -182,8 +182,8 @@ impl CloudScheduler {
     pub fn resume_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_scheduler::ResumeJob {
-        crate::builders::cloud_scheduler::ResumeJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_scheduler::ResumeJob {
+        super::builders::cloud_scheduler::ResumeJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Forces a job to run now.
@@ -193,16 +193,16 @@ impl CloudScheduler {
     pub fn run_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_scheduler::RunJob {
-        crate::builders::cloud_scheduler::RunJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_scheduler::RunJob {
+        super::builders::cloud_scheduler::RunJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_scheduler::ListLocations {
-        crate::builders::cloud_scheduler::ListLocations::new(self.inner.clone())
+    ) -> super::builders::cloud_scheduler::ListLocations {
+        super::builders::cloud_scheduler::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -210,7 +210,7 @@ impl CloudScheduler {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_scheduler::GetLocation {
-        crate::builders::cloud_scheduler::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_scheduler::GetLocation {
+        super::builders::cloud_scheduler::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 }

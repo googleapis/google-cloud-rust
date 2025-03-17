@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ModelArmor](crate::stubs::ModelArmor) using a [gclient::ReqwestClient].
+/// Implements [ModelArmor](super::stubs::ModelArmor) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ModelArmor {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ModelArmor {
     }
 }
 
-impl crate::stubs::ModelArmor for ModelArmor {
+impl super::stubs::ModelArmor for ModelArmor {
     async fn list_templates(
         &self,
         req: crate::model::ListTemplatesRequest,

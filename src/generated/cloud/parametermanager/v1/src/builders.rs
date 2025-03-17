@@ -18,10 +18,10 @@ pub mod parameter_manager {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ParameterManager] request builders.
+    /// Common implementation for [super::super::client::ParameterManager] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ParameterManager>,
+        stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod parameter_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod parameter_manager {
     pub struct ListParameters(RequestBuilder<crate::model::ListParametersRequest>);
 
     impl ListParameters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -123,7 +123,7 @@ pub mod parameter_manager {
     pub struct GetParameter(RequestBuilder<crate::model::GetParameterRequest>);
 
     impl GetParameter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -164,7 +164,7 @@ pub mod parameter_manager {
     pub struct CreateParameter(RequestBuilder<crate::model::CreateParameterRequest>);
 
     impl CreateParameter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -226,7 +226,7 @@ pub mod parameter_manager {
     pub struct UpdateParameter(RequestBuilder<crate::model::UpdateParameterRequest>);
 
     impl UpdateParameter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -285,7 +285,7 @@ pub mod parameter_manager {
     pub struct DeleteParameter(RequestBuilder<crate::model::DeleteParameterRequest>);
 
     impl DeleteParameter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -332,7 +332,7 @@ pub mod parameter_manager {
     pub struct ListParameterVersions(RequestBuilder<crate::model::ListParameterVersionsRequest>);
 
     impl ListParameterVersions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -414,7 +414,7 @@ pub mod parameter_manager {
     pub struct GetParameterVersion(RequestBuilder<crate::model::GetParameterVersionRequest>);
 
     impl GetParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -464,7 +464,7 @@ pub mod parameter_manager {
     pub struct RenderParameterVersion(RequestBuilder<crate::model::RenderParameterVersionRequest>);
 
     impl RenderParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -508,7 +508,7 @@ pub mod parameter_manager {
     pub struct CreateParameterVersion(RequestBuilder<crate::model::CreateParameterVersionRequest>);
 
     impl CreateParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -575,7 +575,7 @@ pub mod parameter_manager {
     pub struct UpdateParameterVersion(RequestBuilder<crate::model::UpdateParameterVersionRequest>);
 
     impl UpdateParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -639,7 +639,7 @@ pub mod parameter_manager {
     pub struct DeleteParameterVersion(RequestBuilder<crate::model::DeleteParameterVersionRequest>);
 
     impl DeleteParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -689,7 +689,7 @@ pub mod parameter_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -765,7 +765,7 @@ pub mod parameter_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ParameterManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

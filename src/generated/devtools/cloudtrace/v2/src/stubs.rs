@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::TraceService].
+/// Defines the trait used to implement [super::client::TraceService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TraceService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TraceService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TraceService::batch_write_spans].
+    /// Implements [super::client::TraceService::batch_write_spans].
     fn batch_write_spans(
         &self,
         _req: crate::model::BatchWriteSpansRequest,
@@ -49,7 +49,7 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TraceService::create_span].
+    /// Implements [super::client::TraceService::create_span].
     fn create_span(
         &self,
         _req: crate::model::Span,

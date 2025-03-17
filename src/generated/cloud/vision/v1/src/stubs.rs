@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ImageAnnotator].
+/// Defines the trait used to implement [super::client::ImageAnnotator].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ImageAnnotator`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ImageAnnotator::batch_annotate_images].
+    /// Implements [super::client::ImageAnnotator::batch_annotate_images].
     fn batch_annotate_images(
         &self,
         _req: crate::model::BatchAnnotateImagesRequest,
@@ -53,7 +53,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ImageAnnotator::batch_annotate_files].
+    /// Implements [super::client::ImageAnnotator::batch_annotate_files].
     fn batch_annotate_files(
         &self,
         _req: crate::model::BatchAnnotateFilesRequest,
@@ -65,7 +65,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ImageAnnotator::async_batch_annotate_images].
+    /// Implements [super::client::ImageAnnotator::async_batch_annotate_images].
     fn async_batch_annotate_images(
         &self,
         _req: crate::model::AsyncBatchAnnotateImagesRequest,
@@ -77,7 +77,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ImageAnnotator::async_batch_annotate_files].
+    /// Implements [super::client::ImageAnnotator::async_batch_annotate_files].
     fn async_batch_annotate_files(
         &self,
         _req: crate::model::AsyncBatchAnnotateFilesRequest,
@@ -89,7 +89,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ImageAnnotator::get_operation].
+    /// Implements [super::client::ImageAnnotator::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -124,7 +124,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ProductSearch].
+/// Defines the trait used to implement [super::client::ProductSearch].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ProductSearch`.  In other use-cases, application developers only
@@ -136,7 +136,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ProductSearch: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ProductSearch::create_product_set].
+    /// Implements [super::client::ProductSearch::create_product_set].
     fn create_product_set(
         &self,
         _req: crate::model::CreateProductSetRequest,
@@ -147,7 +147,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::list_product_sets].
+    /// Implements [super::client::ProductSearch::list_product_sets].
     fn list_product_sets(
         &self,
         _req: crate::model::ListProductSetsRequest,
@@ -159,7 +159,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ProductSearch::get_product_set].
+    /// Implements [super::client::ProductSearch::get_product_set].
     fn get_product_set(
         &self,
         _req: crate::model::GetProductSetRequest,
@@ -170,7 +170,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::update_product_set].
+    /// Implements [super::client::ProductSearch::update_product_set].
     fn update_product_set(
         &self,
         _req: crate::model::UpdateProductSetRequest,
@@ -181,7 +181,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::delete_product_set].
+    /// Implements [super::client::ProductSearch::delete_product_set].
     fn delete_product_set(
         &self,
         _req: crate::model::DeleteProductSetRequest,
@@ -190,7 +190,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ProductSearch::create_product].
+    /// Implements [super::client::ProductSearch::create_product].
     fn create_product(
         &self,
         _req: crate::model::CreateProductRequest,
@@ -201,7 +201,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::list_products].
+    /// Implements [super::client::ProductSearch::list_products].
     fn list_products(
         &self,
         _req: crate::model::ListProductsRequest,
@@ -213,7 +213,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::get_product].
+    /// Implements [super::client::ProductSearch::get_product].
     fn get_product(
         &self,
         _req: crate::model::GetProductRequest,
@@ -224,7 +224,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::update_product].
+    /// Implements [super::client::ProductSearch::update_product].
     fn update_product(
         &self,
         _req: crate::model::UpdateProductRequest,
@@ -235,7 +235,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::delete_product].
+    /// Implements [super::client::ProductSearch::delete_product].
     fn delete_product(
         &self,
         _req: crate::model::DeleteProductRequest,
@@ -244,7 +244,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ProductSearch::create_reference_image].
+    /// Implements [super::client::ProductSearch::create_reference_image].
     fn create_reference_image(
         &self,
         _req: crate::model::CreateReferenceImageRequest,
@@ -255,7 +255,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::delete_reference_image].
+    /// Implements [super::client::ProductSearch::delete_reference_image].
     fn delete_reference_image(
         &self,
         _req: crate::model::DeleteReferenceImageRequest,
@@ -264,7 +264,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ProductSearch::list_reference_images].
+    /// Implements [super::client::ProductSearch::list_reference_images].
     fn list_reference_images(
         &self,
         _req: crate::model::ListReferenceImagesRequest,
@@ -276,7 +276,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ProductSearch::get_reference_image].
+    /// Implements [super::client::ProductSearch::get_reference_image].
     fn get_reference_image(
         &self,
         _req: crate::model::GetReferenceImageRequest,
@@ -287,7 +287,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::add_product_to_product_set].
+    /// Implements [super::client::ProductSearch::add_product_to_product_set].
     fn add_product_to_product_set(
         &self,
         _req: crate::model::AddProductToProductSetRequest,
@@ -296,7 +296,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ProductSearch::remove_product_from_product_set].
+    /// Implements [super::client::ProductSearch::remove_product_from_product_set].
     fn remove_product_from_product_set(
         &self,
         _req: crate::model::RemoveProductFromProductSetRequest,
@@ -305,7 +305,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ProductSearch::list_products_in_product_set].
+    /// Implements [super::client::ProductSearch::list_products_in_product_set].
     fn list_products_in_product_set(
         &self,
         _req: crate::model::ListProductsInProductSetRequest,
@@ -318,7 +318,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ProductSearch::import_product_sets].
+    /// Implements [super::client::ProductSearch::import_product_sets].
     fn import_product_sets(
         &self,
         _req: crate::model::ImportProductSetsRequest,
@@ -330,7 +330,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::purge_products].
+    /// Implements [super::client::ProductSearch::purge_products].
     fn purge_products(
         &self,
         _req: crate::model::PurgeProductsRequest,
@@ -342,7 +342,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProductSearch::get_operation].
+    /// Implements [super::client::ProductSearch::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

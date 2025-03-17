@@ -18,10 +18,10 @@ pub mod rapid_migration_assessment {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::RapidMigrationAssessment] request builders.
+    /// Common implementation for [super::super::client::RapidMigrationAssessment] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>,
+        stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod rapid_migration_assessment {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod rapid_migration_assessment {
     pub struct CreateCollector(RequestBuilder<crate::model::CreateCollectorRequest>);
 
     impl CreateCollector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +69,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_collector][crate::client::RapidMigrationAssessment::create_collector].
+        /// on [create_collector][super::super::client::RapidMigrationAssessment::create_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_collector(self.0.request, self.0.options)
@@ -144,7 +148,9 @@ pub mod rapid_migration_assessment {
     pub struct CreateAnnotation(RequestBuilder<crate::model::CreateAnnotationRequest>);
 
     impl CreateAnnotation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -168,7 +174,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_annotation][crate::client::RapidMigrationAssessment::create_annotation].
+        /// on [create_annotation][super::super::client::RapidMigrationAssessment::create_annotation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_annotation(self.0.request, self.0.options)
@@ -241,7 +247,9 @@ pub mod rapid_migration_assessment {
     pub struct GetAnnotation(RequestBuilder<crate::model::GetAnnotationRequest>);
 
     impl GetAnnotation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -282,7 +290,9 @@ pub mod rapid_migration_assessment {
     pub struct ListCollectors(RequestBuilder<crate::model::ListCollectorsRequest>);
 
     impl ListCollectors {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -361,7 +371,9 @@ pub mod rapid_migration_assessment {
     pub struct GetCollector(RequestBuilder<crate::model::GetCollectorRequest>);
 
     impl GetCollector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -402,7 +414,9 @@ pub mod rapid_migration_assessment {
     pub struct UpdateCollector(RequestBuilder<crate::model::UpdateCollectorRequest>);
 
     impl UpdateCollector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -423,7 +437,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_collector][crate::client::RapidMigrationAssessment::update_collector].
+        /// on [update_collector][super::super::client::RapidMigrationAssessment::update_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_collector(self.0.request, self.0.options)
@@ -499,7 +513,9 @@ pub mod rapid_migration_assessment {
     pub struct DeleteCollector(RequestBuilder<crate::model::DeleteCollectorRequest>);
 
     impl DeleteCollector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -520,7 +536,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_collector][crate::client::RapidMigrationAssessment::delete_collector].
+        /// on [delete_collector][super::super::client::RapidMigrationAssessment::delete_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_collector(self.0.request, self.0.options)
@@ -584,7 +600,9 @@ pub mod rapid_migration_assessment {
     pub struct ResumeCollector(RequestBuilder<crate::model::ResumeCollectorRequest>);
 
     impl ResumeCollector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -605,7 +623,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_collector][crate::client::RapidMigrationAssessment::resume_collector].
+        /// on [resume_collector][super::super::client::RapidMigrationAssessment::resume_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_collector(self.0.request, self.0.options)
@@ -669,7 +687,9 @@ pub mod rapid_migration_assessment {
     pub struct RegisterCollector(RequestBuilder<crate::model::RegisterCollectorRequest>);
 
     impl RegisterCollector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -693,7 +713,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [register_collector][crate::client::RapidMigrationAssessment::register_collector].
+        /// on [register_collector][super::super::client::RapidMigrationAssessment::register_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .register_collector(self.0.request, self.0.options)
@@ -757,7 +777,9 @@ pub mod rapid_migration_assessment {
     pub struct PauseCollector(RequestBuilder<crate::model::PauseCollectorRequest>);
 
     impl PauseCollector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -778,7 +800,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [pause_collector][crate::client::RapidMigrationAssessment::pause_collector].
+        /// on [pause_collector][super::super::client::RapidMigrationAssessment::pause_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .pause_collector(self.0.request, self.0.options)
@@ -842,7 +864,9 @@ pub mod rapid_migration_assessment {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -918,7 +942,9 @@ pub mod rapid_migration_assessment {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -959,7 +985,9 @@ pub mod rapid_migration_assessment {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1035,7 +1063,9 @@ pub mod rapid_migration_assessment {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1079,7 +1109,9 @@ pub mod rapid_migration_assessment {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1123,7 +1155,9 @@ pub mod rapid_migration_assessment {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RapidMigrationAssessment>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RapidMigrationAssessment>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

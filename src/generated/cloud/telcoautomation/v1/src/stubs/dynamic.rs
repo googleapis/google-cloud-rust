@@ -282,9 +282,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::TelcoAutomation] also implement [TelcoAutomation].
+/// All implementations of [super::TelcoAutomation] also implement [TelcoAutomation].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TelcoAutomation> TelcoAutomation for T {
+impl<T: super::TelcoAutomation> TelcoAutomation for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_orchestration_clusters(
         &self,

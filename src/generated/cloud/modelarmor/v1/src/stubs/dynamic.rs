@@ -84,9 +84,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<location::model::Location>;
 }
 
-/// All implementations of [crate::stubs::ModelArmor] also implement [ModelArmor].
+/// All implementations of [super::ModelArmor] also implement [ModelArmor].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ModelArmor> ModelArmor for T {
+impl<T: super::ModelArmor> ModelArmor for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_templates(
         &self,

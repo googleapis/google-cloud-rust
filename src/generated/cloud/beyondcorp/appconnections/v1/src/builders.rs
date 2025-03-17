@@ -18,10 +18,10 @@ pub mod app_connections_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AppConnectionsService] request builders.
+    /// Common implementation for [super::super::client::AppConnectionsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>,
+        stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod app_connections_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod app_connections_service {
     pub struct ListAppConnections(RequestBuilder<crate::model::ListAppConnectionsRequest>);
 
     impl ListAppConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -126,7 +130,9 @@ pub mod app_connections_service {
     pub struct GetAppConnection(RequestBuilder<crate::model::GetAppConnectionRequest>);
 
     impl GetAppConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -170,7 +176,9 @@ pub mod app_connections_service {
     pub struct CreateAppConnection(RequestBuilder<crate::model::CreateAppConnectionRequest>);
 
     impl CreateAppConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -194,7 +202,7 @@ pub mod app_connections_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_app_connection][crate::client::AppConnectionsService::create_app_connection].
+        /// on [create_app_connection][super::super::client::AppConnectionsService::create_app_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_app_connection(self.0.request, self.0.options)
@@ -282,7 +290,9 @@ pub mod app_connections_service {
     pub struct UpdateAppConnection(RequestBuilder<crate::model::UpdateAppConnectionRequest>);
 
     impl UpdateAppConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -306,7 +316,7 @@ pub mod app_connections_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_app_connection][crate::client::AppConnectionsService::update_app_connection].
+        /// on [update_app_connection][super::super::client::AppConnectionsService::update_app_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_app_connection(self.0.request, self.0.options)
@@ -397,7 +407,9 @@ pub mod app_connections_service {
     pub struct DeleteAppConnection(RequestBuilder<crate::model::DeleteAppConnectionRequest>);
 
     impl DeleteAppConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -421,7 +433,7 @@ pub mod app_connections_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_app_connection][crate::client::AppConnectionsService::delete_app_connection].
+        /// on [delete_app_connection][super::super::client::AppConnectionsService::delete_app_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_app_connection(self.0.request, self.0.options)
@@ -491,7 +503,9 @@ pub mod app_connections_service {
     pub struct ResolveAppConnections(RequestBuilder<crate::model::ResolveAppConnectionsRequest>);
 
     impl ResolveAppConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -567,7 +581,9 @@ pub mod app_connections_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -643,7 +659,9 @@ pub mod app_connections_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -684,7 +702,9 @@ pub mod app_connections_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -743,7 +763,9 @@ pub mod app_connections_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -793,7 +815,9 @@ pub mod app_connections_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -848,7 +872,9 @@ pub mod app_connections_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -924,7 +950,9 @@ pub mod app_connections_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -968,7 +996,9 @@ pub mod app_connections_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1012,7 +1042,9 @@ pub mod app_connections_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AppConnectionsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AppConnectionsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

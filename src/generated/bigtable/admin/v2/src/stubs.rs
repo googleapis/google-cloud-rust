@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::BigtableInstanceAdmin].
+/// Defines the trait used to implement [super::client::BigtableInstanceAdmin].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::BigtableInstanceAdmin`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::BigtableInstanceAdmin::create_instance].
+    /// Implements [super::client::BigtableInstanceAdmin::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -53,7 +53,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::get_instance].
+    /// Implements [super::client::BigtableInstanceAdmin::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -64,7 +64,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::list_instances].
+    /// Implements [super::client::BigtableInstanceAdmin::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -76,7 +76,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::update_instance].
+    /// Implements [super::client::BigtableInstanceAdmin::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::Instance,
@@ -87,7 +87,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::partial_update_instance].
+    /// Implements [super::client::BigtableInstanceAdmin::partial_update_instance].
     fn partial_update_instance(
         &self,
         _req: crate::model::PartialUpdateInstanceRequest,
@@ -99,7 +99,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::delete_instance].
+    /// Implements [super::client::BigtableInstanceAdmin::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -108,7 +108,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::create_cluster].
+    /// Implements [super::client::BigtableInstanceAdmin::create_cluster].
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
@@ -120,7 +120,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::get_cluster].
+    /// Implements [super::client::BigtableInstanceAdmin::get_cluster].
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
@@ -131,7 +131,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::list_clusters].
+    /// Implements [super::client::BigtableInstanceAdmin::list_clusters].
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
@@ -143,7 +143,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::update_cluster].
+    /// Implements [super::client::BigtableInstanceAdmin::update_cluster].
     fn update_cluster(
         &self,
         _req: crate::model::Cluster,
@@ -155,7 +155,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::partial_update_cluster].
+    /// Implements [super::client::BigtableInstanceAdmin::partial_update_cluster].
     fn partial_update_cluster(
         &self,
         _req: crate::model::PartialUpdateClusterRequest,
@@ -167,7 +167,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::delete_cluster].
+    /// Implements [super::client::BigtableInstanceAdmin::delete_cluster].
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
@@ -176,7 +176,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::create_app_profile].
+    /// Implements [super::client::BigtableInstanceAdmin::create_app_profile].
     fn create_app_profile(
         &self,
         _req: crate::model::CreateAppProfileRequest,
@@ -187,7 +187,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::get_app_profile].
+    /// Implements [super::client::BigtableInstanceAdmin::get_app_profile].
     fn get_app_profile(
         &self,
         _req: crate::model::GetAppProfileRequest,
@@ -198,7 +198,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::list_app_profiles].
+    /// Implements [super::client::BigtableInstanceAdmin::list_app_profiles].
     fn list_app_profiles(
         &self,
         _req: crate::model::ListAppProfilesRequest,
@@ -210,7 +210,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::update_app_profile].
+    /// Implements [super::client::BigtableInstanceAdmin::update_app_profile].
     fn update_app_profile(
         &self,
         _req: crate::model::UpdateAppProfileRequest,
@@ -222,7 +222,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::delete_app_profile].
+    /// Implements [super::client::BigtableInstanceAdmin::delete_app_profile].
     fn delete_app_profile(
         &self,
         _req: crate::model::DeleteAppProfileRequest,
@@ -231,7 +231,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::get_iam_policy].
+    /// Implements [super::client::BigtableInstanceAdmin::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -242,7 +242,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::set_iam_policy].
+    /// Implements [super::client::BigtableInstanceAdmin::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -253,7 +253,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::test_iam_permissions].
+    /// Implements [super::client::BigtableInstanceAdmin::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -265,7 +265,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::list_hot_tablets].
+    /// Implements [super::client::BigtableInstanceAdmin::list_hot_tablets].
     fn list_hot_tablets(
         &self,
         _req: crate::model::ListHotTabletsRequest,
@@ -277,7 +277,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::list_operations].
+    /// Implements [super::client::BigtableInstanceAdmin::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -289,7 +289,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::get_operation].
+    /// Implements [super::client::BigtableInstanceAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -301,7 +301,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::delete_operation].
+    /// Implements [super::client::BigtableInstanceAdmin::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -310,7 +310,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableInstanceAdmin::cancel_operation].
+    /// Implements [super::client::BigtableInstanceAdmin::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -342,7 +342,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::BigtableTableAdmin].
+/// Defines the trait used to implement [super::client::BigtableTableAdmin].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::BigtableTableAdmin`.  In other use-cases, application developers only
@@ -354,7 +354,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::BigtableTableAdmin::create_table].
+    /// Implements [super::client::BigtableTableAdmin::create_table].
     fn create_table(
         &self,
         _req: crate::model::CreateTableRequest,
@@ -363,7 +363,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Table>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::create_table_from_snapshot].
+    /// Implements [super::client::BigtableTableAdmin::create_table_from_snapshot].
     fn create_table_from_snapshot(
         &self,
         _req: crate::model::CreateTableFromSnapshotRequest,
@@ -375,7 +375,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::list_tables].
+    /// Implements [super::client::BigtableTableAdmin::list_tables].
     fn list_tables(
         &self,
         _req: crate::model::ListTablesRequest,
@@ -387,7 +387,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::get_table].
+    /// Implements [super::client::BigtableTableAdmin::get_table].
     fn get_table(
         &self,
         _req: crate::model::GetTableRequest,
@@ -396,7 +396,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Table>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::update_table].
+    /// Implements [super::client::BigtableTableAdmin::update_table].
     fn update_table(
         &self,
         _req: crate::model::UpdateTableRequest,
@@ -408,7 +408,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::delete_table].
+    /// Implements [super::client::BigtableTableAdmin::delete_table].
     fn delete_table(
         &self,
         _req: crate::model::DeleteTableRequest,
@@ -417,7 +417,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::undelete_table].
+    /// Implements [super::client::BigtableTableAdmin::undelete_table].
     fn undelete_table(
         &self,
         _req: crate::model::UndeleteTableRequest,
@@ -429,7 +429,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::create_authorized_view].
+    /// Implements [super::client::BigtableTableAdmin::create_authorized_view].
     fn create_authorized_view(
         &self,
         _req: crate::model::CreateAuthorizedViewRequest,
@@ -441,7 +441,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::list_authorized_views].
+    /// Implements [super::client::BigtableTableAdmin::list_authorized_views].
     fn list_authorized_views(
         &self,
         _req: crate::model::ListAuthorizedViewsRequest,
@@ -453,7 +453,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::get_authorized_view].
+    /// Implements [super::client::BigtableTableAdmin::get_authorized_view].
     fn get_authorized_view(
         &self,
         _req: crate::model::GetAuthorizedViewRequest,
@@ -464,7 +464,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::update_authorized_view].
+    /// Implements [super::client::BigtableTableAdmin::update_authorized_view].
     fn update_authorized_view(
         &self,
         _req: crate::model::UpdateAuthorizedViewRequest,
@@ -476,7 +476,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::delete_authorized_view].
+    /// Implements [super::client::BigtableTableAdmin::delete_authorized_view].
     fn delete_authorized_view(
         &self,
         _req: crate::model::DeleteAuthorizedViewRequest,
@@ -485,7 +485,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::modify_column_families].
+    /// Implements [super::client::BigtableTableAdmin::modify_column_families].
     fn modify_column_families(
         &self,
         _req: crate::model::ModifyColumnFamiliesRequest,
@@ -494,7 +494,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Table>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::drop_row_range].
+    /// Implements [super::client::BigtableTableAdmin::drop_row_range].
     fn drop_row_range(
         &self,
         _req: crate::model::DropRowRangeRequest,
@@ -503,7 +503,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::generate_consistency_token].
+    /// Implements [super::client::BigtableTableAdmin::generate_consistency_token].
     fn generate_consistency_token(
         &self,
         _req: crate::model::GenerateConsistencyTokenRequest,
@@ -516,7 +516,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::check_consistency].
+    /// Implements [super::client::BigtableTableAdmin::check_consistency].
     fn check_consistency(
         &self,
         _req: crate::model::CheckConsistencyRequest,
@@ -528,7 +528,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::snapshot_table].
+    /// Implements [super::client::BigtableTableAdmin::snapshot_table].
     fn snapshot_table(
         &self,
         _req: crate::model::SnapshotTableRequest,
@@ -540,7 +540,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::get_snapshot].
+    /// Implements [super::client::BigtableTableAdmin::get_snapshot].
     fn get_snapshot(
         &self,
         _req: crate::model::GetSnapshotRequest,
@@ -551,7 +551,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::list_snapshots].
+    /// Implements [super::client::BigtableTableAdmin::list_snapshots].
     fn list_snapshots(
         &self,
         _req: crate::model::ListSnapshotsRequest,
@@ -563,7 +563,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::delete_snapshot].
+    /// Implements [super::client::BigtableTableAdmin::delete_snapshot].
     fn delete_snapshot(
         &self,
         _req: crate::model::DeleteSnapshotRequest,
@@ -572,7 +572,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::create_backup].
+    /// Implements [super::client::BigtableTableAdmin::create_backup].
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
@@ -584,7 +584,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::get_backup].
+    /// Implements [super::client::BigtableTableAdmin::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -595,7 +595,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::update_backup].
+    /// Implements [super::client::BigtableTableAdmin::update_backup].
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
@@ -606,7 +606,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::delete_backup].
+    /// Implements [super::client::BigtableTableAdmin::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -615,7 +615,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::list_backups].
+    /// Implements [super::client::BigtableTableAdmin::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -627,7 +627,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::restore_table].
+    /// Implements [super::client::BigtableTableAdmin::restore_table].
     fn restore_table(
         &self,
         _req: crate::model::RestoreTableRequest,
@@ -639,7 +639,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::copy_backup].
+    /// Implements [super::client::BigtableTableAdmin::copy_backup].
     fn copy_backup(
         &self,
         _req: crate::model::CopyBackupRequest,
@@ -651,7 +651,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::get_iam_policy].
+    /// Implements [super::client::BigtableTableAdmin::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -662,7 +662,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::set_iam_policy].
+    /// Implements [super::client::BigtableTableAdmin::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -673,7 +673,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::test_iam_permissions].
+    /// Implements [super::client::BigtableTableAdmin::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -685,7 +685,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::list_operations].
+    /// Implements [super::client::BigtableTableAdmin::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -697,7 +697,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::get_operation].
+    /// Implements [super::client::BigtableTableAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -709,7 +709,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::delete_operation].
+    /// Implements [super::client::BigtableTableAdmin::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -718,7 +718,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BigtableTableAdmin::cancel_operation].
+    /// Implements [super::client::BigtableTableAdmin::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

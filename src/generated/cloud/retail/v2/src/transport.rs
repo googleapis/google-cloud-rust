@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AnalyticsService](crate::stubs::AnalyticsService) using a [gclient::ReqwestClient].
+/// Implements [AnalyticsService](super::stubs::AnalyticsService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AnalyticsService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl AnalyticsService {
     }
 }
 
-impl crate::stubs::AnalyticsService for AnalyticsService {
+impl super::stubs::AnalyticsService for AnalyticsService {
     async fn export_analytics_metrics(
         &self,
         req: crate::model::ExportAnalyticsMetricsRequest,
@@ -116,7 +116,7 @@ impl crate::stubs::AnalyticsService for AnalyticsService {
     }
 }
 
-/// Implements [CatalogService](crate::stubs::CatalogService) using a [gclient::ReqwestClient].
+/// Implements [CatalogService](super::stubs::CatalogService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CatalogService {
     inner: gclient::ReqwestClient,
@@ -137,7 +137,7 @@ impl CatalogService {
     }
 }
 
-impl crate::stubs::CatalogService for CatalogService {
+impl super::stubs::CatalogService for CatalogService {
     async fn list_catalogs(
         &self,
         req: crate::model::ListCatalogsRequest,
@@ -455,7 +455,7 @@ impl crate::stubs::CatalogService for CatalogService {
     }
 }
 
-/// Implements [CompletionService](crate::stubs::CompletionService) using a [gclient::ReqwestClient].
+/// Implements [CompletionService](super::stubs::CompletionService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CompletionService {
     inner: gclient::ReqwestClient,
@@ -476,7 +476,7 @@ impl CompletionService {
     }
 }
 
-impl crate::stubs::CompletionService for CompletionService {
+impl super::stubs::CompletionService for CompletionService {
     async fn complete_query(
         &self,
         req: crate::model::CompleteQueryRequest,
@@ -589,7 +589,7 @@ impl crate::stubs::CompletionService for CompletionService {
     }
 }
 
-/// Implements [ControlService](crate::stubs::ControlService) using a [gclient::ReqwestClient].
+/// Implements [ControlService](super::stubs::ControlService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ControlService {
     inner: gclient::ReqwestClient,
@@ -610,7 +610,7 @@ impl ControlService {
     }
 }
 
-impl crate::stubs::ControlService for ControlService {
+impl super::stubs::ControlService for ControlService {
     async fn create_control(
         &self,
         req: crate::model::CreateControlRequest,
@@ -774,7 +774,7 @@ impl crate::stubs::ControlService for ControlService {
     }
 }
 
-/// Implements [GenerativeQuestionService](crate::stubs::GenerativeQuestionService) using a [gclient::ReqwestClient].
+/// Implements [GenerativeQuestionService](super::stubs::GenerativeQuestionService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct GenerativeQuestionService {
     inner: gclient::ReqwestClient,
@@ -795,7 +795,7 @@ impl GenerativeQuestionService {
     }
 }
 
-impl crate::stubs::GenerativeQuestionService for GenerativeQuestionService {
+impl super::stubs::GenerativeQuestionService for GenerativeQuestionService {
     async fn update_generative_questions_feature_config(
         &self,
         req: crate::model::UpdateGenerativeQuestionsFeatureConfigRequest,
@@ -986,7 +986,7 @@ impl crate::stubs::GenerativeQuestionService for GenerativeQuestionService {
     }
 }
 
-/// Implements [ModelService](crate::stubs::ModelService) using a [gclient::ReqwestClient].
+/// Implements [ModelService](super::stubs::ModelService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ModelService {
     inner: gclient::ReqwestClient,
@@ -1007,7 +1007,7 @@ impl ModelService {
     }
 }
 
-impl crate::stubs::ModelService for ModelService {
+impl super::stubs::ModelService for ModelService {
     async fn create_model(
         &self,
         req: crate::model::CreateModelRequest,
@@ -1228,7 +1228,7 @@ impl crate::stubs::ModelService for ModelService {
     }
 }
 
-/// Implements [PredictionService](crate::stubs::PredictionService) using a [gclient::ReqwestClient].
+/// Implements [PredictionService](super::stubs::PredictionService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PredictionService {
     inner: gclient::ReqwestClient,
@@ -1249,7 +1249,7 @@ impl PredictionService {
     }
 }
 
-impl crate::stubs::PredictionService for PredictionService {
+impl super::stubs::PredictionService for PredictionService {
     async fn predict(
         &self,
         req: crate::model::PredictRequest,
@@ -1312,7 +1312,7 @@ impl crate::stubs::PredictionService for PredictionService {
     }
 }
 
-/// Implements [ProductService](crate::stubs::ProductService) using a [gclient::ReqwestClient].
+/// Implements [ProductService](super::stubs::ProductService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ProductService {
     inner: gclient::ReqwestClient,
@@ -1333,7 +1333,7 @@ impl ProductService {
     }
 }
 
-impl crate::stubs::ProductService for ProductService {
+impl super::stubs::ProductService for ProductService {
     async fn create_product(
         &self,
         req: crate::model::CreateProductRequest,
@@ -1668,7 +1668,7 @@ impl crate::stubs::ProductService for ProductService {
     }
 }
 
-/// Implements [SearchService](crate::stubs::SearchService) using a [gclient::ReqwestClient].
+/// Implements [SearchService](super::stubs::SearchService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SearchService {
     inner: gclient::ReqwestClient,
@@ -1689,7 +1689,7 @@ impl SearchService {
     }
 }
 
-impl crate::stubs::SearchService for SearchService {
+impl super::stubs::SearchService for SearchService {
     async fn search(
         &self,
         req: crate::model::SearchRequest,
@@ -1752,7 +1752,7 @@ impl crate::stubs::SearchService for SearchService {
     }
 }
 
-/// Implements [ServingConfigService](crate::stubs::ServingConfigService) using a [gclient::ReqwestClient].
+/// Implements [ServingConfigService](super::stubs::ServingConfigService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ServingConfigService {
     inner: gclient::ReqwestClient,
@@ -1773,7 +1773,7 @@ impl ServingConfigService {
     }
 }
 
-impl crate::stubs::ServingConfigService for ServingConfigService {
+impl super::stubs::ServingConfigService for ServingConfigService {
     async fn create_serving_config(
         &self,
         req: crate::model::CreateServingConfigRequest,
@@ -1979,7 +1979,7 @@ impl crate::stubs::ServingConfigService for ServingConfigService {
     }
 }
 
-/// Implements [UserEventService](crate::stubs::UserEventService) using a [gclient::ReqwestClient].
+/// Implements [UserEventService](super::stubs::UserEventService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct UserEventService {
     inner: gclient::ReqwestClient,
@@ -2000,7 +2000,7 @@ impl UserEventService {
     }
 }
 
-impl crate::stubs::UserEventService for UserEventService {
+impl super::stubs::UserEventService for UserEventService {
     async fn write_user_event(
         &self,
         req: crate::model::WriteUserEventRequest,

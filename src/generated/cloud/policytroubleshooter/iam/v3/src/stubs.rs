@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::PolicyTroubleshooter].
+/// Defines the trait used to implement [super::client::PolicyTroubleshooter].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PolicyTroubleshooter`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PolicyTroubleshooter: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PolicyTroubleshooter::troubleshoot_iam_policy].
+    /// Implements [super::client::PolicyTroubleshooter::troubleshoot_iam_policy].
     fn troubleshoot_iam_policy(
         &self,
         _req: crate::model::TroubleshootIamPolicyRequest,

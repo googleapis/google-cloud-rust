@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Workflows](crate::stubs::Workflows) using a [gclient::ReqwestClient].
+/// Implements [Workflows](super::stubs::Workflows) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Workflows {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Workflows {
     }
 }
 
-impl crate::stubs::Workflows for Workflows {
+impl super::stubs::Workflows for Workflows {
     async fn list_workflows(
         &self,
         req: crate::model::ListWorkflowsRequest,

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudRedisCluster].
+/// Defines the trait used to implement [super::client::CloudRedisCluster].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudRedisCluster`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudRedisCluster::list_clusters].
+    /// Implements [super::client::CloudRedisCluster::list_clusters].
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
@@ -53,7 +53,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::get_cluster].
+    /// Implements [super::client::CloudRedisCluster::get_cluster].
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
@@ -64,7 +64,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::update_cluster].
+    /// Implements [super::client::CloudRedisCluster::update_cluster].
     fn update_cluster(
         &self,
         _req: crate::model::UpdateClusterRequest,
@@ -76,7 +76,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::delete_cluster].
+    /// Implements [super::client::CloudRedisCluster::delete_cluster].
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
@@ -88,7 +88,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::create_cluster].
+    /// Implements [super::client::CloudRedisCluster::create_cluster].
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
@@ -100,7 +100,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::get_cluster_certificate_authority].
+    /// Implements [super::client::CloudRedisCluster::get_cluster_certificate_authority].
     fn get_cluster_certificate_authority(
         &self,
         _req: crate::model::GetClusterCertificateAuthorityRequest,
@@ -112,7 +112,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::reschedule_cluster_maintenance].
+    /// Implements [super::client::CloudRedisCluster::reschedule_cluster_maintenance].
     fn reschedule_cluster_maintenance(
         &self,
         _req: crate::model::RescheduleClusterMaintenanceRequest,
@@ -124,7 +124,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::list_backup_collections].
+    /// Implements [super::client::CloudRedisCluster::list_backup_collections].
     fn list_backup_collections(
         &self,
         _req: crate::model::ListBackupCollectionsRequest,
@@ -136,7 +136,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::get_backup_collection].
+    /// Implements [super::client::CloudRedisCluster::get_backup_collection].
     fn get_backup_collection(
         &self,
         _req: crate::model::GetBackupCollectionRequest,
@@ -148,7 +148,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::list_backups].
+    /// Implements [super::client::CloudRedisCluster::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -160,7 +160,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::get_backup].
+    /// Implements [super::client::CloudRedisCluster::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -171,7 +171,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::delete_backup].
+    /// Implements [super::client::CloudRedisCluster::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -183,7 +183,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::export_backup].
+    /// Implements [super::client::CloudRedisCluster::export_backup].
     fn export_backup(
         &self,
         _req: crate::model::ExportBackupRequest,
@@ -195,7 +195,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::backup_cluster].
+    /// Implements [super::client::CloudRedisCluster::backup_cluster].
     fn backup_cluster(
         &self,
         _req: crate::model::BackupClusterRequest,
@@ -207,7 +207,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::list_locations].
+    /// Implements [super::client::CloudRedisCluster::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -219,7 +219,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::get_location].
+    /// Implements [super::client::CloudRedisCluster::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -230,7 +230,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::list_operations].
+    /// Implements [super::client::CloudRedisCluster::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -242,7 +242,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::get_operation].
+    /// Implements [super::client::CloudRedisCluster::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -254,7 +254,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::delete_operation].
+    /// Implements [super::client::CloudRedisCluster::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -263,7 +263,7 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudRedisCluster::cancel_operation].
+    /// Implements [super::client::CloudRedisCluster::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

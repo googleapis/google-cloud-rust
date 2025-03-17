@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::InstanceAdmin].
+/// Defines the trait used to implement [super::client::InstanceAdmin].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::InstanceAdmin`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::InstanceAdmin::list_instance_configs].
+    /// Implements [super::client::InstanceAdmin::list_instance_configs].
     fn list_instance_configs(
         &self,
         _req: crate::model::ListInstanceConfigsRequest,
@@ -53,7 +53,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::InstanceAdmin::get_instance_config].
+    /// Implements [super::client::InstanceAdmin::get_instance_config].
     fn get_instance_config(
         &self,
         _req: crate::model::GetInstanceConfigRequest,
@@ -64,7 +64,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::create_instance_config].
+    /// Implements [super::client::InstanceAdmin::create_instance_config].
     fn create_instance_config(
         &self,
         _req: crate::model::CreateInstanceConfigRequest,
@@ -76,7 +76,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::update_instance_config].
+    /// Implements [super::client::InstanceAdmin::update_instance_config].
     fn update_instance_config(
         &self,
         _req: crate::model::UpdateInstanceConfigRequest,
@@ -88,7 +88,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::delete_instance_config].
+    /// Implements [super::client::InstanceAdmin::delete_instance_config].
     fn delete_instance_config(
         &self,
         _req: crate::model::DeleteInstanceConfigRequest,
@@ -97,7 +97,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::InstanceAdmin::list_instance_config_operations].
+    /// Implements [super::client::InstanceAdmin::list_instance_config_operations].
     fn list_instance_config_operations(
         &self,
         _req: crate::model::ListInstanceConfigOperationsRequest,
@@ -110,7 +110,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::InstanceAdmin::list_instances].
+    /// Implements [super::client::InstanceAdmin::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -122,7 +122,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::list_instance_partitions].
+    /// Implements [super::client::InstanceAdmin::list_instance_partitions].
     fn list_instance_partitions(
         &self,
         _req: crate::model::ListInstancePartitionsRequest,
@@ -134,7 +134,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::InstanceAdmin::get_instance].
+    /// Implements [super::client::InstanceAdmin::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -145,7 +145,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::create_instance].
+    /// Implements [super::client::InstanceAdmin::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -157,7 +157,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::update_instance].
+    /// Implements [super::client::InstanceAdmin::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -169,7 +169,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::delete_instance].
+    /// Implements [super::client::InstanceAdmin::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -178,7 +178,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::InstanceAdmin::set_iam_policy].
+    /// Implements [super::client::InstanceAdmin::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -189,7 +189,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::get_iam_policy].
+    /// Implements [super::client::InstanceAdmin::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -200,7 +200,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::test_iam_permissions].
+    /// Implements [super::client::InstanceAdmin::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -212,7 +212,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::InstanceAdmin::get_instance_partition].
+    /// Implements [super::client::InstanceAdmin::get_instance_partition].
     fn get_instance_partition(
         &self,
         _req: crate::model::GetInstancePartitionRequest,
@@ -224,7 +224,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::create_instance_partition].
+    /// Implements [super::client::InstanceAdmin::create_instance_partition].
     fn create_instance_partition(
         &self,
         _req: crate::model::CreateInstancePartitionRequest,
@@ -236,7 +236,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::delete_instance_partition].
+    /// Implements [super::client::InstanceAdmin::delete_instance_partition].
     fn delete_instance_partition(
         &self,
         _req: crate::model::DeleteInstancePartitionRequest,
@@ -245,7 +245,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::InstanceAdmin::update_instance_partition].
+    /// Implements [super::client::InstanceAdmin::update_instance_partition].
     fn update_instance_partition(
         &self,
         _req: crate::model::UpdateInstancePartitionRequest,
@@ -257,7 +257,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::list_instance_partition_operations].
+    /// Implements [super::client::InstanceAdmin::list_instance_partition_operations].
     fn list_instance_partition_operations(
         &self,
         _req: crate::model::ListInstancePartitionOperationsRequest,
@@ -270,7 +270,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::InstanceAdmin::move_instance].
+    /// Implements [super::client::InstanceAdmin::move_instance].
     fn move_instance(
         &self,
         _req: crate::model::MoveInstanceRequest,
@@ -282,7 +282,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::list_operations].
+    /// Implements [super::client::InstanceAdmin::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -294,7 +294,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::InstanceAdmin::get_operation].
+    /// Implements [super::client::InstanceAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -306,7 +306,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::InstanceAdmin::delete_operation].
+    /// Implements [super::client::InstanceAdmin::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -315,7 +315,7 @@ pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::InstanceAdmin::cancel_operation].
+    /// Implements [super::client::InstanceAdmin::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

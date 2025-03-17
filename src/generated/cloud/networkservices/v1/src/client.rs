@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DepService {
-    inner: Arc<dyn crate::stubs::dynamic::DepService>,
+    inner: Arc<dyn super::stubs::dynamic::DepService>,
 }
 
 impl DepService {
@@ -59,7 +59,7 @@ impl DepService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::DepService + 'static,
+        T: super::stubs::DepService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl DepService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::DepService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::DepService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl DepService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DepService> {
-        crate::transport::DepService::new(conf).await
+    ) -> Result<impl super::stubs::DepService> {
+        super::transport::DepService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DepService> {
+    ) -> Result<impl super::stubs::DepService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::DepService::new)
+            .map(super::tracing::DepService::new)
     }
 
     /// Lists `LbTrafficExtension` resources in a given project and location.
     pub fn list_lb_traffic_extensions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::ListLbTrafficExtensions {
-        crate::builders::dep_service::ListLbTrafficExtensions::new(self.inner.clone())
+    ) -> super::builders::dep_service::ListLbTrafficExtensions {
+        super::builders::dep_service::ListLbTrafficExtensions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl DepService {
     pub fn get_lb_traffic_extension(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::GetLbTrafficExtension {
-        crate::builders::dep_service::GetLbTrafficExtension::new(self.inner.clone())
+    ) -> super::builders::dep_service::GetLbTrafficExtension {
+        super::builders::dep_service::GetLbTrafficExtension::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -122,8 +122,8 @@ impl DepService {
     pub fn create_lb_traffic_extension(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::CreateLbTrafficExtension {
-        crate::builders::dep_service::CreateLbTrafficExtension::new(self.inner.clone())
+    ) -> super::builders::dep_service::CreateLbTrafficExtension {
+        super::builders::dep_service::CreateLbTrafficExtension::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -141,8 +141,8 @@ impl DepService {
     pub fn update_lb_traffic_extension(
         &self,
         lb_traffic_extension: impl Into<crate::model::LbTrafficExtension>,
-    ) -> crate::builders::dep_service::UpdateLbTrafficExtension {
-        crate::builders::dep_service::UpdateLbTrafficExtension::new(self.inner.clone())
+    ) -> super::builders::dep_service::UpdateLbTrafficExtension {
+        super::builders::dep_service::UpdateLbTrafficExtension::new(self.inner.clone())
             .set_lb_traffic_extension(lb_traffic_extension.into())
     }
 
@@ -160,8 +160,8 @@ impl DepService {
     pub fn delete_lb_traffic_extension(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::DeleteLbTrafficExtension {
-        crate::builders::dep_service::DeleteLbTrafficExtension::new(self.inner.clone())
+    ) -> super::builders::dep_service::DeleteLbTrafficExtension {
+        super::builders::dep_service::DeleteLbTrafficExtension::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -169,8 +169,8 @@ impl DepService {
     pub fn list_lb_route_extensions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::ListLbRouteExtensions {
-        crate::builders::dep_service::ListLbRouteExtensions::new(self.inner.clone())
+    ) -> super::builders::dep_service::ListLbRouteExtensions {
+        super::builders::dep_service::ListLbRouteExtensions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -178,8 +178,8 @@ impl DepService {
     pub fn get_lb_route_extension(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::GetLbRouteExtension {
-        crate::builders::dep_service::GetLbRouteExtension::new(self.inner.clone())
+    ) -> super::builders::dep_service::GetLbRouteExtension {
+        super::builders::dep_service::GetLbRouteExtension::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -197,8 +197,8 @@ impl DepService {
     pub fn create_lb_route_extension(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::CreateLbRouteExtension {
-        crate::builders::dep_service::CreateLbRouteExtension::new(self.inner.clone())
+    ) -> super::builders::dep_service::CreateLbRouteExtension {
+        super::builders::dep_service::CreateLbRouteExtension::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -216,8 +216,8 @@ impl DepService {
     pub fn update_lb_route_extension(
         &self,
         lb_route_extension: impl Into<crate::model::LbRouteExtension>,
-    ) -> crate::builders::dep_service::UpdateLbRouteExtension {
-        crate::builders::dep_service::UpdateLbRouteExtension::new(self.inner.clone())
+    ) -> super::builders::dep_service::UpdateLbRouteExtension {
+        super::builders::dep_service::UpdateLbRouteExtension::new(self.inner.clone())
             .set_lb_route_extension(lb_route_extension.into())
     }
 
@@ -235,8 +235,8 @@ impl DepService {
     pub fn delete_lb_route_extension(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::DeleteLbRouteExtension {
-        crate::builders::dep_service::DeleteLbRouteExtension::new(self.inner.clone())
+    ) -> super::builders::dep_service::DeleteLbRouteExtension {
+        super::builders::dep_service::DeleteLbRouteExtension::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -244,16 +244,16 @@ impl DepService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::ListLocations {
-        crate::builders::dep_service::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::dep_service::ListLocations {
+        super::builders::dep_service::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::GetLocation {
-        crate::builders::dep_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::dep_service::GetLocation {
+        super::builders::dep_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -264,8 +264,8 @@ impl DepService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::SetIamPolicy {
-        crate::builders::dep_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::dep_service::SetIamPolicy {
+        super::builders::dep_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -274,8 +274,8 @@ impl DepService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::GetIamPolicy {
-        crate::builders::dep_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::dep_service::GetIamPolicy {
+        super::builders::dep_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -289,8 +289,8 @@ impl DepService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::TestIamPermissions {
-        crate::builders::dep_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::dep_service::TestIamPermissions {
+        super::builders::dep_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -300,8 +300,8 @@ impl DepService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::ListOperations {
-        crate::builders::dep_service::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::dep_service::ListOperations {
+        super::builders::dep_service::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -310,8 +310,8 @@ impl DepService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::GetOperation {
-        crate::builders::dep_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::dep_service::GetOperation {
+        super::builders::dep_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -320,8 +320,8 @@ impl DepService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::DeleteOperation {
-        crate::builders::dep_service::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::dep_service::DeleteOperation {
+        super::builders::dep_service::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -330,8 +330,8 @@ impl DepService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::dep_service::CancelOperation {
-        crate::builders::dep_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::dep_service::CancelOperation {
+        super::builders::dep_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -354,7 +354,7 @@ impl DepService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct NetworkServices {
-    inner: Arc<dyn crate::stubs::dynamic::NetworkServices>,
+    inner: Arc<dyn super::stubs::dynamic::NetworkServices>,
 }
 
 impl NetworkServices {
@@ -375,7 +375,7 @@ impl NetworkServices {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::NetworkServices + 'static,
+        T: super::stubs::NetworkServices + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -384,7 +384,7 @@ impl NetworkServices {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::NetworkServices>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::NetworkServices>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -393,24 +393,24 @@ impl NetworkServices {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::NetworkServices> {
-        crate::transport::NetworkServices::new(conf).await
+    ) -> Result<impl super::stubs::NetworkServices> {
+        super::transport::NetworkServices::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::NetworkServices> {
+    ) -> Result<impl super::stubs::NetworkServices> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::NetworkServices::new)
+            .map(super::tracing::NetworkServices::new)
     }
 
     /// Lists EndpointPolicies in a given project and location.
     pub fn list_endpoint_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::ListEndpointPolicies {
-        crate::builders::network_services::ListEndpointPolicies::new(self.inner.clone())
+    ) -> super::builders::network_services::ListEndpointPolicies {
+        super::builders::network_services::ListEndpointPolicies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -418,8 +418,8 @@ impl NetworkServices {
     pub fn get_endpoint_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetEndpointPolicy {
-        crate::builders::network_services::GetEndpointPolicy::new(self.inner.clone())
+    ) -> super::builders::network_services::GetEndpointPolicy {
+        super::builders::network_services::GetEndpointPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -437,8 +437,8 @@ impl NetworkServices {
     pub fn create_endpoint_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::CreateEndpointPolicy {
-        crate::builders::network_services::CreateEndpointPolicy::new(self.inner.clone())
+    ) -> super::builders::network_services::CreateEndpointPolicy {
+        super::builders::network_services::CreateEndpointPolicy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -456,8 +456,8 @@ impl NetworkServices {
     pub fn update_endpoint_policy(
         &self,
         endpoint_policy: impl Into<crate::model::EndpointPolicy>,
-    ) -> crate::builders::network_services::UpdateEndpointPolicy {
-        crate::builders::network_services::UpdateEndpointPolicy::new(self.inner.clone())
+    ) -> super::builders::network_services::UpdateEndpointPolicy {
+        super::builders::network_services::UpdateEndpointPolicy::new(self.inner.clone())
             .set_endpoint_policy(endpoint_policy.into())
     }
 
@@ -475,8 +475,8 @@ impl NetworkServices {
     pub fn delete_endpoint_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::DeleteEndpointPolicy {
-        crate::builders::network_services::DeleteEndpointPolicy::new(self.inner.clone())
+    ) -> super::builders::network_services::DeleteEndpointPolicy {
+        super::builders::network_services::DeleteEndpointPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -484,8 +484,8 @@ impl NetworkServices {
     pub fn list_gateways(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::ListGateways {
-        crate::builders::network_services::ListGateways::new(self.inner.clone())
+    ) -> super::builders::network_services::ListGateways {
+        super::builders::network_services::ListGateways::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -493,8 +493,8 @@ impl NetworkServices {
     pub fn get_gateway(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetGateway {
-        crate::builders::network_services::GetGateway::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::network_services::GetGateway {
+        super::builders::network_services::GetGateway::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Gateway in a given project and location.
@@ -511,8 +511,8 @@ impl NetworkServices {
     pub fn create_gateway(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::CreateGateway {
-        crate::builders::network_services::CreateGateway::new(self.inner.clone())
+    ) -> super::builders::network_services::CreateGateway {
+        super::builders::network_services::CreateGateway::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -530,8 +530,8 @@ impl NetworkServices {
     pub fn update_gateway(
         &self,
         gateway: impl Into<crate::model::Gateway>,
-    ) -> crate::builders::network_services::UpdateGateway {
-        crate::builders::network_services::UpdateGateway::new(self.inner.clone())
+    ) -> super::builders::network_services::UpdateGateway {
+        super::builders::network_services::UpdateGateway::new(self.inner.clone())
             .set_gateway(gateway.into())
     }
 
@@ -549,8 +549,8 @@ impl NetworkServices {
     pub fn delete_gateway(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::DeleteGateway {
-        crate::builders::network_services::DeleteGateway::new(self.inner.clone())
+    ) -> super::builders::network_services::DeleteGateway {
+        super::builders::network_services::DeleteGateway::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -558,8 +558,8 @@ impl NetworkServices {
     pub fn list_grpc_routes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::ListGrpcRoutes {
-        crate::builders::network_services::ListGrpcRoutes::new(self.inner.clone())
+    ) -> super::builders::network_services::ListGrpcRoutes {
+        super::builders::network_services::ListGrpcRoutes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -567,8 +567,8 @@ impl NetworkServices {
     pub fn get_grpc_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetGrpcRoute {
-        crate::builders::network_services::GetGrpcRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::GetGrpcRoute {
+        super::builders::network_services::GetGrpcRoute::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -586,8 +586,8 @@ impl NetworkServices {
     pub fn create_grpc_route(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::CreateGrpcRoute {
-        crate::builders::network_services::CreateGrpcRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::CreateGrpcRoute {
+        super::builders::network_services::CreateGrpcRoute::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -605,8 +605,8 @@ impl NetworkServices {
     pub fn update_grpc_route(
         &self,
         grpc_route: impl Into<crate::model::GrpcRoute>,
-    ) -> crate::builders::network_services::UpdateGrpcRoute {
-        crate::builders::network_services::UpdateGrpcRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::UpdateGrpcRoute {
+        super::builders::network_services::UpdateGrpcRoute::new(self.inner.clone())
             .set_grpc_route(grpc_route.into())
     }
 
@@ -624,8 +624,8 @@ impl NetworkServices {
     pub fn delete_grpc_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::DeleteGrpcRoute {
-        crate::builders::network_services::DeleteGrpcRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::DeleteGrpcRoute {
+        super::builders::network_services::DeleteGrpcRoute::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -633,8 +633,8 @@ impl NetworkServices {
     pub fn list_http_routes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::ListHttpRoutes {
-        crate::builders::network_services::ListHttpRoutes::new(self.inner.clone())
+    ) -> super::builders::network_services::ListHttpRoutes {
+        super::builders::network_services::ListHttpRoutes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -642,8 +642,8 @@ impl NetworkServices {
     pub fn get_http_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetHttpRoute {
-        crate::builders::network_services::GetHttpRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::GetHttpRoute {
+        super::builders::network_services::GetHttpRoute::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -661,8 +661,8 @@ impl NetworkServices {
     pub fn create_http_route(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::CreateHttpRoute {
-        crate::builders::network_services::CreateHttpRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::CreateHttpRoute {
+        super::builders::network_services::CreateHttpRoute::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -680,8 +680,8 @@ impl NetworkServices {
     pub fn update_http_route(
         &self,
         http_route: impl Into<crate::model::HttpRoute>,
-    ) -> crate::builders::network_services::UpdateHttpRoute {
-        crate::builders::network_services::UpdateHttpRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::UpdateHttpRoute {
+        super::builders::network_services::UpdateHttpRoute::new(self.inner.clone())
             .set_http_route(http_route.into())
     }
 
@@ -699,8 +699,8 @@ impl NetworkServices {
     pub fn delete_http_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::DeleteHttpRoute {
-        crate::builders::network_services::DeleteHttpRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::DeleteHttpRoute {
+        super::builders::network_services::DeleteHttpRoute::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -708,8 +708,8 @@ impl NetworkServices {
     pub fn list_tcp_routes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::ListTcpRoutes {
-        crate::builders::network_services::ListTcpRoutes::new(self.inner.clone())
+    ) -> super::builders::network_services::ListTcpRoutes {
+        super::builders::network_services::ListTcpRoutes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -717,8 +717,8 @@ impl NetworkServices {
     pub fn get_tcp_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetTcpRoute {
-        crate::builders::network_services::GetTcpRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::GetTcpRoute {
+        super::builders::network_services::GetTcpRoute::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -736,8 +736,8 @@ impl NetworkServices {
     pub fn create_tcp_route(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::CreateTcpRoute {
-        crate::builders::network_services::CreateTcpRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::CreateTcpRoute {
+        super::builders::network_services::CreateTcpRoute::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -755,8 +755,8 @@ impl NetworkServices {
     pub fn update_tcp_route(
         &self,
         tcp_route: impl Into<crate::model::TcpRoute>,
-    ) -> crate::builders::network_services::UpdateTcpRoute {
-        crate::builders::network_services::UpdateTcpRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::UpdateTcpRoute {
+        super::builders::network_services::UpdateTcpRoute::new(self.inner.clone())
             .set_tcp_route(tcp_route.into())
     }
 
@@ -774,8 +774,8 @@ impl NetworkServices {
     pub fn delete_tcp_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::DeleteTcpRoute {
-        crate::builders::network_services::DeleteTcpRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::DeleteTcpRoute {
+        super::builders::network_services::DeleteTcpRoute::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -783,8 +783,8 @@ impl NetworkServices {
     pub fn list_tls_routes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::ListTlsRoutes {
-        crate::builders::network_services::ListTlsRoutes::new(self.inner.clone())
+    ) -> super::builders::network_services::ListTlsRoutes {
+        super::builders::network_services::ListTlsRoutes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -792,8 +792,8 @@ impl NetworkServices {
     pub fn get_tls_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetTlsRoute {
-        crate::builders::network_services::GetTlsRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::GetTlsRoute {
+        super::builders::network_services::GetTlsRoute::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -811,8 +811,8 @@ impl NetworkServices {
     pub fn create_tls_route(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::CreateTlsRoute {
-        crate::builders::network_services::CreateTlsRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::CreateTlsRoute {
+        super::builders::network_services::CreateTlsRoute::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -830,8 +830,8 @@ impl NetworkServices {
     pub fn update_tls_route(
         &self,
         tls_route: impl Into<crate::model::TlsRoute>,
-    ) -> crate::builders::network_services::UpdateTlsRoute {
-        crate::builders::network_services::UpdateTlsRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::UpdateTlsRoute {
+        super::builders::network_services::UpdateTlsRoute::new(self.inner.clone())
             .set_tls_route(tls_route.into())
     }
 
@@ -849,8 +849,8 @@ impl NetworkServices {
     pub fn delete_tls_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::DeleteTlsRoute {
-        crate::builders::network_services::DeleteTlsRoute::new(self.inner.clone())
+    ) -> super::builders::network_services::DeleteTlsRoute {
+        super::builders::network_services::DeleteTlsRoute::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -858,8 +858,8 @@ impl NetworkServices {
     pub fn list_service_bindings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::ListServiceBindings {
-        crate::builders::network_services::ListServiceBindings::new(self.inner.clone())
+    ) -> super::builders::network_services::ListServiceBindings {
+        super::builders::network_services::ListServiceBindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -867,8 +867,8 @@ impl NetworkServices {
     pub fn get_service_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetServiceBinding {
-        crate::builders::network_services::GetServiceBinding::new(self.inner.clone())
+    ) -> super::builders::network_services::GetServiceBinding {
+        super::builders::network_services::GetServiceBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -886,8 +886,8 @@ impl NetworkServices {
     pub fn create_service_binding(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::CreateServiceBinding {
-        crate::builders::network_services::CreateServiceBinding::new(self.inner.clone())
+    ) -> super::builders::network_services::CreateServiceBinding {
+        super::builders::network_services::CreateServiceBinding::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -905,8 +905,8 @@ impl NetworkServices {
     pub fn delete_service_binding(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::DeleteServiceBinding {
-        crate::builders::network_services::DeleteServiceBinding::new(self.inner.clone())
+    ) -> super::builders::network_services::DeleteServiceBinding {
+        super::builders::network_services::DeleteServiceBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -914,8 +914,8 @@ impl NetworkServices {
     pub fn list_meshes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::ListMeshes {
-        crate::builders::network_services::ListMeshes::new(self.inner.clone())
+    ) -> super::builders::network_services::ListMeshes {
+        super::builders::network_services::ListMeshes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -923,8 +923,8 @@ impl NetworkServices {
     pub fn get_mesh(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetMesh {
-        crate::builders::network_services::GetMesh::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::network_services::GetMesh {
+        super::builders::network_services::GetMesh::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Mesh in a given project and location.
@@ -941,8 +941,8 @@ impl NetworkServices {
     pub fn create_mesh(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::CreateMesh {
-        crate::builders::network_services::CreateMesh::new(self.inner.clone())
+    ) -> super::builders::network_services::CreateMesh {
+        super::builders::network_services::CreateMesh::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -960,8 +960,8 @@ impl NetworkServices {
     pub fn update_mesh(
         &self,
         mesh: impl Into<crate::model::Mesh>,
-    ) -> crate::builders::network_services::UpdateMesh {
-        crate::builders::network_services::UpdateMesh::new(self.inner.clone()).set_mesh(mesh.into())
+    ) -> super::builders::network_services::UpdateMesh {
+        super::builders::network_services::UpdateMesh::new(self.inner.clone()).set_mesh(mesh.into())
     }
 
     /// Deletes a single Mesh.
@@ -978,16 +978,16 @@ impl NetworkServices {
     pub fn delete_mesh(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::DeleteMesh {
-        crate::builders::network_services::DeleteMesh::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::network_services::DeleteMesh {
+        super::builders::network_services::DeleteMesh::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::ListLocations {
-        crate::builders::network_services::ListLocations::new(self.inner.clone())
+    ) -> super::builders::network_services::ListLocations {
+        super::builders::network_services::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -995,8 +995,8 @@ impl NetworkServices {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetLocation {
-        crate::builders::network_services::GetLocation::new(self.inner.clone())
+    ) -> super::builders::network_services::GetLocation {
+        super::builders::network_services::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1008,8 +1008,8 @@ impl NetworkServices {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::SetIamPolicy {
-        crate::builders::network_services::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::network_services::SetIamPolicy {
+        super::builders::network_services::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1018,8 +1018,8 @@ impl NetworkServices {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetIamPolicy {
-        crate::builders::network_services::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::network_services::GetIamPolicy {
+        super::builders::network_services::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1033,8 +1033,8 @@ impl NetworkServices {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::TestIamPermissions {
-        crate::builders::network_services::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::network_services::TestIamPermissions {
+        super::builders::network_services::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -1044,8 +1044,8 @@ impl NetworkServices {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::ListOperations {
-        crate::builders::network_services::ListOperations::new(self.inner.clone())
+    ) -> super::builders::network_services::ListOperations {
+        super::builders::network_services::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1055,8 +1055,8 @@ impl NetworkServices {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::GetOperation {
-        crate::builders::network_services::GetOperation::new(self.inner.clone())
+    ) -> super::builders::network_services::GetOperation {
+        super::builders::network_services::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1066,8 +1066,8 @@ impl NetworkServices {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::DeleteOperation {
-        crate::builders::network_services::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::network_services::DeleteOperation {
+        super::builders::network_services::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1077,8 +1077,8 @@ impl NetworkServices {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::network_services::CancelOperation {
-        crate::builders::network_services::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::network_services::CancelOperation {
+        super::builders::network_services::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

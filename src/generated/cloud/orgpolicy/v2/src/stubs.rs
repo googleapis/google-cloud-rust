@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::OrgPolicy].
+/// Defines the trait used to implement [super::client::OrgPolicy].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::OrgPolicy`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::OrgPolicy::list_constraints].
+    /// Implements [super::client::OrgPolicy::list_constraints].
     fn list_constraints(
         &self,
         _req: crate::model::ListConstraintsRequest,
@@ -52,7 +52,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OrgPolicy::list_policies].
+    /// Implements [super::client::OrgPolicy::list_policies].
     fn list_policies(
         &self,
         _req: crate::model::ListPoliciesRequest,
@@ -64,7 +64,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OrgPolicy::get_policy].
+    /// Implements [super::client::OrgPolicy::get_policy].
     fn get_policy(
         &self,
         _req: crate::model::GetPolicyRequest,
@@ -75,7 +75,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OrgPolicy::get_effective_policy].
+    /// Implements [super::client::OrgPolicy::get_effective_policy].
     fn get_effective_policy(
         &self,
         _req: crate::model::GetEffectivePolicyRequest,
@@ -86,7 +86,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OrgPolicy::create_policy].
+    /// Implements [super::client::OrgPolicy::create_policy].
     fn create_policy(
         &self,
         _req: crate::model::CreatePolicyRequest,
@@ -97,7 +97,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OrgPolicy::update_policy].
+    /// Implements [super::client::OrgPolicy::update_policy].
     fn update_policy(
         &self,
         _req: crate::model::UpdatePolicyRequest,
@@ -108,7 +108,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OrgPolicy::delete_policy].
+    /// Implements [super::client::OrgPolicy::delete_policy].
     fn delete_policy(
         &self,
         _req: crate::model::DeletePolicyRequest,
@@ -117,7 +117,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::OrgPolicy::create_custom_constraint].
+    /// Implements [super::client::OrgPolicy::create_custom_constraint].
     fn create_custom_constraint(
         &self,
         _req: crate::model::CreateCustomConstraintRequest,
@@ -129,7 +129,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OrgPolicy::update_custom_constraint].
+    /// Implements [super::client::OrgPolicy::update_custom_constraint].
     fn update_custom_constraint(
         &self,
         _req: crate::model::UpdateCustomConstraintRequest,
@@ -141,7 +141,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OrgPolicy::get_custom_constraint].
+    /// Implements [super::client::OrgPolicy::get_custom_constraint].
     fn get_custom_constraint(
         &self,
         _req: crate::model::GetCustomConstraintRequest,
@@ -153,7 +153,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OrgPolicy::list_custom_constraints].
+    /// Implements [super::client::OrgPolicy::list_custom_constraints].
     fn list_custom_constraints(
         &self,
         _req: crate::model::ListCustomConstraintsRequest,
@@ -165,7 +165,7 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OrgPolicy::delete_custom_constraint].
+    /// Implements [super::client::OrgPolicy::delete_custom_constraint].
     fn delete_custom_constraint(
         &self,
         _req: crate::model::DeleteCustomConstraintRequest,

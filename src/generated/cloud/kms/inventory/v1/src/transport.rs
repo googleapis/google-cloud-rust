@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [KeyDashboardService](crate::stubs::KeyDashboardService) using a [gclient::ReqwestClient].
+/// Implements [KeyDashboardService](super::stubs::KeyDashboardService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct KeyDashboardService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl KeyDashboardService {
     }
 }
 
-impl crate::stubs::KeyDashboardService for KeyDashboardService {
+impl super::stubs::KeyDashboardService for KeyDashboardService {
     async fn list_crypto_keys(
         &self,
         req: crate::model::ListCryptoKeysRequest,
@@ -65,7 +65,7 @@ impl crate::stubs::KeyDashboardService for KeyDashboardService {
     }
 }
 
-/// Implements [KeyTrackingService](crate::stubs::KeyTrackingService) using a [gclient::ReqwestClient].
+/// Implements [KeyTrackingService](super::stubs::KeyTrackingService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct KeyTrackingService {
     inner: gclient::ReqwestClient,
@@ -86,7 +86,7 @@ impl KeyTrackingService {
     }
 }
 
-impl crate::stubs::KeyTrackingService for KeyTrackingService {
+impl super::stubs::KeyTrackingService for KeyTrackingService {
     async fn get_protected_resources_summary(
         &self,
         req: crate::model::GetProtectedResourcesSummaryRequest,

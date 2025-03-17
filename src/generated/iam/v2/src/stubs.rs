@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Policies].
+/// Defines the trait used to implement [super::client::Policies].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Policies`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Policies: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Policies::list_policies].
+    /// Implements [super::client::Policies::list_policies].
     fn list_policies(
         &self,
         _req: crate::model::ListPoliciesRequest,
@@ -53,7 +53,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Policies::get_policy].
+    /// Implements [super::client::Policies::get_policy].
     fn get_policy(
         &self,
         _req: crate::model::GetPolicyRequest,
@@ -64,7 +64,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Policies::create_policy].
+    /// Implements [super::client::Policies::create_policy].
     fn create_policy(
         &self,
         _req: crate::model::CreatePolicyRequest,
@@ -76,7 +76,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Policies::update_policy].
+    /// Implements [super::client::Policies::update_policy].
     fn update_policy(
         &self,
         _req: crate::model::UpdatePolicyRequest,
@@ -88,7 +88,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Policies::delete_policy].
+    /// Implements [super::client::Policies::delete_policy].
     fn delete_policy(
         &self,
         _req: crate::model::DeletePolicyRequest,
@@ -100,7 +100,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Policies::get_operation].
+    /// Implements [super::client::Policies::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

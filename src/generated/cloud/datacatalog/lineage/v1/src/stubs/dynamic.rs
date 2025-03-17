@@ -156,9 +156,9 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Lineage] also implement [Lineage].
+/// All implementations of [super::Lineage] also implement [Lineage].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Lineage> Lineage for T {
+impl<T: super::Lineage> Lineage for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn process_open_lineage_run_event(
         &self,

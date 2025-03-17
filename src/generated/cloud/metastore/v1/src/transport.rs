@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataprocMetastore](crate::stubs::DataprocMetastore) using a [gclient::ReqwestClient].
+/// Implements [DataprocMetastore](super::stubs::DataprocMetastore) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DataprocMetastore {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataprocMetastore {
     }
 }
 
-impl crate::stubs::DataprocMetastore for DataprocMetastore {
+impl super::stubs::DataprocMetastore for DataprocMetastore {
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
@@ -659,7 +659,7 @@ impl crate::stubs::DataprocMetastore for DataprocMetastore {
     }
 }
 
-/// Implements [DataprocMetastoreFederation](crate::stubs::DataprocMetastoreFederation) using a [gclient::ReqwestClient].
+/// Implements [DataprocMetastoreFederation](super::stubs::DataprocMetastoreFederation) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DataprocMetastoreFederation {
     inner: gclient::ReqwestClient,
@@ -680,7 +680,7 @@ impl DataprocMetastoreFederation {
     }
 }
 
-impl crate::stubs::DataprocMetastoreFederation for DataprocMetastoreFederation {
+impl super::stubs::DataprocMetastoreFederation for DataprocMetastoreFederation {
     async fn list_federations(
         &self,
         req: crate::model::ListFederationsRequest,

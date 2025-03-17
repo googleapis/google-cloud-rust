@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DepService].
+/// Defines the trait used to implement [super::client::DepService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DepService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DepService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DepService::list_lb_traffic_extensions].
+    /// Implements [super::client::DepService::list_lb_traffic_extensions].
     fn list_lb_traffic_extensions(
         &self,
         _req: crate::model::ListLbTrafficExtensionsRequest,
@@ -54,7 +54,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DepService::get_lb_traffic_extension].
+    /// Implements [super::client::DepService::get_lb_traffic_extension].
     fn get_lb_traffic_extension(
         &self,
         _req: crate::model::GetLbTrafficExtensionRequest,
@@ -66,7 +66,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::create_lb_traffic_extension].
+    /// Implements [super::client::DepService::create_lb_traffic_extension].
     fn create_lb_traffic_extension(
         &self,
         _req: crate::model::CreateLbTrafficExtensionRequest,
@@ -78,7 +78,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::update_lb_traffic_extension].
+    /// Implements [super::client::DepService::update_lb_traffic_extension].
     fn update_lb_traffic_extension(
         &self,
         _req: crate::model::UpdateLbTrafficExtensionRequest,
@@ -90,7 +90,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::delete_lb_traffic_extension].
+    /// Implements [super::client::DepService::delete_lb_traffic_extension].
     fn delete_lb_traffic_extension(
         &self,
         _req: crate::model::DeleteLbTrafficExtensionRequest,
@@ -102,7 +102,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::list_lb_route_extensions].
+    /// Implements [super::client::DepService::list_lb_route_extensions].
     fn list_lb_route_extensions(
         &self,
         _req: crate::model::ListLbRouteExtensionsRequest,
@@ -114,7 +114,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DepService::get_lb_route_extension].
+    /// Implements [super::client::DepService::get_lb_route_extension].
     fn get_lb_route_extension(
         &self,
         _req: crate::model::GetLbRouteExtensionRequest,
@@ -126,7 +126,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::create_lb_route_extension].
+    /// Implements [super::client::DepService::create_lb_route_extension].
     fn create_lb_route_extension(
         &self,
         _req: crate::model::CreateLbRouteExtensionRequest,
@@ -138,7 +138,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::update_lb_route_extension].
+    /// Implements [super::client::DepService::update_lb_route_extension].
     fn update_lb_route_extension(
         &self,
         _req: crate::model::UpdateLbRouteExtensionRequest,
@@ -150,7 +150,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::delete_lb_route_extension].
+    /// Implements [super::client::DepService::delete_lb_route_extension].
     fn delete_lb_route_extension(
         &self,
         _req: crate::model::DeleteLbRouteExtensionRequest,
@@ -162,7 +162,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::list_locations].
+    /// Implements [super::client::DepService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -174,7 +174,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DepService::get_location].
+    /// Implements [super::client::DepService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -185,7 +185,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::set_iam_policy].
+    /// Implements [super::client::DepService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -196,7 +196,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::get_iam_policy].
+    /// Implements [super::client::DepService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -207,7 +207,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::test_iam_permissions].
+    /// Implements [super::client::DepService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -219,7 +219,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DepService::list_operations].
+    /// Implements [super::client::DepService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -231,7 +231,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DepService::get_operation].
+    /// Implements [super::client::DepService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -243,7 +243,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DepService::delete_operation].
+    /// Implements [super::client::DepService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -252,7 +252,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DepService::cancel_operation].
+    /// Implements [super::client::DepService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -284,7 +284,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::NetworkServices].
+/// Defines the trait used to implement [super::client::NetworkServices].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::NetworkServices`.  In other use-cases, application developers only
@@ -296,7 +296,7 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait NetworkServices: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::NetworkServices::list_endpoint_policies].
+    /// Implements [super::client::NetworkServices::list_endpoint_policies].
     fn list_endpoint_policies(
         &self,
         _req: crate::model::ListEndpointPoliciesRequest,
@@ -308,7 +308,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkServices::get_endpoint_policy].
+    /// Implements [super::client::NetworkServices::get_endpoint_policy].
     fn get_endpoint_policy(
         &self,
         _req: crate::model::GetEndpointPolicyRequest,
@@ -319,7 +319,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::create_endpoint_policy].
+    /// Implements [super::client::NetworkServices::create_endpoint_policy].
     fn create_endpoint_policy(
         &self,
         _req: crate::model::CreateEndpointPolicyRequest,
@@ -331,7 +331,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::update_endpoint_policy].
+    /// Implements [super::client::NetworkServices::update_endpoint_policy].
     fn update_endpoint_policy(
         &self,
         _req: crate::model::UpdateEndpointPolicyRequest,
@@ -343,7 +343,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::delete_endpoint_policy].
+    /// Implements [super::client::NetworkServices::delete_endpoint_policy].
     fn delete_endpoint_policy(
         &self,
         _req: crate::model::DeleteEndpointPolicyRequest,
@@ -355,7 +355,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::list_gateways].
+    /// Implements [super::client::NetworkServices::list_gateways].
     fn list_gateways(
         &self,
         _req: crate::model::ListGatewaysRequest,
@@ -367,7 +367,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::get_gateway].
+    /// Implements [super::client::NetworkServices::get_gateway].
     fn get_gateway(
         &self,
         _req: crate::model::GetGatewayRequest,
@@ -378,7 +378,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::create_gateway].
+    /// Implements [super::client::NetworkServices::create_gateway].
     fn create_gateway(
         &self,
         _req: crate::model::CreateGatewayRequest,
@@ -390,7 +390,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::update_gateway].
+    /// Implements [super::client::NetworkServices::update_gateway].
     fn update_gateway(
         &self,
         _req: crate::model::UpdateGatewayRequest,
@@ -402,7 +402,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::delete_gateway].
+    /// Implements [super::client::NetworkServices::delete_gateway].
     fn delete_gateway(
         &self,
         _req: crate::model::DeleteGatewayRequest,
@@ -414,7 +414,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::list_grpc_routes].
+    /// Implements [super::client::NetworkServices::list_grpc_routes].
     fn list_grpc_routes(
         &self,
         _req: crate::model::ListGrpcRoutesRequest,
@@ -426,7 +426,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkServices::get_grpc_route].
+    /// Implements [super::client::NetworkServices::get_grpc_route].
     fn get_grpc_route(
         &self,
         _req: crate::model::GetGrpcRouteRequest,
@@ -437,7 +437,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::create_grpc_route].
+    /// Implements [super::client::NetworkServices::create_grpc_route].
     fn create_grpc_route(
         &self,
         _req: crate::model::CreateGrpcRouteRequest,
@@ -449,7 +449,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::update_grpc_route].
+    /// Implements [super::client::NetworkServices::update_grpc_route].
     fn update_grpc_route(
         &self,
         _req: crate::model::UpdateGrpcRouteRequest,
@@ -461,7 +461,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::delete_grpc_route].
+    /// Implements [super::client::NetworkServices::delete_grpc_route].
     fn delete_grpc_route(
         &self,
         _req: crate::model::DeleteGrpcRouteRequest,
@@ -473,7 +473,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::list_http_routes].
+    /// Implements [super::client::NetworkServices::list_http_routes].
     fn list_http_routes(
         &self,
         _req: crate::model::ListHttpRoutesRequest,
@@ -485,7 +485,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkServices::get_http_route].
+    /// Implements [super::client::NetworkServices::get_http_route].
     fn get_http_route(
         &self,
         _req: crate::model::GetHttpRouteRequest,
@@ -496,7 +496,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::create_http_route].
+    /// Implements [super::client::NetworkServices::create_http_route].
     fn create_http_route(
         &self,
         _req: crate::model::CreateHttpRouteRequest,
@@ -508,7 +508,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::update_http_route].
+    /// Implements [super::client::NetworkServices::update_http_route].
     fn update_http_route(
         &self,
         _req: crate::model::UpdateHttpRouteRequest,
@@ -520,7 +520,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::delete_http_route].
+    /// Implements [super::client::NetworkServices::delete_http_route].
     fn delete_http_route(
         &self,
         _req: crate::model::DeleteHttpRouteRequest,
@@ -532,7 +532,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::list_tcp_routes].
+    /// Implements [super::client::NetworkServices::list_tcp_routes].
     fn list_tcp_routes(
         &self,
         _req: crate::model::ListTcpRoutesRequest,
@@ -544,7 +544,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::get_tcp_route].
+    /// Implements [super::client::NetworkServices::get_tcp_route].
     fn get_tcp_route(
         &self,
         _req: crate::model::GetTcpRouteRequest,
@@ -555,7 +555,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::create_tcp_route].
+    /// Implements [super::client::NetworkServices::create_tcp_route].
     fn create_tcp_route(
         &self,
         _req: crate::model::CreateTcpRouteRequest,
@@ -567,7 +567,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::update_tcp_route].
+    /// Implements [super::client::NetworkServices::update_tcp_route].
     fn update_tcp_route(
         &self,
         _req: crate::model::UpdateTcpRouteRequest,
@@ -579,7 +579,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::delete_tcp_route].
+    /// Implements [super::client::NetworkServices::delete_tcp_route].
     fn delete_tcp_route(
         &self,
         _req: crate::model::DeleteTcpRouteRequest,
@@ -591,7 +591,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::list_tls_routes].
+    /// Implements [super::client::NetworkServices::list_tls_routes].
     fn list_tls_routes(
         &self,
         _req: crate::model::ListTlsRoutesRequest,
@@ -603,7 +603,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::get_tls_route].
+    /// Implements [super::client::NetworkServices::get_tls_route].
     fn get_tls_route(
         &self,
         _req: crate::model::GetTlsRouteRequest,
@@ -614,7 +614,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::create_tls_route].
+    /// Implements [super::client::NetworkServices::create_tls_route].
     fn create_tls_route(
         &self,
         _req: crate::model::CreateTlsRouteRequest,
@@ -626,7 +626,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::update_tls_route].
+    /// Implements [super::client::NetworkServices::update_tls_route].
     fn update_tls_route(
         &self,
         _req: crate::model::UpdateTlsRouteRequest,
@@ -638,7 +638,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::delete_tls_route].
+    /// Implements [super::client::NetworkServices::delete_tls_route].
     fn delete_tls_route(
         &self,
         _req: crate::model::DeleteTlsRouteRequest,
@@ -650,7 +650,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::list_service_bindings].
+    /// Implements [super::client::NetworkServices::list_service_bindings].
     fn list_service_bindings(
         &self,
         _req: crate::model::ListServiceBindingsRequest,
@@ -662,7 +662,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkServices::get_service_binding].
+    /// Implements [super::client::NetworkServices::get_service_binding].
     fn get_service_binding(
         &self,
         _req: crate::model::GetServiceBindingRequest,
@@ -673,7 +673,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::create_service_binding].
+    /// Implements [super::client::NetworkServices::create_service_binding].
     fn create_service_binding(
         &self,
         _req: crate::model::CreateServiceBindingRequest,
@@ -685,7 +685,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::delete_service_binding].
+    /// Implements [super::client::NetworkServices::delete_service_binding].
     fn delete_service_binding(
         &self,
         _req: crate::model::DeleteServiceBindingRequest,
@@ -697,7 +697,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::list_meshes].
+    /// Implements [super::client::NetworkServices::list_meshes].
     fn list_meshes(
         &self,
         _req: crate::model::ListMeshesRequest,
@@ -709,7 +709,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::get_mesh].
+    /// Implements [super::client::NetworkServices::get_mesh].
     fn get_mesh(
         &self,
         _req: crate::model::GetMeshRequest,
@@ -718,7 +718,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Mesh>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::NetworkServices::create_mesh].
+    /// Implements [super::client::NetworkServices::create_mesh].
     fn create_mesh(
         &self,
         _req: crate::model::CreateMeshRequest,
@@ -730,7 +730,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::update_mesh].
+    /// Implements [super::client::NetworkServices::update_mesh].
     fn update_mesh(
         &self,
         _req: crate::model::UpdateMeshRequest,
@@ -742,7 +742,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::delete_mesh].
+    /// Implements [super::client::NetworkServices::delete_mesh].
     fn delete_mesh(
         &self,
         _req: crate::model::DeleteMeshRequest,
@@ -754,7 +754,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::list_locations].
+    /// Implements [super::client::NetworkServices::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -766,7 +766,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkServices::get_location].
+    /// Implements [super::client::NetworkServices::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -777,7 +777,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::set_iam_policy].
+    /// Implements [super::client::NetworkServices::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -788,7 +788,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::get_iam_policy].
+    /// Implements [super::client::NetworkServices::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -799,7 +799,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::test_iam_permissions].
+    /// Implements [super::client::NetworkServices::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -811,7 +811,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkServices::list_operations].
+    /// Implements [super::client::NetworkServices::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -823,7 +823,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkServices::get_operation].
+    /// Implements [super::client::NetworkServices::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -835,7 +835,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkServices::delete_operation].
+    /// Implements [super::client::NetworkServices::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -844,7 +844,7 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::NetworkServices::cancel_operation].
+    /// Implements [super::client::NetworkServices::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -18,10 +18,10 @@ pub mod fleet_routing {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::FleetRouting] request builders.
+    /// Common implementation for [super::super::client::FleetRouting] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::FleetRouting>,
+        stub: Arc<dyn super::super::stubs::dynamic::FleetRouting>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod fleet_routing {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FleetRouting>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod fleet_routing {
     pub struct OptimizeTours(RequestBuilder<crate::model::OptimizeToursRequest>);
 
     impl OptimizeTours {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FleetRouting>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -226,7 +226,7 @@ pub mod fleet_routing {
     pub struct BatchOptimizeTours(RequestBuilder<crate::model::BatchOptimizeToursRequest>);
 
     impl BatchOptimizeTours {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FleetRouting>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -250,7 +250,7 @@ pub mod fleet_routing {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_optimize_tours][crate::client::FleetRouting::batch_optimize_tours].
+        /// on [batch_optimize_tours][super::super::client::FleetRouting::batch_optimize_tours].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_optimize_tours(self.0.request, self.0.options)
@@ -322,7 +322,7 @@ pub mod fleet_routing {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FleetRouting>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

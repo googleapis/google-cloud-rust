@@ -18,10 +18,10 @@ pub mod dlp_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DlpService] request builders.
+    /// Common implementation for [super::super::client::DlpService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DlpService>,
+        stub: Arc<dyn super::super::stubs::dynamic::DlpService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod dlp_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod dlp_service {
     pub struct InspectContent(RequestBuilder<crate::model::InspectContentRequest>);
 
     impl InspectContent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,7 +115,7 @@ pub mod dlp_service {
     pub struct RedactImage(RequestBuilder<crate::model::RedactImageRequest>);
 
     impl RedactImage {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -197,7 +197,7 @@ pub mod dlp_service {
     pub struct DeidentifyContent(RequestBuilder<crate::model::DeidentifyContentRequest>);
 
     impl DeidentifyContent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -288,7 +288,7 @@ pub mod dlp_service {
     pub struct ReidentifyContent(RequestBuilder<crate::model::ReidentifyContentRequest>);
 
     impl ReidentifyContent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -379,7 +379,7 @@ pub mod dlp_service {
     pub struct ListInfoTypes(RequestBuilder<crate::model::ListInfoTypesRequest>);
 
     impl ListInfoTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -438,7 +438,7 @@ pub mod dlp_service {
     pub struct CreateInspectTemplate(RequestBuilder<crate::model::CreateInspectTemplateRequest>);
 
     impl CreateInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -503,7 +503,7 @@ pub mod dlp_service {
     pub struct UpdateInspectTemplate(RequestBuilder<crate::model::UpdateInspectTemplateRequest>);
 
     impl UpdateInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -565,7 +565,7 @@ pub mod dlp_service {
     pub struct GetInspectTemplate(RequestBuilder<crate::model::GetInspectTemplateRequest>);
 
     impl GetInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -609,7 +609,7 @@ pub mod dlp_service {
     pub struct ListInspectTemplates(RequestBuilder<crate::model::ListInspectTemplatesRequest>);
 
     impl ListInspectTemplates {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -691,7 +691,7 @@ pub mod dlp_service {
     pub struct DeleteInspectTemplate(RequestBuilder<crate::model::DeleteInspectTemplateRequest>);
 
     impl DeleteInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -737,7 +737,7 @@ pub mod dlp_service {
     );
 
     impl CreateDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -806,7 +806,7 @@ pub mod dlp_service {
     );
 
     impl UpdateDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -870,7 +870,7 @@ pub mod dlp_service {
     pub struct GetDeidentifyTemplate(RequestBuilder<crate::model::GetDeidentifyTemplateRequest>);
 
     impl GetDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -916,7 +916,7 @@ pub mod dlp_service {
     );
 
     impl ListDeidentifyTemplates {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1002,7 +1002,7 @@ pub mod dlp_service {
     );
 
     impl DeleteDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1046,7 +1046,7 @@ pub mod dlp_service {
     pub struct CreateJobTrigger(RequestBuilder<crate::model::CreateJobTriggerRequest>);
 
     impl CreateJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1111,7 +1111,7 @@ pub mod dlp_service {
     pub struct UpdateJobTrigger(RequestBuilder<crate::model::UpdateJobTriggerRequest>);
 
     impl UpdateJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1175,7 +1175,7 @@ pub mod dlp_service {
     );
 
     impl HybridInspectJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1228,7 +1228,7 @@ pub mod dlp_service {
     pub struct GetJobTrigger(RequestBuilder<crate::model::GetJobTriggerRequest>);
 
     impl GetJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1269,7 +1269,7 @@ pub mod dlp_service {
     pub struct ListJobTriggers(RequestBuilder<crate::model::ListJobTriggersRequest>);
 
     impl ListJobTriggers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1360,7 +1360,7 @@ pub mod dlp_service {
     pub struct DeleteJobTrigger(RequestBuilder<crate::model::DeleteJobTriggerRequest>);
 
     impl DeleteJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1404,7 +1404,7 @@ pub mod dlp_service {
     pub struct ActivateJobTrigger(RequestBuilder<crate::model::ActivateJobTriggerRequest>);
 
     impl ActivateJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1448,7 +1448,7 @@ pub mod dlp_service {
     pub struct CreateDiscoveryConfig(RequestBuilder<crate::model::CreateDiscoveryConfigRequest>);
 
     impl CreateDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1507,7 +1507,7 @@ pub mod dlp_service {
     pub struct UpdateDiscoveryConfig(RequestBuilder<crate::model::UpdateDiscoveryConfigRequest>);
 
     impl UpdateDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1569,7 +1569,7 @@ pub mod dlp_service {
     pub struct GetDiscoveryConfig(RequestBuilder<crate::model::GetDiscoveryConfigRequest>);
 
     impl GetDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1613,7 +1613,7 @@ pub mod dlp_service {
     pub struct ListDiscoveryConfigs(RequestBuilder<crate::model::ListDiscoveryConfigsRequest>);
 
     impl ListDiscoveryConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1689,7 +1689,7 @@ pub mod dlp_service {
     pub struct DeleteDiscoveryConfig(RequestBuilder<crate::model::DeleteDiscoveryConfigRequest>);
 
     impl DeleteDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1733,7 +1733,7 @@ pub mod dlp_service {
     pub struct CreateDlpJob(RequestBuilder<crate::model::CreateDlpJobRequest>);
 
     impl CreateDlpJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1795,7 +1795,7 @@ pub mod dlp_service {
     pub struct ListDlpJobs(RequestBuilder<crate::model::ListDlpJobsRequest>);
 
     impl ListDlpJobs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1886,7 +1886,7 @@ pub mod dlp_service {
     pub struct GetDlpJob(RequestBuilder<crate::model::GetDlpJobRequest>);
 
     impl GetDlpJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1927,7 +1927,7 @@ pub mod dlp_service {
     pub struct DeleteDlpJob(RequestBuilder<crate::model::DeleteDlpJobRequest>);
 
     impl DeleteDlpJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1968,7 +1968,7 @@ pub mod dlp_service {
     pub struct CancelDlpJob(RequestBuilder<crate::model::CancelDlpJobRequest>);
 
     impl CancelDlpJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2009,7 +2009,7 @@ pub mod dlp_service {
     pub struct CreateStoredInfoType(RequestBuilder<crate::model::CreateStoredInfoTypeRequest>);
 
     impl CreateStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2074,7 +2074,7 @@ pub mod dlp_service {
     pub struct UpdateStoredInfoType(RequestBuilder<crate::model::UpdateStoredInfoTypeRequest>);
 
     impl UpdateStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2136,7 +2136,7 @@ pub mod dlp_service {
     pub struct GetStoredInfoType(RequestBuilder<crate::model::GetStoredInfoTypeRequest>);
 
     impl GetStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2180,7 +2180,7 @@ pub mod dlp_service {
     pub struct ListStoredInfoTypes(RequestBuilder<crate::model::ListStoredInfoTypesRequest>);
 
     impl ListStoredInfoTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2262,7 +2262,7 @@ pub mod dlp_service {
     pub struct DeleteStoredInfoType(RequestBuilder<crate::model::DeleteStoredInfoTypeRequest>);
 
     impl DeleteStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2308,7 +2308,7 @@ pub mod dlp_service {
     );
 
     impl ListProjectDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2392,7 +2392,7 @@ pub mod dlp_service {
     pub struct ListTableDataProfiles(RequestBuilder<crate::model::ListTableDataProfilesRequest>);
 
     impl ListTableDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2474,7 +2474,7 @@ pub mod dlp_service {
     pub struct ListColumnDataProfiles(RequestBuilder<crate::model::ListColumnDataProfilesRequest>);
 
     impl ListColumnDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2558,7 +2558,7 @@ pub mod dlp_service {
     pub struct GetProjectDataProfile(RequestBuilder<crate::model::GetProjectDataProfileRequest>);
 
     impl GetProjectDataProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2604,7 +2604,7 @@ pub mod dlp_service {
     );
 
     impl ListFileStoreDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2690,7 +2690,7 @@ pub mod dlp_service {
     );
 
     impl GetFileStoreDataProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2736,7 +2736,7 @@ pub mod dlp_service {
     );
 
     impl DeleteFileStoreDataProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2780,7 +2780,7 @@ pub mod dlp_service {
     pub struct GetTableDataProfile(RequestBuilder<crate::model::GetTableDataProfileRequest>);
 
     impl GetTableDataProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2824,7 +2824,7 @@ pub mod dlp_service {
     pub struct GetColumnDataProfile(RequestBuilder<crate::model::GetColumnDataProfileRequest>);
 
     impl GetColumnDataProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2868,7 +2868,7 @@ pub mod dlp_service {
     pub struct DeleteTableDataProfile(RequestBuilder<crate::model::DeleteTableDataProfileRequest>);
 
     impl DeleteTableDataProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2912,7 +2912,7 @@ pub mod dlp_service {
     pub struct HybridInspectDlpJob(RequestBuilder<crate::model::HybridInspectDlpJobRequest>);
 
     impl HybridInspectDlpJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2965,7 +2965,7 @@ pub mod dlp_service {
     pub struct FinishDlpJob(RequestBuilder<crate::model::FinishDlpJobRequest>);
 
     impl FinishDlpJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3006,7 +3006,7 @@ pub mod dlp_service {
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3059,7 +3059,7 @@ pub mod dlp_service {
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3100,7 +3100,7 @@ pub mod dlp_service {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3173,7 +3173,7 @@ pub mod dlp_service {
     pub struct SearchConnections(RequestBuilder<crate::model::SearchConnectionsRequest>);
 
     impl SearchConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3249,7 +3249,7 @@ pub mod dlp_service {
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3293,7 +3293,7 @@ pub mod dlp_service {
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DlpService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

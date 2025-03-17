@@ -18,10 +18,10 @@ pub mod privileged_access_manager {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::PrivilegedAccessManager] request builders.
+    /// Common implementation for [super::super::client::PrivilegedAccessManager] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>,
+        stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod privileged_access_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod privileged_access_manager {
     pub struct CheckOnboardingStatus(RequestBuilder<crate::model::CheckOnboardingStatusRequest>);
 
     impl CheckOnboardingStatus {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -88,7 +92,9 @@ pub mod privileged_access_manager {
     pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
 
     impl ListEntitlements {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -170,7 +176,9 @@ pub mod privileged_access_manager {
     pub struct SearchEntitlements(RequestBuilder<crate::model::SearchEntitlementsRequest>);
 
     impl SearchEntitlements {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -257,7 +265,9 @@ pub mod privileged_access_manager {
     pub struct GetEntitlement(RequestBuilder<crate::model::GetEntitlementRequest>);
 
     impl GetEntitlement {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -298,7 +308,9 @@ pub mod privileged_access_manager {
     pub struct CreateEntitlement(RequestBuilder<crate::model::CreateEntitlementRequest>);
 
     impl CreateEntitlement {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -322,7 +334,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_entitlement][crate::client::PrivilegedAccessManager::create_entitlement].
+        /// on [create_entitlement][super::super::client::PrivilegedAccessManager::create_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_entitlement(self.0.request, self.0.options)
@@ -401,7 +413,9 @@ pub mod privileged_access_manager {
     pub struct DeleteEntitlement(RequestBuilder<crate::model::DeleteEntitlementRequest>);
 
     impl DeleteEntitlement {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -425,7 +439,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_entitlement][crate::client::PrivilegedAccessManager::delete_entitlement].
+        /// on [delete_entitlement][super::super::client::PrivilegedAccessManager::delete_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_entitlement(self.0.request, self.0.options)
@@ -495,7 +509,9 @@ pub mod privileged_access_manager {
     pub struct UpdateEntitlement(RequestBuilder<crate::model::UpdateEntitlementRequest>);
 
     impl UpdateEntitlement {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -519,7 +535,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_entitlement][crate::client::PrivilegedAccessManager::update_entitlement].
+        /// on [update_entitlement][super::super::client::PrivilegedAccessManager::update_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_entitlement(self.0.request, self.0.options)
@@ -589,7 +605,9 @@ pub mod privileged_access_manager {
     pub struct ListGrants(RequestBuilder<crate::model::ListGrantsRequest>);
 
     impl ListGrants {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -668,7 +686,9 @@ pub mod privileged_access_manager {
     pub struct SearchGrants(RequestBuilder<crate::model::SearchGrantsRequest>);
 
     impl SearchGrants {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -752,7 +772,9 @@ pub mod privileged_access_manager {
     pub struct GetGrant(RequestBuilder<crate::model::GetGrantRequest>);
 
     impl GetGrant {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -793,7 +815,9 @@ pub mod privileged_access_manager {
     pub struct CreateGrant(RequestBuilder<crate::model::CreateGrantRequest>);
 
     impl CreateGrant {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -849,7 +873,9 @@ pub mod privileged_access_manager {
     pub struct ApproveGrant(RequestBuilder<crate::model::ApproveGrantRequest>);
 
     impl ApproveGrant {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -896,7 +922,9 @@ pub mod privileged_access_manager {
     pub struct DenyGrant(RequestBuilder<crate::model::DenyGrantRequest>);
 
     impl DenyGrant {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -943,7 +971,9 @@ pub mod privileged_access_manager {
     pub struct RevokeGrant(RequestBuilder<crate::model::RevokeGrantRequest>);
 
     impl RevokeGrant {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -964,7 +994,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [revoke_grant][crate::client::PrivilegedAccessManager::revoke_grant].
+        /// on [revoke_grant][super::super::client::PrivilegedAccessManager::revoke_grant].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .revoke_grant(self.0.request, self.0.options)
@@ -1027,7 +1057,9 @@ pub mod privileged_access_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1103,7 +1135,9 @@ pub mod privileged_access_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1144,7 +1178,9 @@ pub mod privileged_access_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1220,7 +1256,9 @@ pub mod privileged_access_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1264,7 +1302,9 @@ pub mod privileged_access_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PrivilegedAccessManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::PrivilegedAccessManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

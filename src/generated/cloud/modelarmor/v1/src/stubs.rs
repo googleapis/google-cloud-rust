@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ModelArmor].
+/// Defines the trait used to implement [super::client::ModelArmor].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ModelArmor`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ModelArmor: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ModelArmor::list_templates].
+    /// Implements [super::client::ModelArmor::list_templates].
     fn list_templates(
         &self,
         _req: crate::model::ListTemplatesRequest,
@@ -52,7 +52,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelArmor::get_template].
+    /// Implements [super::client::ModelArmor::get_template].
     fn get_template(
         &self,
         _req: crate::model::GetTemplateRequest,
@@ -63,7 +63,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelArmor::create_template].
+    /// Implements [super::client::ModelArmor::create_template].
     fn create_template(
         &self,
         _req: crate::model::CreateTemplateRequest,
@@ -74,7 +74,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelArmor::update_template].
+    /// Implements [super::client::ModelArmor::update_template].
     fn update_template(
         &self,
         _req: crate::model::UpdateTemplateRequest,
@@ -85,7 +85,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelArmor::delete_template].
+    /// Implements [super::client::ModelArmor::delete_template].
     fn delete_template(
         &self,
         _req: crate::model::DeleteTemplateRequest,
@@ -94,7 +94,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ModelArmor::get_floor_setting].
+    /// Implements [super::client::ModelArmor::get_floor_setting].
     fn get_floor_setting(
         &self,
         _req: crate::model::GetFloorSettingRequest,
@@ -105,7 +105,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelArmor::update_floor_setting].
+    /// Implements [super::client::ModelArmor::update_floor_setting].
     fn update_floor_setting(
         &self,
         _req: crate::model::UpdateFloorSettingRequest,
@@ -116,7 +116,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelArmor::sanitize_user_prompt].
+    /// Implements [super::client::ModelArmor::sanitize_user_prompt].
     fn sanitize_user_prompt(
         &self,
         _req: crate::model::SanitizeUserPromptRequest,
@@ -128,7 +128,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelArmor::sanitize_model_response].
+    /// Implements [super::client::ModelArmor::sanitize_model_response].
     fn sanitize_model_response(
         &self,
         _req: crate::model::SanitizeModelResponseRequest,
@@ -140,7 +140,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelArmor::list_locations].
+    /// Implements [super::client::ModelArmor::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -152,7 +152,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelArmor::get_location].
+    /// Implements [super::client::ModelArmor::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,

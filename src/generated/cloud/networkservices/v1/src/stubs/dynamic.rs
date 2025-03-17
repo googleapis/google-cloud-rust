@@ -144,9 +144,9 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DepService] also implement [DepService].
+/// All implementations of [super::DepService] also implement [DepService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DepService> DepService for T {
+impl<T: super::DepService> DepService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_lb_traffic_extensions(
         &self,
@@ -635,9 +635,9 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::NetworkServices] also implement [NetworkServices].
+/// All implementations of [super::NetworkServices] also implement [NetworkServices].
 #[async_trait::async_trait]
-impl<T: crate::stubs::NetworkServices> NetworkServices for T {
+impl<T: super::NetworkServices> NetworkServices for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_endpoint_policies(
         &self,

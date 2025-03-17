@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DeveloperConnect].
+/// Defines the trait used to implement [super::client::DeveloperConnect].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DeveloperConnect`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DeveloperConnect::list_connections].
+    /// Implements [super::client::DeveloperConnect::list_connections].
     fn list_connections(
         &self,
         _req: crate::model::ListConnectionsRequest,
@@ -53,7 +53,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeveloperConnect::get_connection].
+    /// Implements [super::client::DeveloperConnect::get_connection].
     fn get_connection(
         &self,
         _req: crate::model::GetConnectionRequest,
@@ -64,7 +64,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeveloperConnect::create_connection].
+    /// Implements [super::client::DeveloperConnect::create_connection].
     fn create_connection(
         &self,
         _req: crate::model::CreateConnectionRequest,
@@ -76,7 +76,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeveloperConnect::update_connection].
+    /// Implements [super::client::DeveloperConnect::update_connection].
     fn update_connection(
         &self,
         _req: crate::model::UpdateConnectionRequest,
@@ -88,7 +88,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeveloperConnect::delete_connection].
+    /// Implements [super::client::DeveloperConnect::delete_connection].
     fn delete_connection(
         &self,
         _req: crate::model::DeleteConnectionRequest,
@@ -100,7 +100,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeveloperConnect::create_git_repository_link].
+    /// Implements [super::client::DeveloperConnect::create_git_repository_link].
     fn create_git_repository_link(
         &self,
         _req: crate::model::CreateGitRepositoryLinkRequest,
@@ -112,7 +112,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeveloperConnect::delete_git_repository_link].
+    /// Implements [super::client::DeveloperConnect::delete_git_repository_link].
     fn delete_git_repository_link(
         &self,
         _req: crate::model::DeleteGitRepositoryLinkRequest,
@@ -124,7 +124,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeveloperConnect::list_git_repository_links].
+    /// Implements [super::client::DeveloperConnect::list_git_repository_links].
     fn list_git_repository_links(
         &self,
         _req: crate::model::ListGitRepositoryLinksRequest,
@@ -136,7 +136,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeveloperConnect::get_git_repository_link].
+    /// Implements [super::client::DeveloperConnect::get_git_repository_link].
     fn get_git_repository_link(
         &self,
         _req: crate::model::GetGitRepositoryLinkRequest,
@@ -148,7 +148,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeveloperConnect::fetch_read_write_token].
+    /// Implements [super::client::DeveloperConnect::fetch_read_write_token].
     fn fetch_read_write_token(
         &self,
         _req: crate::model::FetchReadWriteTokenRequest,
@@ -160,7 +160,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeveloperConnect::fetch_read_token].
+    /// Implements [super::client::DeveloperConnect::fetch_read_token].
     fn fetch_read_token(
         &self,
         _req: crate::model::FetchReadTokenRequest,
@@ -172,7 +172,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeveloperConnect::fetch_linkable_git_repositories].
+    /// Implements [super::client::DeveloperConnect::fetch_linkable_git_repositories].
     fn fetch_linkable_git_repositories(
         &self,
         _req: crate::model::FetchLinkableGitRepositoriesRequest,
@@ -185,7 +185,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::DeveloperConnect::fetch_git_hub_installations].
+    /// Implements [super::client::DeveloperConnect::fetch_git_hub_installations].
     fn fetch_git_hub_installations(
         &self,
         _req: crate::model::FetchGitHubInstallationsRequest,
@@ -198,7 +198,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeveloperConnect::fetch_git_refs].
+    /// Implements [super::client::DeveloperConnect::fetch_git_refs].
     fn fetch_git_refs(
         &self,
         _req: crate::model::FetchGitRefsRequest,
@@ -210,7 +210,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeveloperConnect::list_locations].
+    /// Implements [super::client::DeveloperConnect::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -222,7 +222,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeveloperConnect::get_location].
+    /// Implements [super::client::DeveloperConnect::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -233,7 +233,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeveloperConnect::list_operations].
+    /// Implements [super::client::DeveloperConnect::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -245,7 +245,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeveloperConnect::get_operation].
+    /// Implements [super::client::DeveloperConnect::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -257,7 +257,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeveloperConnect::delete_operation].
+    /// Implements [super::client::DeveloperConnect::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -266,7 +266,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DeveloperConnect::cancel_operation].
+    /// Implements [super::client::DeveloperConnect::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

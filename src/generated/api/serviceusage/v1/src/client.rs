@@ -42,7 +42,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServiceUsage {
-    inner: Arc<dyn crate::stubs::dynamic::ServiceUsage>,
+    inner: Arc<dyn super::stubs::dynamic::ServiceUsage>,
 }
 
 impl ServiceUsage {
@@ -63,7 +63,7 @@ impl ServiceUsage {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ServiceUsage + 'static,
+        T: super::stubs::ServiceUsage + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -72,7 +72,7 @@ impl ServiceUsage {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ServiceUsage>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ServiceUsage>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,16 +81,16 @@ impl ServiceUsage {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceUsage> {
-        crate::transport::ServiceUsage::new(conf).await
+    ) -> Result<impl super::stubs::ServiceUsage> {
+        super::transport::ServiceUsage::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceUsage> {
+    ) -> Result<impl super::stubs::ServiceUsage> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ServiceUsage::new)
+            .map(super::tracing::ServiceUsage::new)
     }
 
     /// Enable a service so that it can be used with a project.
@@ -107,8 +107,8 @@ impl ServiceUsage {
     pub fn enable_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_usage::EnableService {
-        crate::builders::service_usage::EnableService::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::service_usage::EnableService {
+        super::builders::service_usage::EnableService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Disable a service so that it can no longer be used with a project.
@@ -131,8 +131,8 @@ impl ServiceUsage {
     pub fn disable_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_usage::DisableService {
-        crate::builders::service_usage::DisableService::new(self.inner.clone())
+    ) -> super::builders::service_usage::DisableService {
+        super::builders::service_usage::DisableService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -140,8 +140,8 @@ impl ServiceUsage {
     pub fn get_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_usage::GetService {
-        crate::builders::service_usage::GetService::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::service_usage::GetService {
+        super::builders::service_usage::GetService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List all services available to the specified project, and the current
@@ -160,8 +160,8 @@ impl ServiceUsage {
     pub fn list_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::service_usage::ListServices {
-        crate::builders::service_usage::ListServices::new(self.inner.clone())
+    ) -> super::builders::service_usage::ListServices {
+        super::builders::service_usage::ListServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -181,8 +181,8 @@ impl ServiceUsage {
     pub fn batch_enable_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::service_usage::BatchEnableServices {
-        crate::builders::service_usage::BatchEnableServices::new(self.inner.clone())
+    ) -> super::builders::service_usage::BatchEnableServices {
+        super::builders::service_usage::BatchEnableServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -191,16 +191,16 @@ impl ServiceUsage {
     pub fn batch_get_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::service_usage::BatchGetServices {
-        crate::builders::service_usage::BatchGetServices::new(self.inner.clone())
+    ) -> super::builders::service_usage::BatchGetServices {
+        super::builders::service_usage::BatchGetServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> crate::builders::service_usage::ListOperations {
-        crate::builders::service_usage::ListOperations::new(self.inner.clone())
+    pub fn list_operations(&self) -> super::builders::service_usage::ListOperations {
+        super::builders::service_usage::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -209,7 +209,7 @@ impl ServiceUsage {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_usage::GetOperation {
-        crate::builders::service_usage::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::service_usage::GetOperation {
+        super::builders::service_usage::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

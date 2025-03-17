@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Autokey].
+/// Defines the trait used to implement [super::client::Autokey].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Autokey`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Autokey: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Autokey::create_key_handle].
+    /// Implements [super::client::Autokey::create_key_handle].
     fn create_key_handle(
         &self,
         _req: crate::model::CreateKeyHandleRequest,
@@ -53,7 +53,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Autokey::get_key_handle].
+    /// Implements [super::client::Autokey::get_key_handle].
     fn get_key_handle(
         &self,
         _req: crate::model::GetKeyHandleRequest,
@@ -64,7 +64,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Autokey::list_key_handles].
+    /// Implements [super::client::Autokey::list_key_handles].
     fn list_key_handles(
         &self,
         _req: crate::model::ListKeyHandlesRequest,
@@ -76,7 +76,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Autokey::list_locations].
+    /// Implements [super::client::Autokey::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -88,7 +88,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Autokey::get_location].
+    /// Implements [super::client::Autokey::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -99,7 +99,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Autokey::set_iam_policy].
+    /// Implements [super::client::Autokey::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -110,7 +110,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Autokey::get_iam_policy].
+    /// Implements [super::client::Autokey::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -121,7 +121,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Autokey::test_iam_permissions].
+    /// Implements [super::client::Autokey::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -133,7 +133,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Autokey::get_operation].
+    /// Implements [super::client::Autokey::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -168,7 +168,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::AutokeyAdmin].
+/// Defines the trait used to implement [super::client::AutokeyAdmin].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AutokeyAdmin`.  In other use-cases, application developers only
@@ -180,7 +180,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AutokeyAdmin::update_autokey_config].
+    /// Implements [super::client::AutokeyAdmin::update_autokey_config].
     fn update_autokey_config(
         &self,
         _req: crate::model::UpdateAutokeyConfigRequest,
@@ -191,7 +191,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AutokeyAdmin::get_autokey_config].
+    /// Implements [super::client::AutokeyAdmin::get_autokey_config].
     fn get_autokey_config(
         &self,
         _req: crate::model::GetAutokeyConfigRequest,
@@ -202,7 +202,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AutokeyAdmin::show_effective_autokey_config].
+    /// Implements [super::client::AutokeyAdmin::show_effective_autokey_config].
     fn show_effective_autokey_config(
         &self,
         _req: crate::model::ShowEffectiveAutokeyConfigRequest,
@@ -215,7 +215,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AutokeyAdmin::list_locations].
+    /// Implements [super::client::AutokeyAdmin::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -227,7 +227,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AutokeyAdmin::get_location].
+    /// Implements [super::client::AutokeyAdmin::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -238,7 +238,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AutokeyAdmin::set_iam_policy].
+    /// Implements [super::client::AutokeyAdmin::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -249,7 +249,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AutokeyAdmin::get_iam_policy].
+    /// Implements [super::client::AutokeyAdmin::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -260,7 +260,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AutokeyAdmin::test_iam_permissions].
+    /// Implements [super::client::AutokeyAdmin::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -272,7 +272,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AutokeyAdmin::get_operation].
+    /// Implements [super::client::AutokeyAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -285,7 +285,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::EkmService].
+/// Defines the trait used to implement [super::client::EkmService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::EkmService`.  In other use-cases, application developers only
@@ -297,7 +297,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait EkmService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::EkmService::list_ekm_connections].
+    /// Implements [super::client::EkmService::list_ekm_connections].
     fn list_ekm_connections(
         &self,
         _req: crate::model::ListEkmConnectionsRequest,
@@ -309,7 +309,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EkmService::get_ekm_connection].
+    /// Implements [super::client::EkmService::get_ekm_connection].
     fn get_ekm_connection(
         &self,
         _req: crate::model::GetEkmConnectionRequest,
@@ -320,7 +320,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EkmService::create_ekm_connection].
+    /// Implements [super::client::EkmService::create_ekm_connection].
     fn create_ekm_connection(
         &self,
         _req: crate::model::CreateEkmConnectionRequest,
@@ -331,7 +331,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EkmService::update_ekm_connection].
+    /// Implements [super::client::EkmService::update_ekm_connection].
     fn update_ekm_connection(
         &self,
         _req: crate::model::UpdateEkmConnectionRequest,
@@ -342,7 +342,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EkmService::get_ekm_config].
+    /// Implements [super::client::EkmService::get_ekm_config].
     fn get_ekm_config(
         &self,
         _req: crate::model::GetEkmConfigRequest,
@@ -353,7 +353,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EkmService::update_ekm_config].
+    /// Implements [super::client::EkmService::update_ekm_config].
     fn update_ekm_config(
         &self,
         _req: crate::model::UpdateEkmConfigRequest,
@@ -364,7 +364,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EkmService::verify_connectivity].
+    /// Implements [super::client::EkmService::verify_connectivity].
     fn verify_connectivity(
         &self,
         _req: crate::model::VerifyConnectivityRequest,
@@ -376,7 +376,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EkmService::list_locations].
+    /// Implements [super::client::EkmService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -388,7 +388,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EkmService::get_location].
+    /// Implements [super::client::EkmService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -399,7 +399,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EkmService::set_iam_policy].
+    /// Implements [super::client::EkmService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -410,7 +410,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EkmService::get_iam_policy].
+    /// Implements [super::client::EkmService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -421,7 +421,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EkmService::test_iam_permissions].
+    /// Implements [super::client::EkmService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -433,7 +433,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EkmService::get_operation].
+    /// Implements [super::client::EkmService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -446,7 +446,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::KeyManagementService].
+/// Defines the trait used to implement [super::client::KeyManagementService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::KeyManagementService`.  In other use-cases, application developers only
@@ -458,7 +458,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::KeyManagementService::list_key_rings].
+    /// Implements [super::client::KeyManagementService::list_key_rings].
     fn list_key_rings(
         &self,
         _req: crate::model::ListKeyRingsRequest,
@@ -470,7 +470,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::list_crypto_keys].
+    /// Implements [super::client::KeyManagementService::list_crypto_keys].
     fn list_crypto_keys(
         &self,
         _req: crate::model::ListCryptoKeysRequest,
@@ -482,7 +482,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::KeyManagementService::list_crypto_key_versions].
+    /// Implements [super::client::KeyManagementService::list_crypto_key_versions].
     fn list_crypto_key_versions(
         &self,
         _req: crate::model::ListCryptoKeyVersionsRequest,
@@ -494,7 +494,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::KeyManagementService::list_import_jobs].
+    /// Implements [super::client::KeyManagementService::list_import_jobs].
     fn list_import_jobs(
         &self,
         _req: crate::model::ListImportJobsRequest,
@@ -506,7 +506,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::KeyManagementService::get_key_ring].
+    /// Implements [super::client::KeyManagementService::get_key_ring].
     fn get_key_ring(
         &self,
         _req: crate::model::GetKeyRingRequest,
@@ -517,7 +517,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::get_crypto_key].
+    /// Implements [super::client::KeyManagementService::get_crypto_key].
     fn get_crypto_key(
         &self,
         _req: crate::model::GetCryptoKeyRequest,
@@ -528,7 +528,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::get_crypto_key_version].
+    /// Implements [super::client::KeyManagementService::get_crypto_key_version].
     fn get_crypto_key_version(
         &self,
         _req: crate::model::GetCryptoKeyVersionRequest,
@@ -540,7 +540,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::get_public_key].
+    /// Implements [super::client::KeyManagementService::get_public_key].
     fn get_public_key(
         &self,
         _req: crate::model::GetPublicKeyRequest,
@@ -551,7 +551,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::get_import_job].
+    /// Implements [super::client::KeyManagementService::get_import_job].
     fn get_import_job(
         &self,
         _req: crate::model::GetImportJobRequest,
@@ -562,7 +562,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::create_key_ring].
+    /// Implements [super::client::KeyManagementService::create_key_ring].
     fn create_key_ring(
         &self,
         _req: crate::model::CreateKeyRingRequest,
@@ -573,7 +573,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::create_crypto_key].
+    /// Implements [super::client::KeyManagementService::create_crypto_key].
     fn create_crypto_key(
         &self,
         _req: crate::model::CreateCryptoKeyRequest,
@@ -584,7 +584,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::create_crypto_key_version].
+    /// Implements [super::client::KeyManagementService::create_crypto_key_version].
     fn create_crypto_key_version(
         &self,
         _req: crate::model::CreateCryptoKeyVersionRequest,
@@ -596,7 +596,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::import_crypto_key_version].
+    /// Implements [super::client::KeyManagementService::import_crypto_key_version].
     fn import_crypto_key_version(
         &self,
         _req: crate::model::ImportCryptoKeyVersionRequest,
@@ -608,7 +608,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::create_import_job].
+    /// Implements [super::client::KeyManagementService::create_import_job].
     fn create_import_job(
         &self,
         _req: crate::model::CreateImportJobRequest,
@@ -619,7 +619,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::update_crypto_key].
+    /// Implements [super::client::KeyManagementService::update_crypto_key].
     fn update_crypto_key(
         &self,
         _req: crate::model::UpdateCryptoKeyRequest,
@@ -630,7 +630,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::update_crypto_key_version].
+    /// Implements [super::client::KeyManagementService::update_crypto_key_version].
     fn update_crypto_key_version(
         &self,
         _req: crate::model::UpdateCryptoKeyVersionRequest,
@@ -642,7 +642,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::update_crypto_key_primary_version].
+    /// Implements [super::client::KeyManagementService::update_crypto_key_primary_version].
     fn update_crypto_key_primary_version(
         &self,
         _req: crate::model::UpdateCryptoKeyPrimaryVersionRequest,
@@ -653,7 +653,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::destroy_crypto_key_version].
+    /// Implements [super::client::KeyManagementService::destroy_crypto_key_version].
     fn destroy_crypto_key_version(
         &self,
         _req: crate::model::DestroyCryptoKeyVersionRequest,
@@ -665,7 +665,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::restore_crypto_key_version].
+    /// Implements [super::client::KeyManagementService::restore_crypto_key_version].
     fn restore_crypto_key_version(
         &self,
         _req: crate::model::RestoreCryptoKeyVersionRequest,
@@ -677,7 +677,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::encrypt].
+    /// Implements [super::client::KeyManagementService::encrypt].
     fn encrypt(
         &self,
         _req: crate::model::EncryptRequest,
@@ -689,7 +689,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::decrypt].
+    /// Implements [super::client::KeyManagementService::decrypt].
     fn decrypt(
         &self,
         _req: crate::model::DecryptRequest,
@@ -701,7 +701,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::raw_encrypt].
+    /// Implements [super::client::KeyManagementService::raw_encrypt].
     fn raw_encrypt(
         &self,
         _req: crate::model::RawEncryptRequest,
@@ -713,7 +713,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::raw_decrypt].
+    /// Implements [super::client::KeyManagementService::raw_decrypt].
     fn raw_decrypt(
         &self,
         _req: crate::model::RawDecryptRequest,
@@ -725,7 +725,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::asymmetric_sign].
+    /// Implements [super::client::KeyManagementService::asymmetric_sign].
     fn asymmetric_sign(
         &self,
         _req: crate::model::AsymmetricSignRequest,
@@ -737,7 +737,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::KeyManagementService::asymmetric_decrypt].
+    /// Implements [super::client::KeyManagementService::asymmetric_decrypt].
     fn asymmetric_decrypt(
         &self,
         _req: crate::model::AsymmetricDecryptRequest,
@@ -749,7 +749,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::KeyManagementService::mac_sign].
+    /// Implements [super::client::KeyManagementService::mac_sign].
     fn mac_sign(
         &self,
         _req: crate::model::MacSignRequest,
@@ -761,7 +761,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::mac_verify].
+    /// Implements [super::client::KeyManagementService::mac_verify].
     fn mac_verify(
         &self,
         _req: crate::model::MacVerifyRequest,
@@ -773,7 +773,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::generate_random_bytes].
+    /// Implements [super::client::KeyManagementService::generate_random_bytes].
     fn generate_random_bytes(
         &self,
         _req: crate::model::GenerateRandomBytesRequest,
@@ -785,7 +785,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::KeyManagementService::list_locations].
+    /// Implements [super::client::KeyManagementService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -797,7 +797,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::KeyManagementService::get_location].
+    /// Implements [super::client::KeyManagementService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -808,7 +808,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::set_iam_policy].
+    /// Implements [super::client::KeyManagementService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -819,7 +819,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::get_iam_policy].
+    /// Implements [super::client::KeyManagementService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -830,7 +830,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::KeyManagementService::test_iam_permissions].
+    /// Implements [super::client::KeyManagementService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -842,7 +842,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::KeyManagementService::get_operation].
+    /// Implements [super::client::KeyManagementService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

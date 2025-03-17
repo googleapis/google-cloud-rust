@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [LookupService](crate::stubs::LookupService) using a [gclient::ReqwestClient].
+/// Implements [LookupService](super::stubs::LookupService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct LookupService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl LookupService {
     }
 }
 
-impl crate::stubs::LookupService for LookupService {
+impl super::stubs::LookupService for LookupService {
     async fn resolve_service(
         &self,
         req: crate::model::ResolveServiceRequest,
@@ -99,7 +99,7 @@ impl crate::stubs::LookupService for LookupService {
     }
 }
 
-/// Implements [RegistrationService](crate::stubs::RegistrationService) using a [gclient::ReqwestClient].
+/// Implements [RegistrationService](super::stubs::RegistrationService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct RegistrationService {
     inner: gclient::ReqwestClient,
@@ -120,7 +120,7 @@ impl RegistrationService {
     }
 }
 
-impl crate::stubs::RegistrationService for RegistrationService {
+impl super::stubs::RegistrationService for RegistrationService {
     async fn create_namespace(
         &self,
         req: crate::model::CreateNamespaceRequest,

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Memorystore].
+/// Defines the trait used to implement [super::client::Memorystore].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Memorystore`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Memorystore: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Memorystore::list_instances].
+    /// Implements [super::client::Memorystore::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -53,7 +53,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Memorystore::get_instance].
+    /// Implements [super::client::Memorystore::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -64,7 +64,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Memorystore::create_instance].
+    /// Implements [super::client::Memorystore::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -76,7 +76,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Memorystore::update_instance].
+    /// Implements [super::client::Memorystore::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -88,7 +88,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Memorystore::delete_instance].
+    /// Implements [super::client::Memorystore::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -100,7 +100,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Memorystore::get_certificate_authority].
+    /// Implements [super::client::Memorystore::get_certificate_authority].
     fn get_certificate_authority(
         &self,
         _req: crate::model::GetCertificateAuthorityRequest,
@@ -112,7 +112,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Memorystore::list_locations].
+    /// Implements [super::client::Memorystore::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -124,7 +124,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Memorystore::get_location].
+    /// Implements [super::client::Memorystore::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -135,7 +135,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Memorystore::list_operations].
+    /// Implements [super::client::Memorystore::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -147,7 +147,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Memorystore::get_operation].
+    /// Implements [super::client::Memorystore::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -159,7 +159,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Memorystore::delete_operation].
+    /// Implements [super::client::Memorystore::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -168,7 +168,7 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Memorystore::cancel_operation].
+    /// Implements [super::client::Memorystore::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

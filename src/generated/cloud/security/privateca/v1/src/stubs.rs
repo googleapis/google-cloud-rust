@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CertificateAuthorityService].
+/// Defines the trait used to implement [super::client::CertificateAuthorityService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CertificateAuthorityService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CertificateAuthorityService::create_certificate].
+    /// Implements [super::client::CertificateAuthorityService::create_certificate].
     fn create_certificate(
         &self,
         _req: crate::model::CreateCertificateRequest,
@@ -52,7 +52,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::get_certificate].
+    /// Implements [super::client::CertificateAuthorityService::get_certificate].
     fn get_certificate(
         &self,
         _req: crate::model::GetCertificateRequest,
@@ -63,7 +63,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::list_certificates].
+    /// Implements [super::client::CertificateAuthorityService::list_certificates].
     fn list_certificates(
         &self,
         _req: crate::model::ListCertificatesRequest,
@@ -75,7 +75,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::revoke_certificate].
+    /// Implements [super::client::CertificateAuthorityService::revoke_certificate].
     fn revoke_certificate(
         &self,
         _req: crate::model::RevokeCertificateRequest,
@@ -86,7 +86,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::update_certificate].
+    /// Implements [super::client::CertificateAuthorityService::update_certificate].
     fn update_certificate(
         &self,
         _req: crate::model::UpdateCertificateRequest,
@@ -97,7 +97,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::activate_certificate_authority].
+    /// Implements [super::client::CertificateAuthorityService::activate_certificate_authority].
     fn activate_certificate_authority(
         &self,
         _req: crate::model::ActivateCertificateAuthorityRequest,
@@ -109,7 +109,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::create_certificate_authority].
+    /// Implements [super::client::CertificateAuthorityService::create_certificate_authority].
     fn create_certificate_authority(
         &self,
         _req: crate::model::CreateCertificateAuthorityRequest,
@@ -121,7 +121,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::disable_certificate_authority].
+    /// Implements [super::client::CertificateAuthorityService::disable_certificate_authority].
     fn disable_certificate_authority(
         &self,
         _req: crate::model::DisableCertificateAuthorityRequest,
@@ -133,7 +133,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::enable_certificate_authority].
+    /// Implements [super::client::CertificateAuthorityService::enable_certificate_authority].
     fn enable_certificate_authority(
         &self,
         _req: crate::model::EnableCertificateAuthorityRequest,
@@ -145,7 +145,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::fetch_certificate_authority_csr].
+    /// Implements [super::client::CertificateAuthorityService::fetch_certificate_authority_csr].
     fn fetch_certificate_authority_csr(
         &self,
         _req: crate::model::FetchCertificateAuthorityCsrRequest,
@@ -158,7 +158,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::get_certificate_authority].
+    /// Implements [super::client::CertificateAuthorityService::get_certificate_authority].
     fn get_certificate_authority(
         &self,
         _req: crate::model::GetCertificateAuthorityRequest,
@@ -170,7 +170,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::list_certificate_authorities].
+    /// Implements [super::client::CertificateAuthorityService::list_certificate_authorities].
     fn list_certificate_authorities(
         &self,
         _req: crate::model::ListCertificateAuthoritiesRequest,
@@ -183,7 +183,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::undelete_certificate_authority].
+    /// Implements [super::client::CertificateAuthorityService::undelete_certificate_authority].
     fn undelete_certificate_authority(
         &self,
         _req: crate::model::UndeleteCertificateAuthorityRequest,
@@ -195,7 +195,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::delete_certificate_authority].
+    /// Implements [super::client::CertificateAuthorityService::delete_certificate_authority].
     fn delete_certificate_authority(
         &self,
         _req: crate::model::DeleteCertificateAuthorityRequest,
@@ -207,7 +207,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::update_certificate_authority].
+    /// Implements [super::client::CertificateAuthorityService::update_certificate_authority].
     fn update_certificate_authority(
         &self,
         _req: crate::model::UpdateCertificateAuthorityRequest,
@@ -219,7 +219,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::create_ca_pool].
+    /// Implements [super::client::CertificateAuthorityService::create_ca_pool].
     fn create_ca_pool(
         &self,
         _req: crate::model::CreateCaPoolRequest,
@@ -231,7 +231,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::update_ca_pool].
+    /// Implements [super::client::CertificateAuthorityService::update_ca_pool].
     fn update_ca_pool(
         &self,
         _req: crate::model::UpdateCaPoolRequest,
@@ -243,7 +243,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::get_ca_pool].
+    /// Implements [super::client::CertificateAuthorityService::get_ca_pool].
     fn get_ca_pool(
         &self,
         _req: crate::model::GetCaPoolRequest,
@@ -254,7 +254,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::list_ca_pools].
+    /// Implements [super::client::CertificateAuthorityService::list_ca_pools].
     fn list_ca_pools(
         &self,
         _req: crate::model::ListCaPoolsRequest,
@@ -266,7 +266,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::delete_ca_pool].
+    /// Implements [super::client::CertificateAuthorityService::delete_ca_pool].
     fn delete_ca_pool(
         &self,
         _req: crate::model::DeleteCaPoolRequest,
@@ -278,7 +278,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::fetch_ca_certs].
+    /// Implements [super::client::CertificateAuthorityService::fetch_ca_certs].
     fn fetch_ca_certs(
         &self,
         _req: crate::model::FetchCaCertsRequest,
@@ -290,7 +290,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::get_certificate_revocation_list].
+    /// Implements [super::client::CertificateAuthorityService::get_certificate_revocation_list].
     fn get_certificate_revocation_list(
         &self,
         _req: crate::model::GetCertificateRevocationListRequest,
@@ -302,7 +302,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::list_certificate_revocation_lists].
+    /// Implements [super::client::CertificateAuthorityService::list_certificate_revocation_lists].
     fn list_certificate_revocation_lists(
         &self,
         _req: crate::model::ListCertificateRevocationListsRequest,
@@ -315,7 +315,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::update_certificate_revocation_list].
+    /// Implements [super::client::CertificateAuthorityService::update_certificate_revocation_list].
     fn update_certificate_revocation_list(
         &self,
         _req: crate::model::UpdateCertificateRevocationListRequest,
@@ -327,7 +327,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::create_certificate_template].
+    /// Implements [super::client::CertificateAuthorityService::create_certificate_template].
     fn create_certificate_template(
         &self,
         _req: crate::model::CreateCertificateTemplateRequest,
@@ -339,7 +339,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::delete_certificate_template].
+    /// Implements [super::client::CertificateAuthorityService::delete_certificate_template].
     fn delete_certificate_template(
         &self,
         _req: crate::model::DeleteCertificateTemplateRequest,
@@ -351,7 +351,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::get_certificate_template].
+    /// Implements [super::client::CertificateAuthorityService::get_certificate_template].
     fn get_certificate_template(
         &self,
         _req: crate::model::GetCertificateTemplateRequest,
@@ -363,7 +363,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::list_certificate_templates].
+    /// Implements [super::client::CertificateAuthorityService::list_certificate_templates].
     fn list_certificate_templates(
         &self,
         _req: crate::model::ListCertificateTemplatesRequest,
@@ -376,7 +376,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::update_certificate_template].
+    /// Implements [super::client::CertificateAuthorityService::update_certificate_template].
     fn update_certificate_template(
         &self,
         _req: crate::model::UpdateCertificateTemplateRequest,
@@ -388,7 +388,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::list_locations].
+    /// Implements [super::client::CertificateAuthorityService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -400,7 +400,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::get_location].
+    /// Implements [super::client::CertificateAuthorityService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -411,7 +411,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::set_iam_policy].
+    /// Implements [super::client::CertificateAuthorityService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -422,7 +422,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::get_iam_policy].
+    /// Implements [super::client::CertificateAuthorityService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -433,7 +433,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::test_iam_permissions].
+    /// Implements [super::client::CertificateAuthorityService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -445,7 +445,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::list_operations].
+    /// Implements [super::client::CertificateAuthorityService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -457,7 +457,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::get_operation].
+    /// Implements [super::client::CertificateAuthorityService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -469,7 +469,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::delete_operation].
+    /// Implements [super::client::CertificateAuthorityService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -478,7 +478,7 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CertificateAuthorityService::cancel_operation].
+    /// Implements [super::client::CertificateAuthorityService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

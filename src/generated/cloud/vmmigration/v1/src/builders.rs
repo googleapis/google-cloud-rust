@@ -18,10 +18,10 @@ pub mod vm_migration {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::VmMigration] request builders.
+    /// Common implementation for [super::super::client::VmMigration] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::VmMigration>,
+        stub: Arc<dyn super::super::stubs::dynamic::VmMigration>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod vm_migration {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod vm_migration {
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -123,7 +123,7 @@ pub mod vm_migration {
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -164,7 +164,7 @@ pub mod vm_migration {
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -185,7 +185,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_source][crate::client::VmMigration::create_source].
+        /// on [create_source][super::super::client::VmMigration::create_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_source(self.0.request, self.0.options)
@@ -263,7 +263,7 @@ pub mod vm_migration {
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -284,7 +284,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_source][crate::client::VmMigration::update_source].
+        /// on [update_source][super::super::client::VmMigration::update_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_source(self.0.request, self.0.options)
@@ -359,7 +359,7 @@ pub mod vm_migration {
     pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
 
     impl DeleteSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -380,7 +380,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_source][crate::client::VmMigration::delete_source].
+        /// on [delete_source][super::super::client::VmMigration::delete_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_source(self.0.request, self.0.options)
@@ -441,7 +441,7 @@ pub mod vm_migration {
     pub struct FetchInventory(RequestBuilder<crate::model::FetchInventoryRequest>);
 
     impl FetchInventory {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -488,7 +488,7 @@ pub mod vm_migration {
     pub struct ListUtilizationReports(RequestBuilder<crate::model::ListUtilizationReportsRequest>);
 
     impl ListUtilizationReports {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -578,7 +578,7 @@ pub mod vm_migration {
     pub struct GetUtilizationReport(RequestBuilder<crate::model::GetUtilizationReportRequest>);
 
     impl GetUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -630,7 +630,7 @@ pub mod vm_migration {
     );
 
     impl CreateUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -654,7 +654,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_utilization_report][crate::client::VmMigration::create_utilization_report].
+        /// on [create_utilization_report][super::super::client::VmMigration::create_utilization_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_utilization_report(self.0.request, self.0.options)
@@ -738,7 +738,7 @@ pub mod vm_migration {
     );
 
     impl DeleteUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -762,7 +762,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_utilization_report][crate::client::VmMigration::delete_utilization_report].
+        /// on [delete_utilization_report][super::super::client::VmMigration::delete_utilization_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_utilization_report(self.0.request, self.0.options)
@@ -825,7 +825,7 @@ pub mod vm_migration {
     );
 
     impl ListDatacenterConnectors {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -909,7 +909,7 @@ pub mod vm_migration {
     pub struct GetDatacenterConnector(RequestBuilder<crate::model::GetDatacenterConnectorRequest>);
 
     impl GetDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -955,7 +955,7 @@ pub mod vm_migration {
     );
 
     impl CreateDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -979,7 +979,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_datacenter_connector][crate::client::VmMigration::create_datacenter_connector].
+        /// on [create_datacenter_connector][super::super::client::VmMigration::create_datacenter_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_datacenter_connector(self.0.request, self.0.options)
@@ -1063,7 +1063,7 @@ pub mod vm_migration {
     );
 
     impl DeleteDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1087,7 +1087,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_datacenter_connector][crate::client::VmMigration::delete_datacenter_connector].
+        /// on [delete_datacenter_connector][super::super::client::VmMigration::delete_datacenter_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_datacenter_connector(self.0.request, self.0.options)
@@ -1148,7 +1148,7 @@ pub mod vm_migration {
     pub struct UpgradeAppliance(RequestBuilder<crate::model::UpgradeApplianceRequest>);
 
     impl UpgradeAppliance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1172,7 +1172,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_appliance][crate::client::VmMigration::upgrade_appliance].
+        /// on [upgrade_appliance][super::super::client::VmMigration::upgrade_appliance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_appliance(self.0.request, self.0.options)
@@ -1239,7 +1239,7 @@ pub mod vm_migration {
     pub struct CreateMigratingVm(RequestBuilder<crate::model::CreateMigratingVmRequest>);
 
     impl CreateMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1263,7 +1263,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_migrating_vm][crate::client::VmMigration::create_migrating_vm].
+        /// on [create_migrating_vm][super::super::client::VmMigration::create_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_migrating_vm(self.0.request, self.0.options)
@@ -1342,7 +1342,7 @@ pub mod vm_migration {
     pub struct ListMigratingVms(RequestBuilder<crate::model::ListMigratingVmsRequest>);
 
     impl ListMigratingVms {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1430,7 +1430,7 @@ pub mod vm_migration {
     pub struct GetMigratingVm(RequestBuilder<crate::model::GetMigratingVmRequest>);
 
     impl GetMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1477,7 +1477,7 @@ pub mod vm_migration {
     pub struct UpdateMigratingVm(RequestBuilder<crate::model::UpdateMigratingVmRequest>);
 
     impl UpdateMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1501,7 +1501,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_migrating_vm][crate::client::VmMigration::update_migrating_vm].
+        /// on [update_migrating_vm][super::super::client::VmMigration::update_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_migrating_vm(self.0.request, self.0.options)
@@ -1577,7 +1577,7 @@ pub mod vm_migration {
     pub struct DeleteMigratingVm(RequestBuilder<crate::model::DeleteMigratingVmRequest>);
 
     impl DeleteMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1601,7 +1601,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_migrating_vm][crate::client::VmMigration::delete_migrating_vm].
+        /// on [delete_migrating_vm][super::super::client::VmMigration::delete_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_migrating_vm(self.0.request, self.0.options)
@@ -1656,7 +1656,7 @@ pub mod vm_migration {
     pub struct StartMigration(RequestBuilder<crate::model::StartMigrationRequest>);
 
     impl StartMigration {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1677,7 +1677,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_migration][crate::client::VmMigration::start_migration].
+        /// on [start_migration][super::super::client::VmMigration::start_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_migration(self.0.request, self.0.options)
@@ -1738,7 +1738,7 @@ pub mod vm_migration {
     pub struct ResumeMigration(RequestBuilder<crate::model::ResumeMigrationRequest>);
 
     impl ResumeMigration {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1759,7 +1759,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_migration][crate::client::VmMigration::resume_migration].
+        /// on [resume_migration][super::super::client::VmMigration::resume_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_migration(self.0.request, self.0.options)
@@ -1820,7 +1820,7 @@ pub mod vm_migration {
     pub struct PauseMigration(RequestBuilder<crate::model::PauseMigrationRequest>);
 
     impl PauseMigration {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1841,7 +1841,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [pause_migration][crate::client::VmMigration::pause_migration].
+        /// on [pause_migration][super::super::client::VmMigration::pause_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .pause_migration(self.0.request, self.0.options)
@@ -1902,7 +1902,7 @@ pub mod vm_migration {
     pub struct FinalizeMigration(RequestBuilder<crate::model::FinalizeMigrationRequest>);
 
     impl FinalizeMigration {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1926,7 +1926,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [finalize_migration][crate::client::VmMigration::finalize_migration].
+        /// on [finalize_migration][super::super::client::VmMigration::finalize_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .finalize_migration(self.0.request, self.0.options)
@@ -1987,7 +1987,7 @@ pub mod vm_migration {
     pub struct CreateCloneJob(RequestBuilder<crate::model::CreateCloneJobRequest>);
 
     impl CreateCloneJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2008,7 +2008,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_clone_job][crate::client::VmMigration::create_clone_job].
+        /// on [create_clone_job][super::super::client::VmMigration::create_clone_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_clone_job(self.0.request, self.0.options)
@@ -2087,7 +2087,7 @@ pub mod vm_migration {
     pub struct CancelCloneJob(RequestBuilder<crate::model::CancelCloneJobRequest>);
 
     impl CancelCloneJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2108,7 +2108,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [cancel_clone_job][crate::client::VmMigration::cancel_clone_job].
+        /// on [cancel_clone_job][super::super::client::VmMigration::cancel_clone_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_clone_job(self.0.request, self.0.options)
@@ -2169,7 +2169,7 @@ pub mod vm_migration {
     pub struct ListCloneJobs(RequestBuilder<crate::model::ListCloneJobsRequest>);
 
     impl ListCloneJobs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2248,7 +2248,7 @@ pub mod vm_migration {
     pub struct GetCloneJob(RequestBuilder<crate::model::GetCloneJobRequest>);
 
     impl GetCloneJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2289,7 +2289,7 @@ pub mod vm_migration {
     pub struct CreateCutoverJob(RequestBuilder<crate::model::CreateCutoverJobRequest>);
 
     impl CreateCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2313,7 +2313,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cutover_job][crate::client::VmMigration::create_cutover_job].
+        /// on [create_cutover_job][super::super::client::VmMigration::create_cutover_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cutover_job(self.0.request, self.0.options)
@@ -2392,7 +2392,7 @@ pub mod vm_migration {
     pub struct CancelCutoverJob(RequestBuilder<crate::model::CancelCutoverJobRequest>);
 
     impl CancelCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2416,7 +2416,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [cancel_cutover_job][crate::client::VmMigration::cancel_cutover_job].
+        /// on [cancel_cutover_job][super::super::client::VmMigration::cancel_cutover_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_cutover_job(self.0.request, self.0.options)
@@ -2477,7 +2477,7 @@ pub mod vm_migration {
     pub struct ListCutoverJobs(RequestBuilder<crate::model::ListCutoverJobsRequest>);
 
     impl ListCutoverJobs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2556,7 +2556,7 @@ pub mod vm_migration {
     pub struct GetCutoverJob(RequestBuilder<crate::model::GetCutoverJobRequest>);
 
     impl GetCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2597,7 +2597,7 @@ pub mod vm_migration {
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2676,7 +2676,7 @@ pub mod vm_migration {
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2717,7 +2717,7 @@ pub mod vm_migration {
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2738,7 +2738,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_group][crate::client::VmMigration::create_group].
+        /// on [create_group][super::super::client::VmMigration::create_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_group(self.0.request, self.0.options)
@@ -2816,7 +2816,7 @@ pub mod vm_migration {
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2837,7 +2837,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_group][crate::client::VmMigration::update_group].
+        /// on [update_group][super::super::client::VmMigration::update_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
@@ -2912,7 +2912,7 @@ pub mod vm_migration {
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2933,7 +2933,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_group][crate::client::VmMigration::delete_group].
+        /// on [delete_group][super::super::client::VmMigration::delete_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_group(self.0.request, self.0.options)
@@ -2994,7 +2994,7 @@ pub mod vm_migration {
     pub struct AddGroupMigration(RequestBuilder<crate::model::AddGroupMigrationRequest>);
 
     impl AddGroupMigration {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3018,7 +3018,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [add_group_migration][crate::client::VmMigration::add_group_migration].
+        /// on [add_group_migration][super::super::client::VmMigration::add_group_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .add_group_migration(self.0.request, self.0.options)
@@ -3085,7 +3085,7 @@ pub mod vm_migration {
     pub struct RemoveGroupMigration(RequestBuilder<crate::model::RemoveGroupMigrationRequest>);
 
     impl RemoveGroupMigration {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3109,7 +3109,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [remove_group_migration][crate::client::VmMigration::remove_group_migration].
+        /// on [remove_group_migration][super::super::client::VmMigration::remove_group_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_group_migration(self.0.request, self.0.options)
@@ -3176,7 +3176,7 @@ pub mod vm_migration {
     pub struct ListTargetProjects(RequestBuilder<crate::model::ListTargetProjectsRequest>);
 
     impl ListTargetProjects {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3258,7 +3258,7 @@ pub mod vm_migration {
     pub struct GetTargetProject(RequestBuilder<crate::model::GetTargetProjectRequest>);
 
     impl GetTargetProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3302,7 +3302,7 @@ pub mod vm_migration {
     pub struct CreateTargetProject(RequestBuilder<crate::model::CreateTargetProjectRequest>);
 
     impl CreateTargetProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3326,7 +3326,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_target_project][crate::client::VmMigration::create_target_project].
+        /// on [create_target_project][super::super::client::VmMigration::create_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_target_project(self.0.request, self.0.options)
@@ -3406,7 +3406,7 @@ pub mod vm_migration {
     pub struct UpdateTargetProject(RequestBuilder<crate::model::UpdateTargetProjectRequest>);
 
     impl UpdateTargetProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3430,7 +3430,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_target_project][crate::client::VmMigration::update_target_project].
+        /// on [update_target_project][super::super::client::VmMigration::update_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_target_project(self.0.request, self.0.options)
@@ -3507,7 +3507,7 @@ pub mod vm_migration {
     pub struct DeleteTargetProject(RequestBuilder<crate::model::DeleteTargetProjectRequest>);
 
     impl DeleteTargetProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3531,7 +3531,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_target_project][crate::client::VmMigration::delete_target_project].
+        /// on [delete_target_project][super::super::client::VmMigration::delete_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_target_project(self.0.request, self.0.options)
@@ -3592,7 +3592,7 @@ pub mod vm_migration {
     pub struct ListReplicationCycles(RequestBuilder<crate::model::ListReplicationCyclesRequest>);
 
     impl ListReplicationCycles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3674,7 +3674,7 @@ pub mod vm_migration {
     pub struct GetReplicationCycle(RequestBuilder<crate::model::GetReplicationCycleRequest>);
 
     impl GetReplicationCycle {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3718,7 +3718,7 @@ pub mod vm_migration {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3794,7 +3794,7 @@ pub mod vm_migration {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3835,7 +3835,7 @@ pub mod vm_migration {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3911,7 +3911,7 @@ pub mod vm_migration {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3955,7 +3955,7 @@ pub mod vm_migration {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3999,7 +3999,7 @@ pub mod vm_migration {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmMigration>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

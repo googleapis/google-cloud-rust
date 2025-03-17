@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Connectors](crate::stubs::Connectors) using a [gclient::ReqwestClient].
+/// Implements [Connectors](super::stubs::Connectors) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Connectors {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Connectors {
     }
 }
 
-impl crate::stubs::Connectors for Connectors {
+impl super::stubs::Connectors for Connectors {
     async fn list_connections(
         &self,
         req: crate::model::ListConnectionsRequest,

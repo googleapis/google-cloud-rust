@@ -270,9 +270,9 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AlloyDBAdmin] also implement [AlloyDBAdmin].
+/// All implementations of [super::AlloyDBAdmin] also implement [AlloyDBAdmin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AlloyDBAdmin> AlloyDBAdmin for T {
+impl<T: super::AlloyDBAdmin> AlloyDBAdmin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_clusters(
         &self,

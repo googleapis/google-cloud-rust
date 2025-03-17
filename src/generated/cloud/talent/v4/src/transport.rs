@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CompanyService](crate::stubs::CompanyService) using a [gclient::ReqwestClient].
+/// Implements [CompanyService](super::stubs::CompanyService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CompanyService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl CompanyService {
     }
 }
 
-impl crate::stubs::CompanyService for CompanyService {
+impl super::stubs::CompanyService for CompanyService {
     async fn create_company(
         &self,
         req: crate::model::CreateCompanyRequest,
@@ -183,7 +183,7 @@ impl crate::stubs::CompanyService for CompanyService {
     }
 }
 
-/// Implements [Completion](crate::stubs::Completion) using a [gclient::ReqwestClient].
+/// Implements [Completion](super::stubs::Completion) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Completion {
     inner: gclient::ReqwestClient,
@@ -204,7 +204,7 @@ impl Completion {
     }
 }
 
-impl crate::stubs::Completion for Completion {
+impl super::stubs::Completion for Completion {
     async fn complete_query(
         &self,
         req: crate::model::CompleteQueryRequest,
@@ -256,7 +256,7 @@ impl crate::stubs::Completion for Completion {
     }
 }
 
-/// Implements [EventService](crate::stubs::EventService) using a [gclient::ReqwestClient].
+/// Implements [EventService](super::stubs::EventService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct EventService {
     inner: gclient::ReqwestClient,
@@ -277,7 +277,7 @@ impl EventService {
     }
 }
 
-impl crate::stubs::EventService for EventService {
+impl super::stubs::EventService for EventService {
     async fn create_client_event(
         &self,
         req: crate::model::CreateClientEventRequest,
@@ -320,7 +320,7 @@ impl crate::stubs::EventService for EventService {
     }
 }
 
-/// Implements [JobService](crate::stubs::JobService) using a [gclient::ReqwestClient].
+/// Implements [JobService](super::stubs::JobService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct JobService {
     inner: gclient::ReqwestClient,
@@ -341,7 +341,7 @@ impl JobService {
     }
 }
 
-impl crate::stubs::JobService for JobService {
+impl super::stubs::JobService for JobService {
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,
@@ -590,7 +590,7 @@ impl crate::stubs::JobService for JobService {
     }
 }
 
-/// Implements [TenantService](crate::stubs::TenantService) using a [gclient::ReqwestClient].
+/// Implements [TenantService](super::stubs::TenantService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TenantService {
     inner: gclient::ReqwestClient,
@@ -611,7 +611,7 @@ impl TenantService {
     }
 }
 
-impl crate::stubs::TenantService for TenantService {
+impl super::stubs::TenantService for TenantService {
     async fn create_tenant(
         &self,
         req: crate::model::CreateTenantRequest,

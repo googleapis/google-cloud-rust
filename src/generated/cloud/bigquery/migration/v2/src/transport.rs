@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [MigrationService](crate::stubs::MigrationService) using a [gclient::ReqwestClient].
+/// Implements [MigrationService](super::stubs::MigrationService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct MigrationService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl MigrationService {
     }
 }
 
-impl crate::stubs::MigrationService for MigrationService {
+impl super::stubs::MigrationService for MigrationService {
     async fn create_migration_workflow(
         &self,
         req: crate::model::CreateMigrationWorkflowRequest,

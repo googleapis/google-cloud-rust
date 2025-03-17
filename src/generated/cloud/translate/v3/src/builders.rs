@@ -18,10 +18,10 @@ pub mod translation_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TranslationService] request builders.
+    /// Common implementation for [super::super::client::TranslationService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TranslationService>,
+        stub: Arc<dyn super::super::stubs::dynamic::TranslationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod translation_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod translation_service {
     pub struct TranslateText(RequestBuilder<crate::model::TranslateTextRequest>);
 
     impl TranslateText {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -153,7 +153,7 @@ pub mod translation_service {
     pub struct RomanizeText(RequestBuilder<crate::model::RomanizeTextRequest>);
 
     impl RomanizeText {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -211,7 +211,7 @@ pub mod translation_service {
     pub struct DetectLanguage(RequestBuilder<crate::model::DetectLanguageRequest>);
 
     impl DetectLanguage {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -284,7 +284,7 @@ pub mod translation_service {
     pub struct GetSupportedLanguages(RequestBuilder<crate::model::GetSupportedLanguagesRequest>);
 
     impl GetSupportedLanguages {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -340,7 +340,7 @@ pub mod translation_service {
     pub struct TranslateDocument(RequestBuilder<crate::model::TranslateDocumentRequest>);
 
     impl TranslateDocument {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -470,7 +470,7 @@ pub mod translation_service {
     pub struct BatchTranslateText(RequestBuilder<crate::model::BatchTranslateTextRequest>);
 
     impl BatchTranslateText {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -494,7 +494,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_translate_text][crate::client::TranslationService::batch_translate_text].
+        /// on [batch_translate_text][super::super::client::TranslationService::batch_translate_text].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_translate_text(self.0.request, self.0.options)
@@ -625,7 +625,7 @@ pub mod translation_service {
     pub struct BatchTranslateDocument(RequestBuilder<crate::model::BatchTranslateDocumentRequest>);
 
     impl BatchTranslateDocument {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -649,7 +649,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_translate_document][crate::client::TranslationService::batch_translate_document].
+        /// on [batch_translate_document][super::super::client::TranslationService::batch_translate_document].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_translate_document(self.0.request, self.0.options)
@@ -803,7 +803,7 @@ pub mod translation_service {
     pub struct CreateGlossary(RequestBuilder<crate::model::CreateGlossaryRequest>);
 
     impl CreateGlossary {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -824,7 +824,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_glossary][crate::client::TranslationService::create_glossary].
+        /// on [create_glossary][super::super::client::TranslationService::create_glossary].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_glossary(self.0.request, self.0.options)
@@ -892,7 +892,7 @@ pub mod translation_service {
     pub struct UpdateGlossary(RequestBuilder<crate::model::UpdateGlossaryRequest>);
 
     impl UpdateGlossary {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -913,7 +913,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_glossary][crate::client::TranslationService::update_glossary].
+        /// on [update_glossary][super::super::client::TranslationService::update_glossary].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_glossary(self.0.request, self.0.options)
@@ -984,7 +984,7 @@ pub mod translation_service {
     pub struct ListGlossaries(RequestBuilder<crate::model::ListGlossariesRequest>);
 
     impl ListGlossaries {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1057,7 +1057,7 @@ pub mod translation_service {
     pub struct GetGlossary(RequestBuilder<crate::model::GetGlossaryRequest>);
 
     impl GetGlossary {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1098,7 +1098,7 @@ pub mod translation_service {
     pub struct DeleteGlossary(RequestBuilder<crate::model::DeleteGlossaryRequest>);
 
     impl DeleteGlossary {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1119,7 +1119,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_glossary][crate::client::TranslationService::delete_glossary].
+        /// on [delete_glossary][super::super::client::TranslationService::delete_glossary].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_glossary(self.0.request, self.0.options)
@@ -1180,7 +1180,7 @@ pub mod translation_service {
     pub struct GetGlossaryEntry(RequestBuilder<crate::model::GetGlossaryEntryRequest>);
 
     impl GetGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1224,7 +1224,7 @@ pub mod translation_service {
     pub struct ListGlossaryEntries(RequestBuilder<crate::model::ListGlossaryEntriesRequest>);
 
     impl ListGlossaryEntries {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1294,7 +1294,7 @@ pub mod translation_service {
     pub struct CreateGlossaryEntry(RequestBuilder<crate::model::CreateGlossaryEntryRequest>);
 
     impl CreateGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1347,7 +1347,7 @@ pub mod translation_service {
     pub struct UpdateGlossaryEntry(RequestBuilder<crate::model::UpdateGlossaryEntryRequest>);
 
     impl UpdateGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1394,7 +1394,7 @@ pub mod translation_service {
     pub struct DeleteGlossaryEntry(RequestBuilder<crate::model::DeleteGlossaryEntryRequest>);
 
     impl DeleteGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1438,7 +1438,7 @@ pub mod translation_service {
     pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
 
     impl CreateDataset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1459,7 +1459,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_dataset][crate::client::TranslationService::create_dataset].
+        /// on [create_dataset][super::super::client::TranslationService::create_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_dataset(self.0.request, self.0.options)
@@ -1526,7 +1526,7 @@ pub mod translation_service {
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1567,7 +1567,7 @@ pub mod translation_service {
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1634,7 +1634,7 @@ pub mod translation_service {
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1655,7 +1655,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_dataset][crate::client::TranslationService::delete_dataset].
+        /// on [delete_dataset][super::super::client::TranslationService::delete_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_dataset(self.0.request, self.0.options)
@@ -1712,7 +1712,7 @@ pub mod translation_service {
     );
 
     impl CreateAdaptiveMtDataset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1769,7 +1769,7 @@ pub mod translation_service {
     );
 
     impl DeleteAdaptiveMtDataset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1813,7 +1813,7 @@ pub mod translation_service {
     pub struct GetAdaptiveMtDataset(RequestBuilder<crate::model::GetAdaptiveMtDatasetRequest>);
 
     impl GetAdaptiveMtDataset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1857,7 +1857,7 @@ pub mod translation_service {
     pub struct ListAdaptiveMtDatasets(RequestBuilder<crate::model::ListAdaptiveMtDatasetsRequest>);
 
     impl ListAdaptiveMtDatasets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1935,7 +1935,7 @@ pub mod translation_service {
     pub struct AdaptiveMtTranslate(RequestBuilder<crate::model::AdaptiveMtTranslateRequest>);
 
     impl AdaptiveMtTranslate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2022,7 +2022,7 @@ pub mod translation_service {
     pub struct GetAdaptiveMtFile(RequestBuilder<crate::model::GetAdaptiveMtFileRequest>);
 
     impl GetAdaptiveMtFile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2066,7 +2066,7 @@ pub mod translation_service {
     pub struct DeleteAdaptiveMtFile(RequestBuilder<crate::model::DeleteAdaptiveMtFileRequest>);
 
     impl DeleteAdaptiveMtFile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2110,7 +2110,7 @@ pub mod translation_service {
     pub struct ImportAdaptiveMtFile(RequestBuilder<crate::model::ImportAdaptiveMtFileRequest>);
 
     impl ImportAdaptiveMtFile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2165,7 +2165,7 @@ pub mod translation_service {
     pub struct ListAdaptiveMtFiles(RequestBuilder<crate::model::ListAdaptiveMtFilesRequest>);
 
     impl ListAdaptiveMtFiles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2237,7 +2237,7 @@ pub mod translation_service {
     );
 
     impl ListAdaptiveMtSentences {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2309,7 +2309,7 @@ pub mod translation_service {
     pub struct ImportData(RequestBuilder<crate::model::ImportDataRequest>);
 
     impl ImportData {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2330,7 +2330,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_data][crate::client::TranslationService::import_data].
+        /// on [import_data][super::super::client::TranslationService::import_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_data(self.0.request, self.0.options)
@@ -2394,7 +2394,7 @@ pub mod translation_service {
     pub struct ExportData(RequestBuilder<crate::model::ExportDataRequest>);
 
     impl ExportData {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2415,7 +2415,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_data][crate::client::TranslationService::export_data].
+        /// on [export_data][super::super::client::TranslationService::export_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_data(self.0.request, self.0.options)
@@ -2481,7 +2481,7 @@ pub mod translation_service {
     pub struct ListExamples(RequestBuilder<crate::model::ListExamplesRequest>);
 
     impl ListExamples {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2554,7 +2554,7 @@ pub mod translation_service {
     pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
 
     impl CreateModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2575,7 +2575,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_model][crate::client::TranslationService::create_model].
+        /// on [create_model][super::super::client::TranslationService::create_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_model(self.0.request, self.0.options)
@@ -2641,7 +2641,7 @@ pub mod translation_service {
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2714,7 +2714,7 @@ pub mod translation_service {
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2755,7 +2755,7 @@ pub mod translation_service {
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2776,7 +2776,7 @@ pub mod translation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_model][crate::client::TranslationService::delete_model].
+        /// on [delete_model][super::super::client::TranslationService::delete_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
@@ -2831,7 +2831,7 @@ pub mod translation_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2907,7 +2907,7 @@ pub mod translation_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2948,7 +2948,7 @@ pub mod translation_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3024,7 +3024,7 @@ pub mod translation_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3068,7 +3068,7 @@ pub mod translation_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3112,7 +3112,7 @@ pub mod translation_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3156,7 +3156,7 @@ pub mod translation_service {
     pub struct WaitOperation(RequestBuilder<longrunning::model::WaitOperationRequest>);
 
     impl WaitOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranslationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

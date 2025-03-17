@@ -174,9 +174,9 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::NetworkSecurity] also implement [NetworkSecurity].
+/// All implementations of [super::NetworkSecurity] also implement [NetworkSecurity].
 #[async_trait::async_trait]
-impl<T: crate::stubs::NetworkSecurity> NetworkSecurity for T {
+impl<T: super::NetworkSecurity> NetworkSecurity for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_authorization_policies(
         &self,

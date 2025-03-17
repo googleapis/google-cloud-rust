@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ServiceManager].
+/// Defines the trait used to implement [super::client::ServiceManager].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ServiceManager`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ServiceManager: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ServiceManager::list_services].
+    /// Implements [super::client::ServiceManager::list_services].
     fn list_services(
         &self,
         _req: crate::model::ListServicesRequest,
@@ -53,7 +53,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceManager::get_service].
+    /// Implements [super::client::ServiceManager::get_service].
     fn get_service(
         &self,
         _req: crate::model::GetServiceRequest,
@@ -64,7 +64,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceManager::create_service].
+    /// Implements [super::client::ServiceManager::create_service].
     fn create_service(
         &self,
         _req: crate::model::CreateServiceRequest,
@@ -76,7 +76,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceManager::delete_service].
+    /// Implements [super::client::ServiceManager::delete_service].
     fn delete_service(
         &self,
         _req: crate::model::DeleteServiceRequest,
@@ -88,7 +88,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceManager::undelete_service].
+    /// Implements [super::client::ServiceManager::undelete_service].
     fn undelete_service(
         &self,
         _req: crate::model::UndeleteServiceRequest,
@@ -100,7 +100,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceManager::list_service_configs].
+    /// Implements [super::client::ServiceManager::list_service_configs].
     fn list_service_configs(
         &self,
         _req: crate::model::ListServiceConfigsRequest,
@@ -112,7 +112,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ServiceManager::get_service_config].
+    /// Implements [super::client::ServiceManager::get_service_config].
     fn get_service_config(
         &self,
         _req: crate::model::GetServiceConfigRequest,
@@ -121,7 +121,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<api::model::Service>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ServiceManager::create_service_config].
+    /// Implements [super::client::ServiceManager::create_service_config].
     fn create_service_config(
         &self,
         _req: crate::model::CreateServiceConfigRequest,
@@ -130,7 +130,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<api::model::Service>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ServiceManager::submit_config_source].
+    /// Implements [super::client::ServiceManager::submit_config_source].
     fn submit_config_source(
         &self,
         _req: crate::model::SubmitConfigSourceRequest,
@@ -142,7 +142,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceManager::list_service_rollouts].
+    /// Implements [super::client::ServiceManager::list_service_rollouts].
     fn list_service_rollouts(
         &self,
         _req: crate::model::ListServiceRolloutsRequest,
@@ -154,7 +154,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ServiceManager::get_service_rollout].
+    /// Implements [super::client::ServiceManager::get_service_rollout].
     fn get_service_rollout(
         &self,
         _req: crate::model::GetServiceRolloutRequest,
@@ -165,7 +165,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceManager::create_service_rollout].
+    /// Implements [super::client::ServiceManager::create_service_rollout].
     fn create_service_rollout(
         &self,
         _req: crate::model::CreateServiceRolloutRequest,
@@ -177,7 +177,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceManager::generate_config_report].
+    /// Implements [super::client::ServiceManager::generate_config_report].
     fn generate_config_report(
         &self,
         _req: crate::model::GenerateConfigReportRequest,
@@ -189,7 +189,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ServiceManager::set_iam_policy].
+    /// Implements [super::client::ServiceManager::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -200,7 +200,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceManager::get_iam_policy].
+    /// Implements [super::client::ServiceManager::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -211,7 +211,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceManager::test_iam_permissions].
+    /// Implements [super::client::ServiceManager::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -223,7 +223,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ServiceManager::list_operations].
+    /// Implements [super::client::ServiceManager::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -235,7 +235,7 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ServiceManager::get_operation].
+    /// Implements [super::client::ServiceManager::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

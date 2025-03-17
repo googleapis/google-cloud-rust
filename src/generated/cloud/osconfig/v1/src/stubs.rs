@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::OsConfigService].
+/// Defines the trait used to implement [super::client::OsConfigService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::OsConfigService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait OsConfigService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::OsConfigService::execute_patch_job].
+    /// Implements [super::client::OsConfigService::execute_patch_job].
     fn execute_patch_job(
         &self,
         _req: crate::model::ExecutePatchJobRequest,
@@ -52,7 +52,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigService::get_patch_job].
+    /// Implements [super::client::OsConfigService::get_patch_job].
     fn get_patch_job(
         &self,
         _req: crate::model::GetPatchJobRequest,
@@ -63,7 +63,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigService::cancel_patch_job].
+    /// Implements [super::client::OsConfigService::cancel_patch_job].
     fn cancel_patch_job(
         &self,
         _req: crate::model::CancelPatchJobRequest,
@@ -74,7 +74,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigService::list_patch_jobs].
+    /// Implements [super::client::OsConfigService::list_patch_jobs].
     fn list_patch_jobs(
         &self,
         _req: crate::model::ListPatchJobsRequest,
@@ -86,7 +86,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigService::list_patch_job_instance_details].
+    /// Implements [super::client::OsConfigService::list_patch_job_instance_details].
     fn list_patch_job_instance_details(
         &self,
         _req: crate::model::ListPatchJobInstanceDetailsRequest,
@@ -99,7 +99,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OsConfigService::create_patch_deployment].
+    /// Implements [super::client::OsConfigService::create_patch_deployment].
     fn create_patch_deployment(
         &self,
         _req: crate::model::CreatePatchDeploymentRequest,
@@ -111,7 +111,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigService::get_patch_deployment].
+    /// Implements [super::client::OsConfigService::get_patch_deployment].
     fn get_patch_deployment(
         &self,
         _req: crate::model::GetPatchDeploymentRequest,
@@ -123,7 +123,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigService::list_patch_deployments].
+    /// Implements [super::client::OsConfigService::list_patch_deployments].
     fn list_patch_deployments(
         &self,
         _req: crate::model::ListPatchDeploymentsRequest,
@@ -135,7 +135,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OsConfigService::delete_patch_deployment].
+    /// Implements [super::client::OsConfigService::delete_patch_deployment].
     fn delete_patch_deployment(
         &self,
         _req: crate::model::DeletePatchDeploymentRequest,
@@ -144,7 +144,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::OsConfigService::update_patch_deployment].
+    /// Implements [super::client::OsConfigService::update_patch_deployment].
     fn update_patch_deployment(
         &self,
         _req: crate::model::UpdatePatchDeploymentRequest,
@@ -156,7 +156,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigService::pause_patch_deployment].
+    /// Implements [super::client::OsConfigService::pause_patch_deployment].
     fn pause_patch_deployment(
         &self,
         _req: crate::model::PausePatchDeploymentRequest,
@@ -168,7 +168,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigService::resume_patch_deployment].
+    /// Implements [super::client::OsConfigService::resume_patch_deployment].
     fn resume_patch_deployment(
         &self,
         _req: crate::model::ResumePatchDeploymentRequest,
@@ -180,7 +180,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigService::get_operation].
+    /// Implements [super::client::OsConfigService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -192,7 +192,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigService::cancel_operation].
+    /// Implements [super::client::OsConfigService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -202,7 +202,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::OsConfigZonalService].
+/// Defines the trait used to implement [super::client::OsConfigZonalService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::OsConfigZonalService`.  In other use-cases, application developers only
@@ -214,7 +214,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::OsConfigZonalService::create_os_policy_assignment].
+    /// Implements [super::client::OsConfigZonalService::create_os_policy_assignment].
     fn create_os_policy_assignment(
         &self,
         _req: crate::model::CreateOSPolicyAssignmentRequest,
@@ -226,7 +226,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::update_os_policy_assignment].
+    /// Implements [super::client::OsConfigZonalService::update_os_policy_assignment].
     fn update_os_policy_assignment(
         &self,
         _req: crate::model::UpdateOSPolicyAssignmentRequest,
@@ -238,7 +238,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::get_os_policy_assignment].
+    /// Implements [super::client::OsConfigZonalService::get_os_policy_assignment].
     fn get_os_policy_assignment(
         &self,
         _req: crate::model::GetOSPolicyAssignmentRequest,
@@ -250,7 +250,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::list_os_policy_assignments].
+    /// Implements [super::client::OsConfigZonalService::list_os_policy_assignments].
     fn list_os_policy_assignments(
         &self,
         _req: crate::model::ListOSPolicyAssignmentsRequest,
@@ -263,7 +263,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::list_os_policy_assignment_revisions].
+    /// Implements [super::client::OsConfigZonalService::list_os_policy_assignment_revisions].
     fn list_os_policy_assignment_revisions(
         &self,
         _req: crate::model::ListOSPolicyAssignmentRevisionsRequest,
@@ -276,7 +276,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::OsConfigZonalService::delete_os_policy_assignment].
+    /// Implements [super::client::OsConfigZonalService::delete_os_policy_assignment].
     fn delete_os_policy_assignment(
         &self,
         _req: crate::model::DeleteOSPolicyAssignmentRequest,
@@ -288,7 +288,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::get_os_policy_assignment_report].
+    /// Implements [super::client::OsConfigZonalService::get_os_policy_assignment_report].
     fn get_os_policy_assignment_report(
         &self,
         _req: crate::model::GetOSPolicyAssignmentReportRequest,
@@ -300,7 +300,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::list_os_policy_assignment_reports].
+    /// Implements [super::client::OsConfigZonalService::list_os_policy_assignment_reports].
     fn list_os_policy_assignment_reports(
         &self,
         _req: crate::model::ListOSPolicyAssignmentReportsRequest,
@@ -313,7 +313,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::OsConfigZonalService::get_inventory].
+    /// Implements [super::client::OsConfigZonalService::get_inventory].
     fn get_inventory(
         &self,
         _req: crate::model::GetInventoryRequest,
@@ -324,7 +324,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::list_inventories].
+    /// Implements [super::client::OsConfigZonalService::list_inventories].
     fn list_inventories(
         &self,
         _req: crate::model::ListInventoriesRequest,
@@ -336,7 +336,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::get_vulnerability_report].
+    /// Implements [super::client::OsConfigZonalService::get_vulnerability_report].
     fn get_vulnerability_report(
         &self,
         _req: crate::model::GetVulnerabilityReportRequest,
@@ -348,7 +348,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::list_vulnerability_reports].
+    /// Implements [super::client::OsConfigZonalService::list_vulnerability_reports].
     fn list_vulnerability_reports(
         &self,
         _req: crate::model::ListVulnerabilityReportsRequest,
@@ -361,7 +361,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::get_operation].
+    /// Implements [super::client::OsConfigZonalService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -373,7 +373,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsConfigZonalService::cancel_operation].
+    /// Implements [super::client::OsConfigZonalService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

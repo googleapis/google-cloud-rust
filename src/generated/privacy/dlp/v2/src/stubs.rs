@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DlpService].
+/// Defines the trait used to implement [super::client::DlpService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DlpService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DlpService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DlpService::inspect_content].
+    /// Implements [super::client::DlpService::inspect_content].
     fn inspect_content(
         &self,
         _req: crate::model::InspectContentRequest,
@@ -52,7 +52,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::redact_image].
+    /// Implements [super::client::DlpService::redact_image].
     fn redact_image(
         &self,
         _req: crate::model::RedactImageRequest,
@@ -64,7 +64,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::deidentify_content].
+    /// Implements [super::client::DlpService::deidentify_content].
     fn deidentify_content(
         &self,
         _req: crate::model::DeidentifyContentRequest,
@@ -76,7 +76,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::reidentify_content].
+    /// Implements [super::client::DlpService::reidentify_content].
     fn reidentify_content(
         &self,
         _req: crate::model::ReidentifyContentRequest,
@@ -88,7 +88,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::list_info_types].
+    /// Implements [super::client::DlpService::list_info_types].
     fn list_info_types(
         &self,
         _req: crate::model::ListInfoTypesRequest,
@@ -100,7 +100,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::create_inspect_template].
+    /// Implements [super::client::DlpService::create_inspect_template].
     fn create_inspect_template(
         &self,
         _req: crate::model::CreateInspectTemplateRequest,
@@ -112,7 +112,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::update_inspect_template].
+    /// Implements [super::client::DlpService::update_inspect_template].
     fn update_inspect_template(
         &self,
         _req: crate::model::UpdateInspectTemplateRequest,
@@ -124,7 +124,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::get_inspect_template].
+    /// Implements [super::client::DlpService::get_inspect_template].
     fn get_inspect_template(
         &self,
         _req: crate::model::GetInspectTemplateRequest,
@@ -136,7 +136,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::list_inspect_templates].
+    /// Implements [super::client::DlpService::list_inspect_templates].
     fn list_inspect_templates(
         &self,
         _req: crate::model::ListInspectTemplatesRequest,
@@ -148,7 +148,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::delete_inspect_template].
+    /// Implements [super::client::DlpService::delete_inspect_template].
     fn delete_inspect_template(
         &self,
         _req: crate::model::DeleteInspectTemplateRequest,
@@ -157,7 +157,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::create_deidentify_template].
+    /// Implements [super::client::DlpService::create_deidentify_template].
     fn create_deidentify_template(
         &self,
         _req: crate::model::CreateDeidentifyTemplateRequest,
@@ -169,7 +169,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::update_deidentify_template].
+    /// Implements [super::client::DlpService::update_deidentify_template].
     fn update_deidentify_template(
         &self,
         _req: crate::model::UpdateDeidentifyTemplateRequest,
@@ -181,7 +181,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::get_deidentify_template].
+    /// Implements [super::client::DlpService::get_deidentify_template].
     fn get_deidentify_template(
         &self,
         _req: crate::model::GetDeidentifyTemplateRequest,
@@ -193,7 +193,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::list_deidentify_templates].
+    /// Implements [super::client::DlpService::list_deidentify_templates].
     fn list_deidentify_templates(
         &self,
         _req: crate::model::ListDeidentifyTemplatesRequest,
@@ -206,7 +206,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::delete_deidentify_template].
+    /// Implements [super::client::DlpService::delete_deidentify_template].
     fn delete_deidentify_template(
         &self,
         _req: crate::model::DeleteDeidentifyTemplateRequest,
@@ -215,7 +215,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::create_job_trigger].
+    /// Implements [super::client::DlpService::create_job_trigger].
     fn create_job_trigger(
         &self,
         _req: crate::model::CreateJobTriggerRequest,
@@ -226,7 +226,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::update_job_trigger].
+    /// Implements [super::client::DlpService::update_job_trigger].
     fn update_job_trigger(
         &self,
         _req: crate::model::UpdateJobTriggerRequest,
@@ -237,7 +237,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::hybrid_inspect_job_trigger].
+    /// Implements [super::client::DlpService::hybrid_inspect_job_trigger].
     fn hybrid_inspect_job_trigger(
         &self,
         _req: crate::model::HybridInspectJobTriggerRequest,
@@ -249,7 +249,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::get_job_trigger].
+    /// Implements [super::client::DlpService::get_job_trigger].
     fn get_job_trigger(
         &self,
         _req: crate::model::GetJobTriggerRequest,
@@ -260,7 +260,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::list_job_triggers].
+    /// Implements [super::client::DlpService::list_job_triggers].
     fn list_job_triggers(
         &self,
         _req: crate::model::ListJobTriggersRequest,
@@ -272,7 +272,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::delete_job_trigger].
+    /// Implements [super::client::DlpService::delete_job_trigger].
     fn delete_job_trigger(
         &self,
         _req: crate::model::DeleteJobTriggerRequest,
@@ -281,7 +281,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::activate_job_trigger].
+    /// Implements [super::client::DlpService::activate_job_trigger].
     fn activate_job_trigger(
         &self,
         _req: crate::model::ActivateJobTriggerRequest,
@@ -292,7 +292,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::create_discovery_config].
+    /// Implements [super::client::DlpService::create_discovery_config].
     fn create_discovery_config(
         &self,
         _req: crate::model::CreateDiscoveryConfigRequest,
@@ -304,7 +304,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::update_discovery_config].
+    /// Implements [super::client::DlpService::update_discovery_config].
     fn update_discovery_config(
         &self,
         _req: crate::model::UpdateDiscoveryConfigRequest,
@@ -316,7 +316,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::get_discovery_config].
+    /// Implements [super::client::DlpService::get_discovery_config].
     fn get_discovery_config(
         &self,
         _req: crate::model::GetDiscoveryConfigRequest,
@@ -328,7 +328,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::list_discovery_configs].
+    /// Implements [super::client::DlpService::list_discovery_configs].
     fn list_discovery_configs(
         &self,
         _req: crate::model::ListDiscoveryConfigsRequest,
@@ -340,7 +340,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::delete_discovery_config].
+    /// Implements [super::client::DlpService::delete_discovery_config].
     fn delete_discovery_config(
         &self,
         _req: crate::model::DeleteDiscoveryConfigRequest,
@@ -349,7 +349,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::create_dlp_job].
+    /// Implements [super::client::DlpService::create_dlp_job].
     fn create_dlp_job(
         &self,
         _req: crate::model::CreateDlpJobRequest,
@@ -360,7 +360,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::list_dlp_jobs].
+    /// Implements [super::client::DlpService::list_dlp_jobs].
     fn list_dlp_jobs(
         &self,
         _req: crate::model::ListDlpJobsRequest,
@@ -372,7 +372,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::get_dlp_job].
+    /// Implements [super::client::DlpService::get_dlp_job].
     fn get_dlp_job(
         &self,
         _req: crate::model::GetDlpJobRequest,
@@ -383,7 +383,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::delete_dlp_job].
+    /// Implements [super::client::DlpService::delete_dlp_job].
     fn delete_dlp_job(
         &self,
         _req: crate::model::DeleteDlpJobRequest,
@@ -392,7 +392,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::cancel_dlp_job].
+    /// Implements [super::client::DlpService::cancel_dlp_job].
     fn cancel_dlp_job(
         &self,
         _req: crate::model::CancelDlpJobRequest,
@@ -401,7 +401,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::create_stored_info_type].
+    /// Implements [super::client::DlpService::create_stored_info_type].
     fn create_stored_info_type(
         &self,
         _req: crate::model::CreateStoredInfoTypeRequest,
@@ -412,7 +412,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::update_stored_info_type].
+    /// Implements [super::client::DlpService::update_stored_info_type].
     fn update_stored_info_type(
         &self,
         _req: crate::model::UpdateStoredInfoTypeRequest,
@@ -423,7 +423,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::get_stored_info_type].
+    /// Implements [super::client::DlpService::get_stored_info_type].
     fn get_stored_info_type(
         &self,
         _req: crate::model::GetStoredInfoTypeRequest,
@@ -434,7 +434,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::list_stored_info_types].
+    /// Implements [super::client::DlpService::list_stored_info_types].
     fn list_stored_info_types(
         &self,
         _req: crate::model::ListStoredInfoTypesRequest,
@@ -446,7 +446,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::delete_stored_info_type].
+    /// Implements [super::client::DlpService::delete_stored_info_type].
     fn delete_stored_info_type(
         &self,
         _req: crate::model::DeleteStoredInfoTypeRequest,
@@ -455,7 +455,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::list_project_data_profiles].
+    /// Implements [super::client::DlpService::list_project_data_profiles].
     fn list_project_data_profiles(
         &self,
         _req: crate::model::ListProjectDataProfilesRequest,
@@ -468,7 +468,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::list_table_data_profiles].
+    /// Implements [super::client::DlpService::list_table_data_profiles].
     fn list_table_data_profiles(
         &self,
         _req: crate::model::ListTableDataProfilesRequest,
@@ -480,7 +480,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::list_column_data_profiles].
+    /// Implements [super::client::DlpService::list_column_data_profiles].
     fn list_column_data_profiles(
         &self,
         _req: crate::model::ListColumnDataProfilesRequest,
@@ -492,7 +492,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::get_project_data_profile].
+    /// Implements [super::client::DlpService::get_project_data_profile].
     fn get_project_data_profile(
         &self,
         _req: crate::model::GetProjectDataProfileRequest,
@@ -504,7 +504,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::list_file_store_data_profiles].
+    /// Implements [super::client::DlpService::list_file_store_data_profiles].
     fn list_file_store_data_profiles(
         &self,
         _req: crate::model::ListFileStoreDataProfilesRequest,
@@ -517,7 +517,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::get_file_store_data_profile].
+    /// Implements [super::client::DlpService::get_file_store_data_profile].
     fn get_file_store_data_profile(
         &self,
         _req: crate::model::GetFileStoreDataProfileRequest,
@@ -529,7 +529,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::delete_file_store_data_profile].
+    /// Implements [super::client::DlpService::delete_file_store_data_profile].
     fn delete_file_store_data_profile(
         &self,
         _req: crate::model::DeleteFileStoreDataProfileRequest,
@@ -538,7 +538,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::get_table_data_profile].
+    /// Implements [super::client::DlpService::get_table_data_profile].
     fn get_table_data_profile(
         &self,
         _req: crate::model::GetTableDataProfileRequest,
@@ -550,7 +550,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::get_column_data_profile].
+    /// Implements [super::client::DlpService::get_column_data_profile].
     fn get_column_data_profile(
         &self,
         _req: crate::model::GetColumnDataProfileRequest,
@@ -562,7 +562,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::delete_table_data_profile].
+    /// Implements [super::client::DlpService::delete_table_data_profile].
     fn delete_table_data_profile(
         &self,
         _req: crate::model::DeleteTableDataProfileRequest,
@@ -571,7 +571,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::hybrid_inspect_dlp_job].
+    /// Implements [super::client::DlpService::hybrid_inspect_dlp_job].
     fn hybrid_inspect_dlp_job(
         &self,
         _req: crate::model::HybridInspectDlpJobRequest,
@@ -583,7 +583,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::finish_dlp_job].
+    /// Implements [super::client::DlpService::finish_dlp_job].
     fn finish_dlp_job(
         &self,
         _req: crate::model::FinishDlpJobRequest,
@@ -592,7 +592,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::create_connection].
+    /// Implements [super::client::DlpService::create_connection].
     fn create_connection(
         &self,
         _req: crate::model::CreateConnectionRequest,
@@ -603,7 +603,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::get_connection].
+    /// Implements [super::client::DlpService::get_connection].
     fn get_connection(
         &self,
         _req: crate::model::GetConnectionRequest,
@@ -614,7 +614,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DlpService::list_connections].
+    /// Implements [super::client::DlpService::list_connections].
     fn list_connections(
         &self,
         _req: crate::model::ListConnectionsRequest,
@@ -626,7 +626,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::search_connections].
+    /// Implements [super::client::DlpService::search_connections].
     fn search_connections(
         &self,
         _req: crate::model::SearchConnectionsRequest,
@@ -638,7 +638,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DlpService::delete_connection].
+    /// Implements [super::client::DlpService::delete_connection].
     fn delete_connection(
         &self,
         _req: crate::model::DeleteConnectionRequest,
@@ -647,7 +647,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DlpService::update_connection].
+    /// Implements [super::client::DlpService::update_connection].
     fn update_connection(
         &self,
         _req: crate::model::UpdateConnectionRequest,

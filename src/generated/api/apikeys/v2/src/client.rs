@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ApiKeys {
-    inner: Arc<dyn crate::stubs::dynamic::ApiKeys>,
+    inner: Arc<dyn super::stubs::dynamic::ApiKeys>,
 }
 
 impl ApiKeys {
@@ -59,7 +59,7 @@ impl ApiKeys {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ApiKeys + 'static,
+        T: super::stubs::ApiKeys + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl ApiKeys {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ApiKeys>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ApiKeys>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl ApiKeys {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ApiKeys> {
-        crate::transport::ApiKeys::new(conf).await
+    ) -> Result<impl super::stubs::ApiKeys> {
+        super::transport::ApiKeys::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ApiKeys> {
+    ) -> Result<impl super::stubs::ApiKeys> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ApiKeys::new)
+            .map(super::tracing::ApiKeys::new)
     }
 
     /// Creates a new API key.
@@ -106,8 +106,8 @@ impl ApiKeys {
     pub fn create_key(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_keys::CreateKey {
-        crate::builders::api_keys::CreateKey::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_keys::CreateKey {
+        super::builders::api_keys::CreateKey::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists the API keys owned by a project. The key string of the API key
@@ -118,8 +118,8 @@ impl ApiKeys {
     pub fn list_keys(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_keys::ListKeys {
-        crate::builders::api_keys::ListKeys::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_keys::ListKeys {
+        super::builders::api_keys::ListKeys::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets the metadata for an API key. The key string of the API key
@@ -130,8 +130,8 @@ impl ApiKeys {
     pub fn get_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_keys::GetKey {
-        crate::builders::api_keys::GetKey::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_keys::GetKey {
+        super::builders::api_keys::GetKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get the key string for an API key.
@@ -141,8 +141,8 @@ impl ApiKeys {
     pub fn get_key_string(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_keys::GetKeyString {
-        crate::builders::api_keys::GetKeyString::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_keys::GetKeyString {
+        super::builders::api_keys::GetKeyString::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Patches the modifiable fields of an API key.
@@ -163,8 +163,8 @@ impl ApiKeys {
     pub fn update_key(
         &self,
         key: impl Into<crate::model::Key>,
-    ) -> crate::builders::api_keys::UpdateKey {
-        crate::builders::api_keys::UpdateKey::new(self.inner.clone()).set_key(key.into())
+    ) -> super::builders::api_keys::UpdateKey {
+        super::builders::api_keys::UpdateKey::new(self.inner.clone()).set_key(key.into())
     }
 
     /// Deletes an API key. Deleted key can be retrieved within 30 days of
@@ -185,8 +185,8 @@ impl ApiKeys {
     pub fn delete_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_keys::DeleteKey {
-        crate::builders::api_keys::DeleteKey::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_keys::DeleteKey {
+        super::builders::api_keys::DeleteKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Undeletes an API key which was deleted within 30 days.
@@ -206,8 +206,8 @@ impl ApiKeys {
     pub fn undelete_key(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_keys::UndeleteKey {
-        crate::builders::api_keys::UndeleteKey::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_keys::UndeleteKey {
+        super::builders::api_keys::UndeleteKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Find the parent project and resource name of the API
@@ -215,8 +215,8 @@ impl ApiKeys {
     /// purged, resource name will not be set.
     /// The service account must have the `apikeys.keys.lookup` permission
     /// on the parent project.
-    pub fn lookup_key(&self) -> crate::builders::api_keys::LookupKey {
-        crate::builders::api_keys::LookupKey::new(self.inner.clone())
+    pub fn lookup_key(&self) -> super::builders::api_keys::LookupKey {
+        super::builders::api_keys::LookupKey::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -225,7 +225,7 @@ impl ApiKeys {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_keys::GetOperation {
-        crate::builders::api_keys::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_keys::GetOperation {
+        super::builders::api_keys::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

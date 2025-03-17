@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::LivestreamService].
+/// Defines the trait used to implement [super::client::LivestreamService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::LivestreamService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait LivestreamService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::LivestreamService::create_channel].
+    /// Implements [super::client::LivestreamService::create_channel].
     fn create_channel(
         &self,
         _req: crate::model::CreateChannelRequest,
@@ -53,7 +53,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::list_channels].
+    /// Implements [super::client::LivestreamService::list_channels].
     fn list_channels(
         &self,
         _req: crate::model::ListChannelsRequest,
@@ -65,7 +65,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::get_channel].
+    /// Implements [super::client::LivestreamService::get_channel].
     fn get_channel(
         &self,
         _req: crate::model::GetChannelRequest,
@@ -76,7 +76,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::delete_channel].
+    /// Implements [super::client::LivestreamService::delete_channel].
     fn delete_channel(
         &self,
         _req: crate::model::DeleteChannelRequest,
@@ -88,7 +88,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::update_channel].
+    /// Implements [super::client::LivestreamService::update_channel].
     fn update_channel(
         &self,
         _req: crate::model::UpdateChannelRequest,
@@ -100,7 +100,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::start_channel].
+    /// Implements [super::client::LivestreamService::start_channel].
     fn start_channel(
         &self,
         _req: crate::model::StartChannelRequest,
@@ -112,7 +112,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::stop_channel].
+    /// Implements [super::client::LivestreamService::stop_channel].
     fn stop_channel(
         &self,
         _req: crate::model::StopChannelRequest,
@@ -124,7 +124,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::create_input].
+    /// Implements [super::client::LivestreamService::create_input].
     fn create_input(
         &self,
         _req: crate::model::CreateInputRequest,
@@ -136,7 +136,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::list_inputs].
+    /// Implements [super::client::LivestreamService::list_inputs].
     fn list_inputs(
         &self,
         _req: crate::model::ListInputsRequest,
@@ -148,7 +148,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::get_input].
+    /// Implements [super::client::LivestreamService::get_input].
     fn get_input(
         &self,
         _req: crate::model::GetInputRequest,
@@ -157,7 +157,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Input>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LivestreamService::delete_input].
+    /// Implements [super::client::LivestreamService::delete_input].
     fn delete_input(
         &self,
         _req: crate::model::DeleteInputRequest,
@@ -169,7 +169,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::update_input].
+    /// Implements [super::client::LivestreamService::update_input].
     fn update_input(
         &self,
         _req: crate::model::UpdateInputRequest,
@@ -181,7 +181,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::create_event].
+    /// Implements [super::client::LivestreamService::create_event].
     fn create_event(
         &self,
         _req: crate::model::CreateEventRequest,
@@ -190,7 +190,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Event>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LivestreamService::list_events].
+    /// Implements [super::client::LivestreamService::list_events].
     fn list_events(
         &self,
         _req: crate::model::ListEventsRequest,
@@ -202,7 +202,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::get_event].
+    /// Implements [super::client::LivestreamService::get_event].
     fn get_event(
         &self,
         _req: crate::model::GetEventRequest,
@@ -211,7 +211,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Event>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LivestreamService::delete_event].
+    /// Implements [super::client::LivestreamService::delete_event].
     fn delete_event(
         &self,
         _req: crate::model::DeleteEventRequest,
@@ -220,7 +220,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LivestreamService::list_clips].
+    /// Implements [super::client::LivestreamService::list_clips].
     fn list_clips(
         &self,
         _req: crate::model::ListClipsRequest,
@@ -232,7 +232,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::get_clip].
+    /// Implements [super::client::LivestreamService::get_clip].
     fn get_clip(
         &self,
         _req: crate::model::GetClipRequest,
@@ -241,7 +241,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Clip>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LivestreamService::create_clip].
+    /// Implements [super::client::LivestreamService::create_clip].
     fn create_clip(
         &self,
         _req: crate::model::CreateClipRequest,
@@ -253,7 +253,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::delete_clip].
+    /// Implements [super::client::LivestreamService::delete_clip].
     fn delete_clip(
         &self,
         _req: crate::model::DeleteClipRequest,
@@ -265,7 +265,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::create_asset].
+    /// Implements [super::client::LivestreamService::create_asset].
     fn create_asset(
         &self,
         _req: crate::model::CreateAssetRequest,
@@ -277,7 +277,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::delete_asset].
+    /// Implements [super::client::LivestreamService::delete_asset].
     fn delete_asset(
         &self,
         _req: crate::model::DeleteAssetRequest,
@@ -289,7 +289,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::get_asset].
+    /// Implements [super::client::LivestreamService::get_asset].
     fn get_asset(
         &self,
         _req: crate::model::GetAssetRequest,
@@ -298,7 +298,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Asset>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LivestreamService::list_assets].
+    /// Implements [super::client::LivestreamService::list_assets].
     fn list_assets(
         &self,
         _req: crate::model::ListAssetsRequest,
@@ -310,7 +310,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::get_pool].
+    /// Implements [super::client::LivestreamService::get_pool].
     fn get_pool(
         &self,
         _req: crate::model::GetPoolRequest,
@@ -319,7 +319,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Pool>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LivestreamService::update_pool].
+    /// Implements [super::client::LivestreamService::update_pool].
     fn update_pool(
         &self,
         _req: crate::model::UpdatePoolRequest,
@@ -331,7 +331,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::list_locations].
+    /// Implements [super::client::LivestreamService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -343,7 +343,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LivestreamService::get_location].
+    /// Implements [super::client::LivestreamService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -354,7 +354,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::list_operations].
+    /// Implements [super::client::LivestreamService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -366,7 +366,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LivestreamService::get_operation].
+    /// Implements [super::client::LivestreamService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -378,7 +378,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LivestreamService::delete_operation].
+    /// Implements [super::client::LivestreamService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -387,7 +387,7 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LivestreamService::cancel_operation].
+    /// Implements [super::client::LivestreamService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

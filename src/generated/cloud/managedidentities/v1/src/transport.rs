@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ManagedIdentitiesService](crate::stubs::ManagedIdentitiesService) using a [gclient::ReqwestClient].
+/// Implements [ManagedIdentitiesService](super::stubs::ManagedIdentitiesService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ManagedIdentitiesService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ManagedIdentitiesService {
     }
 }
 
-impl crate::stubs::ManagedIdentitiesService for ManagedIdentitiesService {
+impl super::stubs::ManagedIdentitiesService for ManagedIdentitiesService {
     async fn create_microsoft_ad_domain(
         &self,
         req: crate::model::CreateMicrosoftAdDomainRequest,

@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ApiHub {
-    inner: Arc<dyn crate::stubs::dynamic::ApiHub>,
+    inner: Arc<dyn super::stubs::dynamic::ApiHub>,
 }
 
 impl ApiHub {
@@ -59,7 +59,7 @@ impl ApiHub {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ApiHub + 'static,
+        T: super::stubs::ApiHub + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl ApiHub {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ApiHub>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ApiHub>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl ApiHub {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ApiHub> {
-        crate::transport::ApiHub::new(conf).await
+    ) -> Result<impl super::stubs::ApiHub> {
+        super::transport::ApiHub::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ApiHub> {
+    ) -> Result<impl super::stubs::ApiHub> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ApiHub::new)
+            .map(super::tracing::ApiHub::new)
     }
 
     /// Create an API resource in the API hub.
@@ -94,24 +94,24 @@ impl ApiHub {
     pub fn create_api(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::CreateApi {
-        crate::builders::api_hub::CreateApi::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_hub::CreateApi {
+        super::builders::api_hub::CreateApi::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Get API resource details including the API versions contained in it.
     pub fn get_api(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetApi {
-        crate::builders::api_hub::GetApi::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetApi {
+        super::builders::api_hub::GetApi::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List API resources in the API hub.
     pub fn list_apis(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::ListApis {
-        crate::builders::api_hub::ListApis::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_hub::ListApis {
+        super::builders::api_hub::ListApis::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update an API resource in the API hub. The following fields in the
@@ -147,8 +147,8 @@ impl ApiHub {
     pub fn update_api(
         &self,
         api: impl Into<crate::model::Api>,
-    ) -> crate::builders::api_hub::UpdateApi {
-        crate::builders::api_hub::UpdateApi::new(self.inner.clone()).set_api(api.into())
+    ) -> super::builders::api_hub::UpdateApi {
+        super::builders::api_hub::UpdateApi::new(self.inner.clone()).set_api(api.into())
     }
 
     /// Delete an API resource in the API hub. API can only be deleted if all
@@ -156,16 +156,16 @@ impl ApiHub {
     pub fn delete_api(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::DeleteApi {
-        crate::builders::api_hub::DeleteApi::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::DeleteApi {
+        super::builders::api_hub::DeleteApi::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create an API version for an API resource in the API hub.
     pub fn create_version(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::CreateVersion {
-        crate::builders::api_hub::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_hub::CreateVersion {
+        super::builders::api_hub::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Get details about the API version of an API resource. This will include
@@ -174,16 +174,16 @@ impl ApiHub {
     pub fn get_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetVersion {
-        crate::builders::api_hub::GetVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetVersion {
+        super::builders::api_hub::GetVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List API versions of an API resource in the API hub.
     pub fn list_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::ListVersions {
-        crate::builders::api_hub::ListVersions::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_hub::ListVersions {
+        super::builders::api_hub::ListVersions::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update API version. The following fields in the
@@ -215,8 +215,8 @@ impl ApiHub {
     pub fn update_version(
         &self,
         version: impl Into<crate::model::Version>,
-    ) -> crate::builders::api_hub::UpdateVersion {
-        crate::builders::api_hub::UpdateVersion::new(self.inner.clone()).set_version(version.into())
+    ) -> super::builders::api_hub::UpdateVersion {
+        super::builders::api_hub::UpdateVersion::new(self.inner.clone()).set_version(version.into())
     }
 
     /// Delete an API version. Version can only be deleted if all underlying specs,
@@ -224,8 +224,8 @@ impl ApiHub {
     pub fn delete_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::DeleteVersion {
-        crate::builders::api_hub::DeleteVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::DeleteVersion {
+        super::builders::api_hub::DeleteVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Add a spec to an API version in the API hub.
@@ -256,8 +256,8 @@ impl ApiHub {
     pub fn create_spec(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::CreateSpec {
-        crate::builders::api_hub::CreateSpec::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_hub::CreateSpec {
+        super::builders::api_hub::CreateSpec::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Get details about the information parsed from a spec.
@@ -269,24 +269,24 @@ impl ApiHub {
     pub fn get_spec(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetSpec {
-        crate::builders::api_hub::GetSpec::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetSpec {
+        super::builders::api_hub::GetSpec::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get spec contents.
     pub fn get_spec_contents(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetSpecContents {
-        crate::builders::api_hub::GetSpecContents::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetSpecContents {
+        super::builders::api_hub::GetSpecContents::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List specs corresponding to a particular API resource.
     pub fn list_specs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::ListSpecs {
-        crate::builders::api_hub::ListSpecs::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_hub::ListSpecs {
+        super::builders::api_hub::ListSpecs::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update spec. The following fields in the
@@ -324,8 +324,8 @@ impl ApiHub {
     pub fn update_spec(
         &self,
         spec: impl Into<crate::model::Spec>,
-    ) -> crate::builders::api_hub::UpdateSpec {
-        crate::builders::api_hub::UpdateSpec::new(self.inner.clone()).set_spec(spec.into())
+    ) -> super::builders::api_hub::UpdateSpec {
+        super::builders::api_hub::UpdateSpec::new(self.inner.clone()).set_spec(spec.into())
     }
 
     /// Delete a spec.
@@ -334,24 +334,24 @@ impl ApiHub {
     pub fn delete_spec(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::DeleteSpec {
-        crate::builders::api_hub::DeleteSpec::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::DeleteSpec {
+        super::builders::api_hub::DeleteSpec::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Get details about a particular operation in API version.
     pub fn get_api_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetApiOperation {
-        crate::builders::api_hub::GetApiOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetApiOperation {
+        super::builders::api_hub::GetApiOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List operations in an API version.
     pub fn list_api_operations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::ListApiOperations {
-        crate::builders::api_hub::ListApiOperations::new(self.inner.clone())
+    ) -> super::builders::api_hub::ListApiOperations {
+        super::builders::api_hub::ListApiOperations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -359,8 +359,8 @@ impl ApiHub {
     pub fn get_definition(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetDefinition {
-        crate::builders::api_hub::GetDefinition::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetDefinition {
+        super::builders::api_hub::GetDefinition::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a deployment resource in the API hub.
@@ -369,8 +369,8 @@ impl ApiHub {
     pub fn create_deployment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::CreateDeployment {
-        crate::builders::api_hub::CreateDeployment::new(self.inner.clone())
+    ) -> super::builders::api_hub::CreateDeployment {
+        super::builders::api_hub::CreateDeployment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -378,16 +378,16 @@ impl ApiHub {
     pub fn get_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetDeployment {
-        crate::builders::api_hub::GetDeployment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetDeployment {
+        super::builders::api_hub::GetDeployment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List deployment resources in the API hub.
     pub fn list_deployments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::ListDeployments {
-        crate::builders::api_hub::ListDeployments::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_hub::ListDeployments {
+        super::builders::api_hub::ListDeployments::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update a deployment resource in the API hub. The following fields in the
@@ -422,8 +422,8 @@ impl ApiHub {
     pub fn update_deployment(
         &self,
         deployment: impl Into<crate::model::Deployment>,
-    ) -> crate::builders::api_hub::UpdateDeployment {
-        crate::builders::api_hub::UpdateDeployment::new(self.inner.clone())
+    ) -> super::builders::api_hub::UpdateDeployment {
+        super::builders::api_hub::UpdateDeployment::new(self.inner.clone())
             .set_deployment(deployment.into())
     }
 
@@ -431,8 +431,8 @@ impl ApiHub {
     pub fn delete_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::DeleteDeployment {
-        crate::builders::api_hub::DeleteDeployment::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::DeleteDeployment {
+        super::builders::api_hub::DeleteDeployment::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a user defined attribute.
@@ -448,16 +448,16 @@ impl ApiHub {
     pub fn create_attribute(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::CreateAttribute {
-        crate::builders::api_hub::CreateAttribute::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_hub::CreateAttribute {
+        super::builders::api_hub::CreateAttribute::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Get details about the attribute.
     pub fn get_attribute(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetAttribute {
-        crate::builders::api_hub::GetAttribute::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetAttribute {
+        super::builders::api_hub::GetAttribute::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Update the attribute.  The following fields in the
@@ -493,8 +493,8 @@ impl ApiHub {
     pub fn update_attribute(
         &self,
         attribute: impl Into<crate::model::Attribute>,
-    ) -> crate::builders::api_hub::UpdateAttribute {
-        crate::builders::api_hub::UpdateAttribute::new(self.inner.clone())
+    ) -> super::builders::api_hub::UpdateAttribute {
+        super::builders::api_hub::UpdateAttribute::new(self.inner.clone())
             .set_attribute(attribute.into())
     }
 
@@ -506,24 +506,24 @@ impl ApiHub {
     pub fn delete_attribute(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::DeleteAttribute {
-        crate::builders::api_hub::DeleteAttribute::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::DeleteAttribute {
+        super::builders::api_hub::DeleteAttribute::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List all attributes.
     pub fn list_attributes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::ListAttributes {
-        crate::builders::api_hub::ListAttributes::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::api_hub::ListAttributes {
+        super::builders::api_hub::ListAttributes::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Search across API-Hub resources.
     pub fn search_resources(
         &self,
         location: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::SearchResources {
-        crate::builders::api_hub::SearchResources::new(self.inner.clone())
+    ) -> super::builders::api_hub::SearchResources {
+        super::builders::api_hub::SearchResources::new(self.inner.clone())
             .set_location(location.into())
     }
 
@@ -531,8 +531,8 @@ impl ApiHub {
     pub fn create_external_api(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::CreateExternalApi {
-        crate::builders::api_hub::CreateExternalApi::new(self.inner.clone())
+    ) -> super::builders::api_hub::CreateExternalApi {
+        super::builders::api_hub::CreateExternalApi::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -540,8 +540,8 @@ impl ApiHub {
     pub fn get_external_api(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetExternalApi {
-        crate::builders::api_hub::GetExternalApi::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetExternalApi {
+        super::builders::api_hub::GetExternalApi::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Update an External API resource in the API hub. The following fields can be
@@ -566,8 +566,8 @@ impl ApiHub {
     pub fn update_external_api(
         &self,
         external_api: impl Into<crate::model::ExternalApi>,
-    ) -> crate::builders::api_hub::UpdateExternalApi {
-        crate::builders::api_hub::UpdateExternalApi::new(self.inner.clone())
+    ) -> super::builders::api_hub::UpdateExternalApi {
+        super::builders::api_hub::UpdateExternalApi::new(self.inner.clone())
             .set_external_api(external_api.into())
     }
 
@@ -575,16 +575,16 @@ impl ApiHub {
     pub fn delete_external_api(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::DeleteExternalApi {
-        crate::builders::api_hub::DeleteExternalApi::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::DeleteExternalApi {
+        super::builders::api_hub::DeleteExternalApi::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List External API resources in the API hub.
     pub fn list_external_apis(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::ListExternalApis {
-        crate::builders::api_hub::ListExternalApis::new(self.inner.clone())
+    ) -> super::builders::api_hub::ListExternalApis {
+        super::builders::api_hub::ListExternalApis::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -592,16 +592,16 @@ impl ApiHub {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::ListLocations {
-        crate::builders::api_hub::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::ListLocations {
+        super::builders::api_hub::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetLocation {
-        crate::builders::api_hub::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetLocation {
+        super::builders::api_hub::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -610,8 +610,8 @@ impl ApiHub {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::ListOperations {
-        crate::builders::api_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::ListOperations {
+        super::builders::api_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -620,8 +620,8 @@ impl ApiHub {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::GetOperation {
-        crate::builders::api_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::GetOperation {
+        super::builders::api_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -630,8 +630,8 @@ impl ApiHub {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::DeleteOperation {
-        crate::builders::api_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::DeleteOperation {
+        super::builders::api_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -640,8 +640,8 @@ impl ApiHub {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub::CancelOperation {
-        crate::builders::api_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub::CancelOperation {
+        super::builders::api_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -667,7 +667,7 @@ impl ApiHub {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ApiHubDependencies {
-    inner: Arc<dyn crate::stubs::dynamic::ApiHubDependencies>,
+    inner: Arc<dyn super::stubs::dynamic::ApiHubDependencies>,
 }
 
 impl ApiHubDependencies {
@@ -688,7 +688,7 @@ impl ApiHubDependencies {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ApiHubDependencies + 'static,
+        T: super::stubs::ApiHubDependencies + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -697,7 +697,7 @@ impl ApiHubDependencies {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ApiHubDependencies>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ApiHubDependencies>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -706,24 +706,24 @@ impl ApiHubDependencies {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ApiHubDependencies> {
-        crate::transport::ApiHubDependencies::new(conf).await
+    ) -> Result<impl super::stubs::ApiHubDependencies> {
+        super::transport::ApiHubDependencies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ApiHubDependencies> {
+    ) -> Result<impl super::stubs::ApiHubDependencies> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ApiHubDependencies::new)
+            .map(super::tracing::ApiHubDependencies::new)
     }
 
     /// Create a dependency between two entities in the API hub.
     pub fn create_dependency(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_dependencies::CreateDependency {
-        crate::builders::api_hub_dependencies::CreateDependency::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::CreateDependency {
+        super::builders::api_hub_dependencies::CreateDependency::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -731,8 +731,8 @@ impl ApiHubDependencies {
     pub fn get_dependency(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_dependencies::GetDependency {
-        crate::builders::api_hub_dependencies::GetDependency::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::GetDependency {
+        super::builders::api_hub_dependencies::GetDependency::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -751,8 +751,8 @@ impl ApiHubDependencies {
     pub fn update_dependency(
         &self,
         dependency: impl Into<crate::model::Dependency>,
-    ) -> crate::builders::api_hub_dependencies::UpdateDependency {
-        crate::builders::api_hub_dependencies::UpdateDependency::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::UpdateDependency {
+        super::builders::api_hub_dependencies::UpdateDependency::new(self.inner.clone())
             .set_dependency(dependency.into())
     }
 
@@ -760,8 +760,8 @@ impl ApiHubDependencies {
     pub fn delete_dependency(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_dependencies::DeleteDependency {
-        crate::builders::api_hub_dependencies::DeleteDependency::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::DeleteDependency {
+        super::builders::api_hub_dependencies::DeleteDependency::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -769,8 +769,8 @@ impl ApiHubDependencies {
     pub fn list_dependencies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_dependencies::ListDependencies {
-        crate::builders::api_hub_dependencies::ListDependencies::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::ListDependencies {
+        super::builders::api_hub_dependencies::ListDependencies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -778,8 +778,8 @@ impl ApiHubDependencies {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_dependencies::ListLocations {
-        crate::builders::api_hub_dependencies::ListLocations::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::ListLocations {
+        super::builders::api_hub_dependencies::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -787,8 +787,8 @@ impl ApiHubDependencies {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_dependencies::GetLocation {
-        crate::builders::api_hub_dependencies::GetLocation::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::GetLocation {
+        super::builders::api_hub_dependencies::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -798,8 +798,8 @@ impl ApiHubDependencies {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_dependencies::ListOperations {
-        crate::builders::api_hub_dependencies::ListOperations::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::ListOperations {
+        super::builders::api_hub_dependencies::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -809,8 +809,8 @@ impl ApiHubDependencies {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_dependencies::GetOperation {
-        crate::builders::api_hub_dependencies::GetOperation::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::GetOperation {
+        super::builders::api_hub_dependencies::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -820,8 +820,8 @@ impl ApiHubDependencies {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_dependencies::DeleteOperation {
-        crate::builders::api_hub_dependencies::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::DeleteOperation {
+        super::builders::api_hub_dependencies::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -831,8 +831,8 @@ impl ApiHubDependencies {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_dependencies::CancelOperation {
-        crate::builders::api_hub_dependencies::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::api_hub_dependencies::CancelOperation {
+        super::builders::api_hub_dependencies::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -856,7 +856,7 @@ impl ApiHubDependencies {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct HostProjectRegistrationService {
-    inner: Arc<dyn crate::stubs::dynamic::HostProjectRegistrationService>,
+    inner: Arc<dyn super::stubs::dynamic::HostProjectRegistrationService>,
 }
 
 impl HostProjectRegistrationService {
@@ -877,7 +877,7 @@ impl HostProjectRegistrationService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::HostProjectRegistrationService + 'static,
+        T: super::stubs::HostProjectRegistrationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -886,7 +886,7 @@ impl HostProjectRegistrationService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::HostProjectRegistrationService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::HostProjectRegistrationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -895,16 +895,16 @@ impl HostProjectRegistrationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::HostProjectRegistrationService> {
-        crate::transport::HostProjectRegistrationService::new(conf).await
+    ) -> Result<impl super::stubs::HostProjectRegistrationService> {
+        super::transport::HostProjectRegistrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::HostProjectRegistrationService> {
+    ) -> Result<impl super::stubs::HostProjectRegistrationService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::HostProjectRegistrationService::new)
+            .map(super::tracing::HostProjectRegistrationService::new)
     }
 
     /// Create a host project registration.
@@ -915,8 +915,8 @@ impl HostProjectRegistrationService {
     pub fn create_host_project_registration(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::host_project_registration_service::CreateHostProjectRegistration {
-        crate::builders::host_project_registration_service::CreateHostProjectRegistration::new(
+    ) -> super::builders::host_project_registration_service::CreateHostProjectRegistration {
+        super::builders::host_project_registration_service::CreateHostProjectRegistration::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -926,8 +926,8 @@ impl HostProjectRegistrationService {
     pub fn get_host_project_registration(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::host_project_registration_service::GetHostProjectRegistration {
-        crate::builders::host_project_registration_service::GetHostProjectRegistration::new(
+    ) -> super::builders::host_project_registration_service::GetHostProjectRegistration {
+        super::builders::host_project_registration_service::GetHostProjectRegistration::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -937,8 +937,8 @@ impl HostProjectRegistrationService {
     pub fn list_host_project_registrations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::host_project_registration_service::ListHostProjectRegistrations {
-        crate::builders::host_project_registration_service::ListHostProjectRegistrations::new(
+    ) -> super::builders::host_project_registration_service::ListHostProjectRegistrations {
+        super::builders::host_project_registration_service::ListHostProjectRegistrations::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -948,8 +948,8 @@ impl HostProjectRegistrationService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::host_project_registration_service::ListLocations {
-        crate::builders::host_project_registration_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::host_project_registration_service::ListLocations {
+        super::builders::host_project_registration_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -957,8 +957,8 @@ impl HostProjectRegistrationService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::host_project_registration_service::GetLocation {
-        crate::builders::host_project_registration_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::host_project_registration_service::GetLocation {
+        super::builders::host_project_registration_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -968,8 +968,8 @@ impl HostProjectRegistrationService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::host_project_registration_service::ListOperations {
-        crate::builders::host_project_registration_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::host_project_registration_service::ListOperations {
+        super::builders::host_project_registration_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -979,8 +979,8 @@ impl HostProjectRegistrationService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::host_project_registration_service::GetOperation {
-        crate::builders::host_project_registration_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::host_project_registration_service::GetOperation {
+        super::builders::host_project_registration_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -990,8 +990,8 @@ impl HostProjectRegistrationService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::host_project_registration_service::DeleteOperation {
-        crate::builders::host_project_registration_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::host_project_registration_service::DeleteOperation {
+        super::builders::host_project_registration_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1001,8 +1001,8 @@ impl HostProjectRegistrationService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::host_project_registration_service::CancelOperation {
-        crate::builders::host_project_registration_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::host_project_registration_service::CancelOperation {
+        super::builders::host_project_registration_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1026,7 +1026,7 @@ impl HostProjectRegistrationService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct LintingService {
-    inner: Arc<dyn crate::stubs::dynamic::LintingService>,
+    inner: Arc<dyn super::stubs::dynamic::LintingService>,
 }
 
 impl LintingService {
@@ -1047,7 +1047,7 @@ impl LintingService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::LintingService + 'static,
+        T: super::stubs::LintingService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1056,7 +1056,7 @@ impl LintingService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::LintingService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::LintingService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1065,24 +1065,24 @@ impl LintingService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::LintingService> {
-        crate::transport::LintingService::new(conf).await
+    ) -> Result<impl super::stubs::LintingService> {
+        super::transport::LintingService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::LintingService> {
+    ) -> Result<impl super::stubs::LintingService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::LintingService::new)
+            .map(super::tracing::LintingService::new)
     }
 
     /// Get the style guide being used for linting.
     pub fn get_style_guide(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::linting_service::GetStyleGuide {
-        crate::builders::linting_service::GetStyleGuide::new(self.inner.clone())
+    ) -> super::builders::linting_service::GetStyleGuide {
+        super::builders::linting_service::GetStyleGuide::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1090,8 +1090,8 @@ impl LintingService {
     pub fn update_style_guide(
         &self,
         style_guide: impl Into<crate::model::StyleGuide>,
-    ) -> crate::builders::linting_service::UpdateStyleGuide {
-        crate::builders::linting_service::UpdateStyleGuide::new(self.inner.clone())
+    ) -> super::builders::linting_service::UpdateStyleGuide {
+        super::builders::linting_service::UpdateStyleGuide::new(self.inner.clone())
             .set_style_guide(style_guide.into())
     }
 
@@ -1099,8 +1099,8 @@ impl LintingService {
     pub fn get_style_guide_contents(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::linting_service::GetStyleGuideContents {
-        crate::builders::linting_service::GetStyleGuideContents::new(self.inner.clone())
+    ) -> super::builders::linting_service::GetStyleGuideContents {
+        super::builders::linting_service::GetStyleGuideContents::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1110,16 +1110,16 @@ impl LintingService {
     pub fn lint_spec(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::linting_service::LintSpec {
-        crate::builders::linting_service::LintSpec::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::linting_service::LintSpec {
+        super::builders::linting_service::LintSpec::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::linting_service::ListLocations {
-        crate::builders::linting_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::linting_service::ListLocations {
+        super::builders::linting_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1127,8 +1127,8 @@ impl LintingService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::linting_service::GetLocation {
-        crate::builders::linting_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::linting_service::GetLocation {
+        super::builders::linting_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1137,8 +1137,8 @@ impl LintingService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::linting_service::ListOperations {
-        crate::builders::linting_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::linting_service::ListOperations {
+        super::builders::linting_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1148,8 +1148,8 @@ impl LintingService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::linting_service::GetOperation {
-        crate::builders::linting_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::linting_service::GetOperation {
+        super::builders::linting_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1159,8 +1159,8 @@ impl LintingService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::linting_service::DeleteOperation {
-        crate::builders::linting_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::linting_service::DeleteOperation {
+        super::builders::linting_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1170,8 +1170,8 @@ impl LintingService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::linting_service::CancelOperation {
-        crate::builders::linting_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::linting_service::CancelOperation {
+        super::builders::linting_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1195,7 +1195,7 @@ impl LintingService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ApiHubPlugin {
-    inner: Arc<dyn crate::stubs::dynamic::ApiHubPlugin>,
+    inner: Arc<dyn super::stubs::dynamic::ApiHubPlugin>,
 }
 
 impl ApiHubPlugin {
@@ -1216,7 +1216,7 @@ impl ApiHubPlugin {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ApiHubPlugin + 'static,
+        T: super::stubs::ApiHubPlugin + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1225,7 +1225,7 @@ impl ApiHubPlugin {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ApiHubPlugin>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ApiHubPlugin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1234,24 +1234,24 @@ impl ApiHubPlugin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ApiHubPlugin> {
-        crate::transport::ApiHubPlugin::new(conf).await
+    ) -> Result<impl super::stubs::ApiHubPlugin> {
+        super::transport::ApiHubPlugin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ApiHubPlugin> {
+    ) -> Result<impl super::stubs::ApiHubPlugin> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ApiHubPlugin::new)
+            .map(super::tracing::ApiHubPlugin::new)
     }
 
     /// Get details about an API Hub plugin.
     pub fn get_plugin(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_plugin::GetPlugin {
-        crate::builders::api_hub_plugin::GetPlugin::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub_plugin::GetPlugin {
+        super::builders::api_hub_plugin::GetPlugin::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Enables a plugin.
@@ -1259,8 +1259,8 @@ impl ApiHubPlugin {
     pub fn enable_plugin(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_plugin::EnablePlugin {
-        crate::builders::api_hub_plugin::EnablePlugin::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub_plugin::EnablePlugin {
+        super::builders::api_hub_plugin::EnablePlugin::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Disables a plugin.
@@ -1268,8 +1268,8 @@ impl ApiHubPlugin {
     pub fn disable_plugin(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_plugin::DisablePlugin {
-        crate::builders::api_hub_plugin::DisablePlugin::new(self.inner.clone())
+    ) -> super::builders::api_hub_plugin::DisablePlugin {
+        super::builders::api_hub_plugin::DisablePlugin::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1277,8 +1277,8 @@ impl ApiHubPlugin {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_plugin::ListLocations {
-        crate::builders::api_hub_plugin::ListLocations::new(self.inner.clone())
+    ) -> super::builders::api_hub_plugin::ListLocations {
+        super::builders::api_hub_plugin::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1286,8 +1286,8 @@ impl ApiHubPlugin {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_plugin::GetLocation {
-        crate::builders::api_hub_plugin::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub_plugin::GetLocation {
+        super::builders::api_hub_plugin::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1296,8 +1296,8 @@ impl ApiHubPlugin {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_plugin::ListOperations {
-        crate::builders::api_hub_plugin::ListOperations::new(self.inner.clone())
+    ) -> super::builders::api_hub_plugin::ListOperations {
+        super::builders::api_hub_plugin::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1307,8 +1307,8 @@ impl ApiHubPlugin {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_plugin::GetOperation {
-        crate::builders::api_hub_plugin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::api_hub_plugin::GetOperation {
+        super::builders::api_hub_plugin::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1317,8 +1317,8 @@ impl ApiHubPlugin {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_plugin::DeleteOperation {
-        crate::builders::api_hub_plugin::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::api_hub_plugin::DeleteOperation {
+        super::builders::api_hub_plugin::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1328,8 +1328,8 @@ impl ApiHubPlugin {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::api_hub_plugin::CancelOperation {
-        crate::builders::api_hub_plugin::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::api_hub_plugin::CancelOperation {
+        super::builders::api_hub_plugin::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1353,7 +1353,7 @@ impl ApiHubPlugin {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Provisioning {
-    inner: Arc<dyn crate::stubs::dynamic::Provisioning>,
+    inner: Arc<dyn super::stubs::dynamic::Provisioning>,
 }
 
 impl Provisioning {
@@ -1374,7 +1374,7 @@ impl Provisioning {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Provisioning + 'static,
+        T: super::stubs::Provisioning + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1383,7 +1383,7 @@ impl Provisioning {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Provisioning>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Provisioning>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1392,16 +1392,16 @@ impl Provisioning {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Provisioning> {
-        crate::transport::Provisioning::new(conf).await
+    ) -> Result<impl super::stubs::Provisioning> {
+        super::transport::Provisioning::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Provisioning> {
+    ) -> Result<impl super::stubs::Provisioning> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Provisioning::new)
+            .map(super::tracing::Provisioning::new)
     }
 
     /// Provisions instance resources for the API Hub.
@@ -1418,8 +1418,8 @@ impl Provisioning {
     pub fn create_api_hub_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::provisioning::CreateApiHubInstance {
-        crate::builders::provisioning::CreateApiHubInstance::new(self.inner.clone())
+    ) -> super::builders::provisioning::CreateApiHubInstance {
+        super::builders::provisioning::CreateApiHubInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1427,8 +1427,8 @@ impl Provisioning {
     pub fn get_api_hub_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::provisioning::GetApiHubInstance {
-        crate::builders::provisioning::GetApiHubInstance::new(self.inner.clone())
+    ) -> super::builders::provisioning::GetApiHubInstance {
+        super::builders::provisioning::GetApiHubInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1437,8 +1437,8 @@ impl Provisioning {
     pub fn lookup_api_hub_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::provisioning::LookupApiHubInstance {
-        crate::builders::provisioning::LookupApiHubInstance::new(self.inner.clone())
+    ) -> super::builders::provisioning::LookupApiHubInstance {
+        super::builders::provisioning::LookupApiHubInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1446,16 +1446,16 @@ impl Provisioning {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::provisioning::ListLocations {
-        crate::builders::provisioning::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::provisioning::ListLocations {
+        super::builders::provisioning::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::provisioning::GetLocation {
-        crate::builders::provisioning::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::provisioning::GetLocation {
+        super::builders::provisioning::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1464,8 +1464,8 @@ impl Provisioning {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::provisioning::ListOperations {
-        crate::builders::provisioning::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::provisioning::ListOperations {
+        super::builders::provisioning::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1474,8 +1474,8 @@ impl Provisioning {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::provisioning::GetOperation {
-        crate::builders::provisioning::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::provisioning::GetOperation {
+        super::builders::provisioning::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1484,8 +1484,8 @@ impl Provisioning {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::provisioning::DeleteOperation {
-        crate::builders::provisioning::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::provisioning::DeleteOperation {
+        super::builders::provisioning::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1495,8 +1495,8 @@ impl Provisioning {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::provisioning::CancelOperation {
-        crate::builders::provisioning::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::provisioning::CancelOperation {
+        super::builders::provisioning::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1520,7 +1520,7 @@ impl Provisioning {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct RuntimeProjectAttachmentService {
-    inner: Arc<dyn crate::stubs::dynamic::RuntimeProjectAttachmentService>,
+    inner: Arc<dyn super::stubs::dynamic::RuntimeProjectAttachmentService>,
 }
 
 impl RuntimeProjectAttachmentService {
@@ -1541,7 +1541,7 @@ impl RuntimeProjectAttachmentService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::RuntimeProjectAttachmentService + 'static,
+        T: super::stubs::RuntimeProjectAttachmentService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1550,7 +1550,7 @@ impl RuntimeProjectAttachmentService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::RuntimeProjectAttachmentService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::RuntimeProjectAttachmentService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1559,24 +1559,24 @@ impl RuntimeProjectAttachmentService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::RuntimeProjectAttachmentService> {
-        crate::transport::RuntimeProjectAttachmentService::new(conf).await
+    ) -> Result<impl super::stubs::RuntimeProjectAttachmentService> {
+        super::transport::RuntimeProjectAttachmentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::RuntimeProjectAttachmentService> {
+    ) -> Result<impl super::stubs::RuntimeProjectAttachmentService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::RuntimeProjectAttachmentService::new)
+            .map(super::tracing::RuntimeProjectAttachmentService::new)
     }
 
     /// Attaches a runtime project to the host project.
     pub fn create_runtime_project_attachment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::CreateRuntimeProjectAttachment {
-        crate::builders::runtime_project_attachment_service::CreateRuntimeProjectAttachment::new(
+    ) -> super::builders::runtime_project_attachment_service::CreateRuntimeProjectAttachment {
+        super::builders::runtime_project_attachment_service::CreateRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1586,8 +1586,8 @@ impl RuntimeProjectAttachmentService {
     pub fn get_runtime_project_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::GetRuntimeProjectAttachment {
-        crate::builders::runtime_project_attachment_service::GetRuntimeProjectAttachment::new(
+    ) -> super::builders::runtime_project_attachment_service::GetRuntimeProjectAttachment {
+        super::builders::runtime_project_attachment_service::GetRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1597,8 +1597,8 @@ impl RuntimeProjectAttachmentService {
     pub fn list_runtime_project_attachments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::ListRuntimeProjectAttachments {
-        crate::builders::runtime_project_attachment_service::ListRuntimeProjectAttachments::new(
+    ) -> super::builders::runtime_project_attachment_service::ListRuntimeProjectAttachments {
+        super::builders::runtime_project_attachment_service::ListRuntimeProjectAttachments::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1609,8 +1609,8 @@ impl RuntimeProjectAttachmentService {
     pub fn delete_runtime_project_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::DeleteRuntimeProjectAttachment {
-        crate::builders::runtime_project_attachment_service::DeleteRuntimeProjectAttachment::new(
+    ) -> super::builders::runtime_project_attachment_service::DeleteRuntimeProjectAttachment {
+        super::builders::runtime_project_attachment_service::DeleteRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1621,8 +1621,8 @@ impl RuntimeProjectAttachmentService {
     pub fn lookup_runtime_project_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::LookupRuntimeProjectAttachment {
-        crate::builders::runtime_project_attachment_service::LookupRuntimeProjectAttachment::new(
+    ) -> super::builders::runtime_project_attachment_service::LookupRuntimeProjectAttachment {
+        super::builders::runtime_project_attachment_service::LookupRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1632,8 +1632,8 @@ impl RuntimeProjectAttachmentService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::ListLocations {
-        crate::builders::runtime_project_attachment_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::runtime_project_attachment_service::ListLocations {
+        super::builders::runtime_project_attachment_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1641,8 +1641,8 @@ impl RuntimeProjectAttachmentService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::GetLocation {
-        crate::builders::runtime_project_attachment_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::runtime_project_attachment_service::GetLocation {
+        super::builders::runtime_project_attachment_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1652,8 +1652,8 @@ impl RuntimeProjectAttachmentService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::ListOperations {
-        crate::builders::runtime_project_attachment_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::runtime_project_attachment_service::ListOperations {
+        super::builders::runtime_project_attachment_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1663,8 +1663,8 @@ impl RuntimeProjectAttachmentService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::GetOperation {
-        crate::builders::runtime_project_attachment_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::runtime_project_attachment_service::GetOperation {
+        super::builders::runtime_project_attachment_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1674,8 +1674,8 @@ impl RuntimeProjectAttachmentService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::DeleteOperation {
-        crate::builders::runtime_project_attachment_service::DeleteOperation::new(
+    ) -> super::builders::runtime_project_attachment_service::DeleteOperation {
+        super::builders::runtime_project_attachment_service::DeleteOperation::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1687,8 +1687,8 @@ impl RuntimeProjectAttachmentService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::runtime_project_attachment_service::CancelOperation {
-        crate::builders::runtime_project_attachment_service::CancelOperation::new(
+    ) -> super::builders::runtime_project_attachment_service::CancelOperation {
+        super::builders::runtime_project_attachment_service::CancelOperation::new(
             self.inner.clone(),
         )
         .set_name(name.into())

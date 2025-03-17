@@ -24,9 +24,9 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ListConnectionsResponse>;
 }
 
-/// All implementations of [crate::stubs::ConnectionService] also implement [ConnectionService].
+/// All implementations of [super::ConnectionService] also implement [ConnectionService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ConnectionService> ConnectionService for T {
+impl<T: super::ConnectionService> ConnectionService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_connections(
         &self,

@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::TranscoderService].
+/// Defines the trait used to implement [super::client::TranscoderService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TranscoderService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TranscoderService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TranscoderService::create_job].
+    /// Implements [super::client::TranscoderService::create_job].
     fn create_job(
         &self,
         _req: crate::model::CreateJobRequest,
@@ -49,7 +49,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TranscoderService::list_jobs].
+    /// Implements [super::client::TranscoderService::list_jobs].
     fn list_jobs(
         &self,
         _req: crate::model::ListJobsRequest,
@@ -61,7 +61,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TranscoderService::get_job].
+    /// Implements [super::client::TranscoderService::get_job].
     fn get_job(
         &self,
         _req: crate::model::GetJobRequest,
@@ -70,7 +70,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TranscoderService::delete_job].
+    /// Implements [super::client::TranscoderService::delete_job].
     fn delete_job(
         &self,
         _req: crate::model::DeleteJobRequest,
@@ -79,7 +79,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TranscoderService::create_job_template].
+    /// Implements [super::client::TranscoderService::create_job_template].
     fn create_job_template(
         &self,
         _req: crate::model::CreateJobTemplateRequest,
@@ -90,7 +90,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TranscoderService::list_job_templates].
+    /// Implements [super::client::TranscoderService::list_job_templates].
     fn list_job_templates(
         &self,
         _req: crate::model::ListJobTemplatesRequest,
@@ -102,7 +102,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TranscoderService::get_job_template].
+    /// Implements [super::client::TranscoderService::get_job_template].
     fn get_job_template(
         &self,
         _req: crate::model::GetJobTemplateRequest,
@@ -113,7 +113,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TranscoderService::delete_job_template].
+    /// Implements [super::client::TranscoderService::delete_job_template].
     fn delete_job_template(
         &self,
         _req: crate::model::DeleteJobTemplateRequest,

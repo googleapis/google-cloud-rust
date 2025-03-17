@@ -492,9 +492,9 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ContactCenterInsights] also implement [ContactCenterInsights].
+/// All implementations of [super::ContactCenterInsights] also implement [ContactCenterInsights].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ContactCenterInsights> ContactCenterInsights for T {
+impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_conversation(
         &self,

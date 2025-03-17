@@ -18,10 +18,10 @@ pub mod certificate_manager {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CertificateManager] request builders.
+    /// Common implementation for [super::super::client::CertificateManager] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CertificateManager>,
+        stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod certificate_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod certificate_manager {
     pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
 
     impl ListCertificates {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -126,7 +126,7 @@ pub mod certificate_manager {
     pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
 
     impl GetCertificate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -167,7 +167,7 @@ pub mod certificate_manager {
     pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
 
     impl CreateCertificate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -191,7 +191,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate][crate::client::CertificateManager::create_certificate].
+        /// on [create_certificate][super::super::client::CertificateManager::create_certificate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate(self.0.request, self.0.options)
@@ -264,7 +264,7 @@ pub mod certificate_manager {
     pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
 
     impl UpdateCertificate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -288,7 +288,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate][crate::client::CertificateManager::update_certificate].
+        /// on [update_certificate][super::super::client::CertificateManager::update_certificate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate(self.0.request, self.0.options)
@@ -358,7 +358,7 @@ pub mod certificate_manager {
     pub struct DeleteCertificate(RequestBuilder<crate::model::DeleteCertificateRequest>);
 
     impl DeleteCertificate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -382,7 +382,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate][crate::client::CertificateManager::delete_certificate].
+        /// on [delete_certificate][super::super::client::CertificateManager::delete_certificate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate(self.0.request, self.0.options)
@@ -437,7 +437,7 @@ pub mod certificate_manager {
     pub struct ListCertificateMaps(RequestBuilder<crate::model::ListCertificateMapsRequest>);
 
     impl ListCertificateMaps {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -519,7 +519,7 @@ pub mod certificate_manager {
     pub struct GetCertificateMap(RequestBuilder<crate::model::GetCertificateMapRequest>);
 
     impl GetCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -563,7 +563,7 @@ pub mod certificate_manager {
     pub struct CreateCertificateMap(RequestBuilder<crate::model::CreateCertificateMapRequest>);
 
     impl CreateCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -587,7 +587,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_map][crate::client::CertificateManager::create_certificate_map].
+        /// on [create_certificate_map][super::super::client::CertificateManager::create_certificate_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_map(self.0.request, self.0.options)
@@ -661,7 +661,7 @@ pub mod certificate_manager {
     pub struct UpdateCertificateMap(RequestBuilder<crate::model::UpdateCertificateMapRequest>);
 
     impl UpdateCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -685,7 +685,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_map][crate::client::CertificateManager::update_certificate_map].
+        /// on [update_certificate_map][super::super::client::CertificateManager::update_certificate_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_map(self.0.request, self.0.options)
@@ -756,7 +756,7 @@ pub mod certificate_manager {
     pub struct DeleteCertificateMap(RequestBuilder<crate::model::DeleteCertificateMapRequest>);
 
     impl DeleteCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -780,7 +780,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_map][crate::client::CertificateManager::delete_certificate_map].
+        /// on [delete_certificate_map][super::super::client::CertificateManager::delete_certificate_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_map(self.0.request, self.0.options)
@@ -837,7 +837,7 @@ pub mod certificate_manager {
     );
 
     impl ListCertificateMapEntries {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -921,7 +921,7 @@ pub mod certificate_manager {
     pub struct GetCertificateMapEntry(RequestBuilder<crate::model::GetCertificateMapEntryRequest>);
 
     impl GetCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -967,7 +967,7 @@ pub mod certificate_manager {
     );
 
     impl CreateCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -991,7 +991,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_map_entry][crate::client::CertificateManager::create_certificate_map_entry].
+        /// on [create_certificate_map_entry][super::super::client::CertificateManager::create_certificate_map_entry].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_map_entry(self.0.request, self.0.options)
@@ -1069,7 +1069,7 @@ pub mod certificate_manager {
     );
 
     impl UpdateCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1093,7 +1093,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_map_entry][crate::client::CertificateManager::update_certificate_map_entry].
+        /// on [update_certificate_map_entry][super::super::client::CertificateManager::update_certificate_map_entry].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_map_entry(self.0.request, self.0.options)
@@ -1168,7 +1168,7 @@ pub mod certificate_manager {
     );
 
     impl DeleteCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1192,7 +1192,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_map_entry][crate::client::CertificateManager::delete_certificate_map_entry].
+        /// on [delete_certificate_map_entry][super::super::client::CertificateManager::delete_certificate_map_entry].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_map_entry(self.0.request, self.0.options)
@@ -1247,7 +1247,7 @@ pub mod certificate_manager {
     pub struct ListDnsAuthorizations(RequestBuilder<crate::model::ListDnsAuthorizationsRequest>);
 
     impl ListDnsAuthorizations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1329,7 +1329,7 @@ pub mod certificate_manager {
     pub struct GetDnsAuthorization(RequestBuilder<crate::model::GetDnsAuthorizationRequest>);
 
     impl GetDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1373,7 +1373,7 @@ pub mod certificate_manager {
     pub struct CreateDnsAuthorization(RequestBuilder<crate::model::CreateDnsAuthorizationRequest>);
 
     impl CreateDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1397,7 +1397,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_dns_authorization][crate::client::CertificateManager::create_dns_authorization].
+        /// on [create_dns_authorization][super::super::client::CertificateManager::create_dns_authorization].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_dns_authorization(self.0.request, self.0.options)
@@ -1473,7 +1473,7 @@ pub mod certificate_manager {
     pub struct UpdateDnsAuthorization(RequestBuilder<crate::model::UpdateDnsAuthorizationRequest>);
 
     impl UpdateDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1497,7 +1497,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_dns_authorization][crate::client::CertificateManager::update_dns_authorization].
+        /// on [update_dns_authorization][super::super::client::CertificateManager::update_dns_authorization].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dns_authorization(self.0.request, self.0.options)
@@ -1570,7 +1570,7 @@ pub mod certificate_manager {
     pub struct DeleteDnsAuthorization(RequestBuilder<crate::model::DeleteDnsAuthorizationRequest>);
 
     impl DeleteDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1594,7 +1594,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_dns_authorization][crate::client::CertificateManager::delete_dns_authorization].
+        /// on [delete_dns_authorization][super::super::client::CertificateManager::delete_dns_authorization].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_dns_authorization(self.0.request, self.0.options)
@@ -1651,7 +1651,7 @@ pub mod certificate_manager {
     );
 
     impl ListCertificateIssuanceConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1737,7 +1737,7 @@ pub mod certificate_manager {
     );
 
     impl GetCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1783,7 +1783,7 @@ pub mod certificate_manager {
     );
 
     impl CreateCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1807,7 +1807,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_issuance_config][crate::client::CertificateManager::create_certificate_issuance_config].
+        /// on [create_certificate_issuance_config][super::super::client::CertificateManager::create_certificate_issuance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_issuance_config(self.0.request, self.0.options)
@@ -1890,7 +1890,7 @@ pub mod certificate_manager {
     );
 
     impl DeleteCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1914,7 +1914,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_issuance_config][crate::client::CertificateManager::delete_certificate_issuance_config].
+        /// on [delete_certificate_issuance_config][super::super::client::CertificateManager::delete_certificate_issuance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_issuance_config(self.0.request, self.0.options)
@@ -1969,7 +1969,7 @@ pub mod certificate_manager {
     pub struct ListTrustConfigs(RequestBuilder<crate::model::ListTrustConfigsRequest>);
 
     impl ListTrustConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2051,7 +2051,7 @@ pub mod certificate_manager {
     pub struct GetTrustConfig(RequestBuilder<crate::model::GetTrustConfigRequest>);
 
     impl GetTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2092,7 +2092,7 @@ pub mod certificate_manager {
     pub struct CreateTrustConfig(RequestBuilder<crate::model::CreateTrustConfigRequest>);
 
     impl CreateTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2116,7 +2116,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_trust_config][crate::client::CertificateManager::create_trust_config].
+        /// on [create_trust_config][super::super::client::CertificateManager::create_trust_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_trust_config(self.0.request, self.0.options)
@@ -2189,7 +2189,7 @@ pub mod certificate_manager {
     pub struct UpdateTrustConfig(RequestBuilder<crate::model::UpdateTrustConfigRequest>);
 
     impl UpdateTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2213,7 +2213,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_trust_config][crate::client::CertificateManager::update_trust_config].
+        /// on [update_trust_config][super::super::client::CertificateManager::update_trust_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_trust_config(self.0.request, self.0.options)
@@ -2283,7 +2283,7 @@ pub mod certificate_manager {
     pub struct DeleteTrustConfig(RequestBuilder<crate::model::DeleteTrustConfigRequest>);
 
     impl DeleteTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2307,7 +2307,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_trust_config][crate::client::CertificateManager::delete_trust_config].
+        /// on [delete_trust_config][super::super::client::CertificateManager::delete_trust_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_trust_config(self.0.request, self.0.options)
@@ -2368,7 +2368,7 @@ pub mod certificate_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2444,7 +2444,7 @@ pub mod certificate_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2485,7 +2485,7 @@ pub mod certificate_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2561,7 +2561,7 @@ pub mod certificate_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2605,7 +2605,7 @@ pub mod certificate_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2649,7 +2649,7 @@ pub mod certificate_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CertificateManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

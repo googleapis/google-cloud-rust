@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ProfilerService](crate::stubs::ProfilerService) using a [gclient::ReqwestClient].
+/// Implements [ProfilerService](super::stubs::ProfilerService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ProfilerService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ProfilerService {
     }
 }
 
-impl crate::stubs::ProfilerService for ProfilerService {
+impl super::stubs::ProfilerService for ProfilerService {
     async fn create_profile(
         &self,
         req: crate::model::CreateProfileRequest,
@@ -121,7 +121,7 @@ impl crate::stubs::ProfilerService for ProfilerService {
     }
 }
 
-/// Implements [ExportService](crate::stubs::ExportService) using a [gclient::ReqwestClient].
+/// Implements [ExportService](super::stubs::ExportService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ExportService {
     inner: gclient::ReqwestClient,
@@ -142,7 +142,7 @@ impl ExportService {
     }
 }
 
-impl crate::stubs::ExportService for ExportService {
+impl super::stubs::ExportService for ExportService {
     async fn list_profiles(
         &self,
         req: crate::model::ListProfilesRequest,

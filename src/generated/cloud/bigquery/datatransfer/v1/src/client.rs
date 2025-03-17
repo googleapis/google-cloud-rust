@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DataTransferService {
-    inner: Arc<dyn crate::stubs::dynamic::DataTransferService>,
+    inner: Arc<dyn super::stubs::dynamic::DataTransferService>,
 }
 
 impl DataTransferService {
@@ -59,7 +59,7 @@ impl DataTransferService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::DataTransferService + 'static,
+        T: super::stubs::DataTransferService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl DataTransferService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::DataTransferService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::DataTransferService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl DataTransferService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DataTransferService> {
-        crate::transport::DataTransferService::new(conf).await
+    ) -> Result<impl super::stubs::DataTransferService> {
+        super::transport::DataTransferService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DataTransferService> {
+    ) -> Result<impl super::stubs::DataTransferService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::DataTransferService::new)
+            .map(super::tracing::DataTransferService::new)
     }
 
     /// Retrieves a supported data source and returns its settings.
     pub fn get_data_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::GetDataSource {
-        crate::builders::data_transfer_service::GetDataSource::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::GetDataSource {
+        super::builders::data_transfer_service::GetDataSource::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -102,8 +102,8 @@ impl DataTransferService {
     pub fn list_data_sources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::ListDataSources {
-        crate::builders::data_transfer_service::ListDataSources::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::ListDataSources {
+        super::builders::data_transfer_service::ListDataSources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -111,8 +111,8 @@ impl DataTransferService {
     pub fn create_transfer_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::CreateTransferConfig {
-        crate::builders::data_transfer_service::CreateTransferConfig::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::CreateTransferConfig {
+        super::builders::data_transfer_service::CreateTransferConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +121,8 @@ impl DataTransferService {
     pub fn update_transfer_config(
         &self,
         transfer_config: impl Into<crate::model::TransferConfig>,
-    ) -> crate::builders::data_transfer_service::UpdateTransferConfig {
-        crate::builders::data_transfer_service::UpdateTransferConfig::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::UpdateTransferConfig {
+        super::builders::data_transfer_service::UpdateTransferConfig::new(self.inner.clone())
             .set_transfer_config(transfer_config.into())
     }
 
@@ -131,8 +131,8 @@ impl DataTransferService {
     pub fn delete_transfer_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::DeleteTransferConfig {
-        crate::builders::data_transfer_service::DeleteTransferConfig::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::DeleteTransferConfig {
+        super::builders::data_transfer_service::DeleteTransferConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -140,8 +140,8 @@ impl DataTransferService {
     pub fn get_transfer_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::GetTransferConfig {
-        crate::builders::data_transfer_service::GetTransferConfig::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::GetTransferConfig {
+        super::builders::data_transfer_service::GetTransferConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -150,8 +150,8 @@ impl DataTransferService {
     pub fn list_transfer_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::ListTransferConfigs {
-        crate::builders::data_transfer_service::ListTransferConfigs::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::ListTransferConfigs {
+        super::builders::data_transfer_service::ListTransferConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -163,8 +163,8 @@ impl DataTransferService {
     pub fn schedule_transfer_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::ScheduleTransferRuns {
-        crate::builders::data_transfer_service::ScheduleTransferRuns::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::ScheduleTransferRuns {
+        super::builders::data_transfer_service::ScheduleTransferRuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -175,8 +175,8 @@ impl DataTransferService {
     pub fn start_manual_transfer_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::StartManualTransferRuns {
-        crate::builders::data_transfer_service::StartManualTransferRuns::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::StartManualTransferRuns {
+        super::builders::data_transfer_service::StartManualTransferRuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -184,8 +184,8 @@ impl DataTransferService {
     pub fn get_transfer_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::GetTransferRun {
-        crate::builders::data_transfer_service::GetTransferRun::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::GetTransferRun {
+        super::builders::data_transfer_service::GetTransferRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -193,8 +193,8 @@ impl DataTransferService {
     pub fn delete_transfer_run(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::DeleteTransferRun {
-        crate::builders::data_transfer_service::DeleteTransferRun::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::DeleteTransferRun {
+        super::builders::data_transfer_service::DeleteTransferRun::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -202,8 +202,8 @@ impl DataTransferService {
     pub fn list_transfer_runs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::ListTransferRuns {
-        crate::builders::data_transfer_service::ListTransferRuns::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::ListTransferRuns {
+        super::builders::data_transfer_service::ListTransferRuns::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -211,8 +211,8 @@ impl DataTransferService {
     pub fn list_transfer_logs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::ListTransferLogs {
-        crate::builders::data_transfer_service::ListTransferLogs::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::ListTransferLogs {
+        super::builders::data_transfer_service::ListTransferLogs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -221,8 +221,8 @@ impl DataTransferService {
     pub fn check_valid_creds(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::CheckValidCreds {
-        crate::builders::data_transfer_service::CheckValidCreds::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::CheckValidCreds {
+        super::builders::data_transfer_service::CheckValidCreds::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -237,8 +237,8 @@ impl DataTransferService {
     pub fn enroll_data_sources(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::EnrollDataSources {
-        crate::builders::data_transfer_service::EnrollDataSources::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::EnrollDataSources {
+        super::builders::data_transfer_service::EnrollDataSources::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -250,8 +250,8 @@ impl DataTransferService {
     pub fn unenroll_data_sources(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::UnenrollDataSources {
-        crate::builders::data_transfer_service::UnenrollDataSources::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::UnenrollDataSources {
+        super::builders::data_transfer_service::UnenrollDataSources::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -259,8 +259,8 @@ impl DataTransferService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::ListLocations {
-        crate::builders::data_transfer_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::ListLocations {
+        super::builders::data_transfer_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -268,8 +268,8 @@ impl DataTransferService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_transfer_service::GetLocation {
-        crate::builders::data_transfer_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::data_transfer_service::GetLocation {
+        super::builders::data_transfer_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

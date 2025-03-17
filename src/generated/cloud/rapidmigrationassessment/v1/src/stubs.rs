@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::RapidMigrationAssessment].
+/// Defines the trait used to implement [super::client::RapidMigrationAssessment].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::RapidMigrationAssessment`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::RapidMigrationAssessment::create_collector].
+    /// Implements [super::client::RapidMigrationAssessment::create_collector].
     fn create_collector(
         &self,
         _req: crate::model::CreateCollectorRequest,
@@ -53,7 +53,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::create_annotation].
+    /// Implements [super::client::RapidMigrationAssessment::create_annotation].
     fn create_annotation(
         &self,
         _req: crate::model::CreateAnnotationRequest,
@@ -65,7 +65,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::get_annotation].
+    /// Implements [super::client::RapidMigrationAssessment::get_annotation].
     fn get_annotation(
         &self,
         _req: crate::model::GetAnnotationRequest,
@@ -76,7 +76,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::list_collectors].
+    /// Implements [super::client::RapidMigrationAssessment::list_collectors].
     fn list_collectors(
         &self,
         _req: crate::model::ListCollectorsRequest,
@@ -88,7 +88,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::get_collector].
+    /// Implements [super::client::RapidMigrationAssessment::get_collector].
     fn get_collector(
         &self,
         _req: crate::model::GetCollectorRequest,
@@ -99,7 +99,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::update_collector].
+    /// Implements [super::client::RapidMigrationAssessment::update_collector].
     fn update_collector(
         &self,
         _req: crate::model::UpdateCollectorRequest,
@@ -111,7 +111,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::delete_collector].
+    /// Implements [super::client::RapidMigrationAssessment::delete_collector].
     fn delete_collector(
         &self,
         _req: crate::model::DeleteCollectorRequest,
@@ -123,7 +123,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::resume_collector].
+    /// Implements [super::client::RapidMigrationAssessment::resume_collector].
     fn resume_collector(
         &self,
         _req: crate::model::ResumeCollectorRequest,
@@ -135,7 +135,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::register_collector].
+    /// Implements [super::client::RapidMigrationAssessment::register_collector].
     fn register_collector(
         &self,
         _req: crate::model::RegisterCollectorRequest,
@@ -147,7 +147,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::pause_collector].
+    /// Implements [super::client::RapidMigrationAssessment::pause_collector].
     fn pause_collector(
         &self,
         _req: crate::model::PauseCollectorRequest,
@@ -159,7 +159,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::list_locations].
+    /// Implements [super::client::RapidMigrationAssessment::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -171,7 +171,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::get_location].
+    /// Implements [super::client::RapidMigrationAssessment::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -182,7 +182,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::list_operations].
+    /// Implements [super::client::RapidMigrationAssessment::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -194,7 +194,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::get_operation].
+    /// Implements [super::client::RapidMigrationAssessment::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -206,7 +206,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::delete_operation].
+    /// Implements [super::client::RapidMigrationAssessment::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -215,7 +215,7 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RapidMigrationAssessment::cancel_operation].
+    /// Implements [super::client::RapidMigrationAssessment::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -18,10 +18,10 @@ pub mod telco_automation {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TelcoAutomation] request builders.
+    /// Common implementation for [super::super::client::TelcoAutomation] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>,
+        stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod telco_automation {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -46,7 +46,7 @@ pub mod telco_automation {
     );
 
     impl ListOrchestrationClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -132,7 +132,7 @@ pub mod telco_automation {
     );
 
     impl GetOrchestrationCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -178,7 +178,7 @@ pub mod telco_automation {
     );
 
     impl CreateOrchestrationCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -202,7 +202,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_orchestration_cluster][crate::client::TelcoAutomation::create_orchestration_cluster].
+        /// on [create_orchestration_cluster][super::super::client::TelcoAutomation::create_orchestration_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_orchestration_cluster(self.0.request, self.0.options)
@@ -286,7 +286,7 @@ pub mod telco_automation {
     );
 
     impl DeleteOrchestrationCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -310,7 +310,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_orchestration_cluster][crate::client::TelcoAutomation::delete_orchestration_cluster].
+        /// on [delete_orchestration_cluster][super::super::client::TelcoAutomation::delete_orchestration_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_orchestration_cluster(self.0.request, self.0.options)
@@ -371,7 +371,7 @@ pub mod telco_automation {
     pub struct ListEdgeSlms(RequestBuilder<crate::model::ListEdgeSlmsRequest>);
 
     impl ListEdgeSlms {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -450,7 +450,7 @@ pub mod telco_automation {
     pub struct GetEdgeSlm(RequestBuilder<crate::model::GetEdgeSlmRequest>);
 
     impl GetEdgeSlm {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -491,7 +491,7 @@ pub mod telco_automation {
     pub struct CreateEdgeSlm(RequestBuilder<crate::model::CreateEdgeSlmRequest>);
 
     impl CreateEdgeSlm {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -512,7 +512,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_edge_slm][crate::client::TelcoAutomation::create_edge_slm].
+        /// on [create_edge_slm][super::super::client::TelcoAutomation::create_edge_slm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_edge_slm(self.0.request, self.0.options)
@@ -590,7 +590,7 @@ pub mod telco_automation {
     pub struct DeleteEdgeSlm(RequestBuilder<crate::model::DeleteEdgeSlmRequest>);
 
     impl DeleteEdgeSlm {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -611,7 +611,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_edge_slm][crate::client::TelcoAutomation::delete_edge_slm].
+        /// on [delete_edge_slm][super::super::client::TelcoAutomation::delete_edge_slm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_edge_slm(self.0.request, self.0.options)
@@ -672,7 +672,7 @@ pub mod telco_automation {
     pub struct CreateBlueprint(RequestBuilder<crate::model::CreateBlueprintRequest>);
 
     impl CreateBlueprint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -728,7 +728,7 @@ pub mod telco_automation {
     pub struct UpdateBlueprint(RequestBuilder<crate::model::UpdateBlueprintRequest>);
 
     impl UpdateBlueprint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -781,7 +781,7 @@ pub mod telco_automation {
     pub struct GetBlueprint(RequestBuilder<crate::model::GetBlueprintRequest>);
 
     impl GetBlueprint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -828,7 +828,7 @@ pub mod telco_automation {
     pub struct DeleteBlueprint(RequestBuilder<crate::model::DeleteBlueprintRequest>);
 
     impl DeleteBlueprint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -869,7 +869,7 @@ pub mod telco_automation {
     pub struct ListBlueprints(RequestBuilder<crate::model::ListBlueprintsRequest>);
 
     impl ListBlueprints {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -942,7 +942,7 @@ pub mod telco_automation {
     pub struct ApproveBlueprint(RequestBuilder<crate::model::ApproveBlueprintRequest>);
 
     impl ApproveBlueprint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -986,7 +986,7 @@ pub mod telco_automation {
     pub struct ProposeBlueprint(RequestBuilder<crate::model::ProposeBlueprintRequest>);
 
     impl ProposeBlueprint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1030,7 +1030,7 @@ pub mod telco_automation {
     pub struct RejectBlueprint(RequestBuilder<crate::model::RejectBlueprintRequest>);
 
     impl RejectBlueprint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1071,7 +1071,7 @@ pub mod telco_automation {
     pub struct ListBlueprintRevisions(RequestBuilder<crate::model::ListBlueprintRevisionsRequest>);
 
     impl ListBlueprintRevisions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1145,7 +1145,7 @@ pub mod telco_automation {
     );
 
     impl SearchBlueprintRevisions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1225,7 +1225,7 @@ pub mod telco_automation {
     );
 
     impl SearchDeploymentRevisions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1305,7 +1305,7 @@ pub mod telco_automation {
     );
 
     impl DiscardBlueprintChanges {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1349,7 +1349,7 @@ pub mod telco_automation {
     pub struct ListPublicBlueprints(RequestBuilder<crate::model::ListPublicBlueprintsRequest>);
 
     impl ListPublicBlueprints {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1419,7 +1419,7 @@ pub mod telco_automation {
     pub struct GetPublicBlueprint(RequestBuilder<crate::model::GetPublicBlueprintRequest>);
 
     impl GetPublicBlueprint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1463,7 +1463,7 @@ pub mod telco_automation {
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1522,7 +1522,7 @@ pub mod telco_automation {
     pub struct UpdateDeployment(RequestBuilder<crate::model::UpdateDeploymentRequest>);
 
     impl UpdateDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1578,7 +1578,7 @@ pub mod telco_automation {
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1625,7 +1625,7 @@ pub mod telco_automation {
     pub struct RemoveDeployment(RequestBuilder<crate::model::RemoveDeploymentRequest>);
 
     impl RemoveDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1669,7 +1669,7 @@ pub mod telco_automation {
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1744,7 +1744,7 @@ pub mod telco_automation {
     );
 
     impl ListDeploymentRevisions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1818,7 +1818,7 @@ pub mod telco_automation {
     );
 
     impl DiscardDeploymentChanges {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1862,7 +1862,7 @@ pub mod telco_automation {
     pub struct ApplyDeployment(RequestBuilder<crate::model::ApplyDeploymentRequest>);
 
     impl ApplyDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1905,7 +1905,7 @@ pub mod telco_automation {
     );
 
     impl ComputeDeploymentStatus {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1949,7 +1949,7 @@ pub mod telco_automation {
     pub struct RollbackDeployment(RequestBuilder<crate::model::RollbackDeploymentRequest>);
 
     impl RollbackDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1999,7 +1999,7 @@ pub mod telco_automation {
     pub struct GetHydratedDeployment(RequestBuilder<crate::model::GetHydratedDeploymentRequest>);
 
     impl GetHydratedDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2045,7 +2045,7 @@ pub mod telco_automation {
     );
 
     impl ListHydratedDeployments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2119,7 +2119,7 @@ pub mod telco_automation {
     );
 
     impl UpdateHydratedDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2179,7 +2179,7 @@ pub mod telco_automation {
     );
 
     impl ApplyHydratedDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2223,7 +2223,7 @@ pub mod telco_automation {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2299,7 +2299,7 @@ pub mod telco_automation {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2340,7 +2340,7 @@ pub mod telco_automation {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2416,7 +2416,7 @@ pub mod telco_automation {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2460,7 +2460,7 @@ pub mod telco_automation {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2504,7 +2504,7 @@ pub mod telco_automation {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TelcoAutomation>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

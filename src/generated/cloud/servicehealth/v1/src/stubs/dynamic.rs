@@ -66,9 +66,9 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<location::model::Location>;
 }
 
-/// All implementations of [crate::stubs::ServiceHealth] also implement [ServiceHealth].
+/// All implementations of [super::ServiceHealth] also implement [ServiceHealth].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ServiceHealth> ServiceHealth for T {
+impl<T: super::ServiceHealth> ServiceHealth for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_events(
         &self,

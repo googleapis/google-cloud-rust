@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecurityPosture](crate::stubs::SecurityPosture) using a [gclient::ReqwestClient].
+/// Implements [SecurityPosture](super::stubs::SecurityPosture) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SecurityPosture {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl SecurityPosture {
     }
 }
 
-impl crate::stubs::SecurityPosture for SecurityPosture {
+impl super::stubs::SecurityPosture for SecurityPosture {
     async fn list_postures(
         &self,
         req: crate::model::ListPosturesRequest,

@@ -53,7 +53,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudMemcache {
-    inner: Arc<dyn crate::stubs::dynamic::CloudMemcache>,
+    inner: Arc<dyn super::stubs::dynamic::CloudMemcache>,
 }
 
 impl CloudMemcache {
@@ -74,7 +74,7 @@ impl CloudMemcache {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CloudMemcache + 'static,
+        T: super::stubs::CloudMemcache + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -83,7 +83,7 @@ impl CloudMemcache {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CloudMemcache>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CloudMemcache>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -92,24 +92,24 @@ impl CloudMemcache {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudMemcache> {
-        crate::transport::CloudMemcache::new(conf).await
+    ) -> Result<impl super::stubs::CloudMemcache> {
+        super::transport::CloudMemcache::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudMemcache> {
+    ) -> Result<impl super::stubs::CloudMemcache> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CloudMemcache::new)
+            .map(super::tracing::CloudMemcache::new)
     }
 
     /// Lists Instances in a given location.
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::ListInstances {
-        crate::builders::cloud_memcache::ListInstances::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::ListInstances {
+        super::builders::cloud_memcache::ListInstances::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -117,8 +117,8 @@ impl CloudMemcache {
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::GetInstance {
-        crate::builders::cloud_memcache::GetInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_memcache::GetInstance {
+        super::builders::cloud_memcache::GetInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Instance in a given location.
@@ -135,8 +135,8 @@ impl CloudMemcache {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::CreateInstance {
-        crate::builders::cloud_memcache::CreateInstance::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::CreateInstance {
+        super::builders::cloud_memcache::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -154,8 +154,8 @@ impl CloudMemcache {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
-    ) -> crate::builders::cloud_memcache::UpdateInstance {
-        crate::builders::cloud_memcache::UpdateInstance::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::UpdateInstance {
+        super::builders::cloud_memcache::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -176,8 +176,8 @@ impl CloudMemcache {
     pub fn update_parameters(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::UpdateParameters {
-        crate::builders::cloud_memcache::UpdateParameters::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::UpdateParameters {
+        super::builders::cloud_memcache::UpdateParameters::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -195,8 +195,8 @@ impl CloudMemcache {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::DeleteInstance {
-        crate::builders::cloud_memcache::DeleteInstance::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::DeleteInstance {
+        super::builders::cloud_memcache::DeleteInstance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -215,8 +215,8 @@ impl CloudMemcache {
     pub fn apply_parameters(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::ApplyParameters {
-        crate::builders::cloud_memcache::ApplyParameters::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::ApplyParameters {
+        super::builders::cloud_memcache::ApplyParameters::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -234,8 +234,8 @@ impl CloudMemcache {
     pub fn reschedule_maintenance(
         &self,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::RescheduleMaintenance {
-        crate::builders::cloud_memcache::RescheduleMaintenance::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::RescheduleMaintenance {
+        super::builders::cloud_memcache::RescheduleMaintenance::new(self.inner.clone())
             .set_instance(instance.into())
     }
 
@@ -243,8 +243,8 @@ impl CloudMemcache {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::ListLocations {
-        crate::builders::cloud_memcache::ListLocations::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::ListLocations {
+        super::builders::cloud_memcache::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -252,8 +252,8 @@ impl CloudMemcache {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::GetLocation {
-        crate::builders::cloud_memcache::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_memcache::GetLocation {
+        super::builders::cloud_memcache::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -262,8 +262,8 @@ impl CloudMemcache {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::ListOperations {
-        crate::builders::cloud_memcache::ListOperations::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::ListOperations {
+        super::builders::cloud_memcache::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -273,8 +273,8 @@ impl CloudMemcache {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::GetOperation {
-        crate::builders::cloud_memcache::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_memcache::GetOperation {
+        super::builders::cloud_memcache::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -283,8 +283,8 @@ impl CloudMemcache {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::DeleteOperation {
-        crate::builders::cloud_memcache::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::DeleteOperation {
+        super::builders::cloud_memcache::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -294,8 +294,8 @@ impl CloudMemcache {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_memcache::CancelOperation {
-        crate::builders::cloud_memcache::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::cloud_memcache::CancelOperation {
+        super::builders::cloud_memcache::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

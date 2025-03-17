@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AppHub](crate::stubs::AppHub) using a [gclient::ReqwestClient].
+/// Implements [AppHub](super::stubs::AppHub) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AppHub {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl AppHub {
     }
 }
 
-impl crate::stubs::AppHub for AppHub {
+impl super::stubs::AppHub for AppHub {
     async fn lookup_service_project_attachment(
         &self,
         req: crate::model::LookupServiceProjectAttachmentRequest,

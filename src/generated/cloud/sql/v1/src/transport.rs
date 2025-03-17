@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SqlBackupRunsService](crate::stubs::SqlBackupRunsService) using a [gclient::ReqwestClient].
+/// Implements [SqlBackupRunsService](super::stubs::SqlBackupRunsService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlBackupRunsService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl SqlBackupRunsService {
     }
 }
 
-impl crate::stubs::SqlBackupRunsService for SqlBackupRunsService {
+impl super::stubs::SqlBackupRunsService for SqlBackupRunsService {
     async fn delete(
         &self,
         req: crate::model::SqlBackupRunsDeleteRequest,
@@ -146,7 +146,7 @@ impl crate::stubs::SqlBackupRunsService for SqlBackupRunsService {
 
 }
 
-/// Implements [SqlConnectService](crate::stubs::SqlConnectService) using a [gclient::ReqwestClient].
+/// Implements [SqlConnectService](super::stubs::SqlConnectService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlConnectService {
     inner: gclient::ReqwestClient,
@@ -167,7 +167,7 @@ impl SqlConnectService {
     }
 }
 
-impl crate::stubs::SqlConnectService for SqlConnectService {
+impl super::stubs::SqlConnectService for SqlConnectService {
     async fn get_connect_settings(
         &self,
         req: crate::model::GetConnectSettingsRequest,
@@ -221,7 +221,7 @@ impl crate::stubs::SqlConnectService for SqlConnectService {
 
 }
 
-/// Implements [SqlDatabasesService](crate::stubs::SqlDatabasesService) using a [gclient::ReqwestClient].
+/// Implements [SqlDatabasesService](super::stubs::SqlDatabasesService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlDatabasesService {
     inner: gclient::ReqwestClient,
@@ -242,7 +242,7 @@ impl SqlDatabasesService {
     }
 }
 
-impl crate::stubs::SqlDatabasesService for SqlDatabasesService {
+impl super::stubs::SqlDatabasesService for SqlDatabasesService {
     async fn delete(
         &self,
         req: crate::model::SqlDatabasesDeleteRequest,
@@ -399,7 +399,7 @@ impl crate::stubs::SqlDatabasesService for SqlDatabasesService {
 
 }
 
-/// Implements [SqlFlagsService](crate::stubs::SqlFlagsService) using a [gclient::ReqwestClient].
+/// Implements [SqlFlagsService](super::stubs::SqlFlagsService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlFlagsService {
     inner: gclient::ReqwestClient,
@@ -420,7 +420,7 @@ impl SqlFlagsService {
     }
 }
 
-impl crate::stubs::SqlFlagsService for SqlFlagsService {
+impl super::stubs::SqlFlagsService for SqlFlagsService {
     async fn list(
         &self,
         req: crate::model::SqlFlagsListRequest,
@@ -446,7 +446,7 @@ impl crate::stubs::SqlFlagsService for SqlFlagsService {
 
 }
 
-/// Implements [SqlInstancesService](crate::stubs::SqlInstancesService) using a [gclient::ReqwestClient].
+/// Implements [SqlInstancesService](super::stubs::SqlInstancesService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlInstancesService {
     inner: gclient::ReqwestClient,
@@ -467,7 +467,7 @@ impl SqlInstancesService {
     }
 }
 
-impl crate::stubs::SqlInstancesService for SqlInstancesService {
+impl super::stubs::SqlInstancesService for SqlInstancesService {
     async fn add_server_ca(
         &self,
         req: crate::model::SqlInstancesAddServerCaRequest,
@@ -1323,7 +1323,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
 
 }
 
-/// Implements [SqlOperationsService](crate::stubs::SqlOperationsService) using a [gclient::ReqwestClient].
+/// Implements [SqlOperationsService](super::stubs::SqlOperationsService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlOperationsService {
     inner: gclient::ReqwestClient,
@@ -1344,7 +1344,7 @@ impl SqlOperationsService {
     }
 }
 
-impl crate::stubs::SqlOperationsService for SqlOperationsService {
+impl super::stubs::SqlOperationsService for SqlOperationsService {
     async fn get(
         &self,
         req: crate::model::SqlOperationsGetRequest,
@@ -1424,7 +1424,7 @@ impl crate::stubs::SqlOperationsService for SqlOperationsService {
 
 }
 
-/// Implements [SqlSslCertsService](crate::stubs::SqlSslCertsService) using a [gclient::ReqwestClient].
+/// Implements [SqlSslCertsService](super::stubs::SqlSslCertsService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlSslCertsService {
     inner: gclient::ReqwestClient,
@@ -1445,7 +1445,7 @@ impl SqlSslCertsService {
     }
 }
 
-impl crate::stubs::SqlSslCertsService for SqlSslCertsService {
+impl super::stubs::SqlSslCertsService for SqlSslCertsService {
     async fn delete(
         &self,
         req: crate::model::SqlSslCertsDeleteRequest,
@@ -1550,7 +1550,7 @@ impl crate::stubs::SqlSslCertsService for SqlSslCertsService {
 
 }
 
-/// Implements [SqlTiersService](crate::stubs::SqlTiersService) using a [gclient::ReqwestClient].
+/// Implements [SqlTiersService](super::stubs::SqlTiersService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlTiersService {
     inner: gclient::ReqwestClient,
@@ -1571,7 +1571,7 @@ impl SqlTiersService {
     }
 }
 
-impl crate::stubs::SqlTiersService for SqlTiersService {
+impl super::stubs::SqlTiersService for SqlTiersService {
     async fn list(
         &self,
         req: crate::model::SqlTiersListRequest,
@@ -1598,7 +1598,7 @@ impl crate::stubs::SqlTiersService for SqlTiersService {
 
 }
 
-/// Implements [SqlUsersService](crate::stubs::SqlUsersService) using a [gclient::ReqwestClient].
+/// Implements [SqlUsersService](super::stubs::SqlUsersService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlUsersService {
     inner: gclient::ReqwestClient,
@@ -1619,7 +1619,7 @@ impl SqlUsersService {
     }
 }
 
-impl crate::stubs::SqlUsersService for SqlUsersService {
+impl super::stubs::SqlUsersService for SqlUsersService {
     async fn delete(
         &self,
         req: crate::model::SqlUsersDeleteRequest,

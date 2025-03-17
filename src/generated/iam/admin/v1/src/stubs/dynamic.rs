@@ -204,9 +204,9 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::LintPolicyResponse>;
 }
 
-/// All implementations of [crate::stubs::Iam] also implement [Iam].
+/// All implementations of [super::Iam] also implement [Iam].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Iam> Iam for T {
+impl<T: super::Iam> Iam for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_service_accounts(
         &self,

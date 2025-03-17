@@ -114,9 +114,9 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::FunctionService] also implement [FunctionService].
+/// All implementations of [super::FunctionService] also implement [FunctionService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::FunctionService> FunctionService for T {
+impl<T: super::FunctionService> FunctionService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_function(
         &self,

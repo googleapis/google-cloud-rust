@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::PrivilegedAccessManager].
+/// Defines the trait used to implement [super::client::PrivilegedAccessManager].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PrivilegedAccessManager`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PrivilegedAccessManager::check_onboarding_status].
+    /// Implements [super::client::PrivilegedAccessManager::check_onboarding_status].
     fn check_onboarding_status(
         &self,
         _req: crate::model::CheckOnboardingStatusRequest,
@@ -53,7 +53,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::list_entitlements].
+    /// Implements [super::client::PrivilegedAccessManager::list_entitlements].
     fn list_entitlements(
         &self,
         _req: crate::model::ListEntitlementsRequest,
@@ -65,7 +65,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::search_entitlements].
+    /// Implements [super::client::PrivilegedAccessManager::search_entitlements].
     fn search_entitlements(
         &self,
         _req: crate::model::SearchEntitlementsRequest,
@@ -77,7 +77,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::get_entitlement].
+    /// Implements [super::client::PrivilegedAccessManager::get_entitlement].
     fn get_entitlement(
         &self,
         _req: crate::model::GetEntitlementRequest,
@@ -88,7 +88,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::create_entitlement].
+    /// Implements [super::client::PrivilegedAccessManager::create_entitlement].
     fn create_entitlement(
         &self,
         _req: crate::model::CreateEntitlementRequest,
@@ -100,7 +100,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::delete_entitlement].
+    /// Implements [super::client::PrivilegedAccessManager::delete_entitlement].
     fn delete_entitlement(
         &self,
         _req: crate::model::DeleteEntitlementRequest,
@@ -112,7 +112,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::update_entitlement].
+    /// Implements [super::client::PrivilegedAccessManager::update_entitlement].
     fn update_entitlement(
         &self,
         _req: crate::model::UpdateEntitlementRequest,
@@ -124,7 +124,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::list_grants].
+    /// Implements [super::client::PrivilegedAccessManager::list_grants].
     fn list_grants(
         &self,
         _req: crate::model::ListGrantsRequest,
@@ -136,7 +136,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::search_grants].
+    /// Implements [super::client::PrivilegedAccessManager::search_grants].
     fn search_grants(
         &self,
         _req: crate::model::SearchGrantsRequest,
@@ -148,7 +148,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::get_grant].
+    /// Implements [super::client::PrivilegedAccessManager::get_grant].
     fn get_grant(
         &self,
         _req: crate::model::GetGrantRequest,
@@ -157,7 +157,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Grant>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::create_grant].
+    /// Implements [super::client::PrivilegedAccessManager::create_grant].
     fn create_grant(
         &self,
         _req: crate::model::CreateGrantRequest,
@@ -166,7 +166,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Grant>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::approve_grant].
+    /// Implements [super::client::PrivilegedAccessManager::approve_grant].
     fn approve_grant(
         &self,
         _req: crate::model::ApproveGrantRequest,
@@ -175,7 +175,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Grant>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::deny_grant].
+    /// Implements [super::client::PrivilegedAccessManager::deny_grant].
     fn deny_grant(
         &self,
         _req: crate::model::DenyGrantRequest,
@@ -184,7 +184,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Grant>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::revoke_grant].
+    /// Implements [super::client::PrivilegedAccessManager::revoke_grant].
     fn revoke_grant(
         &self,
         _req: crate::model::RevokeGrantRequest,
@@ -196,7 +196,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::list_locations].
+    /// Implements [super::client::PrivilegedAccessManager::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -208,7 +208,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::get_location].
+    /// Implements [super::client::PrivilegedAccessManager::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -219,7 +219,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::list_operations].
+    /// Implements [super::client::PrivilegedAccessManager::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -231,7 +231,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::get_operation].
+    /// Implements [super::client::PrivilegedAccessManager::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -243,7 +243,7 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrivilegedAccessManager::delete_operation].
+    /// Implements [super::client::PrivilegedAccessManager::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,

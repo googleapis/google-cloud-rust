@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ProfilerService].
+/// Defines the trait used to implement [super::client::ProfilerService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ProfilerService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ProfilerService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ProfilerService::create_profile].
+    /// Implements [super::client::ProfilerService::create_profile].
     fn create_profile(
         &self,
         _req: crate::model::CreateProfileRequest,
@@ -51,7 +51,7 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProfilerService::create_offline_profile].
+    /// Implements [super::client::ProfilerService::create_offline_profile].
     fn create_offline_profile(
         &self,
         _req: crate::model::CreateOfflineProfileRequest,
@@ -62,7 +62,7 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ProfilerService::update_profile].
+    /// Implements [super::client::ProfilerService::update_profile].
     fn update_profile(
         &self,
         _req: crate::model::UpdateProfileRequest,
@@ -74,7 +74,7 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ExportService].
+/// Defines the trait used to implement [super::client::ExportService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ExportService`.  In other use-cases, application developers only
@@ -86,7 +86,7 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ExportService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ExportService::list_profiles].
+    /// Implements [super::client::ExportService::list_profiles].
     fn list_profiles(
         &self,
         _req: crate::model::ListProfilesRequest,

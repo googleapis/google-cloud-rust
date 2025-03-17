@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AssuredWorkloadsService].
+/// Defines the trait used to implement [super::client::AssuredWorkloadsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AssuredWorkloadsService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AssuredWorkloadsService::create_workload].
+    /// Implements [super::client::AssuredWorkloadsService::create_workload].
     fn create_workload(
         &self,
         _req: crate::model::CreateWorkloadRequest,
@@ -53,7 +53,7 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssuredWorkloadsService::update_workload].
+    /// Implements [super::client::AssuredWorkloadsService::update_workload].
     fn update_workload(
         &self,
         _req: crate::model::UpdateWorkloadRequest,
@@ -64,7 +64,7 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssuredWorkloadsService::restrict_allowed_resources].
+    /// Implements [super::client::AssuredWorkloadsService::restrict_allowed_resources].
     fn restrict_allowed_resources(
         &self,
         _req: crate::model::RestrictAllowedResourcesRequest,
@@ -77,7 +77,7 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AssuredWorkloadsService::delete_workload].
+    /// Implements [super::client::AssuredWorkloadsService::delete_workload].
     fn delete_workload(
         &self,
         _req: crate::model::DeleteWorkloadRequest,
@@ -86,7 +86,7 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AssuredWorkloadsService::get_workload].
+    /// Implements [super::client::AssuredWorkloadsService::get_workload].
     fn get_workload(
         &self,
         _req: crate::model::GetWorkloadRequest,
@@ -97,7 +97,7 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssuredWorkloadsService::list_workloads].
+    /// Implements [super::client::AssuredWorkloadsService::list_workloads].
     fn list_workloads(
         &self,
         _req: crate::model::ListWorkloadsRequest,
@@ -109,7 +109,7 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssuredWorkloadsService::list_operations].
+    /// Implements [super::client::AssuredWorkloadsService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -121,7 +121,7 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AssuredWorkloadsService::get_operation].
+    /// Implements [super::client::AssuredWorkloadsService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

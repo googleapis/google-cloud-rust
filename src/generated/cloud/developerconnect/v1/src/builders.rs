@@ -18,10 +18,10 @@ pub mod developer_connect {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DeveloperConnect] request builders.
+    /// Common implementation for [super::super::client::DeveloperConnect] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>,
+        stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod developer_connect {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod developer_connect {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -123,7 +123,7 @@ pub mod developer_connect {
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -164,7 +164,7 @@ pub mod developer_connect {
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -188,7 +188,7 @@ pub mod developer_connect {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection][crate::client::DeveloperConnect::create_connection].
+        /// on [create_connection][super::super::client::DeveloperConnect::create_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
@@ -273,7 +273,7 @@ pub mod developer_connect {
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -297,7 +297,7 @@ pub mod developer_connect {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection][crate::client::DeveloperConnect::update_connection].
+        /// on [update_connection][super::super::client::DeveloperConnect::update_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
@@ -385,7 +385,7 @@ pub mod developer_connect {
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -409,7 +409,7 @@ pub mod developer_connect {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection][crate::client::DeveloperConnect::delete_connection].
+        /// on [delete_connection][super::super::client::DeveloperConnect::delete_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
@@ -484,7 +484,7 @@ pub mod developer_connect {
     );
 
     impl CreateGitRepositoryLink {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -508,7 +508,7 @@ pub mod developer_connect {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_git_repository_link][crate::client::DeveloperConnect::create_git_repository_link].
+        /// on [create_git_repository_link][super::super::client::DeveloperConnect::create_git_repository_link].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_git_repository_link(self.0.request, self.0.options)
@@ -598,7 +598,7 @@ pub mod developer_connect {
     );
 
     impl DeleteGitRepositoryLink {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -622,7 +622,7 @@ pub mod developer_connect {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_git_repository_link][crate::client::DeveloperConnect::delete_git_repository_link].
+        /// on [delete_git_repository_link][super::super::client::DeveloperConnect::delete_git_repository_link].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_git_repository_link(self.0.request, self.0.options)
@@ -695,7 +695,7 @@ pub mod developer_connect {
     pub struct ListGitRepositoryLinks(RequestBuilder<crate::model::ListGitRepositoryLinksRequest>);
 
     impl ListGitRepositoryLinks {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -779,7 +779,7 @@ pub mod developer_connect {
     pub struct GetGitRepositoryLink(RequestBuilder<crate::model::GetGitRepositoryLinkRequest>);
 
     impl GetGitRepositoryLink {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -823,7 +823,7 @@ pub mod developer_connect {
     pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
 
     impl FetchReadWriteToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -867,7 +867,7 @@ pub mod developer_connect {
     pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
 
     impl FetchReadToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -910,7 +910,7 @@ pub mod developer_connect {
     );
 
     impl FetchLinkableGitRepositories {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -984,7 +984,7 @@ pub mod developer_connect {
     );
 
     impl FetchGitHubInstallations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1028,7 +1028,7 @@ pub mod developer_connect {
     pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
 
     impl FetchGitRefs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1090,7 +1090,7 @@ pub mod developer_connect {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1166,7 +1166,7 @@ pub mod developer_connect {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1207,7 +1207,7 @@ pub mod developer_connect {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1283,7 +1283,7 @@ pub mod developer_connect {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1327,7 +1327,7 @@ pub mod developer_connect {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1371,7 +1371,7 @@ pub mod developer_connect {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DeveloperConnect>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DeveloperConnect>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

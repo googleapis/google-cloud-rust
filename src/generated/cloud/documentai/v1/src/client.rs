@@ -41,7 +41,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DocumentProcessorService {
-    inner: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>,
+    inner: Arc<dyn super::stubs::dynamic::DocumentProcessorService>,
 }
 
 impl DocumentProcessorService {
@@ -62,7 +62,7 @@ impl DocumentProcessorService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::DocumentProcessorService + 'static,
+        T: super::stubs::DocumentProcessorService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -71,7 +71,7 @@ impl DocumentProcessorService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::DocumentProcessorService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::DocumentProcessorService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -80,24 +80,24 @@ impl DocumentProcessorService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DocumentProcessorService> {
-        crate::transport::DocumentProcessorService::new(conf).await
+    ) -> Result<impl super::stubs::DocumentProcessorService> {
+        super::transport::DocumentProcessorService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DocumentProcessorService> {
+    ) -> Result<impl super::stubs::DocumentProcessorService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::DocumentProcessorService::new)
+            .map(super::tracing::DocumentProcessorService::new)
     }
 
     /// Processes a single document.
     pub fn process_document(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::ProcessDocument {
-        crate::builders::document_processor_service::ProcessDocument::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::ProcessDocument {
+        super::builders::document_processor_service::ProcessDocument::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -116,8 +116,8 @@ impl DocumentProcessorService {
     pub fn batch_process_documents(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::BatchProcessDocuments {
-        crate::builders::document_processor_service::BatchProcessDocuments::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::BatchProcessDocuments {
+        super::builders::document_processor_service::BatchProcessDocuments::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -129,8 +129,8 @@ impl DocumentProcessorService {
     pub fn fetch_processor_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::FetchProcessorTypes {
-        crate::builders::document_processor_service::FetchProcessorTypes::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::FetchProcessorTypes {
+        super::builders::document_processor_service::FetchProcessorTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -138,8 +138,8 @@ impl DocumentProcessorService {
     pub fn list_processor_types(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::ListProcessorTypes {
-        crate::builders::document_processor_service::ListProcessorTypes::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::ListProcessorTypes {
+        super::builders::document_processor_service::ListProcessorTypes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -147,8 +147,8 @@ impl DocumentProcessorService {
     pub fn get_processor_type(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::GetProcessorType {
-        crate::builders::document_processor_service::GetProcessorType::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::GetProcessorType {
+        super::builders::document_processor_service::GetProcessorType::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -156,8 +156,8 @@ impl DocumentProcessorService {
     pub fn list_processors(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::ListProcessors {
-        crate::builders::document_processor_service::ListProcessors::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::ListProcessors {
+        super::builders::document_processor_service::ListProcessors::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -165,8 +165,8 @@ impl DocumentProcessorService {
     pub fn get_processor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::GetProcessor {
-        crate::builders::document_processor_service::GetProcessor::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::GetProcessor {
+        super::builders::document_processor_service::GetProcessor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -188,8 +188,8 @@ impl DocumentProcessorService {
     pub fn train_processor_version(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::TrainProcessorVersion {
-        crate::builders::document_processor_service::TrainProcessorVersion::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::TrainProcessorVersion {
+        super::builders::document_processor_service::TrainProcessorVersion::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -197,8 +197,8 @@ impl DocumentProcessorService {
     pub fn get_processor_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::GetProcessorVersion {
-        crate::builders::document_processor_service::GetProcessorVersion::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::GetProcessorVersion {
+        super::builders::document_processor_service::GetProcessorVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -206,8 +206,8 @@ impl DocumentProcessorService {
     pub fn list_processor_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::ListProcessorVersions {
-        crate::builders::document_processor_service::ListProcessorVersions::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::ListProcessorVersions {
+        super::builders::document_processor_service::ListProcessorVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -226,8 +226,8 @@ impl DocumentProcessorService {
     pub fn delete_processor_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::DeleteProcessorVersion {
-        crate::builders::document_processor_service::DeleteProcessorVersion::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::DeleteProcessorVersion {
+        super::builders::document_processor_service::DeleteProcessorVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -245,8 +245,8 @@ impl DocumentProcessorService {
     pub fn deploy_processor_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::DeployProcessorVersion {
-        crate::builders::document_processor_service::DeployProcessorVersion::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::DeployProcessorVersion {
+        super::builders::document_processor_service::DeployProcessorVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -264,8 +264,8 @@ impl DocumentProcessorService {
     pub fn undeploy_processor_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::UndeployProcessorVersion {
-        crate::builders::document_processor_service::UndeployProcessorVersion::new(
+    ) -> super::builders::document_processor_service::UndeployProcessorVersion {
+        super::builders::document_processor_service::UndeployProcessorVersion::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -283,8 +283,8 @@ impl DocumentProcessorService {
     pub fn create_processor(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::CreateProcessor {
-        crate::builders::document_processor_service::CreateProcessor::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::CreateProcessor {
+        super::builders::document_processor_service::CreateProcessor::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -303,8 +303,8 @@ impl DocumentProcessorService {
     pub fn delete_processor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::DeleteProcessor {
-        crate::builders::document_processor_service::DeleteProcessor::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::DeleteProcessor {
+        super::builders::document_processor_service::DeleteProcessor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -322,8 +322,8 @@ impl DocumentProcessorService {
     pub fn enable_processor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::EnableProcessor {
-        crate::builders::document_processor_service::EnableProcessor::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::EnableProcessor {
+        super::builders::document_processor_service::EnableProcessor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -341,8 +341,8 @@ impl DocumentProcessorService {
     pub fn disable_processor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::DisableProcessor {
-        crate::builders::document_processor_service::DisableProcessor::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::DisableProcessor {
+        super::builders::document_processor_service::DisableProcessor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -368,8 +368,8 @@ impl DocumentProcessorService {
     pub fn set_default_processor_version(
         &self,
         processor: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::SetDefaultProcessorVersion {
-        crate::builders::document_processor_service::SetDefaultProcessorVersion::new(
+    ) -> super::builders::document_processor_service::SetDefaultProcessorVersion {
+        super::builders::document_processor_service::SetDefaultProcessorVersion::new(
             self.inner.clone(),
         )
         .set_processor(processor.into())
@@ -390,8 +390,8 @@ impl DocumentProcessorService {
     pub fn review_document(
         &self,
         human_review_config: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::ReviewDocument {
-        crate::builders::document_processor_service::ReviewDocument::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::ReviewDocument {
+        super::builders::document_processor_service::ReviewDocument::new(self.inner.clone())
             .set_human_review_config(human_review_config.into())
     }
 
@@ -410,8 +410,8 @@ impl DocumentProcessorService {
     pub fn evaluate_processor_version(
         &self,
         processor_version: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::EvaluateProcessorVersion {
-        crate::builders::document_processor_service::EvaluateProcessorVersion::new(
+    ) -> super::builders::document_processor_service::EvaluateProcessorVersion {
+        super::builders::document_processor_service::EvaluateProcessorVersion::new(
             self.inner.clone(),
         )
         .set_processor_version(processor_version.into())
@@ -421,8 +421,8 @@ impl DocumentProcessorService {
     pub fn get_evaluation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::GetEvaluation {
-        crate::builders::document_processor_service::GetEvaluation::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::GetEvaluation {
+        super::builders::document_processor_service::GetEvaluation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -430,8 +430,8 @@ impl DocumentProcessorService {
     pub fn list_evaluations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::ListEvaluations {
-        crate::builders::document_processor_service::ListEvaluations::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::ListEvaluations {
+        super::builders::document_processor_service::ListEvaluations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -439,8 +439,8 @@ impl DocumentProcessorService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::ListLocations {
-        crate::builders::document_processor_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::ListLocations {
+        super::builders::document_processor_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -448,8 +448,8 @@ impl DocumentProcessorService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::GetLocation {
-        crate::builders::document_processor_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::GetLocation {
+        super::builders::document_processor_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -459,8 +459,8 @@ impl DocumentProcessorService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::ListOperations {
-        crate::builders::document_processor_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::ListOperations {
+        super::builders::document_processor_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -470,8 +470,8 @@ impl DocumentProcessorService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::GetOperation {
-        crate::builders::document_processor_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::GetOperation {
+        super::builders::document_processor_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -481,8 +481,8 @@ impl DocumentProcessorService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::document_processor_service::CancelOperation {
-        crate::builders::document_processor_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::document_processor_service::CancelOperation {
+        super::builders::document_processor_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

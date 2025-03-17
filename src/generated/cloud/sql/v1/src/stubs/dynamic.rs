@@ -43,9 +43,9 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::SqlBackupRunsService] also implement [SqlBackupRunsService].
+/// All implementations of [super::SqlBackupRunsService] also implement [SqlBackupRunsService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SqlBackupRunsService> SqlBackupRunsService for T {
+impl<T: super::SqlBackupRunsService> SqlBackupRunsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn delete(
         &self,
@@ -101,9 +101,9 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::SqlConnectService] also implement [SqlConnectService].
+/// All implementations of [super::SqlConnectService] also implement [SqlConnectService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SqlConnectService> SqlConnectService for T {
+impl<T: super::SqlConnectService> SqlConnectService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_connect_settings(
         &self,
@@ -165,9 +165,9 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::SqlDatabasesService] also implement [SqlDatabasesService].
+/// All implementations of [super::SqlDatabasesService] also implement [SqlDatabasesService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SqlDatabasesService> SqlDatabasesService for T {
+impl<T: super::SqlDatabasesService> SqlDatabasesService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn delete(
         &self,
@@ -235,9 +235,9 @@ pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::SqlFlagsService] also implement [SqlFlagsService].
+/// All implementations of [super::SqlFlagsService] also implement [SqlFlagsService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SqlFlagsService> SqlFlagsService for T {
+impl<T: super::SqlFlagsService> SqlFlagsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list(
         &self,
@@ -458,9 +458,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::SqlInstancesService] also implement [SqlInstancesService].
+/// All implementations of [super::SqlInstancesService] also implement [SqlInstancesService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SqlInstancesService> SqlInstancesService for T {
+impl<T: super::SqlInstancesService> SqlInstancesService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn add_server_ca(
         &self,
@@ -792,9 +792,9 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::SqlOperationsService] also implement [SqlOperationsService].
+/// All implementations of [super::SqlOperationsService] also implement [SqlOperationsService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SqlOperationsService> SqlOperationsService for T {
+impl<T: super::SqlOperationsService> SqlOperationsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get(
         &self,
@@ -853,9 +853,9 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::SqlSslCertsService] also implement [SqlSslCertsService].
+/// All implementations of [super::SqlSslCertsService] also implement [SqlSslCertsService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SqlSslCertsService> SqlSslCertsService for T {
+impl<T: super::SqlSslCertsService> SqlSslCertsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn delete(
         &self,
@@ -905,9 +905,9 @@ pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::SqlTiersService] also implement [SqlTiersService].
+/// All implementations of [super::SqlTiersService] also implement [SqlTiersService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SqlTiersService> SqlTiersService for T {
+impl<T: super::SqlTiersService> SqlTiersService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list(
         &self,
@@ -954,9 +954,9 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::SqlUsersService] also implement [SqlUsersService].
+/// All implementations of [super::SqlUsersService] also implement [SqlUsersService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SqlUsersService> SqlUsersService for T {
+impl<T: super::SqlUsersService> SqlUsersService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn delete(
         &self,

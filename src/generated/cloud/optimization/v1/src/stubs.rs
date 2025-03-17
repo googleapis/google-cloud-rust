@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::FleetRouting].
+/// Defines the trait used to implement [super::client::FleetRouting].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::FleetRouting`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait FleetRouting: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::FleetRouting::optimize_tours].
+    /// Implements [super::client::FleetRouting::optimize_tours].
     fn optimize_tours(
         &self,
         _req: crate::model::OptimizeToursRequest,
@@ -53,7 +53,7 @@ pub trait FleetRouting: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FleetRouting::batch_optimize_tours].
+    /// Implements [super::client::FleetRouting::batch_optimize_tours].
     fn batch_optimize_tours(
         &self,
         _req: crate::model::BatchOptimizeToursRequest,
@@ -65,7 +65,7 @@ pub trait FleetRouting: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FleetRouting::get_operation].
+    /// Implements [super::client::FleetRouting::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

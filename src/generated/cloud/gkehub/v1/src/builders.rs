@@ -18,10 +18,10 @@ pub mod gke_hub {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::GkeHub] request builders.
+    /// Common implementation for [super::super::client::GkeHub] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::GkeHub>,
+        stub: Arc<dyn super::super::stubs::dynamic::GkeHub>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod gke_hub {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod gke_hub {
     pub struct ListMemberships(RequestBuilder<crate::model::ListMembershipsRequest>);
 
     impl ListMemberships {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -123,7 +123,7 @@ pub mod gke_hub {
     pub struct ListFeatures(RequestBuilder<crate::model::ListFeaturesRequest>);
 
     impl ListFeatures {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -202,7 +202,7 @@ pub mod gke_hub {
     pub struct GetMembership(RequestBuilder<crate::model::GetMembershipRequest>);
 
     impl GetMembership {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -243,7 +243,7 @@ pub mod gke_hub {
     pub struct GetFeature(RequestBuilder<crate::model::GetFeatureRequest>);
 
     impl GetFeature {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -284,7 +284,7 @@ pub mod gke_hub {
     pub struct CreateMembership(RequestBuilder<crate::model::CreateMembershipRequest>);
 
     impl CreateMembership {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -308,7 +308,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_membership][crate::client::GkeHub::create_membership].
+        /// on [create_membership][super::super::client::GkeHub::create_membership].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_membership(self.0.request, self.0.options)
@@ -387,7 +387,7 @@ pub mod gke_hub {
     pub struct CreateFeature(RequestBuilder<crate::model::CreateFeatureRequest>);
 
     impl CreateFeature {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -408,7 +408,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_feature][crate::client::GkeHub::create_feature].
+        /// on [create_feature][super::super::client::GkeHub::create_feature].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_feature(self.0.request, self.0.options)
@@ -486,7 +486,7 @@ pub mod gke_hub {
     pub struct DeleteMembership(RequestBuilder<crate::model::DeleteMembershipRequest>);
 
     impl DeleteMembership {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -510,7 +510,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_membership][crate::client::GkeHub::delete_membership].
+        /// on [delete_membership][super::super::client::GkeHub::delete_membership].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_membership(self.0.request, self.0.options)
@@ -577,7 +577,7 @@ pub mod gke_hub {
     pub struct DeleteFeature(RequestBuilder<crate::model::DeleteFeatureRequest>);
 
     impl DeleteFeature {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -598,7 +598,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_feature][crate::client::GkeHub::delete_feature].
+        /// on [delete_feature][super::super::client::GkeHub::delete_feature].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_feature(self.0.request, self.0.options)
@@ -665,7 +665,7 @@ pub mod gke_hub {
     pub struct UpdateMembership(RequestBuilder<crate::model::UpdateMembershipRequest>);
 
     impl UpdateMembership {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -689,7 +689,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_membership][crate::client::GkeHub::update_membership].
+        /// on [update_membership][super::super::client::GkeHub::update_membership].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_membership(self.0.request, self.0.options)
@@ -771,7 +771,7 @@ pub mod gke_hub {
     pub struct UpdateFeature(RequestBuilder<crate::model::UpdateFeatureRequest>);
 
     impl UpdateFeature {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -792,7 +792,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_feature][crate::client::GkeHub::update_feature].
+        /// on [update_feature][super::super::client::GkeHub::update_feature].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_feature(self.0.request, self.0.options)
@@ -875,7 +875,7 @@ pub mod gke_hub {
     );
 
     impl GenerateConnectManifest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -955,7 +955,7 @@ pub mod gke_hub {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1031,7 +1031,7 @@ pub mod gke_hub {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1075,7 +1075,7 @@ pub mod gke_hub {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1119,7 +1119,7 @@ pub mod gke_hub {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GkeHub>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GkeHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

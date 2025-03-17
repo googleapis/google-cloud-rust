@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SecretManagerService {
-    inner: Arc<dyn crate::stubs::dynamic::SecretManagerService>,
+    inner: Arc<dyn super::stubs::dynamic::SecretManagerService>,
 }
 
 impl SecretManagerService {
@@ -60,7 +60,7 @@ impl SecretManagerService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::SecretManagerService + 'static,
+        T: super::stubs::SecretManagerService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl SecretManagerService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::SecretManagerService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::SecretManagerService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,24 +78,24 @@ impl SecretManagerService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SecretManagerService> {
-        crate::transport::SecretManagerService::new(conf).await
+    ) -> Result<impl super::stubs::SecretManagerService> {
+        super::transport::SecretManagerService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SecretManagerService> {
+    ) -> Result<impl super::stubs::SecretManagerService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::SecretManagerService::new)
+            .map(super::tracing::SecretManagerService::new)
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         project: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::ListLocations {
-        crate::builders::secret_manager_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::ListLocations {
+        super::builders::secret_manager_service::ListLocations::new(self.inner.clone())
             .set_project(project.into())
     }
 
@@ -104,8 +104,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::GetLocation {
-        crate::builders::secret_manager_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::GetLocation {
+        super::builders::secret_manager_service::GetLocation::new(self.inner.clone())
             .set_project(project.into())
             .set_location(location.into())
     }
@@ -114,8 +114,8 @@ impl SecretManagerService {
     pub fn list_secrets(
         &self,
         project: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::ListSecrets {
-        crate::builders::secret_manager_service::ListSecrets::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::ListSecrets {
+        super::builders::secret_manager_service::ListSecrets::new(self.inner.clone())
             .set_project(project.into())
     }
 
@@ -123,8 +123,8 @@ impl SecretManagerService {
     pub fn create_secret(
         &self,
         project: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::CreateSecret {
-        crate::builders::secret_manager_service::CreateSecret::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::CreateSecret {
+        super::builders::secret_manager_service::CreateSecret::new(self.inner.clone())
             .set_project(project.into())
     }
 
@@ -133,8 +133,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::ListSecretsByProjectAndLocation {
-        crate::builders::secret_manager_service::ListSecretsByProjectAndLocation::new(
+    ) -> super::builders::secret_manager_service::ListSecretsByProjectAndLocation {
+        super::builders::secret_manager_service::ListSecretsByProjectAndLocation::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -146,8 +146,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::CreateSecretByProjectAndLocation {
-        crate::builders::secret_manager_service::CreateSecretByProjectAndLocation::new(
+    ) -> super::builders::secret_manager_service::CreateSecretByProjectAndLocation {
+        super::builders::secret_manager_service::CreateSecretByProjectAndLocation::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -160,8 +160,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::AddSecretVersion {
-        crate::builders::secret_manager_service::AddSecretVersion::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::AddSecretVersion {
+        super::builders::secret_manager_service::AddSecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -173,9 +173,9 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret
+    ) -> super::builders::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret
     {
-        crate::builders::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret::new(
+        super::builders::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -188,8 +188,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::GetSecret {
-        crate::builders::secret_manager_service::GetSecret::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::GetSecret {
+        super::builders::secret_manager_service::GetSecret::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -199,8 +199,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::DeleteSecret {
-        crate::builders::secret_manager_service::DeleteSecret::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::DeleteSecret {
+        super::builders::secret_manager_service::DeleteSecret::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -210,8 +210,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::UpdateSecret {
-        crate::builders::secret_manager_service::UpdateSecret::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::UpdateSecret {
+        super::builders::secret_manager_service::UpdateSecret::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -222,8 +222,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::GetSecretByProjectAndLocationAndSecret {
-        crate::builders::secret_manager_service::GetSecretByProjectAndLocationAndSecret::new(
+    ) -> super::builders::secret_manager_service::GetSecretByProjectAndLocationAndSecret {
+        super::builders::secret_manager_service::GetSecretByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -237,8 +237,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret {
-        crate::builders::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret::new(
+    ) -> super::builders::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret {
+        super::builders::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -252,8 +252,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret {
-        crate::builders::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret::new(
+    ) -> super::builders::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret {
+        super::builders::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -267,8 +267,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::ListSecretVersions {
-        crate::builders::secret_manager_service::ListSecretVersions::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::ListSecretVersions {
+        super::builders::secret_manager_service::ListSecretVersions::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -280,9 +280,9 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret
+    ) -> super::builders::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret
     {
-        crate::builders::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret::new(self.inner.clone())
+        super::builders::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -297,8 +297,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::GetSecretVersion {
-        crate::builders::secret_manager_service::GetSecretVersion::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::GetSecretVersion {
+        super::builders::secret_manager_service::GetSecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
             .set_version(version.into())
@@ -314,9 +314,9 @@ impl SecretManagerService {
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion
+    ) -> super::builders::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion
     {
-        crate::builders::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+        super::builders::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -332,8 +332,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::AccessSecretVersion {
-        crate::builders::secret_manager_service::AccessSecretVersion::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::AccessSecretVersion {
+        super::builders::secret_manager_service::AccessSecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
             .set_version(version.into())
@@ -349,9 +349,9 @@ impl SecretManagerService {
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion
+    ) -> super::builders::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion
     {
-        crate::builders::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+        super::builders::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -367,8 +367,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::DisableSecretVersion {
-        crate::builders::secret_manager_service::DisableSecretVersion::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::DisableSecretVersion {
+        super::builders::secret_manager_service::DisableSecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
             .set_version(version.into())
@@ -384,9 +384,9 @@ impl SecretManagerService {
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
+    ) -> super::builders::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
     {
-        crate::builders::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+        super::builders::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -402,8 +402,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::EnableSecretVersion {
-        crate::builders::secret_manager_service::EnableSecretVersion::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::EnableSecretVersion {
+        super::builders::secret_manager_service::EnableSecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
             .set_version(version.into())
@@ -419,9 +419,9 @@ impl SecretManagerService {
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
+    ) -> super::builders::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
     {
-        crate::builders::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+        super::builders::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -438,8 +438,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::DestroySecretVersion {
-        crate::builders::secret_manager_service::DestroySecretVersion::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::DestroySecretVersion {
+        super::builders::secret_manager_service::DestroySecretVersion::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
             .set_version(version.into())
@@ -456,9 +456,9 @@ impl SecretManagerService {
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
+    ) -> super::builders::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
     {
-        crate::builders::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+        super::builders::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )
@@ -474,8 +474,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::SetIamPolicy {
-        crate::builders::secret_manager_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::SetIamPolicy {
+        super::builders::secret_manager_service::SetIamPolicy::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -490,8 +490,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret {
-        crate::builders::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret::new(
+    ) -> super::builders::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret {
+        super::builders::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -505,8 +505,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::GetIamPolicy {
-        crate::builders::secret_manager_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::GetIamPolicy {
+        super::builders::secret_manager_service::GetIamPolicy::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -518,8 +518,8 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret {
-        crate::builders::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret::new(
+    ) -> super::builders::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret {
+        super::builders::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
@@ -538,8 +538,8 @@ impl SecretManagerService {
         &self,
         project: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::TestIamPermissions {
-        crate::builders::secret_manager_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::secret_manager_service::TestIamPermissions {
+        super::builders::secret_manager_service::TestIamPermissions::new(self.inner.clone())
             .set_project(project.into())
             .set_secret(secret.into())
     }
@@ -556,9 +556,9 @@ impl SecretManagerService {
         project: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
-    ) -> crate::builders::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret
+    ) -> super::builders::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret
     {
-        crate::builders::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret::new(self.inner.clone())
+        super::builders::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret::new(self.inner.clone())
             .set_project ( project.into() )
             .set_location ( location.into() )
             .set_secret ( secret.into() )

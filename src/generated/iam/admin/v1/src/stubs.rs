@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Iam].
+/// Defines the trait used to implement [super::client::Iam].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Iam`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Iam: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Iam::list_service_accounts].
+    /// Implements [super::client::Iam::list_service_accounts].
     fn list_service_accounts(
         &self,
         _req: crate::model::ListServiceAccountsRequest,
@@ -52,7 +52,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Iam::get_service_account].
+    /// Implements [super::client::Iam::get_service_account].
     fn get_service_account(
         &self,
         _req: crate::model::GetServiceAccountRequest,
@@ -63,7 +63,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::create_service_account].
+    /// Implements [super::client::Iam::create_service_account].
     fn create_service_account(
         &self,
         _req: crate::model::CreateServiceAccountRequest,
@@ -74,7 +74,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::update_service_account].
+    /// Implements [super::client::Iam::update_service_account].
     fn update_service_account(
         &self,
         _req: crate::model::ServiceAccount,
@@ -85,7 +85,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::patch_service_account].
+    /// Implements [super::client::Iam::patch_service_account].
     fn patch_service_account(
         &self,
         _req: crate::model::PatchServiceAccountRequest,
@@ -96,7 +96,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::delete_service_account].
+    /// Implements [super::client::Iam::delete_service_account].
     fn delete_service_account(
         &self,
         _req: crate::model::DeleteServiceAccountRequest,
@@ -105,7 +105,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::undelete_service_account].
+    /// Implements [super::client::Iam::undelete_service_account].
     fn undelete_service_account(
         &self,
         _req: crate::model::UndeleteServiceAccountRequest,
@@ -117,7 +117,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Iam::enable_service_account].
+    /// Implements [super::client::Iam::enable_service_account].
     fn enable_service_account(
         &self,
         _req: crate::model::EnableServiceAccountRequest,
@@ -126,7 +126,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::disable_service_account].
+    /// Implements [super::client::Iam::disable_service_account].
     fn disable_service_account(
         &self,
         _req: crate::model::DisableServiceAccountRequest,
@@ -135,7 +135,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::list_service_account_keys].
+    /// Implements [super::client::Iam::list_service_account_keys].
     fn list_service_account_keys(
         &self,
         _req: crate::model::ListServiceAccountKeysRequest,
@@ -147,7 +147,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Iam::get_service_account_key].
+    /// Implements [super::client::Iam::get_service_account_key].
     fn get_service_account_key(
         &self,
         _req: crate::model::GetServiceAccountKeyRequest,
@@ -159,7 +159,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::create_service_account_key].
+    /// Implements [super::client::Iam::create_service_account_key].
     fn create_service_account_key(
         &self,
         _req: crate::model::CreateServiceAccountKeyRequest,
@@ -171,7 +171,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::upload_service_account_key].
+    /// Implements [super::client::Iam::upload_service_account_key].
     fn upload_service_account_key(
         &self,
         _req: crate::model::UploadServiceAccountKeyRequest,
@@ -183,7 +183,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::delete_service_account_key].
+    /// Implements [super::client::Iam::delete_service_account_key].
     fn delete_service_account_key(
         &self,
         _req: crate::model::DeleteServiceAccountKeyRequest,
@@ -192,7 +192,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::disable_service_account_key].
+    /// Implements [super::client::Iam::disable_service_account_key].
     fn disable_service_account_key(
         &self,
         _req: crate::model::DisableServiceAccountKeyRequest,
@@ -201,7 +201,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::enable_service_account_key].
+    /// Implements [super::client::Iam::enable_service_account_key].
     fn enable_service_account_key(
         &self,
         _req: crate::model::EnableServiceAccountKeyRequest,
@@ -210,7 +210,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::sign_blob].
+    /// Implements [super::client::Iam::sign_blob].
     fn sign_blob(
         &self,
         _req: crate::model::SignBlobRequest,
@@ -222,7 +222,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::sign_jwt].
+    /// Implements [super::client::Iam::sign_jwt].
     fn sign_jwt(
         &self,
         _req: crate::model::SignJwtRequest,
@@ -234,7 +234,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::get_iam_policy].
+    /// Implements [super::client::Iam::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -245,7 +245,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::set_iam_policy].
+    /// Implements [super::client::Iam::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -256,7 +256,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::test_iam_permissions].
+    /// Implements [super::client::Iam::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -268,7 +268,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Iam::query_grantable_roles].
+    /// Implements [super::client::Iam::query_grantable_roles].
     fn query_grantable_roles(
         &self,
         _req: crate::model::QueryGrantableRolesRequest,
@@ -280,7 +280,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Iam::list_roles].
+    /// Implements [super::client::Iam::list_roles].
     fn list_roles(
         &self,
         _req: crate::model::ListRolesRequest,
@@ -292,7 +292,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Iam::get_role].
+    /// Implements [super::client::Iam::get_role].
     fn get_role(
         &self,
         _req: crate::model::GetRoleRequest,
@@ -301,7 +301,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Role>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::create_role].
+    /// Implements [super::client::Iam::create_role].
     fn create_role(
         &self,
         _req: crate::model::CreateRoleRequest,
@@ -310,7 +310,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Role>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::update_role].
+    /// Implements [super::client::Iam::update_role].
     fn update_role(
         &self,
         _req: crate::model::UpdateRoleRequest,
@@ -319,7 +319,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Role>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::delete_role].
+    /// Implements [super::client::Iam::delete_role].
     fn delete_role(
         &self,
         _req: crate::model::DeleteRoleRequest,
@@ -328,7 +328,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Role>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::undelete_role].
+    /// Implements [super::client::Iam::undelete_role].
     fn undelete_role(
         &self,
         _req: crate::model::UndeleteRoleRequest,
@@ -337,7 +337,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Role>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Iam::query_testable_permissions].
+    /// Implements [super::client::Iam::query_testable_permissions].
     fn query_testable_permissions(
         &self,
         _req: crate::model::QueryTestablePermissionsRequest,
@@ -350,7 +350,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Iam::query_auditable_services].
+    /// Implements [super::client::Iam::query_auditable_services].
     fn query_auditable_services(
         &self,
         _req: crate::model::QueryAuditableServicesRequest,
@@ -362,7 +362,7 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Iam::lint_policy].
+    /// Implements [super::client::Iam::lint_policy].
     fn lint_policy(
         &self,
         _req: crate::model::LintPolicyRequest,

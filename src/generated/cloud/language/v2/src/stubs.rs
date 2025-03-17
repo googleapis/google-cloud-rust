@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::LanguageService].
+/// Defines the trait used to implement [super::client::LanguageService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::LanguageService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait LanguageService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::LanguageService::analyze_sentiment].
+    /// Implements [super::client::LanguageService::analyze_sentiment].
     fn analyze_sentiment(
         &self,
         _req: crate::model::AnalyzeSentimentRequest,
@@ -52,7 +52,7 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LanguageService::analyze_entities].
+    /// Implements [super::client::LanguageService::analyze_entities].
     fn analyze_entities(
         &self,
         _req: crate::model::AnalyzeEntitiesRequest,
@@ -64,7 +64,7 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LanguageService::classify_text].
+    /// Implements [super::client::LanguageService::classify_text].
     fn classify_text(
         &self,
         _req: crate::model::ClassifyTextRequest,
@@ -76,7 +76,7 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LanguageService::moderate_text].
+    /// Implements [super::client::LanguageService::moderate_text].
     fn moderate_text(
         &self,
         _req: crate::model::ModerateTextRequest,
@@ -88,7 +88,7 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LanguageService::annotate_text].
+    /// Implements [super::client::LanguageService::annotate_text].
     fn annotate_text(
         &self,
         _req: crate::model::AnnotateTextRequest,

@@ -51,7 +51,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Simulator {
-    inner: Arc<dyn crate::stubs::dynamic::Simulator>,
+    inner: Arc<dyn super::stubs::dynamic::Simulator>,
 }
 
 impl Simulator {
@@ -72,7 +72,7 @@ impl Simulator {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Simulator + 'static,
+        T: super::stubs::Simulator + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -81,7 +81,7 @@ impl Simulator {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Simulator>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Simulator>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -90,16 +90,16 @@ impl Simulator {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Simulator> {
-        crate::transport::Simulator::new(conf).await
+    ) -> Result<impl super::stubs::Simulator> {
+        super::transport::Simulator::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Simulator> {
+    ) -> Result<impl super::stubs::Simulator> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Simulator::new)
+            .map(super::tracing::Simulator::new)
     }
 
     /// Gets the specified [Replay][google.cloud.policysimulator.v1.Replay]. Each
@@ -109,8 +109,8 @@ impl Simulator {
     pub fn get_replay(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::simulator::GetReplay {
-        crate::builders::simulator::GetReplay::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::simulator::GetReplay {
+        super::builders::simulator::GetReplay::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates and starts a [Replay][google.cloud.policysimulator.v1.Replay] using
@@ -131,8 +131,8 @@ impl Simulator {
     pub fn create_replay(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::simulator::CreateReplay {
-        crate::builders::simulator::CreateReplay::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::simulator::CreateReplay {
+        super::builders::simulator::CreateReplay::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Lists the results of running a
@@ -142,8 +142,8 @@ impl Simulator {
     pub fn list_replay_results(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::simulator::ListReplayResults {
-        crate::builders::simulator::ListReplayResults::new(self.inner.clone())
+    ) -> super::builders::simulator::ListReplayResults {
+        super::builders::simulator::ListReplayResults::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +153,8 @@ impl Simulator {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::simulator::ListOperations {
-        crate::builders::simulator::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::simulator::ListOperations {
+        super::builders::simulator::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -163,7 +163,7 @@ impl Simulator {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::simulator::GetOperation {
-        crate::builders::simulator::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::simulator::GetOperation {
+        super::builders::simulator::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

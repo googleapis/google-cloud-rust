@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Operations].
+/// Defines the trait used to implement [super::client::Operations].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Operations`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Operations: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Operations::list_operations].
+    /// Implements [super::client::Operations::list_operations].
     fn list_operations(
         &self,
         _req: crate::model::ListOperationsRequest,
@@ -52,7 +52,7 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Operations::get_operation].
+    /// Implements [super::client::Operations::get_operation].
     fn get_operation(
         &self,
         _req: crate::model::GetOperationRequest,
@@ -63,7 +63,7 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Operations::delete_operation].
+    /// Implements [super::client::Operations::delete_operation].
     fn delete_operation(
         &self,
         _req: crate::model::DeleteOperationRequest,
@@ -72,7 +72,7 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Operations::cancel_operation].
+    /// Implements [super::client::Operations::cancel_operation].
     fn cancel_operation(
         &self,
         _req: crate::model::CancelOperationRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [QuotaController](crate::stubs::QuotaController) using a [gclient::ReqwestClient].
+/// Implements [QuotaController](super::stubs::QuotaController) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct QuotaController {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl QuotaController {
     }
 }
 
-impl crate::stubs::QuotaController for QuotaController {
+impl super::stubs::QuotaController for QuotaController {
     async fn allocate_quota(
         &self,
         req: crate::model::AllocateQuotaRequest,
@@ -61,7 +61,7 @@ impl crate::stubs::QuotaController for QuotaController {
     }
 }
 
-/// Implements [ServiceController](crate::stubs::ServiceController) using a [gclient::ReqwestClient].
+/// Implements [ServiceController](super::stubs::ServiceController) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceController {
     inner: gclient::ReqwestClient,
@@ -82,7 +82,7 @@ impl ServiceController {
     }
 }
 
-impl crate::stubs::ServiceController for ServiceController {
+impl super::stubs::ServiceController for ServiceController {
     async fn check(
         &self,
         req: crate::model::CheckRequest,

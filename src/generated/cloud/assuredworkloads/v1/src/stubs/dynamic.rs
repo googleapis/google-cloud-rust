@@ -78,9 +78,9 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AssuredWorkloadsService] also implement [AssuredWorkloadsService].
+/// All implementations of [super::AssuredWorkloadsService] also implement [AssuredWorkloadsService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AssuredWorkloadsService> AssuredWorkloadsService for T {
+impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_workload(
         &self,

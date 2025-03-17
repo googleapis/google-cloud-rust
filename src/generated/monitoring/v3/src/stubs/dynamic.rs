@@ -48,9 +48,9 @@ pub trait AlertPolicyService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::AlertPolicy>;
 }
 
-/// All implementations of [crate::stubs::AlertPolicyService] also implement [AlertPolicyService].
+/// All implementations of [super::AlertPolicyService] also implement [AlertPolicyService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AlertPolicyService> AlertPolicyService for T {
+impl<T: super::AlertPolicyService> AlertPolicyService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_alert_policies(
         &self,
@@ -137,9 +137,9 @@ pub trait GroupService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ListGroupMembersResponse>;
 }
 
-/// All implementations of [crate::stubs::GroupService] also implement [GroupService].
+/// All implementations of [super::GroupService] also implement [GroupService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::GroupService> GroupService for T {
+impl<T: super::GroupService> GroupService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_groups(
         &self,
@@ -253,9 +253,9 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::MetricService] also implement [MetricService].
+/// All implementations of [super::MetricService] also implement [MetricService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::MetricService> MetricService for T {
+impl<T: super::MetricService> MetricService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_monitored_resource_descriptors(
         &self,
@@ -402,9 +402,9 @@ pub trait NotificationChannelService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::NotificationChannel>;
 }
 
-/// All implementations of [crate::stubs::NotificationChannelService] also implement [NotificationChannelService].
+/// All implementations of [super::NotificationChannelService] also implement [NotificationChannelService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::NotificationChannelService> NotificationChannelService for T {
+impl<T: super::NotificationChannelService> NotificationChannelService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_notification_channel_descriptors(
         &self,
@@ -506,9 +506,9 @@ pub trait QueryService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::QueryTimeSeriesResponse>;
 }
 
-/// All implementations of [crate::stubs::QueryService] also implement [QueryService].
+/// All implementations of [super::QueryService] also implement [QueryService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::QueryService> QueryService for T {
+impl<T: super::QueryService> QueryService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn query_time_series(
         &self,
@@ -583,9 +583,9 @@ pub trait ServiceMonitoringService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::ServiceMonitoringService] also implement [ServiceMonitoringService].
+/// All implementations of [super::ServiceMonitoringService] also implement [ServiceMonitoringService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ServiceMonitoringService> ServiceMonitoringService for T {
+impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_service(
         &self,
@@ -705,9 +705,9 @@ pub trait SnoozeService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Snooze>;
 }
 
-/// All implementations of [crate::stubs::SnoozeService] also implement [SnoozeService].
+/// All implementations of [super::SnoozeService] also implement [SnoozeService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SnoozeService> SnoozeService for T {
+impl<T: super::SnoozeService> SnoozeService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_snooze(
         &self,
@@ -785,9 +785,9 @@ pub trait UptimeCheckService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ListUptimeCheckIpsResponse>;
 }
 
-/// All implementations of [crate::stubs::UptimeCheckService] also implement [UptimeCheckService].
+/// All implementations of [super::UptimeCheckService] also implement [UptimeCheckService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::UptimeCheckService> UptimeCheckService for T {
+impl<T: super::UptimeCheckService> UptimeCheckService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_uptime_check_configs(
         &self,

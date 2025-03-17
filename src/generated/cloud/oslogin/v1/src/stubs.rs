@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::OsLoginService].
+/// Defines the trait used to implement [super::client::OsLoginService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::OsLoginService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait OsLoginService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::OsLoginService::create_ssh_public_key].
+    /// Implements [super::client::OsLoginService::create_ssh_public_key].
     fn create_ssh_public_key(
         &self,
         _req: crate::model::CreateSshPublicKeyRequest,
@@ -52,7 +52,7 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsLoginService::delete_posix_account].
+    /// Implements [super::client::OsLoginService::delete_posix_account].
     fn delete_posix_account(
         &self,
         _req: crate::model::DeletePosixAccountRequest,
@@ -61,7 +61,7 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::OsLoginService::delete_ssh_public_key].
+    /// Implements [super::client::OsLoginService::delete_ssh_public_key].
     fn delete_ssh_public_key(
         &self,
         _req: crate::model::DeleteSshPublicKeyRequest,
@@ -70,7 +70,7 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::OsLoginService::get_login_profile].
+    /// Implements [super::client::OsLoginService::get_login_profile].
     fn get_login_profile(
         &self,
         _req: crate::model::GetLoginProfileRequest,
@@ -81,7 +81,7 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsLoginService::get_ssh_public_key].
+    /// Implements [super::client::OsLoginService::get_ssh_public_key].
     fn get_ssh_public_key(
         &self,
         _req: crate::model::GetSshPublicKeyRequest,
@@ -93,7 +93,7 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OsLoginService::import_ssh_public_key].
+    /// Implements [super::client::OsLoginService::import_ssh_public_key].
     fn import_ssh_public_key(
         &self,
         _req: crate::model::ImportSshPublicKeyRequest,
@@ -105,7 +105,7 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OsLoginService::update_ssh_public_key].
+    /// Implements [super::client::OsLoginService::update_ssh_public_key].
     fn update_ssh_public_key(
         &self,
         _req: crate::model::UpdateSshPublicKeyRequest,

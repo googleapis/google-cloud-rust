@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CaseAttachmentService](crate::stubs::CaseAttachmentService) using a [gclient::ReqwestClient].
+/// Implements [CaseAttachmentService](super::stubs::CaseAttachmentService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CaseAttachmentService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl CaseAttachmentService {
     }
 }
 
-impl crate::stubs::CaseAttachmentService for CaseAttachmentService {
+impl super::stubs::CaseAttachmentService for CaseAttachmentService {
     async fn list_attachments(
         &self,
         req: crate::model::ListAttachmentsRequest,
@@ -65,7 +65,7 @@ impl crate::stubs::CaseAttachmentService for CaseAttachmentService {
     }
 }
 
-/// Implements [CaseService](crate::stubs::CaseService) using a [gclient::ReqwestClient].
+/// Implements [CaseService](super::stubs::CaseService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CaseService {
     inner: gclient::ReqwestClient,
@@ -86,7 +86,7 @@ impl CaseService {
     }
 }
 
-impl crate::stubs::CaseService for CaseService {
+impl super::stubs::CaseService for CaseService {
     async fn get_case(
         &self,
         req: crate::model::GetCaseRequest,
@@ -266,7 +266,7 @@ impl crate::stubs::CaseService for CaseService {
     }
 }
 
-/// Implements [CommentService](crate::stubs::CommentService) using a [gclient::ReqwestClient].
+/// Implements [CommentService](super::stubs::CommentService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CommentService {
     inner: gclient::ReqwestClient,
@@ -287,7 +287,7 @@ impl CommentService {
     }
 }
 
-impl crate::stubs::CommentService for CommentService {
+impl super::stubs::CommentService for CommentService {
     async fn list_comments(
         &self,
         req: crate::model::ListCommentsRequest,

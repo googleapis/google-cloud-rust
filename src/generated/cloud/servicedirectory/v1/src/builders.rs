@@ -18,10 +18,10 @@ pub mod lookup_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::LookupService] request builders.
+    /// Common implementation for [super::super::client::LookupService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::LookupService>,
+        stub: Arc<dyn super::super::stubs::dynamic::LookupService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod lookup_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LookupService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod lookup_service {
     pub struct ResolveService(RequestBuilder<crate::model::ResolveServiceRequest>);
 
     impl ResolveService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LookupService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,7 +97,7 @@ pub mod lookup_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LookupService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -173,7 +173,7 @@ pub mod lookup_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LookupService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -214,10 +214,10 @@ pub mod registration_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::RegistrationService] request builders.
+    /// Common implementation for [super::super::client::RegistrationService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::RegistrationService>,
+        stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -226,7 +226,9 @@ pub mod registration_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -240,7 +242,9 @@ pub mod registration_service {
     pub struct CreateNamespace(RequestBuilder<crate::model::CreateNamespaceRequest>);
 
     impl CreateNamespace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,7 +300,9 @@ pub mod registration_service {
     pub struct ListNamespaces(RequestBuilder<crate::model::ListNamespacesRequest>);
 
     impl ListNamespaces {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -375,7 +381,9 @@ pub mod registration_service {
     pub struct GetNamespace(RequestBuilder<crate::model::GetNamespaceRequest>);
 
     impl GetNamespace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -416,7 +424,9 @@ pub mod registration_service {
     pub struct UpdateNamespace(RequestBuilder<crate::model::UpdateNamespaceRequest>);
 
     impl UpdateNamespace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -469,7 +479,9 @@ pub mod registration_service {
     pub struct DeleteNamespace(RequestBuilder<crate::model::DeleteNamespaceRequest>);
 
     impl DeleteNamespace {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -510,7 +522,9 @@ pub mod registration_service {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -566,7 +580,9 @@ pub mod registration_service {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -645,7 +661,9 @@ pub mod registration_service {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -686,7 +704,9 @@ pub mod registration_service {
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -739,7 +759,9 @@ pub mod registration_service {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -780,7 +802,9 @@ pub mod registration_service {
     pub struct CreateEndpoint(RequestBuilder<crate::model::CreateEndpointRequest>);
 
     impl CreateEndpoint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -836,7 +860,9 @@ pub mod registration_service {
     pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
 
     impl ListEndpoints {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -915,7 +941,9 @@ pub mod registration_service {
     pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
 
     impl GetEndpoint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -956,7 +984,9 @@ pub mod registration_service {
     pub struct UpdateEndpoint(RequestBuilder<crate::model::UpdateEndpointRequest>);
 
     impl UpdateEndpoint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1009,7 +1039,9 @@ pub mod registration_service {
     pub struct DeleteEndpoint(RequestBuilder<crate::model::DeleteEndpointRequest>);
 
     impl DeleteEndpoint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1050,7 +1082,9 @@ pub mod registration_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1100,7 +1134,9 @@ pub mod registration_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1159,7 +1195,9 @@ pub mod registration_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1214,7 +1252,9 @@ pub mod registration_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1290,7 +1330,9 @@ pub mod registration_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

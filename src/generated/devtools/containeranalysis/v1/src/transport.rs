@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ContainerAnalysis](crate::stubs::ContainerAnalysis) using a [gclient::ReqwestClient].
+/// Implements [ContainerAnalysis](super::stubs::ContainerAnalysis) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ContainerAnalysis {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ContainerAnalysis {
     }
 }
 
-impl crate::stubs::ContainerAnalysis for ContainerAnalysis {
+impl super::stubs::ContainerAnalysis for ContainerAnalysis {
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,

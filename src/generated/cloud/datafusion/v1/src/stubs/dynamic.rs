@@ -96,9 +96,9 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DataFusion] also implement [DataFusion].
+/// All implementations of [super::DataFusion] also implement [DataFusion].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DataFusion> DataFusion for T {
+impl<T: super::DataFusion> DataFusion for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_available_versions(
         &self,

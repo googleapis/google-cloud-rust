@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::NetApp].
+/// Defines the trait used to implement [super::client::NetApp].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::NetApp`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait NetApp: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::NetApp::list_storage_pools].
+    /// Implements [super::client::NetApp::list_storage_pools].
     fn list_storage_pools(
         &self,
         _req: crate::model::ListStoragePoolsRequest,
@@ -53,7 +53,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetApp::create_storage_pool].
+    /// Implements [super::client::NetApp::create_storage_pool].
     fn create_storage_pool(
         &self,
         _req: crate::model::CreateStoragePoolRequest,
@@ -65,7 +65,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::get_storage_pool].
+    /// Implements [super::client::NetApp::get_storage_pool].
     fn get_storage_pool(
         &self,
         _req: crate::model::GetStoragePoolRequest,
@@ -76,7 +76,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::update_storage_pool].
+    /// Implements [super::client::NetApp::update_storage_pool].
     fn update_storage_pool(
         &self,
         _req: crate::model::UpdateStoragePoolRequest,
@@ -88,7 +88,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::delete_storage_pool].
+    /// Implements [super::client::NetApp::delete_storage_pool].
     fn delete_storage_pool(
         &self,
         _req: crate::model::DeleteStoragePoolRequest,
@@ -100,7 +100,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::validate_directory_service].
+    /// Implements [super::client::NetApp::validate_directory_service].
     fn validate_directory_service(
         &self,
         _req: crate::model::ValidateDirectoryServiceRequest,
@@ -112,7 +112,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::switch_active_replica_zone].
+    /// Implements [super::client::NetApp::switch_active_replica_zone].
     fn switch_active_replica_zone(
         &self,
         _req: crate::model::SwitchActiveReplicaZoneRequest,
@@ -124,7 +124,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_volumes].
+    /// Implements [super::client::NetApp::list_volumes].
     fn list_volumes(
         &self,
         _req: crate::model::ListVolumesRequest,
@@ -136,7 +136,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::get_volume].
+    /// Implements [super::client::NetApp::get_volume].
     fn get_volume(
         &self,
         _req: crate::model::GetVolumeRequest,
@@ -147,7 +147,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::create_volume].
+    /// Implements [super::client::NetApp::create_volume].
     fn create_volume(
         &self,
         _req: crate::model::CreateVolumeRequest,
@@ -159,7 +159,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::update_volume].
+    /// Implements [super::client::NetApp::update_volume].
     fn update_volume(
         &self,
         _req: crate::model::UpdateVolumeRequest,
@@ -171,7 +171,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::delete_volume].
+    /// Implements [super::client::NetApp::delete_volume].
     fn delete_volume(
         &self,
         _req: crate::model::DeleteVolumeRequest,
@@ -183,7 +183,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::revert_volume].
+    /// Implements [super::client::NetApp::revert_volume].
     fn revert_volume(
         &self,
         _req: crate::model::RevertVolumeRequest,
@@ -195,7 +195,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_snapshots].
+    /// Implements [super::client::NetApp::list_snapshots].
     fn list_snapshots(
         &self,
         _req: crate::model::ListSnapshotsRequest,
@@ -207,7 +207,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::get_snapshot].
+    /// Implements [super::client::NetApp::get_snapshot].
     fn get_snapshot(
         &self,
         _req: crate::model::GetSnapshotRequest,
@@ -218,7 +218,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::create_snapshot].
+    /// Implements [super::client::NetApp::create_snapshot].
     fn create_snapshot(
         &self,
         _req: crate::model::CreateSnapshotRequest,
@@ -230,7 +230,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::delete_snapshot].
+    /// Implements [super::client::NetApp::delete_snapshot].
     fn delete_snapshot(
         &self,
         _req: crate::model::DeleteSnapshotRequest,
@@ -242,7 +242,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::update_snapshot].
+    /// Implements [super::client::NetApp::update_snapshot].
     fn update_snapshot(
         &self,
         _req: crate::model::UpdateSnapshotRequest,
@@ -254,7 +254,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_active_directories].
+    /// Implements [super::client::NetApp::list_active_directories].
     fn list_active_directories(
         &self,
         _req: crate::model::ListActiveDirectoriesRequest,
@@ -266,7 +266,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetApp::get_active_directory].
+    /// Implements [super::client::NetApp::get_active_directory].
     fn get_active_directory(
         &self,
         _req: crate::model::GetActiveDirectoryRequest,
@@ -278,7 +278,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::create_active_directory].
+    /// Implements [super::client::NetApp::create_active_directory].
     fn create_active_directory(
         &self,
         _req: crate::model::CreateActiveDirectoryRequest,
@@ -290,7 +290,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::update_active_directory].
+    /// Implements [super::client::NetApp::update_active_directory].
     fn update_active_directory(
         &self,
         _req: crate::model::UpdateActiveDirectoryRequest,
@@ -302,7 +302,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::delete_active_directory].
+    /// Implements [super::client::NetApp::delete_active_directory].
     fn delete_active_directory(
         &self,
         _req: crate::model::DeleteActiveDirectoryRequest,
@@ -314,7 +314,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_kms_configs].
+    /// Implements [super::client::NetApp::list_kms_configs].
     fn list_kms_configs(
         &self,
         _req: crate::model::ListKmsConfigsRequest,
@@ -326,7 +326,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetApp::create_kms_config].
+    /// Implements [super::client::NetApp::create_kms_config].
     fn create_kms_config(
         &self,
         _req: crate::model::CreateKmsConfigRequest,
@@ -338,7 +338,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::get_kms_config].
+    /// Implements [super::client::NetApp::get_kms_config].
     fn get_kms_config(
         &self,
         _req: crate::model::GetKmsConfigRequest,
@@ -349,7 +349,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::update_kms_config].
+    /// Implements [super::client::NetApp::update_kms_config].
     fn update_kms_config(
         &self,
         _req: crate::model::UpdateKmsConfigRequest,
@@ -361,7 +361,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::encrypt_volumes].
+    /// Implements [super::client::NetApp::encrypt_volumes].
     fn encrypt_volumes(
         &self,
         _req: crate::model::EncryptVolumesRequest,
@@ -373,7 +373,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::verify_kms_config].
+    /// Implements [super::client::NetApp::verify_kms_config].
     fn verify_kms_config(
         &self,
         _req: crate::model::VerifyKmsConfigRequest,
@@ -385,7 +385,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetApp::delete_kms_config].
+    /// Implements [super::client::NetApp::delete_kms_config].
     fn delete_kms_config(
         &self,
         _req: crate::model::DeleteKmsConfigRequest,
@@ -397,7 +397,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_replications].
+    /// Implements [super::client::NetApp::list_replications].
     fn list_replications(
         &self,
         _req: crate::model::ListReplicationsRequest,
@@ -409,7 +409,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetApp::get_replication].
+    /// Implements [super::client::NetApp::get_replication].
     fn get_replication(
         &self,
         _req: crate::model::GetReplicationRequest,
@@ -420,7 +420,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::create_replication].
+    /// Implements [super::client::NetApp::create_replication].
     fn create_replication(
         &self,
         _req: crate::model::CreateReplicationRequest,
@@ -432,7 +432,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::delete_replication].
+    /// Implements [super::client::NetApp::delete_replication].
     fn delete_replication(
         &self,
         _req: crate::model::DeleteReplicationRequest,
@@ -444,7 +444,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::update_replication].
+    /// Implements [super::client::NetApp::update_replication].
     fn update_replication(
         &self,
         _req: crate::model::UpdateReplicationRequest,
@@ -456,7 +456,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::stop_replication].
+    /// Implements [super::client::NetApp::stop_replication].
     fn stop_replication(
         &self,
         _req: crate::model::StopReplicationRequest,
@@ -468,7 +468,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::resume_replication].
+    /// Implements [super::client::NetApp::resume_replication].
     fn resume_replication(
         &self,
         _req: crate::model::ResumeReplicationRequest,
@@ -480,7 +480,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::reverse_replication_direction].
+    /// Implements [super::client::NetApp::reverse_replication_direction].
     fn reverse_replication_direction(
         &self,
         _req: crate::model::ReverseReplicationDirectionRequest,
@@ -492,7 +492,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::establish_peering].
+    /// Implements [super::client::NetApp::establish_peering].
     fn establish_peering(
         &self,
         _req: crate::model::EstablishPeeringRequest,
@@ -504,7 +504,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::sync_replication].
+    /// Implements [super::client::NetApp::sync_replication].
     fn sync_replication(
         &self,
         _req: crate::model::SyncReplicationRequest,
@@ -516,7 +516,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::create_backup_vault].
+    /// Implements [super::client::NetApp::create_backup_vault].
     fn create_backup_vault(
         &self,
         _req: crate::model::CreateBackupVaultRequest,
@@ -528,7 +528,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::get_backup_vault].
+    /// Implements [super::client::NetApp::get_backup_vault].
     fn get_backup_vault(
         &self,
         _req: crate::model::GetBackupVaultRequest,
@@ -539,7 +539,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_backup_vaults].
+    /// Implements [super::client::NetApp::list_backup_vaults].
     fn list_backup_vaults(
         &self,
         _req: crate::model::ListBackupVaultsRequest,
@@ -551,7 +551,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetApp::update_backup_vault].
+    /// Implements [super::client::NetApp::update_backup_vault].
     fn update_backup_vault(
         &self,
         _req: crate::model::UpdateBackupVaultRequest,
@@ -563,7 +563,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::delete_backup_vault].
+    /// Implements [super::client::NetApp::delete_backup_vault].
     fn delete_backup_vault(
         &self,
         _req: crate::model::DeleteBackupVaultRequest,
@@ -575,7 +575,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::create_backup].
+    /// Implements [super::client::NetApp::create_backup].
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
@@ -587,7 +587,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::get_backup].
+    /// Implements [super::client::NetApp::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -598,7 +598,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_backups].
+    /// Implements [super::client::NetApp::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -610,7 +610,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::delete_backup].
+    /// Implements [super::client::NetApp::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -622,7 +622,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::update_backup].
+    /// Implements [super::client::NetApp::update_backup].
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
@@ -634,7 +634,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::create_backup_policy].
+    /// Implements [super::client::NetApp::create_backup_policy].
     fn create_backup_policy(
         &self,
         _req: crate::model::CreateBackupPolicyRequest,
@@ -646,7 +646,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::get_backup_policy].
+    /// Implements [super::client::NetApp::get_backup_policy].
     fn get_backup_policy(
         &self,
         _req: crate::model::GetBackupPolicyRequest,
@@ -657,7 +657,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_backup_policies].
+    /// Implements [super::client::NetApp::list_backup_policies].
     fn list_backup_policies(
         &self,
         _req: crate::model::ListBackupPoliciesRequest,
@@ -669,7 +669,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetApp::update_backup_policy].
+    /// Implements [super::client::NetApp::update_backup_policy].
     fn update_backup_policy(
         &self,
         _req: crate::model::UpdateBackupPolicyRequest,
@@ -681,7 +681,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::delete_backup_policy].
+    /// Implements [super::client::NetApp::delete_backup_policy].
     fn delete_backup_policy(
         &self,
         _req: crate::model::DeleteBackupPolicyRequest,
@@ -693,7 +693,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_quota_rules].
+    /// Implements [super::client::NetApp::list_quota_rules].
     fn list_quota_rules(
         &self,
         _req: crate::model::ListQuotaRulesRequest,
@@ -705,7 +705,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetApp::get_quota_rule].
+    /// Implements [super::client::NetApp::get_quota_rule].
     fn get_quota_rule(
         &self,
         _req: crate::model::GetQuotaRuleRequest,
@@ -716,7 +716,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::create_quota_rule].
+    /// Implements [super::client::NetApp::create_quota_rule].
     fn create_quota_rule(
         &self,
         _req: crate::model::CreateQuotaRuleRequest,
@@ -728,7 +728,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::update_quota_rule].
+    /// Implements [super::client::NetApp::update_quota_rule].
     fn update_quota_rule(
         &self,
         _req: crate::model::UpdateQuotaRuleRequest,
@@ -740,7 +740,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::delete_quota_rule].
+    /// Implements [super::client::NetApp::delete_quota_rule].
     fn delete_quota_rule(
         &self,
         _req: crate::model::DeleteQuotaRuleRequest,
@@ -752,7 +752,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_locations].
+    /// Implements [super::client::NetApp::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -764,7 +764,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetApp::get_location].
+    /// Implements [super::client::NetApp::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -775,7 +775,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::list_operations].
+    /// Implements [super::client::NetApp::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -787,7 +787,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetApp::get_operation].
+    /// Implements [super::client::NetApp::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -799,7 +799,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetApp::delete_operation].
+    /// Implements [super::client::NetApp::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -808,7 +808,7 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::NetApp::cancel_operation].
+    /// Implements [super::client::NetApp::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
