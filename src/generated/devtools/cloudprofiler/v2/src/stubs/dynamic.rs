@@ -36,9 +36,9 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Profile>;
 }
 
-/// All implementations of [crate::stubs::ProfilerService] also implement [ProfilerService].
+/// All implementations of [super::ProfilerService] also implement [ProfilerService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ProfilerService> ProfilerService for T {
+impl<T: super::ProfilerService> ProfilerService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_profile(
         &self,
@@ -77,9 +77,9 @@ pub trait ExportService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ListProfilesResponse>;
 }
 
-/// All implementations of [crate::stubs::ExportService] also implement [ExportService].
+/// All implementations of [super::ExportService] also implement [ExportService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ExportService> ExportService for T {
+impl<T: super::ExportService> ExportService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_profiles(
         &self,

@@ -132,9 +132,9 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::StorageTransferService] also implement [StorageTransferService].
+/// All implementations of [super::StorageTransferService] also implement [StorageTransferService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::StorageTransferService> StorageTransferService for T {
+impl<T: super::StorageTransferService> StorageTransferService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_google_service_account(
         &self,

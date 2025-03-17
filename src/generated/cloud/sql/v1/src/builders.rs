@@ -18,17 +18,17 @@ pub mod sql_backup_runs_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SqlBackupRunsService] request builders.
+    /// Common implementation for [super::super::client::SqlBackupRunsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SqlBackupRunsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlBackupRunsService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -42,7 +42,7 @@ pub mod sql_backup_runs_service {
     pub struct Delete(RequestBuilder<crate::model::SqlBackupRunsDeleteRequest>);
 
     impl Delete {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlBackupRunsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -95,7 +95,7 @@ pub mod sql_backup_runs_service {
     pub struct Get(RequestBuilder<crate::model::SqlBackupRunsGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlBackupRunsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -148,7 +148,7 @@ pub mod sql_backup_runs_service {
     pub struct Insert(RequestBuilder<crate::model::SqlBackupRunsInsertRequest>);
 
     impl Insert {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlBackupRunsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -201,7 +201,7 @@ pub mod sql_backup_runs_service {
     pub struct List(RequestBuilder<crate::model::SqlBackupRunsListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlBackupRunsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -261,17 +261,17 @@ pub mod sql_connect_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SqlConnectService] request builders.
+    /// Common implementation for [super::super::client::SqlConnectService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SqlConnectService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SqlConnectService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlConnectService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlConnectService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -285,7 +285,7 @@ pub mod sql_connect_service {
     pub struct GetConnectSettings(RequestBuilder<crate::model::GetConnectSettingsRequest>);
 
     impl GetConnectSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlConnectService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlConnectService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -338,7 +338,7 @@ pub mod sql_connect_service {
     pub struct GenerateEphemeralCert(RequestBuilder<crate::model::GenerateEphemeralCertRequest>);
 
     impl GenerateEphemeralCert {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlConnectService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlConnectService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -410,17 +410,17 @@ pub mod sql_databases_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SqlDatabasesService] request builders.
+    /// Common implementation for [super::super::client::SqlDatabasesService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SqlDatabasesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlDatabasesService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -434,7 +434,7 @@ pub mod sql_databases_service {
     pub struct Delete(RequestBuilder<crate::model::SqlDatabasesDeleteRequest>);
 
     impl Delete {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlDatabasesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -487,7 +487,7 @@ pub mod sql_databases_service {
     pub struct Get(RequestBuilder<crate::model::SqlDatabasesGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlDatabasesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -540,7 +540,7 @@ pub mod sql_databases_service {
     pub struct Insert(RequestBuilder<crate::model::SqlDatabasesInsertRequest>);
 
     impl Insert {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlDatabasesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -593,7 +593,7 @@ pub mod sql_databases_service {
     pub struct List(RequestBuilder<crate::model::SqlDatabasesListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlDatabasesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -640,7 +640,7 @@ pub mod sql_databases_service {
     pub struct Patch(RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
 
     impl Patch {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlDatabasesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -699,7 +699,7 @@ pub mod sql_databases_service {
     pub struct Update(RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
 
     impl Update {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlDatabasesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -759,17 +759,17 @@ pub mod sql_flags_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SqlFlagsService] request builders.
+    /// Common implementation for [super::super::client::SqlFlagsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SqlFlagsService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SqlFlagsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlFlagsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlFlagsService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -783,7 +783,7 @@ pub mod sql_flags_service {
     pub struct List(RequestBuilder<crate::model::SqlFlagsListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlFlagsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlFlagsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -825,17 +825,17 @@ pub mod sql_instances_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SqlInstancesService] request builders.
+    /// Common implementation for [super::super::client::SqlInstancesService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -849,7 +849,7 @@ pub mod sql_instances_service {
     pub struct AddServerCa(RequestBuilder<crate::model::SqlInstancesAddServerCaRequest>);
 
     impl AddServerCa {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -896,7 +896,7 @@ pub mod sql_instances_service {
     pub struct Clone(RequestBuilder<crate::model::SqlInstancesCloneRequest>);
 
     impl Clone {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -949,7 +949,7 @@ pub mod sql_instances_service {
     pub struct Delete(RequestBuilder<crate::model::SqlInstancesDeleteRequest>);
 
     impl Delete {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -996,7 +996,7 @@ pub mod sql_instances_service {
     pub struct DemoteMaster(RequestBuilder<crate::model::SqlInstancesDemoteMasterRequest>);
 
     impl DemoteMaster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1049,7 +1049,7 @@ pub mod sql_instances_service {
     pub struct Demote(RequestBuilder<crate::model::SqlInstancesDemoteRequest>);
 
     impl Demote {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1102,7 +1102,7 @@ pub mod sql_instances_service {
     pub struct Export(RequestBuilder<crate::model::SqlInstancesExportRequest>);
 
     impl Export {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1155,7 +1155,7 @@ pub mod sql_instances_service {
     pub struct Failover(RequestBuilder<crate::model::SqlInstancesFailoverRequest>);
 
     impl Failover {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1208,7 +1208,7 @@ pub mod sql_instances_service {
     pub struct Reencrypt(RequestBuilder<crate::model::SqlInstancesReencryptRequest>);
 
     impl Reencrypt {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1261,7 +1261,7 @@ pub mod sql_instances_service {
     pub struct Get(RequestBuilder<crate::model::SqlInstancesGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1308,7 +1308,7 @@ pub mod sql_instances_service {
     pub struct Import(RequestBuilder<crate::model::SqlInstancesImportRequest>);
 
     impl Import {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1361,7 +1361,7 @@ pub mod sql_instances_service {
     pub struct Insert(RequestBuilder<crate::model::SqlInstancesInsertRequest>);
 
     impl Insert {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1408,7 +1408,7 @@ pub mod sql_instances_service {
     pub struct List(RequestBuilder<crate::model::SqlInstancesListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1467,7 +1467,7 @@ pub mod sql_instances_service {
     pub struct ListServerCas(RequestBuilder<crate::model::SqlInstancesListServerCasRequest>);
 
     impl ListServerCas {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1514,7 +1514,7 @@ pub mod sql_instances_service {
     pub struct Patch(RequestBuilder<crate::model::SqlInstancesPatchRequest>);
 
     impl Patch {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1567,7 +1567,7 @@ pub mod sql_instances_service {
     pub struct PromoteReplica(RequestBuilder<crate::model::SqlInstancesPromoteReplicaRequest>);
 
     impl PromoteReplica {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1620,7 +1620,7 @@ pub mod sql_instances_service {
     pub struct Switchover(RequestBuilder<crate::model::SqlInstancesSwitchoverRequest>);
 
     impl Switchover {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1673,7 +1673,7 @@ pub mod sql_instances_service {
     pub struct ResetSslConfig(RequestBuilder<crate::model::SqlInstancesResetSslConfigRequest>);
 
     impl ResetSslConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1720,7 +1720,7 @@ pub mod sql_instances_service {
     pub struct Restart(RequestBuilder<crate::model::SqlInstancesRestartRequest>);
 
     impl Restart {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1767,7 +1767,7 @@ pub mod sql_instances_service {
     pub struct RestoreBackup(RequestBuilder<crate::model::SqlInstancesRestoreBackupRequest>);
 
     impl RestoreBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1820,7 +1820,7 @@ pub mod sql_instances_service {
     pub struct RotateServerCa(RequestBuilder<crate::model::SqlInstancesRotateServerCaRequest>);
 
     impl RotateServerCa {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1873,7 +1873,7 @@ pub mod sql_instances_service {
     pub struct StartReplica(RequestBuilder<crate::model::SqlInstancesStartReplicaRequest>);
 
     impl StartReplica {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1920,7 +1920,7 @@ pub mod sql_instances_service {
     pub struct StopReplica(RequestBuilder<crate::model::SqlInstancesStopReplicaRequest>);
 
     impl StopReplica {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -1967,7 +1967,7 @@ pub mod sql_instances_service {
     pub struct TruncateLog(RequestBuilder<crate::model::SqlInstancesTruncateLogRequest>);
 
     impl TruncateLog {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2020,7 +2020,7 @@ pub mod sql_instances_service {
     pub struct Update(RequestBuilder<crate::model::SqlInstancesUpdateRequest>);
 
     impl Update {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2073,7 +2073,7 @@ pub mod sql_instances_service {
     pub struct CreateEphemeral(RequestBuilder<crate::model::SqlInstancesCreateEphemeralCertRequest>);
 
     impl CreateEphemeral {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2126,7 +2126,7 @@ pub mod sql_instances_service {
     pub struct RescheduleMaintenance(RequestBuilder<crate::model::SqlInstancesRescheduleMaintenanceRequest>);
 
     impl RescheduleMaintenance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2179,7 +2179,7 @@ pub mod sql_instances_service {
     pub struct VerifyExternalSyncSettings(RequestBuilder<crate::model::SqlInstancesVerifyExternalSyncSettingsRequest>);
 
     impl VerifyExternalSyncSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2262,7 +2262,7 @@ pub mod sql_instances_service {
     pub struct StartExternalSync(RequestBuilder<crate::model::SqlInstancesStartExternalSyncRequest>);
 
     impl StartExternalSync {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2339,7 +2339,7 @@ pub mod sql_instances_service {
     pub struct PerformDiskShrink(RequestBuilder<crate::model::SqlInstancesPerformDiskShrinkRequest>);
 
     impl PerformDiskShrink {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2392,7 +2392,7 @@ pub mod sql_instances_service {
     pub struct GetDiskShrinkConfig(RequestBuilder<crate::model::SqlInstancesGetDiskShrinkConfigRequest>);
 
     impl GetDiskShrinkConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2439,7 +2439,7 @@ pub mod sql_instances_service {
     pub struct ResetReplicaSize(RequestBuilder<crate::model::SqlInstancesResetReplicaSizeRequest>);
 
     impl ResetReplicaSize {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2486,7 +2486,7 @@ pub mod sql_instances_service {
     pub struct GetLatestRecoveryTime(RequestBuilder<crate::model::SqlInstancesGetLatestRecoveryTimeRequest>);
 
     impl GetLatestRecoveryTime {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2533,7 +2533,7 @@ pub mod sql_instances_service {
     pub struct AcquireSsrsLease(RequestBuilder<crate::model::SqlInstancesAcquireSsrsLeaseRequest>);
 
     impl AcquireSsrsLease {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2586,7 +2586,7 @@ pub mod sql_instances_service {
     pub struct ReleaseSsrsLease(RequestBuilder<crate::model::SqlInstancesReleaseSsrsLeaseRequest>);
 
     impl ReleaseSsrsLease {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlInstancesService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlInstancesService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2634,17 +2634,17 @@ pub mod sql_operations_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SqlOperationsService] request builders.
+    /// Common implementation for [super::super::client::SqlOperationsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SqlOperationsService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SqlOperationsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlOperationsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlOperationsService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2658,7 +2658,7 @@ pub mod sql_operations_service {
     pub struct Get(RequestBuilder<crate::model::SqlOperationsGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlOperationsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlOperationsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2705,7 +2705,7 @@ pub mod sql_operations_service {
     pub struct List(RequestBuilder<crate::model::SqlOperationsListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlOperationsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlOperationsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2764,7 +2764,7 @@ pub mod sql_operations_service {
     pub struct Cancel(RequestBuilder<crate::model::SqlOperationsCancelRequest>);
 
     impl Cancel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlOperationsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlOperationsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2812,17 +2812,17 @@ pub mod sql_ssl_certs_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SqlSslCertsService] request builders.
+    /// Common implementation for [super::super::client::SqlSslCertsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SqlSslCertsService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SqlSslCertsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlSslCertsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlSslCertsService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2836,7 +2836,7 @@ pub mod sql_ssl_certs_service {
     pub struct Delete(RequestBuilder<crate::model::SqlSslCertsDeleteRequest>);
 
     impl Delete {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlSslCertsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlSslCertsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2889,7 +2889,7 @@ pub mod sql_ssl_certs_service {
     pub struct Get(RequestBuilder<crate::model::SqlSslCertsGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlSslCertsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlSslCertsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2942,7 +2942,7 @@ pub mod sql_ssl_certs_service {
     pub struct Insert(RequestBuilder<crate::model::SqlSslCertsInsertRequest>);
 
     impl Insert {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlSslCertsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlSslCertsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -2995,7 +2995,7 @@ pub mod sql_ssl_certs_service {
     pub struct List(RequestBuilder<crate::model::SqlSslCertsListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlSslCertsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlSslCertsService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -3043,17 +3043,17 @@ pub mod sql_tiers_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SqlTiersService] request builders.
+    /// Common implementation for [super::super::client::SqlTiersService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SqlTiersService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SqlTiersService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlTiersService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlTiersService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3067,7 +3067,7 @@ pub mod sql_tiers_service {
     pub struct List(RequestBuilder<crate::model::SqlTiersListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlTiersService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlTiersService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -3109,17 +3109,17 @@ pub mod sql_users_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SqlUsersService] request builders.
+    /// Common implementation for [super::super::client::SqlUsersService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SqlUsersService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SqlUsersService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlUsersService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlUsersService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3133,7 +3133,7 @@ pub mod sql_users_service {
     pub struct Delete(RequestBuilder<crate::model::SqlUsersDeleteRequest>);
 
     impl Delete {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlUsersService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlUsersService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -3192,7 +3192,7 @@ pub mod sql_users_service {
     pub struct Get(RequestBuilder<crate::model::SqlUsersGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlUsersService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlUsersService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -3251,7 +3251,7 @@ pub mod sql_users_service {
     pub struct Insert(RequestBuilder<crate::model::SqlUsersInsertRequest>);
 
     impl Insert {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlUsersService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlUsersService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -3304,7 +3304,7 @@ pub mod sql_users_service {
     pub struct List(RequestBuilder<crate::model::SqlUsersListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlUsersService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlUsersService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -3351,7 +3351,7 @@ pub mod sql_users_service {
     pub struct Update(RequestBuilder<crate::model::SqlUsersUpdateRequest>);
 
     impl Update {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SqlUsersService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SqlUsersService>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )

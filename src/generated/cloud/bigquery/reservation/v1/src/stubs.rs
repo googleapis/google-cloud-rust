@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ReservationService].
+/// Defines the trait used to implement [super::client::ReservationService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ReservationService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ReservationService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ReservationService::create_reservation].
+    /// Implements [super::client::ReservationService::create_reservation].
     fn create_reservation(
         &self,
         _req: crate::model::CreateReservationRequest,
@@ -51,7 +51,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::list_reservations].
+    /// Implements [super::client::ReservationService::list_reservations].
     fn list_reservations(
         &self,
         _req: crate::model::ListReservationsRequest,
@@ -63,7 +63,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReservationService::get_reservation].
+    /// Implements [super::client::ReservationService::get_reservation].
     fn get_reservation(
         &self,
         _req: crate::model::GetReservationRequest,
@@ -74,7 +74,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::delete_reservation].
+    /// Implements [super::client::ReservationService::delete_reservation].
     fn delete_reservation(
         &self,
         _req: crate::model::DeleteReservationRequest,
@@ -83,7 +83,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ReservationService::update_reservation].
+    /// Implements [super::client::ReservationService::update_reservation].
     fn update_reservation(
         &self,
         _req: crate::model::UpdateReservationRequest,
@@ -94,7 +94,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::failover_reservation].
+    /// Implements [super::client::ReservationService::failover_reservation].
     fn failover_reservation(
         &self,
         _req: crate::model::FailoverReservationRequest,
@@ -105,7 +105,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::create_capacity_commitment].
+    /// Implements [super::client::ReservationService::create_capacity_commitment].
     fn create_capacity_commitment(
         &self,
         _req: crate::model::CreateCapacityCommitmentRequest,
@@ -117,7 +117,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::list_capacity_commitments].
+    /// Implements [super::client::ReservationService::list_capacity_commitments].
     fn list_capacity_commitments(
         &self,
         _req: crate::model::ListCapacityCommitmentsRequest,
@@ -130,7 +130,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReservationService::get_capacity_commitment].
+    /// Implements [super::client::ReservationService::get_capacity_commitment].
     fn get_capacity_commitment(
         &self,
         _req: crate::model::GetCapacityCommitmentRequest,
@@ -142,7 +142,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::delete_capacity_commitment].
+    /// Implements [super::client::ReservationService::delete_capacity_commitment].
     fn delete_capacity_commitment(
         &self,
         _req: crate::model::DeleteCapacityCommitmentRequest,
@@ -151,7 +151,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ReservationService::update_capacity_commitment].
+    /// Implements [super::client::ReservationService::update_capacity_commitment].
     fn update_capacity_commitment(
         &self,
         _req: crate::model::UpdateCapacityCommitmentRequest,
@@ -163,7 +163,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::split_capacity_commitment].
+    /// Implements [super::client::ReservationService::split_capacity_commitment].
     fn split_capacity_commitment(
         &self,
         _req: crate::model::SplitCapacityCommitmentRequest,
@@ -176,7 +176,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReservationService::merge_capacity_commitments].
+    /// Implements [super::client::ReservationService::merge_capacity_commitments].
     fn merge_capacity_commitments(
         &self,
         _req: crate::model::MergeCapacityCommitmentsRequest,
@@ -188,7 +188,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::create_assignment].
+    /// Implements [super::client::ReservationService::create_assignment].
     fn create_assignment(
         &self,
         _req: crate::model::CreateAssignmentRequest,
@@ -199,7 +199,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::list_assignments].
+    /// Implements [super::client::ReservationService::list_assignments].
     fn list_assignments(
         &self,
         _req: crate::model::ListAssignmentsRequest,
@@ -211,7 +211,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReservationService::delete_assignment].
+    /// Implements [super::client::ReservationService::delete_assignment].
     fn delete_assignment(
         &self,
         _req: crate::model::DeleteAssignmentRequest,
@@ -220,7 +220,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ReservationService::search_assignments].
+    /// Implements [super::client::ReservationService::search_assignments].
     fn search_assignments(
         &self,
         _req: crate::model::SearchAssignmentsRequest,
@@ -232,7 +232,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReservationService::search_all_assignments].
+    /// Implements [super::client::ReservationService::search_all_assignments].
     fn search_all_assignments(
         &self,
         _req: crate::model::SearchAllAssignmentsRequest,
@@ -244,7 +244,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReservationService::move_assignment].
+    /// Implements [super::client::ReservationService::move_assignment].
     fn move_assignment(
         &self,
         _req: crate::model::MoveAssignmentRequest,
@@ -255,7 +255,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::update_assignment].
+    /// Implements [super::client::ReservationService::update_assignment].
     fn update_assignment(
         &self,
         _req: crate::model::UpdateAssignmentRequest,
@@ -266,7 +266,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::get_bi_reservation].
+    /// Implements [super::client::ReservationService::get_bi_reservation].
     fn get_bi_reservation(
         &self,
         _req: crate::model::GetBiReservationRequest,
@@ -277,7 +277,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReservationService::update_bi_reservation].
+    /// Implements [super::client::ReservationService::update_bi_reservation].
     fn update_bi_reservation(
         &self,
         _req: crate::model::UpdateBiReservationRequest,

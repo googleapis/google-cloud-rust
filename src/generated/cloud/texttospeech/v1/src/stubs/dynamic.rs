@@ -44,9 +44,9 @@ pub trait TextToSpeech: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::TextToSpeech] also implement [TextToSpeech].
+/// All implementations of [super::TextToSpeech] also implement [TextToSpeech].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TextToSpeech> TextToSpeech for T {
+impl<T: super::TextToSpeech> TextToSpeech for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_voices(
         &self,
@@ -116,9 +116,9 @@ pub trait TextToSpeechLongAudioSynthesize: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::TextToSpeechLongAudioSynthesize] also implement [TextToSpeechLongAudioSynthesize].
+/// All implementations of [super::TextToSpeechLongAudioSynthesize] also implement [TextToSpeechLongAudioSynthesize].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TextToSpeechLongAudioSynthesize> TextToSpeechLongAudioSynthesize for T {
+impl<T: super::TextToSpeechLongAudioSynthesize> TextToSpeechLongAudioSynthesize for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn synthesize_long_audio(
         &self,

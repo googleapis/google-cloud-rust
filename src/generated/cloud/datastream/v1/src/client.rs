@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Datastream {
-    inner: Arc<dyn crate::stubs::dynamic::Datastream>,
+    inner: Arc<dyn super::stubs::dynamic::Datastream>,
 }
 
 impl Datastream {
@@ -59,7 +59,7 @@ impl Datastream {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Datastream + 'static,
+        T: super::stubs::Datastream + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl Datastream {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Datastream>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Datastream>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl Datastream {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Datastream> {
-        crate::transport::Datastream::new(conf).await
+    ) -> Result<impl super::stubs::Datastream> {
+        super::transport::Datastream::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Datastream> {
+    ) -> Result<impl super::stubs::Datastream> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Datastream::new)
+            .map(super::tracing::Datastream::new)
     }
 
     /// Use this method to list connection profiles created in a project and
@@ -94,8 +94,8 @@ impl Datastream {
     pub fn list_connection_profiles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::ListConnectionProfiles {
-        crate::builders::datastream::ListConnectionProfiles::new(self.inner.clone())
+    ) -> super::builders::datastream::ListConnectionProfiles {
+        super::builders::datastream::ListConnectionProfiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -103,8 +103,8 @@ impl Datastream {
     pub fn get_connection_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::GetConnectionProfile {
-        crate::builders::datastream::GetConnectionProfile::new(self.inner.clone())
+    ) -> super::builders::datastream::GetConnectionProfile {
+        super::builders::datastream::GetConnectionProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -122,8 +122,8 @@ impl Datastream {
     pub fn create_connection_profile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::CreateConnectionProfile {
-        crate::builders::datastream::CreateConnectionProfile::new(self.inner.clone())
+    ) -> super::builders::datastream::CreateConnectionProfile {
+        super::builders::datastream::CreateConnectionProfile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -141,8 +141,8 @@ impl Datastream {
     pub fn update_connection_profile(
         &self,
         connection_profile: impl Into<crate::model::ConnectionProfile>,
-    ) -> crate::builders::datastream::UpdateConnectionProfile {
-        crate::builders::datastream::UpdateConnectionProfile::new(self.inner.clone())
+    ) -> super::builders::datastream::UpdateConnectionProfile {
+        super::builders::datastream::UpdateConnectionProfile::new(self.inner.clone())
             .set_connection_profile(connection_profile.into())
     }
 
@@ -160,8 +160,8 @@ impl Datastream {
     pub fn delete_connection_profile(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::DeleteConnectionProfile {
-        crate::builders::datastream::DeleteConnectionProfile::new(self.inner.clone())
+    ) -> super::builders::datastream::DeleteConnectionProfile {
+        super::builders::datastream::DeleteConnectionProfile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -172,8 +172,8 @@ impl Datastream {
     pub fn discover_connection_profile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::DiscoverConnectionProfile {
-        crate::builders::datastream::DiscoverConnectionProfile::new(self.inner.clone())
+    ) -> super::builders::datastream::DiscoverConnectionProfile {
+        super::builders::datastream::DiscoverConnectionProfile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -181,16 +181,16 @@ impl Datastream {
     pub fn list_streams(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::ListStreams {
-        crate::builders::datastream::ListStreams::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::datastream::ListStreams {
+        super::builders::datastream::ListStreams::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Use this method to get details about a stream.
     pub fn get_stream(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::GetStream {
-        crate::builders::datastream::GetStream::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::GetStream {
+        super::builders::datastream::GetStream::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Use this method to create a stream.
@@ -207,8 +207,8 @@ impl Datastream {
     pub fn create_stream(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::CreateStream {
-        crate::builders::datastream::CreateStream::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::datastream::CreateStream {
+        super::builders::datastream::CreateStream::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Use this method to update the configuration of a stream.
@@ -225,8 +225,8 @@ impl Datastream {
     pub fn update_stream(
         &self,
         stream: impl Into<crate::model::Stream>,
-    ) -> crate::builders::datastream::UpdateStream {
-        crate::builders::datastream::UpdateStream::new(self.inner.clone()).set_stream(stream.into())
+    ) -> super::builders::datastream::UpdateStream {
+        super::builders::datastream::UpdateStream::new(self.inner.clone()).set_stream(stream.into())
     }
 
     /// Use this method to delete a stream.
@@ -243,8 +243,8 @@ impl Datastream {
     pub fn delete_stream(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::DeleteStream {
-        crate::builders::datastream::DeleteStream::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::DeleteStream {
+        super::builders::datastream::DeleteStream::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Use this method to start, resume or recover a stream with a non default CDC
@@ -262,24 +262,24 @@ impl Datastream {
     pub fn run_stream(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::RunStream {
-        crate::builders::datastream::RunStream::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::RunStream {
+        super::builders::datastream::RunStream::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Use this method to get details about a stream object.
     pub fn get_stream_object(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::GetStreamObject {
-        crate::builders::datastream::GetStreamObject::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::GetStreamObject {
+        super::builders::datastream::GetStreamObject::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Use this method to look up a stream object by its source object identifier.
     pub fn lookup_stream_object(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::LookupStreamObject {
-        crate::builders::datastream::LookupStreamObject::new(self.inner.clone())
+    ) -> super::builders::datastream::LookupStreamObject {
+        super::builders::datastream::LookupStreamObject::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -287,8 +287,8 @@ impl Datastream {
     pub fn list_stream_objects(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::ListStreamObjects {
-        crate::builders::datastream::ListStreamObjects::new(self.inner.clone())
+    ) -> super::builders::datastream::ListStreamObjects {
+        super::builders::datastream::ListStreamObjects::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -296,8 +296,8 @@ impl Datastream {
     pub fn start_backfill_job(
         &self,
         object: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::StartBackfillJob {
-        crate::builders::datastream::StartBackfillJob::new(self.inner.clone())
+    ) -> super::builders::datastream::StartBackfillJob {
+        super::builders::datastream::StartBackfillJob::new(self.inner.clone())
             .set_object(object.into())
     }
 
@@ -305,8 +305,8 @@ impl Datastream {
     pub fn stop_backfill_job(
         &self,
         object: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::StopBackfillJob {
-        crate::builders::datastream::StopBackfillJob::new(self.inner.clone())
+    ) -> super::builders::datastream::StopBackfillJob {
+        super::builders::datastream::StopBackfillJob::new(self.inner.clone())
             .set_object(object.into())
     }
 
@@ -315,8 +315,8 @@ impl Datastream {
     pub fn fetch_static_ips(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::FetchStaticIps {
-        crate::builders::datastream::FetchStaticIps::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::FetchStaticIps {
+        super::builders::datastream::FetchStaticIps::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Use this method to create a private connectivity configuration.
@@ -333,8 +333,8 @@ impl Datastream {
     pub fn create_private_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::CreatePrivateConnection {
-        crate::builders::datastream::CreatePrivateConnection::new(self.inner.clone())
+    ) -> super::builders::datastream::CreatePrivateConnection {
+        super::builders::datastream::CreatePrivateConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -342,8 +342,8 @@ impl Datastream {
     pub fn get_private_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::GetPrivateConnection {
-        crate::builders::datastream::GetPrivateConnection::new(self.inner.clone())
+    ) -> super::builders::datastream::GetPrivateConnection {
+        super::builders::datastream::GetPrivateConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -352,8 +352,8 @@ impl Datastream {
     pub fn list_private_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::ListPrivateConnections {
-        crate::builders::datastream::ListPrivateConnections::new(self.inner.clone())
+    ) -> super::builders::datastream::ListPrivateConnections {
+        super::builders::datastream::ListPrivateConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -371,8 +371,8 @@ impl Datastream {
     pub fn delete_private_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::DeletePrivateConnection {
-        crate::builders::datastream::DeletePrivateConnection::new(self.inner.clone())
+    ) -> super::builders::datastream::DeletePrivateConnection {
+        super::builders::datastream::DeletePrivateConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -391,16 +391,16 @@ impl Datastream {
     pub fn create_route(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::CreateRoute {
-        crate::builders::datastream::CreateRoute::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::datastream::CreateRoute {
+        super::builders::datastream::CreateRoute::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Use this method to get details about a route.
     pub fn get_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::GetRoute {
-        crate::builders::datastream::GetRoute::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::GetRoute {
+        super::builders::datastream::GetRoute::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Use this method to list routes created for a private connectivity
@@ -408,8 +408,8 @@ impl Datastream {
     pub fn list_routes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::ListRoutes {
-        crate::builders::datastream::ListRoutes::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::datastream::ListRoutes {
+        super::builders::datastream::ListRoutes::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Use this method to delete a route.
@@ -426,24 +426,24 @@ impl Datastream {
     pub fn delete_route(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::DeleteRoute {
-        crate::builders::datastream::DeleteRoute::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::DeleteRoute {
+        super::builders::datastream::DeleteRoute::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::ListLocations {
-        crate::builders::datastream::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::ListLocations {
+        super::builders::datastream::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::GetLocation {
-        crate::builders::datastream::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::GetLocation {
+        super::builders::datastream::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -452,8 +452,8 @@ impl Datastream {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::ListOperations {
-        crate::builders::datastream::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::ListOperations {
+        super::builders::datastream::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -462,8 +462,8 @@ impl Datastream {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::GetOperation {
-        crate::builders::datastream::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::GetOperation {
+        super::builders::datastream::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -472,8 +472,8 @@ impl Datastream {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::DeleteOperation {
-        crate::builders::datastream::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::DeleteOperation {
+        super::builders::datastream::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -482,7 +482,7 @@ impl Datastream {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::datastream::CancelOperation {
-        crate::builders::datastream::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::datastream::CancelOperation {
+        super::builders::datastream::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

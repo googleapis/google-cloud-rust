@@ -342,9 +342,9 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::VmMigration] also implement [VmMigration].
+/// All implementations of [super::VmMigration] also implement [VmMigration].
 #[async_trait::async_trait]
-impl<T: crate::stubs::VmMigration> VmMigration for T {
+impl<T: super::VmMigration> VmMigration for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_sources(
         &self,

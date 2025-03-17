@@ -60,9 +60,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::BinauthzManagementServiceV1] also implement [BinauthzManagementServiceV1].
+/// All implementations of [super::BinauthzManagementServiceV1] also implement [BinauthzManagementServiceV1].
 #[async_trait::async_trait]
-impl<T: crate::stubs::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
+impl<T: super::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_policy(
         &self,
@@ -137,9 +137,9 @@ pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Policy>;
 }
 
-/// All implementations of [crate::stubs::SystemPolicyV1] also implement [SystemPolicyV1].
+/// All implementations of [super::SystemPolicyV1] also implement [SystemPolicyV1].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SystemPolicyV1> SystemPolicyV1 for T {
+impl<T: super::SystemPolicyV1> SystemPolicyV1 for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_system_policy(
         &self,
@@ -160,9 +160,9 @@ pub trait ValidationHelperV1: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ValidateAttestationOccurrenceResponse>;
 }
 
-/// All implementations of [crate::stubs::ValidationHelperV1] also implement [ValidationHelperV1].
+/// All implementations of [super::ValidationHelperV1] also implement [ValidationHelperV1].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ValidationHelperV1> ValidationHelperV1 for T {
+impl<T: super::ValidationHelperV1> ValidationHelperV1 for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn validate_attestation_occurrence(
         &self,

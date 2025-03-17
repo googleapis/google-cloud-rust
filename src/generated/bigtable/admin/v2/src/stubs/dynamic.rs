@@ -180,9 +180,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::BigtableInstanceAdmin] also implement [BigtableInstanceAdmin].
+/// All implementations of [super::BigtableInstanceAdmin] also implement [BigtableInstanceAdmin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
+impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_instance(
         &self,
@@ -641,9 +641,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::BigtableTableAdmin] also implement [BigtableTableAdmin].
+/// All implementations of [super::BigtableTableAdmin] also implement [BigtableTableAdmin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::BigtableTableAdmin> BigtableTableAdmin for T {
+impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_table(
         &self,

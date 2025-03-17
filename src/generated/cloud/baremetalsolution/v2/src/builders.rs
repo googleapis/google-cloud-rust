@@ -18,10 +18,10 @@ pub mod bare_metal_solution {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::BareMetalSolution] request builders.
+    /// Common implementation for [super::super::client::BareMetalSolution] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>,
+        stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod bare_metal_solution {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod bare_metal_solution {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -117,7 +117,7 @@ pub mod bare_metal_solution {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -158,7 +158,7 @@ pub mod bare_metal_solution {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,7 +179,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][crate::client::BareMetalSolution::update_instance].
+        /// on [update_instance][super::super::client::BareMetalSolution::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -249,7 +249,7 @@ pub mod bare_metal_solution {
     pub struct RenameInstance(RequestBuilder<crate::model::RenameInstanceRequest>);
 
     impl RenameInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,7 +296,7 @@ pub mod bare_metal_solution {
     pub struct ResetInstance(RequestBuilder<crate::model::ResetInstanceRequest>);
 
     impl ResetInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -317,7 +317,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_instance][crate::client::BareMetalSolution::reset_instance].
+        /// on [reset_instance][super::super::client::BareMetalSolution::reset_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_instance(self.0.request, self.0.options)
@@ -378,7 +378,7 @@ pub mod bare_metal_solution {
     pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
 
     impl StartInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -399,7 +399,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_instance][crate::client::BareMetalSolution::start_instance].
+        /// on [start_instance][super::super::client::BareMetalSolution::start_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_instance(self.0.request, self.0.options)
@@ -460,7 +460,7 @@ pub mod bare_metal_solution {
     pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
 
     impl StopInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -481,7 +481,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_instance][crate::client::BareMetalSolution::stop_instance].
+        /// on [stop_instance][super::super::client::BareMetalSolution::stop_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_instance(self.0.request, self.0.options)
@@ -542,7 +542,7 @@ pub mod bare_metal_solution {
     );
 
     impl EnableInteractiveSerialConsole {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -566,7 +566,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_interactive_serial_console][crate::client::BareMetalSolution::enable_interactive_serial_console].
+        /// on [enable_interactive_serial_console][super::super::client::BareMetalSolution::enable_interactive_serial_console].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_interactive_serial_console(self.0.request, self.0.options)
@@ -631,7 +631,7 @@ pub mod bare_metal_solution {
     );
 
     impl DisableInteractiveSerialConsole {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -655,7 +655,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_interactive_serial_console][crate::client::BareMetalSolution::disable_interactive_serial_console].
+        /// on [disable_interactive_serial_console][super::super::client::BareMetalSolution::disable_interactive_serial_console].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_interactive_serial_console(self.0.request, self.0.options)
@@ -718,7 +718,7 @@ pub mod bare_metal_solution {
     pub struct DetachLun(RequestBuilder<crate::model::DetachLunRequest>);
 
     impl DetachLun {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -739,7 +739,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [detach_lun][crate::client::BareMetalSolution::detach_lun].
+        /// on [detach_lun][super::super::client::BareMetalSolution::detach_lun].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .detach_lun(self.0.request, self.0.options)
@@ -809,7 +809,7 @@ pub mod bare_metal_solution {
     pub struct ListSSHKeys(RequestBuilder<crate::model::ListSSHKeysRequest>);
 
     impl ListSSHKeys {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -876,7 +876,7 @@ pub mod bare_metal_solution {
     pub struct CreateSSHKey(RequestBuilder<crate::model::CreateSSHKeyRequest>);
 
     impl CreateSSHKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -932,7 +932,7 @@ pub mod bare_metal_solution {
     pub struct DeleteSSHKey(RequestBuilder<crate::model::DeleteSSHKeyRequest>);
 
     impl DeleteSSHKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -973,7 +973,7 @@ pub mod bare_metal_solution {
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
     impl ListVolumes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1046,7 +1046,7 @@ pub mod bare_metal_solution {
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
     impl GetVolume {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1087,7 +1087,7 @@ pub mod bare_metal_solution {
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
     impl UpdateVolume {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1108,7 +1108,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_volume][crate::client::BareMetalSolution::update_volume].
+        /// on [update_volume][super::super::client::BareMetalSolution::update_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
@@ -1177,7 +1177,7 @@ pub mod bare_metal_solution {
     pub struct RenameVolume(RequestBuilder<crate::model::RenameVolumeRequest>);
 
     impl RenameVolume {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1224,7 +1224,7 @@ pub mod bare_metal_solution {
     pub struct EvictVolume(RequestBuilder<crate::model::EvictVolumeRequest>);
 
     impl EvictVolume {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1245,7 +1245,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [evict_volume][crate::client::BareMetalSolution::evict_volume].
+        /// on [evict_volume][super::super::client::BareMetalSolution::evict_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .evict_volume(self.0.request, self.0.options)
@@ -1300,7 +1300,7 @@ pub mod bare_metal_solution {
     pub struct ResizeVolume(RequestBuilder<crate::model::ResizeVolumeRequest>);
 
     impl ResizeVolume {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1321,7 +1321,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resize_volume][crate::client::BareMetalSolution::resize_volume].
+        /// on [resize_volume][super::super::client::BareMetalSolution::resize_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resize_volume(self.0.request, self.0.options)
@@ -1384,7 +1384,7 @@ pub mod bare_metal_solution {
     pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
 
     impl ListNetworks {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1457,7 +1457,7 @@ pub mod bare_metal_solution {
     pub struct ListNetworkUsage(RequestBuilder<crate::model::ListNetworkUsageRequest>);
 
     impl ListNetworkUsage {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1501,7 +1501,7 @@ pub mod bare_metal_solution {
     pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
 
     impl GetNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1542,7 +1542,7 @@ pub mod bare_metal_solution {
     pub struct UpdateNetwork(RequestBuilder<crate::model::UpdateNetworkRequest>);
 
     impl UpdateNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1563,7 +1563,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_network][crate::client::BareMetalSolution::update_network].
+        /// on [update_network][super::super::client::BareMetalSolution::update_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network(self.0.request, self.0.options)
@@ -1632,7 +1632,7 @@ pub mod bare_metal_solution {
     pub struct CreateVolumeSnapshot(RequestBuilder<crate::model::CreateVolumeSnapshotRequest>);
 
     impl CreateVolumeSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1685,7 +1685,7 @@ pub mod bare_metal_solution {
     pub struct RestoreVolumeSnapshot(RequestBuilder<crate::model::RestoreVolumeSnapshotRequest>);
 
     impl RestoreVolumeSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1709,7 +1709,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_volume_snapshot][crate::client::BareMetalSolution::restore_volume_snapshot].
+        /// on [restore_volume_snapshot][super::super::client::BareMetalSolution::restore_volume_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_volume_snapshot(self.0.request, self.0.options)
@@ -1768,7 +1768,7 @@ pub mod bare_metal_solution {
     pub struct DeleteVolumeSnapshot(RequestBuilder<crate::model::DeleteVolumeSnapshotRequest>);
 
     impl DeleteVolumeSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1812,7 +1812,7 @@ pub mod bare_metal_solution {
     pub struct GetVolumeSnapshot(RequestBuilder<crate::model::GetVolumeSnapshotRequest>);
 
     impl GetVolumeSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1856,7 +1856,7 @@ pub mod bare_metal_solution {
     pub struct ListVolumeSnapshots(RequestBuilder<crate::model::ListVolumeSnapshotsRequest>);
 
     impl ListVolumeSnapshots {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1926,7 +1926,7 @@ pub mod bare_metal_solution {
     pub struct GetLun(RequestBuilder<crate::model::GetLunRequest>);
 
     impl GetLun {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1965,7 +1965,7 @@ pub mod bare_metal_solution {
     pub struct ListLuns(RequestBuilder<crate::model::ListLunsRequest>);
 
     impl ListLuns {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2031,7 +2031,7 @@ pub mod bare_metal_solution {
     pub struct EvictLun(RequestBuilder<crate::model::EvictLunRequest>);
 
     impl EvictLun {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2052,7 +2052,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [evict_lun][crate::client::BareMetalSolution::evict_lun].
+        /// on [evict_lun][super::super::client::BareMetalSolution::evict_lun].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .evict_lun(self.0.request, self.0.options)
@@ -2107,7 +2107,7 @@ pub mod bare_metal_solution {
     pub struct GetNfsShare(RequestBuilder<crate::model::GetNfsShareRequest>);
 
     impl GetNfsShare {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2148,7 +2148,7 @@ pub mod bare_metal_solution {
     pub struct ListNfsShares(RequestBuilder<crate::model::ListNfsSharesRequest>);
 
     impl ListNfsShares {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2221,7 +2221,7 @@ pub mod bare_metal_solution {
     pub struct UpdateNfsShare(RequestBuilder<crate::model::UpdateNfsShareRequest>);
 
     impl UpdateNfsShare {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2242,7 +2242,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_nfs_share][crate::client::BareMetalSolution::update_nfs_share].
+        /// on [update_nfs_share][super::super::client::BareMetalSolution::update_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_nfs_share(self.0.request, self.0.options)
@@ -2312,7 +2312,7 @@ pub mod bare_metal_solution {
     pub struct CreateNfsShare(RequestBuilder<crate::model::CreateNfsShareRequest>);
 
     impl CreateNfsShare {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2333,7 +2333,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_nfs_share][crate::client::BareMetalSolution::create_nfs_share].
+        /// on [create_nfs_share][super::super::client::BareMetalSolution::create_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_nfs_share(self.0.request, self.0.options)
@@ -2400,7 +2400,7 @@ pub mod bare_metal_solution {
     pub struct RenameNfsShare(RequestBuilder<crate::model::RenameNfsShareRequest>);
 
     impl RenameNfsShare {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2447,7 +2447,7 @@ pub mod bare_metal_solution {
     pub struct DeleteNfsShare(RequestBuilder<crate::model::DeleteNfsShareRequest>);
 
     impl DeleteNfsShare {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2468,7 +2468,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_nfs_share][crate::client::BareMetalSolution::delete_nfs_share].
+        /// on [delete_nfs_share][super::super::client::BareMetalSolution::delete_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_nfs_share(self.0.request, self.0.options)
@@ -2523,7 +2523,7 @@ pub mod bare_metal_solution {
     pub struct ListProvisioningQuotas(RequestBuilder<crate::model::ListProvisioningQuotasRequest>);
 
     impl ListProvisioningQuotas {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2597,7 +2597,7 @@ pub mod bare_metal_solution {
     );
 
     impl SubmitProvisioningConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2658,7 +2658,7 @@ pub mod bare_metal_solution {
     pub struct GetProvisioningConfig(RequestBuilder<crate::model::GetProvisioningConfigRequest>);
 
     impl GetProvisioningConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2704,7 +2704,7 @@ pub mod bare_metal_solution {
     );
 
     impl CreateProvisioningConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2767,7 +2767,7 @@ pub mod bare_metal_solution {
     );
 
     impl UpdateProvisioningConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2831,7 +2831,7 @@ pub mod bare_metal_solution {
     pub struct RenameNetwork(RequestBuilder<crate::model::RenameNetworkRequest>);
 
     impl RenameNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2878,7 +2878,7 @@ pub mod bare_metal_solution {
     pub struct ListOSImages(RequestBuilder<crate::model::ListOSImagesRequest>);
 
     impl ListOSImages {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2945,7 +2945,7 @@ pub mod bare_metal_solution {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3021,7 +3021,7 @@ pub mod bare_metal_solution {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3062,7 +3062,7 @@ pub mod bare_metal_solution {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BareMetalSolution>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

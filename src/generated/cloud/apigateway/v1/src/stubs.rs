@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ApiGatewayService].
+/// Defines the trait used to implement [super::client::ApiGatewayService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ApiGatewayService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ApiGatewayService::list_gateways].
+    /// Implements [super::client::ApiGatewayService::list_gateways].
     fn list_gateways(
         &self,
         _req: crate::model::ListGatewaysRequest,
@@ -53,7 +53,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::get_gateway].
+    /// Implements [super::client::ApiGatewayService::get_gateway].
     fn get_gateway(
         &self,
         _req: crate::model::GetGatewayRequest,
@@ -64,7 +64,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::create_gateway].
+    /// Implements [super::client::ApiGatewayService::create_gateway].
     fn create_gateway(
         &self,
         _req: crate::model::CreateGatewayRequest,
@@ -76,7 +76,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::update_gateway].
+    /// Implements [super::client::ApiGatewayService::update_gateway].
     fn update_gateway(
         &self,
         _req: crate::model::UpdateGatewayRequest,
@@ -88,7 +88,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::delete_gateway].
+    /// Implements [super::client::ApiGatewayService::delete_gateway].
     fn delete_gateway(
         &self,
         _req: crate::model::DeleteGatewayRequest,
@@ -100,7 +100,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::list_apis].
+    /// Implements [super::client::ApiGatewayService::list_apis].
     fn list_apis(
         &self,
         _req: crate::model::ListApisRequest,
@@ -112,7 +112,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::get_api].
+    /// Implements [super::client::ApiGatewayService::get_api].
     fn get_api(
         &self,
         _req: crate::model::GetApiRequest,
@@ -121,7 +121,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Api>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiGatewayService::create_api].
+    /// Implements [super::client::ApiGatewayService::create_api].
     fn create_api(
         &self,
         _req: crate::model::CreateApiRequest,
@@ -133,7 +133,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::update_api].
+    /// Implements [super::client::ApiGatewayService::update_api].
     fn update_api(
         &self,
         _req: crate::model::UpdateApiRequest,
@@ -145,7 +145,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::delete_api].
+    /// Implements [super::client::ApiGatewayService::delete_api].
     fn delete_api(
         &self,
         _req: crate::model::DeleteApiRequest,
@@ -157,7 +157,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::list_api_configs].
+    /// Implements [super::client::ApiGatewayService::list_api_configs].
     fn list_api_configs(
         &self,
         _req: crate::model::ListApiConfigsRequest,
@@ -169,7 +169,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiGatewayService::get_api_config].
+    /// Implements [super::client::ApiGatewayService::get_api_config].
     fn get_api_config(
         &self,
         _req: crate::model::GetApiConfigRequest,
@@ -180,7 +180,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::create_api_config].
+    /// Implements [super::client::ApiGatewayService::create_api_config].
     fn create_api_config(
         &self,
         _req: crate::model::CreateApiConfigRequest,
@@ -192,7 +192,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::update_api_config].
+    /// Implements [super::client::ApiGatewayService::update_api_config].
     fn update_api_config(
         &self,
         _req: crate::model::UpdateApiConfigRequest,
@@ -204,7 +204,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::delete_api_config].
+    /// Implements [super::client::ApiGatewayService::delete_api_config].
     fn delete_api_config(
         &self,
         _req: crate::model::DeleteApiConfigRequest,
@@ -216,7 +216,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::list_operations].
+    /// Implements [super::client::ApiGatewayService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -228,7 +228,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiGatewayService::get_operation].
+    /// Implements [super::client::ApiGatewayService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -240,7 +240,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiGatewayService::delete_operation].
+    /// Implements [super::client::ApiGatewayService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -249,7 +249,7 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiGatewayService::cancel_operation].
+    /// Implements [super::client::ApiGatewayService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

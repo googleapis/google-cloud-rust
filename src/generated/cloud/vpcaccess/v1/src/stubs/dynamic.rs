@@ -72,9 +72,9 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::VpcAccessService] also implement [VpcAccessService].
+/// All implementations of [super::VpcAccessService] also implement [VpcAccessService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::VpcAccessService> VpcAccessService for T {
+impl<T: super::VpcAccessService> VpcAccessService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_connector(
         &self,

@@ -18,10 +18,10 @@ pub mod policies {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Policies] request builders.
+    /// Common implementation for [super::super::client::Policies] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Policies>,
+        stub: Arc<dyn super::super::stubs::dynamic::Policies>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod policies {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Policies>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod policies {
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -111,7 +111,7 @@ pub mod policies {
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -152,7 +152,7 @@ pub mod policies {
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -173,7 +173,7 @@ pub mod policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_policy][crate::client::Policies::create_policy].
+        /// on [create_policy][super::super::client::Policies::create_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_policy(self.0.request, self.0.options)
@@ -246,7 +246,7 @@ pub mod policies {
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -267,7 +267,7 @@ pub mod policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_policy][crate::client::Policies::update_policy].
+        /// on [update_policy][super::super::client::Policies::update_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_policy(self.0.request, self.0.options)
@@ -328,7 +328,7 @@ pub mod policies {
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -349,7 +349,7 @@ pub mod policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_policy][crate::client::Policies::delete_policy].
+        /// on [delete_policy][super::super::client::Policies::delete_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_policy(self.0.request, self.0.options)
@@ -413,7 +413,7 @@ pub mod policies {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

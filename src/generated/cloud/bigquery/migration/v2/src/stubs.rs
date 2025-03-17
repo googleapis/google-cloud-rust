@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::MigrationService].
+/// Defines the trait used to implement [super::client::MigrationService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::MigrationService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait MigrationService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::MigrationService::create_migration_workflow].
+    /// Implements [super::client::MigrationService::create_migration_workflow].
     fn create_migration_workflow(
         &self,
         _req: crate::model::CreateMigrationWorkflowRequest,
@@ -52,7 +52,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationService::get_migration_workflow].
+    /// Implements [super::client::MigrationService::get_migration_workflow].
     fn get_migration_workflow(
         &self,
         _req: crate::model::GetMigrationWorkflowRequest,
@@ -64,7 +64,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationService::list_migration_workflows].
+    /// Implements [super::client::MigrationService::list_migration_workflows].
     fn list_migration_workflows(
         &self,
         _req: crate::model::ListMigrationWorkflowsRequest,
@@ -76,7 +76,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationService::delete_migration_workflow].
+    /// Implements [super::client::MigrationService::delete_migration_workflow].
     fn delete_migration_workflow(
         &self,
         _req: crate::model::DeleteMigrationWorkflowRequest,
@@ -85,7 +85,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MigrationService::start_migration_workflow].
+    /// Implements [super::client::MigrationService::start_migration_workflow].
     fn start_migration_workflow(
         &self,
         _req: crate::model::StartMigrationWorkflowRequest,
@@ -94,7 +94,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MigrationService::get_migration_subtask].
+    /// Implements [super::client::MigrationService::get_migration_subtask].
     fn get_migration_subtask(
         &self,
         _req: crate::model::GetMigrationSubtaskRequest,
@@ -106,7 +106,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationService::list_migration_subtasks].
+    /// Implements [super::client::MigrationService::list_migration_subtasks].
     fn list_migration_subtasks(
         &self,
         _req: crate::model::ListMigrationSubtasksRequest,

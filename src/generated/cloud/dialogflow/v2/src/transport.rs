@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Agents](crate::stubs::Agents) using a [gclient::ReqwestClient].
+/// Implements [Agents](super::stubs::Agents) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Agents {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Agents {
     }
 }
 
-impl crate::stubs::Agents for Agents {
+impl super::stubs::Agents for Agents {
     async fn get_agent(
         &self,
         req: crate::model::GetAgentRequest,
@@ -357,7 +357,7 @@ impl crate::stubs::Agents for Agents {
     }
 }
 
-/// Implements [AnswerRecords](crate::stubs::AnswerRecords) using a [gclient::ReqwestClient].
+/// Implements [AnswerRecords](super::stubs::AnswerRecords) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AnswerRecords {
     inner: gclient::ReqwestClient,
@@ -378,7 +378,7 @@ impl AnswerRecords {
     }
 }
 
-impl crate::stubs::AnswerRecords for AnswerRecords {
+impl super::stubs::AnswerRecords for AnswerRecords {
     async fn list_answer_records(
         &self,
         req: crate::model::ListAnswerRecordsRequest,
@@ -544,7 +544,7 @@ impl crate::stubs::AnswerRecords for AnswerRecords {
     }
 }
 
-/// Implements [Contexts](crate::stubs::Contexts) using a [gclient::ReqwestClient].
+/// Implements [Contexts](super::stubs::Contexts) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Contexts {
     inner: gclient::ReqwestClient,
@@ -565,7 +565,7 @@ impl Contexts {
     }
 }
 
-impl crate::stubs::Contexts for Contexts {
+impl super::stubs::Contexts for Contexts {
     async fn list_contexts(
         &self,
         req: crate::model::ListContextsRequest,
@@ -809,7 +809,7 @@ impl crate::stubs::Contexts for Contexts {
     }
 }
 
-/// Implements [Conversations](crate::stubs::Conversations) using a [gclient::ReqwestClient].
+/// Implements [Conversations](super::stubs::Conversations) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Conversations {
     inner: gclient::ReqwestClient,
@@ -830,7 +830,7 @@ impl Conversations {
     }
 }
 
-impl crate::stubs::Conversations for Conversations {
+impl super::stubs::Conversations for Conversations {
     async fn create_conversation(
         &self,
         req: crate::model::CreateConversationRequest,
@@ -1168,7 +1168,7 @@ impl crate::stubs::Conversations for Conversations {
     }
 }
 
-/// Implements [ConversationDatasets](crate::stubs::ConversationDatasets) using a [gclient::ReqwestClient].
+/// Implements [ConversationDatasets](super::stubs::ConversationDatasets) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ConversationDatasets {
     inner: gclient::ReqwestClient,
@@ -1189,7 +1189,7 @@ impl ConversationDatasets {
     }
 }
 
-impl crate::stubs::ConversationDatasets for ConversationDatasets {
+impl super::stubs::ConversationDatasets for ConversationDatasets {
     async fn create_conversation_dataset(
         &self,
         req: crate::model::CreateConversationDatasetRequest,
@@ -1410,7 +1410,7 @@ impl crate::stubs::ConversationDatasets for ConversationDatasets {
     }
 }
 
-/// Implements [ConversationModels](crate::stubs::ConversationModels) using a [gclient::ReqwestClient].
+/// Implements [ConversationModels](super::stubs::ConversationModels) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ConversationModels {
     inner: gclient::ReqwestClient,
@@ -1431,7 +1431,7 @@ impl ConversationModels {
     }
 }
 
-impl crate::stubs::ConversationModels for ConversationModels {
+impl super::stubs::ConversationModels for ConversationModels {
     async fn create_conversation_model(
         &self,
         req: crate::model::CreateConversationModelRequest,
@@ -1729,7 +1729,7 @@ impl crate::stubs::ConversationModels for ConversationModels {
     }
 }
 
-/// Implements [ConversationProfiles](crate::stubs::ConversationProfiles) using a [gclient::ReqwestClient].
+/// Implements [ConversationProfiles](super::stubs::ConversationProfiles) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ConversationProfiles {
     inner: gclient::ReqwestClient,
@@ -1750,7 +1750,7 @@ impl ConversationProfiles {
     }
 }
 
-impl crate::stubs::ConversationProfiles for ConversationProfiles {
+impl super::stubs::ConversationProfiles for ConversationProfiles {
     async fn list_conversation_profiles(
         &self,
         req: crate::model::ListConversationProfilesRequest,
@@ -2035,7 +2035,7 @@ impl crate::stubs::ConversationProfiles for ConversationProfiles {
     }
 }
 
-/// Implements [Documents](crate::stubs::Documents) using a [gclient::ReqwestClient].
+/// Implements [Documents](super::stubs::Documents) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Documents {
     inner: gclient::ReqwestClient,
@@ -2056,7 +2056,7 @@ impl Documents {
     }
 }
 
-impl crate::stubs::Documents for Documents {
+impl super::stubs::Documents for Documents {
     async fn list_documents(
         &self,
         req: crate::model::ListDocumentsRequest,
@@ -2350,7 +2350,7 @@ impl crate::stubs::Documents for Documents {
     }
 }
 
-/// Implements [EncryptionSpecService](crate::stubs::EncryptionSpecService) using a [gclient::ReqwestClient].
+/// Implements [EncryptionSpecService](super::stubs::EncryptionSpecService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct EncryptionSpecService {
     inner: gclient::ReqwestClient,
@@ -2371,7 +2371,7 @@ impl EncryptionSpecService {
     }
 }
 
-impl crate::stubs::EncryptionSpecService for EncryptionSpecService {
+impl super::stubs::EncryptionSpecService for EncryptionSpecService {
     async fn get_encryption_spec(
         &self,
         req: crate::model::GetEncryptionSpecRequest,
@@ -2533,7 +2533,7 @@ impl crate::stubs::EncryptionSpecService for EncryptionSpecService {
     }
 }
 
-/// Implements [EntityTypes](crate::stubs::EntityTypes) using a [gclient::ReqwestClient].
+/// Implements [EntityTypes](super::stubs::EntityTypes) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct EntityTypes {
     inner: gclient::ReqwestClient,
@@ -2554,7 +2554,7 @@ impl EntityTypes {
     }
 }
 
-impl crate::stubs::EntityTypes for EntityTypes {
+impl super::stubs::EntityTypes for EntityTypes {
     async fn list_entity_types(
         &self,
         req: crate::model::ListEntityTypesRequest,
@@ -2897,7 +2897,7 @@ impl crate::stubs::EntityTypes for EntityTypes {
     }
 }
 
-/// Implements [Environments](crate::stubs::Environments) using a [gclient::ReqwestClient].
+/// Implements [Environments](super::stubs::Environments) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Environments {
     inner: gclient::ReqwestClient,
@@ -2918,7 +2918,7 @@ impl Environments {
     }
 }
 
-impl crate::stubs::Environments for Environments {
+impl super::stubs::Environments for Environments {
     async fn list_environments(
         &self,
         req: crate::model::ListEnvironmentsRequest,
@@ -3169,7 +3169,7 @@ impl crate::stubs::Environments for Environments {
     }
 }
 
-/// Implements [Fulfillments](crate::stubs::Fulfillments) using a [gclient::ReqwestClient].
+/// Implements [Fulfillments](super::stubs::Fulfillments) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Fulfillments {
     inner: gclient::ReqwestClient,
@@ -3190,7 +3190,7 @@ impl Fulfillments {
     }
 }
 
-impl crate::stubs::Fulfillments for Fulfillments {
+impl super::stubs::Fulfillments for Fulfillments {
     async fn get_fulfillment(
         &self,
         req: crate::model::GetFulfillmentRequest,
@@ -3350,7 +3350,7 @@ impl crate::stubs::Fulfillments for Fulfillments {
     }
 }
 
-/// Implements [Generators](crate::stubs::Generators) using a [gclient::ReqwestClient].
+/// Implements [Generators](super::stubs::Generators) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Generators {
     inner: gclient::ReqwestClient,
@@ -3371,7 +3371,7 @@ impl Generators {
     }
 }
 
-impl crate::stubs::Generators for Generators {
+impl super::stubs::Generators for Generators {
     async fn create_generator(
         &self,
         req: crate::model::CreateGeneratorRequest,
@@ -3597,7 +3597,7 @@ impl crate::stubs::Generators for Generators {
     }
 }
 
-/// Implements [Intents](crate::stubs::Intents) using a [gclient::ReqwestClient].
+/// Implements [Intents](super::stubs::Intents) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Intents {
     inner: gclient::ReqwestClient,
@@ -3618,7 +3618,7 @@ impl Intents {
     }
 }
 
-impl crate::stubs::Intents for Intents {
+impl super::stubs::Intents for Intents {
     async fn list_intents(
         &self,
         req: crate::model::ListIntentsRequest,
@@ -3895,7 +3895,7 @@ impl crate::stubs::Intents for Intents {
     }
 }
 
-/// Implements [KnowledgeBases](crate::stubs::KnowledgeBases) using a [gclient::ReqwestClient].
+/// Implements [KnowledgeBases](super::stubs::KnowledgeBases) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct KnowledgeBases {
     inner: gclient::ReqwestClient,
@@ -3916,7 +3916,7 @@ impl KnowledgeBases {
     }
 }
 
-impl crate::stubs::KnowledgeBases for KnowledgeBases {
+impl super::stubs::KnowledgeBases for KnowledgeBases {
     async fn list_knowledge_bases(
         &self,
         req: crate::model::ListKnowledgeBasesRequest,
@@ -4143,7 +4143,7 @@ impl crate::stubs::KnowledgeBases for KnowledgeBases {
     }
 }
 
-/// Implements [Participants](crate::stubs::Participants) using a [gclient::ReqwestClient].
+/// Implements [Participants](super::stubs::Participants) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Participants {
     inner: gclient::ReqwestClient,
@@ -4164,7 +4164,7 @@ impl Participants {
     }
 }
 
-impl crate::stubs::Participants for Participants {
+impl super::stubs::Participants for Participants {
     async fn create_participant(
         &self,
         req: crate::model::CreateParticipantRequest,
@@ -4470,7 +4470,7 @@ impl crate::stubs::Participants for Participants {
     }
 }
 
-/// Implements [Sessions](crate::stubs::Sessions) using a [gclient::ReqwestClient].
+/// Implements [Sessions](super::stubs::Sessions) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Sessions {
     inner: gclient::ReqwestClient,
@@ -4491,7 +4491,7 @@ impl Sessions {
     }
 }
 
-impl crate::stubs::Sessions for Sessions {
+impl super::stubs::Sessions for Sessions {
     async fn detect_intent(
         &self,
         req: crate::model::DetectIntentRequest,
@@ -4614,7 +4614,7 @@ impl crate::stubs::Sessions for Sessions {
     }
 }
 
-/// Implements [SessionEntityTypes](crate::stubs::SessionEntityTypes) using a [gclient::ReqwestClient].
+/// Implements [SessionEntityTypes](super::stubs::SessionEntityTypes) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SessionEntityTypes {
     inner: gclient::ReqwestClient,
@@ -4635,7 +4635,7 @@ impl SessionEntityTypes {
     }
 }
 
-impl crate::stubs::SessionEntityTypes for SessionEntityTypes {
+impl super::stubs::SessionEntityTypes for SessionEntityTypes {
     async fn list_session_entity_types(
         &self,
         req: crate::model::ListSessionEntityTypesRequest,
@@ -4860,7 +4860,7 @@ impl crate::stubs::SessionEntityTypes for SessionEntityTypes {
     }
 }
 
-/// Implements [Versions](crate::stubs::Versions) using a [gclient::ReqwestClient].
+/// Implements [Versions](super::stubs::Versions) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Versions {
     inner: gclient::ReqwestClient,
@@ -4881,7 +4881,7 @@ impl Versions {
     }
 }
 
-impl crate::stubs::Versions for Versions {
+impl super::stubs::Versions for Versions {
     async fn list_versions(
         &self,
         req: crate::model::ListVersionsRequest,

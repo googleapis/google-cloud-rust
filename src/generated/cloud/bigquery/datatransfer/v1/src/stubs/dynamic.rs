@@ -126,9 +126,9 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<location::model::Location>;
 }
 
-/// All implementations of [crate::stubs::DataTransferService] also implement [DataTransferService].
+/// All implementations of [super::DataTransferService] also implement [DataTransferService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DataTransferService> DataTransferService for T {
+impl<T: super::DataTransferService> DataTransferService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_data_source(
         &self,

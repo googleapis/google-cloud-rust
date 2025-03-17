@@ -50,7 +50,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ArtifactRegistry {
-    inner: Arc<dyn crate::stubs::dynamic::ArtifactRegistry>,
+    inner: Arc<dyn super::stubs::dynamic::ArtifactRegistry>,
 }
 
 impl ArtifactRegistry {
@@ -71,7 +71,7 @@ impl ArtifactRegistry {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ArtifactRegistry + 'static,
+        T: super::stubs::ArtifactRegistry + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -80,7 +80,7 @@ impl ArtifactRegistry {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ArtifactRegistry>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ArtifactRegistry>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -89,24 +89,24 @@ impl ArtifactRegistry {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ArtifactRegistry> {
-        crate::transport::ArtifactRegistry::new(conf).await
+    ) -> Result<impl super::stubs::ArtifactRegistry> {
+        super::transport::ArtifactRegistry::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ArtifactRegistry> {
+    ) -> Result<impl super::stubs::ArtifactRegistry> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ArtifactRegistry::new)
+            .map(super::tracing::ArtifactRegistry::new)
     }
 
     /// Lists docker images.
     pub fn list_docker_images(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListDockerImages {
-        crate::builders::artifact_registry::ListDockerImages::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListDockerImages {
+        super::builders::artifact_registry::ListDockerImages::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -114,8 +114,8 @@ impl ArtifactRegistry {
     pub fn get_docker_image(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetDockerImage {
-        crate::builders::artifact_registry::GetDockerImage::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetDockerImage {
+        super::builders::artifact_registry::GetDockerImage::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -123,8 +123,8 @@ impl ArtifactRegistry {
     pub fn list_maven_artifacts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListMavenArtifacts {
-        crate::builders::artifact_registry::ListMavenArtifacts::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListMavenArtifacts {
+        super::builders::artifact_registry::ListMavenArtifacts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -132,8 +132,8 @@ impl ArtifactRegistry {
     pub fn get_maven_artifact(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetMavenArtifact {
-        crate::builders::artifact_registry::GetMavenArtifact::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetMavenArtifact {
+        super::builders::artifact_registry::GetMavenArtifact::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -141,8 +141,8 @@ impl ArtifactRegistry {
     pub fn list_npm_packages(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListNpmPackages {
-        crate::builders::artifact_registry::ListNpmPackages::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListNpmPackages {
+        super::builders::artifact_registry::ListNpmPackages::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -150,8 +150,8 @@ impl ArtifactRegistry {
     pub fn get_npm_package(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetNpmPackage {
-        crate::builders::artifact_registry::GetNpmPackage::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetNpmPackage {
+        super::builders::artifact_registry::GetNpmPackage::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -159,8 +159,8 @@ impl ArtifactRegistry {
     pub fn list_python_packages(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListPythonPackages {
-        crate::builders::artifact_registry::ListPythonPackages::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListPythonPackages {
+        super::builders::artifact_registry::ListPythonPackages::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -168,8 +168,8 @@ impl ArtifactRegistry {
     pub fn get_python_package(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetPythonPackage {
-        crate::builders::artifact_registry::GetPythonPackage::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetPythonPackage {
+        super::builders::artifact_registry::GetPythonPackage::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -190,8 +190,8 @@ impl ArtifactRegistry {
     pub fn import_apt_artifacts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ImportAptArtifacts {
-        crate::builders::artifact_registry::ImportAptArtifacts::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ImportAptArtifacts {
+        super::builders::artifact_registry::ImportAptArtifacts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -212,8 +212,8 @@ impl ArtifactRegistry {
     pub fn import_yum_artifacts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ImportYumArtifacts {
-        crate::builders::artifact_registry::ImportYumArtifacts::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ImportYumArtifacts {
+        super::builders::artifact_registry::ImportYumArtifacts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -221,8 +221,8 @@ impl ArtifactRegistry {
     pub fn list_repositories(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListRepositories {
-        crate::builders::artifact_registry::ListRepositories::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListRepositories {
+        super::builders::artifact_registry::ListRepositories::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -230,8 +230,8 @@ impl ArtifactRegistry {
     pub fn get_repository(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetRepository {
-        crate::builders::artifact_registry::GetRepository::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetRepository {
+        super::builders::artifact_registry::GetRepository::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -250,8 +250,8 @@ impl ArtifactRegistry {
     pub fn create_repository(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::CreateRepository {
-        crate::builders::artifact_registry::CreateRepository::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::CreateRepository {
+        super::builders::artifact_registry::CreateRepository::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -259,8 +259,8 @@ impl ArtifactRegistry {
     pub fn update_repository(
         &self,
         repository: impl Into<crate::model::Repository>,
-    ) -> crate::builders::artifact_registry::UpdateRepository {
-        crate::builders::artifact_registry::UpdateRepository::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::UpdateRepository {
+        super::builders::artifact_registry::UpdateRepository::new(self.inner.clone())
             .set_repository(repository.into())
     }
 
@@ -280,8 +280,8 @@ impl ArtifactRegistry {
     pub fn delete_repository(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::DeleteRepository {
-        crate::builders::artifact_registry::DeleteRepository::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::DeleteRepository {
+        super::builders::artifact_registry::DeleteRepository::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -289,8 +289,8 @@ impl ArtifactRegistry {
     pub fn list_packages(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListPackages {
-        crate::builders::artifact_registry::ListPackages::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListPackages {
+        super::builders::artifact_registry::ListPackages::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -298,8 +298,8 @@ impl ArtifactRegistry {
     pub fn get_package(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetPackage {
-        crate::builders::artifact_registry::GetPackage::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetPackage {
+        super::builders::artifact_registry::GetPackage::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -318,8 +318,8 @@ impl ArtifactRegistry {
     pub fn delete_package(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::DeletePackage {
-        crate::builders::artifact_registry::DeletePackage::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::DeletePackage {
+        super::builders::artifact_registry::DeletePackage::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -327,8 +327,8 @@ impl ArtifactRegistry {
     pub fn list_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListVersions {
-        crate::builders::artifact_registry::ListVersions::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListVersions {
+        super::builders::artifact_registry::ListVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -336,8 +336,8 @@ impl ArtifactRegistry {
     pub fn get_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetVersion {
-        crate::builders::artifact_registry::GetVersion::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetVersion {
+        super::builders::artifact_registry::GetVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -356,8 +356,8 @@ impl ArtifactRegistry {
     pub fn delete_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::DeleteVersion {
-        crate::builders::artifact_registry::DeleteVersion::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::DeleteVersion {
+        super::builders::artifact_registry::DeleteVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -376,8 +376,8 @@ impl ArtifactRegistry {
     pub fn batch_delete_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::BatchDeleteVersions {
-        crate::builders::artifact_registry::BatchDeleteVersions::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::BatchDeleteVersions {
+        super::builders::artifact_registry::BatchDeleteVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -385,8 +385,8 @@ impl ArtifactRegistry {
     pub fn update_version(
         &self,
         version: impl Into<crate::model::Version>,
-    ) -> crate::builders::artifact_registry::UpdateVersion {
-        crate::builders::artifact_registry::UpdateVersion::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::UpdateVersion {
+        super::builders::artifact_registry::UpdateVersion::new(self.inner.clone())
             .set_version(version.into())
     }
 
@@ -394,8 +394,8 @@ impl ArtifactRegistry {
     pub fn list_files(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListFiles {
-        crate::builders::artifact_registry::ListFiles::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListFiles {
+        super::builders::artifact_registry::ListFiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -403,8 +403,8 @@ impl ArtifactRegistry {
     pub fn get_file(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetFile {
-        crate::builders::artifact_registry::GetFile::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::artifact_registry::GetFile {
+        super::builders::artifact_registry::GetFile::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a file and all of its content. It is only allowed on generic
@@ -423,8 +423,8 @@ impl ArtifactRegistry {
     pub fn delete_file(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::DeleteFile {
-        crate::builders::artifact_registry::DeleteFile::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::DeleteFile {
+        super::builders::artifact_registry::DeleteFile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -432,8 +432,8 @@ impl ArtifactRegistry {
     pub fn update_file(
         &self,
         file: impl Into<crate::model::File>,
-    ) -> crate::builders::artifact_registry::UpdateFile {
-        crate::builders::artifact_registry::UpdateFile::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::UpdateFile {
+        super::builders::artifact_registry::UpdateFile::new(self.inner.clone())
             .set_file(file.into())
     }
 
@@ -441,8 +441,8 @@ impl ArtifactRegistry {
     pub fn list_tags(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListTags {
-        crate::builders::artifact_registry::ListTags::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListTags {
+        super::builders::artifact_registry::ListTags::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -450,16 +450,16 @@ impl ArtifactRegistry {
     pub fn get_tag(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetTag {
-        crate::builders::artifact_registry::GetTag::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::artifact_registry::GetTag {
+        super::builders::artifact_registry::GetTag::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a tag.
     pub fn create_tag(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::CreateTag {
-        crate::builders::artifact_registry::CreateTag::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::CreateTag {
+        super::builders::artifact_registry::CreateTag::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -467,24 +467,24 @@ impl ArtifactRegistry {
     pub fn update_tag(
         &self,
         tag: impl Into<crate::model::Tag>,
-    ) -> crate::builders::artifact_registry::UpdateTag {
-        crate::builders::artifact_registry::UpdateTag::new(self.inner.clone()).set_tag(tag.into())
+    ) -> super::builders::artifact_registry::UpdateTag {
+        super::builders::artifact_registry::UpdateTag::new(self.inner.clone()).set_tag(tag.into())
     }
 
     /// Deletes a tag.
     pub fn delete_tag(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::DeleteTag {
-        crate::builders::artifact_registry::DeleteTag::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::artifact_registry::DeleteTag {
+        super::builders::artifact_registry::DeleteTag::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a rule.
     pub fn create_rule(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::CreateRule {
-        crate::builders::artifact_registry::CreateRule::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::CreateRule {
+        super::builders::artifact_registry::CreateRule::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -492,8 +492,8 @@ impl ArtifactRegistry {
     pub fn list_rules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListRules {
-        crate::builders::artifact_registry::ListRules::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListRules {
+        super::builders::artifact_registry::ListRules::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -501,16 +501,16 @@ impl ArtifactRegistry {
     pub fn get_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetRule {
-        crate::builders::artifact_registry::GetRule::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::artifact_registry::GetRule {
+        super::builders::artifact_registry::GetRule::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a rule.
     pub fn update_rule(
         &self,
         rule: impl Into<crate::model::Rule>,
-    ) -> crate::builders::artifact_registry::UpdateRule {
-        crate::builders::artifact_registry::UpdateRule::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::UpdateRule {
+        super::builders::artifact_registry::UpdateRule::new(self.inner.clone())
             .set_rule(rule.into())
     }
 
@@ -518,8 +518,8 @@ impl ArtifactRegistry {
     pub fn delete_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::DeleteRule {
-        crate::builders::artifact_registry::DeleteRule::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::DeleteRule {
+        super::builders::artifact_registry::DeleteRule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -527,8 +527,8 @@ impl ArtifactRegistry {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::SetIamPolicy {
-        crate::builders::artifact_registry::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::SetIamPolicy {
+        super::builders::artifact_registry::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -536,8 +536,8 @@ impl ArtifactRegistry {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetIamPolicy {
-        crate::builders::artifact_registry::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetIamPolicy {
+        super::builders::artifact_registry::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -545,8 +545,8 @@ impl ArtifactRegistry {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::TestIamPermissions {
-        crate::builders::artifact_registry::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::TestIamPermissions {
+        super::builders::artifact_registry::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -554,8 +554,8 @@ impl ArtifactRegistry {
     pub fn get_project_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetProjectSettings {
-        crate::builders::artifact_registry::GetProjectSettings::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetProjectSettings {
+        super::builders::artifact_registry::GetProjectSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -563,8 +563,8 @@ impl ArtifactRegistry {
     pub fn update_project_settings(
         &self,
         project_settings: impl Into<crate::model::ProjectSettings>,
-    ) -> crate::builders::artifact_registry::UpdateProjectSettings {
-        crate::builders::artifact_registry::UpdateProjectSettings::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::UpdateProjectSettings {
+        super::builders::artifact_registry::UpdateProjectSettings::new(self.inner.clone())
             .set_project_settings(project_settings.into())
     }
 
@@ -572,8 +572,8 @@ impl ArtifactRegistry {
     pub fn get_vpcsc_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetVPCSCConfig {
-        crate::builders::artifact_registry::GetVPCSCConfig::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetVPCSCConfig {
+        super::builders::artifact_registry::GetVPCSCConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -581,8 +581,8 @@ impl ArtifactRegistry {
     pub fn update_vpcsc_config(
         &self,
         vpcsc_config: impl Into<crate::model::VPCSCConfig>,
-    ) -> crate::builders::artifact_registry::UpdateVPCSCConfig {
-        crate::builders::artifact_registry::UpdateVPCSCConfig::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::UpdateVPCSCConfig {
+        super::builders::artifact_registry::UpdateVPCSCConfig::new(self.inner.clone())
             .set_vpcsc_config(vpcsc_config.into())
     }
 
@@ -590,8 +590,8 @@ impl ArtifactRegistry {
     pub fn update_package(
         &self,
         package: impl Into<crate::model::Package>,
-    ) -> crate::builders::artifact_registry::UpdatePackage {
-        crate::builders::artifact_registry::UpdatePackage::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::UpdatePackage {
+        super::builders::artifact_registry::UpdatePackage::new(self.inner.clone())
             .set_package(package.into())
     }
 
@@ -599,8 +599,8 @@ impl ArtifactRegistry {
     pub fn list_attachments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListAttachments {
-        crate::builders::artifact_registry::ListAttachments::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListAttachments {
+        super::builders::artifact_registry::ListAttachments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -608,8 +608,8 @@ impl ArtifactRegistry {
     pub fn get_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetAttachment {
-        crate::builders::artifact_registry::GetAttachment::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetAttachment {
+        super::builders::artifact_registry::GetAttachment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -628,8 +628,8 @@ impl ArtifactRegistry {
     pub fn create_attachment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::CreateAttachment {
-        crate::builders::artifact_registry::CreateAttachment::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::CreateAttachment {
+        super::builders::artifact_registry::CreateAttachment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -649,8 +649,8 @@ impl ArtifactRegistry {
     pub fn delete_attachment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::DeleteAttachment {
-        crate::builders::artifact_registry::DeleteAttachment::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::DeleteAttachment {
+        super::builders::artifact_registry::DeleteAttachment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -658,8 +658,8 @@ impl ArtifactRegistry {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::ListLocations {
-        crate::builders::artifact_registry::ListLocations::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::ListLocations {
+        super::builders::artifact_registry::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -667,8 +667,8 @@ impl ArtifactRegistry {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetLocation {
-        crate::builders::artifact_registry::GetLocation::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetLocation {
+        super::builders::artifact_registry::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -678,8 +678,8 @@ impl ArtifactRegistry {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::artifact_registry::GetOperation {
-        crate::builders::artifact_registry::GetOperation::new(self.inner.clone())
+    ) -> super::builders::artifact_registry::GetOperation {
+        super::builders::artifact_registry::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

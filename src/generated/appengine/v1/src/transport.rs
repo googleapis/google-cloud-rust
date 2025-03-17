@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Applications](crate::stubs::Applications) using a [gclient::ReqwestClient].
+/// Implements [Applications](super::stubs::Applications) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Applications {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Applications {
     }
 }
 
-impl crate::stubs::Applications for Applications {
+impl super::stubs::Applications for Applications {
     async fn get_application(
         &self,
         req: crate::model::GetApplicationRequest,
@@ -180,7 +180,7 @@ impl crate::stubs::Applications for Applications {
     }
 }
 
-/// Implements [Services](crate::stubs::Services) using a [gclient::ReqwestClient].
+/// Implements [Services](super::stubs::Services) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Services {
     inner: gclient::ReqwestClient,
@@ -201,7 +201,7 @@ impl Services {
     }
 }
 
-impl crate::stubs::Services for Services {
+impl super::stubs::Services for Services {
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
@@ -347,7 +347,7 @@ impl crate::stubs::Services for Services {
     }
 }
 
-/// Implements [Versions](crate::stubs::Versions) using a [gclient::ReqwestClient].
+/// Implements [Versions](super::stubs::Versions) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Versions {
     inner: gclient::ReqwestClient,
@@ -368,7 +368,7 @@ impl Versions {
     }
 }
 
-impl crate::stubs::Versions for Versions {
+impl super::stubs::Versions for Versions {
     async fn list_versions(
         &self,
         req: crate::model::ListVersionsRequest,
@@ -537,7 +537,7 @@ impl crate::stubs::Versions for Versions {
     }
 }
 
-/// Implements [Instances](crate::stubs::Instances) using a [gclient::ReqwestClient].
+/// Implements [Instances](super::stubs::Instances) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Instances {
     inner: gclient::ReqwestClient,
@@ -558,7 +558,7 @@ impl Instances {
     }
 }
 
-impl crate::stubs::Instances for Instances {
+impl super::stubs::Instances for Instances {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
@@ -694,7 +694,7 @@ impl crate::stubs::Instances for Instances {
     }
 }
 
-/// Implements [Firewall](crate::stubs::Firewall) using a [gclient::ReqwestClient].
+/// Implements [Firewall](super::stubs::Firewall) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Firewall {
     inner: gclient::ReqwestClient,
@@ -715,7 +715,7 @@ impl Firewall {
     }
 }
 
-impl crate::stubs::Firewall for Firewall {
+impl super::stubs::Firewall for Firewall {
     async fn list_ingress_rules(
         &self,
         req: crate::model::ListIngressRulesRequest,
@@ -888,7 +888,7 @@ impl crate::stubs::Firewall for Firewall {
     }
 }
 
-/// Implements [AuthorizedDomains](crate::stubs::AuthorizedDomains) using a [gclient::ReqwestClient].
+/// Implements [AuthorizedDomains](super::stubs::AuthorizedDomains) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AuthorizedDomains {
     inner: gclient::ReqwestClient,
@@ -909,7 +909,7 @@ impl AuthorizedDomains {
     }
 }
 
-impl crate::stubs::AuthorizedDomains for AuthorizedDomains {
+impl super::stubs::AuthorizedDomains for AuthorizedDomains {
     async fn list_authorized_domains(
         &self,
         req: crate::model::ListAuthorizedDomainsRequest,
@@ -976,7 +976,7 @@ impl crate::stubs::AuthorizedDomains for AuthorizedDomains {
     }
 }
 
-/// Implements [AuthorizedCertificates](crate::stubs::AuthorizedCertificates) using a [gclient::ReqwestClient].
+/// Implements [AuthorizedCertificates](super::stubs::AuthorizedCertificates) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AuthorizedCertificates {
     inner: gclient::ReqwestClient,
@@ -997,7 +997,7 @@ impl AuthorizedCertificates {
     }
 }
 
-impl crate::stubs::AuthorizedCertificates for AuthorizedCertificates {
+impl super::stubs::AuthorizedCertificates for AuthorizedCertificates {
     async fn list_authorized_certificates(
         &self,
         req: crate::model::ListAuthorizedCertificatesRequest,
@@ -1155,7 +1155,7 @@ impl crate::stubs::AuthorizedCertificates for AuthorizedCertificates {
     }
 }
 
-/// Implements [DomainMappings](crate::stubs::DomainMappings) using a [gclient::ReqwestClient].
+/// Implements [DomainMappings](super::stubs::DomainMappings) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DomainMappings {
     inner: gclient::ReqwestClient,
@@ -1176,7 +1176,7 @@ impl DomainMappings {
     }
 }
 
-impl crate::stubs::DomainMappings for DomainMappings {
+impl super::stubs::DomainMappings for DomainMappings {
     async fn list_domain_mappings(
         &self,
         req: crate::model::ListDomainMappingsRequest,

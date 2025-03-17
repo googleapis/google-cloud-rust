@@ -294,9 +294,9 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::SecurityCenter] also implement [SecurityCenter].
+/// All implementations of [super::SecurityCenter] also implement [SecurityCenter].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SecurityCenter> SecurityCenter for T {
+impl<T: super::SecurityCenter> SecurityCenter for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn batch_create_resource_value_configs(
         &self,

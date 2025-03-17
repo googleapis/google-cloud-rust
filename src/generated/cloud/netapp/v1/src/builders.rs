@@ -18,10 +18,10 @@ pub mod net_app {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::NetApp] request builders.
+    /// Common implementation for [super::super::client::NetApp] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::NetApp>,
+        stub: Arc<dyn super::super::stubs::dynamic::NetApp>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod net_app {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod net_app {
     pub struct ListStoragePools(RequestBuilder<crate::model::ListStoragePoolsRequest>);
 
     impl ListStoragePools {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -126,7 +126,7 @@ pub mod net_app {
     pub struct CreateStoragePool(RequestBuilder<crate::model::CreateStoragePoolRequest>);
 
     impl CreateStoragePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -150,7 +150,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_storage_pool][crate::client::NetApp::create_storage_pool].
+        /// on [create_storage_pool][super::super::client::NetApp::create_storage_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_storage_pool(self.0.request, self.0.options)
@@ -223,7 +223,7 @@ pub mod net_app {
     pub struct GetStoragePool(RequestBuilder<crate::model::GetStoragePoolRequest>);
 
     impl GetStoragePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -264,7 +264,7 @@ pub mod net_app {
     pub struct UpdateStoragePool(RequestBuilder<crate::model::UpdateStoragePoolRequest>);
 
     impl UpdateStoragePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -288,7 +288,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_storage_pool][crate::client::NetApp::update_storage_pool].
+        /// on [update_storage_pool][super::super::client::NetApp::update_storage_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_storage_pool(self.0.request, self.0.options)
@@ -358,7 +358,7 @@ pub mod net_app {
     pub struct DeleteStoragePool(RequestBuilder<crate::model::DeleteStoragePoolRequest>);
 
     impl DeleteStoragePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -382,7 +382,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_storage_pool][crate::client::NetApp::delete_storage_pool].
+        /// on [delete_storage_pool][super::super::client::NetApp::delete_storage_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_storage_pool(self.0.request, self.0.options)
@@ -439,7 +439,7 @@ pub mod net_app {
     );
 
     impl ValidateDirectoryService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -463,7 +463,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [validate_directory_service][crate::client::NetApp::validate_directory_service].
+        /// on [validate_directory_service][super::super::client::NetApp::validate_directory_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .validate_directory_service(self.0.request, self.0.options)
@@ -529,7 +529,7 @@ pub mod net_app {
     );
 
     impl SwitchActiveReplicaZone {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -553,7 +553,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [switch_active_replica_zone][crate::client::NetApp::switch_active_replica_zone].
+        /// on [switch_active_replica_zone][super::super::client::NetApp::switch_active_replica_zone].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .switch_active_replica_zone(self.0.request, self.0.options)
@@ -611,7 +611,7 @@ pub mod net_app {
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
     impl ListVolumes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -690,7 +690,7 @@ pub mod net_app {
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
     impl GetVolume {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -731,7 +731,7 @@ pub mod net_app {
     pub struct CreateVolume(RequestBuilder<crate::model::CreateVolumeRequest>);
 
     impl CreateVolume {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -752,7 +752,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_volume][crate::client::NetApp::create_volume].
+        /// on [create_volume][super::super::client::NetApp::create_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_volume(self.0.request, self.0.options)
@@ -824,7 +824,7 @@ pub mod net_app {
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
     impl UpdateVolume {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -845,7 +845,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_volume][crate::client::NetApp::update_volume].
+        /// on [update_volume][super::super::client::NetApp::update_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
@@ -914,7 +914,7 @@ pub mod net_app {
     pub struct DeleteVolume(RequestBuilder<crate::model::DeleteVolumeRequest>);
 
     impl DeleteVolume {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -935,7 +935,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_volume][crate::client::NetApp::delete_volume].
+        /// on [delete_volume][super::super::client::NetApp::delete_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_volume(self.0.request, self.0.options)
@@ -996,7 +996,7 @@ pub mod net_app {
     pub struct RevertVolume(RequestBuilder<crate::model::RevertVolumeRequest>);
 
     impl RevertVolume {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1017,7 +1017,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [revert_volume][crate::client::NetApp::revert_volume].
+        /// on [revert_volume][super::super::client::NetApp::revert_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .revert_volume(self.0.request, self.0.options)
@@ -1080,7 +1080,7 @@ pub mod net_app {
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1159,7 +1159,7 @@ pub mod net_app {
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1200,7 +1200,7 @@ pub mod net_app {
     pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
 
     impl CreateSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1221,7 +1221,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_snapshot][crate::client::NetApp::create_snapshot].
+        /// on [create_snapshot][super::super::client::NetApp::create_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_snapshot(self.0.request, self.0.options)
@@ -1294,7 +1294,7 @@ pub mod net_app {
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1315,7 +1315,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_snapshot][crate::client::NetApp::delete_snapshot].
+        /// on [delete_snapshot][super::super::client::NetApp::delete_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
@@ -1370,7 +1370,7 @@ pub mod net_app {
     pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
     impl UpdateSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1391,7 +1391,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_snapshot][crate::client::NetApp::update_snapshot].
+        /// on [update_snapshot][super::super::client::NetApp::update_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_snapshot(self.0.request, self.0.options)
@@ -1461,7 +1461,7 @@ pub mod net_app {
     pub struct ListActiveDirectories(RequestBuilder<crate::model::ListActiveDirectoriesRequest>);
 
     impl ListActiveDirectories {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1543,7 +1543,7 @@ pub mod net_app {
     pub struct GetActiveDirectory(RequestBuilder<crate::model::GetActiveDirectoryRequest>);
 
     impl GetActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1587,7 +1587,7 @@ pub mod net_app {
     pub struct CreateActiveDirectory(RequestBuilder<crate::model::CreateActiveDirectoryRequest>);
 
     impl CreateActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1611,7 +1611,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_active_directory][crate::client::NetApp::create_active_directory].
+        /// on [create_active_directory][super::super::client::NetApp::create_active_directory].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_active_directory(self.0.request, self.0.options)
@@ -1685,7 +1685,7 @@ pub mod net_app {
     pub struct UpdateActiveDirectory(RequestBuilder<crate::model::UpdateActiveDirectoryRequest>);
 
     impl UpdateActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1709,7 +1709,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_active_directory][crate::client::NetApp::update_active_directory].
+        /// on [update_active_directory][super::super::client::NetApp::update_active_directory].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_active_directory(self.0.request, self.0.options)
@@ -1780,7 +1780,7 @@ pub mod net_app {
     pub struct DeleteActiveDirectory(RequestBuilder<crate::model::DeleteActiveDirectoryRequest>);
 
     impl DeleteActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1804,7 +1804,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_active_directory][crate::client::NetApp::delete_active_directory].
+        /// on [delete_active_directory][super::super::client::NetApp::delete_active_directory].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_active_directory(self.0.request, self.0.options)
@@ -1859,7 +1859,7 @@ pub mod net_app {
     pub struct ListKmsConfigs(RequestBuilder<crate::model::ListKmsConfigsRequest>);
 
     impl ListKmsConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1938,7 +1938,7 @@ pub mod net_app {
     pub struct CreateKmsConfig(RequestBuilder<crate::model::CreateKmsConfigRequest>);
 
     impl CreateKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1959,7 +1959,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_kms_config][crate::client::NetApp::create_kms_config].
+        /// on [create_kms_config][super::super::client::NetApp::create_kms_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_kms_config(self.0.request, self.0.options)
@@ -2032,7 +2032,7 @@ pub mod net_app {
     pub struct GetKmsConfig(RequestBuilder<crate::model::GetKmsConfigRequest>);
 
     impl GetKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2073,7 +2073,7 @@ pub mod net_app {
     pub struct UpdateKmsConfig(RequestBuilder<crate::model::UpdateKmsConfigRequest>);
 
     impl UpdateKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2094,7 +2094,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_kms_config][crate::client::NetApp::update_kms_config].
+        /// on [update_kms_config][super::super::client::NetApp::update_kms_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_kms_config(self.0.request, self.0.options)
@@ -2164,7 +2164,7 @@ pub mod net_app {
     pub struct EncryptVolumes(RequestBuilder<crate::model::EncryptVolumesRequest>);
 
     impl EncryptVolumes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2185,7 +2185,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [encrypt_volumes][crate::client::NetApp::encrypt_volumes].
+        /// on [encrypt_volumes][super::super::client::NetApp::encrypt_volumes].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .encrypt_volumes(self.0.request, self.0.options)
@@ -2243,7 +2243,7 @@ pub mod net_app {
     pub struct VerifyKmsConfig(RequestBuilder<crate::model::VerifyKmsConfigRequest>);
 
     impl VerifyKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2284,7 +2284,7 @@ pub mod net_app {
     pub struct DeleteKmsConfig(RequestBuilder<crate::model::DeleteKmsConfigRequest>);
 
     impl DeleteKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2305,7 +2305,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_kms_config][crate::client::NetApp::delete_kms_config].
+        /// on [delete_kms_config][super::super::client::NetApp::delete_kms_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_kms_config(self.0.request, self.0.options)
@@ -2360,7 +2360,7 @@ pub mod net_app {
     pub struct ListReplications(RequestBuilder<crate::model::ListReplicationsRequest>);
 
     impl ListReplications {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2442,7 +2442,7 @@ pub mod net_app {
     pub struct GetReplication(RequestBuilder<crate::model::GetReplicationRequest>);
 
     impl GetReplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2483,7 +2483,7 @@ pub mod net_app {
     pub struct CreateReplication(RequestBuilder<crate::model::CreateReplicationRequest>);
 
     impl CreateReplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2507,7 +2507,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_replication][crate::client::NetApp::create_replication].
+        /// on [create_replication][super::super::client::NetApp::create_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_replication(self.0.request, self.0.options)
@@ -2580,7 +2580,7 @@ pub mod net_app {
     pub struct DeleteReplication(RequestBuilder<crate::model::DeleteReplicationRequest>);
 
     impl DeleteReplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2604,7 +2604,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_replication][crate::client::NetApp::delete_replication].
+        /// on [delete_replication][super::super::client::NetApp::delete_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_replication(self.0.request, self.0.options)
@@ -2659,7 +2659,7 @@ pub mod net_app {
     pub struct UpdateReplication(RequestBuilder<crate::model::UpdateReplicationRequest>);
 
     impl UpdateReplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2683,7 +2683,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_replication][crate::client::NetApp::update_replication].
+        /// on [update_replication][super::super::client::NetApp::update_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_replication(self.0.request, self.0.options)
@@ -2753,7 +2753,7 @@ pub mod net_app {
     pub struct StopReplication(RequestBuilder<crate::model::StopReplicationRequest>);
 
     impl StopReplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2774,7 +2774,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_replication][crate::client::NetApp::stop_replication].
+        /// on [stop_replication][super::super::client::NetApp::stop_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_replication(self.0.request, self.0.options)
@@ -2838,7 +2838,7 @@ pub mod net_app {
     pub struct ResumeReplication(RequestBuilder<crate::model::ResumeReplicationRequest>);
 
     impl ResumeReplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2862,7 +2862,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_replication][crate::client::NetApp::resume_replication].
+        /// on [resume_replication][super::super::client::NetApp::resume_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_replication(self.0.request, self.0.options)
@@ -2922,7 +2922,7 @@ pub mod net_app {
     );
 
     impl ReverseReplicationDirection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2946,7 +2946,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reverse_replication_direction][crate::client::NetApp::reverse_replication_direction].
+        /// on [reverse_replication_direction][super::super::client::NetApp::reverse_replication_direction].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reverse_replication_direction(self.0.request, self.0.options)
@@ -3004,7 +3004,7 @@ pub mod net_app {
     pub struct EstablishPeering(RequestBuilder<crate::model::EstablishPeeringRequest>);
 
     impl EstablishPeering {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3028,7 +3028,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [establish_peering][crate::client::NetApp::establish_peering].
+        /// on [establish_peering][super::super::client::NetApp::establish_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .establish_peering(self.0.request, self.0.options)
@@ -3115,7 +3115,7 @@ pub mod net_app {
     pub struct SyncReplication(RequestBuilder<crate::model::SyncReplicationRequest>);
 
     impl SyncReplication {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3136,7 +3136,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [sync_replication][crate::client::NetApp::sync_replication].
+        /// on [sync_replication][super::super::client::NetApp::sync_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .sync_replication(self.0.request, self.0.options)
@@ -3194,7 +3194,7 @@ pub mod net_app {
     pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
     impl CreateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3218,7 +3218,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_vault][crate::client::NetApp::create_backup_vault].
+        /// on [create_backup_vault][super::super::client::NetApp::create_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_vault(self.0.request, self.0.options)
@@ -3291,7 +3291,7 @@ pub mod net_app {
     pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
 
     impl GetBackupVault {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3332,7 +3332,7 @@ pub mod net_app {
     pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
     impl ListBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3414,7 +3414,7 @@ pub mod net_app {
     pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
     impl UpdateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3438,7 +3438,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_vault][crate::client::NetApp::update_backup_vault].
+        /// on [update_backup_vault][super::super::client::NetApp::update_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_vault(self.0.request, self.0.options)
@@ -3508,7 +3508,7 @@ pub mod net_app {
     pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
     impl DeleteBackupVault {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3532,7 +3532,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_vault][crate::client::NetApp::delete_backup_vault].
+        /// on [delete_backup_vault][super::super::client::NetApp::delete_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_vault(self.0.request, self.0.options)
@@ -3587,7 +3587,7 @@ pub mod net_app {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3608,7 +3608,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][crate::client::NetApp::create_backup].
+        /// on [create_backup][super::super::client::NetApp::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -3680,7 +3680,7 @@ pub mod net_app {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3721,7 +3721,7 @@ pub mod net_app {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3800,7 +3800,7 @@ pub mod net_app {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3821,7 +3821,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][crate::client::NetApp::delete_backup].
+        /// on [delete_backup][super::super::client::NetApp::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -3876,7 +3876,7 @@ pub mod net_app {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3897,7 +3897,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][crate::client::NetApp::update_backup].
+        /// on [update_backup][super::super::client::NetApp::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -3966,7 +3966,7 @@ pub mod net_app {
     pub struct CreateBackupPolicy(RequestBuilder<crate::model::CreateBackupPolicyRequest>);
 
     impl CreateBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3990,7 +3990,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_policy][crate::client::NetApp::create_backup_policy].
+        /// on [create_backup_policy][super::super::client::NetApp::create_backup_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_policy(self.0.request, self.0.options)
@@ -4063,7 +4063,7 @@ pub mod net_app {
     pub struct GetBackupPolicy(RequestBuilder<crate::model::GetBackupPolicyRequest>);
 
     impl GetBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4104,7 +4104,7 @@ pub mod net_app {
     pub struct ListBackupPolicies(RequestBuilder<crate::model::ListBackupPoliciesRequest>);
 
     impl ListBackupPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4186,7 +4186,7 @@ pub mod net_app {
     pub struct UpdateBackupPolicy(RequestBuilder<crate::model::UpdateBackupPolicyRequest>);
 
     impl UpdateBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4210,7 +4210,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_policy][crate::client::NetApp::update_backup_policy].
+        /// on [update_backup_policy][super::super::client::NetApp::update_backup_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_policy(self.0.request, self.0.options)
@@ -4280,7 +4280,7 @@ pub mod net_app {
     pub struct DeleteBackupPolicy(RequestBuilder<crate::model::DeleteBackupPolicyRequest>);
 
     impl DeleteBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4304,7 +4304,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_policy][crate::client::NetApp::delete_backup_policy].
+        /// on [delete_backup_policy][super::super::client::NetApp::delete_backup_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_policy(self.0.request, self.0.options)
@@ -4359,7 +4359,7 @@ pub mod net_app {
     pub struct ListQuotaRules(RequestBuilder<crate::model::ListQuotaRulesRequest>);
 
     impl ListQuotaRules {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4438,7 +4438,7 @@ pub mod net_app {
     pub struct GetQuotaRule(RequestBuilder<crate::model::GetQuotaRuleRequest>);
 
     impl GetQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4479,7 +4479,7 @@ pub mod net_app {
     pub struct CreateQuotaRule(RequestBuilder<crate::model::CreateQuotaRuleRequest>);
 
     impl CreateQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4500,7 +4500,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_quota_rule][crate::client::NetApp::create_quota_rule].
+        /// on [create_quota_rule][super::super::client::NetApp::create_quota_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_quota_rule(self.0.request, self.0.options)
@@ -4573,7 +4573,7 @@ pub mod net_app {
     pub struct UpdateQuotaRule(RequestBuilder<crate::model::UpdateQuotaRuleRequest>);
 
     impl UpdateQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4594,7 +4594,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_quota_rule][crate::client::NetApp::update_quota_rule].
+        /// on [update_quota_rule][super::super::client::NetApp::update_quota_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_quota_rule(self.0.request, self.0.options)
@@ -4664,7 +4664,7 @@ pub mod net_app {
     pub struct DeleteQuotaRule(RequestBuilder<crate::model::DeleteQuotaRuleRequest>);
 
     impl DeleteQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4685,7 +4685,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_quota_rule][crate::client::NetApp::delete_quota_rule].
+        /// on [delete_quota_rule][super::super::client::NetApp::delete_quota_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_quota_rule(self.0.request, self.0.options)
@@ -4740,7 +4740,7 @@ pub mod net_app {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4816,7 +4816,7 @@ pub mod net_app {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4857,7 +4857,7 @@ pub mod net_app {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4933,7 +4933,7 @@ pub mod net_app {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4977,7 +4977,7 @@ pub mod net_app {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5021,7 +5021,7 @@ pub mod net_app {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

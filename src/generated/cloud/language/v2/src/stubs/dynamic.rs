@@ -48,9 +48,9 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::AnnotateTextResponse>;
 }
 
-/// All implementations of [crate::stubs::LanguageService] also implement [LanguageService].
+/// All implementations of [super::LanguageService] also implement [LanguageService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::LanguageService> LanguageService for T {
+impl<T: super::LanguageService> LanguageService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn analyze_sentiment(
         &self,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BinauthzManagementServiceV1](crate::stubs::BinauthzManagementServiceV1) using a [gclient::ReqwestClient].
+/// Implements [BinauthzManagementServiceV1](super::stubs::BinauthzManagementServiceV1) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct BinauthzManagementServiceV1 {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl BinauthzManagementServiceV1 {
     }
 }
 
-impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
+impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
@@ -199,7 +199,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
     }
 }
 
-/// Implements [SystemPolicyV1](crate::stubs::SystemPolicyV1) using a [gclient::ReqwestClient].
+/// Implements [SystemPolicyV1](super::stubs::SystemPolicyV1) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SystemPolicyV1 {
     inner: gclient::ReqwestClient,
@@ -220,7 +220,7 @@ impl SystemPolicyV1 {
     }
 }
 
-impl crate::stubs::SystemPolicyV1 for SystemPolicyV1 {
+impl super::stubs::SystemPolicyV1 for SystemPolicyV1 {
     async fn get_system_policy(
         &self,
         req: crate::model::GetSystemPolicyRequest,
@@ -241,7 +241,7 @@ impl crate::stubs::SystemPolicyV1 for SystemPolicyV1 {
     }
 }
 
-/// Implements [ValidationHelperV1](crate::stubs::ValidationHelperV1) using a [gclient::ReqwestClient].
+/// Implements [ValidationHelperV1](super::stubs::ValidationHelperV1) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ValidationHelperV1 {
     inner: gclient::ReqwestClient,
@@ -262,7 +262,7 @@ impl ValidationHelperV1 {
     }
 }
 
-impl crate::stubs::ValidationHelperV1 for ValidationHelperV1 {
+impl super::stubs::ValidationHelperV1 for ValidationHelperV1 {
     async fn validate_attestation_occurrence(
         &self,
         req: crate::model::ValidateAttestationOccurrenceRequest,

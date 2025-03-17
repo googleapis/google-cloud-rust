@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct NetApp {
-    inner: Arc<dyn crate::stubs::dynamic::NetApp>,
+    inner: Arc<dyn super::stubs::dynamic::NetApp>,
 }
 
 impl NetApp {
@@ -59,7 +59,7 @@ impl NetApp {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::NetApp + 'static,
+        T: super::stubs::NetApp + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl NetApp {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::NetApp>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::NetApp>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl NetApp {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::NetApp> {
-        crate::transport::NetApp::new(conf).await
+    ) -> Result<impl super::stubs::NetApp> {
+        super::transport::NetApp::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::NetApp> {
+    ) -> Result<impl super::stubs::NetApp> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::NetApp::new)
+            .map(super::tracing::NetApp::new)
     }
 
     /// Returns descriptions of all storage pools owned by the caller.
     pub fn list_storage_pools(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListStoragePools {
-        crate::builders::net_app::ListStoragePools::new(self.inner.clone())
+    ) -> super::builders::net_app::ListStoragePools {
+        super::builders::net_app::ListStoragePools::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -112,8 +112,8 @@ impl NetApp {
     pub fn create_storage_pool(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CreateStoragePool {
-        crate::builders::net_app::CreateStoragePool::new(self.inner.clone())
+    ) -> super::builders::net_app::CreateStoragePool {
+        super::builders::net_app::CreateStoragePool::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +121,8 @@ impl NetApp {
     pub fn get_storage_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetStoragePool {
-        crate::builders::net_app::GetStoragePool::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetStoragePool {
+        super::builders::net_app::GetStoragePool::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the storage pool properties with the full spec
@@ -139,8 +139,8 @@ impl NetApp {
     pub fn update_storage_pool(
         &self,
         storage_pool: impl Into<crate::model::StoragePool>,
-    ) -> crate::builders::net_app::UpdateStoragePool {
-        crate::builders::net_app::UpdateStoragePool::new(self.inner.clone())
+    ) -> super::builders::net_app::UpdateStoragePool {
+        super::builders::net_app::UpdateStoragePool::new(self.inner.clone())
             .set_storage_pool(storage_pool.into())
     }
 
@@ -158,8 +158,8 @@ impl NetApp {
     pub fn delete_storage_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteStoragePool {
-        crate::builders::net_app::DeleteStoragePool::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::DeleteStoragePool {
+        super::builders::net_app::DeleteStoragePool::new(self.inner.clone()).set_name(name.into())
     }
 
     /// ValidateDirectoryService does a connectivity check for a directory service
@@ -177,8 +177,8 @@ impl NetApp {
     pub fn validate_directory_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ValidateDirectoryService {
-        crate::builders::net_app::ValidateDirectoryService::new(self.inner.clone())
+    ) -> super::builders::net_app::ValidateDirectoryService {
+        super::builders::net_app::ValidateDirectoryService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -197,8 +197,8 @@ impl NetApp {
     pub fn switch_active_replica_zone(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::SwitchActiveReplicaZone {
-        crate::builders::net_app::SwitchActiveReplicaZone::new(self.inner.clone())
+    ) -> super::builders::net_app::SwitchActiveReplicaZone {
+        super::builders::net_app::SwitchActiveReplicaZone::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -206,16 +206,16 @@ impl NetApp {
     pub fn list_volumes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListVolumes {
-        crate::builders::net_app::ListVolumes::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::net_app::ListVolumes {
+        super::builders::net_app::ListVolumes::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single Volume.
     pub fn get_volume(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetVolume {
-        crate::builders::net_app::GetVolume::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetVolume {
+        super::builders::net_app::GetVolume::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Volume in a given project and location.
@@ -232,8 +232,8 @@ impl NetApp {
     pub fn create_volume(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CreateVolume {
-        crate::builders::net_app::CreateVolume::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::net_app::CreateVolume {
+        super::builders::net_app::CreateVolume::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Volume.
@@ -250,8 +250,8 @@ impl NetApp {
     pub fn update_volume(
         &self,
         volume: impl Into<crate::model::Volume>,
-    ) -> crate::builders::net_app::UpdateVolume {
-        crate::builders::net_app::UpdateVolume::new(self.inner.clone()).set_volume(volume.into())
+    ) -> super::builders::net_app::UpdateVolume {
+        super::builders::net_app::UpdateVolume::new(self.inner.clone()).set_volume(volume.into())
     }
 
     /// Deletes a single Volume.
@@ -268,8 +268,8 @@ impl NetApp {
     pub fn delete_volume(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteVolume {
-        crate::builders::net_app::DeleteVolume::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::DeleteVolume {
+        super::builders::net_app::DeleteVolume::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Revert an existing volume to a specified snapshot.
@@ -288,24 +288,24 @@ impl NetApp {
     pub fn revert_volume(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::RevertVolume {
-        crate::builders::net_app::RevertVolume::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::RevertVolume {
+        super::builders::net_app::RevertVolume::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns descriptions of all snapshots for a volume.
     pub fn list_snapshots(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListSnapshots {
-        crate::builders::net_app::ListSnapshots::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::net_app::ListSnapshots {
+        super::builders::net_app::ListSnapshots::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Describe a snapshot for a volume.
     pub fn get_snapshot(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetSnapshot {
-        crate::builders::net_app::GetSnapshot::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetSnapshot {
+        super::builders::net_app::GetSnapshot::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a new snapshot for a volume.
@@ -322,8 +322,8 @@ impl NetApp {
     pub fn create_snapshot(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CreateSnapshot {
-        crate::builders::net_app::CreateSnapshot::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::net_app::CreateSnapshot {
+        super::builders::net_app::CreateSnapshot::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a snapshot.
@@ -340,8 +340,8 @@ impl NetApp {
     pub fn delete_snapshot(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteSnapshot {
-        crate::builders::net_app::DeleteSnapshot::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::DeleteSnapshot {
+        super::builders::net_app::DeleteSnapshot::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the settings of a specific snapshot.
@@ -358,8 +358,8 @@ impl NetApp {
     pub fn update_snapshot(
         &self,
         snapshot: impl Into<crate::model::Snapshot>,
-    ) -> crate::builders::net_app::UpdateSnapshot {
-        crate::builders::net_app::UpdateSnapshot::new(self.inner.clone())
+    ) -> super::builders::net_app::UpdateSnapshot {
+        super::builders::net_app::UpdateSnapshot::new(self.inner.clone())
             .set_snapshot(snapshot.into())
     }
 
@@ -367,8 +367,8 @@ impl NetApp {
     pub fn list_active_directories(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListActiveDirectories {
-        crate::builders::net_app::ListActiveDirectories::new(self.inner.clone())
+    ) -> super::builders::net_app::ListActiveDirectories {
+        super::builders::net_app::ListActiveDirectories::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -376,8 +376,8 @@ impl NetApp {
     pub fn get_active_directory(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetActiveDirectory {
-        crate::builders::net_app::GetActiveDirectory::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetActiveDirectory {
+        super::builders::net_app::GetActiveDirectory::new(self.inner.clone()).set_name(name.into())
     }
 
     /// CreateActiveDirectory
@@ -395,8 +395,8 @@ impl NetApp {
     pub fn create_active_directory(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CreateActiveDirectory {
-        crate::builders::net_app::CreateActiveDirectory::new(self.inner.clone())
+    ) -> super::builders::net_app::CreateActiveDirectory {
+        super::builders::net_app::CreateActiveDirectory::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -414,8 +414,8 @@ impl NetApp {
     pub fn update_active_directory(
         &self,
         active_directory: impl Into<crate::model::ActiveDirectory>,
-    ) -> crate::builders::net_app::UpdateActiveDirectory {
-        crate::builders::net_app::UpdateActiveDirectory::new(self.inner.clone())
+    ) -> super::builders::net_app::UpdateActiveDirectory {
+        super::builders::net_app::UpdateActiveDirectory::new(self.inner.clone())
             .set_active_directory(active_directory.into())
     }
 
@@ -433,8 +433,8 @@ impl NetApp {
     pub fn delete_active_directory(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteActiveDirectory {
-        crate::builders::net_app::DeleteActiveDirectory::new(self.inner.clone())
+    ) -> super::builders::net_app::DeleteActiveDirectory {
+        super::builders::net_app::DeleteActiveDirectory::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -442,8 +442,8 @@ impl NetApp {
     pub fn list_kms_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListKmsConfigs {
-        crate::builders::net_app::ListKmsConfigs::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::net_app::ListKmsConfigs {
+        super::builders::net_app::ListKmsConfigs::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Creates a new KMS config.
@@ -460,16 +460,16 @@ impl NetApp {
     pub fn create_kms_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CreateKmsConfig {
-        crate::builders::net_app::CreateKmsConfig::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::net_app::CreateKmsConfig {
+        super::builders::net_app::CreateKmsConfig::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Returns the description of the specified KMS config by kms_config_id.
     pub fn get_kms_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetKmsConfig {
-        crate::builders::net_app::GetKmsConfig::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetKmsConfig {
+        super::builders::net_app::GetKmsConfig::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the Kms config properties with the full spec
@@ -486,8 +486,8 @@ impl NetApp {
     pub fn update_kms_config(
         &self,
         kms_config: impl Into<crate::model::KmsConfig>,
-    ) -> crate::builders::net_app::UpdateKmsConfig {
-        crate::builders::net_app::UpdateKmsConfig::new(self.inner.clone())
+    ) -> super::builders::net_app::UpdateKmsConfig {
+        super::builders::net_app::UpdateKmsConfig::new(self.inner.clone())
             .set_kms_config(kms_config.into())
     }
 
@@ -506,16 +506,16 @@ impl NetApp {
     pub fn encrypt_volumes(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::EncryptVolumes {
-        crate::builders::net_app::EncryptVolumes::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::EncryptVolumes {
+        super::builders::net_app::EncryptVolumes::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Verifies KMS config reachability.
     pub fn verify_kms_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::VerifyKmsConfig {
-        crate::builders::net_app::VerifyKmsConfig::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::VerifyKmsConfig {
+        super::builders::net_app::VerifyKmsConfig::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Warning! This operation will permanently delete the Kms config.
@@ -532,16 +532,16 @@ impl NetApp {
     pub fn delete_kms_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteKmsConfig {
-        crate::builders::net_app::DeleteKmsConfig::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::DeleteKmsConfig {
+        super::builders::net_app::DeleteKmsConfig::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns descriptions of all replications for a volume.
     pub fn list_replications(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListReplications {
-        crate::builders::net_app::ListReplications::new(self.inner.clone())
+    ) -> super::builders::net_app::ListReplications {
+        super::builders::net_app::ListReplications::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -549,8 +549,8 @@ impl NetApp {
     pub fn get_replication(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetReplication {
-        crate::builders::net_app::GetReplication::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetReplication {
+        super::builders::net_app::GetReplication::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Create a new replication for a volume.
@@ -567,8 +567,8 @@ impl NetApp {
     pub fn create_replication(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CreateReplication {
-        crate::builders::net_app::CreateReplication::new(self.inner.clone())
+    ) -> super::builders::net_app::CreateReplication {
+        super::builders::net_app::CreateReplication::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -586,8 +586,8 @@ impl NetApp {
     pub fn delete_replication(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteReplication {
-        crate::builders::net_app::DeleteReplication::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::DeleteReplication {
+        super::builders::net_app::DeleteReplication::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the settings of a specific replication.
@@ -604,8 +604,8 @@ impl NetApp {
     pub fn update_replication(
         &self,
         replication: impl Into<crate::model::Replication>,
-    ) -> crate::builders::net_app::UpdateReplication {
-        crate::builders::net_app::UpdateReplication::new(self.inner.clone())
+    ) -> super::builders::net_app::UpdateReplication {
+        super::builders::net_app::UpdateReplication::new(self.inner.clone())
             .set_replication(replication.into())
     }
 
@@ -623,8 +623,8 @@ impl NetApp {
     pub fn stop_replication(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::StopReplication {
-        crate::builders::net_app::StopReplication::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::StopReplication {
+        super::builders::net_app::StopReplication::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Resume Cross Region Replication.
@@ -641,8 +641,8 @@ impl NetApp {
     pub fn resume_replication(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ResumeReplication {
-        crate::builders::net_app::ResumeReplication::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::ResumeReplication {
+        super::builders::net_app::ResumeReplication::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Reverses direction of replication. Source becomes destination and
@@ -660,8 +660,8 @@ impl NetApp {
     pub fn reverse_replication_direction(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ReverseReplicationDirection {
-        crate::builders::net_app::ReverseReplicationDirection::new(self.inner.clone())
+    ) -> super::builders::net_app::ReverseReplicationDirection {
+        super::builders::net_app::ReverseReplicationDirection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -679,8 +679,8 @@ impl NetApp {
     pub fn establish_peering(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::EstablishPeering {
-        crate::builders::net_app::EstablishPeering::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::EstablishPeering {
+        super::builders::net_app::EstablishPeering::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Syncs the replication. This will invoke one time volume data transfer from
@@ -698,8 +698,8 @@ impl NetApp {
     pub fn sync_replication(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::SyncReplication {
-        crate::builders::net_app::SyncReplication::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::SyncReplication {
+        super::builders::net_app::SyncReplication::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates new backup vault
@@ -716,8 +716,8 @@ impl NetApp {
     pub fn create_backup_vault(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CreateBackupVault {
-        crate::builders::net_app::CreateBackupVault::new(self.inner.clone())
+    ) -> super::builders::net_app::CreateBackupVault {
+        super::builders::net_app::CreateBackupVault::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -725,16 +725,16 @@ impl NetApp {
     pub fn get_backup_vault(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetBackupVault {
-        crate::builders::net_app::GetBackupVault::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetBackupVault {
+        super::builders::net_app::GetBackupVault::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns list of all available backup vaults.
     pub fn list_backup_vaults(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListBackupVaults {
-        crate::builders::net_app::ListBackupVaults::new(self.inner.clone())
+    ) -> super::builders::net_app::ListBackupVaults {
+        super::builders::net_app::ListBackupVaults::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -752,8 +752,8 @@ impl NetApp {
     pub fn update_backup_vault(
         &self,
         backup_vault: impl Into<crate::model::BackupVault>,
-    ) -> crate::builders::net_app::UpdateBackupVault {
-        crate::builders::net_app::UpdateBackupVault::new(self.inner.clone())
+    ) -> super::builders::net_app::UpdateBackupVault {
+        super::builders::net_app::UpdateBackupVault::new(self.inner.clone())
             .set_backup_vault(backup_vault.into())
     }
 
@@ -771,8 +771,8 @@ impl NetApp {
     pub fn delete_backup_vault(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteBackupVault {
-        crate::builders::net_app::DeleteBackupVault::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::DeleteBackupVault {
+        super::builders::net_app::DeleteBackupVault::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a backup from the volume specified in the request
@@ -792,24 +792,24 @@ impl NetApp {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CreateBackup {
-        crate::builders::net_app::CreateBackup::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::net_app::CreateBackup {
+        super::builders::net_app::CreateBackup::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Returns the description of the specified backup
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetBackup {
-        crate::builders::net_app::GetBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetBackup {
+        super::builders::net_app::GetBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns descriptions of all backups for a backupVault.
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListBackups {
-        crate::builders::net_app::ListBackups::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::net_app::ListBackups {
+        super::builders::net_app::ListBackups::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Warning! This operation will permanently delete the backup.
@@ -826,8 +826,8 @@ impl NetApp {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteBackup {
-        crate::builders::net_app::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::DeleteBackup {
+        super::builders::net_app::DeleteBackup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Update backup with full spec.
@@ -844,8 +844,8 @@ impl NetApp {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
-    ) -> crate::builders::net_app::UpdateBackup {
-        crate::builders::net_app::UpdateBackup::new(self.inner.clone()).set_backup(backup.into())
+    ) -> super::builders::net_app::UpdateBackup {
+        super::builders::net_app::UpdateBackup::new(self.inner.clone()).set_backup(backup.into())
     }
 
     /// Creates new backup policy
@@ -862,8 +862,8 @@ impl NetApp {
     pub fn create_backup_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CreateBackupPolicy {
-        crate::builders::net_app::CreateBackupPolicy::new(self.inner.clone())
+    ) -> super::builders::net_app::CreateBackupPolicy {
+        super::builders::net_app::CreateBackupPolicy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -871,16 +871,16 @@ impl NetApp {
     pub fn get_backup_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetBackupPolicy {
-        crate::builders::net_app::GetBackupPolicy::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetBackupPolicy {
+        super::builders::net_app::GetBackupPolicy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns list of all available backup policies.
     pub fn list_backup_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListBackupPolicies {
-        crate::builders::net_app::ListBackupPolicies::new(self.inner.clone())
+    ) -> super::builders::net_app::ListBackupPolicies {
+        super::builders::net_app::ListBackupPolicies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -898,8 +898,8 @@ impl NetApp {
     pub fn update_backup_policy(
         &self,
         backup_policy: impl Into<crate::model::BackupPolicy>,
-    ) -> crate::builders::net_app::UpdateBackupPolicy {
-        crate::builders::net_app::UpdateBackupPolicy::new(self.inner.clone())
+    ) -> super::builders::net_app::UpdateBackupPolicy {
+        super::builders::net_app::UpdateBackupPolicy::new(self.inner.clone())
             .set_backup_policy(backup_policy.into())
     }
 
@@ -917,24 +917,24 @@ impl NetApp {
     pub fn delete_backup_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteBackupPolicy {
-        crate::builders::net_app::DeleteBackupPolicy::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::DeleteBackupPolicy {
+        super::builders::net_app::DeleteBackupPolicy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns list of all quota rules in a location.
     pub fn list_quota_rules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListQuotaRules {
-        crate::builders::net_app::ListQuotaRules::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::net_app::ListQuotaRules {
+        super::builders::net_app::ListQuotaRules::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Returns details of the specified quota rule.
     pub fn get_quota_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetQuotaRule {
-        crate::builders::net_app::GetQuotaRule::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetQuotaRule {
+        super::builders::net_app::GetQuotaRule::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new quota rule.
@@ -951,8 +951,8 @@ impl NetApp {
     pub fn create_quota_rule(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CreateQuotaRule {
-        crate::builders::net_app::CreateQuotaRule::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::net_app::CreateQuotaRule {
+        super::builders::net_app::CreateQuotaRule::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates a quota rule.
@@ -969,8 +969,8 @@ impl NetApp {
     pub fn update_quota_rule(
         &self,
         quota_rule: impl Into<crate::model::QuotaRule>,
-    ) -> crate::builders::net_app::UpdateQuotaRule {
-        crate::builders::net_app::UpdateQuotaRule::new(self.inner.clone())
+    ) -> super::builders::net_app::UpdateQuotaRule {
+        super::builders::net_app::UpdateQuotaRule::new(self.inner.clone())
             .set_quota_rule(quota_rule.into())
     }
 
@@ -988,24 +988,24 @@ impl NetApp {
     pub fn delete_quota_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteQuotaRule {
-        crate::builders::net_app::DeleteQuotaRule::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::DeleteQuotaRule {
+        super::builders::net_app::DeleteQuotaRule::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListLocations {
-        crate::builders::net_app::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::ListLocations {
+        super::builders::net_app::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetLocation {
-        crate::builders::net_app::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetLocation {
+        super::builders::net_app::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1014,8 +1014,8 @@ impl NetApp {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::ListOperations {
-        crate::builders::net_app::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::ListOperations {
+        super::builders::net_app::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1024,8 +1024,8 @@ impl NetApp {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::GetOperation {
-        crate::builders::net_app::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::GetOperation {
+        super::builders::net_app::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1034,8 +1034,8 @@ impl NetApp {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::DeleteOperation {
-        crate::builders::net_app::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::DeleteOperation {
+        super::builders::net_app::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1044,7 +1044,7 @@ impl NetApp {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::net_app::CancelOperation {
-        crate::builders::net_app::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::net_app::CancelOperation {
+        super::builders::net_app::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

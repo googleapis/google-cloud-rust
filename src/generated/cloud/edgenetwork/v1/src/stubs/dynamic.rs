@@ -222,9 +222,9 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::EdgeNetwork] also implement [EdgeNetwork].
+/// All implementations of [super::EdgeNetwork] also implement [EdgeNetwork].
 #[async_trait::async_trait]
-impl<T: crate::stubs::EdgeNetwork> EdgeNetwork for T {
+impl<T: super::EdgeNetwork> EdgeNetwork for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn initialize_zone(
         &self,

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Datastream].
+/// Defines the trait used to implement [super::client::Datastream].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Datastream`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Datastream: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Datastream::list_connection_profiles].
+    /// Implements [super::client::Datastream::list_connection_profiles].
     fn list_connection_profiles(
         &self,
         _req: crate::model::ListConnectionProfilesRequest,
@@ -53,7 +53,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Datastream::get_connection_profile].
+    /// Implements [super::client::Datastream::get_connection_profile].
     fn get_connection_profile(
         &self,
         _req: crate::model::GetConnectionProfileRequest,
@@ -65,7 +65,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::create_connection_profile].
+    /// Implements [super::client::Datastream::create_connection_profile].
     fn create_connection_profile(
         &self,
         _req: crate::model::CreateConnectionProfileRequest,
@@ -77,7 +77,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::update_connection_profile].
+    /// Implements [super::client::Datastream::update_connection_profile].
     fn update_connection_profile(
         &self,
         _req: crate::model::UpdateConnectionProfileRequest,
@@ -89,7 +89,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::delete_connection_profile].
+    /// Implements [super::client::Datastream::delete_connection_profile].
     fn delete_connection_profile(
         &self,
         _req: crate::model::DeleteConnectionProfileRequest,
@@ -101,7 +101,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::discover_connection_profile].
+    /// Implements [super::client::Datastream::discover_connection_profile].
     fn discover_connection_profile(
         &self,
         _req: crate::model::DiscoverConnectionProfileRequest,
@@ -114,7 +114,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Datastream::list_streams].
+    /// Implements [super::client::Datastream::list_streams].
     fn list_streams(
         &self,
         _req: crate::model::ListStreamsRequest,
@@ -126,7 +126,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::get_stream].
+    /// Implements [super::client::Datastream::get_stream].
     fn get_stream(
         &self,
         _req: crate::model::GetStreamRequest,
@@ -137,7 +137,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::create_stream].
+    /// Implements [super::client::Datastream::create_stream].
     fn create_stream(
         &self,
         _req: crate::model::CreateStreamRequest,
@@ -149,7 +149,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::update_stream].
+    /// Implements [super::client::Datastream::update_stream].
     fn update_stream(
         &self,
         _req: crate::model::UpdateStreamRequest,
@@ -161,7 +161,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::delete_stream].
+    /// Implements [super::client::Datastream::delete_stream].
     fn delete_stream(
         &self,
         _req: crate::model::DeleteStreamRequest,
@@ -173,7 +173,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::run_stream].
+    /// Implements [super::client::Datastream::run_stream].
     fn run_stream(
         &self,
         _req: crate::model::RunStreamRequest,
@@ -185,7 +185,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::get_stream_object].
+    /// Implements [super::client::Datastream::get_stream_object].
     fn get_stream_object(
         &self,
         _req: crate::model::GetStreamObjectRequest,
@@ -196,7 +196,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::lookup_stream_object].
+    /// Implements [super::client::Datastream::lookup_stream_object].
     fn lookup_stream_object(
         &self,
         _req: crate::model::LookupStreamObjectRequest,
@@ -207,7 +207,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::list_stream_objects].
+    /// Implements [super::client::Datastream::list_stream_objects].
     fn list_stream_objects(
         &self,
         _req: crate::model::ListStreamObjectsRequest,
@@ -219,7 +219,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Datastream::start_backfill_job].
+    /// Implements [super::client::Datastream::start_backfill_job].
     fn start_backfill_job(
         &self,
         _req: crate::model::StartBackfillJobRequest,
@@ -231,7 +231,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Datastream::stop_backfill_job].
+    /// Implements [super::client::Datastream::stop_backfill_job].
     fn stop_backfill_job(
         &self,
         _req: crate::model::StopBackfillJobRequest,
@@ -243,7 +243,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Datastream::fetch_static_ips].
+    /// Implements [super::client::Datastream::fetch_static_ips].
     fn fetch_static_ips(
         &self,
         _req: crate::model::FetchStaticIpsRequest,
@@ -255,7 +255,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Datastream::create_private_connection].
+    /// Implements [super::client::Datastream::create_private_connection].
     fn create_private_connection(
         &self,
         _req: crate::model::CreatePrivateConnectionRequest,
@@ -267,7 +267,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::get_private_connection].
+    /// Implements [super::client::Datastream::get_private_connection].
     fn get_private_connection(
         &self,
         _req: crate::model::GetPrivateConnectionRequest,
@@ -279,7 +279,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::list_private_connections].
+    /// Implements [super::client::Datastream::list_private_connections].
     fn list_private_connections(
         &self,
         _req: crate::model::ListPrivateConnectionsRequest,
@@ -291,7 +291,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Datastream::delete_private_connection].
+    /// Implements [super::client::Datastream::delete_private_connection].
     fn delete_private_connection(
         &self,
         _req: crate::model::DeletePrivateConnectionRequest,
@@ -303,7 +303,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::create_route].
+    /// Implements [super::client::Datastream::create_route].
     fn create_route(
         &self,
         _req: crate::model::CreateRouteRequest,
@@ -315,7 +315,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::get_route].
+    /// Implements [super::client::Datastream::get_route].
     fn get_route(
         &self,
         _req: crate::model::GetRouteRequest,
@@ -324,7 +324,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Route>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Datastream::list_routes].
+    /// Implements [super::client::Datastream::list_routes].
     fn list_routes(
         &self,
         _req: crate::model::ListRoutesRequest,
@@ -336,7 +336,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::delete_route].
+    /// Implements [super::client::Datastream::delete_route].
     fn delete_route(
         &self,
         _req: crate::model::DeleteRouteRequest,
@@ -348,7 +348,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::list_locations].
+    /// Implements [super::client::Datastream::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -360,7 +360,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Datastream::get_location].
+    /// Implements [super::client::Datastream::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -371,7 +371,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::list_operations].
+    /// Implements [super::client::Datastream::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -383,7 +383,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Datastream::get_operation].
+    /// Implements [super::client::Datastream::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -395,7 +395,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Datastream::delete_operation].
+    /// Implements [super::client::Datastream::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -404,7 +404,7 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Datastream::cancel_operation].
+    /// Implements [super::client::Datastream::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

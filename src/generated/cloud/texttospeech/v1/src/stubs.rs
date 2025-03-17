@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::TextToSpeech].
+/// Defines the trait used to implement [super::client::TextToSpeech].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TextToSpeech`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TextToSpeech: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TextToSpeech::list_voices].
+    /// Implements [super::client::TextToSpeech::list_voices].
     fn list_voices(
         &self,
         _req: crate::model::ListVoicesRequest,
@@ -53,7 +53,7 @@ pub trait TextToSpeech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TextToSpeech::synthesize_speech].
+    /// Implements [super::client::TextToSpeech::synthesize_speech].
     fn synthesize_speech(
         &self,
         _req: crate::model::SynthesizeSpeechRequest,
@@ -65,7 +65,7 @@ pub trait TextToSpeech: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TextToSpeech::list_operations].
+    /// Implements [super::client::TextToSpeech::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -77,7 +77,7 @@ pub trait TextToSpeech: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TextToSpeech::get_operation].
+    /// Implements [super::client::TextToSpeech::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -90,7 +90,7 @@ pub trait TextToSpeech: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::TextToSpeechLongAudioSynthesize].
+/// Defines the trait used to implement [super::client::TextToSpeechLongAudioSynthesize].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TextToSpeechLongAudioSynthesize`.  In other use-cases, application developers only
@@ -102,7 +102,7 @@ pub trait TextToSpeech: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TextToSpeechLongAudioSynthesize: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio].
+    /// Implements [super::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio].
     fn synthesize_long_audio(
         &self,
         _req: crate::model::SynthesizeLongAudioRequest,
@@ -114,7 +114,7 @@ pub trait TextToSpeechLongAudioSynthesize: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TextToSpeechLongAudioSynthesize::list_operations].
+    /// Implements [super::client::TextToSpeechLongAudioSynthesize::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -126,7 +126,7 @@ pub trait TextToSpeechLongAudioSynthesize: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TextToSpeechLongAudioSynthesize::get_operation].
+    /// Implements [super::client::TextToSpeechLongAudioSynthesize::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

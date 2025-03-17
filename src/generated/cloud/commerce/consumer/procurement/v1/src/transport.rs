@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [LicenseManagementService](crate::stubs::LicenseManagementService) using a [gclient::ReqwestClient].
+/// Implements [LicenseManagementService](super::stubs::LicenseManagementService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct LicenseManagementService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl LicenseManagementService {
     }
 }
 
-impl crate::stubs::LicenseManagementService for LicenseManagementService {
+impl super::stubs::LicenseManagementService for LicenseManagementService {
     async fn get_license_pool(
         &self,
         req: crate::model::GetLicensePoolRequest,
@@ -178,7 +178,7 @@ impl crate::stubs::LicenseManagementService for LicenseManagementService {
     }
 }
 
-/// Implements [ConsumerProcurementService](crate::stubs::ConsumerProcurementService) using a [gclient::ReqwestClient].
+/// Implements [ConsumerProcurementService](super::stubs::ConsumerProcurementService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ConsumerProcurementService {
     inner: gclient::ReqwestClient,
@@ -199,7 +199,7 @@ impl ConsumerProcurementService {
     }
 }
 
-impl crate::stubs::ConsumerProcurementService for ConsumerProcurementService {
+impl super::stubs::ConsumerProcurementService for ConsumerProcurementService {
     async fn place_order(
         &self,
         req: crate::model::PlaceOrderRequest,

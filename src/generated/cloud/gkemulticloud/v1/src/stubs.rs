@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AttachedClusters].
+/// Defines the trait used to implement [super::client::AttachedClusters].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AttachedClusters`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AttachedClusters::create_attached_cluster].
+    /// Implements [super::client::AttachedClusters::create_attached_cluster].
     fn create_attached_cluster(
         &self,
         _req: crate::model::CreateAttachedClusterRequest,
@@ -53,7 +53,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AttachedClusters::update_attached_cluster].
+    /// Implements [super::client::AttachedClusters::update_attached_cluster].
     fn update_attached_cluster(
         &self,
         _req: crate::model::UpdateAttachedClusterRequest,
@@ -65,7 +65,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AttachedClusters::import_attached_cluster].
+    /// Implements [super::client::AttachedClusters::import_attached_cluster].
     fn import_attached_cluster(
         &self,
         _req: crate::model::ImportAttachedClusterRequest,
@@ -77,7 +77,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AttachedClusters::get_attached_cluster].
+    /// Implements [super::client::AttachedClusters::get_attached_cluster].
     fn get_attached_cluster(
         &self,
         _req: crate::model::GetAttachedClusterRequest,
@@ -89,7 +89,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AttachedClusters::list_attached_clusters].
+    /// Implements [super::client::AttachedClusters::list_attached_clusters].
     fn list_attached_clusters(
         &self,
         _req: crate::model::ListAttachedClustersRequest,
@@ -101,7 +101,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AttachedClusters::delete_attached_cluster].
+    /// Implements [super::client::AttachedClusters::delete_attached_cluster].
     fn delete_attached_cluster(
         &self,
         _req: crate::model::DeleteAttachedClusterRequest,
@@ -113,7 +113,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AttachedClusters::get_attached_server_config].
+    /// Implements [super::client::AttachedClusters::get_attached_server_config].
     fn get_attached_server_config(
         &self,
         _req: crate::model::GetAttachedServerConfigRequest,
@@ -125,7 +125,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AttachedClusters::generate_attached_cluster_install_manifest].
+    /// Implements [super::client::AttachedClusters::generate_attached_cluster_install_manifest].
     fn generate_attached_cluster_install_manifest(
         &self,
         _req: crate::model::GenerateAttachedClusterInstallManifestRequest,
@@ -138,7 +138,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AttachedClusters::generate_attached_cluster_agent_token].
+    /// Implements [super::client::AttachedClusters::generate_attached_cluster_agent_token].
     fn generate_attached_cluster_agent_token(
         &self,
         _req: crate::model::GenerateAttachedClusterAgentTokenRequest,
@@ -151,7 +151,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::AttachedClusters::list_operations].
+    /// Implements [super::client::AttachedClusters::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -163,7 +163,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AttachedClusters::get_operation].
+    /// Implements [super::client::AttachedClusters::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -175,7 +175,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AttachedClusters::delete_operation].
+    /// Implements [super::client::AttachedClusters::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -184,7 +184,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AttachedClusters::cancel_operation].
+    /// Implements [super::client::AttachedClusters::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -216,7 +216,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::AwsClusters].
+/// Defines the trait used to implement [super::client::AwsClusters].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AwsClusters`.  In other use-cases, application developers only
@@ -228,7 +228,7 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AwsClusters: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AwsClusters::create_aws_cluster].
+    /// Implements [super::client::AwsClusters::create_aws_cluster].
     fn create_aws_cluster(
         &self,
         _req: crate::model::CreateAwsClusterRequest,
@@ -240,7 +240,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::update_aws_cluster].
+    /// Implements [super::client::AwsClusters::update_aws_cluster].
     fn update_aws_cluster(
         &self,
         _req: crate::model::UpdateAwsClusterRequest,
@@ -252,7 +252,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::get_aws_cluster].
+    /// Implements [super::client::AwsClusters::get_aws_cluster].
     fn get_aws_cluster(
         &self,
         _req: crate::model::GetAwsClusterRequest,
@@ -263,7 +263,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::list_aws_clusters].
+    /// Implements [super::client::AwsClusters::list_aws_clusters].
     fn list_aws_clusters(
         &self,
         _req: crate::model::ListAwsClustersRequest,
@@ -275,7 +275,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AwsClusters::delete_aws_cluster].
+    /// Implements [super::client::AwsClusters::delete_aws_cluster].
     fn delete_aws_cluster(
         &self,
         _req: crate::model::DeleteAwsClusterRequest,
@@ -287,7 +287,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::generate_aws_cluster_agent_token].
+    /// Implements [super::client::AwsClusters::generate_aws_cluster_agent_token].
     fn generate_aws_cluster_agent_token(
         &self,
         _req: crate::model::GenerateAwsClusterAgentTokenRequest,
@@ -300,7 +300,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::AwsClusters::generate_aws_access_token].
+    /// Implements [super::client::AwsClusters::generate_aws_access_token].
     fn generate_aws_access_token(
         &self,
         _req: crate::model::GenerateAwsAccessTokenRequest,
@@ -312,7 +312,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AwsClusters::create_aws_node_pool].
+    /// Implements [super::client::AwsClusters::create_aws_node_pool].
     fn create_aws_node_pool(
         &self,
         _req: crate::model::CreateAwsNodePoolRequest,
@@ -324,7 +324,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::update_aws_node_pool].
+    /// Implements [super::client::AwsClusters::update_aws_node_pool].
     fn update_aws_node_pool(
         &self,
         _req: crate::model::UpdateAwsNodePoolRequest,
@@ -336,7 +336,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::rollback_aws_node_pool_update].
+    /// Implements [super::client::AwsClusters::rollback_aws_node_pool_update].
     fn rollback_aws_node_pool_update(
         &self,
         _req: crate::model::RollbackAwsNodePoolUpdateRequest,
@@ -348,7 +348,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::get_aws_node_pool].
+    /// Implements [super::client::AwsClusters::get_aws_node_pool].
     fn get_aws_node_pool(
         &self,
         _req: crate::model::GetAwsNodePoolRequest,
@@ -359,7 +359,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::list_aws_node_pools].
+    /// Implements [super::client::AwsClusters::list_aws_node_pools].
     fn list_aws_node_pools(
         &self,
         _req: crate::model::ListAwsNodePoolsRequest,
@@ -371,7 +371,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AwsClusters::delete_aws_node_pool].
+    /// Implements [super::client::AwsClusters::delete_aws_node_pool].
     fn delete_aws_node_pool(
         &self,
         _req: crate::model::DeleteAwsNodePoolRequest,
@@ -383,7 +383,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::get_aws_open_id_config].
+    /// Implements [super::client::AwsClusters::get_aws_open_id_config].
     fn get_aws_open_id_config(
         &self,
         _req: crate::model::GetAwsOpenIdConfigRequest,
@@ -395,7 +395,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::get_aws_json_web_keys].
+    /// Implements [super::client::AwsClusters::get_aws_json_web_keys].
     fn get_aws_json_web_keys(
         &self,
         _req: crate::model::GetAwsJsonWebKeysRequest,
@@ -406,7 +406,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::get_aws_server_config].
+    /// Implements [super::client::AwsClusters::get_aws_server_config].
     fn get_aws_server_config(
         &self,
         _req: crate::model::GetAwsServerConfigRequest,
@@ -418,7 +418,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::list_operations].
+    /// Implements [super::client::AwsClusters::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -430,7 +430,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AwsClusters::get_operation].
+    /// Implements [super::client::AwsClusters::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -442,7 +442,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AwsClusters::delete_operation].
+    /// Implements [super::client::AwsClusters::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -451,7 +451,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AwsClusters::cancel_operation].
+    /// Implements [super::client::AwsClusters::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -483,7 +483,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::AzureClusters].
+/// Defines the trait used to implement [super::client::AzureClusters].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AzureClusters`.  In other use-cases, application developers only
@@ -495,7 +495,7 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AzureClusters: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AzureClusters::create_azure_client].
+    /// Implements [super::client::AzureClusters::create_azure_client].
     fn create_azure_client(
         &self,
         _req: crate::model::CreateAzureClientRequest,
@@ -507,7 +507,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::get_azure_client].
+    /// Implements [super::client::AzureClusters::get_azure_client].
     fn get_azure_client(
         &self,
         _req: crate::model::GetAzureClientRequest,
@@ -518,7 +518,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::list_azure_clients].
+    /// Implements [super::client::AzureClusters::list_azure_clients].
     fn list_azure_clients(
         &self,
         _req: crate::model::ListAzureClientsRequest,
@@ -530,7 +530,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AzureClusters::delete_azure_client].
+    /// Implements [super::client::AzureClusters::delete_azure_client].
     fn delete_azure_client(
         &self,
         _req: crate::model::DeleteAzureClientRequest,
@@ -542,7 +542,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::create_azure_cluster].
+    /// Implements [super::client::AzureClusters::create_azure_cluster].
     fn create_azure_cluster(
         &self,
         _req: crate::model::CreateAzureClusterRequest,
@@ -554,7 +554,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::update_azure_cluster].
+    /// Implements [super::client::AzureClusters::update_azure_cluster].
     fn update_azure_cluster(
         &self,
         _req: crate::model::UpdateAzureClusterRequest,
@@ -566,7 +566,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::get_azure_cluster].
+    /// Implements [super::client::AzureClusters::get_azure_cluster].
     fn get_azure_cluster(
         &self,
         _req: crate::model::GetAzureClusterRequest,
@@ -577,7 +577,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::list_azure_clusters].
+    /// Implements [super::client::AzureClusters::list_azure_clusters].
     fn list_azure_clusters(
         &self,
         _req: crate::model::ListAzureClustersRequest,
@@ -589,7 +589,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AzureClusters::delete_azure_cluster].
+    /// Implements [super::client::AzureClusters::delete_azure_cluster].
     fn delete_azure_cluster(
         &self,
         _req: crate::model::DeleteAzureClusterRequest,
@@ -601,7 +601,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::generate_azure_cluster_agent_token].
+    /// Implements [super::client::AzureClusters::generate_azure_cluster_agent_token].
     fn generate_azure_cluster_agent_token(
         &self,
         _req: crate::model::GenerateAzureClusterAgentTokenRequest,
@@ -614,7 +614,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::AzureClusters::generate_azure_access_token].
+    /// Implements [super::client::AzureClusters::generate_azure_access_token].
     fn generate_azure_access_token(
         &self,
         _req: crate::model::GenerateAzureAccessTokenRequest,
@@ -627,7 +627,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AzureClusters::create_azure_node_pool].
+    /// Implements [super::client::AzureClusters::create_azure_node_pool].
     fn create_azure_node_pool(
         &self,
         _req: crate::model::CreateAzureNodePoolRequest,
@@ -639,7 +639,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::update_azure_node_pool].
+    /// Implements [super::client::AzureClusters::update_azure_node_pool].
     fn update_azure_node_pool(
         &self,
         _req: crate::model::UpdateAzureNodePoolRequest,
@@ -651,7 +651,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::get_azure_node_pool].
+    /// Implements [super::client::AzureClusters::get_azure_node_pool].
     fn get_azure_node_pool(
         &self,
         _req: crate::model::GetAzureNodePoolRequest,
@@ -662,7 +662,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::list_azure_node_pools].
+    /// Implements [super::client::AzureClusters::list_azure_node_pools].
     fn list_azure_node_pools(
         &self,
         _req: crate::model::ListAzureNodePoolsRequest,
@@ -674,7 +674,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AzureClusters::delete_azure_node_pool].
+    /// Implements [super::client::AzureClusters::delete_azure_node_pool].
     fn delete_azure_node_pool(
         &self,
         _req: crate::model::DeleteAzureNodePoolRequest,
@@ -686,7 +686,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::get_azure_open_id_config].
+    /// Implements [super::client::AzureClusters::get_azure_open_id_config].
     fn get_azure_open_id_config(
         &self,
         _req: crate::model::GetAzureOpenIdConfigRequest,
@@ -698,7 +698,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::get_azure_json_web_keys].
+    /// Implements [super::client::AzureClusters::get_azure_json_web_keys].
     fn get_azure_json_web_keys(
         &self,
         _req: crate::model::GetAzureJsonWebKeysRequest,
@@ -710,7 +710,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::get_azure_server_config].
+    /// Implements [super::client::AzureClusters::get_azure_server_config].
     fn get_azure_server_config(
         &self,
         _req: crate::model::GetAzureServerConfigRequest,
@@ -722,7 +722,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::list_operations].
+    /// Implements [super::client::AzureClusters::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -734,7 +734,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AzureClusters::get_operation].
+    /// Implements [super::client::AzureClusters::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -746,7 +746,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AzureClusters::delete_operation].
+    /// Implements [super::client::AzureClusters::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -755,7 +755,7 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AzureClusters::cancel_operation].
+    /// Implements [super::client::AzureClusters::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

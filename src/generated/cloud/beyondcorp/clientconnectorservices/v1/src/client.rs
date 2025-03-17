@@ -48,7 +48,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ClientConnectorServicesService {
-    inner: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+    inner: Arc<dyn super::stubs::dynamic::ClientConnectorServicesService>,
 }
 
 impl ClientConnectorServicesService {
@@ -69,7 +69,7 @@ impl ClientConnectorServicesService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ClientConnectorServicesService + 'static,
+        T: super::stubs::ClientConnectorServicesService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -78,7 +78,7 @@ impl ClientConnectorServicesService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ClientConnectorServicesService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -87,24 +87,24 @@ impl ClientConnectorServicesService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ClientConnectorServicesService> {
-        crate::transport::ClientConnectorServicesService::new(conf).await
+    ) -> Result<impl super::stubs::ClientConnectorServicesService> {
+        super::transport::ClientConnectorServicesService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ClientConnectorServicesService> {
+    ) -> Result<impl super::stubs::ClientConnectorServicesService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ClientConnectorServicesService::new)
+            .map(super::tracing::ClientConnectorServicesService::new)
     }
 
     /// Lists ClientConnectorServices in a given project and location.
     pub fn list_client_connector_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::ListClientConnectorServices {
-        crate::builders::client_connector_services_service::ListClientConnectorServices::new(
+    ) -> super::builders::client_connector_services_service::ListClientConnectorServices {
+        super::builders::client_connector_services_service::ListClientConnectorServices::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -114,8 +114,8 @@ impl ClientConnectorServicesService {
     pub fn get_client_connector_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::GetClientConnectorService {
-        crate::builders::client_connector_services_service::GetClientConnectorService::new(
+    ) -> super::builders::client_connector_services_service::GetClientConnectorService {
+        super::builders::client_connector_services_service::GetClientConnectorService::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -135,8 +135,8 @@ impl ClientConnectorServicesService {
     pub fn create_client_connector_service(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::CreateClientConnectorService {
-        crate::builders::client_connector_services_service::CreateClientConnectorService::new(
+    ) -> super::builders::client_connector_services_service::CreateClientConnectorService {
+        super::builders::client_connector_services_service::CreateClientConnectorService::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -156,8 +156,8 @@ impl ClientConnectorServicesService {
     pub fn update_client_connector_service(
         &self,
         client_connector_service: impl Into<crate::model::ClientConnectorService>,
-    ) -> crate::builders::client_connector_services_service::UpdateClientConnectorService {
-        crate::builders::client_connector_services_service::UpdateClientConnectorService::new(
+    ) -> super::builders::client_connector_services_service::UpdateClientConnectorService {
+        super::builders::client_connector_services_service::UpdateClientConnectorService::new(
             self.inner.clone(),
         )
         .set_client_connector_service(client_connector_service.into())
@@ -177,8 +177,8 @@ impl ClientConnectorServicesService {
     pub fn delete_client_connector_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::DeleteClientConnectorService {
-        crate::builders::client_connector_services_service::DeleteClientConnectorService::new(
+    ) -> super::builders::client_connector_services_service::DeleteClientConnectorService {
+        super::builders::client_connector_services_service::DeleteClientConnectorService::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -188,8 +188,8 @@ impl ClientConnectorServicesService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::ListLocations {
-        crate::builders::client_connector_services_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::client_connector_services_service::ListLocations {
+        super::builders::client_connector_services_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -197,8 +197,8 @@ impl ClientConnectorServicesService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::GetLocation {
-        crate::builders::client_connector_services_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::client_connector_services_service::GetLocation {
+        super::builders::client_connector_services_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -210,8 +210,8 @@ impl ClientConnectorServicesService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::SetIamPolicy {
-        crate::builders::client_connector_services_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::client_connector_services_service::SetIamPolicy {
+        super::builders::client_connector_services_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -220,8 +220,8 @@ impl ClientConnectorServicesService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::GetIamPolicy {
-        crate::builders::client_connector_services_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::client_connector_services_service::GetIamPolicy {
+        super::builders::client_connector_services_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -235,8 +235,8 @@ impl ClientConnectorServicesService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::TestIamPermissions {
-        crate::builders::client_connector_services_service::TestIamPermissions::new(
+    ) -> super::builders::client_connector_services_service::TestIamPermissions {
+        super::builders::client_connector_services_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
@@ -248,8 +248,8 @@ impl ClientConnectorServicesService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::ListOperations {
-        crate::builders::client_connector_services_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::client_connector_services_service::ListOperations {
+        super::builders::client_connector_services_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -259,8 +259,8 @@ impl ClientConnectorServicesService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::GetOperation {
-        crate::builders::client_connector_services_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::client_connector_services_service::GetOperation {
+        super::builders::client_connector_services_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -270,8 +270,8 @@ impl ClientConnectorServicesService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::DeleteOperation {
-        crate::builders::client_connector_services_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::client_connector_services_service::DeleteOperation {
+        super::builders::client_connector_services_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -281,8 +281,8 @@ impl ClientConnectorServicesService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::client_connector_services_service::CancelOperation {
-        crate::builders::client_connector_services_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::client_connector_services_service::CancelOperation {
+        super::builders::client_connector_services_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

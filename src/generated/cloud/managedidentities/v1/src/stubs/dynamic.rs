@@ -114,9 +114,9 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ManagedIdentitiesService] also implement [ManagedIdentitiesService].
+/// All implementations of [super::ManagedIdentitiesService] also implement [ManagedIdentitiesService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ManagedIdentitiesService> ManagedIdentitiesService for T {
+impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_microsoft_ad_domain(
         &self,

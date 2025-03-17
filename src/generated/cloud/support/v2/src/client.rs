@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CaseAttachmentService {
-    inner: Arc<dyn crate::stubs::dynamic::CaseAttachmentService>,
+    inner: Arc<dyn super::stubs::dynamic::CaseAttachmentService>,
 }
 
 impl CaseAttachmentService {
@@ -59,7 +59,7 @@ impl CaseAttachmentService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CaseAttachmentService + 'static,
+        T: super::stubs::CaseAttachmentService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl CaseAttachmentService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CaseAttachmentService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CaseAttachmentService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl CaseAttachmentService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CaseAttachmentService> {
-        crate::transport::CaseAttachmentService::new(conf).await
+    ) -> Result<impl super::stubs::CaseAttachmentService> {
+        super::transport::CaseAttachmentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CaseAttachmentService> {
+    ) -> Result<impl super::stubs::CaseAttachmentService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CaseAttachmentService::new)
+            .map(super::tracing::CaseAttachmentService::new)
     }
 
     /// Retrieve all attachments associated with a support case.
     pub fn list_attachments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::case_attachment_service::ListAttachments {
-        crate::builders::case_attachment_service::ListAttachments::new(self.inner.clone())
+    ) -> super::builders::case_attachment_service::ListAttachments {
+        super::builders::case_attachment_service::ListAttachments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }
@@ -118,7 +118,7 @@ impl CaseAttachmentService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CaseService {
-    inner: Arc<dyn crate::stubs::dynamic::CaseService>,
+    inner: Arc<dyn super::stubs::dynamic::CaseService>,
 }
 
 impl CaseService {
@@ -139,7 +139,7 @@ impl CaseService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CaseService + 'static,
+        T: super::stubs::CaseService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -148,7 +148,7 @@ impl CaseService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CaseService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CaseService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -157,24 +157,24 @@ impl CaseService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CaseService> {
-        crate::transport::CaseService::new(conf).await
+    ) -> Result<impl super::stubs::CaseService> {
+        super::transport::CaseService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CaseService> {
+    ) -> Result<impl super::stubs::CaseService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CaseService::new)
+            .map(super::tracing::CaseService::new)
     }
 
     /// Retrieve the specified case.
     pub fn get_case(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::case_service::GetCase {
-        crate::builders::case_service::GetCase::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::case_service::GetCase {
+        super::builders::case_service::GetCase::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Retrieve all cases under the specified parent.
@@ -186,16 +186,16 @@ impl CaseService {
     pub fn list_cases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::case_service::ListCases {
-        crate::builders::case_service::ListCases::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::case_service::ListCases {
+        super::builders::case_service::ListCases::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Search cases using the specified query.
     pub fn search_cases(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::case_service::SearchCases {
-        crate::builders::case_service::SearchCases::new(self.inner.clone())
+    ) -> super::builders::case_service::SearchCases {
+        super::builders::case_service::SearchCases::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -205,16 +205,16 @@ impl CaseService {
     pub fn create_case(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::case_service::CreateCase {
-        crate::builders::case_service::CreateCase::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::case_service::CreateCase {
+        super::builders::case_service::CreateCase::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Update the specified case. Only a subset of fields can be updated.
     pub fn update_case(
         &self,
         case: impl Into<crate::model::Case>,
-    ) -> crate::builders::case_service::UpdateCase {
-        crate::builders::case_service::UpdateCase::new(self.inner.clone()).set_case(case.into())
+    ) -> super::builders::case_service::UpdateCase {
+        super::builders::case_service::UpdateCase::new(self.inner.clone()).set_case(case.into())
     }
 
     /// Escalate a case. Escalating a case will initiate the Google Cloud Support
@@ -227,16 +227,16 @@ impl CaseService {
     pub fn escalate_case(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::case_service::EscalateCase {
-        crate::builders::case_service::EscalateCase::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::case_service::EscalateCase {
+        super::builders::case_service::EscalateCase::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Close the specified case.
     pub fn close_case(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::case_service::CloseCase {
-        crate::builders::case_service::CloseCase::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::case_service::CloseCase {
+        super::builders::case_service::CloseCase::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Retrieve valid classifications to be used when creating a support case.
@@ -245,8 +245,8 @@ impl CaseService {
     /// Issue > Compute > Compute Engine".
     pub fn search_case_classifications(
         &self,
-    ) -> crate::builders::case_service::SearchCaseClassifications {
-        crate::builders::case_service::SearchCaseClassifications::new(self.inner.clone())
+    ) -> super::builders::case_service::SearchCaseClassifications {
+        super::builders::case_service::SearchCaseClassifications::new(self.inner.clone())
     }
 }
 
@@ -269,7 +269,7 @@ impl CaseService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CommentService {
-    inner: Arc<dyn crate::stubs::dynamic::CommentService>,
+    inner: Arc<dyn super::stubs::dynamic::CommentService>,
 }
 
 impl CommentService {
@@ -290,7 +290,7 @@ impl CommentService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CommentService + 'static,
+        T: super::stubs::CommentService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -299,7 +299,7 @@ impl CommentService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CommentService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CommentService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -308,24 +308,24 @@ impl CommentService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CommentService> {
-        crate::transport::CommentService::new(conf).await
+    ) -> Result<impl super::stubs::CommentService> {
+        super::transport::CommentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CommentService> {
+    ) -> Result<impl super::stubs::CommentService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CommentService::new)
+            .map(super::tracing::CommentService::new)
     }
 
     /// Retrieve all Comments associated with the Case object.
     pub fn list_comments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::comment_service::ListComments {
-        crate::builders::comment_service::ListComments::new(self.inner.clone())
+    ) -> super::builders::comment_service::ListComments {
+        super::builders::comment_service::ListComments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -334,8 +334,8 @@ impl CommentService {
     pub fn create_comment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::comment_service::CreateComment {
-        crate::builders::comment_service::CreateComment::new(self.inner.clone())
+    ) -> super::builders::comment_service::CreateComment {
+        super::builders::comment_service::CreateComment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DlpService](crate::stubs::DlpService) using a [gclient::ReqwestClient].
+/// Implements [DlpService](super::stubs::DlpService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DlpService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl DlpService {
     }
 }
 
-impl crate::stubs::DlpService for DlpService {
+impl super::stubs::DlpService for DlpService {
     async fn inspect_content(
         &self,
         req: crate::model::InspectContentRequest,

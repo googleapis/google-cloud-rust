@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::PublicCertificateAuthorityService].
+/// Defines the trait used to implement [super::client::PublicCertificateAuthorityService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PublicCertificateAuthorityService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PublicCertificateAuthorityService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PublicCertificateAuthorityService::create_external_account_key].
+    /// Implements [super::client::PublicCertificateAuthorityService::create_external_account_key].
     fn create_external_account_key(
         &self,
         _req: crate::model::CreateExternalAccountKeyRequest,

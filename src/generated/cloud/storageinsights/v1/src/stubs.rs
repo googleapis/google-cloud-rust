@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::StorageInsights].
+/// Defines the trait used to implement [super::client::StorageInsights].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::StorageInsights`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait StorageInsights: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::StorageInsights::list_report_configs].
+    /// Implements [super::client::StorageInsights::list_report_configs].
     fn list_report_configs(
         &self,
         _req: crate::model::ListReportConfigsRequest,
@@ -52,7 +52,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::StorageInsights::get_report_config].
+    /// Implements [super::client::StorageInsights::get_report_config].
     fn get_report_config(
         &self,
         _req: crate::model::GetReportConfigRequest,
@@ -63,7 +63,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageInsights::create_report_config].
+    /// Implements [super::client::StorageInsights::create_report_config].
     fn create_report_config(
         &self,
         _req: crate::model::CreateReportConfigRequest,
@@ -74,7 +74,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageInsights::update_report_config].
+    /// Implements [super::client::StorageInsights::update_report_config].
     fn update_report_config(
         &self,
         _req: crate::model::UpdateReportConfigRequest,
@@ -85,7 +85,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageInsights::delete_report_config].
+    /// Implements [super::client::StorageInsights::delete_report_config].
     fn delete_report_config(
         &self,
         _req: crate::model::DeleteReportConfigRequest,
@@ -94,7 +94,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::StorageInsights::list_report_details].
+    /// Implements [super::client::StorageInsights::list_report_details].
     fn list_report_details(
         &self,
         _req: crate::model::ListReportDetailsRequest,
@@ -106,7 +106,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::StorageInsights::get_report_detail].
+    /// Implements [super::client::StorageInsights::get_report_detail].
     fn get_report_detail(
         &self,
         _req: crate::model::GetReportDetailRequest,
@@ -117,7 +117,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageInsights::list_locations].
+    /// Implements [super::client::StorageInsights::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -129,7 +129,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::StorageInsights::get_location].
+    /// Implements [super::client::StorageInsights::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -140,7 +140,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageInsights::list_operations].
+    /// Implements [super::client::StorageInsights::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -152,7 +152,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::StorageInsights::get_operation].
+    /// Implements [super::client::StorageInsights::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -164,7 +164,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageInsights::delete_operation].
+    /// Implements [super::client::StorageInsights::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -173,7 +173,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::StorageInsights::cancel_operation].
+    /// Implements [super::client::StorageInsights::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudScheduler].
+/// Defines the trait used to implement [super::client::CloudScheduler].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudScheduler`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudScheduler::list_jobs].
+    /// Implements [super::client::CloudScheduler::list_jobs].
     fn list_jobs(
         &self,
         _req: crate::model::ListJobsRequest,
@@ -52,7 +52,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudScheduler::get_job].
+    /// Implements [super::client::CloudScheduler::get_job].
     fn get_job(
         &self,
         _req: crate::model::GetJobRequest,
@@ -61,7 +61,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudScheduler::create_job].
+    /// Implements [super::client::CloudScheduler::create_job].
     fn create_job(
         &self,
         _req: crate::model::CreateJobRequest,
@@ -70,7 +70,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudScheduler::update_job].
+    /// Implements [super::client::CloudScheduler::update_job].
     fn update_job(
         &self,
         _req: crate::model::UpdateJobRequest,
@@ -79,7 +79,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudScheduler::delete_job].
+    /// Implements [super::client::CloudScheduler::delete_job].
     fn delete_job(
         &self,
         _req: crate::model::DeleteJobRequest,
@@ -88,7 +88,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudScheduler::pause_job].
+    /// Implements [super::client::CloudScheduler::pause_job].
     fn pause_job(
         &self,
         _req: crate::model::PauseJobRequest,
@@ -97,7 +97,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudScheduler::resume_job].
+    /// Implements [super::client::CloudScheduler::resume_job].
     fn resume_job(
         &self,
         _req: crate::model::ResumeJobRequest,
@@ -106,7 +106,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudScheduler::run_job].
+    /// Implements [super::client::CloudScheduler::run_job].
     fn run_job(
         &self,
         _req: crate::model::RunJobRequest,
@@ -115,7 +115,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudScheduler::list_locations].
+    /// Implements [super::client::CloudScheduler::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -127,7 +127,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudScheduler::get_location].
+    /// Implements [super::client::CloudScheduler::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [LoggingServiceV2](crate::stubs::LoggingServiceV2) using a [gclient::ReqwestClient].
+/// Implements [LoggingServiceV2](super::stubs::LoggingServiceV2) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct LoggingServiceV2 {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl LoggingServiceV2 {
     }
 }
 
-impl crate::stubs::LoggingServiceV2 for LoggingServiceV2 {
+impl super::stubs::LoggingServiceV2 for LoggingServiceV2 {
     async fn delete_log(
         &self,
         req: crate::model::DeleteLogRequest,
@@ -201,7 +201,7 @@ impl crate::stubs::LoggingServiceV2 for LoggingServiceV2 {
     }
 }
 
-/// Implements [ConfigServiceV2](crate::stubs::ConfigServiceV2) using a [gclient::ReqwestClient].
+/// Implements [ConfigServiceV2](super::stubs::ConfigServiceV2) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ConfigServiceV2 {
     inner: gclient::ReqwestClient,
@@ -222,7 +222,7 @@ impl ConfigServiceV2 {
     }
 }
 
-impl crate::stubs::ConfigServiceV2 for ConfigServiceV2 {
+impl super::stubs::ConfigServiceV2 for ConfigServiceV2 {
     async fn list_buckets(
         &self,
         req: crate::model::ListBucketsRequest,
@@ -986,7 +986,7 @@ impl crate::stubs::ConfigServiceV2 for ConfigServiceV2 {
     }
 }
 
-/// Implements [MetricsServiceV2](crate::stubs::MetricsServiceV2) using a [gclient::ReqwestClient].
+/// Implements [MetricsServiceV2](super::stubs::MetricsServiceV2) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct MetricsServiceV2 {
     inner: gclient::ReqwestClient,
@@ -1007,7 +1007,7 @@ impl MetricsServiceV2 {
     }
 }
 
-impl crate::stubs::MetricsServiceV2 for MetricsServiceV2 {
+impl super::stubs::MetricsServiceV2 for MetricsServiceV2 {
     async fn list_log_metrics(
         &self,
         req: crate::model::ListLogMetricsRequest,

@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Recommender].
+/// Defines the trait used to implement [super::client::Recommender].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Recommender`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Recommender: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Recommender::list_insights].
+    /// Implements [super::client::Recommender::list_insights].
     fn list_insights(
         &self,
         _req: crate::model::ListInsightsRequest,
@@ -52,7 +52,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::get_insight].
+    /// Implements [super::client::Recommender::get_insight].
     fn get_insight(
         &self,
         _req: crate::model::GetInsightRequest,
@@ -63,7 +63,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::mark_insight_accepted].
+    /// Implements [super::client::Recommender::mark_insight_accepted].
     fn mark_insight_accepted(
         &self,
         _req: crate::model::MarkInsightAcceptedRequest,
@@ -74,7 +74,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::list_recommendations].
+    /// Implements [super::client::Recommender::list_recommendations].
     fn list_recommendations(
         &self,
         _req: crate::model::ListRecommendationsRequest,
@@ -86,7 +86,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Recommender::get_recommendation].
+    /// Implements [super::client::Recommender::get_recommendation].
     fn get_recommendation(
         &self,
         _req: crate::model::GetRecommendationRequest,
@@ -97,7 +97,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::mark_recommendation_dismissed].
+    /// Implements [super::client::Recommender::mark_recommendation_dismissed].
     fn mark_recommendation_dismissed(
         &self,
         _req: crate::model::MarkRecommendationDismissedRequest,
@@ -108,7 +108,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::mark_recommendation_claimed].
+    /// Implements [super::client::Recommender::mark_recommendation_claimed].
     fn mark_recommendation_claimed(
         &self,
         _req: crate::model::MarkRecommendationClaimedRequest,
@@ -119,7 +119,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::mark_recommendation_succeeded].
+    /// Implements [super::client::Recommender::mark_recommendation_succeeded].
     fn mark_recommendation_succeeded(
         &self,
         _req: crate::model::MarkRecommendationSucceededRequest,
@@ -130,7 +130,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::mark_recommendation_failed].
+    /// Implements [super::client::Recommender::mark_recommendation_failed].
     fn mark_recommendation_failed(
         &self,
         _req: crate::model::MarkRecommendationFailedRequest,
@@ -141,7 +141,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::get_recommender_config].
+    /// Implements [super::client::Recommender::get_recommender_config].
     fn get_recommender_config(
         &self,
         _req: crate::model::GetRecommenderConfigRequest,
@@ -153,7 +153,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::update_recommender_config].
+    /// Implements [super::client::Recommender::update_recommender_config].
     fn update_recommender_config(
         &self,
         _req: crate::model::UpdateRecommenderConfigRequest,
@@ -165,7 +165,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::get_insight_type_config].
+    /// Implements [super::client::Recommender::get_insight_type_config].
     fn get_insight_type_config(
         &self,
         _req: crate::model::GetInsightTypeConfigRequest,
@@ -177,7 +177,7 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Recommender::update_insight_type_config].
+    /// Implements [super::client::Recommender::update_insight_type_config].
     fn update_insight_type_config(
         &self,
         _req: crate::model::UpdateInsightTypeConfigRequest,

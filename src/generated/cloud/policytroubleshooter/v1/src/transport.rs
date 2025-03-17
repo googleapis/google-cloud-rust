@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [IamChecker](crate::stubs::IamChecker) using a [gclient::ReqwestClient].
+/// Implements [IamChecker](super::stubs::IamChecker) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct IamChecker {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl IamChecker {
     }
 }
 
-impl crate::stubs::IamChecker for IamChecker {
+impl super::stubs::IamChecker for IamChecker {
     async fn troubleshoot_iam_policy(
         &self,
         req: crate::model::TroubleshootIamPolicyRequest,

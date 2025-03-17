@@ -102,9 +102,9 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ListNoteOccurrencesResponse>;
 }
 
-/// All implementations of [crate::stubs::Grafeas] also implement [Grafeas].
+/// All implementations of [super::Grafeas] also implement [Grafeas].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Grafeas> Grafeas for T {
+impl<T: super::Grafeas> Grafeas for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_occurrence(
         &self,

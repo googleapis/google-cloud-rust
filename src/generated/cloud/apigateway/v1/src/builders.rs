@@ -18,10 +18,10 @@ pub mod api_gateway_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ApiGatewayService] request builders.
+    /// Common implementation for [super::super::client::ApiGatewayService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod api_gateway_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod api_gateway_service {
     pub struct ListGateways(RequestBuilder<crate::model::ListGatewaysRequest>);
 
     impl ListGateways {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -123,7 +123,7 @@ pub mod api_gateway_service {
     pub struct GetGateway(RequestBuilder<crate::model::GetGatewayRequest>);
 
     impl GetGateway {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -164,7 +164,7 @@ pub mod api_gateway_service {
     pub struct CreateGateway(RequestBuilder<crate::model::CreateGatewayRequest>);
 
     impl CreateGateway {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -185,7 +185,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_gateway][crate::client::ApiGatewayService::create_gateway].
+        /// on [create_gateway][super::super::client::ApiGatewayService::create_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_gateway(self.0.request, self.0.options)
@@ -257,7 +257,7 @@ pub mod api_gateway_service {
     pub struct UpdateGateway(RequestBuilder<crate::model::UpdateGatewayRequest>);
 
     impl UpdateGateway {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -278,7 +278,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_gateway][crate::client::ApiGatewayService::update_gateway].
+        /// on [update_gateway][super::super::client::ApiGatewayService::update_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_gateway(self.0.request, self.0.options)
@@ -347,7 +347,7 @@ pub mod api_gateway_service {
     pub struct DeleteGateway(RequestBuilder<crate::model::DeleteGatewayRequest>);
 
     impl DeleteGateway {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -368,7 +368,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_gateway][crate::client::ApiGatewayService::delete_gateway].
+        /// on [delete_gateway][super::super::client::ApiGatewayService::delete_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_gateway(self.0.request, self.0.options)
@@ -423,7 +423,7 @@ pub mod api_gateway_service {
     pub struct ListApis(RequestBuilder<crate::model::ListApisRequest>);
 
     impl ListApis {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -501,7 +501,7 @@ pub mod api_gateway_service {
     pub struct GetApi(RequestBuilder<crate::model::GetApiRequest>);
 
     impl GetApi {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -540,7 +540,7 @@ pub mod api_gateway_service {
     pub struct CreateApi(RequestBuilder<crate::model::CreateApiRequest>);
 
     impl CreateApi {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -561,7 +561,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_api][crate::client::ApiGatewayService::create_api].
+        /// on [create_api][super::super::client::ApiGatewayService::create_api].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_api(self.0.request, self.0.options)
@@ -630,7 +630,7 @@ pub mod api_gateway_service {
     pub struct UpdateApi(RequestBuilder<crate::model::UpdateApiRequest>);
 
     impl UpdateApi {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -651,7 +651,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_api][crate::client::ApiGatewayService::update_api].
+        /// on [update_api][super::super::client::ApiGatewayService::update_api].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_api(self.0.request, self.0.options)
@@ -717,7 +717,7 @@ pub mod api_gateway_service {
     pub struct DeleteApi(RequestBuilder<crate::model::DeleteApiRequest>);
 
     impl DeleteApi {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -738,7 +738,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_api][crate::client::ApiGatewayService::delete_api].
+        /// on [delete_api][super::super::client::ApiGatewayService::delete_api].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_api(self.0.request, self.0.options)
@@ -793,7 +793,7 @@ pub mod api_gateway_service {
     pub struct ListApiConfigs(RequestBuilder<crate::model::ListApiConfigsRequest>);
 
     impl ListApiConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -872,7 +872,7 @@ pub mod api_gateway_service {
     pub struct GetApiConfig(RequestBuilder<crate::model::GetApiConfigRequest>);
 
     impl GetApiConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -922,7 +922,7 @@ pub mod api_gateway_service {
     pub struct CreateApiConfig(RequestBuilder<crate::model::CreateApiConfigRequest>);
 
     impl CreateApiConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -943,7 +943,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_api_config][crate::client::ApiGatewayService::create_api_config].
+        /// on [create_api_config][super::super::client::ApiGatewayService::create_api_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_api_config(self.0.request, self.0.options)
@@ -1016,7 +1016,7 @@ pub mod api_gateway_service {
     pub struct UpdateApiConfig(RequestBuilder<crate::model::UpdateApiConfigRequest>);
 
     impl UpdateApiConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1037,7 +1037,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_api_config][crate::client::ApiGatewayService::update_api_config].
+        /// on [update_api_config][super::super::client::ApiGatewayService::update_api_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_api_config(self.0.request, self.0.options)
@@ -1107,7 +1107,7 @@ pub mod api_gateway_service {
     pub struct DeleteApiConfig(RequestBuilder<crate::model::DeleteApiConfigRequest>);
 
     impl DeleteApiConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1128,7 +1128,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_api_config][crate::client::ApiGatewayService::delete_api_config].
+        /// on [delete_api_config][super::super::client::ApiGatewayService::delete_api_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_api_config(self.0.request, self.0.options)
@@ -1183,7 +1183,7 @@ pub mod api_gateway_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1259,7 +1259,7 @@ pub mod api_gateway_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1303,7 +1303,7 @@ pub mod api_gateway_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1347,7 +1347,7 @@ pub mod api_gateway_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ApiGatewayService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

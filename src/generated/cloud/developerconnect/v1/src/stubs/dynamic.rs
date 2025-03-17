@@ -150,9 +150,9 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DeveloperConnect] also implement [DeveloperConnect].
+/// All implementations of [super::DeveloperConnect] also implement [DeveloperConnect].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DeveloperConnect> DeveloperConnect for T {
+impl<T: super::DeveloperConnect> DeveloperConnect for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_connections(
         &self,

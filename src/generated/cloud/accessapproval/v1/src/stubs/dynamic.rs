@@ -72,9 +72,9 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::AccessApprovalServiceAccount>;
 }
 
-/// All implementations of [crate::stubs::AccessApproval] also implement [AccessApproval].
+/// All implementations of [super::AccessApproval] also implement [AccessApproval].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AccessApproval> AccessApproval for T {
+impl<T: super::AccessApproval> AccessApproval for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_approval_requests(
         &self,

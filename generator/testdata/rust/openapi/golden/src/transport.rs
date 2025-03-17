@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecretManagerService](crate::stubs::SecretManagerService) using a [gclient::ReqwestClient].
+/// Implements [SecretManagerService](super::stubs::SecretManagerService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SecretManagerService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl SecretManagerService {
     }
 }
 
-impl crate::stubs::SecretManagerService for SecretManagerService {
+impl super::stubs::SecretManagerService for SecretManagerService {
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,

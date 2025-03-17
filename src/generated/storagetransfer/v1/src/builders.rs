@@ -18,10 +18,10 @@ pub mod storage_transfer_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::StorageTransferService] request builders.
+    /// Common implementation for [super::super::client::StorageTransferService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>,
+        stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod storage_transfer_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -46,7 +48,9 @@ pub mod storage_transfer_service {
     );
 
     impl GetGoogleServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -90,7 +94,9 @@ pub mod storage_transfer_service {
     pub struct CreateTransferJob(RequestBuilder<crate::model::CreateTransferJobRequest>);
 
     impl CreateTransferJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -137,7 +143,9 @@ pub mod storage_transfer_service {
     pub struct UpdateTransferJob(RequestBuilder<crate::model::UpdateTransferJobRequest>);
 
     impl UpdateTransferJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -205,7 +213,9 @@ pub mod storage_transfer_service {
     pub struct GetTransferJob(RequestBuilder<crate::model::GetTransferJobRequest>);
 
     impl GetTransferJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -252,7 +262,9 @@ pub mod storage_transfer_service {
     pub struct ListTransferJobs(RequestBuilder<crate::model::ListTransferJobsRequest>);
 
     impl ListTransferJobs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -322,7 +334,9 @@ pub mod storage_transfer_service {
     pub struct PauseTransferOperation(RequestBuilder<crate::model::PauseTransferOperationRequest>);
 
     impl PauseTransferOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -368,7 +382,9 @@ pub mod storage_transfer_service {
     );
 
     impl ResumeTransferOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -412,7 +428,9 @@ pub mod storage_transfer_service {
     pub struct RunTransferJob(RequestBuilder<crate::model::RunTransferJobRequest>);
 
     impl RunTransferJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -433,7 +451,7 @@ pub mod storage_transfer_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_transfer_job][crate::client::StorageTransferService::run_transfer_job].
+        /// on [run_transfer_job][super::super::client::StorageTransferService::run_transfer_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_transfer_job(self.0.request, self.0.options)
@@ -494,7 +512,9 @@ pub mod storage_transfer_service {
     pub struct DeleteTransferJob(RequestBuilder<crate::model::DeleteTransferJobRequest>);
 
     impl DeleteTransferJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -544,7 +564,9 @@ pub mod storage_transfer_service {
     pub struct CreateAgentPool(RequestBuilder<crate::model::CreateAgentPoolRequest>);
 
     impl CreateAgentPool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -600,7 +622,9 @@ pub mod storage_transfer_service {
     pub struct UpdateAgentPool(RequestBuilder<crate::model::UpdateAgentPoolRequest>);
 
     impl UpdateAgentPool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -653,7 +677,9 @@ pub mod storage_transfer_service {
     pub struct GetAgentPool(RequestBuilder<crate::model::GetAgentPoolRequest>);
 
     impl GetAgentPool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -694,7 +720,9 @@ pub mod storage_transfer_service {
     pub struct ListAgentPools(RequestBuilder<crate::model::ListAgentPoolsRequest>);
 
     impl ListAgentPools {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -767,7 +795,9 @@ pub mod storage_transfer_service {
     pub struct DeleteAgentPool(RequestBuilder<crate::model::DeleteAgentPoolRequest>);
 
     impl DeleteAgentPool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -808,7 +838,9 @@ pub mod storage_transfer_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -884,7 +916,9 @@ pub mod storage_transfer_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -928,7 +962,9 @@ pub mod storage_transfer_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::StorageTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::StorageTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

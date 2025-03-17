@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::VmwareEngine].
+/// Defines the trait used to implement [super::client::VmwareEngine].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::VmwareEngine`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::VmwareEngine::list_private_clouds].
+    /// Implements [super::client::VmwareEngine::list_private_clouds].
     fn list_private_clouds(
         &self,
         _req: crate::model::ListPrivateCloudsRequest,
@@ -53,7 +53,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_private_cloud].
+    /// Implements [super::client::VmwareEngine::get_private_cloud].
     fn get_private_cloud(
         &self,
         _req: crate::model::GetPrivateCloudRequest,
@@ -64,7 +64,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_private_cloud].
+    /// Implements [super::client::VmwareEngine::create_private_cloud].
     fn create_private_cloud(
         &self,
         _req: crate::model::CreatePrivateCloudRequest,
@@ -76,7 +76,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_private_cloud].
+    /// Implements [super::client::VmwareEngine::update_private_cloud].
     fn update_private_cloud(
         &self,
         _req: crate::model::UpdatePrivateCloudRequest,
@@ -88,7 +88,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_private_cloud].
+    /// Implements [super::client::VmwareEngine::delete_private_cloud].
     fn delete_private_cloud(
         &self,
         _req: crate::model::DeletePrivateCloudRequest,
@@ -100,7 +100,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::undelete_private_cloud].
+    /// Implements [super::client::VmwareEngine::undelete_private_cloud].
     fn undelete_private_cloud(
         &self,
         _req: crate::model::UndeletePrivateCloudRequest,
@@ -112,7 +112,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_clusters].
+    /// Implements [super::client::VmwareEngine::list_clusters].
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
@@ -124,7 +124,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_cluster].
+    /// Implements [super::client::VmwareEngine::get_cluster].
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
@@ -135,7 +135,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_cluster].
+    /// Implements [super::client::VmwareEngine::create_cluster].
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
@@ -147,7 +147,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_cluster].
+    /// Implements [super::client::VmwareEngine::update_cluster].
     fn update_cluster(
         &self,
         _req: crate::model::UpdateClusterRequest,
@@ -159,7 +159,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_cluster].
+    /// Implements [super::client::VmwareEngine::delete_cluster].
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
@@ -171,7 +171,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_nodes].
+    /// Implements [super::client::VmwareEngine::list_nodes].
     fn list_nodes(
         &self,
         _req: crate::model::ListNodesRequest,
@@ -183,7 +183,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_node].
+    /// Implements [super::client::VmwareEngine::get_node].
     fn get_node(
         &self,
         _req: crate::model::GetNodeRequest,
@@ -192,7 +192,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Node>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_external_addresses].
+    /// Implements [super::client::VmwareEngine::list_external_addresses].
     fn list_external_addresses(
         &self,
         _req: crate::model::ListExternalAddressesRequest,
@@ -204,7 +204,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::fetch_network_policy_external_addresses].
+    /// Implements [super::client::VmwareEngine::fetch_network_policy_external_addresses].
     fn fetch_network_policy_external_addresses(
         &self,
         _req: crate::model::FetchNetworkPolicyExternalAddressesRequest,
@@ -217,7 +217,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::VmwareEngine::get_external_address].
+    /// Implements [super::client::VmwareEngine::get_external_address].
     fn get_external_address(
         &self,
         _req: crate::model::GetExternalAddressRequest,
@@ -229,7 +229,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_external_address].
+    /// Implements [super::client::VmwareEngine::create_external_address].
     fn create_external_address(
         &self,
         _req: crate::model::CreateExternalAddressRequest,
@@ -241,7 +241,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_external_address].
+    /// Implements [super::client::VmwareEngine::update_external_address].
     fn update_external_address(
         &self,
         _req: crate::model::UpdateExternalAddressRequest,
@@ -253,7 +253,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_external_address].
+    /// Implements [super::client::VmwareEngine::delete_external_address].
     fn delete_external_address(
         &self,
         _req: crate::model::DeleteExternalAddressRequest,
@@ -265,7 +265,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_subnets].
+    /// Implements [super::client::VmwareEngine::list_subnets].
     fn list_subnets(
         &self,
         _req: crate::model::ListSubnetsRequest,
@@ -277,7 +277,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_subnet].
+    /// Implements [super::client::VmwareEngine::get_subnet].
     fn get_subnet(
         &self,
         _req: crate::model::GetSubnetRequest,
@@ -288,7 +288,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_subnet].
+    /// Implements [super::client::VmwareEngine::update_subnet].
     fn update_subnet(
         &self,
         _req: crate::model::UpdateSubnetRequest,
@@ -300,7 +300,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_external_access_rules].
+    /// Implements [super::client::VmwareEngine::list_external_access_rules].
     fn list_external_access_rules(
         &self,
         _req: crate::model::ListExternalAccessRulesRequest,
@@ -313,7 +313,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_external_access_rule].
+    /// Implements [super::client::VmwareEngine::get_external_access_rule].
     fn get_external_access_rule(
         &self,
         _req: crate::model::GetExternalAccessRuleRequest,
@@ -325,7 +325,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_external_access_rule].
+    /// Implements [super::client::VmwareEngine::create_external_access_rule].
     fn create_external_access_rule(
         &self,
         _req: crate::model::CreateExternalAccessRuleRequest,
@@ -337,7 +337,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_external_access_rule].
+    /// Implements [super::client::VmwareEngine::update_external_access_rule].
     fn update_external_access_rule(
         &self,
         _req: crate::model::UpdateExternalAccessRuleRequest,
@@ -349,7 +349,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_external_access_rule].
+    /// Implements [super::client::VmwareEngine::delete_external_access_rule].
     fn delete_external_access_rule(
         &self,
         _req: crate::model::DeleteExternalAccessRuleRequest,
@@ -361,7 +361,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_logging_servers].
+    /// Implements [super::client::VmwareEngine::list_logging_servers].
     fn list_logging_servers(
         &self,
         _req: crate::model::ListLoggingServersRequest,
@@ -373,7 +373,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_logging_server].
+    /// Implements [super::client::VmwareEngine::get_logging_server].
     fn get_logging_server(
         &self,
         _req: crate::model::GetLoggingServerRequest,
@@ -384,7 +384,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_logging_server].
+    /// Implements [super::client::VmwareEngine::create_logging_server].
     fn create_logging_server(
         &self,
         _req: crate::model::CreateLoggingServerRequest,
@@ -396,7 +396,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_logging_server].
+    /// Implements [super::client::VmwareEngine::update_logging_server].
     fn update_logging_server(
         &self,
         _req: crate::model::UpdateLoggingServerRequest,
@@ -408,7 +408,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_logging_server].
+    /// Implements [super::client::VmwareEngine::delete_logging_server].
     fn delete_logging_server(
         &self,
         _req: crate::model::DeleteLoggingServerRequest,
@@ -420,7 +420,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_node_types].
+    /// Implements [super::client::VmwareEngine::list_node_types].
     fn list_node_types(
         &self,
         _req: crate::model::ListNodeTypesRequest,
@@ -432,7 +432,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_node_type].
+    /// Implements [super::client::VmwareEngine::get_node_type].
     fn get_node_type(
         &self,
         _req: crate::model::GetNodeTypeRequest,
@@ -443,7 +443,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::show_nsx_credentials].
+    /// Implements [super::client::VmwareEngine::show_nsx_credentials].
     fn show_nsx_credentials(
         &self,
         _req: crate::model::ShowNsxCredentialsRequest,
@@ -454,7 +454,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::show_vcenter_credentials].
+    /// Implements [super::client::VmwareEngine::show_vcenter_credentials].
     fn show_vcenter_credentials(
         &self,
         _req: crate::model::ShowVcenterCredentialsRequest,
@@ -465,7 +465,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::reset_nsx_credentials].
+    /// Implements [super::client::VmwareEngine::reset_nsx_credentials].
     fn reset_nsx_credentials(
         &self,
         _req: crate::model::ResetNsxCredentialsRequest,
@@ -477,7 +477,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::reset_vcenter_credentials].
+    /// Implements [super::client::VmwareEngine::reset_vcenter_credentials].
     fn reset_vcenter_credentials(
         &self,
         _req: crate::model::ResetVcenterCredentialsRequest,
@@ -489,7 +489,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_dns_forwarding].
+    /// Implements [super::client::VmwareEngine::get_dns_forwarding].
     fn get_dns_forwarding(
         &self,
         _req: crate::model::GetDnsForwardingRequest,
@@ -500,7 +500,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_dns_forwarding].
+    /// Implements [super::client::VmwareEngine::update_dns_forwarding].
     fn update_dns_forwarding(
         &self,
         _req: crate::model::UpdateDnsForwardingRequest,
@@ -512,7 +512,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_network_peering].
+    /// Implements [super::client::VmwareEngine::get_network_peering].
     fn get_network_peering(
         &self,
         _req: crate::model::GetNetworkPeeringRequest,
@@ -523,7 +523,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_network_peerings].
+    /// Implements [super::client::VmwareEngine::list_network_peerings].
     fn list_network_peerings(
         &self,
         _req: crate::model::ListNetworkPeeringsRequest,
@@ -535,7 +535,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_network_peering].
+    /// Implements [super::client::VmwareEngine::create_network_peering].
     fn create_network_peering(
         &self,
         _req: crate::model::CreateNetworkPeeringRequest,
@@ -547,7 +547,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_network_peering].
+    /// Implements [super::client::VmwareEngine::delete_network_peering].
     fn delete_network_peering(
         &self,
         _req: crate::model::DeleteNetworkPeeringRequest,
@@ -559,7 +559,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_network_peering].
+    /// Implements [super::client::VmwareEngine::update_network_peering].
     fn update_network_peering(
         &self,
         _req: crate::model::UpdateNetworkPeeringRequest,
@@ -571,7 +571,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_peering_routes].
+    /// Implements [super::client::VmwareEngine::list_peering_routes].
     fn list_peering_routes(
         &self,
         _req: crate::model::ListPeeringRoutesRequest,
@@ -583,7 +583,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_hcx_activation_key].
+    /// Implements [super::client::VmwareEngine::create_hcx_activation_key].
     fn create_hcx_activation_key(
         &self,
         _req: crate::model::CreateHcxActivationKeyRequest,
@@ -595,7 +595,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_hcx_activation_keys].
+    /// Implements [super::client::VmwareEngine::list_hcx_activation_keys].
     fn list_hcx_activation_keys(
         &self,
         _req: crate::model::ListHcxActivationKeysRequest,
@@ -607,7 +607,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_hcx_activation_key].
+    /// Implements [super::client::VmwareEngine::get_hcx_activation_key].
     fn get_hcx_activation_key(
         &self,
         _req: crate::model::GetHcxActivationKeyRequest,
@@ -619,7 +619,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_network_policy].
+    /// Implements [super::client::VmwareEngine::get_network_policy].
     fn get_network_policy(
         &self,
         _req: crate::model::GetNetworkPolicyRequest,
@@ -630,7 +630,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_network_policies].
+    /// Implements [super::client::VmwareEngine::list_network_policies].
     fn list_network_policies(
         &self,
         _req: crate::model::ListNetworkPoliciesRequest,
@@ -642,7 +642,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_network_policy].
+    /// Implements [super::client::VmwareEngine::create_network_policy].
     fn create_network_policy(
         &self,
         _req: crate::model::CreateNetworkPolicyRequest,
@@ -654,7 +654,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_network_policy].
+    /// Implements [super::client::VmwareEngine::update_network_policy].
     fn update_network_policy(
         &self,
         _req: crate::model::UpdateNetworkPolicyRequest,
@@ -666,7 +666,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_network_policy].
+    /// Implements [super::client::VmwareEngine::delete_network_policy].
     fn delete_network_policy(
         &self,
         _req: crate::model::DeleteNetworkPolicyRequest,
@@ -678,7 +678,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_management_dns_zone_bindings].
+    /// Implements [super::client::VmwareEngine::list_management_dns_zone_bindings].
     fn list_management_dns_zone_bindings(
         &self,
         _req: crate::model::ListManagementDnsZoneBindingsRequest,
@@ -691,7 +691,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::VmwareEngine::get_management_dns_zone_binding].
+    /// Implements [super::client::VmwareEngine::get_management_dns_zone_binding].
     fn get_management_dns_zone_binding(
         &self,
         _req: crate::model::GetManagementDnsZoneBindingRequest,
@@ -703,7 +703,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_management_dns_zone_binding].
+    /// Implements [super::client::VmwareEngine::create_management_dns_zone_binding].
     fn create_management_dns_zone_binding(
         &self,
         _req: crate::model::CreateManagementDnsZoneBindingRequest,
@@ -715,7 +715,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_management_dns_zone_binding].
+    /// Implements [super::client::VmwareEngine::update_management_dns_zone_binding].
     fn update_management_dns_zone_binding(
         &self,
         _req: crate::model::UpdateManagementDnsZoneBindingRequest,
@@ -727,7 +727,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_management_dns_zone_binding].
+    /// Implements [super::client::VmwareEngine::delete_management_dns_zone_binding].
     fn delete_management_dns_zone_binding(
         &self,
         _req: crate::model::DeleteManagementDnsZoneBindingRequest,
@@ -739,7 +739,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::repair_management_dns_zone_binding].
+    /// Implements [super::client::VmwareEngine::repair_management_dns_zone_binding].
     fn repair_management_dns_zone_binding(
         &self,
         _req: crate::model::RepairManagementDnsZoneBindingRequest,
@@ -751,7 +751,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_vmware_engine_network].
+    /// Implements [super::client::VmwareEngine::create_vmware_engine_network].
     fn create_vmware_engine_network(
         &self,
         _req: crate::model::CreateVmwareEngineNetworkRequest,
@@ -763,7 +763,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_vmware_engine_network].
+    /// Implements [super::client::VmwareEngine::update_vmware_engine_network].
     fn update_vmware_engine_network(
         &self,
         _req: crate::model::UpdateVmwareEngineNetworkRequest,
@@ -775,7 +775,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_vmware_engine_network].
+    /// Implements [super::client::VmwareEngine::delete_vmware_engine_network].
     fn delete_vmware_engine_network(
         &self,
         _req: crate::model::DeleteVmwareEngineNetworkRequest,
@@ -787,7 +787,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_vmware_engine_network].
+    /// Implements [super::client::VmwareEngine::get_vmware_engine_network].
     fn get_vmware_engine_network(
         &self,
         _req: crate::model::GetVmwareEngineNetworkRequest,
@@ -799,7 +799,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_vmware_engine_networks].
+    /// Implements [super::client::VmwareEngine::list_vmware_engine_networks].
     fn list_vmware_engine_networks(
         &self,
         _req: crate::model::ListVmwareEngineNetworksRequest,
@@ -812,7 +812,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::create_private_connection].
+    /// Implements [super::client::VmwareEngine::create_private_connection].
     fn create_private_connection(
         &self,
         _req: crate::model::CreatePrivateConnectionRequest,
@@ -824,7 +824,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_private_connection].
+    /// Implements [super::client::VmwareEngine::get_private_connection].
     fn get_private_connection(
         &self,
         _req: crate::model::GetPrivateConnectionRequest,
@@ -836,7 +836,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_private_connections].
+    /// Implements [super::client::VmwareEngine::list_private_connections].
     fn list_private_connections(
         &self,
         _req: crate::model::ListPrivateConnectionsRequest,
@@ -848,7 +848,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::update_private_connection].
+    /// Implements [super::client::VmwareEngine::update_private_connection].
     fn update_private_connection(
         &self,
         _req: crate::model::UpdatePrivateConnectionRequest,
@@ -860,7 +860,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_private_connection].
+    /// Implements [super::client::VmwareEngine::delete_private_connection].
     fn delete_private_connection(
         &self,
         _req: crate::model::DeletePrivateConnectionRequest,
@@ -872,7 +872,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_private_connection_peering_routes].
+    /// Implements [super::client::VmwareEngine::list_private_connection_peering_routes].
     fn list_private_connection_peering_routes(
         &self,
         _req: crate::model::ListPrivateConnectionPeeringRoutesRequest,
@@ -885,7 +885,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::VmwareEngine::grant_dns_bind_permission].
+    /// Implements [super::client::VmwareEngine::grant_dns_bind_permission].
     fn grant_dns_bind_permission(
         &self,
         _req: crate::model::GrantDnsBindPermissionRequest,
@@ -897,7 +897,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_dns_bind_permission].
+    /// Implements [super::client::VmwareEngine::get_dns_bind_permission].
     fn get_dns_bind_permission(
         &self,
         _req: crate::model::GetDnsBindPermissionRequest,
@@ -909,7 +909,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::revoke_dns_bind_permission].
+    /// Implements [super::client::VmwareEngine::revoke_dns_bind_permission].
     fn revoke_dns_bind_permission(
         &self,
         _req: crate::model::RevokeDnsBindPermissionRequest,
@@ -921,7 +921,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_locations].
+    /// Implements [super::client::VmwareEngine::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -933,7 +933,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_location].
+    /// Implements [super::client::VmwareEngine::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -944,7 +944,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::set_iam_policy].
+    /// Implements [super::client::VmwareEngine::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -955,7 +955,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_iam_policy].
+    /// Implements [super::client::VmwareEngine::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -966,7 +966,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::test_iam_permissions].
+    /// Implements [super::client::VmwareEngine::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -978,7 +978,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::list_operations].
+    /// Implements [super::client::VmwareEngine::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -990,7 +990,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmwareEngine::get_operation].
+    /// Implements [super::client::VmwareEngine::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1002,7 +1002,7 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmwareEngine::delete_operation].
+    /// Implements [super::client::VmwareEngine::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,

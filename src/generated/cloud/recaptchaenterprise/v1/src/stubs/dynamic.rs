@@ -150,9 +150,9 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::SearchRelatedAccountGroupMembershipsResponse>;
 }
 
-/// All implementations of [crate::stubs::RecaptchaEnterpriseService] also implement [RecaptchaEnterpriseService].
+/// All implementations of [super::RecaptchaEnterpriseService] also implement [RecaptchaEnterpriseService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
+impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_assessment(
         &self,

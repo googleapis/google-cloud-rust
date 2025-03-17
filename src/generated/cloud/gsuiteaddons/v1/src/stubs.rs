@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::GSuiteAddOns].
+/// Defines the trait used to implement [super::client::GSuiteAddOns].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::GSuiteAddOns`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::GSuiteAddOns::get_authorization].
+    /// Implements [super::client::GSuiteAddOns::get_authorization].
     fn get_authorization(
         &self,
         _req: crate::model::GetAuthorizationRequest,
@@ -51,7 +51,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GSuiteAddOns::create_deployment].
+    /// Implements [super::client::GSuiteAddOns::create_deployment].
     fn create_deployment(
         &self,
         _req: crate::model::CreateDeploymentRequest,
@@ -62,7 +62,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GSuiteAddOns::replace_deployment].
+    /// Implements [super::client::GSuiteAddOns::replace_deployment].
     fn replace_deployment(
         &self,
         _req: crate::model::ReplaceDeploymentRequest,
@@ -73,7 +73,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GSuiteAddOns::get_deployment].
+    /// Implements [super::client::GSuiteAddOns::get_deployment].
     fn get_deployment(
         &self,
         _req: crate::model::GetDeploymentRequest,
@@ -84,7 +84,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GSuiteAddOns::list_deployments].
+    /// Implements [super::client::GSuiteAddOns::list_deployments].
     fn list_deployments(
         &self,
         _req: crate::model::ListDeploymentsRequest,
@@ -96,7 +96,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GSuiteAddOns::delete_deployment].
+    /// Implements [super::client::GSuiteAddOns::delete_deployment].
     fn delete_deployment(
         &self,
         _req: crate::model::DeleteDeploymentRequest,
@@ -105,7 +105,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::GSuiteAddOns::install_deployment].
+    /// Implements [super::client::GSuiteAddOns::install_deployment].
     fn install_deployment(
         &self,
         _req: crate::model::InstallDeploymentRequest,
@@ -114,7 +114,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::GSuiteAddOns::uninstall_deployment].
+    /// Implements [super::client::GSuiteAddOns::uninstall_deployment].
     fn uninstall_deployment(
         &self,
         _req: crate::model::UninstallDeploymentRequest,
@@ -123,7 +123,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::GSuiteAddOns::get_install_status].
+    /// Implements [super::client::GSuiteAddOns::get_install_status].
     fn get_install_status(
         &self,
         _req: crate::model::GetInstallStatusRequest,

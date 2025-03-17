@@ -47,7 +47,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct BinauthzManagementServiceV1 {
-    inner: Arc<dyn crate::stubs::dynamic::BinauthzManagementServiceV1>,
+    inner: Arc<dyn super::stubs::dynamic::BinauthzManagementServiceV1>,
 }
 
 impl BinauthzManagementServiceV1 {
@@ -68,7 +68,7 @@ impl BinauthzManagementServiceV1 {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::BinauthzManagementServiceV1 + 'static,
+        T: super::stubs::BinauthzManagementServiceV1 + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -77,7 +77,7 @@ impl BinauthzManagementServiceV1 {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::BinauthzManagementServiceV1>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::BinauthzManagementServiceV1>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -86,16 +86,16 @@ impl BinauthzManagementServiceV1 {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::BinauthzManagementServiceV1> {
-        crate::transport::BinauthzManagementServiceV1::new(conf).await
+    ) -> Result<impl super::stubs::BinauthzManagementServiceV1> {
+        super::transport::BinauthzManagementServiceV1::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::BinauthzManagementServiceV1> {
+    ) -> Result<impl super::stubs::BinauthzManagementServiceV1> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::BinauthzManagementServiceV1::new)
+            .map(super::tracing::BinauthzManagementServiceV1::new)
     }
 
     /// A [policy][google.cloud.binaryauthorization.v1.Policy] specifies the [attestors][google.cloud.binaryauthorization.v1.Attestor] that must attest to
@@ -111,8 +111,8 @@ impl BinauthzManagementServiceV1 {
     pub fn get_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::binauthz_management_service_v_1::GetPolicy {
-        crate::builders::binauthz_management_service_v_1::GetPolicy::new(self.inner.clone())
+    ) -> super::builders::binauthz_management_service_v_1::GetPolicy {
+        super::builders::binauthz_management_service_v_1::GetPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -126,8 +126,8 @@ impl BinauthzManagementServiceV1 {
     pub fn update_policy(
         &self,
         policy: impl Into<crate::model::Policy>,
-    ) -> crate::builders::binauthz_management_service_v_1::UpdatePolicy {
-        crate::builders::binauthz_management_service_v_1::UpdatePolicy::new(self.inner.clone())
+    ) -> super::builders::binauthz_management_service_v_1::UpdatePolicy {
+        super::builders::binauthz_management_service_v_1::UpdatePolicy::new(self.inner.clone())
             .set_policy(policy.into())
     }
 
@@ -140,8 +140,8 @@ impl BinauthzManagementServiceV1 {
     pub fn create_attestor(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::binauthz_management_service_v_1::CreateAttestor {
-        crate::builders::binauthz_management_service_v_1::CreateAttestor::new(self.inner.clone())
+    ) -> super::builders::binauthz_management_service_v_1::CreateAttestor {
+        super::builders::binauthz_management_service_v_1::CreateAttestor::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -152,8 +152,8 @@ impl BinauthzManagementServiceV1 {
     pub fn get_attestor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::binauthz_management_service_v_1::GetAttestor {
-        crate::builders::binauthz_management_service_v_1::GetAttestor::new(self.inner.clone())
+    ) -> super::builders::binauthz_management_service_v_1::GetAttestor {
+        super::builders::binauthz_management_service_v_1::GetAttestor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -164,8 +164,8 @@ impl BinauthzManagementServiceV1 {
     pub fn update_attestor(
         &self,
         attestor: impl Into<crate::model::Attestor>,
-    ) -> crate::builders::binauthz_management_service_v_1::UpdateAttestor {
-        crate::builders::binauthz_management_service_v_1::UpdateAttestor::new(self.inner.clone())
+    ) -> super::builders::binauthz_management_service_v_1::UpdateAttestor {
+        super::builders::binauthz_management_service_v_1::UpdateAttestor::new(self.inner.clone())
             .set_attestor(attestor.into())
     }
 
@@ -176,8 +176,8 @@ impl BinauthzManagementServiceV1 {
     pub fn list_attestors(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::binauthz_management_service_v_1::ListAttestors {
-        crate::builders::binauthz_management_service_v_1::ListAttestors::new(self.inner.clone())
+    ) -> super::builders::binauthz_management_service_v_1::ListAttestors {
+        super::builders::binauthz_management_service_v_1::ListAttestors::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -188,8 +188,8 @@ impl BinauthzManagementServiceV1 {
     pub fn delete_attestor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::binauthz_management_service_v_1::DeleteAttestor {
-        crate::builders::binauthz_management_service_v_1::DeleteAttestor::new(self.inner.clone())
+    ) -> super::builders::binauthz_management_service_v_1::DeleteAttestor {
+        super::builders::binauthz_management_service_v_1::DeleteAttestor::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -213,7 +213,7 @@ impl BinauthzManagementServiceV1 {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SystemPolicyV1 {
-    inner: Arc<dyn crate::stubs::dynamic::SystemPolicyV1>,
+    inner: Arc<dyn super::stubs::dynamic::SystemPolicyV1>,
 }
 
 impl SystemPolicyV1 {
@@ -234,7 +234,7 @@ impl SystemPolicyV1 {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::SystemPolicyV1 + 'static,
+        T: super::stubs::SystemPolicyV1 + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -243,7 +243,7 @@ impl SystemPolicyV1 {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::SystemPolicyV1>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::SystemPolicyV1>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -252,24 +252,24 @@ impl SystemPolicyV1 {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SystemPolicyV1> {
-        crate::transport::SystemPolicyV1::new(conf).await
+    ) -> Result<impl super::stubs::SystemPolicyV1> {
+        super::transport::SystemPolicyV1::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SystemPolicyV1> {
+    ) -> Result<impl super::stubs::SystemPolicyV1> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::SystemPolicyV1::new)
+            .map(super::tracing::SystemPolicyV1::new)
     }
 
     /// Gets the current system policy in the specified location.
     pub fn get_system_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::system_policy_v_1::GetSystemPolicy {
-        crate::builders::system_policy_v_1::GetSystemPolicy::new(self.inner.clone())
+    ) -> super::builders::system_policy_v_1::GetSystemPolicy {
+        super::builders::system_policy_v_1::GetSystemPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -293,7 +293,7 @@ impl SystemPolicyV1 {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ValidationHelperV1 {
-    inner: Arc<dyn crate::stubs::dynamic::ValidationHelperV1>,
+    inner: Arc<dyn super::stubs::dynamic::ValidationHelperV1>,
 }
 
 impl ValidationHelperV1 {
@@ -314,7 +314,7 @@ impl ValidationHelperV1 {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ValidationHelperV1 + 'static,
+        T: super::stubs::ValidationHelperV1 + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -323,7 +323,7 @@ impl ValidationHelperV1 {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ValidationHelperV1>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ValidationHelperV1>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -332,16 +332,16 @@ impl ValidationHelperV1 {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ValidationHelperV1> {
-        crate::transport::ValidationHelperV1::new(conf).await
+    ) -> Result<impl super::stubs::ValidationHelperV1> {
+        super::transport::ValidationHelperV1::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ValidationHelperV1> {
+    ) -> Result<impl super::stubs::ValidationHelperV1> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ValidationHelperV1::new)
+            .map(super::tracing::ValidationHelperV1::new)
     }
 
     /// Returns whether the given Attestation for the given image URI
@@ -349,8 +349,8 @@ impl ValidationHelperV1 {
     pub fn validate_attestation_occurrence(
         &self,
         attestor: impl Into<std::string::String>,
-    ) -> crate::builders::validation_helper_v_1::ValidateAttestationOccurrence {
-        crate::builders::validation_helper_v_1::ValidateAttestationOccurrence::new(
+    ) -> super::builders::validation_helper_v_1::ValidateAttestationOccurrence {
+        super::builders::validation_helper_v_1::ValidateAttestationOccurrence::new(
             self.inner.clone(),
         )
         .set_attestor(attestor.into())

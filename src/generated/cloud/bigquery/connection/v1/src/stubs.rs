@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ConnectionService].
+/// Defines the trait used to implement [super::client::ConnectionService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ConnectionService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ConnectionService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ConnectionService::create_connection].
+    /// Implements [super::client::ConnectionService::create_connection].
     fn create_connection(
         &self,
         _req: crate::model::CreateConnectionRequest,
@@ -51,7 +51,7 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConnectionService::get_connection].
+    /// Implements [super::client::ConnectionService::get_connection].
     fn get_connection(
         &self,
         _req: crate::model::GetConnectionRequest,
@@ -62,7 +62,7 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConnectionService::list_connections].
+    /// Implements [super::client::ConnectionService::list_connections].
     fn list_connections(
         &self,
         _req: crate::model::ListConnectionsRequest,
@@ -74,7 +74,7 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ConnectionService::update_connection].
+    /// Implements [super::client::ConnectionService::update_connection].
     fn update_connection(
         &self,
         _req: crate::model::UpdateConnectionRequest,
@@ -85,7 +85,7 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConnectionService::delete_connection].
+    /// Implements [super::client::ConnectionService::delete_connection].
     fn delete_connection(
         &self,
         _req: crate::model::DeleteConnectionRequest,
@@ -94,7 +94,7 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ConnectionService::get_iam_policy].
+    /// Implements [super::client::ConnectionService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -105,7 +105,7 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConnectionService::set_iam_policy].
+    /// Implements [super::client::ConnectionService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -116,7 +116,7 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConnectionService::test_iam_permissions].
+    /// Implements [super::client::ConnectionService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,

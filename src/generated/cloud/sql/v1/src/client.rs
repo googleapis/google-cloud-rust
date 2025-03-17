@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SqlBackupRunsService {
-    inner: Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>,
+    inner: Arc<dyn super::stubs::dynamic::SqlBackupRunsService>,
 }
 
 impl SqlBackupRunsService {
@@ -58,23 +58,23 @@ impl SqlBackupRunsService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::SqlBackupRunsService + 'static {
+    where T: super::stubs::SqlBackupRunsService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::SqlBackupRunsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlBackupRunsService> {
-        crate::transport::SqlBackupRunsService::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlBackupRunsService> {
+        super::transport::SqlBackupRunsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlBackupRunsService> {
-        Self::build_transport(conf).await.map(crate::tracing::SqlBackupRunsService::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlBackupRunsService> {
+        Self::build_transport(conf).await.map(super::tracing::SqlBackupRunsService::new)
     }
 
     /// Deletes the backup taken by a backup run.
@@ -83,9 +83,9 @@ impl SqlBackupRunsService {
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
         id: impl Into<i64>,
-    ) -> crate::builders::sql_backup_runs_service::Delete
+    ) -> super::builders::sql_backup_runs_service::Delete
     {
-        crate::builders::sql_backup_runs_service::Delete::new(self.inner.clone())
+        super::builders::sql_backup_runs_service::Delete::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
             .set_id ( id.into() )
@@ -97,9 +97,9 @@ impl SqlBackupRunsService {
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
         id: impl Into<i64>,
-    ) -> crate::builders::sql_backup_runs_service::Get
+    ) -> super::builders::sql_backup_runs_service::Get
     {
-        crate::builders::sql_backup_runs_service::Get::new(self.inner.clone())
+        super::builders::sql_backup_runs_service::Get::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
             .set_id ( id.into() )
@@ -110,9 +110,9 @@ impl SqlBackupRunsService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_backup_runs_service::Insert
+    ) -> super::builders::sql_backup_runs_service::Insert
     {
-        crate::builders::sql_backup_runs_service::Insert::new(self.inner.clone())
+        super::builders::sql_backup_runs_service::Insert::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -124,9 +124,9 @@ impl SqlBackupRunsService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_backup_runs_service::List
+    ) -> super::builders::sql_backup_runs_service::List
     {
-        crate::builders::sql_backup_runs_service::List::new(self.inner.clone())
+        super::builders::sql_backup_runs_service::List::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -152,7 +152,7 @@ impl SqlBackupRunsService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SqlConnectService {
-    inner: Arc<dyn crate::stubs::dynamic::SqlConnectService>,
+    inner: Arc<dyn super::stubs::dynamic::SqlConnectService>,
 }
 
 impl SqlConnectService {
@@ -172,23 +172,23 @@ impl SqlConnectService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::SqlConnectService + 'static {
+    where T: super::stubs::SqlConnectService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlConnectService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::SqlConnectService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlConnectService> {
-        crate::transport::SqlConnectService::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlConnectService> {
+        super::transport::SqlConnectService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlConnectService> {
-        Self::build_transport(conf).await.map(crate::tracing::SqlConnectService::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlConnectService> {
+        Self::build_transport(conf).await.map(super::tracing::SqlConnectService::new)
     }
 
     /// Retrieves connect settings about a Cloud SQL instance.
@@ -196,9 +196,9 @@ impl SqlConnectService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_connect_service::GetConnectSettings
+    ) -> super::builders::sql_connect_service::GetConnectSettings
     {
-        crate::builders::sql_connect_service::GetConnectSettings::new(self.inner.clone())
+        super::builders::sql_connect_service::GetConnectSettings::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -211,9 +211,9 @@ impl SqlConnectService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_connect_service::GenerateEphemeralCert
+    ) -> super::builders::sql_connect_service::GenerateEphemeralCert
     {
-        crate::builders::sql_connect_service::GenerateEphemeralCert::new(self.inner.clone())
+        super::builders::sql_connect_service::GenerateEphemeralCert::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -239,7 +239,7 @@ impl SqlConnectService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SqlDatabasesService {
-    inner: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>,
+    inner: Arc<dyn super::stubs::dynamic::SqlDatabasesService>,
 }
 
 impl SqlDatabasesService {
@@ -259,23 +259,23 @@ impl SqlDatabasesService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::SqlDatabasesService + 'static {
+    where T: super::stubs::SqlDatabasesService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlDatabasesService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::SqlDatabasesService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlDatabasesService> {
-        crate::transport::SqlDatabasesService::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlDatabasesService> {
+        super::transport::SqlDatabasesService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlDatabasesService> {
-        Self::build_transport(conf).await.map(crate::tracing::SqlDatabasesService::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlDatabasesService> {
+        Self::build_transport(conf).await.map(super::tracing::SqlDatabasesService::new)
     }
 
     /// Deletes a database from a Cloud SQL instance.
@@ -284,9 +284,9 @@ impl SqlDatabasesService {
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
         database: impl Into<std::string::String>,
-    ) -> crate::builders::sql_databases_service::Delete
+    ) -> super::builders::sql_databases_service::Delete
     {
-        crate::builders::sql_databases_service::Delete::new(self.inner.clone())
+        super::builders::sql_databases_service::Delete::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
             .set_database ( database.into() )
@@ -299,9 +299,9 @@ impl SqlDatabasesService {
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
         database: impl Into<std::string::String>,
-    ) -> crate::builders::sql_databases_service::Get
+    ) -> super::builders::sql_databases_service::Get
     {
-        crate::builders::sql_databases_service::Get::new(self.inner.clone())
+        super::builders::sql_databases_service::Get::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
             .set_database ( database.into() )
@@ -315,9 +315,9 @@ impl SqlDatabasesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_databases_service::Insert
+    ) -> super::builders::sql_databases_service::Insert
     {
-        crate::builders::sql_databases_service::Insert::new(self.inner.clone())
+        super::builders::sql_databases_service::Insert::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -327,9 +327,9 @@ impl SqlDatabasesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_databases_service::List
+    ) -> super::builders::sql_databases_service::List
     {
-        crate::builders::sql_databases_service::List::new(self.inner.clone())
+        super::builders::sql_databases_service::List::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -341,9 +341,9 @@ impl SqlDatabasesService {
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
         database: impl Into<std::string::String>,
-    ) -> crate::builders::sql_databases_service::Patch
+    ) -> super::builders::sql_databases_service::Patch
     {
-        crate::builders::sql_databases_service::Patch::new(self.inner.clone())
+        super::builders::sql_databases_service::Patch::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
             .set_database ( database.into() )
@@ -356,9 +356,9 @@ impl SqlDatabasesService {
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
         database: impl Into<std::string::String>,
-    ) -> crate::builders::sql_databases_service::Update
+    ) -> super::builders::sql_databases_service::Update
     {
-        crate::builders::sql_databases_service::Update::new(self.inner.clone())
+        super::builders::sql_databases_service::Update::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
             .set_database ( database.into() )
@@ -385,7 +385,7 @@ impl SqlDatabasesService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SqlFlagsService {
-    inner: Arc<dyn crate::stubs::dynamic::SqlFlagsService>,
+    inner: Arc<dyn super::stubs::dynamic::SqlFlagsService>,
 }
 
 impl SqlFlagsService {
@@ -405,31 +405,31 @@ impl SqlFlagsService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::SqlFlagsService + 'static {
+    where T: super::stubs::SqlFlagsService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlFlagsService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::SqlFlagsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlFlagsService> {
-        crate::transport::SqlFlagsService::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlFlagsService> {
+        super::transport::SqlFlagsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlFlagsService> {
-        Self::build_transport(conf).await.map(crate::tracing::SqlFlagsService::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlFlagsService> {
+        Self::build_transport(conf).await.map(super::tracing::SqlFlagsService::new)
     }
 
     /// Lists all available database flags for Cloud SQL instances.
     pub fn list(
         &self,
-    ) -> crate::builders::sql_flags_service::List
+    ) -> super::builders::sql_flags_service::List
     {
-        crate::builders::sql_flags_service::List::new(self.inner.clone())
+        super::builders::sql_flags_service::List::new(self.inner.clone())
     }
 
 }
@@ -453,7 +453,7 @@ impl SqlFlagsService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SqlInstancesService {
-    inner: Arc<dyn crate::stubs::dynamic::SqlInstancesService>,
+    inner: Arc<dyn super::stubs::dynamic::SqlInstancesService>,
 }
 
 impl SqlInstancesService {
@@ -473,23 +473,23 @@ impl SqlInstancesService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::SqlInstancesService + 'static {
+    where T: super::stubs::SqlInstancesService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlInstancesService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::SqlInstancesService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlInstancesService> {
-        crate::transport::SqlInstancesService::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlInstancesService> {
+        super::transport::SqlInstancesService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlInstancesService> {
-        Self::build_transport(conf).await.map(crate::tracing::SqlInstancesService::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlInstancesService> {
+        Self::build_transport(conf).await.map(super::tracing::SqlInstancesService::new)
     }
 
     /// Adds a new trusted Certificate Authority (CA) version for the specified
@@ -503,9 +503,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::AddServerCa
+    ) -> super::builders::sql_instances_service::AddServerCa
     {
-        crate::builders::sql_instances_service::AddServerCa::new(self.inner.clone())
+        super::builders::sql_instances_service::AddServerCa::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -516,9 +516,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Clone
+    ) -> super::builders::sql_instances_service::Clone
     {
-        crate::builders::sql_instances_service::Clone::new(self.inner.clone())
+        super::builders::sql_instances_service::Clone::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -528,9 +528,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Delete
+    ) -> super::builders::sql_instances_service::Delete
     {
-        crate::builders::sql_instances_service::Delete::new(self.inner.clone())
+        super::builders::sql_instances_service::Delete::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -541,9 +541,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::DemoteMaster
+    ) -> super::builders::sql_instances_service::DemoteMaster
     {
-        crate::builders::sql_instances_service::DemoteMaster::new(self.inner.clone())
+        super::builders::sql_instances_service::DemoteMaster::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -554,9 +554,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Demote
+    ) -> super::builders::sql_instances_service::Demote
     {
-        crate::builders::sql_instances_service::Demote::new(self.inner.clone())
+        super::builders::sql_instances_service::Demote::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -567,9 +567,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Export
+    ) -> super::builders::sql_instances_service::Export
     {
-        crate::builders::sql_instances_service::Export::new(self.inner.clone())
+        super::builders::sql_instances_service::Export::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -586,9 +586,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Failover
+    ) -> super::builders::sql_instances_service::Failover
     {
-        crate::builders::sql_instances_service::Failover::new(self.inner.clone())
+        super::builders::sql_instances_service::Failover::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -598,9 +598,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Reencrypt
+    ) -> super::builders::sql_instances_service::Reencrypt
     {
-        crate::builders::sql_instances_service::Reencrypt::new(self.inner.clone())
+        super::builders::sql_instances_service::Reencrypt::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -610,9 +610,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Get
+    ) -> super::builders::sql_instances_service::Get
     {
-        crate::builders::sql_instances_service::Get::new(self.inner.clone())
+        super::builders::sql_instances_service::Get::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -623,9 +623,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Import
+    ) -> super::builders::sql_instances_service::Import
     {
-        crate::builders::sql_instances_service::Import::new(self.inner.clone())
+        super::builders::sql_instances_service::Import::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -634,9 +634,9 @@ impl SqlInstancesService {
     pub fn insert(
         &self,
         project: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Insert
+    ) -> super::builders::sql_instances_service::Insert
     {
-        crate::builders::sql_instances_service::Insert::new(self.inner.clone())
+        super::builders::sql_instances_service::Insert::new(self.inner.clone())
             .set_project ( project.into() )
     }
 
@@ -644,9 +644,9 @@ impl SqlInstancesService {
     pub fn list(
         &self,
         project: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::List
+    ) -> super::builders::sql_instances_service::List
     {
-        crate::builders::sql_instances_service::List::new(self.inner.clone())
+        super::builders::sql_instances_service::List::new(self.inner.clone())
             .set_project ( project.into() )
     }
 
@@ -659,9 +659,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::ListServerCas
+    ) -> super::builders::sql_instances_service::ListServerCas
     {
-        crate::builders::sql_instances_service::ListServerCas::new(self.inner.clone())
+        super::builders::sql_instances_service::ListServerCas::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -672,9 +672,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Patch
+    ) -> super::builders::sql_instances_service::Patch
     {
-        crate::builders::sql_instances_service::Patch::new(self.inner.clone())
+        super::builders::sql_instances_service::Patch::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -686,9 +686,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::PromoteReplica
+    ) -> super::builders::sql_instances_service::PromoteReplica
     {
-        crate::builders::sql_instances_service::PromoteReplica::new(self.inner.clone())
+        super::builders::sql_instances_service::PromoteReplica::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -699,9 +699,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Switchover
+    ) -> super::builders::sql_instances_service::Switchover
     {
-        crate::builders::sql_instances_service::Switchover::new(self.inner.clone())
+        super::builders::sql_instances_service::Switchover::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -712,9 +712,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::ResetSslConfig
+    ) -> super::builders::sql_instances_service::ResetSslConfig
     {
-        crate::builders::sql_instances_service::ResetSslConfig::new(self.inner.clone())
+        super::builders::sql_instances_service::ResetSslConfig::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -724,9 +724,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Restart
+    ) -> super::builders::sql_instances_service::Restart
     {
-        crate::builders::sql_instances_service::Restart::new(self.inner.clone())
+        super::builders::sql_instances_service::Restart::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -737,9 +737,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::RestoreBackup
+    ) -> super::builders::sql_instances_service::RestoreBackup
     {
-        crate::builders::sql_instances_service::RestoreBackup::new(self.inner.clone())
+        super::builders::sql_instances_service::RestoreBackup::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -752,9 +752,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::RotateServerCa
+    ) -> super::builders::sql_instances_service::RotateServerCa
     {
-        crate::builders::sql_instances_service::RotateServerCa::new(self.inner.clone())
+        super::builders::sql_instances_service::RotateServerCa::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -764,9 +764,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::StartReplica
+    ) -> super::builders::sql_instances_service::StartReplica
     {
-        crate::builders::sql_instances_service::StartReplica::new(self.inner.clone())
+        super::builders::sql_instances_service::StartReplica::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -776,9 +776,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::StopReplica
+    ) -> super::builders::sql_instances_service::StopReplica
     {
-        crate::builders::sql_instances_service::StopReplica::new(self.inner.clone())
+        super::builders::sql_instances_service::StopReplica::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -789,9 +789,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::TruncateLog
+    ) -> super::builders::sql_instances_service::TruncateLog
     {
-        crate::builders::sql_instances_service::TruncateLog::new(self.inner.clone())
+        super::builders::sql_instances_service::TruncateLog::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -802,9 +802,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::Update
+    ) -> super::builders::sql_instances_service::Update
     {
-        crate::builders::sql_instances_service::Update::new(self.inner.clone())
+        super::builders::sql_instances_service::Update::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -817,9 +817,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::CreateEphemeral
+    ) -> super::builders::sql_instances_service::CreateEphemeral
     {
-        crate::builders::sql_instances_service::CreateEphemeral::new(self.inner.clone())
+        super::builders::sql_instances_service::CreateEphemeral::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -829,9 +829,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::RescheduleMaintenance
+    ) -> super::builders::sql_instances_service::RescheduleMaintenance
     {
-        crate::builders::sql_instances_service::RescheduleMaintenance::new(self.inner.clone())
+        super::builders::sql_instances_service::RescheduleMaintenance::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -841,9 +841,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::VerifyExternalSyncSettings
+    ) -> super::builders::sql_instances_service::VerifyExternalSyncSettings
     {
-        crate::builders::sql_instances_service::VerifyExternalSyncSettings::new(self.inner.clone())
+        super::builders::sql_instances_service::VerifyExternalSyncSettings::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -853,9 +853,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::StartExternalSync
+    ) -> super::builders::sql_instances_service::StartExternalSync
     {
-        crate::builders::sql_instances_service::StartExternalSync::new(self.inner.clone())
+        super::builders::sql_instances_service::StartExternalSync::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -865,9 +865,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::PerformDiskShrink
+    ) -> super::builders::sql_instances_service::PerformDiskShrink
     {
-        crate::builders::sql_instances_service::PerformDiskShrink::new(self.inner.clone())
+        super::builders::sql_instances_service::PerformDiskShrink::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -877,9 +877,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::GetDiskShrinkConfig
+    ) -> super::builders::sql_instances_service::GetDiskShrinkConfig
     {
-        crate::builders::sql_instances_service::GetDiskShrinkConfig::new(self.inner.clone())
+        super::builders::sql_instances_service::GetDiskShrinkConfig::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -889,9 +889,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::ResetReplicaSize
+    ) -> super::builders::sql_instances_service::ResetReplicaSize
     {
-        crate::builders::sql_instances_service::ResetReplicaSize::new(self.inner.clone())
+        super::builders::sql_instances_service::ResetReplicaSize::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -901,9 +901,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::GetLatestRecoveryTime
+    ) -> super::builders::sql_instances_service::GetLatestRecoveryTime
     {
-        crate::builders::sql_instances_service::GetLatestRecoveryTime::new(self.inner.clone())
+        super::builders::sql_instances_service::GetLatestRecoveryTime::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -913,9 +913,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::AcquireSsrsLease
+    ) -> super::builders::sql_instances_service::AcquireSsrsLease
     {
-        crate::builders::sql_instances_service::AcquireSsrsLease::new(self.inner.clone())
+        super::builders::sql_instances_service::AcquireSsrsLease::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -925,9 +925,9 @@ impl SqlInstancesService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_instances_service::ReleaseSsrsLease
+    ) -> super::builders::sql_instances_service::ReleaseSsrsLease
     {
-        crate::builders::sql_instances_service::ReleaseSsrsLease::new(self.inner.clone())
+        super::builders::sql_instances_service::ReleaseSsrsLease::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -953,7 +953,7 @@ impl SqlInstancesService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SqlOperationsService {
-    inner: Arc<dyn crate::stubs::dynamic::SqlOperationsService>,
+    inner: Arc<dyn super::stubs::dynamic::SqlOperationsService>,
 }
 
 impl SqlOperationsService {
@@ -973,23 +973,23 @@ impl SqlOperationsService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::SqlOperationsService + 'static {
+    where T: super::stubs::SqlOperationsService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlOperationsService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::SqlOperationsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlOperationsService> {
-        crate::transport::SqlOperationsService::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlOperationsService> {
+        super::transport::SqlOperationsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlOperationsService> {
-        Self::build_transport(conf).await.map(crate::tracing::SqlOperationsService::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlOperationsService> {
+        Self::build_transport(conf).await.map(super::tracing::SqlOperationsService::new)
     }
 
     /// Retrieves an instance operation that has been performed on an instance.
@@ -997,9 +997,9 @@ impl SqlOperationsService {
         &self,
         project: impl Into<std::string::String>,
         operation: impl Into<std::string::String>,
-    ) -> crate::builders::sql_operations_service::Get
+    ) -> super::builders::sql_operations_service::Get
     {
-        crate::builders::sql_operations_service::Get::new(self.inner.clone())
+        super::builders::sql_operations_service::Get::new(self.inner.clone())
             .set_project ( project.into() )
             .set_operation ( operation.into() )
     }
@@ -1009,9 +1009,9 @@ impl SqlOperationsService {
     pub fn list(
         &self,
         project: impl Into<std::string::String>,
-    ) -> crate::builders::sql_operations_service::List
+    ) -> super::builders::sql_operations_service::List
     {
-        crate::builders::sql_operations_service::List::new(self.inner.clone())
+        super::builders::sql_operations_service::List::new(self.inner.clone())
             .set_project ( project.into() )
     }
 
@@ -1020,9 +1020,9 @@ impl SqlOperationsService {
         &self,
         project: impl Into<std::string::String>,
         operation: impl Into<std::string::String>,
-    ) -> crate::builders::sql_operations_service::Cancel
+    ) -> super::builders::sql_operations_service::Cancel
     {
-        crate::builders::sql_operations_service::Cancel::new(self.inner.clone())
+        super::builders::sql_operations_service::Cancel::new(self.inner.clone())
             .set_project ( project.into() )
             .set_operation ( operation.into() )
     }
@@ -1048,7 +1048,7 @@ impl SqlOperationsService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SqlSslCertsService {
-    inner: Arc<dyn crate::stubs::dynamic::SqlSslCertsService>,
+    inner: Arc<dyn super::stubs::dynamic::SqlSslCertsService>,
 }
 
 impl SqlSslCertsService {
@@ -1068,23 +1068,23 @@ impl SqlSslCertsService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::SqlSslCertsService + 'static {
+    where T: super::stubs::SqlSslCertsService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlSslCertsService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::SqlSslCertsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlSslCertsService> {
-        crate::transport::SqlSslCertsService::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlSslCertsService> {
+        super::transport::SqlSslCertsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlSslCertsService> {
-        Self::build_transport(conf).await.map(crate::tracing::SqlSslCertsService::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlSslCertsService> {
+        Self::build_transport(conf).await.map(super::tracing::SqlSslCertsService::new)
     }
 
     /// Deletes the SSL certificate. For First Generation instances, the
@@ -1094,9 +1094,9 @@ impl SqlSslCertsService {
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
         sha1_fingerprint: impl Into<std::string::String>,
-    ) -> crate::builders::sql_ssl_certs_service::Delete
+    ) -> super::builders::sql_ssl_certs_service::Delete
     {
-        crate::builders::sql_ssl_certs_service::Delete::new(self.inner.clone())
+        super::builders::sql_ssl_certs_service::Delete::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
             .set_sha1_fingerprint ( sha1_fingerprint.into() )
@@ -1110,9 +1110,9 @@ impl SqlSslCertsService {
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
         sha1_fingerprint: impl Into<std::string::String>,
-    ) -> crate::builders::sql_ssl_certs_service::Get
+    ) -> super::builders::sql_ssl_certs_service::Get
     {
-        crate::builders::sql_ssl_certs_service::Get::new(self.inner.clone())
+        super::builders::sql_ssl_certs_service::Get::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
             .set_sha1_fingerprint ( sha1_fingerprint.into() )
@@ -1125,9 +1125,9 @@ impl SqlSslCertsService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_ssl_certs_service::Insert
+    ) -> super::builders::sql_ssl_certs_service::Insert
     {
-        crate::builders::sql_ssl_certs_service::Insert::new(self.inner.clone())
+        super::builders::sql_ssl_certs_service::Insert::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -1137,9 +1137,9 @@ impl SqlSslCertsService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_ssl_certs_service::List
+    ) -> super::builders::sql_ssl_certs_service::List
     {
-        crate::builders::sql_ssl_certs_service::List::new(self.inner.clone())
+        super::builders::sql_ssl_certs_service::List::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -1165,7 +1165,7 @@ impl SqlSslCertsService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SqlTiersService {
-    inner: Arc<dyn crate::stubs::dynamic::SqlTiersService>,
+    inner: Arc<dyn super::stubs::dynamic::SqlTiersService>,
 }
 
 impl SqlTiersService {
@@ -1185,23 +1185,23 @@ impl SqlTiersService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::SqlTiersService + 'static {
+    where T: super::stubs::SqlTiersService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlTiersService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::SqlTiersService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlTiersService> {
-        crate::transport::SqlTiersService::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlTiersService> {
+        super::transport::SqlTiersService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlTiersService> {
-        Self::build_transport(conf).await.map(crate::tracing::SqlTiersService::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlTiersService> {
+        Self::build_transport(conf).await.map(super::tracing::SqlTiersService::new)
     }
 
     /// Lists all available machine types (tiers) for Cloud SQL, for example,
@@ -1210,9 +1210,9 @@ impl SqlTiersService {
     pub fn list(
         &self,
         project: impl Into<std::string::String>,
-    ) -> crate::builders::sql_tiers_service::List
+    ) -> super::builders::sql_tiers_service::List
     {
-        crate::builders::sql_tiers_service::List::new(self.inner.clone())
+        super::builders::sql_tiers_service::List::new(self.inner.clone())
             .set_project ( project.into() )
     }
 
@@ -1237,7 +1237,7 @@ impl SqlTiersService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SqlUsersService {
-    inner: Arc<dyn crate::stubs::dynamic::SqlUsersService>,
+    inner: Arc<dyn super::stubs::dynamic::SqlUsersService>,
 }
 
 impl SqlUsersService {
@@ -1257,23 +1257,23 @@ impl SqlUsersService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::SqlUsersService + 'static {
+    where T: super::stubs::SqlUsersService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlUsersService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::SqlUsersService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlUsersService> {
-        crate::transport::SqlUsersService::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlUsersService> {
+        super::transport::SqlUsersService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlUsersService> {
-        Self::build_transport(conf).await.map(crate::tracing::SqlUsersService::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::SqlUsersService> {
+        Self::build_transport(conf).await.map(super::tracing::SqlUsersService::new)
     }
 
     /// Deletes a user from a Cloud SQL instance.
@@ -1281,9 +1281,9 @@ impl SqlUsersService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_users_service::Delete
+    ) -> super::builders::sql_users_service::Delete
     {
-        crate::builders::sql_users_service::Delete::new(self.inner.clone())
+        super::builders::sql_users_service::Delete::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -1294,9 +1294,9 @@ impl SqlUsersService {
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::sql_users_service::Get
+    ) -> super::builders::sql_users_service::Get
     {
-        crate::builders::sql_users_service::Get::new(self.inner.clone())
+        super::builders::sql_users_service::Get::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
             .set_name ( name.into() )
@@ -1307,9 +1307,9 @@ impl SqlUsersService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_users_service::Insert
+    ) -> super::builders::sql_users_service::Insert
     {
-        crate::builders::sql_users_service::Insert::new(self.inner.clone())
+        super::builders::sql_users_service::Insert::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -1319,9 +1319,9 @@ impl SqlUsersService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_users_service::List
+    ) -> super::builders::sql_users_service::List
     {
-        crate::builders::sql_users_service::List::new(self.inner.clone())
+        super::builders::sql_users_service::List::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }
@@ -1331,9 +1331,9 @@ impl SqlUsersService {
         &self,
         project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
-    ) -> crate::builders::sql_users_service::Update
+    ) -> super::builders::sql_users_service::Update
     {
-        crate::builders::sql_users_service::Update::new(self.inner.clone())
+        super::builders::sql_users_service::Update::new(self.inner.clone())
             .set_project ( project.into() )
             .set_instance ( instance.into() )
     }

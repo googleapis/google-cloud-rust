@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [WebSecurityScanner](crate::stubs::WebSecurityScanner) using a [gclient::ReqwestClient].
+/// Implements [WebSecurityScanner](super::stubs::WebSecurityScanner) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct WebSecurityScanner {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl WebSecurityScanner {
     }
 }
 
-impl crate::stubs::WebSecurityScanner for WebSecurityScanner {
+impl super::stubs::WebSecurityScanner for WebSecurityScanner {
     async fn create_scan_config(
         &self,
         req: crate::model::CreateScanConfigRequest,

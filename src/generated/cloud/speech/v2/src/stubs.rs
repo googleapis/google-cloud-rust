@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Speech].
+/// Defines the trait used to implement [super::client::Speech].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Speech`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Speech: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Speech::create_recognizer].
+    /// Implements [super::client::Speech::create_recognizer].
     fn create_recognizer(
         &self,
         _req: crate::model::CreateRecognizerRequest,
@@ -53,7 +53,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::list_recognizers].
+    /// Implements [super::client::Speech::list_recognizers].
     fn list_recognizers(
         &self,
         _req: crate::model::ListRecognizersRequest,
@@ -65,7 +65,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Speech::get_recognizer].
+    /// Implements [super::client::Speech::get_recognizer].
     fn get_recognizer(
         &self,
         _req: crate::model::GetRecognizerRequest,
@@ -76,7 +76,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::update_recognizer].
+    /// Implements [super::client::Speech::update_recognizer].
     fn update_recognizer(
         &self,
         _req: crate::model::UpdateRecognizerRequest,
@@ -88,7 +88,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::delete_recognizer].
+    /// Implements [super::client::Speech::delete_recognizer].
     fn delete_recognizer(
         &self,
         _req: crate::model::DeleteRecognizerRequest,
@@ -100,7 +100,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::undelete_recognizer].
+    /// Implements [super::client::Speech::undelete_recognizer].
     fn undelete_recognizer(
         &self,
         _req: crate::model::UndeleteRecognizerRequest,
@@ -112,7 +112,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::recognize].
+    /// Implements [super::client::Speech::recognize].
     fn recognize(
         &self,
         _req: crate::model::RecognizeRequest,
@@ -124,7 +124,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::batch_recognize].
+    /// Implements [super::client::Speech::batch_recognize].
     fn batch_recognize(
         &self,
         _req: crate::model::BatchRecognizeRequest,
@@ -136,7 +136,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::get_config].
+    /// Implements [super::client::Speech::get_config].
     fn get_config(
         &self,
         _req: crate::model::GetConfigRequest,
@@ -147,7 +147,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::update_config].
+    /// Implements [super::client::Speech::update_config].
     fn update_config(
         &self,
         _req: crate::model::UpdateConfigRequest,
@@ -158,7 +158,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::create_custom_class].
+    /// Implements [super::client::Speech::create_custom_class].
     fn create_custom_class(
         &self,
         _req: crate::model::CreateCustomClassRequest,
@@ -170,7 +170,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::list_custom_classes].
+    /// Implements [super::client::Speech::list_custom_classes].
     fn list_custom_classes(
         &self,
         _req: crate::model::ListCustomClassesRequest,
@@ -182,7 +182,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Speech::get_custom_class].
+    /// Implements [super::client::Speech::get_custom_class].
     fn get_custom_class(
         &self,
         _req: crate::model::GetCustomClassRequest,
@@ -193,7 +193,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::update_custom_class].
+    /// Implements [super::client::Speech::update_custom_class].
     fn update_custom_class(
         &self,
         _req: crate::model::UpdateCustomClassRequest,
@@ -205,7 +205,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::delete_custom_class].
+    /// Implements [super::client::Speech::delete_custom_class].
     fn delete_custom_class(
         &self,
         _req: crate::model::DeleteCustomClassRequest,
@@ -217,7 +217,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::undelete_custom_class].
+    /// Implements [super::client::Speech::undelete_custom_class].
     fn undelete_custom_class(
         &self,
         _req: crate::model::UndeleteCustomClassRequest,
@@ -229,7 +229,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::create_phrase_set].
+    /// Implements [super::client::Speech::create_phrase_set].
     fn create_phrase_set(
         &self,
         _req: crate::model::CreatePhraseSetRequest,
@@ -241,7 +241,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::list_phrase_sets].
+    /// Implements [super::client::Speech::list_phrase_sets].
     fn list_phrase_sets(
         &self,
         _req: crate::model::ListPhraseSetsRequest,
@@ -253,7 +253,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Speech::get_phrase_set].
+    /// Implements [super::client::Speech::get_phrase_set].
     fn get_phrase_set(
         &self,
         _req: crate::model::GetPhraseSetRequest,
@@ -264,7 +264,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::update_phrase_set].
+    /// Implements [super::client::Speech::update_phrase_set].
     fn update_phrase_set(
         &self,
         _req: crate::model::UpdatePhraseSetRequest,
@@ -276,7 +276,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::delete_phrase_set].
+    /// Implements [super::client::Speech::delete_phrase_set].
     fn delete_phrase_set(
         &self,
         _req: crate::model::DeletePhraseSetRequest,
@@ -288,7 +288,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::undelete_phrase_set].
+    /// Implements [super::client::Speech::undelete_phrase_set].
     fn undelete_phrase_set(
         &self,
         _req: crate::model::UndeletePhraseSetRequest,
@@ -300,7 +300,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::list_locations].
+    /// Implements [super::client::Speech::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -312,7 +312,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Speech::get_location].
+    /// Implements [super::client::Speech::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -323,7 +323,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::list_operations].
+    /// Implements [super::client::Speech::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -335,7 +335,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Speech::get_operation].
+    /// Implements [super::client::Speech::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -347,7 +347,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Speech::delete_operation].
+    /// Implements [super::client::Speech::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -356,7 +356,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Speech::cancel_operation].
+    /// Implements [super::client::Speech::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

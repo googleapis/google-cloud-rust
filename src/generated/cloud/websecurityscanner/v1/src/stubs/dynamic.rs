@@ -96,9 +96,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ListFindingTypeStatsResponse>;
 }
 
-/// All implementations of [crate::stubs::WebSecurityScanner] also implement [WebSecurityScanner].
+/// All implementations of [super::WebSecurityScanner] also implement [WebSecurityScanner].
 #[async_trait::async_trait]
-impl<T: crate::stubs::WebSecurityScanner> WebSecurityScanner for T {
+impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_scan_config(
         &self,

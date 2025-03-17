@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudMemcache](crate::stubs::CloudMemcache) using a [gclient::ReqwestClient].
+/// Implements [CloudMemcache](super::stubs::CloudMemcache) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudMemcache {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudMemcache {
     }
 }
 
-impl crate::stubs::CloudMemcache for CloudMemcache {
+impl super::stubs::CloudMemcache for CloudMemcache {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,

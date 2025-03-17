@@ -258,9 +258,9 @@ pub trait CertificateAuthorityService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::CertificateAuthorityService] also implement [CertificateAuthorityService].
+/// All implementations of [super::CertificateAuthorityService] also implement [CertificateAuthorityService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CertificateAuthorityService> CertificateAuthorityService for T {
+impl<T: super::CertificateAuthorityService> CertificateAuthorityService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_certificate(
         &self,

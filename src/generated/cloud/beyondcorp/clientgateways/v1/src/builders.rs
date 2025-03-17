@@ -18,10 +18,10 @@ pub mod client_gateways_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ClientGatewaysService] request builders.
+    /// Common implementation for [super::super::client::ClientGatewaysService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod client_gateways_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod client_gateways_service {
     pub struct ListClientGateways(RequestBuilder<crate::model::ListClientGatewaysRequest>);
 
     impl ListClientGateways {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -126,7 +130,9 @@ pub mod client_gateways_service {
     pub struct GetClientGateway(RequestBuilder<crate::model::GetClientGatewayRequest>);
 
     impl GetClientGateway {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -170,7 +176,9 @@ pub mod client_gateways_service {
     pub struct CreateClientGateway(RequestBuilder<crate::model::CreateClientGatewayRequest>);
 
     impl CreateClientGateway {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -194,7 +202,7 @@ pub mod client_gateways_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_client_gateway][crate::client::ClientGatewaysService::create_client_gateway].
+        /// on [create_client_gateway][super::super::client::ClientGatewaysService::create_client_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_client_gateway(self.0.request, self.0.options)
@@ -282,7 +290,9 @@ pub mod client_gateways_service {
     pub struct DeleteClientGateway(RequestBuilder<crate::model::DeleteClientGatewayRequest>);
 
     impl DeleteClientGateway {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -306,7 +316,7 @@ pub mod client_gateways_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_client_gateway][crate::client::ClientGatewaysService::delete_client_gateway].
+        /// on [delete_client_gateway][super::super::client::ClientGatewaysService::delete_client_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_client_gateway(self.0.request, self.0.options)
@@ -376,7 +386,9 @@ pub mod client_gateways_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -452,7 +464,9 @@ pub mod client_gateways_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -493,7 +507,9 @@ pub mod client_gateways_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -552,7 +568,9 @@ pub mod client_gateways_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -602,7 +620,9 @@ pub mod client_gateways_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -657,7 +677,9 @@ pub mod client_gateways_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -733,7 +755,9 @@ pub mod client_gateways_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -777,7 +801,9 @@ pub mod client_gateways_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -821,7 +847,9 @@ pub mod client_gateways_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ClientGatewaysService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ClientGatewaysService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

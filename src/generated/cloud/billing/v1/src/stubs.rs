@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudBilling].
+/// Defines the trait used to implement [super::client::CloudBilling].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudBilling`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudBilling: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudBilling::get_billing_account].
+    /// Implements [super::client::CloudBilling::get_billing_account].
     fn get_billing_account(
         &self,
         _req: crate::model::GetBillingAccountRequest,
@@ -51,7 +51,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBilling::list_billing_accounts].
+    /// Implements [super::client::CloudBilling::list_billing_accounts].
     fn list_billing_accounts(
         &self,
         _req: crate::model::ListBillingAccountsRequest,
@@ -63,7 +63,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudBilling::update_billing_account].
+    /// Implements [super::client::CloudBilling::update_billing_account].
     fn update_billing_account(
         &self,
         _req: crate::model::UpdateBillingAccountRequest,
@@ -74,7 +74,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBilling::create_billing_account].
+    /// Implements [super::client::CloudBilling::create_billing_account].
     fn create_billing_account(
         &self,
         _req: crate::model::CreateBillingAccountRequest,
@@ -85,7 +85,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBilling::list_project_billing_info].
+    /// Implements [super::client::CloudBilling::list_project_billing_info].
     fn list_project_billing_info(
         &self,
         _req: crate::model::ListProjectBillingInfoRequest,
@@ -97,7 +97,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudBilling::get_project_billing_info].
+    /// Implements [super::client::CloudBilling::get_project_billing_info].
     fn get_project_billing_info(
         &self,
         _req: crate::model::GetProjectBillingInfoRequest,
@@ -109,7 +109,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBilling::update_project_billing_info].
+    /// Implements [super::client::CloudBilling::update_project_billing_info].
     fn update_project_billing_info(
         &self,
         _req: crate::model::UpdateProjectBillingInfoRequest,
@@ -121,7 +121,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBilling::get_iam_policy].
+    /// Implements [super::client::CloudBilling::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -132,7 +132,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBilling::set_iam_policy].
+    /// Implements [super::client::CloudBilling::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -143,7 +143,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBilling::test_iam_permissions].
+    /// Implements [super::client::CloudBilling::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -155,7 +155,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudBilling::move_billing_account].
+    /// Implements [super::client::CloudBilling::move_billing_account].
     fn move_billing_account(
         &self,
         _req: crate::model::MoveBillingAccountRequest,
@@ -167,7 +167,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::CloudCatalog].
+/// Defines the trait used to implement [super::client::CloudCatalog].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudCatalog`.  In other use-cases, application developers only
@@ -179,7 +179,7 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudCatalog: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudCatalog::list_services].
+    /// Implements [super::client::CloudCatalog::list_services].
     fn list_services(
         &self,
         _req: crate::model::ListServicesRequest,
@@ -191,7 +191,7 @@ pub trait CloudCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudCatalog::list_skus].
+    /// Implements [super::client::CloudCatalog::list_skus].
     fn list_skus(
         &self,
         _req: crate::model::ListSkusRequest,

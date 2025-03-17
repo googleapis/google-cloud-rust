@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CertificateManager](crate::stubs::CertificateManager) using a [gclient::ReqwestClient].
+/// Implements [CertificateManager](super::stubs::CertificateManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CertificateManager {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl CertificateManager {
     }
 }
 
-impl crate::stubs::CertificateManager for CertificateManager {
+impl super::stubs::CertificateManager for CertificateManager {
     async fn list_certificates(
         &self,
         req: crate::model::ListCertificatesRequest,

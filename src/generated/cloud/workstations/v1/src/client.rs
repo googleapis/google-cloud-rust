@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Workstations {
-    inner: Arc<dyn crate::stubs::dynamic::Workstations>,
+    inner: Arc<dyn super::stubs::dynamic::Workstations>,
 }
 
 impl Workstations {
@@ -59,7 +59,7 @@ impl Workstations {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Workstations + 'static,
+        T: super::stubs::Workstations + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl Workstations {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Workstations>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Workstations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl Workstations {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Workstations> {
-        crate::transport::Workstations::new(conf).await
+    ) -> Result<impl super::stubs::Workstations> {
+        super::transport::Workstations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Workstations> {
+    ) -> Result<impl super::stubs::Workstations> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Workstations::new)
+            .map(super::tracing::Workstations::new)
     }
 
     /// Returns the requested workstation cluster.
     pub fn get_workstation_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::GetWorkstationCluster {
-        crate::builders::workstations::GetWorkstationCluster::new(self.inner.clone())
+    ) -> super::builders::workstations::GetWorkstationCluster {
+        super::builders::workstations::GetWorkstationCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -102,8 +102,8 @@ impl Workstations {
     pub fn list_workstation_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::ListWorkstationClusters {
-        crate::builders::workstations::ListWorkstationClusters::new(self.inner.clone())
+    ) -> super::builders::workstations::ListWorkstationClusters {
+        super::builders::workstations::ListWorkstationClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -121,8 +121,8 @@ impl Workstations {
     pub fn create_workstation_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::CreateWorkstationCluster {
-        crate::builders::workstations::CreateWorkstationCluster::new(self.inner.clone())
+    ) -> super::builders::workstations::CreateWorkstationCluster {
+        super::builders::workstations::CreateWorkstationCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +140,8 @@ impl Workstations {
     pub fn update_workstation_cluster(
         &self,
         workstation_cluster: impl Into<crate::model::WorkstationCluster>,
-    ) -> crate::builders::workstations::UpdateWorkstationCluster {
-        crate::builders::workstations::UpdateWorkstationCluster::new(self.inner.clone())
+    ) -> super::builders::workstations::UpdateWorkstationCluster {
+        super::builders::workstations::UpdateWorkstationCluster::new(self.inner.clone())
             .set_workstation_cluster(workstation_cluster.into())
     }
 
@@ -159,8 +159,8 @@ impl Workstations {
     pub fn delete_workstation_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::DeleteWorkstationCluster {
-        crate::builders::workstations::DeleteWorkstationCluster::new(self.inner.clone())
+    ) -> super::builders::workstations::DeleteWorkstationCluster {
+        super::builders::workstations::DeleteWorkstationCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -168,8 +168,8 @@ impl Workstations {
     pub fn get_workstation_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::GetWorkstationConfig {
-        crate::builders::workstations::GetWorkstationConfig::new(self.inner.clone())
+    ) -> super::builders::workstations::GetWorkstationConfig {
+        super::builders::workstations::GetWorkstationConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -177,8 +177,8 @@ impl Workstations {
     pub fn list_workstation_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::ListWorkstationConfigs {
-        crate::builders::workstations::ListWorkstationConfigs::new(self.inner.clone())
+    ) -> super::builders::workstations::ListWorkstationConfigs {
+        super::builders::workstations::ListWorkstationConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -187,8 +187,8 @@ impl Workstations {
     pub fn list_usable_workstation_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::ListUsableWorkstationConfigs {
-        crate::builders::workstations::ListUsableWorkstationConfigs::new(self.inner.clone())
+    ) -> super::builders::workstations::ListUsableWorkstationConfigs {
+        super::builders::workstations::ListUsableWorkstationConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -206,8 +206,8 @@ impl Workstations {
     pub fn create_workstation_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::CreateWorkstationConfig {
-        crate::builders::workstations::CreateWorkstationConfig::new(self.inner.clone())
+    ) -> super::builders::workstations::CreateWorkstationConfig {
+        super::builders::workstations::CreateWorkstationConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -225,8 +225,8 @@ impl Workstations {
     pub fn update_workstation_config(
         &self,
         workstation_config: impl Into<crate::model::WorkstationConfig>,
-    ) -> crate::builders::workstations::UpdateWorkstationConfig {
-        crate::builders::workstations::UpdateWorkstationConfig::new(self.inner.clone())
+    ) -> super::builders::workstations::UpdateWorkstationConfig {
+        super::builders::workstations::UpdateWorkstationConfig::new(self.inner.clone())
             .set_workstation_config(workstation_config.into())
     }
 
@@ -244,8 +244,8 @@ impl Workstations {
     pub fn delete_workstation_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::DeleteWorkstationConfig {
-        crate::builders::workstations::DeleteWorkstationConfig::new(self.inner.clone())
+    ) -> super::builders::workstations::DeleteWorkstationConfig {
+        super::builders::workstations::DeleteWorkstationConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -253,16 +253,16 @@ impl Workstations {
     pub fn get_workstation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::GetWorkstation {
-        crate::builders::workstations::GetWorkstation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::workstations::GetWorkstation {
+        super::builders::workstations::GetWorkstation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns all Workstations using the specified workstation configuration.
     pub fn list_workstations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::ListWorkstations {
-        crate::builders::workstations::ListWorkstations::new(self.inner.clone())
+    ) -> super::builders::workstations::ListWorkstations {
+        super::builders::workstations::ListWorkstations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -271,8 +271,8 @@ impl Workstations {
     pub fn list_usable_workstations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::ListUsableWorkstations {
-        crate::builders::workstations::ListUsableWorkstations::new(self.inner.clone())
+    ) -> super::builders::workstations::ListUsableWorkstations {
+        super::builders::workstations::ListUsableWorkstations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -290,8 +290,8 @@ impl Workstations {
     pub fn create_workstation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::CreateWorkstation {
-        crate::builders::workstations::CreateWorkstation::new(self.inner.clone())
+    ) -> super::builders::workstations::CreateWorkstation {
+        super::builders::workstations::CreateWorkstation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -309,8 +309,8 @@ impl Workstations {
     pub fn update_workstation(
         &self,
         workstation: impl Into<crate::model::Workstation>,
-    ) -> crate::builders::workstations::UpdateWorkstation {
-        crate::builders::workstations::UpdateWorkstation::new(self.inner.clone())
+    ) -> super::builders::workstations::UpdateWorkstation {
+        super::builders::workstations::UpdateWorkstation::new(self.inner.clone())
             .set_workstation(workstation.into())
     }
 
@@ -328,8 +328,8 @@ impl Workstations {
     pub fn delete_workstation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::DeleteWorkstation {
-        crate::builders::workstations::DeleteWorkstation::new(self.inner.clone())
+    ) -> super::builders::workstations::DeleteWorkstation {
+        super::builders::workstations::DeleteWorkstation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -347,8 +347,8 @@ impl Workstations {
     pub fn start_workstation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::StartWorkstation {
-        crate::builders::workstations::StartWorkstation::new(self.inner.clone())
+    ) -> super::builders::workstations::StartWorkstation {
+        super::builders::workstations::StartWorkstation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -366,8 +366,8 @@ impl Workstations {
     pub fn stop_workstation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::StopWorkstation {
-        crate::builders::workstations::StopWorkstation::new(self.inner.clone())
+    ) -> super::builders::workstations::StopWorkstation {
+        super::builders::workstations::StopWorkstation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -376,8 +376,8 @@ impl Workstations {
     pub fn generate_access_token(
         &self,
         workstation: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::GenerateAccessToken {
-        crate::builders::workstations::GenerateAccessToken::new(self.inner.clone())
+    ) -> super::builders::workstations::GenerateAccessToken {
+        super::builders::workstations::GenerateAccessToken::new(self.inner.clone())
             .set_workstation(workstation.into())
     }
 
@@ -389,8 +389,8 @@ impl Workstations {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::SetIamPolicy {
-        crate::builders::workstations::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::workstations::SetIamPolicy {
+        super::builders::workstations::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -399,8 +399,8 @@ impl Workstations {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::GetIamPolicy {
-        crate::builders::workstations::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::workstations::GetIamPolicy {
+        super::builders::workstations::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -414,8 +414,8 @@ impl Workstations {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::TestIamPermissions {
-        crate::builders::workstations::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::workstations::TestIamPermissions {
+        super::builders::workstations::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -425,8 +425,8 @@ impl Workstations {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::ListOperations {
-        crate::builders::workstations::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::workstations::ListOperations {
+        super::builders::workstations::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -435,8 +435,8 @@ impl Workstations {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::GetOperation {
-        crate::builders::workstations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::workstations::GetOperation {
+        super::builders::workstations::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -445,8 +445,8 @@ impl Workstations {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::DeleteOperation {
-        crate::builders::workstations::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::workstations::DeleteOperation {
+        super::builders::workstations::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -456,8 +456,8 @@ impl Workstations {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::workstations::CancelOperation {
-        crate::builders::workstations::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::workstations::CancelOperation {
+        super::builders::workstations::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

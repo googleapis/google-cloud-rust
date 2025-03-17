@@ -192,9 +192,9 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Workstations] also implement [Workstations].
+/// All implementations of [super::Workstations] also implement [Workstations].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Workstations> Workstations for T {
+impl<T: super::Workstations> Workstations for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_workstation_cluster(
         &self,

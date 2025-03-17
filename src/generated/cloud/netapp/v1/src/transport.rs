@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [NetApp](crate::stubs::NetApp) using a [gclient::ReqwestClient].
+/// Implements [NetApp](super::stubs::NetApp) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct NetApp {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl NetApp {
     }
 }
 
-impl crate::stubs::NetApp for NetApp {
+impl super::stubs::NetApp for NetApp {
     async fn list_storage_pools(
         &self,
         req: crate::model::ListStoragePoolsRequest,

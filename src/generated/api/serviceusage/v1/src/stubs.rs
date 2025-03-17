@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ServiceUsage].
+/// Defines the trait used to implement [super::client::ServiceUsage].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ServiceUsage`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ServiceUsage: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ServiceUsage::enable_service].
+    /// Implements [super::client::ServiceUsage::enable_service].
     fn enable_service(
         &self,
         _req: crate::model::EnableServiceRequest,
@@ -53,7 +53,7 @@ pub trait ServiceUsage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceUsage::disable_service].
+    /// Implements [super::client::ServiceUsage::disable_service].
     fn disable_service(
         &self,
         _req: crate::model::DisableServiceRequest,
@@ -65,7 +65,7 @@ pub trait ServiceUsage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceUsage::get_service].
+    /// Implements [super::client::ServiceUsage::get_service].
     fn get_service(
         &self,
         _req: crate::model::GetServiceRequest,
@@ -76,7 +76,7 @@ pub trait ServiceUsage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceUsage::list_services].
+    /// Implements [super::client::ServiceUsage::list_services].
     fn list_services(
         &self,
         _req: crate::model::ListServicesRequest,
@@ -88,7 +88,7 @@ pub trait ServiceUsage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceUsage::batch_enable_services].
+    /// Implements [super::client::ServiceUsage::batch_enable_services].
     fn batch_enable_services(
         &self,
         _req: crate::model::BatchEnableServicesRequest,
@@ -100,7 +100,7 @@ pub trait ServiceUsage: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceUsage::batch_get_services].
+    /// Implements [super::client::ServiceUsage::batch_get_services].
     fn batch_get_services(
         &self,
         _req: crate::model::BatchGetServicesRequest,
@@ -112,7 +112,7 @@ pub trait ServiceUsage: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ServiceUsage::list_operations].
+    /// Implements [super::client::ServiceUsage::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -124,7 +124,7 @@ pub trait ServiceUsage: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ServiceUsage::get_operation].
+    /// Implements [super::client::ServiceUsage::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

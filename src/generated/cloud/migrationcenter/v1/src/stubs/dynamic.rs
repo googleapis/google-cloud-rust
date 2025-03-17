@@ -354,9 +354,9 @@ pub trait MigrationCenter: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::MigrationCenter] also implement [MigrationCenter].
+/// All implementations of [super::MigrationCenter] also implement [MigrationCenter].
 #[async_trait::async_trait]
-impl<T: crate::stubs::MigrationCenter> MigrationCenter for T {
+impl<T: super::MigrationCenter> MigrationCenter for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_assets(
         &self,

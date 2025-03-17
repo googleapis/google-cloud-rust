@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AppGatewaysService].
+/// Defines the trait used to implement [super::client::AppGatewaysService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AppGatewaysService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AppGatewaysService::list_app_gateways].
+    /// Implements [super::client::AppGatewaysService::list_app_gateways].
     fn list_app_gateways(
         &self,
         _req: crate::model::ListAppGatewaysRequest,
@@ -53,7 +53,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppGatewaysService::get_app_gateway].
+    /// Implements [super::client::AppGatewaysService::get_app_gateway].
     fn get_app_gateway(
         &self,
         _req: crate::model::GetAppGatewayRequest,
@@ -64,7 +64,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppGatewaysService::create_app_gateway].
+    /// Implements [super::client::AppGatewaysService::create_app_gateway].
     fn create_app_gateway(
         &self,
         _req: crate::model::CreateAppGatewayRequest,
@@ -76,7 +76,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppGatewaysService::delete_app_gateway].
+    /// Implements [super::client::AppGatewaysService::delete_app_gateway].
     fn delete_app_gateway(
         &self,
         _req: crate::model::DeleteAppGatewayRequest,
@@ -88,7 +88,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppGatewaysService::list_locations].
+    /// Implements [super::client::AppGatewaysService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -100,7 +100,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppGatewaysService::get_location].
+    /// Implements [super::client::AppGatewaysService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -111,7 +111,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppGatewaysService::set_iam_policy].
+    /// Implements [super::client::AppGatewaysService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -122,7 +122,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppGatewaysService::get_iam_policy].
+    /// Implements [super::client::AppGatewaysService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -133,7 +133,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppGatewaysService::test_iam_permissions].
+    /// Implements [super::client::AppGatewaysService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -145,7 +145,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppGatewaysService::list_operations].
+    /// Implements [super::client::AppGatewaysService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -157,7 +157,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppGatewaysService::get_operation].
+    /// Implements [super::client::AppGatewaysService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -169,7 +169,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppGatewaysService::delete_operation].
+    /// Implements [super::client::AppGatewaysService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -178,7 +178,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AppGatewaysService::cancel_operation].
+    /// Implements [super::client::AppGatewaysService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

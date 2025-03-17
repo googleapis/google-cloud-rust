@@ -18,10 +18,10 @@ pub mod cloud_redis_cluster {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudRedisCluster] request builders.
+    /// Common implementation for [super::super::client::CloudRedisCluster] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod cloud_redis_cluster {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod cloud_redis_cluster {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -111,7 +111,7 @@ pub mod cloud_redis_cluster {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -152,7 +152,7 @@ pub mod cloud_redis_cluster {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -173,7 +173,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][crate::client::CloudRedisCluster::update_cluster].
+        /// on [update_cluster][super::super::client::CloudRedisCluster::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -246,7 +246,7 @@ pub mod cloud_redis_cluster {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -267,7 +267,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][crate::client::CloudRedisCluster::delete_cluster].
+        /// on [delete_cluster][super::super::client::CloudRedisCluster::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -328,7 +328,7 @@ pub mod cloud_redis_cluster {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -349,7 +349,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][crate::client::CloudRedisCluster::create_cluster].
+        /// on [create_cluster][super::super::client::CloudRedisCluster::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -427,7 +427,7 @@ pub mod cloud_redis_cluster {
     );
 
     impl GetClusterCertificateAuthority {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -473,7 +473,7 @@ pub mod cloud_redis_cluster {
     );
 
     impl RescheduleClusterMaintenance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -497,7 +497,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reschedule_cluster_maintenance][crate::client::CloudRedisCluster::reschedule_cluster_maintenance].
+        /// on [reschedule_cluster_maintenance][super::super::client::CloudRedisCluster::reschedule_cluster_maintenance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reschedule_cluster_maintenance(self.0.request, self.0.options)
@@ -572,7 +572,7 @@ pub mod cloud_redis_cluster {
     pub struct ListBackupCollections(RequestBuilder<crate::model::ListBackupCollectionsRequest>);
 
     impl ListBackupCollections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -642,7 +642,7 @@ pub mod cloud_redis_cluster {
     pub struct GetBackupCollection(RequestBuilder<crate::model::GetBackupCollectionRequest>);
 
     impl GetBackupCollection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -686,7 +686,7 @@ pub mod cloud_redis_cluster {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -753,7 +753,7 @@ pub mod cloud_redis_cluster {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -794,7 +794,7 @@ pub mod cloud_redis_cluster {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -815,7 +815,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][crate::client::CloudRedisCluster::delete_backup].
+        /// on [delete_backup][super::super::client::CloudRedisCluster::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -876,7 +876,7 @@ pub mod cloud_redis_cluster {
     pub struct ExportBackup(RequestBuilder<crate::model::ExportBackupRequest>);
 
     impl ExportBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -897,7 +897,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_backup][crate::client::CloudRedisCluster::export_backup].
+        /// on [export_backup][super::super::client::CloudRedisCluster::export_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_backup(self.0.request, self.0.options)
@@ -963,7 +963,7 @@ pub mod cloud_redis_cluster {
     pub struct BackupCluster(RequestBuilder<crate::model::BackupClusterRequest>);
 
     impl BackupCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -984,7 +984,7 @@ pub mod cloud_redis_cluster {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [backup_cluster][crate::client::CloudRedisCluster::backup_cluster].
+        /// on [backup_cluster][super::super::client::CloudRedisCluster::backup_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .backup_cluster(self.0.request, self.0.options)
@@ -1054,7 +1054,7 @@ pub mod cloud_redis_cluster {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1130,7 +1130,7 @@ pub mod cloud_redis_cluster {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1171,7 +1171,7 @@ pub mod cloud_redis_cluster {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1247,7 +1247,7 @@ pub mod cloud_redis_cluster {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1291,7 +1291,7 @@ pub mod cloud_redis_cluster {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1335,7 +1335,7 @@ pub mod cloud_redis_cluster {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedisCluster>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

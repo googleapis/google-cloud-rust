@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [VpcAccessService](crate::stubs::VpcAccessService) using a [gclient::ReqwestClient].
+/// Implements [VpcAccessService](super::stubs::VpcAccessService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct VpcAccessService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl VpcAccessService {
     }
 }
 
-impl crate::stubs::VpcAccessService for VpcAccessService {
+impl super::stubs::VpcAccessService for VpcAccessService {
     async fn create_connector(
         &self,
         req: crate::model::CreateConnectorRequest,

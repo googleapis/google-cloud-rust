@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ReachabilityService].
+/// Defines the trait used to implement [super::client::ReachabilityService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ReachabilityService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ReachabilityService::list_connectivity_tests].
+    /// Implements [super::client::ReachabilityService::list_connectivity_tests].
     fn list_connectivity_tests(
         &self,
         _req: crate::model::ListConnectivityTestsRequest,
@@ -53,7 +53,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReachabilityService::get_connectivity_test].
+    /// Implements [super::client::ReachabilityService::get_connectivity_test].
     fn get_connectivity_test(
         &self,
         _req: crate::model::GetConnectivityTestRequest,
@@ -65,7 +65,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReachabilityService::create_connectivity_test].
+    /// Implements [super::client::ReachabilityService::create_connectivity_test].
     fn create_connectivity_test(
         &self,
         _req: crate::model::CreateConnectivityTestRequest,
@@ -77,7 +77,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReachabilityService::update_connectivity_test].
+    /// Implements [super::client::ReachabilityService::update_connectivity_test].
     fn update_connectivity_test(
         &self,
         _req: crate::model::UpdateConnectivityTestRequest,
@@ -89,7 +89,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReachabilityService::rerun_connectivity_test].
+    /// Implements [super::client::ReachabilityService::rerun_connectivity_test].
     fn rerun_connectivity_test(
         &self,
         _req: crate::model::RerunConnectivityTestRequest,
@@ -101,7 +101,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReachabilityService::delete_connectivity_test].
+    /// Implements [super::client::ReachabilityService::delete_connectivity_test].
     fn delete_connectivity_test(
         &self,
         _req: crate::model::DeleteConnectivityTestRequest,
@@ -113,7 +113,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReachabilityService::list_locations].
+    /// Implements [super::client::ReachabilityService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -125,7 +125,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReachabilityService::get_location].
+    /// Implements [super::client::ReachabilityService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -136,7 +136,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReachabilityService::set_iam_policy].
+    /// Implements [super::client::ReachabilityService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -147,7 +147,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReachabilityService::get_iam_policy].
+    /// Implements [super::client::ReachabilityService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -158,7 +158,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReachabilityService::test_iam_permissions].
+    /// Implements [super::client::ReachabilityService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -170,7 +170,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReachabilityService::list_operations].
+    /// Implements [super::client::ReachabilityService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -182,7 +182,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReachabilityService::get_operation].
+    /// Implements [super::client::ReachabilityService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -194,7 +194,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReachabilityService::delete_operation].
+    /// Implements [super::client::ReachabilityService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -203,7 +203,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ReachabilityService::cancel_operation].
+    /// Implements [super::client::ReachabilityService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -235,7 +235,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::VpcFlowLogsService].
+/// Defines the trait used to implement [super::client::VpcFlowLogsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::VpcFlowLogsService`.  In other use-cases, application developers only
@@ -247,7 +247,7 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::VpcFlowLogsService::list_vpc_flow_logs_configs].
+    /// Implements [super::client::VpcFlowLogsService::list_vpc_flow_logs_configs].
     fn list_vpc_flow_logs_configs(
         &self,
         _req: crate::model::ListVpcFlowLogsConfigsRequest,
@@ -259,7 +259,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::get_vpc_flow_logs_config].
+    /// Implements [super::client::VpcFlowLogsService::get_vpc_flow_logs_config].
     fn get_vpc_flow_logs_config(
         &self,
         _req: crate::model::GetVpcFlowLogsConfigRequest,
@@ -271,7 +271,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::create_vpc_flow_logs_config].
+    /// Implements [super::client::VpcFlowLogsService::create_vpc_flow_logs_config].
     fn create_vpc_flow_logs_config(
         &self,
         _req: crate::model::CreateVpcFlowLogsConfigRequest,
@@ -283,7 +283,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::update_vpc_flow_logs_config].
+    /// Implements [super::client::VpcFlowLogsService::update_vpc_flow_logs_config].
     fn update_vpc_flow_logs_config(
         &self,
         _req: crate::model::UpdateVpcFlowLogsConfigRequest,
@@ -295,7 +295,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::delete_vpc_flow_logs_config].
+    /// Implements [super::client::VpcFlowLogsService::delete_vpc_flow_logs_config].
     fn delete_vpc_flow_logs_config(
         &self,
         _req: crate::model::DeleteVpcFlowLogsConfigRequest,
@@ -307,7 +307,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::list_locations].
+    /// Implements [super::client::VpcFlowLogsService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -319,7 +319,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::get_location].
+    /// Implements [super::client::VpcFlowLogsService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -330,7 +330,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::set_iam_policy].
+    /// Implements [super::client::VpcFlowLogsService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -341,7 +341,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::get_iam_policy].
+    /// Implements [super::client::VpcFlowLogsService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -352,7 +352,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::test_iam_permissions].
+    /// Implements [super::client::VpcFlowLogsService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -364,7 +364,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::list_operations].
+    /// Implements [super::client::VpcFlowLogsService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -376,7 +376,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::get_operation].
+    /// Implements [super::client::VpcFlowLogsService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -388,7 +388,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::delete_operation].
+    /// Implements [super::client::VpcFlowLogsService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -397,7 +397,7 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VpcFlowLogsService::cancel_operation].
+    /// Implements [super::client::VpcFlowLogsService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

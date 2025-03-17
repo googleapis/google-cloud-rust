@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::SecurityPosture].
+/// Defines the trait used to implement [super::client::SecurityPosture].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SecurityPosture`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::SecurityPosture::list_postures].
+    /// Implements [super::client::SecurityPosture::list_postures].
     fn list_postures(
         &self,
         _req: crate::model::ListPosturesRequest,
@@ -53,7 +53,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::list_posture_revisions].
+    /// Implements [super::client::SecurityPosture::list_posture_revisions].
     fn list_posture_revisions(
         &self,
         _req: crate::model::ListPostureRevisionsRequest,
@@ -65,7 +65,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityPosture::get_posture].
+    /// Implements [super::client::SecurityPosture::get_posture].
     fn get_posture(
         &self,
         _req: crate::model::GetPostureRequest,
@@ -76,7 +76,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::create_posture].
+    /// Implements [super::client::SecurityPosture::create_posture].
     fn create_posture(
         &self,
         _req: crate::model::CreatePostureRequest,
@@ -88,7 +88,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::update_posture].
+    /// Implements [super::client::SecurityPosture::update_posture].
     fn update_posture(
         &self,
         _req: crate::model::UpdatePostureRequest,
@@ -100,7 +100,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::delete_posture].
+    /// Implements [super::client::SecurityPosture::delete_posture].
     fn delete_posture(
         &self,
         _req: crate::model::DeletePostureRequest,
@@ -112,7 +112,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::extract_posture].
+    /// Implements [super::client::SecurityPosture::extract_posture].
     fn extract_posture(
         &self,
         _req: crate::model::ExtractPostureRequest,
@@ -124,7 +124,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::list_posture_deployments].
+    /// Implements [super::client::SecurityPosture::list_posture_deployments].
     fn list_posture_deployments(
         &self,
         _req: crate::model::ListPostureDeploymentsRequest,
@@ -136,7 +136,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityPosture::get_posture_deployment].
+    /// Implements [super::client::SecurityPosture::get_posture_deployment].
     fn get_posture_deployment(
         &self,
         _req: crate::model::GetPostureDeploymentRequest,
@@ -148,7 +148,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::create_posture_deployment].
+    /// Implements [super::client::SecurityPosture::create_posture_deployment].
     fn create_posture_deployment(
         &self,
         _req: crate::model::CreatePostureDeploymentRequest,
@@ -160,7 +160,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::update_posture_deployment].
+    /// Implements [super::client::SecurityPosture::update_posture_deployment].
     fn update_posture_deployment(
         &self,
         _req: crate::model::UpdatePostureDeploymentRequest,
@@ -172,7 +172,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::delete_posture_deployment].
+    /// Implements [super::client::SecurityPosture::delete_posture_deployment].
     fn delete_posture_deployment(
         &self,
         _req: crate::model::DeletePostureDeploymentRequest,
@@ -184,7 +184,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::list_posture_templates].
+    /// Implements [super::client::SecurityPosture::list_posture_templates].
     fn list_posture_templates(
         &self,
         _req: crate::model::ListPostureTemplatesRequest,
@@ -196,7 +196,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityPosture::get_posture_template].
+    /// Implements [super::client::SecurityPosture::get_posture_template].
     fn get_posture_template(
         &self,
         _req: crate::model::GetPostureTemplateRequest,
@@ -208,7 +208,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::list_locations].
+    /// Implements [super::client::SecurityPosture::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -220,7 +220,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityPosture::get_location].
+    /// Implements [super::client::SecurityPosture::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -231,7 +231,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::list_operations].
+    /// Implements [super::client::SecurityPosture::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -243,7 +243,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityPosture::get_operation].
+    /// Implements [super::client::SecurityPosture::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -255,7 +255,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityPosture::delete_operation].
+    /// Implements [super::client::SecurityPosture::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -264,7 +264,7 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SecurityPosture::cancel_operation].
+    /// Implements [super::client::SecurityPosture::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

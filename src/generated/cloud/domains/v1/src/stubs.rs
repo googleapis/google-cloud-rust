@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Domains].
+/// Defines the trait used to implement [super::client::Domains].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Domains`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Domains: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Domains::search_domains].
+    /// Implements [super::client::Domains::search_domains].
     fn search_domains(
         &self,
         _req: crate::model::SearchDomainsRequest,
@@ -53,7 +53,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::retrieve_register_parameters].
+    /// Implements [super::client::Domains::retrieve_register_parameters].
     fn retrieve_register_parameters(
         &self,
         _req: crate::model::RetrieveRegisterParametersRequest,
@@ -66,7 +66,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Domains::register_domain].
+    /// Implements [super::client::Domains::register_domain].
     fn register_domain(
         &self,
         _req: crate::model::RegisterDomainRequest,
@@ -78,7 +78,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::retrieve_transfer_parameters].
+    /// Implements [super::client::Domains::retrieve_transfer_parameters].
     fn retrieve_transfer_parameters(
         &self,
         _req: crate::model::RetrieveTransferParametersRequest,
@@ -91,7 +91,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Domains::transfer_domain].
+    /// Implements [super::client::Domains::transfer_domain].
     fn transfer_domain(
         &self,
         _req: crate::model::TransferDomainRequest,
@@ -103,7 +103,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::list_registrations].
+    /// Implements [super::client::Domains::list_registrations].
     fn list_registrations(
         &self,
         _req: crate::model::ListRegistrationsRequest,
@@ -115,7 +115,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Domains::get_registration].
+    /// Implements [super::client::Domains::get_registration].
     fn get_registration(
         &self,
         _req: crate::model::GetRegistrationRequest,
@@ -126,7 +126,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::update_registration].
+    /// Implements [super::client::Domains::update_registration].
     fn update_registration(
         &self,
         _req: crate::model::UpdateRegistrationRequest,
@@ -138,7 +138,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::configure_management_settings].
+    /// Implements [super::client::Domains::configure_management_settings].
     fn configure_management_settings(
         &self,
         _req: crate::model::ConfigureManagementSettingsRequest,
@@ -150,7 +150,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::configure_dns_settings].
+    /// Implements [super::client::Domains::configure_dns_settings].
     fn configure_dns_settings(
         &self,
         _req: crate::model::ConfigureDnsSettingsRequest,
@@ -162,7 +162,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::configure_contact_settings].
+    /// Implements [super::client::Domains::configure_contact_settings].
     fn configure_contact_settings(
         &self,
         _req: crate::model::ConfigureContactSettingsRequest,
@@ -174,7 +174,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::export_registration].
+    /// Implements [super::client::Domains::export_registration].
     fn export_registration(
         &self,
         _req: crate::model::ExportRegistrationRequest,
@@ -186,7 +186,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::delete_registration].
+    /// Implements [super::client::Domains::delete_registration].
     fn delete_registration(
         &self,
         _req: crate::model::DeleteRegistrationRequest,
@@ -198,7 +198,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::retrieve_authorization_code].
+    /// Implements [super::client::Domains::retrieve_authorization_code].
     fn retrieve_authorization_code(
         &self,
         _req: crate::model::RetrieveAuthorizationCodeRequest,
@@ -210,7 +210,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::reset_authorization_code].
+    /// Implements [super::client::Domains::reset_authorization_code].
     fn reset_authorization_code(
         &self,
         _req: crate::model::ResetAuthorizationCodeRequest,
@@ -222,7 +222,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Domains::list_operations].
+    /// Implements [super::client::Domains::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -234,7 +234,7 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Domains::get_operation].
+    /// Implements [super::client::Domains::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

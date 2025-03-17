@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Aml](crate::stubs::Aml) using a [gclient::ReqwestClient].
+/// Implements [Aml](super::stubs::Aml) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Aml {
     inner: gclient::ReqwestClient,
@@ -37,7 +37,7 @@ impl Aml {
     }
 }
 
-impl crate::stubs::Aml for Aml {
+impl super::stubs::Aml for Aml {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,

@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Applications {
-    inner: Arc<dyn crate::stubs::dynamic::Applications>,
+    inner: Arc<dyn super::stubs::dynamic::Applications>,
 }
 
 impl Applications {
@@ -59,7 +59,7 @@ impl Applications {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Applications + 'static,
+        T: super::stubs::Applications + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl Applications {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Applications>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Applications>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl Applications {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Applications> {
-        crate::transport::Applications::new(conf).await
+    ) -> Result<impl super::stubs::Applications> {
+        super::transport::Applications::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Applications> {
+    ) -> Result<impl super::stubs::Applications> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Applications::new)
+            .map(super::tracing::Applications::new)
     }
 
     /// Gets information about an application.
     pub fn get_application(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::applications::GetApplication {
-        crate::builders::applications::GetApplication::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::applications::GetApplication {
+        super::builders::applications::GetApplication::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates an App Engine application for a Google Cloud Platform project.
@@ -114,8 +114,8 @@ impl Applications {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_application(&self) -> crate::builders::applications::CreateApplication {
-        crate::builders::applications::CreateApplication::new(self.inner.clone())
+    pub fn create_application(&self) -> super::builders::applications::CreateApplication {
+        super::builders::applications::CreateApplication::new(self.inner.clone())
     }
 
     /// Updates the specified Application resource.
@@ -137,8 +137,8 @@ impl Applications {
     pub fn update_application(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::applications::UpdateApplication {
-        crate::builders::applications::UpdateApplication::new(self.inner.clone())
+    ) -> super::builders::applications::UpdateApplication {
+        super::builders::applications::UpdateApplication::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -165,8 +165,8 @@ impl Applications {
     pub fn repair_application(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::applications::RepairApplication {
-        crate::builders::applications::RepairApplication::new(self.inner.clone())
+    ) -> super::builders::applications::RepairApplication {
+        super::builders::applications::RepairApplication::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -176,8 +176,8 @@ impl Applications {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::applications::ListOperations {
-        crate::builders::applications::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::applications::ListOperations {
+        super::builders::applications::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -186,8 +186,8 @@ impl Applications {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::applications::GetOperation {
-        crate::builders::applications::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::applications::GetOperation {
+        super::builders::applications::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -210,7 +210,7 @@ impl Applications {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Services {
-    inner: Arc<dyn crate::stubs::dynamic::Services>,
+    inner: Arc<dyn super::stubs::dynamic::Services>,
 }
 
 impl Services {
@@ -231,7 +231,7 @@ impl Services {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Services + 'static,
+        T: super::stubs::Services + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -240,7 +240,7 @@ impl Services {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Services>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Services>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -249,32 +249,32 @@ impl Services {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Services> {
-        crate::transport::Services::new(conf).await
+    ) -> Result<impl super::stubs::Services> {
+        super::transport::Services::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Services> {
+    ) -> Result<impl super::stubs::Services> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Services::new)
+            .map(super::tracing::Services::new)
     }
 
     /// Lists all the services in the application.
     pub fn list_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::services::ListServices {
-        crate::builders::services::ListServices::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::services::ListServices {
+        super::builders::services::ListServices::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets the current configuration of the specified service.
     pub fn get_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::services::GetService {
-        crate::builders::services::GetService::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::services::GetService {
+        super::builders::services::GetService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the configuration of the specified service.
@@ -291,8 +291,8 @@ impl Services {
     pub fn update_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::services::UpdateService {
-        crate::builders::services::UpdateService::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::services::UpdateService {
+        super::builders::services::UpdateService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes the specified service and all enclosed versions.
@@ -309,8 +309,8 @@ impl Services {
     pub fn delete_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::services::DeleteService {
-        crate::builders::services::DeleteService::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::services::DeleteService {
+        super::builders::services::DeleteService::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -319,8 +319,8 @@ impl Services {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::services::ListOperations {
-        crate::builders::services::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::services::ListOperations {
+        super::builders::services::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -329,8 +329,8 @@ impl Services {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::services::GetOperation {
-        crate::builders::services::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::services::GetOperation {
+        super::builders::services::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -353,7 +353,7 @@ impl Services {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Versions {
-    inner: Arc<dyn crate::stubs::dynamic::Versions>,
+    inner: Arc<dyn super::stubs::dynamic::Versions>,
 }
 
 impl Versions {
@@ -374,7 +374,7 @@ impl Versions {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Versions + 'static,
+        T: super::stubs::Versions + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -383,7 +383,7 @@ impl Versions {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Versions>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Versions>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -392,24 +392,24 @@ impl Versions {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Versions> {
-        crate::transport::Versions::new(conf).await
+    ) -> Result<impl super::stubs::Versions> {
+        super::transport::Versions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Versions> {
+    ) -> Result<impl super::stubs::Versions> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Versions::new)
+            .map(super::tracing::Versions::new)
     }
 
     /// Lists the versions of a service.
     pub fn list_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::versions::ListVersions {
-        crate::builders::versions::ListVersions::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::versions::ListVersions {
+        super::builders::versions::ListVersions::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets the specified Version resource.
@@ -418,8 +418,8 @@ impl Versions {
     pub fn get_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::GetVersion {
-        crate::builders::versions::GetVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::GetVersion {
+        super::builders::versions::GetVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deploys code and resource files to a new version.
@@ -436,8 +436,8 @@ impl Versions {
     pub fn create_version(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::versions::CreateVersion {
-        crate::builders::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::versions::CreateVersion {
+        super::builders::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the specified Version resource.
@@ -489,8 +489,8 @@ impl Versions {
     pub fn update_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::UpdateVersion {
-        crate::builders::versions::UpdateVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::UpdateVersion {
+        super::builders::versions::UpdateVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes an existing Version resource.
@@ -507,8 +507,8 @@ impl Versions {
     pub fn delete_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::DeleteVersion {
-        crate::builders::versions::DeleteVersion::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::DeleteVersion {
+        super::builders::versions::DeleteVersion::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -517,8 +517,8 @@ impl Versions {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::ListOperations {
-        crate::builders::versions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::ListOperations {
+        super::builders::versions::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -527,8 +527,8 @@ impl Versions {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::versions::GetOperation {
-        crate::builders::versions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::versions::GetOperation {
+        super::builders::versions::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -551,7 +551,7 @@ impl Versions {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Instances {
-    inner: Arc<dyn crate::stubs::dynamic::Instances>,
+    inner: Arc<dyn super::stubs::dynamic::Instances>,
 }
 
 impl Instances {
@@ -572,7 +572,7 @@ impl Instances {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Instances + 'static,
+        T: super::stubs::Instances + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -581,7 +581,7 @@ impl Instances {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Instances>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Instances>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -590,16 +590,16 @@ impl Instances {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Instances> {
-        crate::transport::Instances::new(conf).await
+    ) -> Result<impl super::stubs::Instances> {
+        super::transport::Instances::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Instances> {
+    ) -> Result<impl super::stubs::Instances> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Instances::new)
+            .map(super::tracing::Instances::new)
     }
 
     /// Lists the instances of a version.
@@ -609,16 +609,16 @@ impl Instances {
     pub fn list_instances(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::instances::ListInstances {
-        crate::builders::instances::ListInstances::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::instances::ListInstances {
+        super::builders::instances::ListInstances::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets instance information.
     pub fn get_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::instances::GetInstance {
-        crate::builders::instances::GetInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::instances::GetInstance {
+        super::builders::instances::GetInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Stops a running instance.
@@ -646,8 +646,8 @@ impl Instances {
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::instances::DeleteInstance {
-        crate::builders::instances::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::instances::DeleteInstance {
+        super::builders::instances::DeleteInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Enables debugging on a VM instance. This allows you to use the SSH
@@ -671,8 +671,8 @@ impl Instances {
     pub fn debug_instance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::instances::DebugInstance {
-        crate::builders::instances::DebugInstance::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::instances::DebugInstance {
+        super::builders::instances::DebugInstance::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -681,8 +681,8 @@ impl Instances {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::instances::ListOperations {
-        crate::builders::instances::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::instances::ListOperations {
+        super::builders::instances::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -691,8 +691,8 @@ impl Instances {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::instances::GetOperation {
-        crate::builders::instances::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::instances::GetOperation {
+        super::builders::instances::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -724,7 +724,7 @@ impl Instances {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Firewall {
-    inner: Arc<dyn crate::stubs::dynamic::Firewall>,
+    inner: Arc<dyn super::stubs::dynamic::Firewall>,
 }
 
 impl Firewall {
@@ -745,7 +745,7 @@ impl Firewall {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Firewall + 'static,
+        T: super::stubs::Firewall + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -754,7 +754,7 @@ impl Firewall {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Firewall>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Firewall>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -763,24 +763,24 @@ impl Firewall {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Firewall> {
-        crate::transport::Firewall::new(conf).await
+    ) -> Result<impl super::stubs::Firewall> {
+        super::transport::Firewall::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Firewall> {
+    ) -> Result<impl super::stubs::Firewall> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Firewall::new)
+            .map(super::tracing::Firewall::new)
     }
 
     /// Lists the firewall rules of an application.
     pub fn list_ingress_rules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::firewall::ListIngressRules {
-        crate::builders::firewall::ListIngressRules::new(self.inner.clone())
+    ) -> super::builders::firewall::ListIngressRules {
+        super::builders::firewall::ListIngressRules::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -792,8 +792,8 @@ impl Firewall {
     pub fn batch_update_ingress_rules(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::firewall::BatchUpdateIngressRules {
-        crate::builders::firewall::BatchUpdateIngressRules::new(self.inner.clone())
+    ) -> super::builders::firewall::BatchUpdateIngressRules {
+        super::builders::firewall::BatchUpdateIngressRules::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -801,8 +801,8 @@ impl Firewall {
     pub fn create_ingress_rule(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::firewall::CreateIngressRule {
-        crate::builders::firewall::CreateIngressRule::new(self.inner.clone())
+    ) -> super::builders::firewall::CreateIngressRule {
+        super::builders::firewall::CreateIngressRule::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -810,24 +810,24 @@ impl Firewall {
     pub fn get_ingress_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::firewall::GetIngressRule {
-        crate::builders::firewall::GetIngressRule::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::firewall::GetIngressRule {
+        super::builders::firewall::GetIngressRule::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the specified firewall rule.
     pub fn update_ingress_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::firewall::UpdateIngressRule {
-        crate::builders::firewall::UpdateIngressRule::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::firewall::UpdateIngressRule {
+        super::builders::firewall::UpdateIngressRule::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes the specified firewall rule.
     pub fn delete_ingress_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::firewall::DeleteIngressRule {
-        crate::builders::firewall::DeleteIngressRule::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::firewall::DeleteIngressRule {
+        super::builders::firewall::DeleteIngressRule::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -836,8 +836,8 @@ impl Firewall {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::firewall::ListOperations {
-        crate::builders::firewall::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::firewall::ListOperations {
+        super::builders::firewall::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -846,8 +846,8 @@ impl Firewall {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::firewall::GetOperation {
-        crate::builders::firewall::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::firewall::GetOperation {
+        super::builders::firewall::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -872,7 +872,7 @@ impl Firewall {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AuthorizedDomains {
-    inner: Arc<dyn crate::stubs::dynamic::AuthorizedDomains>,
+    inner: Arc<dyn super::stubs::dynamic::AuthorizedDomains>,
 }
 
 impl AuthorizedDomains {
@@ -893,7 +893,7 @@ impl AuthorizedDomains {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AuthorizedDomains + 'static,
+        T: super::stubs::AuthorizedDomains + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -902,7 +902,7 @@ impl AuthorizedDomains {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AuthorizedDomains>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AuthorizedDomains>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -911,24 +911,24 @@ impl AuthorizedDomains {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AuthorizedDomains> {
-        crate::transport::AuthorizedDomains::new(conf).await
+    ) -> Result<impl super::stubs::AuthorizedDomains> {
+        super::transport::AuthorizedDomains::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AuthorizedDomains> {
+    ) -> Result<impl super::stubs::AuthorizedDomains> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AuthorizedDomains::new)
+            .map(super::tracing::AuthorizedDomains::new)
     }
 
     /// Lists all domains the user is authorized to administer.
     pub fn list_authorized_domains(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::authorized_domains::ListAuthorizedDomains {
-        crate::builders::authorized_domains::ListAuthorizedDomains::new(self.inner.clone())
+    ) -> super::builders::authorized_domains::ListAuthorizedDomains {
+        super::builders::authorized_domains::ListAuthorizedDomains::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -938,8 +938,8 @@ impl AuthorizedDomains {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::authorized_domains::ListOperations {
-        crate::builders::authorized_domains::ListOperations::new(self.inner.clone())
+    ) -> super::builders::authorized_domains::ListOperations {
+        super::builders::authorized_domains::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -949,8 +949,8 @@ impl AuthorizedDomains {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::authorized_domains::GetOperation {
-        crate::builders::authorized_domains::GetOperation::new(self.inner.clone())
+    ) -> super::builders::authorized_domains::GetOperation {
+        super::builders::authorized_domains::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -975,7 +975,7 @@ impl AuthorizedDomains {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AuthorizedCertificates {
-    inner: Arc<dyn crate::stubs::dynamic::AuthorizedCertificates>,
+    inner: Arc<dyn super::stubs::dynamic::AuthorizedCertificates>,
 }
 
 impl AuthorizedCertificates {
@@ -996,7 +996,7 @@ impl AuthorizedCertificates {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AuthorizedCertificates + 'static,
+        T: super::stubs::AuthorizedCertificates + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1005,7 +1005,7 @@ impl AuthorizedCertificates {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AuthorizedCertificates>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AuthorizedCertificates>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1014,24 +1014,24 @@ impl AuthorizedCertificates {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AuthorizedCertificates> {
-        crate::transport::AuthorizedCertificates::new(conf).await
+    ) -> Result<impl super::stubs::AuthorizedCertificates> {
+        super::transport::AuthorizedCertificates::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AuthorizedCertificates> {
+    ) -> Result<impl super::stubs::AuthorizedCertificates> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AuthorizedCertificates::new)
+            .map(super::tracing::AuthorizedCertificates::new)
     }
 
     /// Lists all SSL certificates the user is authorized to administer.
     pub fn list_authorized_certificates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::authorized_certificates::ListAuthorizedCertificates {
-        crate::builders::authorized_certificates::ListAuthorizedCertificates::new(
+    ) -> super::builders::authorized_certificates::ListAuthorizedCertificates {
+        super::builders::authorized_certificates::ListAuthorizedCertificates::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1041,8 +1041,8 @@ impl AuthorizedCertificates {
     pub fn get_authorized_certificate(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::authorized_certificates::GetAuthorizedCertificate {
-        crate::builders::authorized_certificates::GetAuthorizedCertificate::new(self.inner.clone())
+    ) -> super::builders::authorized_certificates::GetAuthorizedCertificate {
+        super::builders::authorized_certificates::GetAuthorizedCertificate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1050,8 +1050,8 @@ impl AuthorizedCertificates {
     pub fn create_authorized_certificate(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::authorized_certificates::CreateAuthorizedCertificate {
-        crate::builders::authorized_certificates::CreateAuthorizedCertificate::new(
+    ) -> super::builders::authorized_certificates::CreateAuthorizedCertificate {
+        super::builders::authorized_certificates::CreateAuthorizedCertificate::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -1065,8 +1065,8 @@ impl AuthorizedCertificates {
     pub fn update_authorized_certificate(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::authorized_certificates::UpdateAuthorizedCertificate {
-        crate::builders::authorized_certificates::UpdateAuthorizedCertificate::new(
+    ) -> super::builders::authorized_certificates::UpdateAuthorizedCertificate {
+        super::builders::authorized_certificates::UpdateAuthorizedCertificate::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1076,8 +1076,8 @@ impl AuthorizedCertificates {
     pub fn delete_authorized_certificate(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::authorized_certificates::DeleteAuthorizedCertificate {
-        crate::builders::authorized_certificates::DeleteAuthorizedCertificate::new(
+    ) -> super::builders::authorized_certificates::DeleteAuthorizedCertificate {
+        super::builders::authorized_certificates::DeleteAuthorizedCertificate::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -1089,8 +1089,8 @@ impl AuthorizedCertificates {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::authorized_certificates::ListOperations {
-        crate::builders::authorized_certificates::ListOperations::new(self.inner.clone())
+    ) -> super::builders::authorized_certificates::ListOperations {
+        super::builders::authorized_certificates::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1100,8 +1100,8 @@ impl AuthorizedCertificates {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::authorized_certificates::GetOperation {
-        crate::builders::authorized_certificates::GetOperation::new(self.inner.clone())
+    ) -> super::builders::authorized_certificates::GetOperation {
+        super::builders::authorized_certificates::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -1125,7 +1125,7 @@ impl AuthorizedCertificates {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DomainMappings {
-    inner: Arc<dyn crate::stubs::dynamic::DomainMappings>,
+    inner: Arc<dyn super::stubs::dynamic::DomainMappings>,
 }
 
 impl DomainMappings {
@@ -1146,7 +1146,7 @@ impl DomainMappings {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::DomainMappings + 'static,
+        T: super::stubs::DomainMappings + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1155,7 +1155,7 @@ impl DomainMappings {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::DomainMappings>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::DomainMappings>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1164,24 +1164,24 @@ impl DomainMappings {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DomainMappings> {
-        crate::transport::DomainMappings::new(conf).await
+    ) -> Result<impl super::stubs::DomainMappings> {
+        super::transport::DomainMappings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DomainMappings> {
+    ) -> Result<impl super::stubs::DomainMappings> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::DomainMappings::new)
+            .map(super::tracing::DomainMappings::new)
     }
 
     /// Lists the domain mappings on an application.
     pub fn list_domain_mappings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::domain_mappings::ListDomainMappings {
-        crate::builders::domain_mappings::ListDomainMappings::new(self.inner.clone())
+    ) -> super::builders::domain_mappings::ListDomainMappings {
+        super::builders::domain_mappings::ListDomainMappings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1189,8 +1189,8 @@ impl DomainMappings {
     pub fn get_domain_mapping(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::domain_mappings::GetDomainMapping {
-        crate::builders::domain_mappings::GetDomainMapping::new(self.inner.clone())
+    ) -> super::builders::domain_mappings::GetDomainMapping {
+        super::builders::domain_mappings::GetDomainMapping::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1210,8 +1210,8 @@ impl DomainMappings {
     pub fn create_domain_mapping(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::domain_mappings::CreateDomainMapping {
-        crate::builders::domain_mappings::CreateDomainMapping::new(self.inner.clone())
+    ) -> super::builders::domain_mappings::CreateDomainMapping {
+        super::builders::domain_mappings::CreateDomainMapping::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1232,8 +1232,8 @@ impl DomainMappings {
     pub fn update_domain_mapping(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::domain_mappings::UpdateDomainMapping {
-        crate::builders::domain_mappings::UpdateDomainMapping::new(self.inner.clone())
+    ) -> super::builders::domain_mappings::UpdateDomainMapping {
+        super::builders::domain_mappings::UpdateDomainMapping::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1253,8 +1253,8 @@ impl DomainMappings {
     pub fn delete_domain_mapping(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::domain_mappings::DeleteDomainMapping {
-        crate::builders::domain_mappings::DeleteDomainMapping::new(self.inner.clone())
+    ) -> super::builders::domain_mappings::DeleteDomainMapping {
+        super::builders::domain_mappings::DeleteDomainMapping::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1264,8 +1264,8 @@ impl DomainMappings {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::domain_mappings::ListOperations {
-        crate::builders::domain_mappings::ListOperations::new(self.inner.clone())
+    ) -> super::builders::domain_mappings::ListOperations {
+        super::builders::domain_mappings::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1275,8 +1275,8 @@ impl DomainMappings {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::domain_mappings::GetOperation {
-        crate::builders::domain_mappings::GetOperation::new(self.inner.clone())
+    ) -> super::builders::domain_mappings::GetOperation {
+        super::builders::domain_mappings::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -104,9 +104,9 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::OsConfigService] also implement [OsConfigService].
+/// All implementations of [super::OsConfigService] also implement [OsConfigService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::OsConfigService> OsConfigService for T {
+impl<T: super::OsConfigService> OsConfigService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn execute_patch_job(
         &self,
@@ -332,9 +332,9 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::OsConfigZonalService] also implement [OsConfigZonalService].
+/// All implementations of [super::OsConfigZonalService] also implement [OsConfigZonalService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::OsConfigZonalService> OsConfigZonalService for T {
+impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_os_policy_assignment(
         &self,

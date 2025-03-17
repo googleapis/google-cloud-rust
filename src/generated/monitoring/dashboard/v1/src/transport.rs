@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DashboardsService](crate::stubs::DashboardsService) using a [gclient::ReqwestClient].
+/// Implements [DashboardsService](super::stubs::DashboardsService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DashboardsService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl DashboardsService {
     }
 }
 
-impl crate::stubs::DashboardsService for DashboardsService {
+impl super::stubs::DashboardsService for DashboardsService {
     async fn create_dashboard(
         &self,
         req: crate::model::CreateDashboardRequest,

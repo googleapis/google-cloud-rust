@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Tpu].
+/// Defines the trait used to implement [super::client::Tpu].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Tpu`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Tpu: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Tpu::list_nodes].
+    /// Implements [super::client::Tpu::list_nodes].
     fn list_nodes(
         &self,
         _req: crate::model::ListNodesRequest,
@@ -53,7 +53,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::get_node].
+    /// Implements [super::client::Tpu::get_node].
     fn get_node(
         &self,
         _req: crate::model::GetNodeRequest,
@@ -62,7 +62,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Node>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Tpu::create_node].
+    /// Implements [super::client::Tpu::create_node].
     fn create_node(
         &self,
         _req: crate::model::CreateNodeRequest,
@@ -74,7 +74,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::delete_node].
+    /// Implements [super::client::Tpu::delete_node].
     fn delete_node(
         &self,
         _req: crate::model::DeleteNodeRequest,
@@ -86,7 +86,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::stop_node].
+    /// Implements [super::client::Tpu::stop_node].
     fn stop_node(
         &self,
         _req: crate::model::StopNodeRequest,
@@ -98,7 +98,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::start_node].
+    /// Implements [super::client::Tpu::start_node].
     fn start_node(
         &self,
         _req: crate::model::StartNodeRequest,
@@ -110,7 +110,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::update_node].
+    /// Implements [super::client::Tpu::update_node].
     fn update_node(
         &self,
         _req: crate::model::UpdateNodeRequest,
@@ -122,7 +122,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::list_queued_resources].
+    /// Implements [super::client::Tpu::list_queued_resources].
     fn list_queued_resources(
         &self,
         _req: crate::model::ListQueuedResourcesRequest,
@@ -134,7 +134,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Tpu::get_queued_resource].
+    /// Implements [super::client::Tpu::get_queued_resource].
     fn get_queued_resource(
         &self,
         _req: crate::model::GetQueuedResourceRequest,
@@ -145,7 +145,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::create_queued_resource].
+    /// Implements [super::client::Tpu::create_queued_resource].
     fn create_queued_resource(
         &self,
         _req: crate::model::CreateQueuedResourceRequest,
@@ -157,7 +157,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::delete_queued_resource].
+    /// Implements [super::client::Tpu::delete_queued_resource].
     fn delete_queued_resource(
         &self,
         _req: crate::model::DeleteQueuedResourceRequest,
@@ -169,7 +169,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::reset_queued_resource].
+    /// Implements [super::client::Tpu::reset_queued_resource].
     fn reset_queued_resource(
         &self,
         _req: crate::model::ResetQueuedResourceRequest,
@@ -181,7 +181,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::generate_service_identity].
+    /// Implements [super::client::Tpu::generate_service_identity].
     fn generate_service_identity(
         &self,
         _req: crate::model::GenerateServiceIdentityRequest,
@@ -194,7 +194,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Tpu::list_accelerator_types].
+    /// Implements [super::client::Tpu::list_accelerator_types].
     fn list_accelerator_types(
         &self,
         _req: crate::model::ListAcceleratorTypesRequest,
@@ -206,7 +206,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Tpu::get_accelerator_type].
+    /// Implements [super::client::Tpu::get_accelerator_type].
     fn get_accelerator_type(
         &self,
         _req: crate::model::GetAcceleratorTypeRequest,
@@ -218,7 +218,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::list_runtime_versions].
+    /// Implements [super::client::Tpu::list_runtime_versions].
     fn list_runtime_versions(
         &self,
         _req: crate::model::ListRuntimeVersionsRequest,
@@ -230,7 +230,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Tpu::get_runtime_version].
+    /// Implements [super::client::Tpu::get_runtime_version].
     fn get_runtime_version(
         &self,
         _req: crate::model::GetRuntimeVersionRequest,
@@ -241,7 +241,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::get_guest_attributes].
+    /// Implements [super::client::Tpu::get_guest_attributes].
     fn get_guest_attributes(
         &self,
         _req: crate::model::GetGuestAttributesRequest,
@@ -253,7 +253,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Tpu::list_locations].
+    /// Implements [super::client::Tpu::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -265,7 +265,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Tpu::get_location].
+    /// Implements [super::client::Tpu::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -276,7 +276,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::list_operations].
+    /// Implements [super::client::Tpu::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -288,7 +288,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Tpu::get_operation].
+    /// Implements [super::client::Tpu::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -300,7 +300,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Tpu::delete_operation].
+    /// Implements [super::client::Tpu::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -309,7 +309,7 @@ pub trait Tpu: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Tpu::cancel_operation].
+    /// Implements [super::client::Tpu::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

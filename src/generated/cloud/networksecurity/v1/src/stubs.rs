@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::NetworkSecurity].
+/// Defines the trait used to implement [super::client::NetworkSecurity].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::NetworkSecurity`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::NetworkSecurity::list_authorization_policies].
+    /// Implements [super::client::NetworkSecurity::list_authorization_policies].
     fn list_authorization_policies(
         &self,
         _req: crate::model::ListAuthorizationPoliciesRequest,
@@ -54,7 +54,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkSecurity::get_authorization_policy].
+    /// Implements [super::client::NetworkSecurity::get_authorization_policy].
     fn get_authorization_policy(
         &self,
         _req: crate::model::GetAuthorizationPolicyRequest,
@@ -66,7 +66,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::create_authorization_policy].
+    /// Implements [super::client::NetworkSecurity::create_authorization_policy].
     fn create_authorization_policy(
         &self,
         _req: crate::model::CreateAuthorizationPolicyRequest,
@@ -78,7 +78,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::update_authorization_policy].
+    /// Implements [super::client::NetworkSecurity::update_authorization_policy].
     fn update_authorization_policy(
         &self,
         _req: crate::model::UpdateAuthorizationPolicyRequest,
@@ -90,7 +90,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::delete_authorization_policy].
+    /// Implements [super::client::NetworkSecurity::delete_authorization_policy].
     fn delete_authorization_policy(
         &self,
         _req: crate::model::DeleteAuthorizationPolicyRequest,
@@ -102,7 +102,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::list_server_tls_policies].
+    /// Implements [super::client::NetworkSecurity::list_server_tls_policies].
     fn list_server_tls_policies(
         &self,
         _req: crate::model::ListServerTlsPoliciesRequest,
@@ -114,7 +114,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkSecurity::get_server_tls_policy].
+    /// Implements [super::client::NetworkSecurity::get_server_tls_policy].
     fn get_server_tls_policy(
         &self,
         _req: crate::model::GetServerTlsPolicyRequest,
@@ -126,7 +126,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::create_server_tls_policy].
+    /// Implements [super::client::NetworkSecurity::create_server_tls_policy].
     fn create_server_tls_policy(
         &self,
         _req: crate::model::CreateServerTlsPolicyRequest,
@@ -138,7 +138,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::update_server_tls_policy].
+    /// Implements [super::client::NetworkSecurity::update_server_tls_policy].
     fn update_server_tls_policy(
         &self,
         _req: crate::model::UpdateServerTlsPolicyRequest,
@@ -150,7 +150,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::delete_server_tls_policy].
+    /// Implements [super::client::NetworkSecurity::delete_server_tls_policy].
     fn delete_server_tls_policy(
         &self,
         _req: crate::model::DeleteServerTlsPolicyRequest,
@@ -162,7 +162,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::list_client_tls_policies].
+    /// Implements [super::client::NetworkSecurity::list_client_tls_policies].
     fn list_client_tls_policies(
         &self,
         _req: crate::model::ListClientTlsPoliciesRequest,
@@ -174,7 +174,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkSecurity::get_client_tls_policy].
+    /// Implements [super::client::NetworkSecurity::get_client_tls_policy].
     fn get_client_tls_policy(
         &self,
         _req: crate::model::GetClientTlsPolicyRequest,
@@ -186,7 +186,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::create_client_tls_policy].
+    /// Implements [super::client::NetworkSecurity::create_client_tls_policy].
     fn create_client_tls_policy(
         &self,
         _req: crate::model::CreateClientTlsPolicyRequest,
@@ -198,7 +198,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::update_client_tls_policy].
+    /// Implements [super::client::NetworkSecurity::update_client_tls_policy].
     fn update_client_tls_policy(
         &self,
         _req: crate::model::UpdateClientTlsPolicyRequest,
@@ -210,7 +210,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::delete_client_tls_policy].
+    /// Implements [super::client::NetworkSecurity::delete_client_tls_policy].
     fn delete_client_tls_policy(
         &self,
         _req: crate::model::DeleteClientTlsPolicyRequest,
@@ -222,7 +222,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::list_locations].
+    /// Implements [super::client::NetworkSecurity::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -234,7 +234,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkSecurity::get_location].
+    /// Implements [super::client::NetworkSecurity::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -245,7 +245,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::set_iam_policy].
+    /// Implements [super::client::NetworkSecurity::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -256,7 +256,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::get_iam_policy].
+    /// Implements [super::client::NetworkSecurity::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -267,7 +267,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::test_iam_permissions].
+    /// Implements [super::client::NetworkSecurity::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -279,7 +279,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkSecurity::list_operations].
+    /// Implements [super::client::NetworkSecurity::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -291,7 +291,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NetworkSecurity::get_operation].
+    /// Implements [super::client::NetworkSecurity::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -303,7 +303,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NetworkSecurity::delete_operation].
+    /// Implements [super::client::NetworkSecurity::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -312,7 +312,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::NetworkSecurity::cancel_operation].
+    /// Implements [super::client::NetworkSecurity::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

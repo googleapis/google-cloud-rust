@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataPolicyService](crate::stubs::DataPolicyService) using a [gclient::ReqwestClient].
+/// Implements [DataPolicyService](super::stubs::DataPolicyService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DataPolicyService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl DataPolicyService {
     }
 }
 
-impl crate::stubs::DataPolicyService for DataPolicyService {
+impl super::stubs::DataPolicyService for DataPolicyService {
     async fn create_data_policy(
         &self,
         req: crate::model::CreateDataPolicyRequest,

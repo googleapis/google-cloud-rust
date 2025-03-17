@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTroubleshooter {
-    inner: Arc<dyn crate::stubs::dynamic::PolicyTroubleshooter>,
+    inner: Arc<dyn super::stubs::dynamic::PolicyTroubleshooter>,
 }
 
 impl PolicyTroubleshooter {
@@ -61,7 +61,7 @@ impl PolicyTroubleshooter {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::PolicyTroubleshooter + 'static,
+        T: super::stubs::PolicyTroubleshooter + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl PolicyTroubleshooter {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::PolicyTroubleshooter>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::PolicyTroubleshooter>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,16 +79,16 @@ impl PolicyTroubleshooter {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::PolicyTroubleshooter> {
-        crate::transport::PolicyTroubleshooter::new(conf).await
+    ) -> Result<impl super::stubs::PolicyTroubleshooter> {
+        super::transport::PolicyTroubleshooter::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::PolicyTroubleshooter> {
+    ) -> Result<impl super::stubs::PolicyTroubleshooter> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::PolicyTroubleshooter::new)
+            .map(super::tracing::PolicyTroubleshooter::new)
     }
 
     /// Checks whether a principal has a specific permission for a specific
@@ -96,7 +96,7 @@ impl PolicyTroubleshooter {
     /// permission.
     pub fn troubleshoot_iam_policy(
         &self,
-    ) -> crate::builders::policy_troubleshooter::TroubleshootIamPolicy {
-        crate::builders::policy_troubleshooter::TroubleshootIamPolicy::new(self.inner.clone())
+    ) -> super::builders::policy_troubleshooter::TroubleshootIamPolicy {
+        super::builders::policy_troubleshooter::TroubleshootIamPolicy::new(self.inner.clone())
     }
 }

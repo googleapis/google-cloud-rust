@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DatasetService](crate::stubs::DatasetService) using a [gclient::ReqwestClient].
+/// Implements [DatasetService](super::stubs::DatasetService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DatasetService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl DatasetService {
     }
 }
 
-impl crate::stubs::DatasetService for DatasetService {
+impl super::stubs::DatasetService for DatasetService {
     async fn create_dataset(
         &self,
         req: crate::model::CreateDatasetRequest,
@@ -834,7 +834,7 @@ impl crate::stubs::DatasetService for DatasetService {
     }
 }
 
-/// Implements [DeploymentResourcePoolService](crate::stubs::DeploymentResourcePoolService) using a [gclient::ReqwestClient].
+/// Implements [DeploymentResourcePoolService](super::stubs::DeploymentResourcePoolService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct DeploymentResourcePoolService {
     inner: gclient::ReqwestClient,
@@ -855,7 +855,7 @@ impl DeploymentResourcePoolService {
     }
 }
 
-impl crate::stubs::DeploymentResourcePoolService for DeploymentResourcePoolService {
+impl super::stubs::DeploymentResourcePoolService for DeploymentResourcePoolService {
     async fn create_deployment_resource_pool(
         &self,
         req: crate::model::CreateDeploymentResourcePoolRequest,
@@ -1244,7 +1244,7 @@ impl crate::stubs::DeploymentResourcePoolService for DeploymentResourcePoolServi
     }
 }
 
-/// Implements [EndpointService](crate::stubs::EndpointService) using a [gclient::ReqwestClient].
+/// Implements [EndpointService](super::stubs::EndpointService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct EndpointService {
     inner: gclient::ReqwestClient,
@@ -1265,7 +1265,7 @@ impl EndpointService {
     }
 }
 
-impl crate::stubs::EndpointService for EndpointService {
+impl super::stubs::EndpointService for EndpointService {
     async fn create_endpoint(
         &self,
         req: crate::model::CreateEndpointRequest,
@@ -1729,7 +1729,7 @@ impl crate::stubs::EndpointService for EndpointService {
     }
 }
 
-/// Implements [EvaluationService](crate::stubs::EvaluationService) using a [gclient::ReqwestClient].
+/// Implements [EvaluationService](super::stubs::EvaluationService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct EvaluationService {
     inner: gclient::ReqwestClient,
@@ -1750,7 +1750,7 @@ impl EvaluationService {
     }
 }
 
-impl crate::stubs::EvaluationService for EvaluationService {
+impl super::stubs::EvaluationService for EvaluationService {
     async fn evaluate_instances(
         &self,
         req: crate::model::EvaluateInstancesRequest,
@@ -1999,7 +1999,7 @@ impl crate::stubs::EvaluationService for EvaluationService {
     }
 }
 
-/// Implements [FeatureOnlineStoreAdminService](crate::stubs::FeatureOnlineStoreAdminService) using a [gclient::ReqwestClient].
+/// Implements [FeatureOnlineStoreAdminService](super::stubs::FeatureOnlineStoreAdminService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct FeatureOnlineStoreAdminService {
     inner: gclient::ReqwestClient,
@@ -2020,7 +2020,7 @@ impl FeatureOnlineStoreAdminService {
     }
 }
 
-impl crate::stubs::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminService {
+impl super::stubs::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminService {
     async fn create_feature_online_store(
         &self,
         req: crate::model::CreateFeatureOnlineStoreRequest,
@@ -2580,7 +2580,7 @@ impl crate::stubs::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminSer
     }
 }
 
-/// Implements [FeatureOnlineStoreService](crate::stubs::FeatureOnlineStoreService) using a [gclient::ReqwestClient].
+/// Implements [FeatureOnlineStoreService](super::stubs::FeatureOnlineStoreService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct FeatureOnlineStoreService {
     inner: gclient::ReqwestClient,
@@ -2601,7 +2601,7 @@ impl FeatureOnlineStoreService {
     }
 }
 
-impl crate::stubs::FeatureOnlineStoreService for FeatureOnlineStoreService {
+impl super::stubs::FeatureOnlineStoreService for FeatureOnlineStoreService {
     async fn fetch_feature_values(
         &self,
         req: crate::model::FetchFeatureValuesRequest,
@@ -2870,7 +2870,7 @@ impl crate::stubs::FeatureOnlineStoreService for FeatureOnlineStoreService {
     }
 }
 
-/// Implements [FeatureRegistryService](crate::stubs::FeatureRegistryService) using a [gclient::ReqwestClient].
+/// Implements [FeatureRegistryService](super::stubs::FeatureRegistryService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct FeatureRegistryService {
     inner: gclient::ReqwestClient,
@@ -2891,7 +2891,7 @@ impl FeatureRegistryService {
     }
 }
 
-impl crate::stubs::FeatureRegistryService for FeatureRegistryService {
+impl super::stubs::FeatureRegistryService for FeatureRegistryService {
     async fn create_feature_group(
         &self,
         req: crate::model::CreateFeatureGroupRequest,
@@ -3413,7 +3413,7 @@ impl crate::stubs::FeatureRegistryService for FeatureRegistryService {
     }
 }
 
-/// Implements [FeaturestoreOnlineServingService](crate::stubs::FeaturestoreOnlineServingService) using a [gclient::ReqwestClient].
+/// Implements [FeaturestoreOnlineServingService](super::stubs::FeaturestoreOnlineServingService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct FeaturestoreOnlineServingService {
     inner: gclient::ReqwestClient,
@@ -3434,7 +3434,7 @@ impl FeaturestoreOnlineServingService {
     }
 }
 
-impl crate::stubs::FeaturestoreOnlineServingService for FeaturestoreOnlineServingService {
+impl super::stubs::FeaturestoreOnlineServingService for FeaturestoreOnlineServingService {
     async fn read_feature_values(
         &self,
         req: crate::model::ReadFeatureValuesRequest,
@@ -3703,7 +3703,7 @@ impl crate::stubs::FeaturestoreOnlineServingService for FeaturestoreOnlineServin
     }
 }
 
-/// Implements [FeaturestoreService](crate::stubs::FeaturestoreService) using a [gclient::ReqwestClient].
+/// Implements [FeaturestoreService](super::stubs::FeaturestoreService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct FeaturestoreService {
     inner: gclient::ReqwestClient,
@@ -3724,7 +3724,7 @@ impl FeaturestoreService {
     }
 }
 
-impl crate::stubs::FeaturestoreService for FeaturestoreService {
+impl super::stubs::FeaturestoreService for FeaturestoreService {
     async fn create_featurestore(
         &self,
         req: crate::model::CreateFeaturestoreRequest,
@@ -4497,7 +4497,7 @@ impl crate::stubs::FeaturestoreService for FeaturestoreService {
     }
 }
 
-/// Implements [GenAiCacheService](crate::stubs::GenAiCacheService) using a [gclient::ReqwestClient].
+/// Implements [GenAiCacheService](super::stubs::GenAiCacheService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct GenAiCacheService {
     inner: gclient::ReqwestClient,
@@ -4518,7 +4518,7 @@ impl GenAiCacheService {
     }
 }
 
-impl crate::stubs::GenAiCacheService for GenAiCacheService {
+impl super::stubs::GenAiCacheService for GenAiCacheService {
     async fn create_cached_content(
         &self,
         req: crate::model::CreateCachedContentRequest,
@@ -4869,7 +4869,7 @@ impl crate::stubs::GenAiCacheService for GenAiCacheService {
     }
 }
 
-/// Implements [GenAiTuningService](crate::stubs::GenAiTuningService) using a [gclient::ReqwestClient].
+/// Implements [GenAiTuningService](super::stubs::GenAiTuningService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct GenAiTuningService {
     inner: gclient::ReqwestClient,
@@ -4890,7 +4890,7 @@ impl GenAiTuningService {
     }
 }
 
-impl crate::stubs::GenAiTuningService for GenAiTuningService {
+impl super::stubs::GenAiTuningService for GenAiTuningService {
     async fn create_tuning_job(
         &self,
         req: crate::model::CreateTuningJobRequest,
@@ -5236,7 +5236,7 @@ impl crate::stubs::GenAiTuningService for GenAiTuningService {
     }
 }
 
-/// Implements [IndexEndpointService](crate::stubs::IndexEndpointService) using a [gclient::ReqwestClient].
+/// Implements [IndexEndpointService](super::stubs::IndexEndpointService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct IndexEndpointService {
     inner: gclient::ReqwestClient,
@@ -5257,7 +5257,7 @@ impl IndexEndpointService {
     }
 }
 
-impl crate::stubs::IndexEndpointService for IndexEndpointService {
+impl super::stubs::IndexEndpointService for IndexEndpointService {
     async fn create_index_endpoint(
         &self,
         req: crate::model::CreateIndexEndpointRequest,
@@ -5695,7 +5695,7 @@ impl crate::stubs::IndexEndpointService for IndexEndpointService {
     }
 }
 
-/// Implements [IndexService](crate::stubs::IndexService) using a [gclient::ReqwestClient].
+/// Implements [IndexService](super::stubs::IndexService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct IndexService {
     inner: gclient::ReqwestClient,
@@ -5716,7 +5716,7 @@ impl IndexService {
     }
 }
 
-impl crate::stubs::IndexService for IndexService {
+impl super::stubs::IndexService for IndexService {
     async fn create_index(
         &self,
         req: crate::model::CreateIndexRequest,
@@ -6122,7 +6122,7 @@ impl crate::stubs::IndexService for IndexService {
     }
 }
 
-/// Implements [JobService](crate::stubs::JobService) using a [gclient::ReqwestClient].
+/// Implements [JobService](super::stubs::JobService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct JobService {
     inner: gclient::ReqwestClient,
@@ -6143,7 +6143,7 @@ impl JobService {
     }
 }
 
-impl crate::stubs::JobService for JobService {
+impl super::stubs::JobService for JobService {
     async fn create_custom_job(
         &self,
         req: crate::model::CreateCustomJobRequest,
@@ -7176,7 +7176,7 @@ impl crate::stubs::JobService for JobService {
     }
 }
 
-/// Implements [LlmUtilityService](crate::stubs::LlmUtilityService) using a [gclient::ReqwestClient].
+/// Implements [LlmUtilityService](super::stubs::LlmUtilityService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct LlmUtilityService {
     inner: gclient::ReqwestClient,
@@ -7197,7 +7197,7 @@ impl LlmUtilityService {
     }
 }
 
-impl crate::stubs::LlmUtilityService for LlmUtilityService {
+impl super::stubs::LlmUtilityService for LlmUtilityService {
     async fn count_tokens(
         &self,
         req: crate::model::CountTokensRequest,
@@ -7466,7 +7466,7 @@ impl crate::stubs::LlmUtilityService for LlmUtilityService {
     }
 }
 
-/// Implements [MatchService](crate::stubs::MatchService) using a [gclient::ReqwestClient].
+/// Implements [MatchService](super::stubs::MatchService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct MatchService {
     inner: gclient::ReqwestClient,
@@ -7487,7 +7487,7 @@ impl MatchService {
     }
 }
 
-impl crate::stubs::MatchService for MatchService {
+impl super::stubs::MatchService for MatchService {
     async fn find_neighbors(
         &self,
         req: crate::model::FindNeighborsRequest,
@@ -7756,7 +7756,7 @@ impl crate::stubs::MatchService for MatchService {
     }
 }
 
-/// Implements [MetadataService](crate::stubs::MetadataService) using a [gclient::ReqwestClient].
+/// Implements [MetadataService](super::stubs::MetadataService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct MetadataService {
     inner: gclient::ReqwestClient,
@@ -7777,7 +7777,7 @@ impl MetadataService {
     }
 }
 
-impl crate::stubs::MetadataService for MetadataService {
+impl super::stubs::MetadataService for MetadataService {
     async fn create_metadata_store(
         &self,
         req: crate::model::CreateMetadataStoreRequest,
@@ -8760,7 +8760,7 @@ impl crate::stubs::MetadataService for MetadataService {
     }
 }
 
-/// Implements [MigrationService](crate::stubs::MigrationService) using a [gclient::ReqwestClient].
+/// Implements [MigrationService](super::stubs::MigrationService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct MigrationService {
     inner: gclient::ReqwestClient,
@@ -8781,7 +8781,7 @@ impl MigrationService {
     }
 }
 
-impl crate::stubs::MigrationService for MigrationService {
+impl super::stubs::MigrationService for MigrationService {
     async fn search_migratable_resources(
         &self,
         req: crate::model::SearchMigratableResourcesRequest,
@@ -9064,7 +9064,7 @@ impl crate::stubs::MigrationService for MigrationService {
     }
 }
 
-/// Implements [ModelGardenService](crate::stubs::ModelGardenService) using a [gclient::ReqwestClient].
+/// Implements [ModelGardenService](super::stubs::ModelGardenService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ModelGardenService {
     inner: gclient::ReqwestClient,
@@ -9085,7 +9085,7 @@ impl ModelGardenService {
     }
 }
 
-impl crate::stubs::ModelGardenService for ModelGardenService {
+impl super::stubs::ModelGardenService for ModelGardenService {
     async fn get_publisher_model(
         &self,
         req: crate::model::GetPublisherModelRequest,
@@ -9337,7 +9337,7 @@ impl crate::stubs::ModelGardenService for ModelGardenService {
     }
 }
 
-/// Implements [ModelService](crate::stubs::ModelService) using a [gclient::ReqwestClient].
+/// Implements [ModelService](super::stubs::ModelService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ModelService {
     inner: gclient::ReqwestClient,
@@ -9358,7 +9358,7 @@ impl ModelService {
     }
 }
 
-impl crate::stubs::ModelService for ModelService {
+impl super::stubs::ModelService for ModelService {
     async fn upload_model(
         &self,
         req: crate::model::UploadModelRequest,
@@ -10052,7 +10052,7 @@ impl crate::stubs::ModelService for ModelService {
     }
 }
 
-/// Implements [NotebookService](crate::stubs::NotebookService) using a [gclient::ReqwestClient].
+/// Implements [NotebookService](super::stubs::NotebookService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct NotebookService {
     inner: gclient::ReqwestClient,
@@ -10073,7 +10073,7 @@ impl NotebookService {
     }
 }
 
-impl crate::stubs::NotebookService for NotebookService {
+impl super::stubs::NotebookService for NotebookService {
     async fn create_notebook_runtime_template(
         &self,
         req: crate::model::CreateNotebookRuntimeTemplateRequest,
@@ -10690,7 +10690,7 @@ impl crate::stubs::NotebookService for NotebookService {
     }
 }
 
-/// Implements [PersistentResourceService](crate::stubs::PersistentResourceService) using a [gclient::ReqwestClient].
+/// Implements [PersistentResourceService](super::stubs::PersistentResourceService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PersistentResourceService {
     inner: gclient::ReqwestClient,
@@ -10711,7 +10711,7 @@ impl PersistentResourceService {
     }
 }
 
-impl crate::stubs::PersistentResourceService for PersistentResourceService {
+impl super::stubs::PersistentResourceService for PersistentResourceService {
     async fn create_persistent_resource(
         &self,
         req: crate::model::CreatePersistentResourceRequest,
@@ -11094,7 +11094,7 @@ impl crate::stubs::PersistentResourceService for PersistentResourceService {
     }
 }
 
-/// Implements [PipelineService](crate::stubs::PipelineService) using a [gclient::ReqwestClient].
+/// Implements [PipelineService](super::stubs::PipelineService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PipelineService {
     inner: gclient::ReqwestClient,
@@ -11115,7 +11115,7 @@ impl PipelineService {
     }
 }
 
-impl crate::stubs::PipelineService for PipelineService {
+impl super::stubs::PipelineService for PipelineService {
     async fn create_training_pipeline(
         &self,
         req: crate::model::CreateTrainingPipelineRequest,
@@ -11624,7 +11624,7 @@ impl crate::stubs::PipelineService for PipelineService {
     }
 }
 
-/// Implements [PredictionService](crate::stubs::PredictionService) using a [gclient::ReqwestClient].
+/// Implements [PredictionService](super::stubs::PredictionService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PredictionService {
     inner: gclient::ReqwestClient,
@@ -11645,7 +11645,7 @@ impl PredictionService {
     }
 }
 
-impl crate::stubs::PredictionService for PredictionService {
+impl super::stubs::PredictionService for PredictionService {
     async fn predict(
         &self,
         req: crate::model::PredictRequest,
@@ -11994,7 +11994,7 @@ impl crate::stubs::PredictionService for PredictionService {
     }
 }
 
-/// Implements [ReasoningEngineExecutionService](crate::stubs::ReasoningEngineExecutionService) using a [gclient::ReqwestClient].
+/// Implements [ReasoningEngineExecutionService](super::stubs::ReasoningEngineExecutionService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ReasoningEngineExecutionService {
     inner: gclient::ReqwestClient,
@@ -12015,7 +12015,7 @@ impl ReasoningEngineExecutionService {
     }
 }
 
-impl crate::stubs::ReasoningEngineExecutionService for ReasoningEngineExecutionService {
+impl super::stubs::ReasoningEngineExecutionService for ReasoningEngineExecutionService {
     async fn query_reasoning_engine(
         &self,
         req: crate::model::QueryReasoningEngineRequest,
@@ -12261,7 +12261,7 @@ impl crate::stubs::ReasoningEngineExecutionService for ReasoningEngineExecutionS
     }
 }
 
-/// Implements [ReasoningEngineService](crate::stubs::ReasoningEngineService) using a [gclient::ReqwestClient].
+/// Implements [ReasoningEngineService](super::stubs::ReasoningEngineService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ReasoningEngineService {
     inner: gclient::ReqwestClient,
@@ -12282,7 +12282,7 @@ impl ReasoningEngineService {
     }
 }
 
-impl crate::stubs::ReasoningEngineService for ReasoningEngineService {
+impl super::stubs::ReasoningEngineService for ReasoningEngineService {
     async fn create_reasoning_engine(
         &self,
         req: crate::model::CreateReasoningEngineRequest,
@@ -12648,7 +12648,7 @@ impl crate::stubs::ReasoningEngineService for ReasoningEngineService {
     }
 }
 
-/// Implements [ScheduleService](crate::stubs::ScheduleService) using a [gclient::ReqwestClient].
+/// Implements [ScheduleService](super::stubs::ScheduleService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ScheduleService {
     inner: gclient::ReqwestClient,
@@ -12669,7 +12669,7 @@ impl ScheduleService {
     }
 }
 
-impl crate::stubs::ScheduleService for ScheduleService {
+impl super::stubs::ScheduleService for ScheduleService {
     async fn create_schedule(
         &self,
         req: crate::model::CreateScheduleRequest,
@@ -13070,7 +13070,7 @@ impl crate::stubs::ScheduleService for ScheduleService {
     }
 }
 
-/// Implements [SpecialistPoolService](crate::stubs::SpecialistPoolService) using a [gclient::ReqwestClient].
+/// Implements [SpecialistPoolService](super::stubs::SpecialistPoolService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SpecialistPoolService {
     inner: gclient::ReqwestClient,
@@ -13091,7 +13091,7 @@ impl SpecialistPoolService {
     }
 }
 
-impl crate::stubs::SpecialistPoolService for SpecialistPoolService {
+impl super::stubs::SpecialistPoolService for SpecialistPoolService {
     async fn create_specialist_pool(
         &self,
         req: crate::model::CreateSpecialistPoolRequest,
@@ -13467,7 +13467,7 @@ impl crate::stubs::SpecialistPoolService for SpecialistPoolService {
     }
 }
 
-/// Implements [TensorboardService](crate::stubs::TensorboardService) using a [gclient::ReqwestClient].
+/// Implements [TensorboardService](super::stubs::TensorboardService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TensorboardService {
     inner: gclient::ReqwestClient,
@@ -13488,7 +13488,7 @@ impl TensorboardService {
     }
 }
 
-impl crate::stubs::TensorboardService for TensorboardService {
+impl super::stubs::TensorboardService for TensorboardService {
     async fn create_tensorboard(
         &self,
         req: crate::model::CreateTensorboardRequest,
@@ -14462,7 +14462,7 @@ impl crate::stubs::TensorboardService for TensorboardService {
     }
 }
 
-/// Implements [VertexRagDataService](crate::stubs::VertexRagDataService) using a [gclient::ReqwestClient].
+/// Implements [VertexRagDataService](super::stubs::VertexRagDataService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct VertexRagDataService {
     inner: gclient::ReqwestClient,
@@ -14483,7 +14483,7 @@ impl VertexRagDataService {
     }
 }
 
-impl crate::stubs::VertexRagDataService for VertexRagDataService {
+impl super::stubs::VertexRagDataService for VertexRagDataService {
     async fn create_rag_corpus(
         &self,
         req: crate::model::CreateRagCorpusRequest,
@@ -14938,7 +14938,7 @@ impl crate::stubs::VertexRagDataService for VertexRagDataService {
     }
 }
 
-/// Implements [VertexRagService](crate::stubs::VertexRagService) using a [gclient::ReqwestClient].
+/// Implements [VertexRagService](super::stubs::VertexRagService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct VertexRagService {
     inner: gclient::ReqwestClient,
@@ -14959,7 +14959,7 @@ impl VertexRagService {
     }
 }
 
-impl crate::stubs::VertexRagService for VertexRagService {
+impl super::stubs::VertexRagService for VertexRagService {
     async fn retrieve_contexts(
         &self,
         req: crate::model::RetrieveContextsRequest,
@@ -15248,7 +15248,7 @@ impl crate::stubs::VertexRagService for VertexRagService {
     }
 }
 
-/// Implements [VizierService](crate::stubs::VizierService) using a [gclient::ReqwestClient].
+/// Implements [VizierService](super::stubs::VizierService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct VizierService {
     inner: gclient::ReqwestClient,
@@ -15269,7 +15269,7 @@ impl VizierService {
     }
 }
 
-impl crate::stubs::VizierService for VizierService {
+impl super::stubs::VizierService for VizierService {
     async fn create_study(
         &self,
         req: crate::model::CreateStudyRequest,

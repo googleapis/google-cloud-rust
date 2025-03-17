@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ImageAnnotator {
-    inner: Arc<dyn crate::stubs::dynamic::ImageAnnotator>,
+    inner: Arc<dyn super::stubs::dynamic::ImageAnnotator>,
 }
 
 impl ImageAnnotator {
@@ -61,7 +61,7 @@ impl ImageAnnotator {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ImageAnnotator + 'static,
+        T: super::stubs::ImageAnnotator + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl ImageAnnotator {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ImageAnnotator>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ImageAnnotator>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,21 +79,21 @@ impl ImageAnnotator {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ImageAnnotator> {
-        crate::transport::ImageAnnotator::new(conf).await
+    ) -> Result<impl super::stubs::ImageAnnotator> {
+        super::transport::ImageAnnotator::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ImageAnnotator> {
+    ) -> Result<impl super::stubs::ImageAnnotator> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ImageAnnotator::new)
+            .map(super::tracing::ImageAnnotator::new)
     }
 
     /// Run image detection and annotation for a batch of images.
-    pub fn batch_annotate_images(&self) -> crate::builders::image_annotator::BatchAnnotateImages {
-        crate::builders::image_annotator::BatchAnnotateImages::new(self.inner.clone())
+    pub fn batch_annotate_images(&self) -> super::builders::image_annotator::BatchAnnotateImages {
+        super::builders::image_annotator::BatchAnnotateImages::new(self.inner.clone())
     }
 
     /// Service that performs image detection and annotation for a batch of files.
@@ -103,8 +103,8 @@ impl ImageAnnotator {
     /// AnnotateFileRequest.pages) frames (gif) or pages (pdf or tiff) from each
     /// file provided and perform detection and annotation for each image
     /// extracted.
-    pub fn batch_annotate_files(&self) -> crate::builders::image_annotator::BatchAnnotateFiles {
-        crate::builders::image_annotator::BatchAnnotateFiles::new(self.inner.clone())
+    pub fn batch_annotate_files(&self) -> super::builders::image_annotator::BatchAnnotateFiles {
+        super::builders::image_annotator::BatchAnnotateFiles::new(self.inner.clone())
     }
 
     /// Run asynchronous image detection and annotation for a list of images.
@@ -128,8 +128,8 @@ impl ImageAnnotator {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn async_batch_annotate_images(
         &self,
-    ) -> crate::builders::image_annotator::AsyncBatchAnnotateImages {
-        crate::builders::image_annotator::AsyncBatchAnnotateImages::new(self.inner.clone())
+    ) -> super::builders::image_annotator::AsyncBatchAnnotateImages {
+        super::builders::image_annotator::AsyncBatchAnnotateImages::new(self.inner.clone())
     }
 
     /// Run asynchronous image detection and annotation for a list of generic
@@ -150,8 +150,8 @@ impl ImageAnnotator {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn async_batch_annotate_files(
         &self,
-    ) -> crate::builders::image_annotator::AsyncBatchAnnotateFiles {
-        crate::builders::image_annotator::AsyncBatchAnnotateFiles::new(self.inner.clone())
+    ) -> super::builders::image_annotator::AsyncBatchAnnotateFiles {
+        super::builders::image_annotator::AsyncBatchAnnotateFiles::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -160,8 +160,8 @@ impl ImageAnnotator {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::image_annotator::GetOperation {
-        crate::builders::image_annotator::GetOperation::new(self.inner.clone())
+    ) -> super::builders::image_annotator::GetOperation {
+        super::builders::image_annotator::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -205,7 +205,7 @@ impl ImageAnnotator {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ProductSearch {
-    inner: Arc<dyn crate::stubs::dynamic::ProductSearch>,
+    inner: Arc<dyn super::stubs::dynamic::ProductSearch>,
 }
 
 impl ProductSearch {
@@ -226,7 +226,7 @@ impl ProductSearch {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ProductSearch + 'static,
+        T: super::stubs::ProductSearch + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -235,7 +235,7 @@ impl ProductSearch {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ProductSearch>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ProductSearch>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -244,16 +244,16 @@ impl ProductSearch {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ProductSearch> {
-        crate::transport::ProductSearch::new(conf).await
+    ) -> Result<impl super::stubs::ProductSearch> {
+        super::transport::ProductSearch::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ProductSearch> {
+    ) -> Result<impl super::stubs::ProductSearch> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ProductSearch::new)
+            .map(super::tracing::ProductSearch::new)
     }
 
     /// Creates and returns a new ProductSet resource.
@@ -265,8 +265,8 @@ impl ProductSearch {
     pub fn create_product_set(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::CreateProductSet {
-        crate::builders::product_search::CreateProductSet::new(self.inner.clone())
+    ) -> super::builders::product_search::CreateProductSet {
+        super::builders::product_search::CreateProductSet::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -279,8 +279,8 @@ impl ProductSearch {
     pub fn list_product_sets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::ListProductSets {
-        crate::builders::product_search::ListProductSets::new(self.inner.clone())
+    ) -> super::builders::product_search::ListProductSets {
+        super::builders::product_search::ListProductSets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -292,8 +292,8 @@ impl ProductSearch {
     pub fn get_product_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::GetProductSet {
-        crate::builders::product_search::GetProductSet::new(self.inner.clone())
+    ) -> super::builders::product_search::GetProductSet {
+        super::builders::product_search::GetProductSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -308,8 +308,8 @@ impl ProductSearch {
     pub fn update_product_set(
         &self,
         product_set: impl Into<crate::model::ProductSet>,
-    ) -> crate::builders::product_search::UpdateProductSet {
-        crate::builders::product_search::UpdateProductSet::new(self.inner.clone())
+    ) -> super::builders::product_search::UpdateProductSet {
+        super::builders::product_search::UpdateProductSet::new(self.inner.clone())
             .set_product_set(product_set.into())
     }
 
@@ -320,8 +320,8 @@ impl ProductSearch {
     pub fn delete_product_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::DeleteProductSet {
-        crate::builders::product_search::DeleteProductSet::new(self.inner.clone())
+    ) -> super::builders::product_search::DeleteProductSet {
+        super::builders::product_search::DeleteProductSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -336,8 +336,8 @@ impl ProductSearch {
     pub fn create_product(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::CreateProduct {
-        crate::builders::product_search::CreateProduct::new(self.inner.clone())
+    ) -> super::builders::product_search::CreateProduct {
+        super::builders::product_search::CreateProduct::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -349,8 +349,8 @@ impl ProductSearch {
     pub fn list_products(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::ListProducts {
-        crate::builders::product_search::ListProducts::new(self.inner.clone())
+    ) -> super::builders::product_search::ListProducts {
+        super::builders::product_search::ListProducts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -362,8 +362,8 @@ impl ProductSearch {
     pub fn get_product(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::GetProduct {
-        crate::builders::product_search::GetProduct::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::product_search::GetProduct {
+        super::builders::product_search::GetProduct::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Makes changes to a Product resource.
@@ -384,8 +384,8 @@ impl ProductSearch {
     pub fn update_product(
         &self,
         product: impl Into<crate::model::Product>,
-    ) -> crate::builders::product_search::UpdateProduct {
-        crate::builders::product_search::UpdateProduct::new(self.inner.clone())
+    ) -> super::builders::product_search::UpdateProduct {
+        super::builders::product_search::UpdateProduct::new(self.inner.clone())
             .set_product(product.into())
     }
 
@@ -397,8 +397,8 @@ impl ProductSearch {
     pub fn delete_product(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::DeleteProduct {
-        crate::builders::product_search::DeleteProduct::new(self.inner.clone())
+    ) -> super::builders::product_search::DeleteProduct {
+        super::builders::product_search::DeleteProduct::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -424,8 +424,8 @@ impl ProductSearch {
     pub fn create_reference_image(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::CreateReferenceImage {
-        crate::builders::product_search::CreateReferenceImage::new(self.inner.clone())
+    ) -> super::builders::product_search::CreateReferenceImage {
+        super::builders::product_search::CreateReferenceImage::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -439,8 +439,8 @@ impl ProductSearch {
     pub fn delete_reference_image(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::DeleteReferenceImage {
-        crate::builders::product_search::DeleteReferenceImage::new(self.inner.clone())
+    ) -> super::builders::product_search::DeleteReferenceImage {
+        super::builders::product_search::DeleteReferenceImage::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -454,8 +454,8 @@ impl ProductSearch {
     pub fn list_reference_images(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::ListReferenceImages {
-        crate::builders::product_search::ListReferenceImages::new(self.inner.clone())
+    ) -> super::builders::product_search::ListReferenceImages {
+        super::builders::product_search::ListReferenceImages::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -467,8 +467,8 @@ impl ProductSearch {
     pub fn get_reference_image(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::GetReferenceImage {
-        crate::builders::product_search::GetReferenceImage::new(self.inner.clone())
+    ) -> super::builders::product_search::GetReferenceImage {
+        super::builders::product_search::GetReferenceImage::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -483,8 +483,8 @@ impl ProductSearch {
     pub fn add_product_to_product_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::AddProductToProductSet {
-        crate::builders::product_search::AddProductToProductSet::new(self.inner.clone())
+    ) -> super::builders::product_search::AddProductToProductSet {
+        super::builders::product_search::AddProductToProductSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -492,8 +492,8 @@ impl ProductSearch {
     pub fn remove_product_from_product_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::RemoveProductFromProductSet {
-        crate::builders::product_search::RemoveProductFromProductSet::new(self.inner.clone())
+    ) -> super::builders::product_search::RemoveProductFromProductSet {
+        super::builders::product_search::RemoveProductFromProductSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -507,8 +507,8 @@ impl ProductSearch {
     pub fn list_products_in_product_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::ListProductsInProductSet {
-        crate::builders::product_search::ListProductsInProductSet::new(self.inner.clone())
+    ) -> super::builders::product_search::ListProductsInProductSet {
+        super::builders::product_search::ListProductsInProductSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -539,8 +539,8 @@ impl ProductSearch {
     pub fn import_product_sets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::ImportProductSets {
-        crate::builders::product_search::ImportProductSets::new(self.inner.clone())
+    ) -> super::builders::product_search::ImportProductSets {
+        super::builders::product_search::ImportProductSets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -583,8 +583,8 @@ impl ProductSearch {
     pub fn purge_products(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::PurgeProducts {
-        crate::builders::product_search::PurgeProducts::new(self.inner.clone())
+    ) -> super::builders::product_search::PurgeProducts {
+        super::builders::product_search::PurgeProducts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -594,7 +594,7 @@ impl ProductSearch {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::product_search::GetOperation {
-        crate::builders::product_search::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::product_search::GetOperation {
+        super::builders::product_search::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

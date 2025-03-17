@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ConfidentialComputing](crate::stubs::ConfidentialComputing) using a [gclient::ReqwestClient].
+/// Implements [ConfidentialComputing](super::stubs::ConfidentialComputing) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ConfidentialComputing {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ConfidentialComputing {
     }
 }
 
-impl crate::stubs::ConfidentialComputing for ConfidentialComputing {
+impl super::stubs::ConfidentialComputing for ConfidentialComputing {
     async fn create_challenge(
         &self,
         req: crate::model::CreateChallengeRequest,

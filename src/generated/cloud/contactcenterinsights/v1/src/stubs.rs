@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ContactCenterInsights].
+/// Defines the trait used to implement [super::client::ContactCenterInsights].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ContactCenterInsights`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ContactCenterInsights::create_conversation].
+    /// Implements [super::client::ContactCenterInsights::create_conversation].
     fn create_conversation(
         &self,
         _req: crate::model::CreateConversationRequest,
@@ -52,7 +52,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::upload_conversation].
+    /// Implements [super::client::ContactCenterInsights::upload_conversation].
     fn upload_conversation(
         &self,
         _req: crate::model::UploadConversationRequest,
@@ -64,7 +64,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::update_conversation].
+    /// Implements [super::client::ContactCenterInsights::update_conversation].
     fn update_conversation(
         &self,
         _req: crate::model::UpdateConversationRequest,
@@ -75,7 +75,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_conversation].
+    /// Implements [super::client::ContactCenterInsights::get_conversation].
     fn get_conversation(
         &self,
         _req: crate::model::GetConversationRequest,
@@ -86,7 +86,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_conversations].
+    /// Implements [super::client::ContactCenterInsights::list_conversations].
     fn list_conversations(
         &self,
         _req: crate::model::ListConversationsRequest,
@@ -98,7 +98,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_conversation].
+    /// Implements [super::client::ContactCenterInsights::delete_conversation].
     fn delete_conversation(
         &self,
         _req: crate::model::DeleteConversationRequest,
@@ -107,7 +107,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::create_analysis].
+    /// Implements [super::client::ContactCenterInsights::create_analysis].
     fn create_analysis(
         &self,
         _req: crate::model::CreateAnalysisRequest,
@@ -119,7 +119,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_analysis].
+    /// Implements [super::client::ContactCenterInsights::get_analysis].
     fn get_analysis(
         &self,
         _req: crate::model::GetAnalysisRequest,
@@ -130,7 +130,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_analyses].
+    /// Implements [super::client::ContactCenterInsights::list_analyses].
     fn list_analyses(
         &self,
         _req: crate::model::ListAnalysesRequest,
@@ -142,7 +142,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_analysis].
+    /// Implements [super::client::ContactCenterInsights::delete_analysis].
     fn delete_analysis(
         &self,
         _req: crate::model::DeleteAnalysisRequest,
@@ -151,7 +151,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::bulk_analyze_conversations].
+    /// Implements [super::client::ContactCenterInsights::bulk_analyze_conversations].
     fn bulk_analyze_conversations(
         &self,
         _req: crate::model::BulkAnalyzeConversationsRequest,
@@ -163,7 +163,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::bulk_delete_conversations].
+    /// Implements [super::client::ContactCenterInsights::bulk_delete_conversations].
     fn bulk_delete_conversations(
         &self,
         _req: crate::model::BulkDeleteConversationsRequest,
@@ -175,7 +175,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::ingest_conversations].
+    /// Implements [super::client::ContactCenterInsights::ingest_conversations].
     fn ingest_conversations(
         &self,
         _req: crate::model::IngestConversationsRequest,
@@ -187,7 +187,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::export_insights_data].
+    /// Implements [super::client::ContactCenterInsights::export_insights_data].
     fn export_insights_data(
         &self,
         _req: crate::model::ExportInsightsDataRequest,
@@ -199,7 +199,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::create_issue_model].
+    /// Implements [super::client::ContactCenterInsights::create_issue_model].
     fn create_issue_model(
         &self,
         _req: crate::model::CreateIssueModelRequest,
@@ -211,7 +211,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::update_issue_model].
+    /// Implements [super::client::ContactCenterInsights::update_issue_model].
     fn update_issue_model(
         &self,
         _req: crate::model::UpdateIssueModelRequest,
@@ -222,7 +222,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_issue_model].
+    /// Implements [super::client::ContactCenterInsights::get_issue_model].
     fn get_issue_model(
         &self,
         _req: crate::model::GetIssueModelRequest,
@@ -233,7 +233,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_issue_models].
+    /// Implements [super::client::ContactCenterInsights::list_issue_models].
     fn list_issue_models(
         &self,
         _req: crate::model::ListIssueModelsRequest,
@@ -245,7 +245,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_issue_model].
+    /// Implements [super::client::ContactCenterInsights::delete_issue_model].
     fn delete_issue_model(
         &self,
         _req: crate::model::DeleteIssueModelRequest,
@@ -257,7 +257,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::deploy_issue_model].
+    /// Implements [super::client::ContactCenterInsights::deploy_issue_model].
     fn deploy_issue_model(
         &self,
         _req: crate::model::DeployIssueModelRequest,
@@ -269,7 +269,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::undeploy_issue_model].
+    /// Implements [super::client::ContactCenterInsights::undeploy_issue_model].
     fn undeploy_issue_model(
         &self,
         _req: crate::model::UndeployIssueModelRequest,
@@ -281,7 +281,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::export_issue_model].
+    /// Implements [super::client::ContactCenterInsights::export_issue_model].
     fn export_issue_model(
         &self,
         _req: crate::model::ExportIssueModelRequest,
@@ -293,7 +293,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::import_issue_model].
+    /// Implements [super::client::ContactCenterInsights::import_issue_model].
     fn import_issue_model(
         &self,
         _req: crate::model::ImportIssueModelRequest,
@@ -305,7 +305,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_issue].
+    /// Implements [super::client::ContactCenterInsights::get_issue].
     fn get_issue(
         &self,
         _req: crate::model::GetIssueRequest,
@@ -314,7 +314,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Issue>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_issues].
+    /// Implements [super::client::ContactCenterInsights::list_issues].
     fn list_issues(
         &self,
         _req: crate::model::ListIssuesRequest,
@@ -326,7 +326,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::update_issue].
+    /// Implements [super::client::ContactCenterInsights::update_issue].
     fn update_issue(
         &self,
         _req: crate::model::UpdateIssueRequest,
@@ -335,7 +335,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Issue>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_issue].
+    /// Implements [super::client::ContactCenterInsights::delete_issue].
     fn delete_issue(
         &self,
         _req: crate::model::DeleteIssueRequest,
@@ -344,7 +344,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::calculate_issue_model_stats].
+    /// Implements [super::client::ContactCenterInsights::calculate_issue_model_stats].
     fn calculate_issue_model_stats(
         &self,
         _req: crate::model::CalculateIssueModelStatsRequest,
@@ -357,7 +357,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::create_phrase_matcher].
+    /// Implements [super::client::ContactCenterInsights::create_phrase_matcher].
     fn create_phrase_matcher(
         &self,
         _req: crate::model::CreatePhraseMatcherRequest,
@@ -368,7 +368,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_phrase_matcher].
+    /// Implements [super::client::ContactCenterInsights::get_phrase_matcher].
     fn get_phrase_matcher(
         &self,
         _req: crate::model::GetPhraseMatcherRequest,
@@ -379,7 +379,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_phrase_matchers].
+    /// Implements [super::client::ContactCenterInsights::list_phrase_matchers].
     fn list_phrase_matchers(
         &self,
         _req: crate::model::ListPhraseMatchersRequest,
@@ -391,7 +391,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_phrase_matcher].
+    /// Implements [super::client::ContactCenterInsights::delete_phrase_matcher].
     fn delete_phrase_matcher(
         &self,
         _req: crate::model::DeletePhraseMatcherRequest,
@@ -400,7 +400,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::update_phrase_matcher].
+    /// Implements [super::client::ContactCenterInsights::update_phrase_matcher].
     fn update_phrase_matcher(
         &self,
         _req: crate::model::UpdatePhraseMatcherRequest,
@@ -411,7 +411,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::calculate_stats].
+    /// Implements [super::client::ContactCenterInsights::calculate_stats].
     fn calculate_stats(
         &self,
         _req: crate::model::CalculateStatsRequest,
@@ -423,7 +423,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_settings].
+    /// Implements [super::client::ContactCenterInsights::get_settings].
     fn get_settings(
         &self,
         _req: crate::model::GetSettingsRequest,
@@ -434,7 +434,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::update_settings].
+    /// Implements [super::client::ContactCenterInsights::update_settings].
     fn update_settings(
         &self,
         _req: crate::model::UpdateSettingsRequest,
@@ -445,7 +445,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::create_analysis_rule].
+    /// Implements [super::client::ContactCenterInsights::create_analysis_rule].
     fn create_analysis_rule(
         &self,
         _req: crate::model::CreateAnalysisRuleRequest,
@@ -456,7 +456,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_analysis_rule].
+    /// Implements [super::client::ContactCenterInsights::get_analysis_rule].
     fn get_analysis_rule(
         &self,
         _req: crate::model::GetAnalysisRuleRequest,
@@ -467,7 +467,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_analysis_rules].
+    /// Implements [super::client::ContactCenterInsights::list_analysis_rules].
     fn list_analysis_rules(
         &self,
         _req: crate::model::ListAnalysisRulesRequest,
@@ -479,7 +479,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::update_analysis_rule].
+    /// Implements [super::client::ContactCenterInsights::update_analysis_rule].
     fn update_analysis_rule(
         &self,
         _req: crate::model::UpdateAnalysisRuleRequest,
@@ -490,7 +490,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_analysis_rule].
+    /// Implements [super::client::ContactCenterInsights::delete_analysis_rule].
     fn delete_analysis_rule(
         &self,
         _req: crate::model::DeleteAnalysisRuleRequest,
@@ -499,7 +499,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_encryption_spec].
+    /// Implements [super::client::ContactCenterInsights::get_encryption_spec].
     fn get_encryption_spec(
         &self,
         _req: crate::model::GetEncryptionSpecRequest,
@@ -510,7 +510,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::initialize_encryption_spec].
+    /// Implements [super::client::ContactCenterInsights::initialize_encryption_spec].
     fn initialize_encryption_spec(
         &self,
         _req: crate::model::InitializeEncryptionSpecRequest,
@@ -522,7 +522,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::create_view].
+    /// Implements [super::client::ContactCenterInsights::create_view].
     fn create_view(
         &self,
         _req: crate::model::CreateViewRequest,
@@ -531,7 +531,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::View>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_view].
+    /// Implements [super::client::ContactCenterInsights::get_view].
     fn get_view(
         &self,
         _req: crate::model::GetViewRequest,
@@ -540,7 +540,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::View>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_views].
+    /// Implements [super::client::ContactCenterInsights::list_views].
     fn list_views(
         &self,
         _req: crate::model::ListViewsRequest,
@@ -552,7 +552,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::update_view].
+    /// Implements [super::client::ContactCenterInsights::update_view].
     fn update_view(
         &self,
         _req: crate::model::UpdateViewRequest,
@@ -561,7 +561,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::View>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_view].
+    /// Implements [super::client::ContactCenterInsights::delete_view].
     fn delete_view(
         &self,
         _req: crate::model::DeleteViewRequest,
@@ -570,7 +570,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::query_metrics].
+    /// Implements [super::client::ContactCenterInsights::query_metrics].
     fn query_metrics(
         &self,
         _req: crate::model::QueryMetricsRequest,
@@ -582,7 +582,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::create_qa_question].
+    /// Implements [super::client::ContactCenterInsights::create_qa_question].
     fn create_qa_question(
         &self,
         _req: crate::model::CreateQaQuestionRequest,
@@ -593,7 +593,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_qa_question].
+    /// Implements [super::client::ContactCenterInsights::get_qa_question].
     fn get_qa_question(
         &self,
         _req: crate::model::GetQaQuestionRequest,
@@ -604,7 +604,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::update_qa_question].
+    /// Implements [super::client::ContactCenterInsights::update_qa_question].
     fn update_qa_question(
         &self,
         _req: crate::model::UpdateQaQuestionRequest,
@@ -615,7 +615,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_qa_question].
+    /// Implements [super::client::ContactCenterInsights::delete_qa_question].
     fn delete_qa_question(
         &self,
         _req: crate::model::DeleteQaQuestionRequest,
@@ -624,7 +624,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_qa_questions].
+    /// Implements [super::client::ContactCenterInsights::list_qa_questions].
     fn list_qa_questions(
         &self,
         _req: crate::model::ListQaQuestionsRequest,
@@ -636,7 +636,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::create_qa_scorecard].
+    /// Implements [super::client::ContactCenterInsights::create_qa_scorecard].
     fn create_qa_scorecard(
         &self,
         _req: crate::model::CreateQaScorecardRequest,
@@ -647,7 +647,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_qa_scorecard].
+    /// Implements [super::client::ContactCenterInsights::get_qa_scorecard].
     fn get_qa_scorecard(
         &self,
         _req: crate::model::GetQaScorecardRequest,
@@ -658,7 +658,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::update_qa_scorecard].
+    /// Implements [super::client::ContactCenterInsights::update_qa_scorecard].
     fn update_qa_scorecard(
         &self,
         _req: crate::model::UpdateQaScorecardRequest,
@@ -669,7 +669,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_qa_scorecard].
+    /// Implements [super::client::ContactCenterInsights::delete_qa_scorecard].
     fn delete_qa_scorecard(
         &self,
         _req: crate::model::DeleteQaScorecardRequest,
@@ -678,7 +678,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_qa_scorecards].
+    /// Implements [super::client::ContactCenterInsights::list_qa_scorecards].
     fn list_qa_scorecards(
         &self,
         _req: crate::model::ListQaScorecardsRequest,
@@ -690,7 +690,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::create_qa_scorecard_revision].
+    /// Implements [super::client::ContactCenterInsights::create_qa_scorecard_revision].
     fn create_qa_scorecard_revision(
         &self,
         _req: crate::model::CreateQaScorecardRevisionRequest,
@@ -702,7 +702,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_qa_scorecard_revision].
+    /// Implements [super::client::ContactCenterInsights::get_qa_scorecard_revision].
     fn get_qa_scorecard_revision(
         &self,
         _req: crate::model::GetQaScorecardRevisionRequest,
@@ -714,7 +714,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::tune_qa_scorecard_revision].
+    /// Implements [super::client::ContactCenterInsights::tune_qa_scorecard_revision].
     fn tune_qa_scorecard_revision(
         &self,
         _req: crate::model::TuneQaScorecardRevisionRequest,
@@ -726,7 +726,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::deploy_qa_scorecard_revision].
+    /// Implements [super::client::ContactCenterInsights::deploy_qa_scorecard_revision].
     fn deploy_qa_scorecard_revision(
         &self,
         _req: crate::model::DeployQaScorecardRevisionRequest,
@@ -738,7 +738,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::undeploy_qa_scorecard_revision].
+    /// Implements [super::client::ContactCenterInsights::undeploy_qa_scorecard_revision].
     fn undeploy_qa_scorecard_revision(
         &self,
         _req: crate::model::UndeployQaScorecardRevisionRequest,
@@ -750,7 +750,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_qa_scorecard_revision].
+    /// Implements [super::client::ContactCenterInsights::delete_qa_scorecard_revision].
     fn delete_qa_scorecard_revision(
         &self,
         _req: crate::model::DeleteQaScorecardRevisionRequest,
@@ -759,7 +759,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_qa_scorecard_revisions].
+    /// Implements [super::client::ContactCenterInsights::list_qa_scorecard_revisions].
     fn list_qa_scorecard_revisions(
         &self,
         _req: crate::model::ListQaScorecardRevisionsRequest,
@@ -772,7 +772,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::create_feedback_label].
+    /// Implements [super::client::ContactCenterInsights::create_feedback_label].
     fn create_feedback_label(
         &self,
         _req: crate::model::CreateFeedbackLabelRequest,
@@ -783,7 +783,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_feedback_labels].
+    /// Implements [super::client::ContactCenterInsights::list_feedback_labels].
     fn list_feedback_labels(
         &self,
         _req: crate::model::ListFeedbackLabelsRequest,
@@ -795,7 +795,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_feedback_label].
+    /// Implements [super::client::ContactCenterInsights::get_feedback_label].
     fn get_feedback_label(
         &self,
         _req: crate::model::GetFeedbackLabelRequest,
@@ -806,7 +806,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::update_feedback_label].
+    /// Implements [super::client::ContactCenterInsights::update_feedback_label].
     fn update_feedback_label(
         &self,
         _req: crate::model::UpdateFeedbackLabelRequest,
@@ -817,7 +817,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::delete_feedback_label].
+    /// Implements [super::client::ContactCenterInsights::delete_feedback_label].
     fn delete_feedback_label(
         &self,
         _req: crate::model::DeleteFeedbackLabelRequest,
@@ -826,7 +826,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_all_feedback_labels].
+    /// Implements [super::client::ContactCenterInsights::list_all_feedback_labels].
     fn list_all_feedback_labels(
         &self,
         _req: crate::model::ListAllFeedbackLabelsRequest,
@@ -838,7 +838,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::bulk_upload_feedback_labels].
+    /// Implements [super::client::ContactCenterInsights::bulk_upload_feedback_labels].
     fn bulk_upload_feedback_labels(
         &self,
         _req: crate::model::BulkUploadFeedbackLabelsRequest,
@@ -850,7 +850,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::bulk_download_feedback_labels].
+    /// Implements [super::client::ContactCenterInsights::bulk_download_feedback_labels].
     fn bulk_download_feedback_labels(
         &self,
         _req: crate::model::BulkDownloadFeedbackLabelsRequest,
@@ -862,7 +862,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::list_operations].
+    /// Implements [super::client::ContactCenterInsights::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -874,7 +874,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::get_operation].
+    /// Implements [super::client::ContactCenterInsights::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -886,7 +886,7 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContactCenterInsights::cancel_operation].
+    /// Implements [super::client::ContactCenterInsights::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

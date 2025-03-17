@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AttachedClusters](crate::stubs::AttachedClusters) using a [gclient::ReqwestClient].
+/// Implements [AttachedClusters](super::stubs::AttachedClusters) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AttachedClusters {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl AttachedClusters {
     }
 }
 
-impl crate::stubs::AttachedClusters for AttachedClusters {
+impl super::stubs::AttachedClusters for AttachedClusters {
     async fn create_attached_cluster(
         &self,
         req: crate::model::CreateAttachedClusterRequest,
@@ -357,7 +357,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
     }
 }
 
-/// Implements [AwsClusters](crate::stubs::AwsClusters) using a [gclient::ReqwestClient].
+/// Implements [AwsClusters](super::stubs::AwsClusters) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AwsClusters {
     inner: gclient::ReqwestClient,
@@ -378,7 +378,7 @@ impl AwsClusters {
     }
 }
 
-impl crate::stubs::AwsClusters for AwsClusters {
+impl super::stubs::AwsClusters for AwsClusters {
     async fn create_aws_cluster(
         &self,
         req: crate::model::CreateAwsClusterRequest,
@@ -851,7 +851,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
     }
 }
 
-/// Implements [AzureClusters](crate::stubs::AzureClusters) using a [gclient::ReqwestClient].
+/// Implements [AzureClusters](super::stubs::AzureClusters) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AzureClusters {
     inner: gclient::ReqwestClient,
@@ -872,7 +872,7 @@ impl AzureClusters {
     }
 }
 
-impl crate::stubs::AzureClusters for AzureClusters {
+impl super::stubs::AzureClusters for AzureClusters {
     async fn create_azure_client(
         &self,
         req: crate::model::CreateAzureClientRequest,

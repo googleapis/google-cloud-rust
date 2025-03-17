@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AccessContextManager](crate::stubs::AccessContextManager) using a [gclient::ReqwestClient].
+/// Implements [AccessContextManager](super::stubs::AccessContextManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AccessContextManager {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl AccessContextManager {
     }
 }
 
-impl crate::stubs::AccessContextManager for AccessContextManager {
+impl super::stubs::AccessContextManager for AccessContextManager {
     async fn list_access_policies(
         &self,
         req: crate::model::ListAccessPoliciesRequest,

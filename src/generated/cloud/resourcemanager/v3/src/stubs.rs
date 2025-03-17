@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Folders].
+/// Defines the trait used to implement [super::client::Folders].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Folders`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Folders: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Folders::get_folder].
+    /// Implements [super::client::Folders::get_folder].
     fn get_folder(
         &self,
         _req: crate::model::GetFolderRequest,
@@ -52,7 +52,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Folders::list_folders].
+    /// Implements [super::client::Folders::list_folders].
     fn list_folders(
         &self,
         _req: crate::model::ListFoldersRequest,
@@ -64,7 +64,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Folders::search_folders].
+    /// Implements [super::client::Folders::search_folders].
     fn search_folders(
         &self,
         _req: crate::model::SearchFoldersRequest,
@@ -76,7 +76,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Folders::create_folder].
+    /// Implements [super::client::Folders::create_folder].
     fn create_folder(
         &self,
         _req: crate::model::CreateFolderRequest,
@@ -88,7 +88,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Folders::update_folder].
+    /// Implements [super::client::Folders::update_folder].
     fn update_folder(
         &self,
         _req: crate::model::UpdateFolderRequest,
@@ -100,7 +100,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Folders::move_folder].
+    /// Implements [super::client::Folders::move_folder].
     fn move_folder(
         &self,
         _req: crate::model::MoveFolderRequest,
@@ -112,7 +112,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Folders::delete_folder].
+    /// Implements [super::client::Folders::delete_folder].
     fn delete_folder(
         &self,
         _req: crate::model::DeleteFolderRequest,
@@ -124,7 +124,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Folders::undelete_folder].
+    /// Implements [super::client::Folders::undelete_folder].
     fn undelete_folder(
         &self,
         _req: crate::model::UndeleteFolderRequest,
@@ -136,7 +136,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Folders::get_iam_policy].
+    /// Implements [super::client::Folders::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -147,7 +147,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Folders::set_iam_policy].
+    /// Implements [super::client::Folders::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -158,7 +158,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Folders::test_iam_permissions].
+    /// Implements [super::client::Folders::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -170,7 +170,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Folders::get_operation].
+    /// Implements [super::client::Folders::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -205,7 +205,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Organizations].
+/// Defines the trait used to implement [super::client::Organizations].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Organizations`.  In other use-cases, application developers only
@@ -217,7 +217,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Organizations: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Organizations::get_organization].
+    /// Implements [super::client::Organizations::get_organization].
     fn get_organization(
         &self,
         _req: crate::model::GetOrganizationRequest,
@@ -228,7 +228,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Organizations::search_organizations].
+    /// Implements [super::client::Organizations::search_organizations].
     fn search_organizations(
         &self,
         _req: crate::model::SearchOrganizationsRequest,
@@ -240,7 +240,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Organizations::get_iam_policy].
+    /// Implements [super::client::Organizations::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -251,7 +251,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Organizations::set_iam_policy].
+    /// Implements [super::client::Organizations::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -262,7 +262,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Organizations::test_iam_permissions].
+    /// Implements [super::client::Organizations::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -274,7 +274,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Organizations::get_operation].
+    /// Implements [super::client::Organizations::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -287,7 +287,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Projects].
+/// Defines the trait used to implement [super::client::Projects].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Projects`.  In other use-cases, application developers only
@@ -299,7 +299,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Projects: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Projects::get_project].
+    /// Implements [super::client::Projects::get_project].
     fn get_project(
         &self,
         _req: crate::model::GetProjectRequest,
@@ -310,7 +310,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Projects::list_projects].
+    /// Implements [super::client::Projects::list_projects].
     fn list_projects(
         &self,
         _req: crate::model::ListProjectsRequest,
@@ -322,7 +322,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Projects::search_projects].
+    /// Implements [super::client::Projects::search_projects].
     fn search_projects(
         &self,
         _req: crate::model::SearchProjectsRequest,
@@ -334,7 +334,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Projects::create_project].
+    /// Implements [super::client::Projects::create_project].
     fn create_project(
         &self,
         _req: crate::model::CreateProjectRequest,
@@ -346,7 +346,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Projects::update_project].
+    /// Implements [super::client::Projects::update_project].
     fn update_project(
         &self,
         _req: crate::model::UpdateProjectRequest,
@@ -358,7 +358,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Projects::move_project].
+    /// Implements [super::client::Projects::move_project].
     fn move_project(
         &self,
         _req: crate::model::MoveProjectRequest,
@@ -370,7 +370,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Projects::delete_project].
+    /// Implements [super::client::Projects::delete_project].
     fn delete_project(
         &self,
         _req: crate::model::DeleteProjectRequest,
@@ -382,7 +382,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Projects::undelete_project].
+    /// Implements [super::client::Projects::undelete_project].
     fn undelete_project(
         &self,
         _req: crate::model::UndeleteProjectRequest,
@@ -394,7 +394,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Projects::get_iam_policy].
+    /// Implements [super::client::Projects::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -405,7 +405,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Projects::set_iam_policy].
+    /// Implements [super::client::Projects::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -416,7 +416,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Projects::test_iam_permissions].
+    /// Implements [super::client::Projects::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -428,7 +428,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Projects::get_operation].
+    /// Implements [super::client::Projects::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -463,7 +463,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::TagBindings].
+/// Defines the trait used to implement [super::client::TagBindings].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TagBindings`.  In other use-cases, application developers only
@@ -475,7 +475,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TagBindings: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TagBindings::list_tag_bindings].
+    /// Implements [super::client::TagBindings::list_tag_bindings].
     fn list_tag_bindings(
         &self,
         _req: crate::model::ListTagBindingsRequest,
@@ -487,7 +487,7 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TagBindings::create_tag_binding].
+    /// Implements [super::client::TagBindings::create_tag_binding].
     fn create_tag_binding(
         &self,
         _req: crate::model::CreateTagBindingRequest,
@@ -499,7 +499,7 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagBindings::delete_tag_binding].
+    /// Implements [super::client::TagBindings::delete_tag_binding].
     fn delete_tag_binding(
         &self,
         _req: crate::model::DeleteTagBindingRequest,
@@ -511,7 +511,7 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagBindings::list_effective_tags].
+    /// Implements [super::client::TagBindings::list_effective_tags].
     fn list_effective_tags(
         &self,
         _req: crate::model::ListEffectiveTagsRequest,
@@ -523,7 +523,7 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TagBindings::get_operation].
+    /// Implements [super::client::TagBindings::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -558,7 +558,7 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::TagHolds].
+/// Defines the trait used to implement [super::client::TagHolds].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TagHolds`.  In other use-cases, application developers only
@@ -570,7 +570,7 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TagHolds: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TagHolds::create_tag_hold].
+    /// Implements [super::client::TagHolds::create_tag_hold].
     fn create_tag_hold(
         &self,
         _req: crate::model::CreateTagHoldRequest,
@@ -582,7 +582,7 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagHolds::delete_tag_hold].
+    /// Implements [super::client::TagHolds::delete_tag_hold].
     fn delete_tag_hold(
         &self,
         _req: crate::model::DeleteTagHoldRequest,
@@ -594,7 +594,7 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagHolds::list_tag_holds].
+    /// Implements [super::client::TagHolds::list_tag_holds].
     fn list_tag_holds(
         &self,
         _req: crate::model::ListTagHoldsRequest,
@@ -606,7 +606,7 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagHolds::get_operation].
+    /// Implements [super::client::TagHolds::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -641,7 +641,7 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::TagKeys].
+/// Defines the trait used to implement [super::client::TagKeys].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TagKeys`.  In other use-cases, application developers only
@@ -653,7 +653,7 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TagKeys: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TagKeys::list_tag_keys].
+    /// Implements [super::client::TagKeys::list_tag_keys].
     fn list_tag_keys(
         &self,
         _req: crate::model::ListTagKeysRequest,
@@ -665,7 +665,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagKeys::get_tag_key].
+    /// Implements [super::client::TagKeys::get_tag_key].
     fn get_tag_key(
         &self,
         _req: crate::model::GetTagKeyRequest,
@@ -676,7 +676,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagKeys::get_namespaced_tag_key].
+    /// Implements [super::client::TagKeys::get_namespaced_tag_key].
     fn get_namespaced_tag_key(
         &self,
         _req: crate::model::GetNamespacedTagKeyRequest,
@@ -687,7 +687,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagKeys::create_tag_key].
+    /// Implements [super::client::TagKeys::create_tag_key].
     fn create_tag_key(
         &self,
         _req: crate::model::CreateTagKeyRequest,
@@ -699,7 +699,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagKeys::update_tag_key].
+    /// Implements [super::client::TagKeys::update_tag_key].
     fn update_tag_key(
         &self,
         _req: crate::model::UpdateTagKeyRequest,
@@ -711,7 +711,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagKeys::delete_tag_key].
+    /// Implements [super::client::TagKeys::delete_tag_key].
     fn delete_tag_key(
         &self,
         _req: crate::model::DeleteTagKeyRequest,
@@ -723,7 +723,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagKeys::get_iam_policy].
+    /// Implements [super::client::TagKeys::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -734,7 +734,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagKeys::set_iam_policy].
+    /// Implements [super::client::TagKeys::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -745,7 +745,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagKeys::test_iam_permissions].
+    /// Implements [super::client::TagKeys::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -757,7 +757,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TagKeys::get_operation].
+    /// Implements [super::client::TagKeys::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -792,7 +792,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::TagValues].
+/// Defines the trait used to implement [super::client::TagValues].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TagValues`.  In other use-cases, application developers only
@@ -804,7 +804,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TagValues: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TagValues::list_tag_values].
+    /// Implements [super::client::TagValues::list_tag_values].
     fn list_tag_values(
         &self,
         _req: crate::model::ListTagValuesRequest,
@@ -816,7 +816,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagValues::get_tag_value].
+    /// Implements [super::client::TagValues::get_tag_value].
     fn get_tag_value(
         &self,
         _req: crate::model::GetTagValueRequest,
@@ -827,7 +827,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagValues::get_namespaced_tag_value].
+    /// Implements [super::client::TagValues::get_namespaced_tag_value].
     fn get_namespaced_tag_value(
         &self,
         _req: crate::model::GetNamespacedTagValueRequest,
@@ -838,7 +838,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagValues::create_tag_value].
+    /// Implements [super::client::TagValues::create_tag_value].
     fn create_tag_value(
         &self,
         _req: crate::model::CreateTagValueRequest,
@@ -850,7 +850,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagValues::update_tag_value].
+    /// Implements [super::client::TagValues::update_tag_value].
     fn update_tag_value(
         &self,
         _req: crate::model::UpdateTagValueRequest,
@@ -862,7 +862,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagValues::delete_tag_value].
+    /// Implements [super::client::TagValues::delete_tag_value].
     fn delete_tag_value(
         &self,
         _req: crate::model::DeleteTagValueRequest,
@@ -874,7 +874,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagValues::get_iam_policy].
+    /// Implements [super::client::TagValues::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -885,7 +885,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagValues::set_iam_policy].
+    /// Implements [super::client::TagValues::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -896,7 +896,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TagValues::test_iam_permissions].
+    /// Implements [super::client::TagValues::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -908,7 +908,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TagValues::get_operation].
+    /// Implements [super::client::TagValues::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

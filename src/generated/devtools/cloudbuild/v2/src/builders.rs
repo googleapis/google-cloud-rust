@@ -18,10 +18,10 @@ pub mod repository_manager {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::RepositoryManager] request builders.
+    /// Common implementation for [super::super::client::RepositoryManager] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>,
+        stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod repository_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod repository_manager {
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,7 +68,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection][crate::client::RepositoryManager::create_connection].
+        /// on [create_connection][super::super::client::RepositoryManager::create_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
@@ -141,7 +141,7 @@ pub mod repository_manager {
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -182,7 +182,7 @@ pub mod repository_manager {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -249,7 +249,7 @@ pub mod repository_manager {
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -273,7 +273,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection][crate::client::RepositoryManager::update_connection].
+        /// on [update_connection][super::super::client::RepositoryManager::update_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
@@ -355,7 +355,7 @@ pub mod repository_manager {
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -379,7 +379,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection][crate::client::RepositoryManager::delete_connection].
+        /// on [delete_connection][super::super::client::RepositoryManager::delete_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
@@ -446,7 +446,7 @@ pub mod repository_manager {
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -470,7 +470,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_repository][crate::client::RepositoryManager::create_repository].
+        /// on [create_repository][super::super::client::RepositoryManager::create_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
@@ -545,7 +545,7 @@ pub mod repository_manager {
     );
 
     impl BatchCreateRepositories {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -569,7 +569,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_create_repositories][crate::client::RepositoryManager::batch_create_repositories].
+        /// on [batch_create_repositories][super::super::client::RepositoryManager::batch_create_repositories].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_create_repositories(self.0.request, self.0.options)
@@ -643,7 +643,7 @@ pub mod repository_manager {
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -684,7 +684,7 @@ pub mod repository_manager {
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -760,7 +760,7 @@ pub mod repository_manager {
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -784,7 +784,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_repository][crate::client::RepositoryManager::delete_repository].
+        /// on [delete_repository][super::super::client::RepositoryManager::delete_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
@@ -851,7 +851,7 @@ pub mod repository_manager {
     pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
 
     impl FetchReadWriteToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -895,7 +895,7 @@ pub mod repository_manager {
     pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
 
     impl FetchReadToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -938,7 +938,7 @@ pub mod repository_manager {
     );
 
     impl FetchLinkableRepositories {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1010,7 +1010,7 @@ pub mod repository_manager {
     pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
 
     impl FetchGitRefs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1060,7 +1060,7 @@ pub mod repository_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1119,7 +1119,7 @@ pub mod repository_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1169,7 +1169,7 @@ pub mod repository_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1224,7 +1224,7 @@ pub mod repository_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1268,7 +1268,7 @@ pub mod repository_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

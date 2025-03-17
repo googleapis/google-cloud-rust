@@ -138,9 +138,9 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ServiceManager] also implement [ServiceManager].
+/// All implementations of [super::ServiceManager] also implement [ServiceManager].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ServiceManager> ServiceManager for T {
+impl<T: super::ServiceManager> ServiceManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_services(
         &self,

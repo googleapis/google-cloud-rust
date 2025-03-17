@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ConfidentialComputing].
+/// Defines the trait used to implement [super::client::ConfidentialComputing].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ConfidentialComputing`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ConfidentialComputing::create_challenge].
+    /// Implements [super::client::ConfidentialComputing::create_challenge].
     fn create_challenge(
         &self,
         _req: crate::model::CreateChallengeRequest,
@@ -51,7 +51,7 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfidentialComputing::verify_attestation].
+    /// Implements [super::client::ConfidentialComputing::verify_attestation].
     fn verify_attestation(
         &self,
         _req: crate::model::VerifyAttestationRequest,
@@ -63,7 +63,7 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ConfidentialComputing::list_locations].
+    /// Implements [super::client::ConfidentialComputing::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -75,7 +75,7 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ConfidentialComputing::get_location].
+    /// Implements [super::client::ConfidentialComputing::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,

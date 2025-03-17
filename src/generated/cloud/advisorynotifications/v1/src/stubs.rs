@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AdvisoryNotificationsService].
+/// Defines the trait used to implement [super::client::AdvisoryNotificationsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AdvisoryNotificationsService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AdvisoryNotificationsService::list_notifications].
+    /// Implements [super::client::AdvisoryNotificationsService::list_notifications].
     fn list_notifications(
         &self,
         _req: crate::model::ListNotificationsRequest,
@@ -52,7 +52,7 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AdvisoryNotificationsService::get_notification].
+    /// Implements [super::client::AdvisoryNotificationsService::get_notification].
     fn get_notification(
         &self,
         _req: crate::model::GetNotificationRequest,
@@ -63,7 +63,7 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AdvisoryNotificationsService::get_settings].
+    /// Implements [super::client::AdvisoryNotificationsService::get_settings].
     fn get_settings(
         &self,
         _req: crate::model::GetSettingsRequest,
@@ -74,7 +74,7 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AdvisoryNotificationsService::update_settings].
+    /// Implements [super::client::AdvisoryNotificationsService::update_settings].
     fn update_settings(
         &self,
         _req: crate::model::UpdateSettingsRequest,

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudMemcache].
+/// Defines the trait used to implement [super::client::CloudMemcache].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudMemcache`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudMemcache::list_instances].
+    /// Implements [super::client::CloudMemcache::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -53,7 +53,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudMemcache::get_instance].
+    /// Implements [super::client::CloudMemcache::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -64,7 +64,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudMemcache::create_instance].
+    /// Implements [super::client::CloudMemcache::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -76,7 +76,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudMemcache::update_instance].
+    /// Implements [super::client::CloudMemcache::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -88,7 +88,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudMemcache::update_parameters].
+    /// Implements [super::client::CloudMemcache::update_parameters].
     fn update_parameters(
         &self,
         _req: crate::model::UpdateParametersRequest,
@@ -100,7 +100,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudMemcache::delete_instance].
+    /// Implements [super::client::CloudMemcache::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -112,7 +112,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudMemcache::apply_parameters].
+    /// Implements [super::client::CloudMemcache::apply_parameters].
     fn apply_parameters(
         &self,
         _req: crate::model::ApplyParametersRequest,
@@ -124,7 +124,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudMemcache::reschedule_maintenance].
+    /// Implements [super::client::CloudMemcache::reschedule_maintenance].
     fn reschedule_maintenance(
         &self,
         _req: crate::model::RescheduleMaintenanceRequest,
@@ -136,7 +136,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudMemcache::list_locations].
+    /// Implements [super::client::CloudMemcache::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -148,7 +148,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudMemcache::get_location].
+    /// Implements [super::client::CloudMemcache::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -159,7 +159,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudMemcache::list_operations].
+    /// Implements [super::client::CloudMemcache::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -171,7 +171,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudMemcache::get_operation].
+    /// Implements [super::client::CloudMemcache::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -183,7 +183,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudMemcache::delete_operation].
+    /// Implements [super::client::CloudMemcache::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -192,7 +192,7 @@ pub trait CloudMemcache: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudMemcache::cancel_operation].
+    /// Implements [super::client::CloudMemcache::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

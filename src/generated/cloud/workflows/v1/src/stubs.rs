@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Workflows].
+/// Defines the trait used to implement [super::client::Workflows].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Workflows`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Workflows: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Workflows::list_workflows].
+    /// Implements [super::client::Workflows::list_workflows].
     fn list_workflows(
         &self,
         _req: crate::model::ListWorkflowsRequest,
@@ -53,7 +53,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workflows::get_workflow].
+    /// Implements [super::client::Workflows::get_workflow].
     fn get_workflow(
         &self,
         _req: crate::model::GetWorkflowRequest,
@@ -64,7 +64,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workflows::create_workflow].
+    /// Implements [super::client::Workflows::create_workflow].
     fn create_workflow(
         &self,
         _req: crate::model::CreateWorkflowRequest,
@@ -76,7 +76,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workflows::delete_workflow].
+    /// Implements [super::client::Workflows::delete_workflow].
     fn delete_workflow(
         &self,
         _req: crate::model::DeleteWorkflowRequest,
@@ -88,7 +88,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workflows::update_workflow].
+    /// Implements [super::client::Workflows::update_workflow].
     fn update_workflow(
         &self,
         _req: crate::model::UpdateWorkflowRequest,
@@ -100,7 +100,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workflows::list_locations].
+    /// Implements [super::client::Workflows::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -112,7 +112,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Workflows::get_location].
+    /// Implements [super::client::Workflows::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -123,7 +123,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workflows::list_operations].
+    /// Implements [super::client::Workflows::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -135,7 +135,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Workflows::get_operation].
+    /// Implements [super::client::Workflows::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -147,7 +147,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Workflows::delete_operation].
+    /// Implements [super::client::Workflows::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,

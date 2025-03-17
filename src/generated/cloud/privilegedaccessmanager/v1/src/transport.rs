@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [PrivilegedAccessManager](crate::stubs::PrivilegedAccessManager) using a [gclient::ReqwestClient].
+/// Implements [PrivilegedAccessManager](super::stubs::PrivilegedAccessManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PrivilegedAccessManager {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl PrivilegedAccessManager {
     }
 }
 
-impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
+impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
     async fn check_onboarding_status(
         &self,
         req: crate::model::CheckOnboardingStatusRequest,

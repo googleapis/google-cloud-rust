@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecureSourceManager](crate::stubs::SecureSourceManager) using a [gclient::ReqwestClient].
+/// Implements [SecureSourceManager](super::stubs::SecureSourceManager) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct SecureSourceManager {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl SecureSourceManager {
     }
 }
 
-impl crate::stubs::SecureSourceManager for SecureSourceManager {
+impl super::stubs::SecureSourceManager for SecureSourceManager {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,

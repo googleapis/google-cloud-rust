@@ -18,10 +18,10 @@ pub mod container_analysis {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ContainerAnalysis] request builders.
+    /// Common implementation for [super::super::client::ContainerAnalysis] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ContainerAnalysis>,
+        stub: Arc<dyn super::super::stubs::dynamic::ContainerAnalysis>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod container_analysis {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ContainerAnalysis>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod container_analysis {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ContainerAnalysis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -103,7 +103,7 @@ pub mod container_analysis {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ContainerAnalysis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -153,7 +153,7 @@ pub mod container_analysis {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ContainerAnalysis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -210,7 +210,7 @@ pub mod container_analysis {
     );
 
     impl GetVulnerabilityOccurrencesSummary {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ContainerAnalysis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

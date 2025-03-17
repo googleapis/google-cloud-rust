@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DataCatalog].
+/// Defines the trait used to implement [super::client::DataCatalog].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DataCatalog`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DataCatalog: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DataCatalog::search_catalog].
+    /// Implements [super::client::DataCatalog::search_catalog].
     fn search_catalog(
         &self,
         _req: crate::model::SearchCatalogRequest,
@@ -53,7 +53,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::create_entry_group].
+    /// Implements [super::client::DataCatalog::create_entry_group].
     fn create_entry_group(
         &self,
         _req: crate::model::CreateEntryGroupRequest,
@@ -64,7 +64,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::get_entry_group].
+    /// Implements [super::client::DataCatalog::get_entry_group].
     fn get_entry_group(
         &self,
         _req: crate::model::GetEntryGroupRequest,
@@ -75,7 +75,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::update_entry_group].
+    /// Implements [super::client::DataCatalog::update_entry_group].
     fn update_entry_group(
         &self,
         _req: crate::model::UpdateEntryGroupRequest,
@@ -86,7 +86,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::delete_entry_group].
+    /// Implements [super::client::DataCatalog::delete_entry_group].
     fn delete_entry_group(
         &self,
         _req: crate::model::DeleteEntryGroupRequest,
@@ -95,7 +95,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::list_entry_groups].
+    /// Implements [super::client::DataCatalog::list_entry_groups].
     fn list_entry_groups(
         &self,
         _req: crate::model::ListEntryGroupsRequest,
@@ -107,7 +107,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataCatalog::create_entry].
+    /// Implements [super::client::DataCatalog::create_entry].
     fn create_entry(
         &self,
         _req: crate::model::CreateEntryRequest,
@@ -116,7 +116,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Entry>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::update_entry].
+    /// Implements [super::client::DataCatalog::update_entry].
     fn update_entry(
         &self,
         _req: crate::model::UpdateEntryRequest,
@@ -125,7 +125,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Entry>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::delete_entry].
+    /// Implements [super::client::DataCatalog::delete_entry].
     fn delete_entry(
         &self,
         _req: crate::model::DeleteEntryRequest,
@@ -134,7 +134,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::get_entry].
+    /// Implements [super::client::DataCatalog::get_entry].
     fn get_entry(
         &self,
         _req: crate::model::GetEntryRequest,
@@ -143,7 +143,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Entry>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::lookup_entry].
+    /// Implements [super::client::DataCatalog::lookup_entry].
     fn lookup_entry(
         &self,
         _req: crate::model::LookupEntryRequest,
@@ -152,7 +152,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Entry>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::list_entries].
+    /// Implements [super::client::DataCatalog::list_entries].
     fn list_entries(
         &self,
         _req: crate::model::ListEntriesRequest,
@@ -164,7 +164,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::modify_entry_overview].
+    /// Implements [super::client::DataCatalog::modify_entry_overview].
     fn modify_entry_overview(
         &self,
         _req: crate::model::ModifyEntryOverviewRequest,
@@ -175,7 +175,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::modify_entry_contacts].
+    /// Implements [super::client::DataCatalog::modify_entry_contacts].
     fn modify_entry_contacts(
         &self,
         _req: crate::model::ModifyEntryContactsRequest,
@@ -186,7 +186,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::create_tag_template].
+    /// Implements [super::client::DataCatalog::create_tag_template].
     fn create_tag_template(
         &self,
         _req: crate::model::CreateTagTemplateRequest,
@@ -197,7 +197,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::get_tag_template].
+    /// Implements [super::client::DataCatalog::get_tag_template].
     fn get_tag_template(
         &self,
         _req: crate::model::GetTagTemplateRequest,
@@ -208,7 +208,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::update_tag_template].
+    /// Implements [super::client::DataCatalog::update_tag_template].
     fn update_tag_template(
         &self,
         _req: crate::model::UpdateTagTemplateRequest,
@@ -219,7 +219,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::delete_tag_template].
+    /// Implements [super::client::DataCatalog::delete_tag_template].
     fn delete_tag_template(
         &self,
         _req: crate::model::DeleteTagTemplateRequest,
@@ -228,7 +228,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::create_tag_template_field].
+    /// Implements [super::client::DataCatalog::create_tag_template_field].
     fn create_tag_template_field(
         &self,
         _req: crate::model::CreateTagTemplateFieldRequest,
@@ -240,7 +240,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::update_tag_template_field].
+    /// Implements [super::client::DataCatalog::update_tag_template_field].
     fn update_tag_template_field(
         &self,
         _req: crate::model::UpdateTagTemplateFieldRequest,
@@ -252,7 +252,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::rename_tag_template_field].
+    /// Implements [super::client::DataCatalog::rename_tag_template_field].
     fn rename_tag_template_field(
         &self,
         _req: crate::model::RenameTagTemplateFieldRequest,
@@ -264,7 +264,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::rename_tag_template_field_enum_value].
+    /// Implements [super::client::DataCatalog::rename_tag_template_field_enum_value].
     fn rename_tag_template_field_enum_value(
         &self,
         _req: crate::model::RenameTagTemplateFieldEnumValueRequest,
@@ -276,7 +276,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::delete_tag_template_field].
+    /// Implements [super::client::DataCatalog::delete_tag_template_field].
     fn delete_tag_template_field(
         &self,
         _req: crate::model::DeleteTagTemplateFieldRequest,
@@ -285,7 +285,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::create_tag].
+    /// Implements [super::client::DataCatalog::create_tag].
     fn create_tag(
         &self,
         _req: crate::model::CreateTagRequest,
@@ -294,7 +294,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Tag>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::update_tag].
+    /// Implements [super::client::DataCatalog::update_tag].
     fn update_tag(
         &self,
         _req: crate::model::UpdateTagRequest,
@@ -303,7 +303,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Tag>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::delete_tag].
+    /// Implements [super::client::DataCatalog::delete_tag].
     fn delete_tag(
         &self,
         _req: crate::model::DeleteTagRequest,
@@ -312,7 +312,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::list_tags].
+    /// Implements [super::client::DataCatalog::list_tags].
     fn list_tags(
         &self,
         _req: crate::model::ListTagsRequest,
@@ -324,7 +324,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::reconcile_tags].
+    /// Implements [super::client::DataCatalog::reconcile_tags].
     fn reconcile_tags(
         &self,
         _req: crate::model::ReconcileTagsRequest,
@@ -336,7 +336,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::star_entry].
+    /// Implements [super::client::DataCatalog::star_entry].
     fn star_entry(
         &self,
         _req: crate::model::StarEntryRequest,
@@ -348,7 +348,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::unstar_entry].
+    /// Implements [super::client::DataCatalog::unstar_entry].
     fn unstar_entry(
         &self,
         _req: crate::model::UnstarEntryRequest,
@@ -360,7 +360,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::set_iam_policy].
+    /// Implements [super::client::DataCatalog::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -371,7 +371,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::get_iam_policy].
+    /// Implements [super::client::DataCatalog::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -382,7 +382,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::test_iam_permissions].
+    /// Implements [super::client::DataCatalog::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -394,7 +394,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataCatalog::import_entries].
+    /// Implements [super::client::DataCatalog::import_entries].
     fn import_entries(
         &self,
         _req: crate::model::ImportEntriesRequest,
@@ -406,7 +406,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::set_config].
+    /// Implements [super::client::DataCatalog::set_config].
     fn set_config(
         &self,
         _req: crate::model::SetConfigRequest,
@@ -418,7 +418,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::retrieve_config].
+    /// Implements [super::client::DataCatalog::retrieve_config].
     fn retrieve_config(
         &self,
         _req: crate::model::RetrieveConfigRequest,
@@ -430,7 +430,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::retrieve_effective_config].
+    /// Implements [super::client::DataCatalog::retrieve_effective_config].
     fn retrieve_effective_config(
         &self,
         _req: crate::model::RetrieveEffectiveConfigRequest,
@@ -442,7 +442,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::list_operations].
+    /// Implements [super::client::DataCatalog::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -454,7 +454,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataCatalog::get_operation].
+    /// Implements [super::client::DataCatalog::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -466,7 +466,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataCatalog::delete_operation].
+    /// Implements [super::client::DataCatalog::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -475,7 +475,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataCatalog::cancel_operation].
+    /// Implements [super::client::DataCatalog::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -507,7 +507,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::PolicyTagManager].
+/// Defines the trait used to implement [super::client::PolicyTagManager].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PolicyTagManager`.  In other use-cases, application developers only
@@ -519,7 +519,7 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PolicyTagManager::create_taxonomy].
+    /// Implements [super::client::PolicyTagManager::create_taxonomy].
     fn create_taxonomy(
         &self,
         _req: crate::model::CreateTaxonomyRequest,
@@ -530,7 +530,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManager::delete_taxonomy].
+    /// Implements [super::client::PolicyTagManager::delete_taxonomy].
     fn delete_taxonomy(
         &self,
         _req: crate::model::DeleteTaxonomyRequest,
@@ -539,7 +539,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PolicyTagManager::update_taxonomy].
+    /// Implements [super::client::PolicyTagManager::update_taxonomy].
     fn update_taxonomy(
         &self,
         _req: crate::model::UpdateTaxonomyRequest,
@@ -550,7 +550,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManager::list_taxonomies].
+    /// Implements [super::client::PolicyTagManager::list_taxonomies].
     fn list_taxonomies(
         &self,
         _req: crate::model::ListTaxonomiesRequest,
@@ -562,7 +562,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyTagManager::get_taxonomy].
+    /// Implements [super::client::PolicyTagManager::get_taxonomy].
     fn get_taxonomy(
         &self,
         _req: crate::model::GetTaxonomyRequest,
@@ -573,7 +573,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManager::create_policy_tag].
+    /// Implements [super::client::PolicyTagManager::create_policy_tag].
     fn create_policy_tag(
         &self,
         _req: crate::model::CreatePolicyTagRequest,
@@ -584,7 +584,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManager::delete_policy_tag].
+    /// Implements [super::client::PolicyTagManager::delete_policy_tag].
     fn delete_policy_tag(
         &self,
         _req: crate::model::DeletePolicyTagRequest,
@@ -593,7 +593,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PolicyTagManager::update_policy_tag].
+    /// Implements [super::client::PolicyTagManager::update_policy_tag].
     fn update_policy_tag(
         &self,
         _req: crate::model::UpdatePolicyTagRequest,
@@ -604,7 +604,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManager::list_policy_tags].
+    /// Implements [super::client::PolicyTagManager::list_policy_tags].
     fn list_policy_tags(
         &self,
         _req: crate::model::ListPolicyTagsRequest,
@@ -616,7 +616,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyTagManager::get_policy_tag].
+    /// Implements [super::client::PolicyTagManager::get_policy_tag].
     fn get_policy_tag(
         &self,
         _req: crate::model::GetPolicyTagRequest,
@@ -627,7 +627,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManager::get_iam_policy].
+    /// Implements [super::client::PolicyTagManager::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -638,7 +638,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManager::set_iam_policy].
+    /// Implements [super::client::PolicyTagManager::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -649,7 +649,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManager::test_iam_permissions].
+    /// Implements [super::client::PolicyTagManager::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -661,7 +661,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyTagManager::list_operations].
+    /// Implements [super::client::PolicyTagManager::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -673,7 +673,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyTagManager::get_operation].
+    /// Implements [super::client::PolicyTagManager::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -685,7 +685,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManager::delete_operation].
+    /// Implements [super::client::PolicyTagManager::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -694,7 +694,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PolicyTagManager::cancel_operation].
+    /// Implements [super::client::PolicyTagManager::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -704,7 +704,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::PolicyTagManagerSerialization].
+/// Defines the trait used to implement [super::client::PolicyTagManagerSerialization].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PolicyTagManagerSerialization`.  In other use-cases, application developers only
@@ -716,7 +716,7 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PolicyTagManagerSerialization::replace_taxonomy].
+    /// Implements [super::client::PolicyTagManagerSerialization::replace_taxonomy].
     fn replace_taxonomy(
         &self,
         _req: crate::model::ReplaceTaxonomyRequest,
@@ -727,7 +727,7 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManagerSerialization::import_taxonomies].
+    /// Implements [super::client::PolicyTagManagerSerialization::import_taxonomies].
     fn import_taxonomies(
         &self,
         _req: crate::model::ImportTaxonomiesRequest,
@@ -739,7 +739,7 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyTagManagerSerialization::export_taxonomies].
+    /// Implements [super::client::PolicyTagManagerSerialization::export_taxonomies].
     fn export_taxonomies(
         &self,
         _req: crate::model::ExportTaxonomiesRequest,
@@ -751,7 +751,7 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyTagManagerSerialization::list_operations].
+    /// Implements [super::client::PolicyTagManagerSerialization::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -763,7 +763,7 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyTagManagerSerialization::get_operation].
+    /// Implements [super::client::PolicyTagManagerSerialization::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -775,7 +775,7 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyTagManagerSerialization::delete_operation].
+    /// Implements [super::client::PolicyTagManagerSerialization::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -784,7 +784,7 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PolicyTagManagerSerialization::cancel_operation].
+    /// Implements [super::client::PolicyTagManagerSerialization::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Simulator].
+/// Defines the trait used to implement [super::client::Simulator].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Simulator`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Simulator: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Simulator::get_replay].
+    /// Implements [super::client::Simulator::get_replay].
     fn get_replay(
         &self,
         _req: crate::model::GetReplayRequest,
@@ -52,7 +52,7 @@ pub trait Simulator: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Simulator::create_replay].
+    /// Implements [super::client::Simulator::create_replay].
     fn create_replay(
         &self,
         _req: crate::model::CreateReplayRequest,
@@ -64,7 +64,7 @@ pub trait Simulator: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Simulator::list_replay_results].
+    /// Implements [super::client::Simulator::list_replay_results].
     fn list_replay_results(
         &self,
         _req: crate::model::ListReplayResultsRequest,
@@ -76,7 +76,7 @@ pub trait Simulator: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Simulator::list_operations].
+    /// Implements [super::client::Simulator::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -88,7 +88,7 @@ pub trait Simulator: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Simulator::get_operation].
+    /// Implements [super::client::Simulator::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

@@ -68,9 +68,9 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::LoggingServiceV2] also implement [LoggingServiceV2].
+/// All implementations of [super::LoggingServiceV2] also implement [LoggingServiceV2].
 #[async_trait::async_trait]
-impl<T: crate::stubs::LoggingServiceV2> LoggingServiceV2 for T {
+impl<T: super::LoggingServiceV2> LoggingServiceV2 for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_log(
         &self,
@@ -368,9 +368,9 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ConfigServiceV2] also implement [ConfigServiceV2].
+/// All implementations of [super::ConfigServiceV2] also implement [ConfigServiceV2].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ConfigServiceV2> ConfigServiceV2 for T {
+impl<T: super::ConfigServiceV2> ConfigServiceV2 for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_buckets(
         &self,
@@ -753,9 +753,9 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::MetricsServiceV2] also implement [MetricsServiceV2].
+/// All implementations of [super::MetricsServiceV2] also implement [MetricsServiceV2].
 #[async_trait::async_trait]
-impl<T: crate::stubs::MetricsServiceV2> MetricsServiceV2 for T {
+impl<T: super::MetricsServiceV2> MetricsServiceV2 for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_log_metrics(
         &self,

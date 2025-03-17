@@ -348,9 +348,9 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Connection>;
 }
 
-/// All implementations of [crate::stubs::DlpService] also implement [DlpService].
+/// All implementations of [super::DlpService] also implement [DlpService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DlpService> DlpService for T {
+impl<T: super::DlpService> DlpService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn inspect_content(
         &self,

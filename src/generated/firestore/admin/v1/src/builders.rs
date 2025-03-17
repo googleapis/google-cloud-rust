@@ -18,10 +18,10 @@ pub mod firestore_admin {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::FirestoreAdmin] request builders.
+    /// Common implementation for [super::super::client::FirestoreAdmin] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>,
+        stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod firestore_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod firestore_admin {
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +65,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_index][crate::client::FirestoreAdmin::create_index].
+        /// on [create_index][super::super::client::FirestoreAdmin::create_index].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_index(self.0.request, self.0.options)
@@ -132,7 +132,7 @@ pub mod firestore_admin {
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -205,7 +205,7 @@ pub mod firestore_admin {
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -246,7 +246,7 @@ pub mod firestore_admin {
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -287,7 +287,7 @@ pub mod firestore_admin {
     pub struct GetField(RequestBuilder<crate::model::GetFieldRequest>);
 
     impl GetField {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -328,7 +328,7 @@ pub mod firestore_admin {
     pub struct UpdateField(RequestBuilder<crate::model::UpdateFieldRequest>);
 
     impl UpdateField {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -349,7 +349,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_field][crate::client::FirestoreAdmin::update_field].
+        /// on [update_field][super::super::client::FirestoreAdmin::update_field].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_field(self.0.request, self.0.options)
@@ -419,7 +419,7 @@ pub mod firestore_admin {
     pub struct ListFields(RequestBuilder<crate::model::ListFieldsRequest>);
 
     impl ListFields {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -492,7 +492,7 @@ pub mod firestore_admin {
     pub struct ExportDocuments(RequestBuilder<crate::model::ExportDocumentsRequest>);
 
     impl ExportDocuments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -513,7 +513,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_documents][crate::client::FirestoreAdmin::export_documents].
+        /// on [export_documents][super::super::client::FirestoreAdmin::export_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_documents(self.0.request, self.0.options)
@@ -611,7 +611,7 @@ pub mod firestore_admin {
     pub struct ImportDocuments(RequestBuilder<crate::model::ImportDocumentsRequest>);
 
     impl ImportDocuments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -632,7 +632,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_documents][crate::client::FirestoreAdmin::import_documents].
+        /// on [import_documents][super::super::client::FirestoreAdmin::import_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_documents(self.0.request, self.0.options)
@@ -715,7 +715,7 @@ pub mod firestore_admin {
     pub struct BulkDeleteDocuments(RequestBuilder<crate::model::BulkDeleteDocumentsRequest>);
 
     impl BulkDeleteDocuments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -739,7 +739,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_delete_documents][crate::client::FirestoreAdmin::bulk_delete_documents].
+        /// on [bulk_delete_documents][super::super::client::FirestoreAdmin::bulk_delete_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_delete_documents(self.0.request, self.0.options)
@@ -824,7 +824,7 @@ pub mod firestore_admin {
     pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
 
     impl CreateDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -845,7 +845,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_database][crate::client::FirestoreAdmin::create_database].
+        /// on [create_database][super::super::client::FirestoreAdmin::create_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_database(self.0.request, self.0.options)
@@ -919,7 +919,7 @@ pub mod firestore_admin {
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -960,7 +960,7 @@ pub mod firestore_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1007,7 +1007,7 @@ pub mod firestore_admin {
     pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
     impl UpdateDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1028,7 +1028,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_database][crate::client::FirestoreAdmin::update_database].
+        /// on [update_database][super::super::client::FirestoreAdmin::update_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_database(self.0.request, self.0.options)
@@ -1099,7 +1099,7 @@ pub mod firestore_admin {
     pub struct DeleteDatabase(RequestBuilder<crate::model::DeleteDatabaseRequest>);
 
     impl DeleteDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1120,7 +1120,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_database][crate::client::FirestoreAdmin::delete_database].
+        /// on [delete_database][super::super::client::FirestoreAdmin::delete_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_database(self.0.request, self.0.options)
@@ -1185,7 +1185,7 @@ pub mod firestore_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1226,7 +1226,7 @@ pub mod firestore_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1273,7 +1273,7 @@ pub mod firestore_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1314,7 +1314,7 @@ pub mod firestore_admin {
     pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
     impl RestoreDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1335,7 +1335,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_database][crate::client::FirestoreAdmin::restore_database].
+        /// on [restore_database][super::super::client::FirestoreAdmin::restore_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_database(self.0.request, self.0.options)
@@ -1417,7 +1417,7 @@ pub mod firestore_admin {
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
 
     impl CreateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1470,7 +1470,7 @@ pub mod firestore_admin {
     pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
     impl GetBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1514,7 +1514,7 @@ pub mod firestore_admin {
     pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
 
     impl ListBackupSchedules {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1558,7 +1558,7 @@ pub mod firestore_admin {
     pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
 
     impl UpdateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1614,7 +1614,7 @@ pub mod firestore_admin {
     pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
 
     impl DeleteBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1658,7 +1658,7 @@ pub mod firestore_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1734,7 +1734,7 @@ pub mod firestore_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1778,7 +1778,7 @@ pub mod firestore_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1822,7 +1822,7 @@ pub mod firestore_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::FirestoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

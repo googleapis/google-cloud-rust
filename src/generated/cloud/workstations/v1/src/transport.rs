@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Workstations](crate::stubs::Workstations) using a [gclient::ReqwestClient].
+/// Implements [Workstations](super::stubs::Workstations) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Workstations {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Workstations {
     }
 }
 
-impl crate::stubs::Workstations for Workstations {
+impl super::stubs::Workstations for Workstations {
     async fn get_workstation_cluster(
         &self,
         req: crate::model::GetWorkstationClusterRequest,

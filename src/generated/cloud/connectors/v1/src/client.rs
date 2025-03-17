@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Connectors {
-    inner: Arc<dyn crate::stubs::dynamic::Connectors>,
+    inner: Arc<dyn super::stubs::dynamic::Connectors>,
 }
 
 impl Connectors {
@@ -59,7 +59,7 @@ impl Connectors {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Connectors + 'static,
+        T: super::stubs::Connectors + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl Connectors {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Connectors>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Connectors>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl Connectors {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Connectors> {
-        crate::transport::Connectors::new(conf).await
+    ) -> Result<impl super::stubs::Connectors> {
+        super::transport::Connectors::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Connectors> {
+    ) -> Result<impl super::stubs::Connectors> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Connectors::new)
+            .map(super::tracing::Connectors::new)
     }
 
     /// Lists Connections in a given project and location.
     pub fn list_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::ListConnections {
-        crate::builders::connectors::ListConnections::new(self.inner.clone())
+    ) -> super::builders::connectors::ListConnections {
+        super::builders::connectors::ListConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl Connectors {
     pub fn get_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::GetConnection {
-        crate::builders::connectors::GetConnection::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::GetConnection {
+        super::builders::connectors::GetConnection::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Connection in a given project and location.
@@ -120,8 +120,8 @@ impl Connectors {
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::CreateConnection {
-        crate::builders::connectors::CreateConnection::new(self.inner.clone())
+    ) -> super::builders::connectors::CreateConnection {
+        super::builders::connectors::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -139,8 +139,8 @@ impl Connectors {
     pub fn update_connection(
         &self,
         connection: impl Into<crate::model::Connection>,
-    ) -> crate::builders::connectors::UpdateConnection {
-        crate::builders::connectors::UpdateConnection::new(self.inner.clone())
+    ) -> super::builders::connectors::UpdateConnection {
+        super::builders::connectors::UpdateConnection::new(self.inner.clone())
             .set_connection(connection.into())
     }
 
@@ -158,16 +158,16 @@ impl Connectors {
     pub fn delete_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::DeleteConnection {
-        crate::builders::connectors::DeleteConnection::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::DeleteConnection {
+        super::builders::connectors::DeleteConnection::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Providers in a given project and location.
     pub fn list_providers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::ListProviders {
-        crate::builders::connectors::ListProviders::new(self.inner.clone())
+    ) -> super::builders::connectors::ListProviders {
+        super::builders::connectors::ListProviders::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -175,16 +175,16 @@ impl Connectors {
     pub fn get_provider(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::GetProvider {
-        crate::builders::connectors::GetProvider::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::GetProvider {
+        super::builders::connectors::GetProvider::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Connectors in a given project and location.
     pub fn list_connectors(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::ListConnectors {
-        crate::builders::connectors::ListConnectors::new(self.inner.clone())
+    ) -> super::builders::connectors::ListConnectors {
+        super::builders::connectors::ListConnectors::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -192,16 +192,16 @@ impl Connectors {
     pub fn get_connector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::GetConnector {
-        crate::builders::connectors::GetConnector::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::GetConnector {
+        super::builders::connectors::GetConnector::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Connector Versions in a given project and location.
     pub fn list_connector_versions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::ListConnectorVersions {
-        crate::builders::connectors::ListConnectorVersions::new(self.inner.clone())
+    ) -> super::builders::connectors::ListConnectorVersions {
+        super::builders::connectors::ListConnectorVersions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -209,8 +209,8 @@ impl Connectors {
     pub fn get_connector_version(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::GetConnectorVersion {
-        crate::builders::connectors::GetConnectorVersion::new(self.inner.clone())
+    ) -> super::builders::connectors::GetConnectorVersion {
+        super::builders::connectors::GetConnectorVersion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -219,8 +219,8 @@ impl Connectors {
     pub fn get_connection_schema_metadata(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::GetConnectionSchemaMetadata {
-        crate::builders::connectors::GetConnectionSchemaMetadata::new(self.inner.clone())
+    ) -> super::builders::connectors::GetConnectionSchemaMetadata {
+        super::builders::connectors::GetConnectionSchemaMetadata::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -238,8 +238,8 @@ impl Connectors {
     pub fn refresh_connection_schema_metadata(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::RefreshConnectionSchemaMetadata {
-        crate::builders::connectors::RefreshConnectionSchemaMetadata::new(self.inner.clone())
+    ) -> super::builders::connectors::RefreshConnectionSchemaMetadata {
+        super::builders::connectors::RefreshConnectionSchemaMetadata::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -247,8 +247,8 @@ impl Connectors {
     pub fn list_runtime_entity_schemas(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::ListRuntimeEntitySchemas {
-        crate::builders::connectors::ListRuntimeEntitySchemas::new(self.inner.clone())
+    ) -> super::builders::connectors::ListRuntimeEntitySchemas {
+        super::builders::connectors::ListRuntimeEntitySchemas::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -256,8 +256,8 @@ impl Connectors {
     pub fn list_runtime_action_schemas(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::ListRuntimeActionSchemas {
-        crate::builders::connectors::ListRuntimeActionSchemas::new(self.inner.clone())
+    ) -> super::builders::connectors::ListRuntimeActionSchemas {
+        super::builders::connectors::ListRuntimeActionSchemas::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -266,8 +266,8 @@ impl Connectors {
     pub fn get_runtime_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::GetRuntimeConfig {
-        crate::builders::connectors::GetRuntimeConfig::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::GetRuntimeConfig {
+        super::builders::connectors::GetRuntimeConfig::new(self.inner.clone()).set_name(name.into())
     }
 
     /// GetGlobalSettings gets settings of a project.
@@ -275,8 +275,8 @@ impl Connectors {
     pub fn get_global_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::GetGlobalSettings {
-        crate::builders::connectors::GetGlobalSettings::new(self.inner.clone())
+    ) -> super::builders::connectors::GetGlobalSettings {
+        super::builders::connectors::GetGlobalSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -284,16 +284,16 @@ impl Connectors {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::ListLocations {
-        crate::builders::connectors::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::ListLocations {
+        super::builders::connectors::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::GetLocation {
-        crate::builders::connectors::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::GetLocation {
+        super::builders::connectors::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -304,8 +304,8 @@ impl Connectors {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::SetIamPolicy {
-        crate::builders::connectors::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::connectors::SetIamPolicy {
+        super::builders::connectors::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -314,8 +314,8 @@ impl Connectors {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::GetIamPolicy {
-        crate::builders::connectors::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::connectors::GetIamPolicy {
+        super::builders::connectors::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -329,8 +329,8 @@ impl Connectors {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::TestIamPermissions {
-        crate::builders::connectors::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::connectors::TestIamPermissions {
+        super::builders::connectors::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -339,8 +339,8 @@ impl Connectors {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::ListOperations {
-        crate::builders::connectors::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::ListOperations {
+        super::builders::connectors::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -349,8 +349,8 @@ impl Connectors {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::GetOperation {
-        crate::builders::connectors::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::GetOperation {
+        super::builders::connectors::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -359,8 +359,8 @@ impl Connectors {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::DeleteOperation {
-        crate::builders::connectors::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::DeleteOperation {
+        super::builders::connectors::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -369,7 +369,7 @@ impl Connectors {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::connectors::CancelOperation {
-        crate::builders::connectors::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::connectors::CancelOperation {
+        super::builders::connectors::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

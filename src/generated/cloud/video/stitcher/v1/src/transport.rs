@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [VideoStitcherService](crate::stubs::VideoStitcherService) using a [gclient::ReqwestClient].
+/// Implements [VideoStitcherService](super::stubs::VideoStitcherService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct VideoStitcherService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl VideoStitcherService {
     }
 }
 
-impl crate::stubs::VideoStitcherService for VideoStitcherService {
+impl super::stubs::VideoStitcherService for VideoStitcherService {
     async fn create_cdn_key(
         &self,
         req: crate::model::CreateCdnKeyRequest,

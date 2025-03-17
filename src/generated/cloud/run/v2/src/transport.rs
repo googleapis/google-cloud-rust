@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Builds](crate::stubs::Builds) using a [gclient::ReqwestClient].
+/// Implements [Builds](super::stubs::Builds) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Builds {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl Builds {
     }
 }
 
-impl crate::stubs::Builds for Builds {
+impl super::stubs::Builds for Builds {
     async fn submit_build(
         &self,
         req: crate::model::SubmitBuildRequest,
@@ -138,7 +138,7 @@ impl crate::stubs::Builds for Builds {
     }
 }
 
-/// Implements [Executions](crate::stubs::Executions) using a [gclient::ReqwestClient].
+/// Implements [Executions](super::stubs::Executions) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Executions {
     inner: gclient::ReqwestClient,
@@ -159,7 +159,7 @@ impl Executions {
     }
 }
 
-impl crate::stubs::Executions for Executions {
+impl super::stubs::Executions for Executions {
     async fn get_execution(
         &self,
         req: crate::model::GetExecutionRequest,
@@ -334,7 +334,7 @@ impl crate::stubs::Executions for Executions {
     }
 }
 
-/// Implements [Jobs](crate::stubs::Jobs) using a [gclient::ReqwestClient].
+/// Implements [Jobs](super::stubs::Jobs) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Jobs {
     inner: gclient::ReqwestClient,
@@ -353,7 +353,7 @@ impl Jobs {
     }
 }
 
-impl crate::stubs::Jobs for Jobs {
+impl super::stubs::Jobs for Jobs {
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,
@@ -644,7 +644,7 @@ impl crate::stubs::Jobs for Jobs {
     }
 }
 
-/// Implements [Revisions](crate::stubs::Revisions) using a [gclient::ReqwestClient].
+/// Implements [Revisions](super::stubs::Revisions) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Revisions {
     inner: gclient::ReqwestClient,
@@ -665,7 +665,7 @@ impl Revisions {
     }
 }
 
-impl crate::stubs::Revisions for Revisions {
+impl super::stubs::Revisions for Revisions {
     async fn get_revision(
         &self,
         req: crate::model::GetRevisionRequest,
@@ -823,7 +823,7 @@ impl crate::stubs::Revisions for Revisions {
     }
 }
 
-/// Implements [Services](crate::stubs::Services) using a [gclient::ReqwestClient].
+/// Implements [Services](super::stubs::Services) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Services {
     inner: gclient::ReqwestClient,
@@ -844,7 +844,7 @@ impl Services {
     }
 }
 
-impl crate::stubs::Services for Services {
+impl super::stubs::Services for Services {
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
@@ -1135,7 +1135,7 @@ impl crate::stubs::Services for Services {
     }
 }
 
-/// Implements [Tasks](crate::stubs::Tasks) using a [gclient::ReqwestClient].
+/// Implements [Tasks](super::stubs::Tasks) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Tasks {
     inner: gclient::ReqwestClient,
@@ -1154,7 +1154,7 @@ impl Tasks {
     }
 }
 
-impl crate::stubs::Tasks for Tasks {
+impl super::stubs::Tasks for Tasks {
     async fn get_task(
         &self,
         req: crate::model::GetTaskRequest,

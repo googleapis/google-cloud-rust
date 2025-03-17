@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ReservationService](crate::stubs::ReservationService) using a [gclient::ReqwestClient].
+/// Implements [ReservationService](super::stubs::ReservationService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct ReservationService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl ReservationService {
     }
 }
 
-impl crate::stubs::ReservationService for ReservationService {
+impl super::stubs::ReservationService for ReservationService {
     async fn create_reservation(
         &self,
         req: crate::model::CreateReservationRequest,

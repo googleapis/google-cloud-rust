@@ -66,9 +66,9 @@ pub trait Applications: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Applications] also implement [Applications].
+/// All implementations of [super::Applications] also implement [Applications].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Applications> Applications for T {
+impl<T: super::Applications> Applications for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_application(
         &self,
@@ -188,9 +188,9 @@ pub trait Services: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Services] also implement [Services].
+/// All implementations of [super::Services] also implement [Services].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Services> Services for T {
+impl<T: super::Services> Services for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_services(
         &self,
@@ -316,9 +316,9 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Versions] also implement [Versions].
+/// All implementations of [super::Versions] also implement [Versions].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Versions> Versions for T {
+impl<T: super::Versions> Versions for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_versions(
         &self,
@@ -447,9 +447,9 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Instances] also implement [Instances].
+/// All implementations of [super::Instances] also implement [Instances].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Instances> Instances for T {
+impl<T: super::Instances> Instances for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_instances(
         &self,
@@ -571,9 +571,9 @@ pub trait Firewall: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::Firewall] also implement [Firewall].
+/// All implementations of [super::Firewall] also implement [Firewall].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Firewall> Firewall for T {
+impl<T: super::Firewall> Firewall for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_ingress_rules(
         &self,
@@ -669,9 +669,9 @@ pub trait AuthorizedDomains: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::AuthorizedDomains] also implement [AuthorizedDomains].
+/// All implementations of [super::AuthorizedDomains] also implement [AuthorizedDomains].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AuthorizedDomains> AuthorizedDomains for T {
+impl<T: super::AuthorizedDomains> AuthorizedDomains for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_authorized_domains(
         &self,
@@ -746,9 +746,9 @@ pub trait AuthorizedCertificates: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::AuthorizedCertificates] also implement [AuthorizedCertificates].
+/// All implementations of [super::AuthorizedCertificates] also implement [AuthorizedCertificates].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AuthorizedCertificates> AuthorizedCertificates for T {
+impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_authorized_certificates(
         &self,
@@ -869,9 +869,9 @@ pub trait DomainMappings: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DomainMappings] also implement [DomainMappings].
+/// All implementations of [super::DomainMappings] also implement [DomainMappings].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DomainMappings> DomainMappings for T {
+impl<T: super::DomainMappings> DomainMappings for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_domain_mappings(
         &self,

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudDeploy].
+/// Defines the trait used to implement [super::client::CloudDeploy].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudDeploy`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudDeploy::list_delivery_pipelines].
+    /// Implements [super::client::CloudDeploy::list_delivery_pipelines].
     fn list_delivery_pipelines(
         &self,
         _req: crate::model::ListDeliveryPipelinesRequest,
@@ -53,7 +53,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_delivery_pipeline].
+    /// Implements [super::client::CloudDeploy::get_delivery_pipeline].
     fn get_delivery_pipeline(
         &self,
         _req: crate::model::GetDeliveryPipelineRequest,
@@ -65,7 +65,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::create_delivery_pipeline].
+    /// Implements [super::client::CloudDeploy::create_delivery_pipeline].
     fn create_delivery_pipeline(
         &self,
         _req: crate::model::CreateDeliveryPipelineRequest,
@@ -77,7 +77,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::update_delivery_pipeline].
+    /// Implements [super::client::CloudDeploy::update_delivery_pipeline].
     fn update_delivery_pipeline(
         &self,
         _req: crate::model::UpdateDeliveryPipelineRequest,
@@ -89,7 +89,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::delete_delivery_pipeline].
+    /// Implements [super::client::CloudDeploy::delete_delivery_pipeline].
     fn delete_delivery_pipeline(
         &self,
         _req: crate::model::DeleteDeliveryPipelineRequest,
@@ -101,7 +101,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::list_targets].
+    /// Implements [super::client::CloudDeploy::list_targets].
     fn list_targets(
         &self,
         _req: crate::model::ListTargetsRequest,
@@ -113,7 +113,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::rollback_target].
+    /// Implements [super::client::CloudDeploy::rollback_target].
     fn rollback_target(
         &self,
         _req: crate::model::RollbackTargetRequest,
@@ -125,7 +125,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_target].
+    /// Implements [super::client::CloudDeploy::get_target].
     fn get_target(
         &self,
         _req: crate::model::GetTargetRequest,
@@ -136,7 +136,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::create_target].
+    /// Implements [super::client::CloudDeploy::create_target].
     fn create_target(
         &self,
         _req: crate::model::CreateTargetRequest,
@@ -148,7 +148,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::update_target].
+    /// Implements [super::client::CloudDeploy::update_target].
     fn update_target(
         &self,
         _req: crate::model::UpdateTargetRequest,
@@ -160,7 +160,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::delete_target].
+    /// Implements [super::client::CloudDeploy::delete_target].
     fn delete_target(
         &self,
         _req: crate::model::DeleteTargetRequest,
@@ -172,7 +172,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::list_custom_target_types].
+    /// Implements [super::client::CloudDeploy::list_custom_target_types].
     fn list_custom_target_types(
         &self,
         _req: crate::model::ListCustomTargetTypesRequest,
@@ -184,7 +184,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_custom_target_type].
+    /// Implements [super::client::CloudDeploy::get_custom_target_type].
     fn get_custom_target_type(
         &self,
         _req: crate::model::GetCustomTargetTypeRequest,
@@ -196,7 +196,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::create_custom_target_type].
+    /// Implements [super::client::CloudDeploy::create_custom_target_type].
     fn create_custom_target_type(
         &self,
         _req: crate::model::CreateCustomTargetTypeRequest,
@@ -208,7 +208,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::update_custom_target_type].
+    /// Implements [super::client::CloudDeploy::update_custom_target_type].
     fn update_custom_target_type(
         &self,
         _req: crate::model::UpdateCustomTargetTypeRequest,
@@ -220,7 +220,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::delete_custom_target_type].
+    /// Implements [super::client::CloudDeploy::delete_custom_target_type].
     fn delete_custom_target_type(
         &self,
         _req: crate::model::DeleteCustomTargetTypeRequest,
@@ -232,7 +232,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::list_releases].
+    /// Implements [super::client::CloudDeploy::list_releases].
     fn list_releases(
         &self,
         _req: crate::model::ListReleasesRequest,
@@ -244,7 +244,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_release].
+    /// Implements [super::client::CloudDeploy::get_release].
     fn get_release(
         &self,
         _req: crate::model::GetReleaseRequest,
@@ -255,7 +255,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::create_release].
+    /// Implements [super::client::CloudDeploy::create_release].
     fn create_release(
         &self,
         _req: crate::model::CreateReleaseRequest,
@@ -267,7 +267,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::abandon_release].
+    /// Implements [super::client::CloudDeploy::abandon_release].
     fn abandon_release(
         &self,
         _req: crate::model::AbandonReleaseRequest,
@@ -279,7 +279,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::create_deploy_policy].
+    /// Implements [super::client::CloudDeploy::create_deploy_policy].
     fn create_deploy_policy(
         &self,
         _req: crate::model::CreateDeployPolicyRequest,
@@ -291,7 +291,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::update_deploy_policy].
+    /// Implements [super::client::CloudDeploy::update_deploy_policy].
     fn update_deploy_policy(
         &self,
         _req: crate::model::UpdateDeployPolicyRequest,
@@ -303,7 +303,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::delete_deploy_policy].
+    /// Implements [super::client::CloudDeploy::delete_deploy_policy].
     fn delete_deploy_policy(
         &self,
         _req: crate::model::DeleteDeployPolicyRequest,
@@ -315,7 +315,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::list_deploy_policies].
+    /// Implements [super::client::CloudDeploy::list_deploy_policies].
     fn list_deploy_policies(
         &self,
         _req: crate::model::ListDeployPoliciesRequest,
@@ -327,7 +327,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_deploy_policy].
+    /// Implements [super::client::CloudDeploy::get_deploy_policy].
     fn get_deploy_policy(
         &self,
         _req: crate::model::GetDeployPolicyRequest,
@@ -338,7 +338,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::approve_rollout].
+    /// Implements [super::client::CloudDeploy::approve_rollout].
     fn approve_rollout(
         &self,
         _req: crate::model::ApproveRolloutRequest,
@@ -350,7 +350,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::advance_rollout].
+    /// Implements [super::client::CloudDeploy::advance_rollout].
     fn advance_rollout(
         &self,
         _req: crate::model::AdvanceRolloutRequest,
@@ -362,7 +362,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::cancel_rollout].
+    /// Implements [super::client::CloudDeploy::cancel_rollout].
     fn cancel_rollout(
         &self,
         _req: crate::model::CancelRolloutRequest,
@@ -374,7 +374,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::list_rollouts].
+    /// Implements [super::client::CloudDeploy::list_rollouts].
     fn list_rollouts(
         &self,
         _req: crate::model::ListRolloutsRequest,
@@ -386,7 +386,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_rollout].
+    /// Implements [super::client::CloudDeploy::get_rollout].
     fn get_rollout(
         &self,
         _req: crate::model::GetRolloutRequest,
@@ -397,7 +397,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::create_rollout].
+    /// Implements [super::client::CloudDeploy::create_rollout].
     fn create_rollout(
         &self,
         _req: crate::model::CreateRolloutRequest,
@@ -409,7 +409,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::ignore_job].
+    /// Implements [super::client::CloudDeploy::ignore_job].
     fn ignore_job(
         &self,
         _req: crate::model::IgnoreJobRequest,
@@ -421,7 +421,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::retry_job].
+    /// Implements [super::client::CloudDeploy::retry_job].
     fn retry_job(
         &self,
         _req: crate::model::RetryJobRequest,
@@ -433,7 +433,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::list_job_runs].
+    /// Implements [super::client::CloudDeploy::list_job_runs].
     fn list_job_runs(
         &self,
         _req: crate::model::ListJobRunsRequest,
@@ -445,7 +445,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_job_run].
+    /// Implements [super::client::CloudDeploy::get_job_run].
     fn get_job_run(
         &self,
         _req: crate::model::GetJobRunRequest,
@@ -456,7 +456,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::terminate_job_run].
+    /// Implements [super::client::CloudDeploy::terminate_job_run].
     fn terminate_job_run(
         &self,
         _req: crate::model::TerminateJobRunRequest,
@@ -468,7 +468,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_config].
+    /// Implements [super::client::CloudDeploy::get_config].
     fn get_config(
         &self,
         _req: crate::model::GetConfigRequest,
@@ -479,7 +479,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::create_automation].
+    /// Implements [super::client::CloudDeploy::create_automation].
     fn create_automation(
         &self,
         _req: crate::model::CreateAutomationRequest,
@@ -491,7 +491,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::update_automation].
+    /// Implements [super::client::CloudDeploy::update_automation].
     fn update_automation(
         &self,
         _req: crate::model::UpdateAutomationRequest,
@@ -503,7 +503,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::delete_automation].
+    /// Implements [super::client::CloudDeploy::delete_automation].
     fn delete_automation(
         &self,
         _req: crate::model::DeleteAutomationRequest,
@@ -515,7 +515,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_automation].
+    /// Implements [super::client::CloudDeploy::get_automation].
     fn get_automation(
         &self,
         _req: crate::model::GetAutomationRequest,
@@ -526,7 +526,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::list_automations].
+    /// Implements [super::client::CloudDeploy::list_automations].
     fn list_automations(
         &self,
         _req: crate::model::ListAutomationsRequest,
@@ -538,7 +538,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_automation_run].
+    /// Implements [super::client::CloudDeploy::get_automation_run].
     fn get_automation_run(
         &self,
         _req: crate::model::GetAutomationRunRequest,
@@ -549,7 +549,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::list_automation_runs].
+    /// Implements [super::client::CloudDeploy::list_automation_runs].
     fn list_automation_runs(
         &self,
         _req: crate::model::ListAutomationRunsRequest,
@@ -561,7 +561,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::cancel_automation_run].
+    /// Implements [super::client::CloudDeploy::cancel_automation_run].
     fn cancel_automation_run(
         &self,
         _req: crate::model::CancelAutomationRunRequest,
@@ -573,7 +573,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::list_locations].
+    /// Implements [super::client::CloudDeploy::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -585,7 +585,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_location].
+    /// Implements [super::client::CloudDeploy::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -596,7 +596,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::set_iam_policy].
+    /// Implements [super::client::CloudDeploy::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -607,7 +607,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_iam_policy].
+    /// Implements [super::client::CloudDeploy::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -618,7 +618,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::test_iam_permissions].
+    /// Implements [super::client::CloudDeploy::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -630,7 +630,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::list_operations].
+    /// Implements [super::client::CloudDeploy::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -642,7 +642,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudDeploy::get_operation].
+    /// Implements [super::client::CloudDeploy::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -654,7 +654,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudDeploy::delete_operation].
+    /// Implements [super::client::CloudDeploy::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -663,7 +663,7 @@ pub trait CloudDeploy: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudDeploy::cancel_operation].
+    /// Implements [super::client::CloudDeploy::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -120,9 +120,9 @@ pub trait ReachabilityService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ReachabilityService] also implement [ReachabilityService].
+/// All implementations of [super::ReachabilityService] also implement [ReachabilityService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ReachabilityService> ReachabilityService for T {
+impl<T: super::ReachabilityService> ReachabilityService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_connectivity_tests(
         &self,
@@ -371,9 +371,9 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::VpcFlowLogsService] also implement [VpcFlowLogsService].
+/// All implementations of [super::VpcFlowLogsService] also implement [VpcFlowLogsService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::VpcFlowLogsService> VpcFlowLogsService for T {
+impl<T: super::VpcFlowLogsService> VpcFlowLogsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_vpc_flow_logs_configs(
         &self,

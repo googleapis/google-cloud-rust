@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Tpu](crate::stubs::Tpu) using a [gclient::ReqwestClient].
+/// Implements [Tpu](super::stubs::Tpu) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Tpu {
     inner: gclient::ReqwestClient,
@@ -37,7 +37,7 @@ impl Tpu {
     }
 }
 
-impl crate::stubs::Tpu for Tpu {
+impl super::stubs::Tpu for Tpu {
     async fn list_nodes(
         &self,
         req: crate::model::ListNodesRequest,

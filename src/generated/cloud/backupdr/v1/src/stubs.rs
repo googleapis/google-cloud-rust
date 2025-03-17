@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::BackupDR].
+/// Defines the trait used to implement [super::client::BackupDR].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::BackupDR`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait BackupDR: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::BackupDR::list_management_servers].
+    /// Implements [super::client::BackupDR::list_management_servers].
     fn list_management_servers(
         &self,
         _req: crate::model::ListManagementServersRequest,
@@ -53,7 +53,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupDR::get_management_server].
+    /// Implements [super::client::BackupDR::get_management_server].
     fn get_management_server(
         &self,
         _req: crate::model::GetManagementServerRequest,
@@ -65,7 +65,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::create_management_server].
+    /// Implements [super::client::BackupDR::create_management_server].
     fn create_management_server(
         &self,
         _req: crate::model::CreateManagementServerRequest,
@@ -77,7 +77,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::delete_management_server].
+    /// Implements [super::client::BackupDR::delete_management_server].
     fn delete_management_server(
         &self,
         _req: crate::model::DeleteManagementServerRequest,
@@ -89,7 +89,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::create_backup_vault].
+    /// Implements [super::client::BackupDR::create_backup_vault].
     fn create_backup_vault(
         &self,
         _req: crate::model::CreateBackupVaultRequest,
@@ -101,7 +101,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::list_backup_vaults].
+    /// Implements [super::client::BackupDR::list_backup_vaults].
     fn list_backup_vaults(
         &self,
         _req: crate::model::ListBackupVaultsRequest,
@@ -113,7 +113,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupDR::fetch_usable_backup_vaults].
+    /// Implements [super::client::BackupDR::fetch_usable_backup_vaults].
     fn fetch_usable_backup_vaults(
         &self,
         _req: crate::model::FetchUsableBackupVaultsRequest,
@@ -126,7 +126,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupDR::get_backup_vault].
+    /// Implements [super::client::BackupDR::get_backup_vault].
     fn get_backup_vault(
         &self,
         _req: crate::model::GetBackupVaultRequest,
@@ -137,7 +137,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::update_backup_vault].
+    /// Implements [super::client::BackupDR::update_backup_vault].
     fn update_backup_vault(
         &self,
         _req: crate::model::UpdateBackupVaultRequest,
@@ -149,7 +149,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::delete_backup_vault].
+    /// Implements [super::client::BackupDR::delete_backup_vault].
     fn delete_backup_vault(
         &self,
         _req: crate::model::DeleteBackupVaultRequest,
@@ -161,7 +161,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::list_data_sources].
+    /// Implements [super::client::BackupDR::list_data_sources].
     fn list_data_sources(
         &self,
         _req: crate::model::ListDataSourcesRequest,
@@ -173,7 +173,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupDR::get_data_source].
+    /// Implements [super::client::BackupDR::get_data_source].
     fn get_data_source(
         &self,
         _req: crate::model::GetDataSourceRequest,
@@ -184,7 +184,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::update_data_source].
+    /// Implements [super::client::BackupDR::update_data_source].
     fn update_data_source(
         &self,
         _req: crate::model::UpdateDataSourceRequest,
@@ -196,7 +196,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::list_backups].
+    /// Implements [super::client::BackupDR::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -208,7 +208,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::get_backup].
+    /// Implements [super::client::BackupDR::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -219,7 +219,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::update_backup].
+    /// Implements [super::client::BackupDR::update_backup].
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
@@ -231,7 +231,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::delete_backup].
+    /// Implements [super::client::BackupDR::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -243,7 +243,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::restore_backup].
+    /// Implements [super::client::BackupDR::restore_backup].
     fn restore_backup(
         &self,
         _req: crate::model::RestoreBackupRequest,
@@ -255,7 +255,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::create_backup_plan].
+    /// Implements [super::client::BackupDR::create_backup_plan].
     fn create_backup_plan(
         &self,
         _req: crate::model::CreateBackupPlanRequest,
@@ -267,7 +267,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::get_backup_plan].
+    /// Implements [super::client::BackupDR::get_backup_plan].
     fn get_backup_plan(
         &self,
         _req: crate::model::GetBackupPlanRequest,
@@ -278,7 +278,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::list_backup_plans].
+    /// Implements [super::client::BackupDR::list_backup_plans].
     fn list_backup_plans(
         &self,
         _req: crate::model::ListBackupPlansRequest,
@@ -290,7 +290,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupDR::delete_backup_plan].
+    /// Implements [super::client::BackupDR::delete_backup_plan].
     fn delete_backup_plan(
         &self,
         _req: crate::model::DeleteBackupPlanRequest,
@@ -302,7 +302,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::create_backup_plan_association].
+    /// Implements [super::client::BackupDR::create_backup_plan_association].
     fn create_backup_plan_association(
         &self,
         _req: crate::model::CreateBackupPlanAssociationRequest,
@@ -314,7 +314,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::get_backup_plan_association].
+    /// Implements [super::client::BackupDR::get_backup_plan_association].
     fn get_backup_plan_association(
         &self,
         _req: crate::model::GetBackupPlanAssociationRequest,
@@ -326,7 +326,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::list_backup_plan_associations].
+    /// Implements [super::client::BackupDR::list_backup_plan_associations].
     fn list_backup_plan_associations(
         &self,
         _req: crate::model::ListBackupPlanAssociationsRequest,
@@ -339,7 +339,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupDR::delete_backup_plan_association].
+    /// Implements [super::client::BackupDR::delete_backup_plan_association].
     fn delete_backup_plan_association(
         &self,
         _req: crate::model::DeleteBackupPlanAssociationRequest,
@@ -351,7 +351,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::trigger_backup].
+    /// Implements [super::client::BackupDR::trigger_backup].
     fn trigger_backup(
         &self,
         _req: crate::model::TriggerBackupRequest,
@@ -363,7 +363,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::initialize_service].
+    /// Implements [super::client::BackupDR::initialize_service].
     fn initialize_service(
         &self,
         _req: crate::model::InitializeServiceRequest,
@@ -375,7 +375,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::list_locations].
+    /// Implements [super::client::BackupDR::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -387,7 +387,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupDR::get_location].
+    /// Implements [super::client::BackupDR::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -398,7 +398,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::set_iam_policy].
+    /// Implements [super::client::BackupDR::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -409,7 +409,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::get_iam_policy].
+    /// Implements [super::client::BackupDR::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -420,7 +420,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::test_iam_permissions].
+    /// Implements [super::client::BackupDR::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -432,7 +432,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupDR::list_operations].
+    /// Implements [super::client::BackupDR::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -444,7 +444,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupDR::get_operation].
+    /// Implements [super::client::BackupDR::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -456,7 +456,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupDR::delete_operation].
+    /// Implements [super::client::BackupDR::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -465,7 +465,7 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BackupDR::cancel_operation].
+    /// Implements [super::client::BackupDR::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

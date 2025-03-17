@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DataprocMetastore].
+/// Defines the trait used to implement [super::client::DataprocMetastore].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DataprocMetastore`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DataprocMetastore::list_services].
+    /// Implements [super::client::DataprocMetastore::list_services].
     fn list_services(
         &self,
         _req: crate::model::ListServicesRequest,
@@ -53,7 +53,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::get_service].
+    /// Implements [super::client::DataprocMetastore::get_service].
     fn get_service(
         &self,
         _req: crate::model::GetServiceRequest,
@@ -64,7 +64,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::create_service].
+    /// Implements [super::client::DataprocMetastore::create_service].
     fn create_service(
         &self,
         _req: crate::model::CreateServiceRequest,
@@ -76,7 +76,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::update_service].
+    /// Implements [super::client::DataprocMetastore::update_service].
     fn update_service(
         &self,
         _req: crate::model::UpdateServiceRequest,
@@ -88,7 +88,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::delete_service].
+    /// Implements [super::client::DataprocMetastore::delete_service].
     fn delete_service(
         &self,
         _req: crate::model::DeleteServiceRequest,
@@ -100,7 +100,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::list_metadata_imports].
+    /// Implements [super::client::DataprocMetastore::list_metadata_imports].
     fn list_metadata_imports(
         &self,
         _req: crate::model::ListMetadataImportsRequest,
@@ -112,7 +112,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataprocMetastore::get_metadata_import].
+    /// Implements [super::client::DataprocMetastore::get_metadata_import].
     fn get_metadata_import(
         &self,
         _req: crate::model::GetMetadataImportRequest,
@@ -123,7 +123,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::create_metadata_import].
+    /// Implements [super::client::DataprocMetastore::create_metadata_import].
     fn create_metadata_import(
         &self,
         _req: crate::model::CreateMetadataImportRequest,
@@ -135,7 +135,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::update_metadata_import].
+    /// Implements [super::client::DataprocMetastore::update_metadata_import].
     fn update_metadata_import(
         &self,
         _req: crate::model::UpdateMetadataImportRequest,
@@ -147,7 +147,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::export_metadata].
+    /// Implements [super::client::DataprocMetastore::export_metadata].
     fn export_metadata(
         &self,
         _req: crate::model::ExportMetadataRequest,
@@ -159,7 +159,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::restore_service].
+    /// Implements [super::client::DataprocMetastore::restore_service].
     fn restore_service(
         &self,
         _req: crate::model::RestoreServiceRequest,
@@ -171,7 +171,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::list_backups].
+    /// Implements [super::client::DataprocMetastore::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -183,7 +183,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::get_backup].
+    /// Implements [super::client::DataprocMetastore::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -194,7 +194,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::create_backup].
+    /// Implements [super::client::DataprocMetastore::create_backup].
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
@@ -206,7 +206,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::delete_backup].
+    /// Implements [super::client::DataprocMetastore::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -218,7 +218,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::query_metadata].
+    /// Implements [super::client::DataprocMetastore::query_metadata].
     fn query_metadata(
         &self,
         _req: crate::model::QueryMetadataRequest,
@@ -230,7 +230,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::move_table_to_database].
+    /// Implements [super::client::DataprocMetastore::move_table_to_database].
     fn move_table_to_database(
         &self,
         _req: crate::model::MoveTableToDatabaseRequest,
@@ -242,7 +242,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::alter_metadata_resource_location].
+    /// Implements [super::client::DataprocMetastore::alter_metadata_resource_location].
     fn alter_metadata_resource_location(
         &self,
         _req: crate::model::AlterMetadataResourceLocationRequest,
@@ -254,7 +254,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::list_locations].
+    /// Implements [super::client::DataprocMetastore::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -266,7 +266,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataprocMetastore::get_location].
+    /// Implements [super::client::DataprocMetastore::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -277,7 +277,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::set_iam_policy].
+    /// Implements [super::client::DataprocMetastore::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -288,7 +288,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::get_iam_policy].
+    /// Implements [super::client::DataprocMetastore::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -299,7 +299,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::test_iam_permissions].
+    /// Implements [super::client::DataprocMetastore::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -311,7 +311,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataprocMetastore::list_operations].
+    /// Implements [super::client::DataprocMetastore::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -323,7 +323,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataprocMetastore::get_operation].
+    /// Implements [super::client::DataprocMetastore::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -335,7 +335,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastore::delete_operation].
+    /// Implements [super::client::DataprocMetastore::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -344,7 +344,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataprocMetastore::cancel_operation].
+    /// Implements [super::client::DataprocMetastore::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -376,7 +376,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::DataprocMetastoreFederation].
+/// Defines the trait used to implement [super::client::DataprocMetastoreFederation].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DataprocMetastoreFederation`.  In other use-cases, application developers only
@@ -388,7 +388,7 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DataprocMetastoreFederation::list_federations].
+    /// Implements [super::client::DataprocMetastoreFederation::list_federations].
     fn list_federations(
         &self,
         _req: crate::model::ListFederationsRequest,
@@ -400,7 +400,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::get_federation].
+    /// Implements [super::client::DataprocMetastoreFederation::get_federation].
     fn get_federation(
         &self,
         _req: crate::model::GetFederationRequest,
@@ -411,7 +411,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::create_federation].
+    /// Implements [super::client::DataprocMetastoreFederation::create_federation].
     fn create_federation(
         &self,
         _req: crate::model::CreateFederationRequest,
@@ -423,7 +423,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::update_federation].
+    /// Implements [super::client::DataprocMetastoreFederation::update_federation].
     fn update_federation(
         &self,
         _req: crate::model::UpdateFederationRequest,
@@ -435,7 +435,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::delete_federation].
+    /// Implements [super::client::DataprocMetastoreFederation::delete_federation].
     fn delete_federation(
         &self,
         _req: crate::model::DeleteFederationRequest,
@@ -447,7 +447,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::list_locations].
+    /// Implements [super::client::DataprocMetastoreFederation::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -459,7 +459,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::get_location].
+    /// Implements [super::client::DataprocMetastoreFederation::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -470,7 +470,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::set_iam_policy].
+    /// Implements [super::client::DataprocMetastoreFederation::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -481,7 +481,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::get_iam_policy].
+    /// Implements [super::client::DataprocMetastoreFederation::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -492,7 +492,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::test_iam_permissions].
+    /// Implements [super::client::DataprocMetastoreFederation::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -504,7 +504,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::list_operations].
+    /// Implements [super::client::DataprocMetastoreFederation::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -516,7 +516,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::get_operation].
+    /// Implements [super::client::DataprocMetastoreFederation::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -528,7 +528,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::delete_operation].
+    /// Implements [super::client::DataprocMetastoreFederation::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -537,7 +537,7 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataprocMetastoreFederation::cancel_operation].
+    /// Implements [super::client::DataprocMetastoreFederation::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

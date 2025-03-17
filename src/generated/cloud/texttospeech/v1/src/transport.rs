@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TextToSpeech](crate::stubs::TextToSpeech) using a [gclient::ReqwestClient].
+/// Implements [TextToSpeech](super::stubs::TextToSpeech) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TextToSpeech {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl TextToSpeech {
     }
 }
 
-impl crate::stubs::TextToSpeech for TextToSpeech {
+impl super::stubs::TextToSpeech for TextToSpeech {
     async fn list_voices(
         &self,
         req: crate::model::ListVoicesRequest,
@@ -119,7 +119,7 @@ impl crate::stubs::TextToSpeech for TextToSpeech {
     }
 }
 
-/// Implements [TextToSpeechLongAudioSynthesize](crate::stubs::TextToSpeechLongAudioSynthesize) using a [gclient::ReqwestClient].
+/// Implements [TextToSpeechLongAudioSynthesize](super::stubs::TextToSpeechLongAudioSynthesize) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct TextToSpeechLongAudioSynthesize {
     inner: gclient::ReqwestClient,
@@ -140,7 +140,7 @@ impl TextToSpeechLongAudioSynthesize {
     }
 }
 
-impl crate::stubs::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSynthesize {
+impl super::stubs::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSynthesize {
     async fn synthesize_long_audio(
         &self,
         req: crate::model::SynthesizeLongAudioRequest,

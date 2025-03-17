@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Aml].
+/// Defines the trait used to implement [super::client::Aml].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Aml`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Aml: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Aml::list_instances].
+    /// Implements [super::client::Aml::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -53,7 +53,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::get_instance].
+    /// Implements [super::client::Aml::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -64,7 +64,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::create_instance].
+    /// Implements [super::client::Aml::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -76,7 +76,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::update_instance].
+    /// Implements [super::client::Aml::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -88,7 +88,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::delete_instance].
+    /// Implements [super::client::Aml::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -100,7 +100,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::import_registered_parties].
+    /// Implements [super::client::Aml::import_registered_parties].
     fn import_registered_parties(
         &self,
         _req: crate::model::ImportRegisteredPartiesRequest,
@@ -112,7 +112,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::export_registered_parties].
+    /// Implements [super::client::Aml::export_registered_parties].
     fn export_registered_parties(
         &self,
         _req: crate::model::ExportRegisteredPartiesRequest,
@@ -124,7 +124,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::list_datasets].
+    /// Implements [super::client::Aml::list_datasets].
     fn list_datasets(
         &self,
         _req: crate::model::ListDatasetsRequest,
@@ -136,7 +136,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::get_dataset].
+    /// Implements [super::client::Aml::get_dataset].
     fn get_dataset(
         &self,
         _req: crate::model::GetDatasetRequest,
@@ -147,7 +147,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::create_dataset].
+    /// Implements [super::client::Aml::create_dataset].
     fn create_dataset(
         &self,
         _req: crate::model::CreateDatasetRequest,
@@ -159,7 +159,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::update_dataset].
+    /// Implements [super::client::Aml::update_dataset].
     fn update_dataset(
         &self,
         _req: crate::model::UpdateDatasetRequest,
@@ -171,7 +171,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::delete_dataset].
+    /// Implements [super::client::Aml::delete_dataset].
     fn delete_dataset(
         &self,
         _req: crate::model::DeleteDatasetRequest,
@@ -183,7 +183,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::list_models].
+    /// Implements [super::client::Aml::list_models].
     fn list_models(
         &self,
         _req: crate::model::ListModelsRequest,
@@ -195,7 +195,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::get_model].
+    /// Implements [super::client::Aml::get_model].
     fn get_model(
         &self,
         _req: crate::model::GetModelRequest,
@@ -204,7 +204,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Model>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Aml::create_model].
+    /// Implements [super::client::Aml::create_model].
     fn create_model(
         &self,
         _req: crate::model::CreateModelRequest,
@@ -216,7 +216,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::update_model].
+    /// Implements [super::client::Aml::update_model].
     fn update_model(
         &self,
         _req: crate::model::UpdateModelRequest,
@@ -228,7 +228,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::export_model_metadata].
+    /// Implements [super::client::Aml::export_model_metadata].
     fn export_model_metadata(
         &self,
         _req: crate::model::ExportModelMetadataRequest,
@@ -240,7 +240,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::delete_model].
+    /// Implements [super::client::Aml::delete_model].
     fn delete_model(
         &self,
         _req: crate::model::DeleteModelRequest,
@@ -252,7 +252,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::list_engine_configs].
+    /// Implements [super::client::Aml::list_engine_configs].
     fn list_engine_configs(
         &self,
         _req: crate::model::ListEngineConfigsRequest,
@@ -264,7 +264,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Aml::get_engine_config].
+    /// Implements [super::client::Aml::get_engine_config].
     fn get_engine_config(
         &self,
         _req: crate::model::GetEngineConfigRequest,
@@ -275,7 +275,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::create_engine_config].
+    /// Implements [super::client::Aml::create_engine_config].
     fn create_engine_config(
         &self,
         _req: crate::model::CreateEngineConfigRequest,
@@ -287,7 +287,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::update_engine_config].
+    /// Implements [super::client::Aml::update_engine_config].
     fn update_engine_config(
         &self,
         _req: crate::model::UpdateEngineConfigRequest,
@@ -299,7 +299,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::export_engine_config_metadata].
+    /// Implements [super::client::Aml::export_engine_config_metadata].
     fn export_engine_config_metadata(
         &self,
         _req: crate::model::ExportEngineConfigMetadataRequest,
@@ -311,7 +311,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::delete_engine_config].
+    /// Implements [super::client::Aml::delete_engine_config].
     fn delete_engine_config(
         &self,
         _req: crate::model::DeleteEngineConfigRequest,
@@ -323,7 +323,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::get_engine_version].
+    /// Implements [super::client::Aml::get_engine_version].
     fn get_engine_version(
         &self,
         _req: crate::model::GetEngineVersionRequest,
@@ -334,7 +334,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::list_engine_versions].
+    /// Implements [super::client::Aml::list_engine_versions].
     fn list_engine_versions(
         &self,
         _req: crate::model::ListEngineVersionsRequest,
@@ -346,7 +346,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Aml::list_prediction_results].
+    /// Implements [super::client::Aml::list_prediction_results].
     fn list_prediction_results(
         &self,
         _req: crate::model::ListPredictionResultsRequest,
@@ -358,7 +358,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Aml::get_prediction_result].
+    /// Implements [super::client::Aml::get_prediction_result].
     fn get_prediction_result(
         &self,
         _req: crate::model::GetPredictionResultRequest,
@@ -370,7 +370,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::create_prediction_result].
+    /// Implements [super::client::Aml::create_prediction_result].
     fn create_prediction_result(
         &self,
         _req: crate::model::CreatePredictionResultRequest,
@@ -382,7 +382,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::update_prediction_result].
+    /// Implements [super::client::Aml::update_prediction_result].
     fn update_prediction_result(
         &self,
         _req: crate::model::UpdatePredictionResultRequest,
@@ -394,7 +394,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::export_prediction_result_metadata].
+    /// Implements [super::client::Aml::export_prediction_result_metadata].
     fn export_prediction_result_metadata(
         &self,
         _req: crate::model::ExportPredictionResultMetadataRequest,
@@ -406,7 +406,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::delete_prediction_result].
+    /// Implements [super::client::Aml::delete_prediction_result].
     fn delete_prediction_result(
         &self,
         _req: crate::model::DeletePredictionResultRequest,
@@ -418,7 +418,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::list_backtest_results].
+    /// Implements [super::client::Aml::list_backtest_results].
     fn list_backtest_results(
         &self,
         _req: crate::model::ListBacktestResultsRequest,
@@ -430,7 +430,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Aml::get_backtest_result].
+    /// Implements [super::client::Aml::get_backtest_result].
     fn get_backtest_result(
         &self,
         _req: crate::model::GetBacktestResultRequest,
@@ -441,7 +441,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::create_backtest_result].
+    /// Implements [super::client::Aml::create_backtest_result].
     fn create_backtest_result(
         &self,
         _req: crate::model::CreateBacktestResultRequest,
@@ -453,7 +453,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::update_backtest_result].
+    /// Implements [super::client::Aml::update_backtest_result].
     fn update_backtest_result(
         &self,
         _req: crate::model::UpdateBacktestResultRequest,
@@ -465,7 +465,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::export_backtest_result_metadata].
+    /// Implements [super::client::Aml::export_backtest_result_metadata].
     fn export_backtest_result_metadata(
         &self,
         _req: crate::model::ExportBacktestResultMetadataRequest,
@@ -477,7 +477,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::delete_backtest_result].
+    /// Implements [super::client::Aml::delete_backtest_result].
     fn delete_backtest_result(
         &self,
         _req: crate::model::DeleteBacktestResultRequest,
@@ -489,7 +489,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::list_locations].
+    /// Implements [super::client::Aml::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -501,7 +501,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Aml::get_location].
+    /// Implements [super::client::Aml::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -512,7 +512,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::list_operations].
+    /// Implements [super::client::Aml::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -524,7 +524,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Aml::get_operation].
+    /// Implements [super::client::Aml::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -536,7 +536,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Aml::delete_operation].
+    /// Implements [super::client::Aml::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -545,7 +545,7 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Aml::cancel_operation].
+    /// Implements [super::client::Aml::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

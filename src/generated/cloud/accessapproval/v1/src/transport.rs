@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AccessApproval](crate::stubs::AccessApproval) using a [gclient::ReqwestClient].
+/// Implements [AccessApproval](super::stubs::AccessApproval) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AccessApproval {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl AccessApproval {
     }
 }
 
-impl crate::stubs::AccessApproval for AccessApproval {
+impl super::stubs::AccessApproval for AccessApproval {
     async fn list_approval_requests(
         &self,
         req: crate::model::ListApprovalRequestsMessage,

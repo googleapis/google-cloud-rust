@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AccessApproval].
+/// Defines the trait used to implement [super::client::AccessApproval].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AccessApproval`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AccessApproval: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AccessApproval::list_approval_requests].
+    /// Implements [super::client::AccessApproval::list_approval_requests].
     fn list_approval_requests(
         &self,
         _req: crate::model::ListApprovalRequestsMessage,
@@ -52,7 +52,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AccessApproval::get_approval_request].
+    /// Implements [super::client::AccessApproval::get_approval_request].
     fn get_approval_request(
         &self,
         _req: crate::model::GetApprovalRequestMessage,
@@ -64,7 +64,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessApproval::approve_approval_request].
+    /// Implements [super::client::AccessApproval::approve_approval_request].
     fn approve_approval_request(
         &self,
         _req: crate::model::ApproveApprovalRequestMessage,
@@ -76,7 +76,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessApproval::dismiss_approval_request].
+    /// Implements [super::client::AccessApproval::dismiss_approval_request].
     fn dismiss_approval_request(
         &self,
         _req: crate::model::DismissApprovalRequestMessage,
@@ -88,7 +88,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessApproval::invalidate_approval_request].
+    /// Implements [super::client::AccessApproval::invalidate_approval_request].
     fn invalidate_approval_request(
         &self,
         _req: crate::model::InvalidateApprovalRequestMessage,
@@ -100,7 +100,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessApproval::get_access_approval_settings].
+    /// Implements [super::client::AccessApproval::get_access_approval_settings].
     fn get_access_approval_settings(
         &self,
         _req: crate::model::GetAccessApprovalSettingsMessage,
@@ -112,7 +112,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AccessApproval::update_access_approval_settings].
+    /// Implements [super::client::AccessApproval::update_access_approval_settings].
     fn update_access_approval_settings(
         &self,
         _req: crate::model::UpdateAccessApprovalSettingsMessage,
@@ -124,7 +124,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AccessApproval::delete_access_approval_settings].
+    /// Implements [super::client::AccessApproval::delete_access_approval_settings].
     fn delete_access_approval_settings(
         &self,
         _req: crate::model::DeleteAccessApprovalSettingsMessage,
@@ -133,7 +133,7 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AccessApproval::get_access_approval_service_account].
+    /// Implements [super::client::AccessApproval::get_access_approval_service_account].
     fn get_access_approval_service_account(
         &self,
         _req: crate::model::GetAccessApprovalServiceAccountMessage,

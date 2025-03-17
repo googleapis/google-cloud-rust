@@ -192,9 +192,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DocumentProcessorService] also implement [DocumentProcessorService].
+/// All implementations of [super::DocumentProcessorService] also implement [DocumentProcessorService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DocumentProcessorService> DocumentProcessorService for T {
+impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn process_document(
         &self,

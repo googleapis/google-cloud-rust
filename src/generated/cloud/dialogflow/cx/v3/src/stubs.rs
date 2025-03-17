@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Agents].
+/// Defines the trait used to implement [super::client::Agents].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Agents`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Agents: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Agents::list_agents].
+    /// Implements [super::client::Agents::list_agents].
     fn list_agents(
         &self,
         _req: crate::model::ListAgentsRequest,
@@ -53,7 +53,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Agents::get_agent].
+    /// Implements [super::client::Agents::get_agent].
     fn get_agent(
         &self,
         _req: crate::model::GetAgentRequest,
@@ -62,7 +62,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Agent>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Agents::create_agent].
+    /// Implements [super::client::Agents::create_agent].
     fn create_agent(
         &self,
         _req: crate::model::CreateAgentRequest,
@@ -71,7 +71,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Agent>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Agents::update_agent].
+    /// Implements [super::client::Agents::update_agent].
     fn update_agent(
         &self,
         _req: crate::model::UpdateAgentRequest,
@@ -80,7 +80,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Agent>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Agents::delete_agent].
+    /// Implements [super::client::Agents::delete_agent].
     fn delete_agent(
         &self,
         _req: crate::model::DeleteAgentRequest,
@@ -89,7 +89,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Agents::export_agent].
+    /// Implements [super::client::Agents::export_agent].
     fn export_agent(
         &self,
         _req: crate::model::ExportAgentRequest,
@@ -101,7 +101,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Agents::restore_agent].
+    /// Implements [super::client::Agents::restore_agent].
     fn restore_agent(
         &self,
         _req: crate::model::RestoreAgentRequest,
@@ -113,7 +113,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Agents::validate_agent].
+    /// Implements [super::client::Agents::validate_agent].
     fn validate_agent(
         &self,
         _req: crate::model::ValidateAgentRequest,
@@ -125,7 +125,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Agents::get_agent_validation_result].
+    /// Implements [super::client::Agents::get_agent_validation_result].
     fn get_agent_validation_result(
         &self,
         _req: crate::model::GetAgentValidationResultRequest,
@@ -137,7 +137,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Agents::get_generative_settings].
+    /// Implements [super::client::Agents::get_generative_settings].
     fn get_generative_settings(
         &self,
         _req: crate::model::GetGenerativeSettingsRequest,
@@ -149,7 +149,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Agents::update_generative_settings].
+    /// Implements [super::client::Agents::update_generative_settings].
     fn update_generative_settings(
         &self,
         _req: crate::model::UpdateGenerativeSettingsRequest,
@@ -161,7 +161,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Agents::list_locations].
+    /// Implements [super::client::Agents::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -173,7 +173,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Agents::get_location].
+    /// Implements [super::client::Agents::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -184,7 +184,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Agents::list_operations].
+    /// Implements [super::client::Agents::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -196,7 +196,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Agents::get_operation].
+    /// Implements [super::client::Agents::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -208,7 +208,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Agents::cancel_operation].
+    /// Implements [super::client::Agents::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -240,7 +240,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Changelogs].
+/// Defines the trait used to implement [super::client::Changelogs].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Changelogs`.  In other use-cases, application developers only
@@ -252,7 +252,7 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Changelogs: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Changelogs::list_changelogs].
+    /// Implements [super::client::Changelogs::list_changelogs].
     fn list_changelogs(
         &self,
         _req: crate::model::ListChangelogsRequest,
@@ -264,7 +264,7 @@ pub trait Changelogs: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Changelogs::get_changelog].
+    /// Implements [super::client::Changelogs::get_changelog].
     fn get_changelog(
         &self,
         _req: crate::model::GetChangelogRequest,
@@ -275,7 +275,7 @@ pub trait Changelogs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Changelogs::list_locations].
+    /// Implements [super::client::Changelogs::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -287,7 +287,7 @@ pub trait Changelogs: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Changelogs::get_location].
+    /// Implements [super::client::Changelogs::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -298,7 +298,7 @@ pub trait Changelogs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Changelogs::list_operations].
+    /// Implements [super::client::Changelogs::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -310,7 +310,7 @@ pub trait Changelogs: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Changelogs::get_operation].
+    /// Implements [super::client::Changelogs::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -322,7 +322,7 @@ pub trait Changelogs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Changelogs::cancel_operation].
+    /// Implements [super::client::Changelogs::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -332,7 +332,7 @@ pub trait Changelogs: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Deployments].
+/// Defines the trait used to implement [super::client::Deployments].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Deployments`.  In other use-cases, application developers only
@@ -344,7 +344,7 @@ pub trait Changelogs: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Deployments: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Deployments::list_deployments].
+    /// Implements [super::client::Deployments::list_deployments].
     fn list_deployments(
         &self,
         _req: crate::model::ListDeploymentsRequest,
@@ -356,7 +356,7 @@ pub trait Deployments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Deployments::get_deployment].
+    /// Implements [super::client::Deployments::get_deployment].
     fn get_deployment(
         &self,
         _req: crate::model::GetDeploymentRequest,
@@ -367,7 +367,7 @@ pub trait Deployments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Deployments::list_locations].
+    /// Implements [super::client::Deployments::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -379,7 +379,7 @@ pub trait Deployments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Deployments::get_location].
+    /// Implements [super::client::Deployments::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -390,7 +390,7 @@ pub trait Deployments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Deployments::list_operations].
+    /// Implements [super::client::Deployments::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -402,7 +402,7 @@ pub trait Deployments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Deployments::get_operation].
+    /// Implements [super::client::Deployments::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -414,7 +414,7 @@ pub trait Deployments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Deployments::cancel_operation].
+    /// Implements [super::client::Deployments::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -424,7 +424,7 @@ pub trait Deployments: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::EntityTypes].
+/// Defines the trait used to implement [super::client::EntityTypes].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::EntityTypes`.  In other use-cases, application developers only
@@ -436,7 +436,7 @@ pub trait Deployments: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait EntityTypes: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::EntityTypes::get_entity_type].
+    /// Implements [super::client::EntityTypes::get_entity_type].
     fn get_entity_type(
         &self,
         _req: crate::model::GetEntityTypeRequest,
@@ -447,7 +447,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EntityTypes::create_entity_type].
+    /// Implements [super::client::EntityTypes::create_entity_type].
     fn create_entity_type(
         &self,
         _req: crate::model::CreateEntityTypeRequest,
@@ -458,7 +458,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EntityTypes::update_entity_type].
+    /// Implements [super::client::EntityTypes::update_entity_type].
     fn update_entity_type(
         &self,
         _req: crate::model::UpdateEntityTypeRequest,
@@ -469,7 +469,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EntityTypes::delete_entity_type].
+    /// Implements [super::client::EntityTypes::delete_entity_type].
     fn delete_entity_type(
         &self,
         _req: crate::model::DeleteEntityTypeRequest,
@@ -478,7 +478,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::EntityTypes::list_entity_types].
+    /// Implements [super::client::EntityTypes::list_entity_types].
     fn list_entity_types(
         &self,
         _req: crate::model::ListEntityTypesRequest,
@@ -490,7 +490,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EntityTypes::export_entity_types].
+    /// Implements [super::client::EntityTypes::export_entity_types].
     fn export_entity_types(
         &self,
         _req: crate::model::ExportEntityTypesRequest,
@@ -502,7 +502,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EntityTypes::import_entity_types].
+    /// Implements [super::client::EntityTypes::import_entity_types].
     fn import_entity_types(
         &self,
         _req: crate::model::ImportEntityTypesRequest,
@@ -514,7 +514,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EntityTypes::list_locations].
+    /// Implements [super::client::EntityTypes::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -526,7 +526,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EntityTypes::get_location].
+    /// Implements [super::client::EntityTypes::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -537,7 +537,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EntityTypes::list_operations].
+    /// Implements [super::client::EntityTypes::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -549,7 +549,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EntityTypes::get_operation].
+    /// Implements [super::client::EntityTypes::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -561,7 +561,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EntityTypes::cancel_operation].
+    /// Implements [super::client::EntityTypes::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -593,7 +593,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Environments].
+/// Defines the trait used to implement [super::client::Environments].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Environments`.  In other use-cases, application developers only
@@ -605,7 +605,7 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Environments: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Environments::list_environments].
+    /// Implements [super::client::Environments::list_environments].
     fn list_environments(
         &self,
         _req: crate::model::ListEnvironmentsRequest,
@@ -617,7 +617,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::get_environment].
+    /// Implements [super::client::Environments::get_environment].
     fn get_environment(
         &self,
         _req: crate::model::GetEnvironmentRequest,
@@ -628,7 +628,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::create_environment].
+    /// Implements [super::client::Environments::create_environment].
     fn create_environment(
         &self,
         _req: crate::model::CreateEnvironmentRequest,
@@ -640,7 +640,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::update_environment].
+    /// Implements [super::client::Environments::update_environment].
     fn update_environment(
         &self,
         _req: crate::model::UpdateEnvironmentRequest,
@@ -652,7 +652,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::delete_environment].
+    /// Implements [super::client::Environments::delete_environment].
     fn delete_environment(
         &self,
         _req: crate::model::DeleteEnvironmentRequest,
@@ -661,7 +661,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Environments::lookup_environment_history].
+    /// Implements [super::client::Environments::lookup_environment_history].
     fn lookup_environment_history(
         &self,
         _req: crate::model::LookupEnvironmentHistoryRequest,
@@ -674,7 +674,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::run_continuous_test].
+    /// Implements [super::client::Environments::run_continuous_test].
     fn run_continuous_test(
         &self,
         _req: crate::model::RunContinuousTestRequest,
@@ -686,7 +686,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::list_continuous_test_results].
+    /// Implements [super::client::Environments::list_continuous_test_results].
     fn list_continuous_test_results(
         &self,
         _req: crate::model::ListContinuousTestResultsRequest,
@@ -699,7 +699,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::deploy_flow].
+    /// Implements [super::client::Environments::deploy_flow].
     fn deploy_flow(
         &self,
         _req: crate::model::DeployFlowRequest,
@@ -711,7 +711,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::list_locations].
+    /// Implements [super::client::Environments::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -723,7 +723,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::get_location].
+    /// Implements [super::client::Environments::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -734,7 +734,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::list_operations].
+    /// Implements [super::client::Environments::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -746,7 +746,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::get_operation].
+    /// Implements [super::client::Environments::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -758,7 +758,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::cancel_operation].
+    /// Implements [super::client::Environments::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -790,7 +790,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Experiments].
+/// Defines the trait used to implement [super::client::Experiments].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Experiments`.  In other use-cases, application developers only
@@ -802,7 +802,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Experiments: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Experiments::list_experiments].
+    /// Implements [super::client::Experiments::list_experiments].
     fn list_experiments(
         &self,
         _req: crate::model::ListExperimentsRequest,
@@ -814,7 +814,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Experiments::get_experiment].
+    /// Implements [super::client::Experiments::get_experiment].
     fn get_experiment(
         &self,
         _req: crate::model::GetExperimentRequest,
@@ -825,7 +825,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Experiments::create_experiment].
+    /// Implements [super::client::Experiments::create_experiment].
     fn create_experiment(
         &self,
         _req: crate::model::CreateExperimentRequest,
@@ -836,7 +836,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Experiments::update_experiment].
+    /// Implements [super::client::Experiments::update_experiment].
     fn update_experiment(
         &self,
         _req: crate::model::UpdateExperimentRequest,
@@ -847,7 +847,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Experiments::delete_experiment].
+    /// Implements [super::client::Experiments::delete_experiment].
     fn delete_experiment(
         &self,
         _req: crate::model::DeleteExperimentRequest,
@@ -856,7 +856,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Experiments::start_experiment].
+    /// Implements [super::client::Experiments::start_experiment].
     fn start_experiment(
         &self,
         _req: crate::model::StartExperimentRequest,
@@ -867,7 +867,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Experiments::stop_experiment].
+    /// Implements [super::client::Experiments::stop_experiment].
     fn stop_experiment(
         &self,
         _req: crate::model::StopExperimentRequest,
@@ -878,7 +878,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Experiments::list_locations].
+    /// Implements [super::client::Experiments::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -890,7 +890,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Experiments::get_location].
+    /// Implements [super::client::Experiments::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -901,7 +901,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Experiments::list_operations].
+    /// Implements [super::client::Experiments::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -913,7 +913,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Experiments::get_operation].
+    /// Implements [super::client::Experiments::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -925,7 +925,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Experiments::cancel_operation].
+    /// Implements [super::client::Experiments::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -935,7 +935,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Flows].
+/// Defines the trait used to implement [super::client::Flows].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Flows`.  In other use-cases, application developers only
@@ -947,7 +947,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Flows: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Flows::create_flow].
+    /// Implements [super::client::Flows::create_flow].
     fn create_flow(
         &self,
         _req: crate::model::CreateFlowRequest,
@@ -956,7 +956,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Flow>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Flows::delete_flow].
+    /// Implements [super::client::Flows::delete_flow].
     fn delete_flow(
         &self,
         _req: crate::model::DeleteFlowRequest,
@@ -965,7 +965,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Flows::list_flows].
+    /// Implements [super::client::Flows::list_flows].
     fn list_flows(
         &self,
         _req: crate::model::ListFlowsRequest,
@@ -977,7 +977,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Flows::get_flow].
+    /// Implements [super::client::Flows::get_flow].
     fn get_flow(
         &self,
         _req: crate::model::GetFlowRequest,
@@ -986,7 +986,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Flow>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Flows::update_flow].
+    /// Implements [super::client::Flows::update_flow].
     fn update_flow(
         &self,
         _req: crate::model::UpdateFlowRequest,
@@ -995,7 +995,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Flow>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Flows::train_flow].
+    /// Implements [super::client::Flows::train_flow].
     fn train_flow(
         &self,
         _req: crate::model::TrainFlowRequest,
@@ -1007,7 +1007,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Flows::validate_flow].
+    /// Implements [super::client::Flows::validate_flow].
     fn validate_flow(
         &self,
         _req: crate::model::ValidateFlowRequest,
@@ -1019,7 +1019,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Flows::get_flow_validation_result].
+    /// Implements [super::client::Flows::get_flow_validation_result].
     fn get_flow_validation_result(
         &self,
         _req: crate::model::GetFlowValidationResultRequest,
@@ -1031,7 +1031,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Flows::import_flow].
+    /// Implements [super::client::Flows::import_flow].
     fn import_flow(
         &self,
         _req: crate::model::ImportFlowRequest,
@@ -1043,7 +1043,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Flows::export_flow].
+    /// Implements [super::client::Flows::export_flow].
     fn export_flow(
         &self,
         _req: crate::model::ExportFlowRequest,
@@ -1055,7 +1055,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Flows::list_locations].
+    /// Implements [super::client::Flows::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1067,7 +1067,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Flows::get_location].
+    /// Implements [super::client::Flows::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1078,7 +1078,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Flows::list_operations].
+    /// Implements [super::client::Flows::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1090,7 +1090,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Flows::get_operation].
+    /// Implements [super::client::Flows::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1102,7 +1102,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Flows::cancel_operation].
+    /// Implements [super::client::Flows::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1134,7 +1134,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Generators].
+/// Defines the trait used to implement [super::client::Generators].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Generators`.  In other use-cases, application developers only
@@ -1146,7 +1146,7 @@ pub trait Flows: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Generators: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Generators::list_generators].
+    /// Implements [super::client::Generators::list_generators].
     fn list_generators(
         &self,
         _req: crate::model::ListGeneratorsRequest,
@@ -1158,7 +1158,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Generators::get_generator].
+    /// Implements [super::client::Generators::get_generator].
     fn get_generator(
         &self,
         _req: crate::model::GetGeneratorRequest,
@@ -1169,7 +1169,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Generators::create_generator].
+    /// Implements [super::client::Generators::create_generator].
     fn create_generator(
         &self,
         _req: crate::model::CreateGeneratorRequest,
@@ -1180,7 +1180,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Generators::update_generator].
+    /// Implements [super::client::Generators::update_generator].
     fn update_generator(
         &self,
         _req: crate::model::UpdateGeneratorRequest,
@@ -1191,7 +1191,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Generators::delete_generator].
+    /// Implements [super::client::Generators::delete_generator].
     fn delete_generator(
         &self,
         _req: crate::model::DeleteGeneratorRequest,
@@ -1200,7 +1200,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Generators::list_locations].
+    /// Implements [super::client::Generators::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1212,7 +1212,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Generators::get_location].
+    /// Implements [super::client::Generators::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1223,7 +1223,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Generators::list_operations].
+    /// Implements [super::client::Generators::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1235,7 +1235,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Generators::get_operation].
+    /// Implements [super::client::Generators::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1247,7 +1247,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Generators::cancel_operation].
+    /// Implements [super::client::Generators::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1257,7 +1257,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Intents].
+/// Defines the trait used to implement [super::client::Intents].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Intents`.  In other use-cases, application developers only
@@ -1269,7 +1269,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Intents: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Intents::list_intents].
+    /// Implements [super::client::Intents::list_intents].
     fn list_intents(
         &self,
         _req: crate::model::ListIntentsRequest,
@@ -1281,7 +1281,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Intents::get_intent].
+    /// Implements [super::client::Intents::get_intent].
     fn get_intent(
         &self,
         _req: crate::model::GetIntentRequest,
@@ -1292,7 +1292,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Intents::create_intent].
+    /// Implements [super::client::Intents::create_intent].
     fn create_intent(
         &self,
         _req: crate::model::CreateIntentRequest,
@@ -1303,7 +1303,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Intents::update_intent].
+    /// Implements [super::client::Intents::update_intent].
     fn update_intent(
         &self,
         _req: crate::model::UpdateIntentRequest,
@@ -1314,7 +1314,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Intents::delete_intent].
+    /// Implements [super::client::Intents::delete_intent].
     fn delete_intent(
         &self,
         _req: crate::model::DeleteIntentRequest,
@@ -1323,7 +1323,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Intents::import_intents].
+    /// Implements [super::client::Intents::import_intents].
     fn import_intents(
         &self,
         _req: crate::model::ImportIntentsRequest,
@@ -1335,7 +1335,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Intents::export_intents].
+    /// Implements [super::client::Intents::export_intents].
     fn export_intents(
         &self,
         _req: crate::model::ExportIntentsRequest,
@@ -1347,7 +1347,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Intents::list_locations].
+    /// Implements [super::client::Intents::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1359,7 +1359,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Intents::get_location].
+    /// Implements [super::client::Intents::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1370,7 +1370,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Intents::list_operations].
+    /// Implements [super::client::Intents::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1382,7 +1382,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Intents::get_operation].
+    /// Implements [super::client::Intents::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1394,7 +1394,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Intents::cancel_operation].
+    /// Implements [super::client::Intents::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1426,7 +1426,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Pages].
+/// Defines the trait used to implement [super::client::Pages].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Pages`.  In other use-cases, application developers only
@@ -1438,7 +1438,7 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Pages: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Pages::list_pages].
+    /// Implements [super::client::Pages::list_pages].
     fn list_pages(
         &self,
         _req: crate::model::ListPagesRequest,
@@ -1450,7 +1450,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Pages::get_page].
+    /// Implements [super::client::Pages::get_page].
     fn get_page(
         &self,
         _req: crate::model::GetPageRequest,
@@ -1459,7 +1459,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Page>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Pages::create_page].
+    /// Implements [super::client::Pages::create_page].
     fn create_page(
         &self,
         _req: crate::model::CreatePageRequest,
@@ -1468,7 +1468,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Page>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Pages::update_page].
+    /// Implements [super::client::Pages::update_page].
     fn update_page(
         &self,
         _req: crate::model::UpdatePageRequest,
@@ -1477,7 +1477,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Page>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Pages::delete_page].
+    /// Implements [super::client::Pages::delete_page].
     fn delete_page(
         &self,
         _req: crate::model::DeletePageRequest,
@@ -1486,7 +1486,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Pages::list_locations].
+    /// Implements [super::client::Pages::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1498,7 +1498,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Pages::get_location].
+    /// Implements [super::client::Pages::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1509,7 +1509,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Pages::list_operations].
+    /// Implements [super::client::Pages::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1521,7 +1521,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Pages::get_operation].
+    /// Implements [super::client::Pages::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1533,7 +1533,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Pages::cancel_operation].
+    /// Implements [super::client::Pages::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1543,7 +1543,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SecuritySettingsService].
+/// Defines the trait used to implement [super::client::SecuritySettingsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SecuritySettingsService`.  In other use-cases, application developers only
@@ -1555,7 +1555,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::SecuritySettingsService::create_security_settings].
+    /// Implements [super::client::SecuritySettingsService::create_security_settings].
     fn create_security_settings(
         &self,
         _req: crate::model::CreateSecuritySettingsRequest,
@@ -1567,7 +1567,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecuritySettingsService::get_security_settings].
+    /// Implements [super::client::SecuritySettingsService::get_security_settings].
     fn get_security_settings(
         &self,
         _req: crate::model::GetSecuritySettingsRequest,
@@ -1579,7 +1579,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecuritySettingsService::update_security_settings].
+    /// Implements [super::client::SecuritySettingsService::update_security_settings].
     fn update_security_settings(
         &self,
         _req: crate::model::UpdateSecuritySettingsRequest,
@@ -1591,7 +1591,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecuritySettingsService::list_security_settings].
+    /// Implements [super::client::SecuritySettingsService::list_security_settings].
     fn list_security_settings(
         &self,
         _req: crate::model::ListSecuritySettingsRequest,
@@ -1603,7 +1603,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecuritySettingsService::delete_security_settings].
+    /// Implements [super::client::SecuritySettingsService::delete_security_settings].
     fn delete_security_settings(
         &self,
         _req: crate::model::DeleteSecuritySettingsRequest,
@@ -1612,7 +1612,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SecuritySettingsService::list_locations].
+    /// Implements [super::client::SecuritySettingsService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1624,7 +1624,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecuritySettingsService::get_location].
+    /// Implements [super::client::SecuritySettingsService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1635,7 +1635,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecuritySettingsService::list_operations].
+    /// Implements [super::client::SecuritySettingsService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1647,7 +1647,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecuritySettingsService::get_operation].
+    /// Implements [super::client::SecuritySettingsService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1659,7 +1659,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecuritySettingsService::cancel_operation].
+    /// Implements [super::client::SecuritySettingsService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1669,7 +1669,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Sessions].
+/// Defines the trait used to implement [super::client::Sessions].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Sessions`.  In other use-cases, application developers only
@@ -1681,7 +1681,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Sessions: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Sessions::detect_intent].
+    /// Implements [super::client::Sessions::detect_intent].
     fn detect_intent(
         &self,
         _req: crate::model::DetectIntentRequest,
@@ -1693,7 +1693,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Sessions::match_intent].
+    /// Implements [super::client::Sessions::match_intent].
     fn match_intent(
         &self,
         _req: crate::model::MatchIntentRequest,
@@ -1705,7 +1705,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Sessions::fulfill_intent].
+    /// Implements [super::client::Sessions::fulfill_intent].
     fn fulfill_intent(
         &self,
         _req: crate::model::FulfillIntentRequest,
@@ -1717,7 +1717,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Sessions::submit_answer_feedback].
+    /// Implements [super::client::Sessions::submit_answer_feedback].
     fn submit_answer_feedback(
         &self,
         _req: crate::model::SubmitAnswerFeedbackRequest,
@@ -1728,7 +1728,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Sessions::list_locations].
+    /// Implements [super::client::Sessions::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1740,7 +1740,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Sessions::get_location].
+    /// Implements [super::client::Sessions::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1751,7 +1751,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Sessions::list_operations].
+    /// Implements [super::client::Sessions::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1763,7 +1763,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Sessions::get_operation].
+    /// Implements [super::client::Sessions::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1775,7 +1775,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Sessions::cancel_operation].
+    /// Implements [super::client::Sessions::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1785,7 +1785,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SessionEntityTypes].
+/// Defines the trait used to implement [super::client::SessionEntityTypes].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SessionEntityTypes`.  In other use-cases, application developers only
@@ -1797,7 +1797,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::SessionEntityTypes::list_session_entity_types].
+    /// Implements [super::client::SessionEntityTypes::list_session_entity_types].
     fn list_session_entity_types(
         &self,
         _req: crate::model::ListSessionEntityTypesRequest,
@@ -1809,7 +1809,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SessionEntityTypes::get_session_entity_type].
+    /// Implements [super::client::SessionEntityTypes::get_session_entity_type].
     fn get_session_entity_type(
         &self,
         _req: crate::model::GetSessionEntityTypeRequest,
@@ -1821,7 +1821,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SessionEntityTypes::create_session_entity_type].
+    /// Implements [super::client::SessionEntityTypes::create_session_entity_type].
     fn create_session_entity_type(
         &self,
         _req: crate::model::CreateSessionEntityTypeRequest,
@@ -1833,7 +1833,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SessionEntityTypes::update_session_entity_type].
+    /// Implements [super::client::SessionEntityTypes::update_session_entity_type].
     fn update_session_entity_type(
         &self,
         _req: crate::model::UpdateSessionEntityTypeRequest,
@@ -1845,7 +1845,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SessionEntityTypes::delete_session_entity_type].
+    /// Implements [super::client::SessionEntityTypes::delete_session_entity_type].
     fn delete_session_entity_type(
         &self,
         _req: crate::model::DeleteSessionEntityTypeRequest,
@@ -1854,7 +1854,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SessionEntityTypes::list_locations].
+    /// Implements [super::client::SessionEntityTypes::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1866,7 +1866,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SessionEntityTypes::get_location].
+    /// Implements [super::client::SessionEntityTypes::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1877,7 +1877,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SessionEntityTypes::list_operations].
+    /// Implements [super::client::SessionEntityTypes::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1889,7 +1889,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SessionEntityTypes::get_operation].
+    /// Implements [super::client::SessionEntityTypes::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1901,7 +1901,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SessionEntityTypes::cancel_operation].
+    /// Implements [super::client::SessionEntityTypes::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1911,7 +1911,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::TestCases].
+/// Defines the trait used to implement [super::client::TestCases].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TestCases`.  In other use-cases, application developers only
@@ -1923,7 +1923,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TestCases: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TestCases::list_test_cases].
+    /// Implements [super::client::TestCases::list_test_cases].
     fn list_test_cases(
         &self,
         _req: crate::model::ListTestCasesRequest,
@@ -1935,7 +1935,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::batch_delete_test_cases].
+    /// Implements [super::client::TestCases::batch_delete_test_cases].
     fn batch_delete_test_cases(
         &self,
         _req: crate::model::BatchDeleteTestCasesRequest,
@@ -1944,7 +1944,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TestCases::get_test_case].
+    /// Implements [super::client::TestCases::get_test_case].
     fn get_test_case(
         &self,
         _req: crate::model::GetTestCaseRequest,
@@ -1955,7 +1955,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::create_test_case].
+    /// Implements [super::client::TestCases::create_test_case].
     fn create_test_case(
         &self,
         _req: crate::model::CreateTestCaseRequest,
@@ -1966,7 +1966,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::update_test_case].
+    /// Implements [super::client::TestCases::update_test_case].
     fn update_test_case(
         &self,
         _req: crate::model::UpdateTestCaseRequest,
@@ -1977,7 +1977,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::run_test_case].
+    /// Implements [super::client::TestCases::run_test_case].
     fn run_test_case(
         &self,
         _req: crate::model::RunTestCaseRequest,
@@ -1989,7 +1989,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::batch_run_test_cases].
+    /// Implements [super::client::TestCases::batch_run_test_cases].
     fn batch_run_test_cases(
         &self,
         _req: crate::model::BatchRunTestCasesRequest,
@@ -2001,7 +2001,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::calculate_coverage].
+    /// Implements [super::client::TestCases::calculate_coverage].
     fn calculate_coverage(
         &self,
         _req: crate::model::CalculateCoverageRequest,
@@ -2013,7 +2013,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TestCases::import_test_cases].
+    /// Implements [super::client::TestCases::import_test_cases].
     fn import_test_cases(
         &self,
         _req: crate::model::ImportTestCasesRequest,
@@ -2025,7 +2025,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::export_test_cases].
+    /// Implements [super::client::TestCases::export_test_cases].
     fn export_test_cases(
         &self,
         _req: crate::model::ExportTestCasesRequest,
@@ -2037,7 +2037,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::list_test_case_results].
+    /// Implements [super::client::TestCases::list_test_case_results].
     fn list_test_case_results(
         &self,
         _req: crate::model::ListTestCaseResultsRequest,
@@ -2049,7 +2049,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TestCases::get_test_case_result].
+    /// Implements [super::client::TestCases::get_test_case_result].
     fn get_test_case_result(
         &self,
         _req: crate::model::GetTestCaseResultRequest,
@@ -2060,7 +2060,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::list_locations].
+    /// Implements [super::client::TestCases::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -2072,7 +2072,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TestCases::get_location].
+    /// Implements [super::client::TestCases::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -2083,7 +2083,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::list_operations].
+    /// Implements [super::client::TestCases::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -2095,7 +2095,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TestCases::get_operation].
+    /// Implements [super::client::TestCases::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -2107,7 +2107,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TestCases::cancel_operation].
+    /// Implements [super::client::TestCases::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -2139,7 +2139,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::TransitionRouteGroups].
+/// Defines the trait used to implement [super::client::TransitionRouteGroups].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TransitionRouteGroups`.  In other use-cases, application developers only
@@ -2151,7 +2151,7 @@ pub trait TestCases: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TransitionRouteGroups::list_transition_route_groups].
+    /// Implements [super::client::TransitionRouteGroups::list_transition_route_groups].
     fn list_transition_route_groups(
         &self,
         _req: crate::model::ListTransitionRouteGroupsRequest,
@@ -2164,7 +2164,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TransitionRouteGroups::get_transition_route_group].
+    /// Implements [super::client::TransitionRouteGroups::get_transition_route_group].
     fn get_transition_route_group(
         &self,
         _req: crate::model::GetTransitionRouteGroupRequest,
@@ -2176,7 +2176,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TransitionRouteGroups::create_transition_route_group].
+    /// Implements [super::client::TransitionRouteGroups::create_transition_route_group].
     fn create_transition_route_group(
         &self,
         _req: crate::model::CreateTransitionRouteGroupRequest,
@@ -2188,7 +2188,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TransitionRouteGroups::update_transition_route_group].
+    /// Implements [super::client::TransitionRouteGroups::update_transition_route_group].
     fn update_transition_route_group(
         &self,
         _req: crate::model::UpdateTransitionRouteGroupRequest,
@@ -2200,7 +2200,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TransitionRouteGroups::delete_transition_route_group].
+    /// Implements [super::client::TransitionRouteGroups::delete_transition_route_group].
     fn delete_transition_route_group(
         &self,
         _req: crate::model::DeleteTransitionRouteGroupRequest,
@@ -2209,7 +2209,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TransitionRouteGroups::list_locations].
+    /// Implements [super::client::TransitionRouteGroups::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -2221,7 +2221,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TransitionRouteGroups::get_location].
+    /// Implements [super::client::TransitionRouteGroups::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -2232,7 +2232,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TransitionRouteGroups::list_operations].
+    /// Implements [super::client::TransitionRouteGroups::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -2244,7 +2244,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TransitionRouteGroups::get_operation].
+    /// Implements [super::client::TransitionRouteGroups::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -2256,7 +2256,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TransitionRouteGroups::cancel_operation].
+    /// Implements [super::client::TransitionRouteGroups::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -2266,7 +2266,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Versions].
+/// Defines the trait used to implement [super::client::Versions].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Versions`.  In other use-cases, application developers only
@@ -2278,7 +2278,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Versions: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Versions::list_versions].
+    /// Implements [super::client::Versions::list_versions].
     fn list_versions(
         &self,
         _req: crate::model::ListVersionsRequest,
@@ -2290,7 +2290,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Versions::get_version].
+    /// Implements [super::client::Versions::get_version].
     fn get_version(
         &self,
         _req: crate::model::GetVersionRequest,
@@ -2301,7 +2301,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Versions::create_version].
+    /// Implements [super::client::Versions::create_version].
     fn create_version(
         &self,
         _req: crate::model::CreateVersionRequest,
@@ -2313,7 +2313,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Versions::update_version].
+    /// Implements [super::client::Versions::update_version].
     fn update_version(
         &self,
         _req: crate::model::UpdateVersionRequest,
@@ -2324,7 +2324,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Versions::delete_version].
+    /// Implements [super::client::Versions::delete_version].
     fn delete_version(
         &self,
         _req: crate::model::DeleteVersionRequest,
@@ -2333,7 +2333,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Versions::load_version].
+    /// Implements [super::client::Versions::load_version].
     fn load_version(
         &self,
         _req: crate::model::LoadVersionRequest,
@@ -2345,7 +2345,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Versions::compare_versions].
+    /// Implements [super::client::Versions::compare_versions].
     fn compare_versions(
         &self,
         _req: crate::model::CompareVersionsRequest,
@@ -2357,7 +2357,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Versions::list_locations].
+    /// Implements [super::client::Versions::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -2369,7 +2369,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Versions::get_location].
+    /// Implements [super::client::Versions::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -2380,7 +2380,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Versions::list_operations].
+    /// Implements [super::client::Versions::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -2392,7 +2392,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Versions::get_operation].
+    /// Implements [super::client::Versions::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -2404,7 +2404,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Versions::cancel_operation].
+    /// Implements [super::client::Versions::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -2436,7 +2436,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Webhooks].
+/// Defines the trait used to implement [super::client::Webhooks].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Webhooks`.  In other use-cases, application developers only
@@ -2448,7 +2448,7 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Webhooks: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Webhooks::list_webhooks].
+    /// Implements [super::client::Webhooks::list_webhooks].
     fn list_webhooks(
         &self,
         _req: crate::model::ListWebhooksRequest,
@@ -2460,7 +2460,7 @@ pub trait Webhooks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Webhooks::get_webhook].
+    /// Implements [super::client::Webhooks::get_webhook].
     fn get_webhook(
         &self,
         _req: crate::model::GetWebhookRequest,
@@ -2471,7 +2471,7 @@ pub trait Webhooks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Webhooks::create_webhook].
+    /// Implements [super::client::Webhooks::create_webhook].
     fn create_webhook(
         &self,
         _req: crate::model::CreateWebhookRequest,
@@ -2482,7 +2482,7 @@ pub trait Webhooks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Webhooks::update_webhook].
+    /// Implements [super::client::Webhooks::update_webhook].
     fn update_webhook(
         &self,
         _req: crate::model::UpdateWebhookRequest,
@@ -2493,7 +2493,7 @@ pub trait Webhooks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Webhooks::delete_webhook].
+    /// Implements [super::client::Webhooks::delete_webhook].
     fn delete_webhook(
         &self,
         _req: crate::model::DeleteWebhookRequest,
@@ -2502,7 +2502,7 @@ pub trait Webhooks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Webhooks::list_locations].
+    /// Implements [super::client::Webhooks::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -2514,7 +2514,7 @@ pub trait Webhooks: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Webhooks::get_location].
+    /// Implements [super::client::Webhooks::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -2525,7 +2525,7 @@ pub trait Webhooks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Webhooks::list_operations].
+    /// Implements [super::client::Webhooks::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -2537,7 +2537,7 @@ pub trait Webhooks: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Webhooks::get_operation].
+    /// Implements [super::client::Webhooks::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -2549,7 +2549,7 @@ pub trait Webhooks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Webhooks::cancel_operation].
+    /// Implements [super::client::Webhooks::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

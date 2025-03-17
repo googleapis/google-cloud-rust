@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::BinauthzManagementServiceV1].
+/// Defines the trait used to implement [super::client::BinauthzManagementServiceV1].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::BinauthzManagementServiceV1`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::BinauthzManagementServiceV1::get_policy].
+    /// Implements [super::client::BinauthzManagementServiceV1::get_policy].
     fn get_policy(
         &self,
         _req: crate::model::GetPolicyRequest,
@@ -51,7 +51,7 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BinauthzManagementServiceV1::update_policy].
+    /// Implements [super::client::BinauthzManagementServiceV1::update_policy].
     fn update_policy(
         &self,
         _req: crate::model::UpdatePolicyRequest,
@@ -62,7 +62,7 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BinauthzManagementServiceV1::create_attestor].
+    /// Implements [super::client::BinauthzManagementServiceV1::create_attestor].
     fn create_attestor(
         &self,
         _req: crate::model::CreateAttestorRequest,
@@ -73,7 +73,7 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BinauthzManagementServiceV1::get_attestor].
+    /// Implements [super::client::BinauthzManagementServiceV1::get_attestor].
     fn get_attestor(
         &self,
         _req: crate::model::GetAttestorRequest,
@@ -84,7 +84,7 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BinauthzManagementServiceV1::update_attestor].
+    /// Implements [super::client::BinauthzManagementServiceV1::update_attestor].
     fn update_attestor(
         &self,
         _req: crate::model::UpdateAttestorRequest,
@@ -95,7 +95,7 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BinauthzManagementServiceV1::list_attestors].
+    /// Implements [super::client::BinauthzManagementServiceV1::list_attestors].
     fn list_attestors(
         &self,
         _req: crate::model::ListAttestorsRequest,
@@ -107,7 +107,7 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BinauthzManagementServiceV1::delete_attestor].
+    /// Implements [super::client::BinauthzManagementServiceV1::delete_attestor].
     fn delete_attestor(
         &self,
         _req: crate::model::DeleteAttestorRequest,
@@ -117,7 +117,7 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SystemPolicyV1].
+/// Defines the trait used to implement [super::client::SystemPolicyV1].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SystemPolicyV1`.  In other use-cases, application developers only
@@ -129,7 +129,7 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::SystemPolicyV1::get_system_policy].
+    /// Implements [super::client::SystemPolicyV1::get_system_policy].
     fn get_system_policy(
         &self,
         _req: crate::model::GetSystemPolicyRequest,
@@ -141,7 +141,7 @@ pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ValidationHelperV1].
+/// Defines the trait used to implement [super::client::ValidationHelperV1].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ValidationHelperV1`.  In other use-cases, application developers only
@@ -153,7 +153,7 @@ pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ValidationHelperV1: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ValidationHelperV1::validate_attestation_occurrence].
+    /// Implements [super::client::ValidationHelperV1::validate_attestation_occurrence].
     fn validate_attestation_occurrence(
         &self,
         _req: crate::model::ValidateAttestationOccurrenceRequest,

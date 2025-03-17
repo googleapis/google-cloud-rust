@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::EdgeContainer].
+/// Defines the trait used to implement [super::client::EdgeContainer].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::EdgeContainer`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::EdgeContainer::list_clusters].
+    /// Implements [super::client::EdgeContainer::list_clusters].
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
@@ -53,7 +53,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::get_cluster].
+    /// Implements [super::client::EdgeContainer::get_cluster].
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
@@ -64,7 +64,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::create_cluster].
+    /// Implements [super::client::EdgeContainer::create_cluster].
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
@@ -76,7 +76,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::update_cluster].
+    /// Implements [super::client::EdgeContainer::update_cluster].
     fn update_cluster(
         &self,
         _req: crate::model::UpdateClusterRequest,
@@ -88,7 +88,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::upgrade_cluster].
+    /// Implements [super::client::EdgeContainer::upgrade_cluster].
     fn upgrade_cluster(
         &self,
         _req: crate::model::UpgradeClusterRequest,
@@ -100,7 +100,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::delete_cluster].
+    /// Implements [super::client::EdgeContainer::delete_cluster].
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
@@ -112,7 +112,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::generate_access_token].
+    /// Implements [super::client::EdgeContainer::generate_access_token].
     fn generate_access_token(
         &self,
         _req: crate::model::GenerateAccessTokenRequest,
@@ -124,7 +124,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeContainer::generate_offline_credential].
+    /// Implements [super::client::EdgeContainer::generate_offline_credential].
     fn generate_offline_credential(
         &self,
         _req: crate::model::GenerateOfflineCredentialRequest,
@@ -137,7 +137,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeContainer::list_node_pools].
+    /// Implements [super::client::EdgeContainer::list_node_pools].
     fn list_node_pools(
         &self,
         _req: crate::model::ListNodePoolsRequest,
@@ -149,7 +149,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::get_node_pool].
+    /// Implements [super::client::EdgeContainer::get_node_pool].
     fn get_node_pool(
         &self,
         _req: crate::model::GetNodePoolRequest,
@@ -160,7 +160,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::create_node_pool].
+    /// Implements [super::client::EdgeContainer::create_node_pool].
     fn create_node_pool(
         &self,
         _req: crate::model::CreateNodePoolRequest,
@@ -172,7 +172,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::update_node_pool].
+    /// Implements [super::client::EdgeContainer::update_node_pool].
     fn update_node_pool(
         &self,
         _req: crate::model::UpdateNodePoolRequest,
@@ -184,7 +184,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::delete_node_pool].
+    /// Implements [super::client::EdgeContainer::delete_node_pool].
     fn delete_node_pool(
         &self,
         _req: crate::model::DeleteNodePoolRequest,
@@ -196,7 +196,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::list_machines].
+    /// Implements [super::client::EdgeContainer::list_machines].
     fn list_machines(
         &self,
         _req: crate::model::ListMachinesRequest,
@@ -208,7 +208,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::get_machine].
+    /// Implements [super::client::EdgeContainer::get_machine].
     fn get_machine(
         &self,
         _req: crate::model::GetMachineRequest,
@@ -219,7 +219,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::list_vpn_connections].
+    /// Implements [super::client::EdgeContainer::list_vpn_connections].
     fn list_vpn_connections(
         &self,
         _req: crate::model::ListVpnConnectionsRequest,
@@ -231,7 +231,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeContainer::get_vpn_connection].
+    /// Implements [super::client::EdgeContainer::get_vpn_connection].
     fn get_vpn_connection(
         &self,
         _req: crate::model::GetVpnConnectionRequest,
@@ -242,7 +242,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::create_vpn_connection].
+    /// Implements [super::client::EdgeContainer::create_vpn_connection].
     fn create_vpn_connection(
         &self,
         _req: crate::model::CreateVpnConnectionRequest,
@@ -254,7 +254,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::delete_vpn_connection].
+    /// Implements [super::client::EdgeContainer::delete_vpn_connection].
     fn delete_vpn_connection(
         &self,
         _req: crate::model::DeleteVpnConnectionRequest,
@@ -266,7 +266,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::get_server_config].
+    /// Implements [super::client::EdgeContainer::get_server_config].
     fn get_server_config(
         &self,
         _req: crate::model::GetServerConfigRequest,
@@ -277,7 +277,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::list_locations].
+    /// Implements [super::client::EdgeContainer::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -289,7 +289,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeContainer::get_location].
+    /// Implements [super::client::EdgeContainer::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -300,7 +300,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::list_operations].
+    /// Implements [super::client::EdgeContainer::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -312,7 +312,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeContainer::get_operation].
+    /// Implements [super::client::EdgeContainer::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -324,7 +324,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeContainer::delete_operation].
+    /// Implements [super::client::EdgeContainer::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -333,7 +333,7 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::EdgeContainer::cancel_operation].
+    /// Implements [super::client::EdgeContainer::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

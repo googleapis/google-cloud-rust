@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Ids](crate::stubs::Ids) using a [gclient::ReqwestClient].
+/// Implements [Ids](super::stubs::Ids) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct Ids {
     inner: gclient::ReqwestClient,
@@ -37,7 +37,7 @@ impl Ids {
     }
 }
 
-impl crate::stubs::Ids for Ids {
+impl super::stubs::Ids for Ids {
     async fn list_endpoints(
         &self,
         req: crate::model::ListEndpointsRequest,

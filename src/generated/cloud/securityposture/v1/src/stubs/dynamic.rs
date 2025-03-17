@@ -150,9 +150,9 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::SecurityPosture] also implement [SecurityPosture].
+/// All implementations of [super::SecurityPosture] also implement [SecurityPosture].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SecurityPosture> SecurityPosture for T {
+impl<T: super::SecurityPosture> SecurityPosture for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_postures(
         &self,

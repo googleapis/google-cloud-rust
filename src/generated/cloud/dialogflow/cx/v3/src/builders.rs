@@ -18,10 +18,10 @@ pub mod agents {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Agents] request builders.
+    /// Common implementation for [super::super::client::Agents] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Agents>,
+        stub: Arc<dyn super::super::stubs::dynamic::Agents>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod agents {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod agents {
     pub struct ListAgents(RequestBuilder<crate::model::ListAgentsRequest>);
 
     impl ListAgents {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -111,7 +111,7 @@ pub mod agents {
     pub struct GetAgent(RequestBuilder<crate::model::GetAgentRequest>);
 
     impl GetAgent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -152,7 +152,7 @@ pub mod agents {
     pub struct CreateAgent(RequestBuilder<crate::model::CreateAgentRequest>);
 
     impl CreateAgent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -202,7 +202,7 @@ pub mod agents {
     pub struct UpdateAgent(RequestBuilder<crate::model::UpdateAgentRequest>);
 
     impl UpdateAgent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -255,7 +255,7 @@ pub mod agents {
     pub struct DeleteAgent(RequestBuilder<crate::model::DeleteAgentRequest>);
 
     impl DeleteAgent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,7 +296,7 @@ pub mod agents {
     pub struct ExportAgent(RequestBuilder<crate::model::ExportAgentRequest>);
 
     impl ExportAgent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -317,7 +317,7 @@ pub mod agents {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_agent][crate::client::Agents::export_agent].
+        /// on [export_agent][super::super::client::Agents::export_agent].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_agent(self.0.request, self.0.options)
@@ -410,7 +410,7 @@ pub mod agents {
     pub struct RestoreAgent(RequestBuilder<crate::model::RestoreAgentRequest>);
 
     impl RestoreAgent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -431,7 +431,7 @@ pub mod agents {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_agent][crate::client::Agents::restore_agent].
+        /// on [restore_agent][super::super::client::Agents::restore_agent].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_agent(self.0.request, self.0.options)
@@ -504,7 +504,7 @@ pub mod agents {
     pub struct ValidateAgent(RequestBuilder<crate::model::ValidateAgentRequest>);
 
     impl ValidateAgent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -553,7 +553,7 @@ pub mod agents {
     );
 
     impl GetAgentValidationResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -603,7 +603,7 @@ pub mod agents {
     pub struct GetGenerativeSettings(RequestBuilder<crate::model::GetGenerativeSettingsRequest>);
 
     impl GetGenerativeSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -655,7 +655,7 @@ pub mod agents {
     );
 
     impl UpdateGenerativeSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -713,7 +713,7 @@ pub mod agents {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -789,7 +789,7 @@ pub mod agents {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -830,7 +830,7 @@ pub mod agents {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -906,7 +906,7 @@ pub mod agents {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -950,7 +950,7 @@ pub mod agents {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Agents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Agents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -994,10 +994,10 @@ pub mod changelogs {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Changelogs] request builders.
+    /// Common implementation for [super::super::client::Changelogs] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Changelogs>,
+        stub: Arc<dyn super::super::stubs::dynamic::Changelogs>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1006,7 +1006,7 @@ pub mod changelogs {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Changelogs>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Changelogs>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1020,7 +1020,7 @@ pub mod changelogs {
     pub struct ListChangelogs(RequestBuilder<crate::model::ListChangelogsRequest>);
 
     impl ListChangelogs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Changelogs>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Changelogs>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1093,7 +1093,7 @@ pub mod changelogs {
     pub struct GetChangelog(RequestBuilder<crate::model::GetChangelogRequest>);
 
     impl GetChangelog {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Changelogs>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Changelogs>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1134,7 +1134,7 @@ pub mod changelogs {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Changelogs>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Changelogs>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1210,7 +1210,7 @@ pub mod changelogs {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Changelogs>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Changelogs>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1251,7 +1251,7 @@ pub mod changelogs {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Changelogs>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Changelogs>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1327,7 +1327,7 @@ pub mod changelogs {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Changelogs>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Changelogs>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1371,7 +1371,7 @@ pub mod changelogs {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Changelogs>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Changelogs>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1415,10 +1415,10 @@ pub mod deployments {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Deployments] request builders.
+    /// Common implementation for [super::super::client::Deployments] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Deployments>,
+        stub: Arc<dyn super::super::stubs::dynamic::Deployments>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1427,7 +1427,7 @@ pub mod deployments {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Deployments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Deployments>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1441,7 +1441,7 @@ pub mod deployments {
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Deployments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Deployments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1508,7 +1508,7 @@ pub mod deployments {
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Deployments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Deployments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1549,7 +1549,7 @@ pub mod deployments {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Deployments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Deployments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1625,7 +1625,7 @@ pub mod deployments {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Deployments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Deployments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1666,7 +1666,7 @@ pub mod deployments {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Deployments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Deployments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1742,7 +1742,7 @@ pub mod deployments {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Deployments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Deployments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1786,7 +1786,7 @@ pub mod deployments {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Deployments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Deployments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1830,10 +1830,10 @@ pub mod entity_types {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::EntityTypes] request builders.
+    /// Common implementation for [super::super::client::EntityTypes] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::EntityTypes>,
+        stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1842,7 +1842,7 @@ pub mod entity_types {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1856,7 +1856,7 @@ pub mod entity_types {
     pub struct GetEntityType(RequestBuilder<crate::model::GetEntityTypeRequest>);
 
     impl GetEntityType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1903,7 +1903,7 @@ pub mod entity_types {
     pub struct CreateEntityType(RequestBuilder<crate::model::CreateEntityTypeRequest>);
 
     impl CreateEntityType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1962,7 +1962,7 @@ pub mod entity_types {
     pub struct UpdateEntityType(RequestBuilder<crate::model::UpdateEntityTypeRequest>);
 
     impl UpdateEntityType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2024,7 +2024,7 @@ pub mod entity_types {
     pub struct DeleteEntityType(RequestBuilder<crate::model::DeleteEntityTypeRequest>);
 
     impl DeleteEntityType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2074,7 +2074,7 @@ pub mod entity_types {
     pub struct ListEntityTypes(RequestBuilder<crate::model::ListEntityTypesRequest>);
 
     impl ListEntityTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2147,7 +2147,7 @@ pub mod entity_types {
     pub struct ExportEntityTypes(RequestBuilder<crate::model::ExportEntityTypesRequest>);
 
     impl ExportEntityTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2171,7 +2171,7 @@ pub mod entity_types {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_entity_types][crate::client::EntityTypes::export_entity_types].
+        /// on [export_entity_types][super::super::client::EntityTypes::export_entity_types].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_entity_types(self.0.request, self.0.options)
@@ -2271,7 +2271,7 @@ pub mod entity_types {
     pub struct ImportEntityTypes(RequestBuilder<crate::model::ImportEntityTypesRequest>);
 
     impl ImportEntityTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2295,7 +2295,7 @@ pub mod entity_types {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_entity_types][crate::client::EntityTypes::import_entity_types].
+        /// on [import_entity_types][super::super::client::EntityTypes::import_entity_types].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_entity_types(self.0.request, self.0.options)
@@ -2384,7 +2384,7 @@ pub mod entity_types {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2460,7 +2460,7 @@ pub mod entity_types {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2501,7 +2501,7 @@ pub mod entity_types {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2577,7 +2577,7 @@ pub mod entity_types {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2621,7 +2621,7 @@ pub mod entity_types {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2665,10 +2665,10 @@ pub mod environments {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Environments] request builders.
+    /// Common implementation for [super::super::client::Environments] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Environments>,
+        stub: Arc<dyn super::super::stubs::dynamic::Environments>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2677,7 +2677,7 @@ pub mod environments {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2691,7 +2691,7 @@ pub mod environments {
     pub struct ListEnvironments(RequestBuilder<crate::model::ListEnvironmentsRequest>);
 
     impl ListEnvironments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2761,7 +2761,7 @@ pub mod environments {
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
     impl GetEnvironment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2802,7 +2802,7 @@ pub mod environments {
     pub struct CreateEnvironment(RequestBuilder<crate::model::CreateEnvironmentRequest>);
 
     impl CreateEnvironment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2826,7 +2826,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_environment][crate::client::Environments::create_environment].
+        /// on [create_environment][super::super::client::Environments::create_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_environment(self.0.request, self.0.options)
@@ -2890,7 +2890,7 @@ pub mod environments {
     pub struct UpdateEnvironment(RequestBuilder<crate::model::UpdateEnvironmentRequest>);
 
     impl UpdateEnvironment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2914,7 +2914,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_environment][crate::client::Environments::update_environment].
+        /// on [update_environment][super::super::client::Environments::update_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_environment(self.0.request, self.0.options)
@@ -2981,7 +2981,7 @@ pub mod environments {
     pub struct DeleteEnvironment(RequestBuilder<crate::model::DeleteEnvironmentRequest>);
 
     impl DeleteEnvironment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3027,7 +3027,7 @@ pub mod environments {
     );
 
     impl LookupEnvironmentHistory {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3099,7 +3099,7 @@ pub mod environments {
     pub struct RunContinuousTest(RequestBuilder<crate::model::RunContinuousTestRequest>);
 
     impl RunContinuousTest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3123,7 +3123,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_continuous_test][crate::client::Environments::run_continuous_test].
+        /// on [run_continuous_test][super::super::client::Environments::run_continuous_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_continuous_test(self.0.request, self.0.options)
@@ -3188,7 +3188,7 @@ pub mod environments {
     );
 
     impl ListContinuousTestResults {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3260,7 +3260,7 @@ pub mod environments {
     pub struct DeployFlow(RequestBuilder<crate::model::DeployFlowRequest>);
 
     impl DeployFlow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3281,7 +3281,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [deploy_flow][crate::client::Environments::deploy_flow].
+        /// on [deploy_flow][super::super::client::Environments::deploy_flow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .deploy_flow(self.0.request, self.0.options)
@@ -3346,7 +3346,7 @@ pub mod environments {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3422,7 +3422,7 @@ pub mod environments {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3463,7 +3463,7 @@ pub mod environments {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3539,7 +3539,7 @@ pub mod environments {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3583,7 +3583,7 @@ pub mod environments {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Environments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Environments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3627,10 +3627,10 @@ pub mod experiments {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Experiments] request builders.
+    /// Common implementation for [super::super::client::Experiments] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Experiments>,
+        stub: Arc<dyn super::super::stubs::dynamic::Experiments>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3639,7 +3639,7 @@ pub mod experiments {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3653,7 +3653,7 @@ pub mod experiments {
     pub struct ListExperiments(RequestBuilder<crate::model::ListExperimentsRequest>);
 
     impl ListExperiments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3720,7 +3720,7 @@ pub mod experiments {
     pub struct GetExperiment(RequestBuilder<crate::model::GetExperimentRequest>);
 
     impl GetExperiment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3761,7 +3761,7 @@ pub mod experiments {
     pub struct CreateExperiment(RequestBuilder<crate::model::CreateExperimentRequest>);
 
     impl CreateExperiment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3814,7 +3814,7 @@ pub mod experiments {
     pub struct UpdateExperiment(RequestBuilder<crate::model::UpdateExperimentRequest>);
 
     impl UpdateExperiment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3870,7 +3870,7 @@ pub mod experiments {
     pub struct DeleteExperiment(RequestBuilder<crate::model::DeleteExperimentRequest>);
 
     impl DeleteExperiment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3914,7 +3914,7 @@ pub mod experiments {
     pub struct StartExperiment(RequestBuilder<crate::model::StartExperimentRequest>);
 
     impl StartExperiment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3955,7 +3955,7 @@ pub mod experiments {
     pub struct StopExperiment(RequestBuilder<crate::model::StopExperimentRequest>);
 
     impl StopExperiment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3996,7 +3996,7 @@ pub mod experiments {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4072,7 +4072,7 @@ pub mod experiments {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4113,7 +4113,7 @@ pub mod experiments {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4189,7 +4189,7 @@ pub mod experiments {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4233,7 +4233,7 @@ pub mod experiments {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Experiments>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Experiments>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4277,10 +4277,10 @@ pub mod flows {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Flows] request builders.
+    /// Common implementation for [super::super::client::Flows] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Flows>,
+        stub: Arc<dyn super::super::stubs::dynamic::Flows>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4289,7 +4289,7 @@ pub mod flows {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -4303,7 +4303,7 @@ pub mod flows {
     pub struct CreateFlow(RequestBuilder<crate::model::CreateFlowRequest>);
 
     impl CreateFlow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4356,7 +4356,7 @@ pub mod flows {
     pub struct DeleteFlow(RequestBuilder<crate::model::DeleteFlowRequest>);
 
     impl DeleteFlow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4403,7 +4403,7 @@ pub mod flows {
     pub struct ListFlows(RequestBuilder<crate::model::ListFlowsRequest>);
 
     impl ListFlows {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4475,7 +4475,7 @@ pub mod flows {
     pub struct GetFlow(RequestBuilder<crate::model::GetFlowRequest>);
 
     impl GetFlow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4522,7 +4522,7 @@ pub mod flows {
     pub struct UpdateFlow(RequestBuilder<crate::model::UpdateFlowRequest>);
 
     impl UpdateFlow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4578,7 +4578,7 @@ pub mod flows {
     pub struct TrainFlow(RequestBuilder<crate::model::TrainFlowRequest>);
 
     impl TrainFlow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4599,7 +4599,7 @@ pub mod flows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [train_flow][crate::client::Flows::train_flow].
+        /// on [train_flow][super::super::client::Flows::train_flow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .train_flow(self.0.request, self.0.options)
@@ -4654,7 +4654,7 @@ pub mod flows {
     pub struct ValidateFlow(RequestBuilder<crate::model::ValidateFlowRequest>);
 
     impl ValidateFlow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4703,7 +4703,7 @@ pub mod flows {
     );
 
     impl GetFlowValidationResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4753,7 +4753,7 @@ pub mod flows {
     pub struct ImportFlow(RequestBuilder<crate::model::ImportFlowRequest>);
 
     impl ImportFlow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4774,7 +4774,7 @@ pub mod flows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_flow][crate::client::Flows::import_flow].
+        /// on [import_flow][super::super::client::Flows::import_flow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_flow(self.0.request, self.0.options)
@@ -4858,7 +4858,7 @@ pub mod flows {
     pub struct ExportFlow(RequestBuilder<crate::model::ExportFlowRequest>);
 
     impl ExportFlow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4879,7 +4879,7 @@ pub mod flows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_flow][crate::client::Flows::export_flow].
+        /// on [export_flow][super::super::client::Flows::export_flow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_flow(self.0.request, self.0.options)
@@ -4946,7 +4946,7 @@ pub mod flows {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5022,7 +5022,7 @@ pub mod flows {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5063,7 +5063,7 @@ pub mod flows {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5139,7 +5139,7 @@ pub mod flows {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5183,7 +5183,7 @@ pub mod flows {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Flows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Flows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5227,10 +5227,10 @@ pub mod generators {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Generators] request builders.
+    /// Common implementation for [super::super::client::Generators] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Generators>,
+        stub: Arc<dyn super::super::stubs::dynamic::Generators>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -5239,7 +5239,7 @@ pub mod generators {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -5253,7 +5253,7 @@ pub mod generators {
     pub struct ListGenerators(RequestBuilder<crate::model::ListGeneratorsRequest>);
 
     impl ListGenerators {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5326,7 +5326,7 @@ pub mod generators {
     pub struct GetGenerator(RequestBuilder<crate::model::GetGeneratorRequest>);
 
     impl GetGenerator {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5373,7 +5373,7 @@ pub mod generators {
     pub struct CreateGenerator(RequestBuilder<crate::model::CreateGeneratorRequest>);
 
     impl CreateGenerator {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5429,7 +5429,7 @@ pub mod generators {
     pub struct UpdateGenerator(RequestBuilder<crate::model::UpdateGeneratorRequest>);
 
     impl UpdateGenerator {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5488,7 +5488,7 @@ pub mod generators {
     pub struct DeleteGenerator(RequestBuilder<crate::model::DeleteGeneratorRequest>);
 
     impl DeleteGenerator {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5535,7 +5535,7 @@ pub mod generators {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5611,7 +5611,7 @@ pub mod generators {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5652,7 +5652,7 @@ pub mod generators {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5728,7 +5728,7 @@ pub mod generators {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5772,7 +5772,7 @@ pub mod generators {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Generators>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Generators>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5816,10 +5816,10 @@ pub mod intents {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Intents] request builders.
+    /// Common implementation for [super::super::client::Intents] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Intents>,
+        stub: Arc<dyn super::super::stubs::dynamic::Intents>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -5828,7 +5828,7 @@ pub mod intents {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -5842,7 +5842,7 @@ pub mod intents {
     pub struct ListIntents(RequestBuilder<crate::model::ListIntentsRequest>);
 
     impl ListIntents {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5921,7 +5921,7 @@ pub mod intents {
     pub struct GetIntent(RequestBuilder<crate::model::GetIntentRequest>);
 
     impl GetIntent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5968,7 +5968,7 @@ pub mod intents {
     pub struct CreateIntent(RequestBuilder<crate::model::CreateIntentRequest>);
 
     impl CreateIntent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6024,7 +6024,7 @@ pub mod intents {
     pub struct UpdateIntent(RequestBuilder<crate::model::UpdateIntentRequest>);
 
     impl UpdateIntent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6083,7 +6083,7 @@ pub mod intents {
     pub struct DeleteIntent(RequestBuilder<crate::model::DeleteIntentRequest>);
 
     impl DeleteIntent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6124,7 +6124,7 @@ pub mod intents {
     pub struct ImportIntents(RequestBuilder<crate::model::ImportIntentsRequest>);
 
     impl ImportIntents {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6145,7 +6145,7 @@ pub mod intents {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_intents][crate::client::Intents::import_intents].
+        /// on [import_intents][super::super::client::Intents::import_intents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_intents(self.0.request, self.0.options)
@@ -6224,7 +6224,7 @@ pub mod intents {
     pub struct ExportIntents(RequestBuilder<crate::model::ExportIntentsRequest>);
 
     impl ExportIntents {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6245,7 +6245,7 @@ pub mod intents {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_intents][crate::client::Intents::export_intents].
+        /// on [export_intents][super::super::client::Intents::export_intents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_intents(self.0.request, self.0.options)
@@ -6337,7 +6337,7 @@ pub mod intents {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6413,7 +6413,7 @@ pub mod intents {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6454,7 +6454,7 @@ pub mod intents {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6530,7 +6530,7 @@ pub mod intents {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6574,7 +6574,7 @@ pub mod intents {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Intents>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Intents>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6618,10 +6618,10 @@ pub mod pages {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Pages] request builders.
+    /// Common implementation for [super::super::client::Pages] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Pages>,
+        stub: Arc<dyn super::super::stubs::dynamic::Pages>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -6630,7 +6630,7 @@ pub mod pages {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -6644,7 +6644,7 @@ pub mod pages {
     pub struct ListPages(RequestBuilder<crate::model::ListPagesRequest>);
 
     impl ListPages {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6716,7 +6716,7 @@ pub mod pages {
     pub struct GetPage(RequestBuilder<crate::model::GetPageRequest>);
 
     impl GetPage {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6763,7 +6763,7 @@ pub mod pages {
     pub struct CreatePage(RequestBuilder<crate::model::CreatePageRequest>);
 
     impl CreatePage {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6816,7 +6816,7 @@ pub mod pages {
     pub struct UpdatePage(RequestBuilder<crate::model::UpdatePageRequest>);
 
     impl UpdatePage {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6872,7 +6872,7 @@ pub mod pages {
     pub struct DeletePage(RequestBuilder<crate::model::DeletePageRequest>);
 
     impl DeletePage {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6919,7 +6919,7 @@ pub mod pages {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6995,7 +6995,7 @@ pub mod pages {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7036,7 +7036,7 @@ pub mod pages {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7112,7 +7112,7 @@ pub mod pages {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7156,7 +7156,7 @@ pub mod pages {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Pages>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Pages>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7200,10 +7200,10 @@ pub mod security_settings_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SecuritySettingsService] request builders.
+    /// Common implementation for [super::super::client::SecuritySettingsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -7212,7 +7212,9 @@ pub mod security_settings_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -7226,7 +7228,9 @@ pub mod security_settings_service {
     pub struct CreateSecuritySettings(RequestBuilder<crate::model::CreateSecuritySettingsRequest>);
 
     impl CreateSecuritySettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7281,7 +7285,9 @@ pub mod security_settings_service {
     pub struct GetSecuritySettings(RequestBuilder<crate::model::GetSecuritySettingsRequest>);
 
     impl GetSecuritySettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7325,7 +7331,9 @@ pub mod security_settings_service {
     pub struct UpdateSecuritySettings(RequestBuilder<crate::model::UpdateSecuritySettingsRequest>);
 
     impl UpdateSecuritySettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7383,7 +7391,9 @@ pub mod security_settings_service {
     pub struct ListSecuritySettings(RequestBuilder<crate::model::ListSecuritySettingsRequest>);
 
     impl ListSecuritySettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7453,7 +7463,9 @@ pub mod security_settings_service {
     pub struct DeleteSecuritySettings(RequestBuilder<crate::model::DeleteSecuritySettingsRequest>);
 
     impl DeleteSecuritySettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7497,7 +7509,9 @@ pub mod security_settings_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7573,7 +7587,9 @@ pub mod security_settings_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7614,7 +7630,9 @@ pub mod security_settings_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7690,7 +7708,9 @@ pub mod security_settings_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7734,7 +7754,9 @@ pub mod security_settings_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecuritySettingsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SecuritySettingsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7778,10 +7800,10 @@ pub mod sessions {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Sessions] request builders.
+    /// Common implementation for [super::super::client::Sessions] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Sessions>,
+        stub: Arc<dyn super::super::stubs::dynamic::Sessions>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -7790,7 +7812,7 @@ pub mod sessions {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Sessions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Sessions>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -7804,7 +7826,7 @@ pub mod sessions {
     pub struct DetectIntent(RequestBuilder<crate::model::DetectIntentRequest>);
 
     impl DetectIntent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Sessions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Sessions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7874,7 +7896,7 @@ pub mod sessions {
     pub struct MatchIntent(RequestBuilder<crate::model::MatchIntentRequest>);
 
     impl MatchIntent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Sessions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Sessions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7939,7 +7961,7 @@ pub mod sessions {
     pub struct FulfillIntent(RequestBuilder<crate::model::FulfillIntentRequest>);
 
     impl FulfillIntent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Sessions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Sessions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8005,7 +8027,7 @@ pub mod sessions {
     pub struct SubmitAnswerFeedback(RequestBuilder<crate::model::SubmitAnswerFeedbackRequest>);
 
     impl SubmitAnswerFeedback {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Sessions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Sessions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8073,7 +8095,7 @@ pub mod sessions {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Sessions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Sessions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8149,7 +8171,7 @@ pub mod sessions {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Sessions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Sessions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8190,7 +8212,7 @@ pub mod sessions {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Sessions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Sessions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8266,7 +8288,7 @@ pub mod sessions {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Sessions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Sessions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8310,7 +8332,7 @@ pub mod sessions {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Sessions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Sessions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8354,10 +8376,10 @@ pub mod session_entity_types {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SessionEntityTypes] request builders.
+    /// Common implementation for [super::super::client::SessionEntityTypes] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>,
+        stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -8366,7 +8388,7 @@ pub mod session_entity_types {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -8380,7 +8402,7 @@ pub mod session_entity_types {
     pub struct ListSessionEntityTypes(RequestBuilder<crate::model::ListSessionEntityTypesRequest>);
 
     impl ListSessionEntityTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8452,7 +8474,7 @@ pub mod session_entity_types {
     pub struct GetSessionEntityType(RequestBuilder<crate::model::GetSessionEntityTypeRequest>);
 
     impl GetSessionEntityType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8498,7 +8520,7 @@ pub mod session_entity_types {
     );
 
     impl CreateSessionEntityType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8555,7 +8577,7 @@ pub mod session_entity_types {
     );
 
     impl UpdateSessionEntityType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8615,7 +8637,7 @@ pub mod session_entity_types {
     );
 
     impl DeleteSessionEntityType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8659,7 +8681,7 @@ pub mod session_entity_types {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8735,7 +8757,7 @@ pub mod session_entity_types {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8776,7 +8798,7 @@ pub mod session_entity_types {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8852,7 +8874,7 @@ pub mod session_entity_types {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8896,7 +8918,7 @@ pub mod session_entity_types {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SessionEntityTypes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SessionEntityTypes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8940,10 +8962,10 @@ pub mod test_cases {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TestCases] request builders.
+    /// Common implementation for [super::super::client::TestCases] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TestCases>,
+        stub: Arc<dyn super::super::stubs::dynamic::TestCases>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -8952,7 +8974,7 @@ pub mod test_cases {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -8966,7 +8988,7 @@ pub mod test_cases {
     pub struct ListTestCases(RequestBuilder<crate::model::ListTestCasesRequest>);
 
     impl ListTestCases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9042,7 +9064,7 @@ pub mod test_cases {
     pub struct BatchDeleteTestCases(RequestBuilder<crate::model::BatchDeleteTestCasesRequest>);
 
     impl BatchDeleteTestCases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9097,7 +9119,7 @@ pub mod test_cases {
     pub struct GetTestCase(RequestBuilder<crate::model::GetTestCaseRequest>);
 
     impl GetTestCase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9138,7 +9160,7 @@ pub mod test_cases {
     pub struct CreateTestCase(RequestBuilder<crate::model::CreateTestCaseRequest>);
 
     impl CreateTestCase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9188,7 +9210,7 @@ pub mod test_cases {
     pub struct UpdateTestCase(RequestBuilder<crate::model::UpdateTestCaseRequest>);
 
     impl UpdateTestCase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9241,7 +9263,7 @@ pub mod test_cases {
     pub struct RunTestCase(RequestBuilder<crate::model::RunTestCaseRequest>);
 
     impl RunTestCase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9262,7 +9284,7 @@ pub mod test_cases {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_test_case][crate::client::TestCases::run_test_case].
+        /// on [run_test_case][super::super::client::TestCases::run_test_case].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_test_case(self.0.request, self.0.options)
@@ -9329,7 +9351,7 @@ pub mod test_cases {
     pub struct BatchRunTestCases(RequestBuilder<crate::model::BatchRunTestCasesRequest>);
 
     impl BatchRunTestCases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9353,7 +9375,7 @@ pub mod test_cases {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_run_test_cases][crate::client::TestCases::batch_run_test_cases].
+        /// on [batch_run_test_cases][super::super::client::TestCases::batch_run_test_cases].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_run_test_cases(self.0.request, self.0.options)
@@ -9433,7 +9455,7 @@ pub mod test_cases {
     pub struct CalculateCoverage(RequestBuilder<crate::model::CalculateCoverageRequest>);
 
     impl CalculateCoverage {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9486,7 +9508,7 @@ pub mod test_cases {
     pub struct ImportTestCases(RequestBuilder<crate::model::ImportTestCasesRequest>);
 
     impl ImportTestCases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9507,7 +9529,7 @@ pub mod test_cases {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_test_cases][crate::client::TestCases::import_test_cases].
+        /// on [import_test_cases][super::super::client::TestCases::import_test_cases].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_test_cases(self.0.request, self.0.options)
@@ -9577,7 +9599,7 @@ pub mod test_cases {
     pub struct ExportTestCases(RequestBuilder<crate::model::ExportTestCasesRequest>);
 
     impl ExportTestCases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9598,7 +9620,7 @@ pub mod test_cases {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_test_cases][crate::client::TestCases::export_test_cases].
+        /// on [export_test_cases][super::super::client::TestCases::export_test_cases].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_test_cases(self.0.request, self.0.options)
@@ -9685,7 +9707,7 @@ pub mod test_cases {
     pub struct ListTestCaseResults(RequestBuilder<crate::model::ListTestCaseResultsRequest>);
 
     impl ListTestCaseResults {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9761,7 +9783,7 @@ pub mod test_cases {
     pub struct GetTestCaseResult(RequestBuilder<crate::model::GetTestCaseResultRequest>);
 
     impl GetTestCaseResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9805,7 +9827,7 @@ pub mod test_cases {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9881,7 +9903,7 @@ pub mod test_cases {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9922,7 +9944,7 @@ pub mod test_cases {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -9998,7 +10020,7 @@ pub mod test_cases {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10042,7 +10064,7 @@ pub mod test_cases {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TestCases>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TestCases>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10086,10 +10108,10 @@ pub mod transition_route_groups {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TransitionRouteGroups] request builders.
+    /// Common implementation for [super::super::client::TransitionRouteGroups] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>,
+        stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -10098,7 +10120,9 @@ pub mod transition_route_groups {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -10114,7 +10138,9 @@ pub mod transition_route_groups {
     );
 
     impl ListTransitionRouteGroups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10194,7 +10220,9 @@ pub mod transition_route_groups {
     );
 
     impl GetTransitionRouteGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10246,7 +10274,9 @@ pub mod transition_route_groups {
     );
 
     impl CreateTransitionRouteGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10309,7 +10339,9 @@ pub mod transition_route_groups {
     );
 
     impl UpdateTransitionRouteGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10375,7 +10407,9 @@ pub mod transition_route_groups {
     );
 
     impl DeleteTransitionRouteGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10425,7 +10459,9 @@ pub mod transition_route_groups {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10501,7 +10537,9 @@ pub mod transition_route_groups {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10542,7 +10580,9 @@ pub mod transition_route_groups {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10618,7 +10658,9 @@ pub mod transition_route_groups {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10662,7 +10704,9 @@ pub mod transition_route_groups {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TransitionRouteGroups>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::TransitionRouteGroups>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10706,10 +10750,10 @@ pub mod versions {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Versions] request builders.
+    /// Common implementation for [super::super::client::Versions] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Versions>,
+        stub: Arc<dyn super::super::stubs::dynamic::Versions>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -10718,7 +10762,7 @@ pub mod versions {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -10732,7 +10776,7 @@ pub mod versions {
     pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
 
     impl ListVersions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10799,7 +10843,7 @@ pub mod versions {
     pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10840,7 +10884,7 @@ pub mod versions {
     pub struct CreateVersion(RequestBuilder<crate::model::CreateVersionRequest>);
 
     impl CreateVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10861,7 +10905,7 @@ pub mod versions {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_version][crate::client::Versions::create_version].
+        /// on [create_version][super::super::client::Versions::create_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_version(self.0.request, self.0.options)
@@ -10929,7 +10973,7 @@ pub mod versions {
     pub struct UpdateVersion(RequestBuilder<crate::model::UpdateVersionRequest>);
 
     impl UpdateVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -10982,7 +11026,7 @@ pub mod versions {
     pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
 
     impl DeleteVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11023,7 +11067,7 @@ pub mod versions {
     pub struct LoadVersion(RequestBuilder<crate::model::LoadVersionRequest>);
 
     impl LoadVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11044,7 +11088,7 @@ pub mod versions {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [load_version][crate::client::Versions::load_version].
+        /// on [load_version][super::super::client::Versions::load_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .load_version(self.0.request, self.0.options)
@@ -11105,7 +11149,7 @@ pub mod versions {
     pub struct CompareVersions(RequestBuilder<crate::model::CompareVersionsRequest>);
 
     impl CompareVersions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11158,7 +11202,7 @@ pub mod versions {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11234,7 +11278,7 @@ pub mod versions {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11275,7 +11319,7 @@ pub mod versions {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11351,7 +11395,7 @@ pub mod versions {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11395,7 +11439,7 @@ pub mod versions {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Versions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Versions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11439,10 +11483,10 @@ pub mod webhooks {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Webhooks] request builders.
+    /// Common implementation for [super::super::client::Webhooks] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Webhooks>,
+        stub: Arc<dyn super::super::stubs::dynamic::Webhooks>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -11451,7 +11495,7 @@ pub mod webhooks {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -11465,7 +11509,7 @@ pub mod webhooks {
     pub struct ListWebhooks(RequestBuilder<crate::model::ListWebhooksRequest>);
 
     impl ListWebhooks {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11532,7 +11576,7 @@ pub mod webhooks {
     pub struct GetWebhook(RequestBuilder<crate::model::GetWebhookRequest>);
 
     impl GetWebhook {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11573,7 +11617,7 @@ pub mod webhooks {
     pub struct CreateWebhook(RequestBuilder<crate::model::CreateWebhookRequest>);
 
     impl CreateWebhook {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11623,7 +11667,7 @@ pub mod webhooks {
     pub struct UpdateWebhook(RequestBuilder<crate::model::UpdateWebhookRequest>);
 
     impl UpdateWebhook {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11676,7 +11720,7 @@ pub mod webhooks {
     pub struct DeleteWebhook(RequestBuilder<crate::model::DeleteWebhookRequest>);
 
     impl DeleteWebhook {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11723,7 +11767,7 @@ pub mod webhooks {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11799,7 +11843,7 @@ pub mod webhooks {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11840,7 +11884,7 @@ pub mod webhooks {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11916,7 +11960,7 @@ pub mod webhooks {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -11960,7 +12004,7 @@ pub mod webhooks {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Webhooks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Webhooks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

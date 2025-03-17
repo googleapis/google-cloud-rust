@@ -198,9 +198,9 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::FirestoreAdmin] also implement [FirestoreAdmin].
+/// All implementations of [super::FirestoreAdmin] also implement [FirestoreAdmin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::FirestoreAdmin> FirestoreAdmin for T {
+impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_index(
         &self,

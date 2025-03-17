@@ -102,9 +102,9 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Memorystore] also implement [Memorystore].
+/// All implementations of [super::Memorystore] also implement [Memorystore].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Memorystore> Memorystore for T {
+impl<T: super::Memorystore> Memorystore for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_instances(
         &self,

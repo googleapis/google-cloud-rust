@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ParameterManager].
+/// Defines the trait used to implement [super::client::ParameterManager].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ParameterManager`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ParameterManager: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ParameterManager::list_parameters].
+    /// Implements [super::client::ParameterManager::list_parameters].
     fn list_parameters(
         &self,
         _req: crate::model::ListParametersRequest,
@@ -52,7 +52,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ParameterManager::get_parameter].
+    /// Implements [super::client::ParameterManager::get_parameter].
     fn get_parameter(
         &self,
         _req: crate::model::GetParameterRequest,
@@ -63,7 +63,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ParameterManager::create_parameter].
+    /// Implements [super::client::ParameterManager::create_parameter].
     fn create_parameter(
         &self,
         _req: crate::model::CreateParameterRequest,
@@ -74,7 +74,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ParameterManager::update_parameter].
+    /// Implements [super::client::ParameterManager::update_parameter].
     fn update_parameter(
         &self,
         _req: crate::model::UpdateParameterRequest,
@@ -85,7 +85,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ParameterManager::delete_parameter].
+    /// Implements [super::client::ParameterManager::delete_parameter].
     fn delete_parameter(
         &self,
         _req: crate::model::DeleteParameterRequest,
@@ -94,7 +94,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ParameterManager::list_parameter_versions].
+    /// Implements [super::client::ParameterManager::list_parameter_versions].
     fn list_parameter_versions(
         &self,
         _req: crate::model::ListParameterVersionsRequest,
@@ -106,7 +106,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ParameterManager::get_parameter_version].
+    /// Implements [super::client::ParameterManager::get_parameter_version].
     fn get_parameter_version(
         &self,
         _req: crate::model::GetParameterVersionRequest,
@@ -118,7 +118,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ParameterManager::render_parameter_version].
+    /// Implements [super::client::ParameterManager::render_parameter_version].
     fn render_parameter_version(
         &self,
         _req: crate::model::RenderParameterVersionRequest,
@@ -130,7 +130,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ParameterManager::create_parameter_version].
+    /// Implements [super::client::ParameterManager::create_parameter_version].
     fn create_parameter_version(
         &self,
         _req: crate::model::CreateParameterVersionRequest,
@@ -142,7 +142,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ParameterManager::update_parameter_version].
+    /// Implements [super::client::ParameterManager::update_parameter_version].
     fn update_parameter_version(
         &self,
         _req: crate::model::UpdateParameterVersionRequest,
@@ -154,7 +154,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ParameterManager::delete_parameter_version].
+    /// Implements [super::client::ParameterManager::delete_parameter_version].
     fn delete_parameter_version(
         &self,
         _req: crate::model::DeleteParameterVersionRequest,
@@ -163,7 +163,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ParameterManager::list_locations].
+    /// Implements [super::client::ParameterManager::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -175,7 +175,7 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ParameterManager::get_location].
+    /// Implements [super::client::ParameterManager::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,

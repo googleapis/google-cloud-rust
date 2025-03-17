@@ -222,9 +222,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::CheckAutopilotCompatibilityResponse>;
 }
 
-/// All implementations of [crate::stubs::ClusterManager] also implement [ClusterManager].
+/// All implementations of [super::ClusterManager] also implement [ClusterManager].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ClusterManager> ClusterManager for T {
+impl<T: super::ClusterManager> ClusterManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_clusters(
         &self,

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::VpcAccessService].
+/// Defines the trait used to implement [super::client::VpcAccessService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::VpcAccessService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::VpcAccessService::create_connector].
+    /// Implements [super::client::VpcAccessService::create_connector].
     fn create_connector(
         &self,
         _req: crate::model::CreateConnectorRequest,
@@ -53,7 +53,7 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcAccessService::get_connector].
+    /// Implements [super::client::VpcAccessService::get_connector].
     fn get_connector(
         &self,
         _req: crate::model::GetConnectorRequest,
@@ -64,7 +64,7 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcAccessService::list_connectors].
+    /// Implements [super::client::VpcAccessService::list_connectors].
     fn list_connectors(
         &self,
         _req: crate::model::ListConnectorsRequest,
@@ -76,7 +76,7 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VpcAccessService::delete_connector].
+    /// Implements [super::client::VpcAccessService::delete_connector].
     fn delete_connector(
         &self,
         _req: crate::model::DeleteConnectorRequest,
@@ -88,7 +88,7 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VpcAccessService::list_locations].
+    /// Implements [super::client::VpcAccessService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -100,7 +100,7 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VpcAccessService::list_operations].
+    /// Implements [super::client::VpcAccessService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -112,7 +112,7 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VpcAccessService::get_operation].
+    /// Implements [super::client::VpcAccessService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

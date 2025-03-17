@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct VmMigration {
-    inner: Arc<dyn crate::stubs::dynamic::VmMigration>,
+    inner: Arc<dyn super::stubs::dynamic::VmMigration>,
 }
 
 impl VmMigration {
@@ -59,7 +59,7 @@ impl VmMigration {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::VmMigration + 'static,
+        T: super::stubs::VmMigration + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl VmMigration {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::VmMigration>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::VmMigration>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl VmMigration {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::VmMigration> {
-        crate::transport::VmMigration::new(conf).await
+    ) -> Result<impl super::stubs::VmMigration> {
+        super::transport::VmMigration::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::VmMigration> {
+    ) -> Result<impl super::stubs::VmMigration> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::VmMigration::new)
+            .map(super::tracing::VmMigration::new)
     }
 
     /// Lists Sources in a given project and location.
     pub fn list_sources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListSources {
-        crate::builders::vm_migration::ListSources::new(self.inner.clone())
+    ) -> super::builders::vm_migration::ListSources {
+        super::builders::vm_migration::ListSources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl VmMigration {
     pub fn get_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetSource {
-        crate::builders::vm_migration::GetSource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::GetSource {
+        super::builders::vm_migration::GetSource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Source in a given project and location.
@@ -120,8 +120,8 @@ impl VmMigration {
     pub fn create_source(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CreateSource {
-        crate::builders::vm_migration::CreateSource::new(self.inner.clone())
+    ) -> super::builders::vm_migration::CreateSource {
+        super::builders::vm_migration::CreateSource::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -139,8 +139,8 @@ impl VmMigration {
     pub fn update_source(
         &self,
         source: impl Into<crate::model::Source>,
-    ) -> crate::builders::vm_migration::UpdateSource {
-        crate::builders::vm_migration::UpdateSource::new(self.inner.clone())
+    ) -> super::builders::vm_migration::UpdateSource {
+        super::builders::vm_migration::UpdateSource::new(self.inner.clone())
             .set_source(source.into())
     }
 
@@ -158,8 +158,8 @@ impl VmMigration {
     pub fn delete_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::DeleteSource {
-        crate::builders::vm_migration::DeleteSource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::DeleteSource {
+        super::builders::vm_migration::DeleteSource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// List remote source's inventory of VMs.
@@ -170,8 +170,8 @@ impl VmMigration {
     pub fn fetch_inventory(
         &self,
         source: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::FetchInventory {
-        crate::builders::vm_migration::FetchInventory::new(self.inner.clone())
+    ) -> super::builders::vm_migration::FetchInventory {
+        super::builders::vm_migration::FetchInventory::new(self.inner.clone())
             .set_source(source.into())
     }
 
@@ -179,8 +179,8 @@ impl VmMigration {
     pub fn list_utilization_reports(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListUtilizationReports {
-        crate::builders::vm_migration::ListUtilizationReports::new(self.inner.clone())
+    ) -> super::builders::vm_migration::ListUtilizationReports {
+        super::builders::vm_migration::ListUtilizationReports::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -188,8 +188,8 @@ impl VmMigration {
     pub fn get_utilization_report(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetUtilizationReport {
-        crate::builders::vm_migration::GetUtilizationReport::new(self.inner.clone())
+    ) -> super::builders::vm_migration::GetUtilizationReport {
+        super::builders::vm_migration::GetUtilizationReport::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -207,8 +207,8 @@ impl VmMigration {
     pub fn create_utilization_report(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CreateUtilizationReport {
-        crate::builders::vm_migration::CreateUtilizationReport::new(self.inner.clone())
+    ) -> super::builders::vm_migration::CreateUtilizationReport {
+        super::builders::vm_migration::CreateUtilizationReport::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -226,8 +226,8 @@ impl VmMigration {
     pub fn delete_utilization_report(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::DeleteUtilizationReport {
-        crate::builders::vm_migration::DeleteUtilizationReport::new(self.inner.clone())
+    ) -> super::builders::vm_migration::DeleteUtilizationReport {
+        super::builders::vm_migration::DeleteUtilizationReport::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -235,8 +235,8 @@ impl VmMigration {
     pub fn list_datacenter_connectors(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListDatacenterConnectors {
-        crate::builders::vm_migration::ListDatacenterConnectors::new(self.inner.clone())
+    ) -> super::builders::vm_migration::ListDatacenterConnectors {
+        super::builders::vm_migration::ListDatacenterConnectors::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -244,8 +244,8 @@ impl VmMigration {
     pub fn get_datacenter_connector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetDatacenterConnector {
-        crate::builders::vm_migration::GetDatacenterConnector::new(self.inner.clone())
+    ) -> super::builders::vm_migration::GetDatacenterConnector {
+        super::builders::vm_migration::GetDatacenterConnector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -263,8 +263,8 @@ impl VmMigration {
     pub fn create_datacenter_connector(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CreateDatacenterConnector {
-        crate::builders::vm_migration::CreateDatacenterConnector::new(self.inner.clone())
+    ) -> super::builders::vm_migration::CreateDatacenterConnector {
+        super::builders::vm_migration::CreateDatacenterConnector::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -282,8 +282,8 @@ impl VmMigration {
     pub fn delete_datacenter_connector(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::DeleteDatacenterConnector {
-        crate::builders::vm_migration::DeleteDatacenterConnector::new(self.inner.clone())
+    ) -> super::builders::vm_migration::DeleteDatacenterConnector {
+        super::builders::vm_migration::DeleteDatacenterConnector::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -302,8 +302,8 @@ impl VmMigration {
     pub fn upgrade_appliance(
         &self,
         datacenter_connector: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::UpgradeAppliance {
-        crate::builders::vm_migration::UpgradeAppliance::new(self.inner.clone())
+    ) -> super::builders::vm_migration::UpgradeAppliance {
+        super::builders::vm_migration::UpgradeAppliance::new(self.inner.clone())
             .set_datacenter_connector(datacenter_connector.into())
     }
 
@@ -321,8 +321,8 @@ impl VmMigration {
     pub fn create_migrating_vm(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CreateMigratingVm {
-        crate::builders::vm_migration::CreateMigratingVm::new(self.inner.clone())
+    ) -> super::builders::vm_migration::CreateMigratingVm {
+        super::builders::vm_migration::CreateMigratingVm::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -330,8 +330,8 @@ impl VmMigration {
     pub fn list_migrating_vms(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListMigratingVms {
-        crate::builders::vm_migration::ListMigratingVms::new(self.inner.clone())
+    ) -> super::builders::vm_migration::ListMigratingVms {
+        super::builders::vm_migration::ListMigratingVms::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -339,8 +339,8 @@ impl VmMigration {
     pub fn get_migrating_vm(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetMigratingVm {
-        crate::builders::vm_migration::GetMigratingVm::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::GetMigratingVm {
+        super::builders::vm_migration::GetMigratingVm::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the parameters of a single MigratingVm.
@@ -357,8 +357,8 @@ impl VmMigration {
     pub fn update_migrating_vm(
         &self,
         migrating_vm: impl Into<crate::model::MigratingVm>,
-    ) -> crate::builders::vm_migration::UpdateMigratingVm {
-        crate::builders::vm_migration::UpdateMigratingVm::new(self.inner.clone())
+    ) -> super::builders::vm_migration::UpdateMigratingVm {
+        super::builders::vm_migration::UpdateMigratingVm::new(self.inner.clone())
             .set_migrating_vm(migrating_vm.into())
     }
 
@@ -376,8 +376,8 @@ impl VmMigration {
     pub fn delete_migrating_vm(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::DeleteMigratingVm {
-        crate::builders::vm_migration::DeleteMigratingVm::new(self.inner.clone())
+    ) -> super::builders::vm_migration::DeleteMigratingVm {
+        super::builders::vm_migration::DeleteMigratingVm::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -396,8 +396,8 @@ impl VmMigration {
     pub fn start_migration(
         &self,
         migrating_vm: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::StartMigration {
-        crate::builders::vm_migration::StartMigration::new(self.inner.clone())
+    ) -> super::builders::vm_migration::StartMigration {
+        super::builders::vm_migration::StartMigration::new(self.inner.clone())
             .set_migrating_vm(migrating_vm.into())
     }
 
@@ -418,8 +418,8 @@ impl VmMigration {
     pub fn resume_migration(
         &self,
         migrating_vm: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ResumeMigration {
-        crate::builders::vm_migration::ResumeMigration::new(self.inner.clone())
+    ) -> super::builders::vm_migration::ResumeMigration {
+        super::builders::vm_migration::ResumeMigration::new(self.inner.clone())
             .set_migrating_vm(migrating_vm.into())
     }
 
@@ -439,8 +439,8 @@ impl VmMigration {
     pub fn pause_migration(
         &self,
         migrating_vm: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::PauseMigration {
-        crate::builders::vm_migration::PauseMigration::new(self.inner.clone())
+    ) -> super::builders::vm_migration::PauseMigration {
+        super::builders::vm_migration::PauseMigration::new(self.inner.clone())
             .set_migrating_vm(migrating_vm.into())
     }
 
@@ -459,8 +459,8 @@ impl VmMigration {
     pub fn finalize_migration(
         &self,
         migrating_vm: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::FinalizeMigration {
-        crate::builders::vm_migration::FinalizeMigration::new(self.inner.clone())
+    ) -> super::builders::vm_migration::FinalizeMigration {
+        super::builders::vm_migration::FinalizeMigration::new(self.inner.clone())
             .set_migrating_vm(migrating_vm.into())
     }
 
@@ -478,8 +478,8 @@ impl VmMigration {
     pub fn create_clone_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CreateCloneJob {
-        crate::builders::vm_migration::CreateCloneJob::new(self.inner.clone())
+    ) -> super::builders::vm_migration::CreateCloneJob {
+        super::builders::vm_migration::CreateCloneJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -497,16 +497,16 @@ impl VmMigration {
     pub fn cancel_clone_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CancelCloneJob {
-        crate::builders::vm_migration::CancelCloneJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::CancelCloneJob {
+        super::builders::vm_migration::CancelCloneJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists CloneJobs of a given migrating VM.
     pub fn list_clone_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListCloneJobs {
-        crate::builders::vm_migration::ListCloneJobs::new(self.inner.clone())
+    ) -> super::builders::vm_migration::ListCloneJobs {
+        super::builders::vm_migration::ListCloneJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -514,8 +514,8 @@ impl VmMigration {
     pub fn get_clone_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetCloneJob {
-        crate::builders::vm_migration::GetCloneJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::GetCloneJob {
+        super::builders::vm_migration::GetCloneJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Initiates a Cutover of a specific migrating VM.
@@ -534,8 +534,8 @@ impl VmMigration {
     pub fn create_cutover_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CreateCutoverJob {
-        crate::builders::vm_migration::CreateCutoverJob::new(self.inner.clone())
+    ) -> super::builders::vm_migration::CreateCutoverJob {
+        super::builders::vm_migration::CreateCutoverJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -553,8 +553,8 @@ impl VmMigration {
     pub fn cancel_cutover_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CancelCutoverJob {
-        crate::builders::vm_migration::CancelCutoverJob::new(self.inner.clone())
+    ) -> super::builders::vm_migration::CancelCutoverJob {
+        super::builders::vm_migration::CancelCutoverJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -562,8 +562,8 @@ impl VmMigration {
     pub fn list_cutover_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListCutoverJobs {
-        crate::builders::vm_migration::ListCutoverJobs::new(self.inner.clone())
+    ) -> super::builders::vm_migration::ListCutoverJobs {
+        super::builders::vm_migration::ListCutoverJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -571,24 +571,24 @@ impl VmMigration {
     pub fn get_cutover_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetCutoverJob {
-        crate::builders::vm_migration::GetCutoverJob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::GetCutoverJob {
+        super::builders::vm_migration::GetCutoverJob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists Groups in a given project and location.
     pub fn list_groups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListGroups {
-        crate::builders::vm_migration::ListGroups::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::vm_migration::ListGroups {
+        super::builders::vm_migration::ListGroups::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single Group.
     pub fn get_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetGroup {
-        crate::builders::vm_migration::GetGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::GetGroup {
+        super::builders::vm_migration::GetGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Group in a given project and location.
@@ -605,8 +605,8 @@ impl VmMigration {
     pub fn create_group(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CreateGroup {
-        crate::builders::vm_migration::CreateGroup::new(self.inner.clone())
+    ) -> super::builders::vm_migration::CreateGroup {
+        super::builders::vm_migration::CreateGroup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -624,8 +624,8 @@ impl VmMigration {
     pub fn update_group(
         &self,
         group: impl Into<crate::model::Group>,
-    ) -> crate::builders::vm_migration::UpdateGroup {
-        crate::builders::vm_migration::UpdateGroup::new(self.inner.clone()).set_group(group.into())
+    ) -> super::builders::vm_migration::UpdateGroup {
+        super::builders::vm_migration::UpdateGroup::new(self.inner.clone()).set_group(group.into())
     }
 
     /// Deletes a single Group.
@@ -642,8 +642,8 @@ impl VmMigration {
     pub fn delete_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::DeleteGroup {
-        crate::builders::vm_migration::DeleteGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::DeleteGroup {
+        super::builders::vm_migration::DeleteGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Adds a MigratingVm to a Group.
@@ -660,8 +660,8 @@ impl VmMigration {
     pub fn add_group_migration(
         &self,
         group: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::AddGroupMigration {
-        crate::builders::vm_migration::AddGroupMigration::new(self.inner.clone())
+    ) -> super::builders::vm_migration::AddGroupMigration {
+        super::builders::vm_migration::AddGroupMigration::new(self.inner.clone())
             .set_group(group.into())
     }
 
@@ -679,8 +679,8 @@ impl VmMigration {
     pub fn remove_group_migration(
         &self,
         group: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::RemoveGroupMigration {
-        crate::builders::vm_migration::RemoveGroupMigration::new(self.inner.clone())
+    ) -> super::builders::vm_migration::RemoveGroupMigration {
+        super::builders::vm_migration::RemoveGroupMigration::new(self.inner.clone())
             .set_group(group.into())
     }
 
@@ -691,8 +691,8 @@ impl VmMigration {
     pub fn list_target_projects(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListTargetProjects {
-        crate::builders::vm_migration::ListTargetProjects::new(self.inner.clone())
+    ) -> super::builders::vm_migration::ListTargetProjects {
+        super::builders::vm_migration::ListTargetProjects::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -703,8 +703,8 @@ impl VmMigration {
     pub fn get_target_project(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetTargetProject {
-        crate::builders::vm_migration::GetTargetProject::new(self.inner.clone())
+    ) -> super::builders::vm_migration::GetTargetProject {
+        super::builders::vm_migration::GetTargetProject::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -725,8 +725,8 @@ impl VmMigration {
     pub fn create_target_project(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CreateTargetProject {
-        crate::builders::vm_migration::CreateTargetProject::new(self.inner.clone())
+    ) -> super::builders::vm_migration::CreateTargetProject {
+        super::builders::vm_migration::CreateTargetProject::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -747,8 +747,8 @@ impl VmMigration {
     pub fn update_target_project(
         &self,
         target_project: impl Into<crate::model::TargetProject>,
-    ) -> crate::builders::vm_migration::UpdateTargetProject {
-        crate::builders::vm_migration::UpdateTargetProject::new(self.inner.clone())
+    ) -> super::builders::vm_migration::UpdateTargetProject {
+        super::builders::vm_migration::UpdateTargetProject::new(self.inner.clone())
             .set_target_project(target_project.into())
     }
 
@@ -769,8 +769,8 @@ impl VmMigration {
     pub fn delete_target_project(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::DeleteTargetProject {
-        crate::builders::vm_migration::DeleteTargetProject::new(self.inner.clone())
+    ) -> super::builders::vm_migration::DeleteTargetProject {
+        super::builders::vm_migration::DeleteTargetProject::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -778,8 +778,8 @@ impl VmMigration {
     pub fn list_replication_cycles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListReplicationCycles {
-        crate::builders::vm_migration::ListReplicationCycles::new(self.inner.clone())
+    ) -> super::builders::vm_migration::ListReplicationCycles {
+        super::builders::vm_migration::ListReplicationCycles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -787,8 +787,8 @@ impl VmMigration {
     pub fn get_replication_cycle(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetReplicationCycle {
-        crate::builders::vm_migration::GetReplicationCycle::new(self.inner.clone())
+    ) -> super::builders::vm_migration::GetReplicationCycle {
+        super::builders::vm_migration::GetReplicationCycle::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -796,16 +796,16 @@ impl VmMigration {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListLocations {
-        crate::builders::vm_migration::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::ListLocations {
+        super::builders::vm_migration::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetLocation {
-        crate::builders::vm_migration::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::GetLocation {
+        super::builders::vm_migration::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -814,8 +814,8 @@ impl VmMigration {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::ListOperations {
-        crate::builders::vm_migration::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::ListOperations {
+        super::builders::vm_migration::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -824,8 +824,8 @@ impl VmMigration {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::GetOperation {
-        crate::builders::vm_migration::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::vm_migration::GetOperation {
+        super::builders::vm_migration::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -834,8 +834,8 @@ impl VmMigration {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::DeleteOperation {
-        crate::builders::vm_migration::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::vm_migration::DeleteOperation {
+        super::builders::vm_migration::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -845,8 +845,8 @@ impl VmMigration {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::vm_migration::CancelOperation {
-        crate::builders::vm_migration::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::vm_migration::CancelOperation {
+        super::builders::vm_migration::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

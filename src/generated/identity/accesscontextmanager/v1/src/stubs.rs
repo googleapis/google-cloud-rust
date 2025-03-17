@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AccessContextManager].
+/// Defines the trait used to implement [super::client::AccessContextManager].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AccessContextManager`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AccessContextManager::list_access_policies].
+    /// Implements [super::client::AccessContextManager::list_access_policies].
     fn list_access_policies(
         &self,
         _req: crate::model::ListAccessPoliciesRequest,
@@ -53,7 +53,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AccessContextManager::get_access_policy].
+    /// Implements [super::client::AccessContextManager::get_access_policy].
     fn get_access_policy(
         &self,
         _req: crate::model::GetAccessPolicyRequest,
@@ -64,7 +64,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::create_access_policy].
+    /// Implements [super::client::AccessContextManager::create_access_policy].
     fn create_access_policy(
         &self,
         _req: crate::model::AccessPolicy,
@@ -76,7 +76,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::update_access_policy].
+    /// Implements [super::client::AccessContextManager::update_access_policy].
     fn update_access_policy(
         &self,
         _req: crate::model::UpdateAccessPolicyRequest,
@@ -88,7 +88,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::delete_access_policy].
+    /// Implements [super::client::AccessContextManager::delete_access_policy].
     fn delete_access_policy(
         &self,
         _req: crate::model::DeleteAccessPolicyRequest,
@@ -100,7 +100,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::list_access_levels].
+    /// Implements [super::client::AccessContextManager::list_access_levels].
     fn list_access_levels(
         &self,
         _req: crate::model::ListAccessLevelsRequest,
@@ -112,7 +112,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AccessContextManager::get_access_level].
+    /// Implements [super::client::AccessContextManager::get_access_level].
     fn get_access_level(
         &self,
         _req: crate::model::GetAccessLevelRequest,
@@ -123,7 +123,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::create_access_level].
+    /// Implements [super::client::AccessContextManager::create_access_level].
     fn create_access_level(
         &self,
         _req: crate::model::CreateAccessLevelRequest,
@@ -135,7 +135,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::update_access_level].
+    /// Implements [super::client::AccessContextManager::update_access_level].
     fn update_access_level(
         &self,
         _req: crate::model::UpdateAccessLevelRequest,
@@ -147,7 +147,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::delete_access_level].
+    /// Implements [super::client::AccessContextManager::delete_access_level].
     fn delete_access_level(
         &self,
         _req: crate::model::DeleteAccessLevelRequest,
@@ -159,7 +159,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::replace_access_levels].
+    /// Implements [super::client::AccessContextManager::replace_access_levels].
     fn replace_access_levels(
         &self,
         _req: crate::model::ReplaceAccessLevelsRequest,
@@ -171,7 +171,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::list_service_perimeters].
+    /// Implements [super::client::AccessContextManager::list_service_perimeters].
     fn list_service_perimeters(
         &self,
         _req: crate::model::ListServicePerimetersRequest,
@@ -183,7 +183,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AccessContextManager::get_service_perimeter].
+    /// Implements [super::client::AccessContextManager::get_service_perimeter].
     fn get_service_perimeter(
         &self,
         _req: crate::model::GetServicePerimeterRequest,
@@ -195,7 +195,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::create_service_perimeter].
+    /// Implements [super::client::AccessContextManager::create_service_perimeter].
     fn create_service_perimeter(
         &self,
         _req: crate::model::CreateServicePerimeterRequest,
@@ -207,7 +207,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::update_service_perimeter].
+    /// Implements [super::client::AccessContextManager::update_service_perimeter].
     fn update_service_perimeter(
         &self,
         _req: crate::model::UpdateServicePerimeterRequest,
@@ -219,7 +219,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::delete_service_perimeter].
+    /// Implements [super::client::AccessContextManager::delete_service_perimeter].
     fn delete_service_perimeter(
         &self,
         _req: crate::model::DeleteServicePerimeterRequest,
@@ -231,7 +231,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::replace_service_perimeters].
+    /// Implements [super::client::AccessContextManager::replace_service_perimeters].
     fn replace_service_perimeters(
         &self,
         _req: crate::model::ReplaceServicePerimetersRequest,
@@ -243,7 +243,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::commit_service_perimeters].
+    /// Implements [super::client::AccessContextManager::commit_service_perimeters].
     fn commit_service_perimeters(
         &self,
         _req: crate::model::CommitServicePerimetersRequest,
@@ -255,7 +255,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::list_gcp_user_access_bindings].
+    /// Implements [super::client::AccessContextManager::list_gcp_user_access_bindings].
     fn list_gcp_user_access_bindings(
         &self,
         _req: crate::model::ListGcpUserAccessBindingsRequest,
@@ -268,7 +268,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AccessContextManager::get_gcp_user_access_binding].
+    /// Implements [super::client::AccessContextManager::get_gcp_user_access_binding].
     fn get_gcp_user_access_binding(
         &self,
         _req: crate::model::GetGcpUserAccessBindingRequest,
@@ -280,7 +280,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::create_gcp_user_access_binding].
+    /// Implements [super::client::AccessContextManager::create_gcp_user_access_binding].
     fn create_gcp_user_access_binding(
         &self,
         _req: crate::model::CreateGcpUserAccessBindingRequest,
@@ -292,7 +292,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::update_gcp_user_access_binding].
+    /// Implements [super::client::AccessContextManager::update_gcp_user_access_binding].
     fn update_gcp_user_access_binding(
         &self,
         _req: crate::model::UpdateGcpUserAccessBindingRequest,
@@ -304,7 +304,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::delete_gcp_user_access_binding].
+    /// Implements [super::client::AccessContextManager::delete_gcp_user_access_binding].
     fn delete_gcp_user_access_binding(
         &self,
         _req: crate::model::DeleteGcpUserAccessBindingRequest,
@@ -316,7 +316,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::set_iam_policy].
+    /// Implements [super::client::AccessContextManager::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -327,7 +327,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::get_iam_policy].
+    /// Implements [super::client::AccessContextManager::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -338,7 +338,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AccessContextManager::test_iam_permissions].
+    /// Implements [super::client::AccessContextManager::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -350,7 +350,7 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AccessContextManager::get_operation].
+    /// Implements [super::client::AccessContextManager::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DatabaseAdmin].
+/// Defines the trait used to implement [super::client::DatabaseAdmin].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DatabaseAdmin`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DatabaseAdmin::list_databases].
+    /// Implements [super::client::DatabaseAdmin::list_databases].
     fn list_databases(
         &self,
         _req: crate::model::ListDatabasesRequest,
@@ -53,7 +53,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::create_database].
+    /// Implements [super::client::DatabaseAdmin::create_database].
     fn create_database(
         &self,
         _req: crate::model::CreateDatabaseRequest,
@@ -65,7 +65,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::get_database].
+    /// Implements [super::client::DatabaseAdmin::get_database].
     fn get_database(
         &self,
         _req: crate::model::GetDatabaseRequest,
@@ -76,7 +76,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::update_database].
+    /// Implements [super::client::DatabaseAdmin::update_database].
     fn update_database(
         &self,
         _req: crate::model::UpdateDatabaseRequest,
@@ -88,7 +88,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::update_database_ddl].
+    /// Implements [super::client::DatabaseAdmin::update_database_ddl].
     fn update_database_ddl(
         &self,
         _req: crate::model::UpdateDatabaseDdlRequest,
@@ -100,7 +100,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::drop_database].
+    /// Implements [super::client::DatabaseAdmin::drop_database].
     fn drop_database(
         &self,
         _req: crate::model::DropDatabaseRequest,
@@ -109,7 +109,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::get_database_ddl].
+    /// Implements [super::client::DatabaseAdmin::get_database_ddl].
     fn get_database_ddl(
         &self,
         _req: crate::model::GetDatabaseDdlRequest,
@@ -121,7 +121,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::set_iam_policy].
+    /// Implements [super::client::DatabaseAdmin::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -132,7 +132,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::get_iam_policy].
+    /// Implements [super::client::DatabaseAdmin::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -143,7 +143,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::test_iam_permissions].
+    /// Implements [super::client::DatabaseAdmin::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -155,7 +155,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::create_backup].
+    /// Implements [super::client::DatabaseAdmin::create_backup].
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
@@ -167,7 +167,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::copy_backup].
+    /// Implements [super::client::DatabaseAdmin::copy_backup].
     fn copy_backup(
         &self,
         _req: crate::model::CopyBackupRequest,
@@ -179,7 +179,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::get_backup].
+    /// Implements [super::client::DatabaseAdmin::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -190,7 +190,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::update_backup].
+    /// Implements [super::client::DatabaseAdmin::update_backup].
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
@@ -201,7 +201,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::delete_backup].
+    /// Implements [super::client::DatabaseAdmin::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -210,7 +210,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::list_backups].
+    /// Implements [super::client::DatabaseAdmin::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -222,7 +222,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::restore_database].
+    /// Implements [super::client::DatabaseAdmin::restore_database].
     fn restore_database(
         &self,
         _req: crate::model::RestoreDatabaseRequest,
@@ -234,7 +234,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::list_database_operations].
+    /// Implements [super::client::DatabaseAdmin::list_database_operations].
     fn list_database_operations(
         &self,
         _req: crate::model::ListDatabaseOperationsRequest,
@@ -246,7 +246,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::list_backup_operations].
+    /// Implements [super::client::DatabaseAdmin::list_backup_operations].
     fn list_backup_operations(
         &self,
         _req: crate::model::ListBackupOperationsRequest,
@@ -258,7 +258,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::list_database_roles].
+    /// Implements [super::client::DatabaseAdmin::list_database_roles].
     fn list_database_roles(
         &self,
         _req: crate::model::ListDatabaseRolesRequest,
@@ -270,7 +270,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::add_split_points].
+    /// Implements [super::client::DatabaseAdmin::add_split_points].
     fn add_split_points(
         &self,
         _req: crate::model::AddSplitPointsRequest,
@@ -282,7 +282,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::create_backup_schedule].
+    /// Implements [super::client::DatabaseAdmin::create_backup_schedule].
     fn create_backup_schedule(
         &self,
         _req: crate::model::CreateBackupScheduleRequest,
@@ -293,7 +293,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::get_backup_schedule].
+    /// Implements [super::client::DatabaseAdmin::get_backup_schedule].
     fn get_backup_schedule(
         &self,
         _req: crate::model::GetBackupScheduleRequest,
@@ -304,7 +304,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::update_backup_schedule].
+    /// Implements [super::client::DatabaseAdmin::update_backup_schedule].
     fn update_backup_schedule(
         &self,
         _req: crate::model::UpdateBackupScheduleRequest,
@@ -315,7 +315,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::delete_backup_schedule].
+    /// Implements [super::client::DatabaseAdmin::delete_backup_schedule].
     fn delete_backup_schedule(
         &self,
         _req: crate::model::DeleteBackupScheduleRequest,
@@ -324,7 +324,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::list_backup_schedules].
+    /// Implements [super::client::DatabaseAdmin::list_backup_schedules].
     fn list_backup_schedules(
         &self,
         _req: crate::model::ListBackupSchedulesRequest,
@@ -336,7 +336,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::list_operations].
+    /// Implements [super::client::DatabaseAdmin::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -348,7 +348,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::get_operation].
+    /// Implements [super::client::DatabaseAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -360,7 +360,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::delete_operation].
+    /// Implements [super::client::DatabaseAdmin::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -369,7 +369,7 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DatabaseAdmin::cancel_operation].
+    /// Implements [super::client::DatabaseAdmin::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

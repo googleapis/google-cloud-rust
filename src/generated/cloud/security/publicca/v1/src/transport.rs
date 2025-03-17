@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [PublicCertificateAuthorityService](crate::stubs::PublicCertificateAuthorityService) using a [gclient::ReqwestClient].
+/// Implements [PublicCertificateAuthorityService](super::stubs::PublicCertificateAuthorityService) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct PublicCertificateAuthorityService {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl PublicCertificateAuthorityService {
     }
 }
 
-impl crate::stubs::PublicCertificateAuthorityService for PublicCertificateAuthorityService {
+impl super::stubs::PublicCertificateAuthorityService for PublicCertificateAuthorityService {
     async fn create_external_account_key(
         &self,
         req: crate::model::CreateExternalAccountKeyRequest,

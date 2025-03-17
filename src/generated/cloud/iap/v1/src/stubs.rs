@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::IdentityAwareProxyAdminService].
+/// Defines the trait used to implement [super::client::IdentityAwareProxyAdminService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::IdentityAwareProxyAdminService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::IdentityAwareProxyAdminService::set_iam_policy].
+    /// Implements [super::client::IdentityAwareProxyAdminService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -51,7 +51,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyAdminService::get_iam_policy].
+    /// Implements [super::client::IdentityAwareProxyAdminService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -62,7 +62,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyAdminService::test_iam_permissions].
+    /// Implements [super::client::IdentityAwareProxyAdminService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -74,7 +74,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyAdminService::get_iap_settings].
+    /// Implements [super::client::IdentityAwareProxyAdminService::get_iap_settings].
     fn get_iap_settings(
         &self,
         _req: crate::model::GetIapSettingsRequest,
@@ -85,7 +85,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyAdminService::update_iap_settings].
+    /// Implements [super::client::IdentityAwareProxyAdminService::update_iap_settings].
     fn update_iap_settings(
         &self,
         _req: crate::model::UpdateIapSettingsRequest,
@@ -96,7 +96,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyAdminService::list_tunnel_dest_groups].
+    /// Implements [super::client::IdentityAwareProxyAdminService::list_tunnel_dest_groups].
     fn list_tunnel_dest_groups(
         &self,
         _req: crate::model::ListTunnelDestGroupsRequest,
@@ -108,7 +108,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyAdminService::create_tunnel_dest_group].
+    /// Implements [super::client::IdentityAwareProxyAdminService::create_tunnel_dest_group].
     fn create_tunnel_dest_group(
         &self,
         _req: crate::model::CreateTunnelDestGroupRequest,
@@ -120,7 +120,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyAdminService::get_tunnel_dest_group].
+    /// Implements [super::client::IdentityAwareProxyAdminService::get_tunnel_dest_group].
     fn get_tunnel_dest_group(
         &self,
         _req: crate::model::GetTunnelDestGroupRequest,
@@ -132,7 +132,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyAdminService::delete_tunnel_dest_group].
+    /// Implements [super::client::IdentityAwareProxyAdminService::delete_tunnel_dest_group].
     fn delete_tunnel_dest_group(
         &self,
         _req: crate::model::DeleteTunnelDestGroupRequest,
@@ -141,7 +141,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyAdminService::update_tunnel_dest_group].
+    /// Implements [super::client::IdentityAwareProxyAdminService::update_tunnel_dest_group].
     fn update_tunnel_dest_group(
         &self,
         _req: crate::model::UpdateTunnelDestGroupRequest,
@@ -154,7 +154,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::IdentityAwareProxyOAuthService].
+/// Defines the trait used to implement [super::client::IdentityAwareProxyOAuthService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::IdentityAwareProxyOAuthService`.  In other use-cases, application developers only
@@ -166,7 +166,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::IdentityAwareProxyOAuthService::list_brands].
+    /// Implements [super::client::IdentityAwareProxyOAuthService::list_brands].
     fn list_brands(
         &self,
         _req: crate::model::ListBrandsRequest,
@@ -178,7 +178,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyOAuthService::create_brand].
+    /// Implements [super::client::IdentityAwareProxyOAuthService::create_brand].
     fn create_brand(
         &self,
         _req: crate::model::CreateBrandRequest,
@@ -187,7 +187,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Brand>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyOAuthService::get_brand].
+    /// Implements [super::client::IdentityAwareProxyOAuthService::get_brand].
     fn get_brand(
         &self,
         _req: crate::model::GetBrandRequest,
@@ -196,7 +196,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Brand>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyOAuthService::create_identity_aware_proxy_client].
+    /// Implements [super::client::IdentityAwareProxyOAuthService::create_identity_aware_proxy_client].
     fn create_identity_aware_proxy_client(
         &self,
         _req: crate::model::CreateIdentityAwareProxyClientRequest,
@@ -208,7 +208,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients].
+    /// Implements [super::client::IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients].
     fn list_identity_aware_proxy_clients(
         &self,
         _req: crate::model::ListIdentityAwareProxyClientsRequest,
@@ -221,7 +221,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::IdentityAwareProxyOAuthService::get_identity_aware_proxy_client].
+    /// Implements [super::client::IdentityAwareProxyOAuthService::get_identity_aware_proxy_client].
     fn get_identity_aware_proxy_client(
         &self,
         _req: crate::model::GetIdentityAwareProxyClientRequest,
@@ -233,7 +233,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret].
+    /// Implements [super::client::IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret].
     fn reset_identity_aware_proxy_client_secret(
         &self,
         _req: crate::model::ResetIdentityAwareProxyClientSecretRequest,
@@ -245,7 +245,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client].
+    /// Implements [super::client::IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client].
     fn delete_identity_aware_proxy_client(
         &self,
         _req: crate::model::DeleteIdentityAwareProxyClientRequest,

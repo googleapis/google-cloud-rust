@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [GSuiteAddOns](crate::stubs::GSuiteAddOns) using a [gclient::ReqwestClient].
+/// Implements [GSuiteAddOns](super::stubs::GSuiteAddOns) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct GSuiteAddOns {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl GSuiteAddOns {
     }
 }
 
-impl crate::stubs::GSuiteAddOns for GSuiteAddOns {
+impl super::stubs::GSuiteAddOns for GSuiteAddOns {
     async fn get_authorization(
         &self,
         req: crate::model::GetAuthorizationRequest,

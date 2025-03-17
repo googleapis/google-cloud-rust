@@ -132,9 +132,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Domains] also implement [Domains].
+/// All implementations of [super::Domains] also implement [Domains].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Domains> Domains for T {
+impl<T: super::Domains> Domains for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn search_domains(
         &self,

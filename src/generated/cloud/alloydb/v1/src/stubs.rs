@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AlloyDBAdmin].
+/// Defines the trait used to implement [super::client::AlloyDBAdmin].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AlloyDBAdmin`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AlloyDBAdmin::list_clusters].
+    /// Implements [super::client::AlloyDBAdmin::list_clusters].
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
@@ -53,7 +53,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::get_cluster].
+    /// Implements [super::client::AlloyDBAdmin::get_cluster].
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
@@ -64,7 +64,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::create_cluster].
+    /// Implements [super::client::AlloyDBAdmin::create_cluster].
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
@@ -76,7 +76,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::update_cluster].
+    /// Implements [super::client::AlloyDBAdmin::update_cluster].
     fn update_cluster(
         &self,
         _req: crate::model::UpdateClusterRequest,
@@ -88,7 +88,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::delete_cluster].
+    /// Implements [super::client::AlloyDBAdmin::delete_cluster].
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
@@ -100,7 +100,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::promote_cluster].
+    /// Implements [super::client::AlloyDBAdmin::promote_cluster].
     fn promote_cluster(
         &self,
         _req: crate::model::PromoteClusterRequest,
@@ -112,7 +112,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::switchover_cluster].
+    /// Implements [super::client::AlloyDBAdmin::switchover_cluster].
     fn switchover_cluster(
         &self,
         _req: crate::model::SwitchoverClusterRequest,
@@ -124,7 +124,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::restore_cluster].
+    /// Implements [super::client::AlloyDBAdmin::restore_cluster].
     fn restore_cluster(
         &self,
         _req: crate::model::RestoreClusterRequest,
@@ -136,7 +136,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::create_secondary_cluster].
+    /// Implements [super::client::AlloyDBAdmin::create_secondary_cluster].
     fn create_secondary_cluster(
         &self,
         _req: crate::model::CreateSecondaryClusterRequest,
@@ -148,7 +148,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::list_instances].
+    /// Implements [super::client::AlloyDBAdmin::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -160,7 +160,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::get_instance].
+    /// Implements [super::client::AlloyDBAdmin::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -171,7 +171,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::create_instance].
+    /// Implements [super::client::AlloyDBAdmin::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -183,7 +183,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::create_secondary_instance].
+    /// Implements [super::client::AlloyDBAdmin::create_secondary_instance].
     fn create_secondary_instance(
         &self,
         _req: crate::model::CreateSecondaryInstanceRequest,
@@ -195,7 +195,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::batch_create_instances].
+    /// Implements [super::client::AlloyDBAdmin::batch_create_instances].
     fn batch_create_instances(
         &self,
         _req: crate::model::BatchCreateInstancesRequest,
@@ -207,7 +207,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::update_instance].
+    /// Implements [super::client::AlloyDBAdmin::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -219,7 +219,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::delete_instance].
+    /// Implements [super::client::AlloyDBAdmin::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -231,7 +231,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::failover_instance].
+    /// Implements [super::client::AlloyDBAdmin::failover_instance].
     fn failover_instance(
         &self,
         _req: crate::model::FailoverInstanceRequest,
@@ -243,7 +243,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::inject_fault].
+    /// Implements [super::client::AlloyDBAdmin::inject_fault].
     fn inject_fault(
         &self,
         _req: crate::model::InjectFaultRequest,
@@ -255,7 +255,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::restart_instance].
+    /// Implements [super::client::AlloyDBAdmin::restart_instance].
     fn restart_instance(
         &self,
         _req: crate::model::RestartInstanceRequest,
@@ -267,7 +267,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::execute_sql].
+    /// Implements [super::client::AlloyDBAdmin::execute_sql].
     fn execute_sql(
         &self,
         _req: crate::model::ExecuteSqlRequest,
@@ -279,7 +279,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::list_backups].
+    /// Implements [super::client::AlloyDBAdmin::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -291,7 +291,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::get_backup].
+    /// Implements [super::client::AlloyDBAdmin::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -302,7 +302,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::create_backup].
+    /// Implements [super::client::AlloyDBAdmin::create_backup].
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
@@ -314,7 +314,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::update_backup].
+    /// Implements [super::client::AlloyDBAdmin::update_backup].
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
@@ -326,7 +326,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::delete_backup].
+    /// Implements [super::client::AlloyDBAdmin::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -338,7 +338,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::list_supported_database_flags].
+    /// Implements [super::client::AlloyDBAdmin::list_supported_database_flags].
     fn list_supported_database_flags(
         &self,
         _req: crate::model::ListSupportedDatabaseFlagsRequest,
@@ -351,7 +351,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::generate_client_certificate].
+    /// Implements [super::client::AlloyDBAdmin::generate_client_certificate].
     fn generate_client_certificate(
         &self,
         _req: crate::model::GenerateClientCertificateRequest,
@@ -364,7 +364,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::get_connection_info].
+    /// Implements [super::client::AlloyDBAdmin::get_connection_info].
     fn get_connection_info(
         &self,
         _req: crate::model::GetConnectionInfoRequest,
@@ -375,7 +375,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::list_users].
+    /// Implements [super::client::AlloyDBAdmin::list_users].
     fn list_users(
         &self,
         _req: crate::model::ListUsersRequest,
@@ -387,7 +387,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::get_user].
+    /// Implements [super::client::AlloyDBAdmin::get_user].
     fn get_user(
         &self,
         _req: crate::model::GetUserRequest,
@@ -396,7 +396,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::User>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::create_user].
+    /// Implements [super::client::AlloyDBAdmin::create_user].
     fn create_user(
         &self,
         _req: crate::model::CreateUserRequest,
@@ -405,7 +405,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::User>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::update_user].
+    /// Implements [super::client::AlloyDBAdmin::update_user].
     fn update_user(
         &self,
         _req: crate::model::UpdateUserRequest,
@@ -414,7 +414,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::User>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::delete_user].
+    /// Implements [super::client::AlloyDBAdmin::delete_user].
     fn delete_user(
         &self,
         _req: crate::model::DeleteUserRequest,
@@ -423,7 +423,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::list_databases].
+    /// Implements [super::client::AlloyDBAdmin::list_databases].
     fn list_databases(
         &self,
         _req: crate::model::ListDatabasesRequest,
@@ -435,7 +435,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::list_locations].
+    /// Implements [super::client::AlloyDBAdmin::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -447,7 +447,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::get_location].
+    /// Implements [super::client::AlloyDBAdmin::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -458,7 +458,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::list_operations].
+    /// Implements [super::client::AlloyDBAdmin::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -470,7 +470,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::get_operation].
+    /// Implements [super::client::AlloyDBAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -482,7 +482,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::delete_operation].
+    /// Implements [super::client::AlloyDBAdmin::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -491,7 +491,7 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AlloyDBAdmin::cancel_operation].
+    /// Implements [super::client::AlloyDBAdmin::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

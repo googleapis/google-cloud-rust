@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ApiHub].
+/// Defines the trait used to implement [super::client::ApiHub].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ApiHub`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ApiHub: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ApiHub::create_api].
+    /// Implements [super::client::ApiHub::create_api].
     fn create_api(
         &self,
         _req: crate::model::CreateApiRequest,
@@ -50,7 +50,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Api>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::get_api].
+    /// Implements [super::client::ApiHub::get_api].
     fn get_api(
         &self,
         _req: crate::model::GetApiRequest,
@@ -59,7 +59,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Api>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::list_apis].
+    /// Implements [super::client::ApiHub::list_apis].
     fn list_apis(
         &self,
         _req: crate::model::ListApisRequest,
@@ -71,7 +71,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::update_api].
+    /// Implements [super::client::ApiHub::update_api].
     fn update_api(
         &self,
         _req: crate::model::UpdateApiRequest,
@@ -80,7 +80,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Api>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::delete_api].
+    /// Implements [super::client::ApiHub::delete_api].
     fn delete_api(
         &self,
         _req: crate::model::DeleteApiRequest,
@@ -89,7 +89,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::create_version].
+    /// Implements [super::client::ApiHub::create_version].
     fn create_version(
         &self,
         _req: crate::model::CreateVersionRequest,
@@ -100,7 +100,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::get_version].
+    /// Implements [super::client::ApiHub::get_version].
     fn get_version(
         &self,
         _req: crate::model::GetVersionRequest,
@@ -111,7 +111,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::list_versions].
+    /// Implements [super::client::ApiHub::list_versions].
     fn list_versions(
         &self,
         _req: crate::model::ListVersionsRequest,
@@ -123,7 +123,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::update_version].
+    /// Implements [super::client::ApiHub::update_version].
     fn update_version(
         &self,
         _req: crate::model::UpdateVersionRequest,
@@ -134,7 +134,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::delete_version].
+    /// Implements [super::client::ApiHub::delete_version].
     fn delete_version(
         &self,
         _req: crate::model::DeleteVersionRequest,
@@ -143,7 +143,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::create_spec].
+    /// Implements [super::client::ApiHub::create_spec].
     fn create_spec(
         &self,
         _req: crate::model::CreateSpecRequest,
@@ -152,7 +152,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Spec>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::get_spec].
+    /// Implements [super::client::ApiHub::get_spec].
     fn get_spec(
         &self,
         _req: crate::model::GetSpecRequest,
@@ -161,7 +161,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Spec>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::get_spec_contents].
+    /// Implements [super::client::ApiHub::get_spec_contents].
     fn get_spec_contents(
         &self,
         _req: crate::model::GetSpecContentsRequest,
@@ -172,7 +172,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::list_specs].
+    /// Implements [super::client::ApiHub::list_specs].
     fn list_specs(
         &self,
         _req: crate::model::ListSpecsRequest,
@@ -184,7 +184,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::update_spec].
+    /// Implements [super::client::ApiHub::update_spec].
     fn update_spec(
         &self,
         _req: crate::model::UpdateSpecRequest,
@@ -193,7 +193,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Spec>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::delete_spec].
+    /// Implements [super::client::ApiHub::delete_spec].
     fn delete_spec(
         &self,
         _req: crate::model::DeleteSpecRequest,
@@ -202,7 +202,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::get_api_operation].
+    /// Implements [super::client::ApiHub::get_api_operation].
     fn get_api_operation(
         &self,
         _req: crate::model::GetApiOperationRequest,
@@ -213,7 +213,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::list_api_operations].
+    /// Implements [super::client::ApiHub::list_api_operations].
     fn list_api_operations(
         &self,
         _req: crate::model::ListApiOperationsRequest,
@@ -225,7 +225,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHub::get_definition].
+    /// Implements [super::client::ApiHub::get_definition].
     fn get_definition(
         &self,
         _req: crate::model::GetDefinitionRequest,
@@ -236,7 +236,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::create_deployment].
+    /// Implements [super::client::ApiHub::create_deployment].
     fn create_deployment(
         &self,
         _req: crate::model::CreateDeploymentRequest,
@@ -247,7 +247,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::get_deployment].
+    /// Implements [super::client::ApiHub::get_deployment].
     fn get_deployment(
         &self,
         _req: crate::model::GetDeploymentRequest,
@@ -258,7 +258,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::list_deployments].
+    /// Implements [super::client::ApiHub::list_deployments].
     fn list_deployments(
         &self,
         _req: crate::model::ListDeploymentsRequest,
@@ -270,7 +270,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHub::update_deployment].
+    /// Implements [super::client::ApiHub::update_deployment].
     fn update_deployment(
         &self,
         _req: crate::model::UpdateDeploymentRequest,
@@ -281,7 +281,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::delete_deployment].
+    /// Implements [super::client::ApiHub::delete_deployment].
     fn delete_deployment(
         &self,
         _req: crate::model::DeleteDeploymentRequest,
@@ -290,7 +290,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::create_attribute].
+    /// Implements [super::client::ApiHub::create_attribute].
     fn create_attribute(
         &self,
         _req: crate::model::CreateAttributeRequest,
@@ -301,7 +301,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::get_attribute].
+    /// Implements [super::client::ApiHub::get_attribute].
     fn get_attribute(
         &self,
         _req: crate::model::GetAttributeRequest,
@@ -312,7 +312,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::update_attribute].
+    /// Implements [super::client::ApiHub::update_attribute].
     fn update_attribute(
         &self,
         _req: crate::model::UpdateAttributeRequest,
@@ -323,7 +323,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::delete_attribute].
+    /// Implements [super::client::ApiHub::delete_attribute].
     fn delete_attribute(
         &self,
         _req: crate::model::DeleteAttributeRequest,
@@ -332,7 +332,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::list_attributes].
+    /// Implements [super::client::ApiHub::list_attributes].
     fn list_attributes(
         &self,
         _req: crate::model::ListAttributesRequest,
@@ -344,7 +344,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHub::search_resources].
+    /// Implements [super::client::ApiHub::search_resources].
     fn search_resources(
         &self,
         _req: crate::model::SearchResourcesRequest,
@@ -356,7 +356,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHub::create_external_api].
+    /// Implements [super::client::ApiHub::create_external_api].
     fn create_external_api(
         &self,
         _req: crate::model::CreateExternalApiRequest,
@@ -367,7 +367,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::get_external_api].
+    /// Implements [super::client::ApiHub::get_external_api].
     fn get_external_api(
         &self,
         _req: crate::model::GetExternalApiRequest,
@@ -378,7 +378,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::update_external_api].
+    /// Implements [super::client::ApiHub::update_external_api].
     fn update_external_api(
         &self,
         _req: crate::model::UpdateExternalApiRequest,
@@ -389,7 +389,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::delete_external_api].
+    /// Implements [super::client::ApiHub::delete_external_api].
     fn delete_external_api(
         &self,
         _req: crate::model::DeleteExternalApiRequest,
@@ -398,7 +398,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::list_external_apis].
+    /// Implements [super::client::ApiHub::list_external_apis].
     fn list_external_apis(
         &self,
         _req: crate::model::ListExternalApisRequest,
@@ -410,7 +410,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHub::list_locations].
+    /// Implements [super::client::ApiHub::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -422,7 +422,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHub::get_location].
+    /// Implements [super::client::ApiHub::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -433,7 +433,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::list_operations].
+    /// Implements [super::client::ApiHub::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -445,7 +445,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHub::get_operation].
+    /// Implements [super::client::ApiHub::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -457,7 +457,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHub::delete_operation].
+    /// Implements [super::client::ApiHub::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -466,7 +466,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHub::cancel_operation].
+    /// Implements [super::client::ApiHub::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -476,7 +476,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ApiHubDependencies].
+/// Defines the trait used to implement [super::client::ApiHubDependencies].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ApiHubDependencies`.  In other use-cases, application developers only
@@ -488,7 +488,7 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ApiHubDependencies::create_dependency].
+    /// Implements [super::client::ApiHubDependencies::create_dependency].
     fn create_dependency(
         &self,
         _req: crate::model::CreateDependencyRequest,
@@ -499,7 +499,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHubDependencies::get_dependency].
+    /// Implements [super::client::ApiHubDependencies::get_dependency].
     fn get_dependency(
         &self,
         _req: crate::model::GetDependencyRequest,
@@ -510,7 +510,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHubDependencies::update_dependency].
+    /// Implements [super::client::ApiHubDependencies::update_dependency].
     fn update_dependency(
         &self,
         _req: crate::model::UpdateDependencyRequest,
@@ -521,7 +521,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHubDependencies::delete_dependency].
+    /// Implements [super::client::ApiHubDependencies::delete_dependency].
     fn delete_dependency(
         &self,
         _req: crate::model::DeleteDependencyRequest,
@@ -530,7 +530,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHubDependencies::list_dependencies].
+    /// Implements [super::client::ApiHubDependencies::list_dependencies].
     fn list_dependencies(
         &self,
         _req: crate::model::ListDependenciesRequest,
@@ -542,7 +542,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHubDependencies::list_locations].
+    /// Implements [super::client::ApiHubDependencies::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -554,7 +554,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHubDependencies::get_location].
+    /// Implements [super::client::ApiHubDependencies::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -565,7 +565,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHubDependencies::list_operations].
+    /// Implements [super::client::ApiHubDependencies::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -577,7 +577,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHubDependencies::get_operation].
+    /// Implements [super::client::ApiHubDependencies::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -589,7 +589,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHubDependencies::delete_operation].
+    /// Implements [super::client::ApiHubDependencies::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -598,7 +598,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHubDependencies::cancel_operation].
+    /// Implements [super::client::ApiHubDependencies::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -608,7 +608,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::HostProjectRegistrationService].
+/// Defines the trait used to implement [super::client::HostProjectRegistrationService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::HostProjectRegistrationService`.  In other use-cases, application developers only
@@ -620,7 +620,7 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::HostProjectRegistrationService::create_host_project_registration].
+    /// Implements [super::client::HostProjectRegistrationService::create_host_project_registration].
     fn create_host_project_registration(
         &self,
         _req: crate::model::CreateHostProjectRegistrationRequest,
@@ -632,7 +632,7 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::HostProjectRegistrationService::get_host_project_registration].
+    /// Implements [super::client::HostProjectRegistrationService::get_host_project_registration].
     fn get_host_project_registration(
         &self,
         _req: crate::model::GetHostProjectRegistrationRequest,
@@ -644,7 +644,7 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::HostProjectRegistrationService::list_host_project_registrations].
+    /// Implements [super::client::HostProjectRegistrationService::list_host_project_registrations].
     fn list_host_project_registrations(
         &self,
         _req: crate::model::ListHostProjectRegistrationsRequest,
@@ -657,7 +657,7 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::HostProjectRegistrationService::list_locations].
+    /// Implements [super::client::HostProjectRegistrationService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -669,7 +669,7 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::HostProjectRegistrationService::get_location].
+    /// Implements [super::client::HostProjectRegistrationService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -680,7 +680,7 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HostProjectRegistrationService::list_operations].
+    /// Implements [super::client::HostProjectRegistrationService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -692,7 +692,7 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::HostProjectRegistrationService::get_operation].
+    /// Implements [super::client::HostProjectRegistrationService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -704,7 +704,7 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::HostProjectRegistrationService::delete_operation].
+    /// Implements [super::client::HostProjectRegistrationService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -713,7 +713,7 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::HostProjectRegistrationService::cancel_operation].
+    /// Implements [super::client::HostProjectRegistrationService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -723,7 +723,7 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::LintingService].
+/// Defines the trait used to implement [super::client::LintingService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::LintingService`.  In other use-cases, application developers only
@@ -735,7 +735,7 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait LintingService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::LintingService::get_style_guide].
+    /// Implements [super::client::LintingService::get_style_guide].
     fn get_style_guide(
         &self,
         _req: crate::model::GetStyleGuideRequest,
@@ -746,7 +746,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LintingService::update_style_guide].
+    /// Implements [super::client::LintingService::update_style_guide].
     fn update_style_guide(
         &self,
         _req: crate::model::UpdateStyleGuideRequest,
@@ -757,7 +757,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LintingService::get_style_guide_contents].
+    /// Implements [super::client::LintingService::get_style_guide_contents].
     fn get_style_guide_contents(
         &self,
         _req: crate::model::GetStyleGuideContentsRequest,
@@ -769,7 +769,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LintingService::lint_spec].
+    /// Implements [super::client::LintingService::lint_spec].
     fn lint_spec(
         &self,
         _req: crate::model::LintSpecRequest,
@@ -778,7 +778,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LintingService::list_locations].
+    /// Implements [super::client::LintingService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -790,7 +790,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LintingService::get_location].
+    /// Implements [super::client::LintingService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -801,7 +801,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LintingService::list_operations].
+    /// Implements [super::client::LintingService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -813,7 +813,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LintingService::get_operation].
+    /// Implements [super::client::LintingService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -825,7 +825,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LintingService::delete_operation].
+    /// Implements [super::client::LintingService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -834,7 +834,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LintingService::cancel_operation].
+    /// Implements [super::client::LintingService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -844,7 +844,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ApiHubPlugin].
+/// Defines the trait used to implement [super::client::ApiHubPlugin].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ApiHubPlugin`.  In other use-cases, application developers only
@@ -856,7 +856,7 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ApiHubPlugin::get_plugin].
+    /// Implements [super::client::ApiHubPlugin::get_plugin].
     fn get_plugin(
         &self,
         _req: crate::model::GetPluginRequest,
@@ -867,7 +867,7 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHubPlugin::enable_plugin].
+    /// Implements [super::client::ApiHubPlugin::enable_plugin].
     fn enable_plugin(
         &self,
         _req: crate::model::EnablePluginRequest,
@@ -878,7 +878,7 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHubPlugin::disable_plugin].
+    /// Implements [super::client::ApiHubPlugin::disable_plugin].
     fn disable_plugin(
         &self,
         _req: crate::model::DisablePluginRequest,
@@ -889,7 +889,7 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHubPlugin::list_locations].
+    /// Implements [super::client::ApiHubPlugin::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -901,7 +901,7 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHubPlugin::get_location].
+    /// Implements [super::client::ApiHubPlugin::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -912,7 +912,7 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHubPlugin::list_operations].
+    /// Implements [super::client::ApiHubPlugin::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -924,7 +924,7 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ApiHubPlugin::get_operation].
+    /// Implements [super::client::ApiHubPlugin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -936,7 +936,7 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ApiHubPlugin::delete_operation].
+    /// Implements [super::client::ApiHubPlugin::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -945,7 +945,7 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ApiHubPlugin::cancel_operation].
+    /// Implements [super::client::ApiHubPlugin::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -955,7 +955,7 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::Provisioning].
+/// Defines the trait used to implement [super::client::Provisioning].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Provisioning`.  In other use-cases, application developers only
@@ -967,7 +967,7 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Provisioning: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Provisioning::create_api_hub_instance].
+    /// Implements [super::client::Provisioning::create_api_hub_instance].
     fn create_api_hub_instance(
         &self,
         _req: crate::model::CreateApiHubInstanceRequest,
@@ -979,7 +979,7 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Provisioning::get_api_hub_instance].
+    /// Implements [super::client::Provisioning::get_api_hub_instance].
     fn get_api_hub_instance(
         &self,
         _req: crate::model::GetApiHubInstanceRequest,
@@ -990,7 +990,7 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Provisioning::lookup_api_hub_instance].
+    /// Implements [super::client::Provisioning::lookup_api_hub_instance].
     fn lookup_api_hub_instance(
         &self,
         _req: crate::model::LookupApiHubInstanceRequest,
@@ -1002,7 +1002,7 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Provisioning::list_locations].
+    /// Implements [super::client::Provisioning::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1014,7 +1014,7 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Provisioning::get_location].
+    /// Implements [super::client::Provisioning::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1025,7 +1025,7 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Provisioning::list_operations].
+    /// Implements [super::client::Provisioning::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1037,7 +1037,7 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Provisioning::get_operation].
+    /// Implements [super::client::Provisioning::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1049,7 +1049,7 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Provisioning::delete_operation].
+    /// Implements [super::client::Provisioning::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -1058,7 +1058,7 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Provisioning::cancel_operation].
+    /// Implements [super::client::Provisioning::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1090,7 +1090,7 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::RuntimeProjectAttachmentService].
+/// Defines the trait used to implement [super::client::RuntimeProjectAttachmentService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::RuntimeProjectAttachmentService`.  In other use-cases, application developers only
@@ -1102,7 +1102,7 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::RuntimeProjectAttachmentService::create_runtime_project_attachment].
+    /// Implements [super::client::RuntimeProjectAttachmentService::create_runtime_project_attachment].
     fn create_runtime_project_attachment(
         &self,
         _req: crate::model::CreateRuntimeProjectAttachmentRequest,
@@ -1114,7 +1114,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RuntimeProjectAttachmentService::get_runtime_project_attachment].
+    /// Implements [super::client::RuntimeProjectAttachmentService::get_runtime_project_attachment].
     fn get_runtime_project_attachment(
         &self,
         _req: crate::model::GetRuntimeProjectAttachmentRequest,
@@ -1126,7 +1126,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RuntimeProjectAttachmentService::list_runtime_project_attachments].
+    /// Implements [super::client::RuntimeProjectAttachmentService::list_runtime_project_attachments].
     fn list_runtime_project_attachments(
         &self,
         _req: crate::model::ListRuntimeProjectAttachmentsRequest,
@@ -1139,7 +1139,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::RuntimeProjectAttachmentService::delete_runtime_project_attachment].
+    /// Implements [super::client::RuntimeProjectAttachmentService::delete_runtime_project_attachment].
     fn delete_runtime_project_attachment(
         &self,
         _req: crate::model::DeleteRuntimeProjectAttachmentRequest,
@@ -1148,7 +1148,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RuntimeProjectAttachmentService::lookup_runtime_project_attachment].
+    /// Implements [super::client::RuntimeProjectAttachmentService::lookup_runtime_project_attachment].
     fn lookup_runtime_project_attachment(
         &self,
         _req: crate::model::LookupRuntimeProjectAttachmentRequest,
@@ -1161,7 +1161,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::RuntimeProjectAttachmentService::list_locations].
+    /// Implements [super::client::RuntimeProjectAttachmentService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1173,7 +1173,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RuntimeProjectAttachmentService::get_location].
+    /// Implements [super::client::RuntimeProjectAttachmentService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1184,7 +1184,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RuntimeProjectAttachmentService::list_operations].
+    /// Implements [super::client::RuntimeProjectAttachmentService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1196,7 +1196,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RuntimeProjectAttachmentService::get_operation].
+    /// Implements [super::client::RuntimeProjectAttachmentService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1208,7 +1208,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RuntimeProjectAttachmentService::delete_operation].
+    /// Implements [super::client::RuntimeProjectAttachmentService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -1217,7 +1217,7 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RuntimeProjectAttachmentService::cancel_operation].
+    /// Implements [super::client::RuntimeProjectAttachmentService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

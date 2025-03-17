@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AttachedClusters {
-    inner: Arc<dyn crate::stubs::dynamic::AttachedClusters>,
+    inner: Arc<dyn super::stubs::dynamic::AttachedClusters>,
 }
 
 impl AttachedClusters {
@@ -61,7 +61,7 @@ impl AttachedClusters {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AttachedClusters + 'static,
+        T: super::stubs::AttachedClusters + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl AttachedClusters {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AttachedClusters>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AttachedClusters>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,16 +79,16 @@ impl AttachedClusters {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AttachedClusters> {
-        crate::transport::AttachedClusters::new(conf).await
+    ) -> Result<impl super::stubs::AttachedClusters> {
+        super::transport::AttachedClusters::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AttachedClusters> {
+    ) -> Result<impl super::stubs::AttachedClusters> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AttachedClusters::new)
+            .map(super::tracing::AttachedClusters::new)
     }
 
     /// Creates a new
@@ -114,8 +114,8 @@ impl AttachedClusters {
     pub fn create_attached_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::CreateAttachedCluster {
-        crate::builders::attached_clusters::CreateAttachedCluster::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::CreateAttachedCluster {
+        super::builders::attached_clusters::CreateAttachedCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -136,8 +136,8 @@ impl AttachedClusters {
     pub fn update_attached_cluster(
         &self,
         attached_cluster: impl Into<crate::model::AttachedCluster>,
-    ) -> crate::builders::attached_clusters::UpdateAttachedCluster {
-        crate::builders::attached_clusters::UpdateAttachedCluster::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::UpdateAttachedCluster {
+        super::builders::attached_clusters::UpdateAttachedCluster::new(self.inner.clone())
             .set_attached_cluster(attached_cluster.into())
     }
 
@@ -167,8 +167,8 @@ impl AttachedClusters {
     pub fn import_attached_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::ImportAttachedCluster {
-        crate::builders::attached_clusters::ImportAttachedCluster::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::ImportAttachedCluster {
+        super::builders::attached_clusters::ImportAttachedCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -179,8 +179,8 @@ impl AttachedClusters {
     pub fn get_attached_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::GetAttachedCluster {
-        crate::builders::attached_clusters::GetAttachedCluster::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::GetAttachedCluster {
+        super::builders::attached_clusters::GetAttachedCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -191,8 +191,8 @@ impl AttachedClusters {
     pub fn list_attached_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::ListAttachedClusters {
-        crate::builders::attached_clusters::ListAttachedClusters::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::ListAttachedClusters {
+        super::builders::attached_clusters::ListAttachedClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -218,8 +218,8 @@ impl AttachedClusters {
     pub fn delete_attached_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::DeleteAttachedCluster {
-        crate::builders::attached_clusters::DeleteAttachedCluster::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::DeleteAttachedCluster {
+        super::builders::attached_clusters::DeleteAttachedCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -228,8 +228,8 @@ impl AttachedClusters {
     pub fn get_attached_server_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::GetAttachedServerConfig {
-        crate::builders::attached_clusters::GetAttachedServerConfig::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::GetAttachedServerConfig {
+        super::builders::attached_clusters::GetAttachedServerConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -237,8 +237,8 @@ impl AttachedClusters {
     pub fn generate_attached_cluster_install_manifest(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::GenerateAttachedClusterInstallManifest {
-        crate::builders::attached_clusters::GenerateAttachedClusterInstallManifest::new(
+    ) -> super::builders::attached_clusters::GenerateAttachedClusterInstallManifest {
+        super::builders::attached_clusters::GenerateAttachedClusterInstallManifest::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -248,8 +248,8 @@ impl AttachedClusters {
     pub fn generate_attached_cluster_agent_token(
         &self,
         attached_cluster: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::GenerateAttachedClusterAgentToken {
-        crate::builders::attached_clusters::GenerateAttachedClusterAgentToken::new(
+    ) -> super::builders::attached_clusters::GenerateAttachedClusterAgentToken {
+        super::builders::attached_clusters::GenerateAttachedClusterAgentToken::new(
             self.inner.clone(),
         )
         .set_attached_cluster(attached_cluster.into())
@@ -261,8 +261,8 @@ impl AttachedClusters {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::ListOperations {
-        crate::builders::attached_clusters::ListOperations::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::ListOperations {
+        super::builders::attached_clusters::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -272,8 +272,8 @@ impl AttachedClusters {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::GetOperation {
-        crate::builders::attached_clusters::GetOperation::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::GetOperation {
+        super::builders::attached_clusters::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -283,8 +283,8 @@ impl AttachedClusters {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::DeleteOperation {
-        crate::builders::attached_clusters::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::DeleteOperation {
+        super::builders::attached_clusters::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -294,8 +294,8 @@ impl AttachedClusters {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::attached_clusters::CancelOperation {
-        crate::builders::attached_clusters::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::attached_clusters::CancelOperation {
+        super::builders::attached_clusters::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -320,7 +320,7 @@ impl AttachedClusters {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AwsClusters {
-    inner: Arc<dyn crate::stubs::dynamic::AwsClusters>,
+    inner: Arc<dyn super::stubs::dynamic::AwsClusters>,
 }
 
 impl AwsClusters {
@@ -341,7 +341,7 @@ impl AwsClusters {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AwsClusters + 'static,
+        T: super::stubs::AwsClusters + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -350,7 +350,7 @@ impl AwsClusters {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AwsClusters>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AwsClusters>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -359,16 +359,16 @@ impl AwsClusters {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AwsClusters> {
-        crate::transport::AwsClusters::new(conf).await
+    ) -> Result<impl super::stubs::AwsClusters> {
+        super::transport::AwsClusters::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AwsClusters> {
+    ) -> Result<impl super::stubs::AwsClusters> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AwsClusters::new)
+            .map(super::tracing::AwsClusters::new)
     }
 
     /// Creates a new [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
@@ -393,8 +393,8 @@ impl AwsClusters {
     pub fn create_aws_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::CreateAwsCluster {
-        crate::builders::aws_clusters::CreateAwsCluster::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::CreateAwsCluster {
+        super::builders::aws_clusters::CreateAwsCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -414,8 +414,8 @@ impl AwsClusters {
     pub fn update_aws_cluster(
         &self,
         aws_cluster: impl Into<crate::model::AwsCluster>,
-    ) -> crate::builders::aws_clusters::UpdateAwsCluster {
-        crate::builders::aws_clusters::UpdateAwsCluster::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::UpdateAwsCluster {
+        super::builders::aws_clusters::UpdateAwsCluster::new(self.inner.clone())
             .set_aws_cluster(aws_cluster.into())
     }
 
@@ -426,8 +426,8 @@ impl AwsClusters {
     pub fn get_aws_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::GetAwsCluster {
-        crate::builders::aws_clusters::GetAwsCluster::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::aws_clusters::GetAwsCluster {
+        super::builders::aws_clusters::GetAwsCluster::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists all [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources
@@ -437,8 +437,8 @@ impl AwsClusters {
     pub fn list_aws_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::ListAwsClusters {
-        crate::builders::aws_clusters::ListAwsClusters::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::ListAwsClusters {
+        super::builders::aws_clusters::ListAwsClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -468,8 +468,8 @@ impl AwsClusters {
     pub fn delete_aws_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::DeleteAwsCluster {
-        crate::builders::aws_clusters::DeleteAwsCluster::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::DeleteAwsCluster {
+        super::builders::aws_clusters::DeleteAwsCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -477,8 +477,8 @@ impl AwsClusters {
     pub fn generate_aws_cluster_agent_token(
         &self,
         aws_cluster: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::GenerateAwsClusterAgentToken {
-        crate::builders::aws_clusters::GenerateAwsClusterAgentToken::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::GenerateAwsClusterAgentToken {
+        super::builders::aws_clusters::GenerateAwsClusterAgentToken::new(self.inner.clone())
             .set_aws_cluster(aws_cluster.into())
     }
 
@@ -489,8 +489,8 @@ impl AwsClusters {
     pub fn generate_aws_access_token(
         &self,
         aws_cluster: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::GenerateAwsAccessToken {
-        crate::builders::aws_clusters::GenerateAwsAccessToken::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::GenerateAwsAccessToken {
+        super::builders::aws_clusters::GenerateAwsAccessToken::new(self.inner.clone())
             .set_aws_cluster(aws_cluster.into())
     }
 
@@ -517,8 +517,8 @@ impl AwsClusters {
     pub fn create_aws_node_pool(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::CreateAwsNodePool {
-        crate::builders::aws_clusters::CreateAwsNodePool::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::CreateAwsNodePool {
+        super::builders::aws_clusters::CreateAwsNodePool::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -538,8 +538,8 @@ impl AwsClusters {
     pub fn update_aws_node_pool(
         &self,
         aws_node_pool: impl Into<crate::model::AwsNodePool>,
-    ) -> crate::builders::aws_clusters::UpdateAwsNodePool {
-        crate::builders::aws_clusters::UpdateAwsNodePool::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::UpdateAwsNodePool {
+        super::builders::aws_clusters::UpdateAwsNodePool::new(self.inner.clone())
             .set_aws_node_pool(aws_node_pool.into())
     }
 
@@ -564,8 +564,8 @@ impl AwsClusters {
     pub fn rollback_aws_node_pool_update(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::RollbackAwsNodePoolUpdate {
-        crate::builders::aws_clusters::RollbackAwsNodePoolUpdate::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::RollbackAwsNodePoolUpdate {
+        super::builders::aws_clusters::RollbackAwsNodePoolUpdate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -576,8 +576,8 @@ impl AwsClusters {
     pub fn get_aws_node_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::GetAwsNodePool {
-        crate::builders::aws_clusters::GetAwsNodePool::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::aws_clusters::GetAwsNodePool {
+        super::builders::aws_clusters::GetAwsNodePool::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists all [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
@@ -589,8 +589,8 @@ impl AwsClusters {
     pub fn list_aws_node_pools(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::ListAwsNodePools {
-        crate::builders::aws_clusters::ListAwsNodePools::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::ListAwsNodePools {
+        super::builders::aws_clusters::ListAwsNodePools::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -616,8 +616,8 @@ impl AwsClusters {
     pub fn delete_aws_node_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::DeleteAwsNodePool {
-        crate::builders::aws_clusters::DeleteAwsNodePool::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::DeleteAwsNodePool {
+        super::builders::aws_clusters::DeleteAwsNodePool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -629,8 +629,8 @@ impl AwsClusters {
     pub fn get_aws_open_id_config(
         &self,
         aws_cluster: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::GetAwsOpenIdConfig {
-        crate::builders::aws_clusters::GetAwsOpenIdConfig::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::GetAwsOpenIdConfig {
+        super::builders::aws_clusters::GetAwsOpenIdConfig::new(self.inner.clone())
             .set_aws_cluster(aws_cluster.into())
     }
 
@@ -639,8 +639,8 @@ impl AwsClusters {
     pub fn get_aws_json_web_keys(
         &self,
         aws_cluster: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::GetAwsJsonWebKeys {
-        crate::builders::aws_clusters::GetAwsJsonWebKeys::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::GetAwsJsonWebKeys {
+        super::builders::aws_clusters::GetAwsJsonWebKeys::new(self.inner.clone())
             .set_aws_cluster(aws_cluster.into())
     }
 
@@ -649,8 +649,8 @@ impl AwsClusters {
     pub fn get_aws_server_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::GetAwsServerConfig {
-        crate::builders::aws_clusters::GetAwsServerConfig::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::GetAwsServerConfig {
+        super::builders::aws_clusters::GetAwsServerConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -660,8 +660,8 @@ impl AwsClusters {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::ListOperations {
-        crate::builders::aws_clusters::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::aws_clusters::ListOperations {
+        super::builders::aws_clusters::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -670,8 +670,8 @@ impl AwsClusters {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::GetOperation {
-        crate::builders::aws_clusters::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::aws_clusters::GetOperation {
+        super::builders::aws_clusters::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -680,8 +680,8 @@ impl AwsClusters {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::DeleteOperation {
-        crate::builders::aws_clusters::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::DeleteOperation {
+        super::builders::aws_clusters::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -691,8 +691,8 @@ impl AwsClusters {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::aws_clusters::CancelOperation {
-        crate::builders::aws_clusters::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::aws_clusters::CancelOperation {
+        super::builders::aws_clusters::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -717,7 +717,7 @@ impl AwsClusters {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AzureClusters {
-    inner: Arc<dyn crate::stubs::dynamic::AzureClusters>,
+    inner: Arc<dyn super::stubs::dynamic::AzureClusters>,
 }
 
 impl AzureClusters {
@@ -738,7 +738,7 @@ impl AzureClusters {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AzureClusters + 'static,
+        T: super::stubs::AzureClusters + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -747,7 +747,7 @@ impl AzureClusters {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AzureClusters>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AzureClusters>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -756,16 +756,16 @@ impl AzureClusters {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AzureClusters> {
-        crate::transport::AzureClusters::new(conf).await
+    ) -> Result<impl super::stubs::AzureClusters> {
+        super::transport::AzureClusters::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AzureClusters> {
+    ) -> Result<impl super::stubs::AzureClusters> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AzureClusters::new)
+            .map(super::tracing::AzureClusters::new)
     }
 
     /// Creates a new [AzureClient][google.cloud.gkemulticloud.v1.AzureClient]
@@ -794,8 +794,8 @@ impl AzureClusters {
     pub fn create_azure_client(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::CreateAzureClient {
-        crate::builders::azure_clusters::CreateAzureClient::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::CreateAzureClient {
+        super::builders::azure_clusters::CreateAzureClient::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -806,8 +806,8 @@ impl AzureClusters {
     pub fn get_azure_client(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::GetAzureClient {
-        crate::builders::azure_clusters::GetAzureClient::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::GetAzureClient {
+        super::builders::azure_clusters::GetAzureClient::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -818,8 +818,8 @@ impl AzureClusters {
     pub fn list_azure_clients(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::ListAzureClients {
-        crate::builders::azure_clusters::ListAzureClients::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::ListAzureClients {
+        super::builders::azure_clusters::ListAzureClients::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -848,8 +848,8 @@ impl AzureClusters {
     pub fn delete_azure_client(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::DeleteAzureClient {
-        crate::builders::azure_clusters::DeleteAzureClient::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::DeleteAzureClient {
+        super::builders::azure_clusters::DeleteAzureClient::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -875,8 +875,8 @@ impl AzureClusters {
     pub fn create_azure_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::CreateAzureCluster {
-        crate::builders::azure_clusters::CreateAzureCluster::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::CreateAzureCluster {
+        super::builders::azure_clusters::CreateAzureCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -896,8 +896,8 @@ impl AzureClusters {
     pub fn update_azure_cluster(
         &self,
         azure_cluster: impl Into<crate::model::AzureCluster>,
-    ) -> crate::builders::azure_clusters::UpdateAzureCluster {
-        crate::builders::azure_clusters::UpdateAzureCluster::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::UpdateAzureCluster {
+        super::builders::azure_clusters::UpdateAzureCluster::new(self.inner.clone())
             .set_azure_cluster(azure_cluster.into())
     }
 
@@ -908,8 +908,8 @@ impl AzureClusters {
     pub fn get_azure_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::GetAzureCluster {
-        crate::builders::azure_clusters::GetAzureCluster::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::GetAzureCluster {
+        super::builders::azure_clusters::GetAzureCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -920,8 +920,8 @@ impl AzureClusters {
     pub fn list_azure_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::ListAzureClusters {
-        crate::builders::azure_clusters::ListAzureClusters::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::ListAzureClusters {
+        super::builders::azure_clusters::ListAzureClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -951,8 +951,8 @@ impl AzureClusters {
     pub fn delete_azure_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::DeleteAzureCluster {
-        crate::builders::azure_clusters::DeleteAzureCluster::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::DeleteAzureCluster {
+        super::builders::azure_clusters::DeleteAzureCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -960,8 +960,8 @@ impl AzureClusters {
     pub fn generate_azure_cluster_agent_token(
         &self,
         azure_cluster: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::GenerateAzureClusterAgentToken {
-        crate::builders::azure_clusters::GenerateAzureClusterAgentToken::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::GenerateAzureClusterAgentToken {
+        super::builders::azure_clusters::GenerateAzureClusterAgentToken::new(self.inner.clone())
             .set_azure_cluster(azure_cluster.into())
     }
 
@@ -972,8 +972,8 @@ impl AzureClusters {
     pub fn generate_azure_access_token(
         &self,
         azure_cluster: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::GenerateAzureAccessToken {
-        crate::builders::azure_clusters::GenerateAzureAccessToken::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::GenerateAzureAccessToken {
+        super::builders::azure_clusters::GenerateAzureAccessToken::new(self.inner.clone())
             .set_azure_cluster(azure_cluster.into())
     }
 
@@ -1001,8 +1001,8 @@ impl AzureClusters {
     pub fn create_azure_node_pool(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::CreateAzureNodePool {
-        crate::builders::azure_clusters::CreateAzureNodePool::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::CreateAzureNodePool {
+        super::builders::azure_clusters::CreateAzureNodePool::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1022,8 +1022,8 @@ impl AzureClusters {
     pub fn update_azure_node_pool(
         &self,
         azure_node_pool: impl Into<crate::model::AzureNodePool>,
-    ) -> crate::builders::azure_clusters::UpdateAzureNodePool {
-        crate::builders::azure_clusters::UpdateAzureNodePool::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::UpdateAzureNodePool {
+        super::builders::azure_clusters::UpdateAzureNodePool::new(self.inner.clone())
             .set_azure_node_pool(azure_node_pool.into())
     }
 
@@ -1034,8 +1034,8 @@ impl AzureClusters {
     pub fn get_azure_node_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::GetAzureNodePool {
-        crate::builders::azure_clusters::GetAzureNodePool::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::GetAzureNodePool {
+        super::builders::azure_clusters::GetAzureNodePool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1048,8 +1048,8 @@ impl AzureClusters {
     pub fn list_azure_node_pools(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::ListAzureNodePools {
-        crate::builders::azure_clusters::ListAzureNodePools::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::ListAzureNodePools {
+        super::builders::azure_clusters::ListAzureNodePools::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1075,8 +1075,8 @@ impl AzureClusters {
     pub fn delete_azure_node_pool(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::DeleteAzureNodePool {
-        crate::builders::azure_clusters::DeleteAzureNodePool::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::DeleteAzureNodePool {
+        super::builders::azure_clusters::DeleteAzureNodePool::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1088,8 +1088,8 @@ impl AzureClusters {
     pub fn get_azure_open_id_config(
         &self,
         azure_cluster: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::GetAzureOpenIdConfig {
-        crate::builders::azure_clusters::GetAzureOpenIdConfig::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::GetAzureOpenIdConfig {
+        super::builders::azure_clusters::GetAzureOpenIdConfig::new(self.inner.clone())
             .set_azure_cluster(azure_cluster.into())
     }
 
@@ -1098,8 +1098,8 @@ impl AzureClusters {
     pub fn get_azure_json_web_keys(
         &self,
         azure_cluster: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::GetAzureJsonWebKeys {
-        crate::builders::azure_clusters::GetAzureJsonWebKeys::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::GetAzureJsonWebKeys {
+        super::builders::azure_clusters::GetAzureJsonWebKeys::new(self.inner.clone())
             .set_azure_cluster(azure_cluster.into())
     }
 
@@ -1108,8 +1108,8 @@ impl AzureClusters {
     pub fn get_azure_server_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::GetAzureServerConfig {
-        crate::builders::azure_clusters::GetAzureServerConfig::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::GetAzureServerConfig {
+        super::builders::azure_clusters::GetAzureServerConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1119,8 +1119,8 @@ impl AzureClusters {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::ListOperations {
-        crate::builders::azure_clusters::ListOperations::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::ListOperations {
+        super::builders::azure_clusters::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1130,8 +1130,8 @@ impl AzureClusters {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::GetOperation {
-        crate::builders::azure_clusters::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::azure_clusters::GetOperation {
+        super::builders::azure_clusters::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1140,8 +1140,8 @@ impl AzureClusters {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::DeleteOperation {
-        crate::builders::azure_clusters::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::DeleteOperation {
+        super::builders::azure_clusters::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1151,8 +1151,8 @@ impl AzureClusters {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::azure_clusters::CancelOperation {
-        crate::builders::azure_clusters::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::azure_clusters::CancelOperation {
+        super::builders::azure_clusters::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

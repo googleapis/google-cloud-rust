@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudBuild].
+/// Defines the trait used to implement [super::client::CloudBuild].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudBuild`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudBuild: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudBuild::create_build].
+    /// Implements [super::client::CloudBuild::create_build].
     fn create_build(
         &self,
         _req: crate::model::CreateBuildRequest,
@@ -53,7 +53,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::get_build].
+    /// Implements [super::client::CloudBuild::get_build].
     fn get_build(
         &self,
         _req: crate::model::GetBuildRequest,
@@ -62,7 +62,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Build>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudBuild::list_builds].
+    /// Implements [super::client::CloudBuild::list_builds].
     fn list_builds(
         &self,
         _req: crate::model::ListBuildsRequest,
@@ -74,7 +74,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::cancel_build].
+    /// Implements [super::client::CloudBuild::cancel_build].
     fn cancel_build(
         &self,
         _req: crate::model::CancelBuildRequest,
@@ -83,7 +83,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Build>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudBuild::retry_build].
+    /// Implements [super::client::CloudBuild::retry_build].
     fn retry_build(
         &self,
         _req: crate::model::RetryBuildRequest,
@@ -95,7 +95,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::approve_build].
+    /// Implements [super::client::CloudBuild::approve_build].
     fn approve_build(
         &self,
         _req: crate::model::ApproveBuildRequest,
@@ -107,7 +107,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::create_build_trigger].
+    /// Implements [super::client::CloudBuild::create_build_trigger].
     fn create_build_trigger(
         &self,
         _req: crate::model::CreateBuildTriggerRequest,
@@ -118,7 +118,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::get_build_trigger].
+    /// Implements [super::client::CloudBuild::get_build_trigger].
     fn get_build_trigger(
         &self,
         _req: crate::model::GetBuildTriggerRequest,
@@ -129,7 +129,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::list_build_triggers].
+    /// Implements [super::client::CloudBuild::list_build_triggers].
     fn list_build_triggers(
         &self,
         _req: crate::model::ListBuildTriggersRequest,
@@ -141,7 +141,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudBuild::delete_build_trigger].
+    /// Implements [super::client::CloudBuild::delete_build_trigger].
     fn delete_build_trigger(
         &self,
         _req: crate::model::DeleteBuildTriggerRequest,
@@ -150,7 +150,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudBuild::update_build_trigger].
+    /// Implements [super::client::CloudBuild::update_build_trigger].
     fn update_build_trigger(
         &self,
         _req: crate::model::UpdateBuildTriggerRequest,
@@ -161,7 +161,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::run_build_trigger].
+    /// Implements [super::client::CloudBuild::run_build_trigger].
     fn run_build_trigger(
         &self,
         _req: crate::model::RunBuildTriggerRequest,
@@ -173,7 +173,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::receive_trigger_webhook].
+    /// Implements [super::client::CloudBuild::receive_trigger_webhook].
     fn receive_trigger_webhook(
         &self,
         _req: crate::model::ReceiveTriggerWebhookRequest,
@@ -185,7 +185,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudBuild::create_worker_pool].
+    /// Implements [super::client::CloudBuild::create_worker_pool].
     fn create_worker_pool(
         &self,
         _req: crate::model::CreateWorkerPoolRequest,
@@ -197,7 +197,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::get_worker_pool].
+    /// Implements [super::client::CloudBuild::get_worker_pool].
     fn get_worker_pool(
         &self,
         _req: crate::model::GetWorkerPoolRequest,
@@ -208,7 +208,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::delete_worker_pool].
+    /// Implements [super::client::CloudBuild::delete_worker_pool].
     fn delete_worker_pool(
         &self,
         _req: crate::model::DeleteWorkerPoolRequest,
@@ -220,7 +220,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::update_worker_pool].
+    /// Implements [super::client::CloudBuild::update_worker_pool].
     fn update_worker_pool(
         &self,
         _req: crate::model::UpdateWorkerPoolRequest,
@@ -232,7 +232,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::list_worker_pools].
+    /// Implements [super::client::CloudBuild::list_worker_pools].
     fn list_worker_pools(
         &self,
         _req: crate::model::ListWorkerPoolsRequest,
@@ -244,7 +244,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudBuild::get_operation].
+    /// Implements [super::client::CloudBuild::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -256,7 +256,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudBuild::cancel_operation].
+    /// Implements [super::client::CloudBuild::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

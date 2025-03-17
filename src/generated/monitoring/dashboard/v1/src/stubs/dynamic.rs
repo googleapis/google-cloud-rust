@@ -48,9 +48,9 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Dashboard>;
 }
 
-/// All implementations of [crate::stubs::DashboardsService] also implement [DashboardsService].
+/// All implementations of [super::DashboardsService] also implement [DashboardsService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DashboardsService> DashboardsService for T {
+impl<T: super::DashboardsService> DashboardsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_dashboard(
         &self,

@@ -90,9 +90,9 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Workflows] also implement [Workflows].
+/// All implementations of [super::Workflows] also implement [Workflows].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Workflows> Workflows for T {
+impl<T: super::Workflows> Workflows for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_workflows(
         &self,

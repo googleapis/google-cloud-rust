@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::StorageTransferService].
+/// Defines the trait used to implement [super::client::StorageTransferService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::StorageTransferService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::StorageTransferService::get_google_service_account].
+    /// Implements [super::client::StorageTransferService::get_google_service_account].
     fn get_google_service_account(
         &self,
         _req: crate::model::GetGoogleServiceAccountRequest,
@@ -53,7 +53,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageTransferService::create_transfer_job].
+    /// Implements [super::client::StorageTransferService::create_transfer_job].
     fn create_transfer_job(
         &self,
         _req: crate::model::CreateTransferJobRequest,
@@ -64,7 +64,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageTransferService::update_transfer_job].
+    /// Implements [super::client::StorageTransferService::update_transfer_job].
     fn update_transfer_job(
         &self,
         _req: crate::model::UpdateTransferJobRequest,
@@ -75,7 +75,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageTransferService::get_transfer_job].
+    /// Implements [super::client::StorageTransferService::get_transfer_job].
     fn get_transfer_job(
         &self,
         _req: crate::model::GetTransferJobRequest,
@@ -86,7 +86,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageTransferService::list_transfer_jobs].
+    /// Implements [super::client::StorageTransferService::list_transfer_jobs].
     fn list_transfer_jobs(
         &self,
         _req: crate::model::ListTransferJobsRequest,
@@ -98,7 +98,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::StorageTransferService::pause_transfer_operation].
+    /// Implements [super::client::StorageTransferService::pause_transfer_operation].
     fn pause_transfer_operation(
         &self,
         _req: crate::model::PauseTransferOperationRequest,
@@ -107,7 +107,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::StorageTransferService::resume_transfer_operation].
+    /// Implements [super::client::StorageTransferService::resume_transfer_operation].
     fn resume_transfer_operation(
         &self,
         _req: crate::model::ResumeTransferOperationRequest,
@@ -116,7 +116,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::StorageTransferService::run_transfer_job].
+    /// Implements [super::client::StorageTransferService::run_transfer_job].
     fn run_transfer_job(
         &self,
         _req: crate::model::RunTransferJobRequest,
@@ -128,7 +128,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageTransferService::delete_transfer_job].
+    /// Implements [super::client::StorageTransferService::delete_transfer_job].
     fn delete_transfer_job(
         &self,
         _req: crate::model::DeleteTransferJobRequest,
@@ -137,7 +137,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::StorageTransferService::create_agent_pool].
+    /// Implements [super::client::StorageTransferService::create_agent_pool].
     fn create_agent_pool(
         &self,
         _req: crate::model::CreateAgentPoolRequest,
@@ -148,7 +148,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageTransferService::update_agent_pool].
+    /// Implements [super::client::StorageTransferService::update_agent_pool].
     fn update_agent_pool(
         &self,
         _req: crate::model::UpdateAgentPoolRequest,
@@ -159,7 +159,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageTransferService::get_agent_pool].
+    /// Implements [super::client::StorageTransferService::get_agent_pool].
     fn get_agent_pool(
         &self,
         _req: crate::model::GetAgentPoolRequest,
@@ -170,7 +170,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageTransferService::list_agent_pools].
+    /// Implements [super::client::StorageTransferService::list_agent_pools].
     fn list_agent_pools(
         &self,
         _req: crate::model::ListAgentPoolsRequest,
@@ -182,7 +182,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::StorageTransferService::delete_agent_pool].
+    /// Implements [super::client::StorageTransferService::delete_agent_pool].
     fn delete_agent_pool(
         &self,
         _req: crate::model::DeleteAgentPoolRequest,
@@ -191,7 +191,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::StorageTransferService::list_operations].
+    /// Implements [super::client::StorageTransferService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -203,7 +203,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::StorageTransferService::get_operation].
+    /// Implements [super::client::StorageTransferService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -215,7 +215,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::StorageTransferService::cancel_operation].
+    /// Implements [super::client::StorageTransferService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

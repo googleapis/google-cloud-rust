@@ -132,9 +132,9 @@ pub trait CloudRedis: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::CloudRedis] also implement [CloudRedis].
+/// All implementations of [super::CloudRedis] also implement [CloudRedis].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudRedis> CloudRedis for T {
+impl<T: super::CloudRedis> CloudRedis for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_instances(
         &self,

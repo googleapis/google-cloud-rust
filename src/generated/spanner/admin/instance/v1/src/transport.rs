@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [InstanceAdmin](crate::stubs::InstanceAdmin) using a [gclient::ReqwestClient].
+/// Implements [InstanceAdmin](super::stubs::InstanceAdmin) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct InstanceAdmin {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl InstanceAdmin {
     }
 }
 
-impl crate::stubs::InstanceAdmin for InstanceAdmin {
+impl super::stubs::InstanceAdmin for InstanceAdmin {
     async fn list_instance_configs(
         &self,
         req: crate::model::ListInstanceConfigsRequest,

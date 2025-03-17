@@ -240,9 +240,9 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::CertificateManager] also implement [CertificateManager].
+/// All implementations of [super::CertificateManager] also implement [CertificateManager].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CertificateManager> CertificateManager for T {
+impl<T: super::CertificateManager> CertificateManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_certificates(
         &self,

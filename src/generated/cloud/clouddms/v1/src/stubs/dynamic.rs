@@ -330,9 +330,9 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DataMigrationService] also implement [DataMigrationService].
+/// All implementations of [super::DataMigrationService] also implement [DataMigrationService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DataMigrationService> DataMigrationService for T {
+impl<T: super::DataMigrationService> DataMigrationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_migration_jobs(
         &self,

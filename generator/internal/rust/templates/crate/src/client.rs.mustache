@@ -49,7 +49,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct {{Codec.Name}} {
-    inner: Arc<dyn crate::stubs::dynamic::{{Codec.Name}}>,
+    inner: Arc<dyn super::stubs::dynamic::{{Codec.Name}}>,
 }
 
 impl {{Codec.Name}} {
@@ -69,23 +69,23 @@ impl {{Codec.Name}} {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::{{Codec.Name}} + 'static {
+    where T: super::stubs::{{Codec.Name}} + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::{{Codec.Name}}>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::{{Codec.Name}}>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::{{Codec.Name}}> {
-        crate::transport::{{Codec.Name}}::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::{{Codec.Name}}> {
+        super::transport::{{Codec.Name}}::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::{{Codec.Name}}> {
-        Self::build_transport(conf).await.map(crate::tracing::{{Codec.Name}}::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::{{Codec.Name}}> {
+        Self::build_transport(conf).await.map(super::tracing::{{Codec.Name}}::new)
     }
 
     {{#Codec.Methods}}
@@ -109,9 +109,9 @@ impl {{Codec.Name}} {
         {{#Codec.PathParams}}
         {{{Codec.FieldName}}}: impl Into<{{{Codec.PrimitiveFieldType}}}>,
         {{/Codec.PathParams}}
-    ) -> crate::builders::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
+    ) -> super::builders::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
     {
-        crate::builders::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}::new(self.inner.clone())
+        super::builders::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}::new(self.inner.clone())
         {{#Codec.PathParams}}
             .set_{{Codec.SetterName}} ( {{Codec.FieldName}}.into() )
         {{/Codec.PathParams}}

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DocumentProcessorService].
+/// Defines the trait used to implement [super::client::DocumentProcessorService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DocumentProcessorService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DocumentProcessorService::process_document].
+    /// Implements [super::client::DocumentProcessorService::process_document].
     fn process_document(
         &self,
         _req: crate::model::ProcessRequest,
@@ -53,7 +53,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::batch_process_documents].
+    /// Implements [super::client::DocumentProcessorService::batch_process_documents].
     fn batch_process_documents(
         &self,
         _req: crate::model::BatchProcessRequest,
@@ -65,7 +65,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::fetch_processor_types].
+    /// Implements [super::client::DocumentProcessorService::fetch_processor_types].
     fn fetch_processor_types(
         &self,
         _req: crate::model::FetchProcessorTypesRequest,
@@ -77,7 +77,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::list_processor_types].
+    /// Implements [super::client::DocumentProcessorService::list_processor_types].
     fn list_processor_types(
         &self,
         _req: crate::model::ListProcessorTypesRequest,
@@ -89,7 +89,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::get_processor_type].
+    /// Implements [super::client::DocumentProcessorService::get_processor_type].
     fn get_processor_type(
         &self,
         _req: crate::model::GetProcessorTypeRequest,
@@ -100,7 +100,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::list_processors].
+    /// Implements [super::client::DocumentProcessorService::list_processors].
     fn list_processors(
         &self,
         _req: crate::model::ListProcessorsRequest,
@@ -112,7 +112,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::get_processor].
+    /// Implements [super::client::DocumentProcessorService::get_processor].
     fn get_processor(
         &self,
         _req: crate::model::GetProcessorRequest,
@@ -123,7 +123,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::train_processor_version].
+    /// Implements [super::client::DocumentProcessorService::train_processor_version].
     fn train_processor_version(
         &self,
         _req: crate::model::TrainProcessorVersionRequest,
@@ -135,7 +135,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::get_processor_version].
+    /// Implements [super::client::DocumentProcessorService::get_processor_version].
     fn get_processor_version(
         &self,
         _req: crate::model::GetProcessorVersionRequest,
@@ -147,7 +147,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::list_processor_versions].
+    /// Implements [super::client::DocumentProcessorService::list_processor_versions].
     fn list_processor_versions(
         &self,
         _req: crate::model::ListProcessorVersionsRequest,
@@ -159,7 +159,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::delete_processor_version].
+    /// Implements [super::client::DocumentProcessorService::delete_processor_version].
     fn delete_processor_version(
         &self,
         _req: crate::model::DeleteProcessorVersionRequest,
@@ -171,7 +171,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::deploy_processor_version].
+    /// Implements [super::client::DocumentProcessorService::deploy_processor_version].
     fn deploy_processor_version(
         &self,
         _req: crate::model::DeployProcessorVersionRequest,
@@ -183,7 +183,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::undeploy_processor_version].
+    /// Implements [super::client::DocumentProcessorService::undeploy_processor_version].
     fn undeploy_processor_version(
         &self,
         _req: crate::model::UndeployProcessorVersionRequest,
@@ -195,7 +195,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::create_processor].
+    /// Implements [super::client::DocumentProcessorService::create_processor].
     fn create_processor(
         &self,
         _req: crate::model::CreateProcessorRequest,
@@ -206,7 +206,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::delete_processor].
+    /// Implements [super::client::DocumentProcessorService::delete_processor].
     fn delete_processor(
         &self,
         _req: crate::model::DeleteProcessorRequest,
@@ -218,7 +218,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::enable_processor].
+    /// Implements [super::client::DocumentProcessorService::enable_processor].
     fn enable_processor(
         &self,
         _req: crate::model::EnableProcessorRequest,
@@ -230,7 +230,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::disable_processor].
+    /// Implements [super::client::DocumentProcessorService::disable_processor].
     fn disable_processor(
         &self,
         _req: crate::model::DisableProcessorRequest,
@@ -242,7 +242,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::set_default_processor_version].
+    /// Implements [super::client::DocumentProcessorService::set_default_processor_version].
     fn set_default_processor_version(
         &self,
         _req: crate::model::SetDefaultProcessorVersionRequest,
@@ -254,7 +254,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::review_document].
+    /// Implements [super::client::DocumentProcessorService::review_document].
     fn review_document(
         &self,
         _req: crate::model::ReviewDocumentRequest,
@@ -266,7 +266,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::evaluate_processor_version].
+    /// Implements [super::client::DocumentProcessorService::evaluate_processor_version].
     fn evaluate_processor_version(
         &self,
         _req: crate::model::EvaluateProcessorVersionRequest,
@@ -278,7 +278,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::get_evaluation].
+    /// Implements [super::client::DocumentProcessorService::get_evaluation].
     fn get_evaluation(
         &self,
         _req: crate::model::GetEvaluationRequest,
@@ -289,7 +289,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::list_evaluations].
+    /// Implements [super::client::DocumentProcessorService::list_evaluations].
     fn list_evaluations(
         &self,
         _req: crate::model::ListEvaluationsRequest,
@@ -301,7 +301,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::list_locations].
+    /// Implements [super::client::DocumentProcessorService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -313,7 +313,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::get_location].
+    /// Implements [super::client::DocumentProcessorService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -324,7 +324,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::list_operations].
+    /// Implements [super::client::DocumentProcessorService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -336,7 +336,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::get_operation].
+    /// Implements [super::client::DocumentProcessorService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -348,7 +348,7 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DocumentProcessorService::cancel_operation].
+    /// Implements [super::client::DocumentProcessorService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

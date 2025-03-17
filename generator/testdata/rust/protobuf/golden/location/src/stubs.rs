@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Locations].
+/// Defines the trait used to implement [super::client::Locations].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Locations`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// error.
 pub trait Locations: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::Locations::list_locations].
+    /// Implements [super::client::Locations::list_locations].
     fn list_locations(
         &self,
         _req: crate::model::ListLocationsRequest,
@@ -50,7 +50,7 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::ListLocationsResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Locations::get_location].
+    /// Implements [super::client::Locations::get_location].
     fn get_location(
         &self,
         _req: crate::model::GetLocationRequest,

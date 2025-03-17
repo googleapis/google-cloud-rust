@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudBilling](crate::stubs::CloudBilling) using a [gclient::ReqwestClient].
+/// Implements [CloudBilling](super::stubs::CloudBilling) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudBilling {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudBilling {
     }
 }
 
-impl crate::stubs::CloudBilling for CloudBilling {
+impl super::stubs::CloudBilling for CloudBilling {
     async fn get_billing_account(
         &self,
         req: crate::model::GetBillingAccountRequest,
@@ -286,7 +286,7 @@ impl crate::stubs::CloudBilling for CloudBilling {
     }
 }
 
-/// Implements [CloudCatalog](crate::stubs::CloudCatalog) using a [gclient::ReqwestClient].
+/// Implements [CloudCatalog](super::stubs::CloudCatalog) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudCatalog {
     inner: gclient::ReqwestClient,
@@ -307,7 +307,7 @@ impl CloudCatalog {
     }
 }
 
-impl crate::stubs::CloudCatalog for CloudCatalog {
+impl super::stubs::CloudCatalog for CloudCatalog {
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,

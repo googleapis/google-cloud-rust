@@ -18,10 +18,10 @@ pub mod oracle_database {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::OracleDatabase] request builders.
+    /// Common implementation for [super::super::client::OracleDatabase] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>,
+        stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod oracle_database {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -46,7 +46,7 @@ pub mod oracle_database {
     );
 
     impl ListCloudExadataInfrastructures {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -120,7 +120,7 @@ pub mod oracle_database {
     );
 
     impl GetCloudExadataInfrastructure {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -166,7 +166,7 @@ pub mod oracle_database {
     );
 
     impl CreateCloudExadataInfrastructure {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -190,7 +190,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cloud_exadata_infrastructure][crate::client::OracleDatabase::create_cloud_exadata_infrastructure].
+        /// on [create_cloud_exadata_infrastructure][super::super::client::OracleDatabase::create_cloud_exadata_infrastructure].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cloud_exadata_infrastructure(self.0.request, self.0.options)
@@ -279,7 +279,7 @@ pub mod oracle_database {
     );
 
     impl DeleteCloudExadataInfrastructure {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -303,7 +303,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cloud_exadata_infrastructure][crate::client::OracleDatabase::delete_cloud_exadata_infrastructure].
+        /// on [delete_cloud_exadata_infrastructure][super::super::client::OracleDatabase::delete_cloud_exadata_infrastructure].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cloud_exadata_infrastructure(self.0.request, self.0.options)
@@ -370,7 +370,7 @@ pub mod oracle_database {
     pub struct ListCloudVmClusters(RequestBuilder<crate::model::ListCloudVmClustersRequest>);
 
     impl ListCloudVmClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -446,7 +446,7 @@ pub mod oracle_database {
     pub struct GetCloudVmCluster(RequestBuilder<crate::model::GetCloudVmClusterRequest>);
 
     impl GetCloudVmCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -490,7 +490,7 @@ pub mod oracle_database {
     pub struct CreateCloudVmCluster(RequestBuilder<crate::model::CreateCloudVmClusterRequest>);
 
     impl CreateCloudVmCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -514,7 +514,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cloud_vm_cluster][crate::client::OracleDatabase::create_cloud_vm_cluster].
+        /// on [create_cloud_vm_cluster][super::super::client::OracleDatabase::create_cloud_vm_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cloud_vm_cluster(self.0.request, self.0.options)
@@ -594,7 +594,7 @@ pub mod oracle_database {
     pub struct DeleteCloudVmCluster(RequestBuilder<crate::model::DeleteCloudVmClusterRequest>);
 
     impl DeleteCloudVmCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -618,7 +618,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cloud_vm_cluster][crate::client::OracleDatabase::delete_cloud_vm_cluster].
+        /// on [delete_cloud_vm_cluster][super::super::client::OracleDatabase::delete_cloud_vm_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cloud_vm_cluster(self.0.request, self.0.options)
@@ -685,7 +685,7 @@ pub mod oracle_database {
     pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
 
     impl ListEntitlements {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -755,7 +755,7 @@ pub mod oracle_database {
     pub struct ListDbServers(RequestBuilder<crate::model::ListDbServersRequest>);
 
     impl ListDbServers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -822,7 +822,7 @@ pub mod oracle_database {
     pub struct ListDbNodes(RequestBuilder<crate::model::ListDbNodesRequest>);
 
     impl ListDbNodes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -889,7 +889,7 @@ pub mod oracle_database {
     pub struct ListGiVersions(RequestBuilder<crate::model::ListGiVersionsRequest>);
 
     impl ListGiVersions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -956,7 +956,7 @@ pub mod oracle_database {
     pub struct ListDbSystemShapes(RequestBuilder<crate::model::ListDbSystemShapesRequest>);
 
     impl ListDbSystemShapes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1028,7 +1028,7 @@ pub mod oracle_database {
     );
 
     impl ListAutonomousDatabases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1112,7 +1112,7 @@ pub mod oracle_database {
     pub struct GetAutonomousDatabase(RequestBuilder<crate::model::GetAutonomousDatabaseRequest>);
 
     impl GetAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1158,7 +1158,7 @@ pub mod oracle_database {
     );
 
     impl CreateAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1182,7 +1182,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_autonomous_database][crate::client::OracleDatabase::create_autonomous_database].
+        /// on [create_autonomous_database][super::super::client::OracleDatabase::create_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_autonomous_database(self.0.request, self.0.options)
@@ -1266,7 +1266,7 @@ pub mod oracle_database {
     );
 
     impl DeleteAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1290,7 +1290,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_autonomous_database][crate::client::OracleDatabase::delete_autonomous_database].
+        /// on [delete_autonomous_database][super::super::client::OracleDatabase::delete_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_autonomous_database(self.0.request, self.0.options)
@@ -1353,7 +1353,7 @@ pub mod oracle_database {
     );
 
     impl RestoreAutonomousDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1377,7 +1377,7 @@ pub mod oracle_database {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_autonomous_database][crate::client::OracleDatabase::restore_autonomous_database].
+        /// on [restore_autonomous_database][super::super::client::OracleDatabase::restore_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_autonomous_database(self.0.request, self.0.options)
@@ -1447,7 +1447,7 @@ pub mod oracle_database {
     );
 
     impl GenerateAutonomousDatabaseWallet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1511,7 +1511,7 @@ pub mod oracle_database {
     );
 
     impl ListAutonomousDbVersions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1585,7 +1585,7 @@ pub mod oracle_database {
     );
 
     impl ListAutonomousDatabaseCharacterSets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1667,7 +1667,7 @@ pub mod oracle_database {
     );
 
     impl ListAutonomousDatabaseBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1745,7 +1745,7 @@ pub mod oracle_database {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1821,7 +1821,7 @@ pub mod oracle_database {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1862,7 +1862,7 @@ pub mod oracle_database {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1938,7 +1938,7 @@ pub mod oracle_database {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1982,7 +1982,7 @@ pub mod oracle_database {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2026,7 +2026,7 @@ pub mod oracle_database {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OracleDatabase>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OracleDatabase>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

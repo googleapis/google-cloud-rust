@@ -45,7 +45,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServiceController {
-    inner: Arc<dyn crate::stubs::dynamic::ServiceController>,
+    inner: Arc<dyn super::stubs::dynamic::ServiceController>,
 }
 
 impl ServiceController {
@@ -66,7 +66,7 @@ impl ServiceController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ServiceController + 'static,
+        T: super::stubs::ServiceController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -75,7 +75,7 @@ impl ServiceController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ServiceController>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ServiceController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -84,16 +84,16 @@ impl ServiceController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceController> {
-        crate::transport::ServiceController::new(conf).await
+    ) -> Result<impl super::stubs::ServiceController> {
+        super::transport::ServiceController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceController> {
+    ) -> Result<impl super::stubs::ServiceController> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ServiceController::new)
+            .map(super::tracing::ServiceController::new)
     }
 
     /// Private Preview. This feature is only available for approved services.
@@ -121,8 +121,8 @@ impl ServiceController {
     pub fn check(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_controller::Check {
-        crate::builders::service_controller::Check::new(self.inner.clone())
+    ) -> super::builders::service_controller::Check {
+        super::builders::service_controller::Check::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -147,8 +147,8 @@ impl ServiceController {
     pub fn report(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_controller::Report {
-        crate::builders::service_controller::Report::new(self.inner.clone())
+    ) -> super::builders::service_controller::Report {
+        super::builders::service_controller::Report::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 }

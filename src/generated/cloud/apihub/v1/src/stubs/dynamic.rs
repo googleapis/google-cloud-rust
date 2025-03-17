@@ -266,9 +266,9 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::ApiHub] also implement [ApiHub].
+/// All implementations of [super::ApiHub] also implement [ApiHub].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ApiHub> ApiHub for T {
+impl<T: super::ApiHub> ApiHub for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_api(
         &self,
@@ -709,9 +709,9 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::ApiHubDependencies] also implement [ApiHubDependencies].
+/// All implementations of [super::ApiHubDependencies] also implement [ApiHubDependencies].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ApiHubDependencies> ApiHubDependencies for T {
+impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_dependency(
         &self,
@@ -870,9 +870,9 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::HostProjectRegistrationService] also implement [HostProjectRegistrationService].
+/// All implementations of [super::HostProjectRegistrationService] also implement [HostProjectRegistrationService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::HostProjectRegistrationService> HostProjectRegistrationService for T {
+impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_host_project_registration(
         &self,
@@ -1019,9 +1019,9 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::LintingService] also implement [LintingService].
+/// All implementations of [super::LintingService] also implement [LintingService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::LintingService> LintingService for T {
+impl<T: super::LintingService> LintingService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_style_guide(
         &self,
@@ -1171,9 +1171,9 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::ApiHubPlugin] also implement [ApiHubPlugin].
+/// All implementations of [super::ApiHubPlugin] also implement [ApiHubPlugin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ApiHubPlugin> ApiHubPlugin for T {
+impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_plugin(
         &self,
@@ -1324,9 +1324,9 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Provisioning] also implement [Provisioning].
+/// All implementations of [super::Provisioning] also implement [Provisioning].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Provisioning> Provisioning for T {
+impl<T: super::Provisioning> Provisioning for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_api_hub_instance(
         &self,
@@ -1493,9 +1493,9 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::RuntimeProjectAttachmentService] also implement [RuntimeProjectAttachmentService].
+/// All implementations of [super::RuntimeProjectAttachmentService] also implement [RuntimeProjectAttachmentService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService for T {
+impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_runtime_project_attachment(
         &self,

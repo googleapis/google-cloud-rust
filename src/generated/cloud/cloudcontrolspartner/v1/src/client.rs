@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudControlsPartnerCore {
-    inner: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>,
+    inner: Arc<dyn super::stubs::dynamic::CloudControlsPartnerCore>,
 }
 
 impl CloudControlsPartnerCore {
@@ -59,7 +59,7 @@ impl CloudControlsPartnerCore {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CloudControlsPartnerCore + 'static,
+        T: super::stubs::CloudControlsPartnerCore + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl CloudControlsPartnerCore {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CloudControlsPartnerCore>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CloudControlsPartnerCore>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl CloudControlsPartnerCore {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudControlsPartnerCore> {
-        crate::transport::CloudControlsPartnerCore::new(conf).await
+    ) -> Result<impl super::stubs::CloudControlsPartnerCore> {
+        super::transport::CloudControlsPartnerCore::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudControlsPartnerCore> {
+    ) -> Result<impl super::stubs::CloudControlsPartnerCore> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CloudControlsPartnerCore::new)
+            .map(super::tracing::CloudControlsPartnerCore::new)
     }
 
     /// Gets details of a single workload
     pub fn get_workload(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_controls_partner_core::GetWorkload {
-        crate::builders::cloud_controls_partner_core::GetWorkload::new(self.inner.clone())
+    ) -> super::builders::cloud_controls_partner_core::GetWorkload {
+        super::builders::cloud_controls_partner_core::GetWorkload::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -102,8 +102,8 @@ impl CloudControlsPartnerCore {
     pub fn list_workloads(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_controls_partner_core::ListWorkloads {
-        crate::builders::cloud_controls_partner_core::ListWorkloads::new(self.inner.clone())
+    ) -> super::builders::cloud_controls_partner_core::ListWorkloads {
+        super::builders::cloud_controls_partner_core::ListWorkloads::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -111,8 +111,8 @@ impl CloudControlsPartnerCore {
     pub fn get_customer(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_controls_partner_core::GetCustomer {
-        crate::builders::cloud_controls_partner_core::GetCustomer::new(self.inner.clone())
+    ) -> super::builders::cloud_controls_partner_core::GetCustomer {
+        super::builders::cloud_controls_partner_core::GetCustomer::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -120,8 +120,8 @@ impl CloudControlsPartnerCore {
     pub fn list_customers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_controls_partner_core::ListCustomers {
-        crate::builders::cloud_controls_partner_core::ListCustomers::new(self.inner.clone())
+    ) -> super::builders::cloud_controls_partner_core::ListCustomers {
+        super::builders::cloud_controls_partner_core::ListCustomers::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -129,8 +129,8 @@ impl CloudControlsPartnerCore {
     pub fn get_ekm_connections(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_controls_partner_core::GetEkmConnections {
-        crate::builders::cloud_controls_partner_core::GetEkmConnections::new(self.inner.clone())
+    ) -> super::builders::cloud_controls_partner_core::GetEkmConnections {
+        super::builders::cloud_controls_partner_core::GetEkmConnections::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -138,8 +138,8 @@ impl CloudControlsPartnerCore {
     pub fn get_partner_permissions(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_controls_partner_core::GetPartnerPermissions {
-        crate::builders::cloud_controls_partner_core::GetPartnerPermissions::new(self.inner.clone())
+    ) -> super::builders::cloud_controls_partner_core::GetPartnerPermissions {
+        super::builders::cloud_controls_partner_core::GetPartnerPermissions::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -148,8 +148,8 @@ impl CloudControlsPartnerCore {
     pub fn list_access_approval_requests(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_controls_partner_core::ListAccessApprovalRequests {
-        crate::builders::cloud_controls_partner_core::ListAccessApprovalRequests::new(
+    ) -> super::builders::cloud_controls_partner_core::ListAccessApprovalRequests {
+        super::builders::cloud_controls_partner_core::ListAccessApprovalRequests::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -159,8 +159,8 @@ impl CloudControlsPartnerCore {
     pub fn get_partner(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_controls_partner_core::GetPartner {
-        crate::builders::cloud_controls_partner_core::GetPartner::new(self.inner.clone())
+    ) -> super::builders::cloud_controls_partner_core::GetPartner {
+        super::builders::cloud_controls_partner_core::GetPartner::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -184,7 +184,7 @@ impl CloudControlsPartnerCore {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudControlsPartnerMonitoring {
-    inner: Arc<dyn crate::stubs::dynamic::CloudControlsPartnerMonitoring>,
+    inner: Arc<dyn super::stubs::dynamic::CloudControlsPartnerMonitoring>,
 }
 
 impl CloudControlsPartnerMonitoring {
@@ -205,7 +205,7 @@ impl CloudControlsPartnerMonitoring {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CloudControlsPartnerMonitoring + 'static,
+        T: super::stubs::CloudControlsPartnerMonitoring + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -214,7 +214,7 @@ impl CloudControlsPartnerMonitoring {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CloudControlsPartnerMonitoring>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CloudControlsPartnerMonitoring>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -223,16 +223,16 @@ impl CloudControlsPartnerMonitoring {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudControlsPartnerMonitoring> {
-        crate::transport::CloudControlsPartnerMonitoring::new(conf).await
+    ) -> Result<impl super::stubs::CloudControlsPartnerMonitoring> {
+        super::transport::CloudControlsPartnerMonitoring::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudControlsPartnerMonitoring> {
+    ) -> Result<impl super::stubs::CloudControlsPartnerMonitoring> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CloudControlsPartnerMonitoring::new)
+            .map(super::tracing::CloudControlsPartnerMonitoring::new)
     }
 
     /// Lists Violations for a workload
@@ -245,8 +245,8 @@ impl CloudControlsPartnerMonitoring {
     pub fn list_violations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_controls_partner_monitoring::ListViolations {
-        crate::builders::cloud_controls_partner_monitoring::ListViolations::new(self.inner.clone())
+    ) -> super::builders::cloud_controls_partner_monitoring::ListViolations {
+        super::builders::cloud_controls_partner_monitoring::ListViolations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -254,8 +254,8 @@ impl CloudControlsPartnerMonitoring {
     pub fn get_violation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_controls_partner_monitoring::GetViolation {
-        crate::builders::cloud_controls_partner_monitoring::GetViolation::new(self.inner.clone())
+    ) -> super::builders::cloud_controls_partner_monitoring::GetViolation {
+        super::builders::cloud_controls_partner_monitoring::GetViolation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

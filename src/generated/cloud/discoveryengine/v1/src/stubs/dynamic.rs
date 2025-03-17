@@ -78,9 +78,9 @@ pub trait CompletionService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::CompletionService] also implement [CompletionService].
+/// All implementations of [super::CompletionService] also implement [CompletionService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CompletionService> CompletionService for T {
+impl<T: super::CompletionService> CompletionService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn complete_query(
         &self,
@@ -220,9 +220,9 @@ pub trait ControlService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::ControlService] also implement [ControlService].
+/// All implementations of [super::ControlService] also implement [ControlService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ControlService> ControlService for T {
+impl<T: super::ControlService> ControlService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_control(
         &self,
@@ -396,9 +396,9 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::ConversationalSearchService] also implement [ConversationalSearchService].
+/// All implementations of [super::ConversationalSearchService] also implement [ConversationalSearchService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ConversationalSearchService> ConversationalSearchService for T {
+impl<T: super::ConversationalSearchService> ConversationalSearchService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn converse_conversation(
         &self,
@@ -606,9 +606,9 @@ pub trait DataStoreService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DataStoreService] also implement [DataStoreService].
+/// All implementations of [super::DataStoreService] also implement [DataStoreService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DataStoreService> DataStoreService for T {
+impl<T: super::DataStoreService> DataStoreService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_data_store(
         &self,
@@ -776,9 +776,9 @@ pub trait DocumentService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DocumentService] also implement [DocumentService].
+/// All implementations of [super::DocumentService] also implement [DocumentService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DocumentService> DocumentService for T {
+impl<T: super::DocumentService> DocumentService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_document(
         &self,
@@ -955,9 +955,9 @@ pub trait EngineService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::EngineService] also implement [EngineService].
+/// All implementations of [super::EngineService] also implement [EngineService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::EngineService> EngineService for T {
+impl<T: super::EngineService> EngineService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_engine(
         &self,
@@ -1079,9 +1079,9 @@ pub trait GroundedGenerationService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::GroundedGenerationService] also implement [GroundedGenerationService].
+/// All implementations of [super::GroundedGenerationService] also implement [GroundedGenerationService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::GroundedGenerationService> GroundedGenerationService for T {
+impl<T: super::GroundedGenerationService> GroundedGenerationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn generate_grounded_content(
         &self,
@@ -1166,9 +1166,9 @@ pub trait ProjectService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ProjectService] also implement [ProjectService].
+/// All implementations of [super::ProjectService] also implement [ProjectService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ProjectService> ProjectService for T {
+impl<T: super::ProjectService> ProjectService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn provision_project(
         &self,
@@ -1248,9 +1248,9 @@ pub trait RankService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::RankService] also implement [RankService].
+/// All implementations of [super::RankService] also implement [RankService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::RankService> RankService for T {
+impl<T: super::RankService> RankService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn rank(
         &self,
@@ -1316,9 +1316,9 @@ pub trait RecommendationService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::RecommendationService] also implement [RecommendationService].
+/// All implementations of [super::RecommendationService] also implement [RecommendationService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::RecommendationService> RecommendationService for T {
+impl<T: super::RecommendationService> RecommendationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn recommend(
         &self,
@@ -1418,9 +1418,9 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::SchemaService] also implement [SchemaService].
+/// All implementations of [super::SchemaService] also implement [SchemaService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SchemaService> SchemaService for T {
+impl<T: super::SchemaService> SchemaService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_schema(
         &self,
@@ -1542,9 +1542,9 @@ pub trait SearchService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::SearchService] also implement [SearchService].
+/// All implementations of [super::SearchService] also implement [SearchService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SearchService> SearchService for T {
+impl<T: super::SearchService> SearchService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn search(
         &self,
@@ -1635,9 +1635,9 @@ pub trait SearchTuningService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::SearchTuningService] also implement [SearchTuningService].
+/// All implementations of [super::SearchTuningService] also implement [SearchTuningService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SearchTuningService> SearchTuningService for T {
+impl<T: super::SearchTuningService> SearchTuningService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn train_custom_model(
         &self,
@@ -1802,9 +1802,9 @@ pub trait SiteSearchEngineService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::SiteSearchEngineService] also implement [SiteSearchEngineService].
+/// All implementations of [super::SiteSearchEngineService] also implement [SiteSearchEngineService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SiteSearchEngineService> SiteSearchEngineService for T {
+impl<T: super::SiteSearchEngineService> SiteSearchEngineService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_site_search_engine(
         &self,
@@ -2011,9 +2011,9 @@ pub trait UserEventService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::UserEventService] also implement [UserEventService].
+/// All implementations of [super::UserEventService] also implement [UserEventService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::UserEventService> UserEventService for T {
+impl<T: super::UserEventService> UserEventService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn write_user_event(
         &self,

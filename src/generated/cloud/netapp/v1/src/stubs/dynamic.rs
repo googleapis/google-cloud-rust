@@ -426,9 +426,9 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::NetApp] also implement [NetApp].
+/// All implementations of [super::NetApp] also implement [NetApp].
 #[async_trait::async_trait]
-impl<T: crate::stubs::NetApp> NetApp for T {
+impl<T: super::NetApp> NetApp for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_storage_pools(
         &self,

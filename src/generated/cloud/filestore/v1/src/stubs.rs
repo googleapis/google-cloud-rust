@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudFilestoreManager].
+/// Defines the trait used to implement [super::client::CloudFilestoreManager].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudFilestoreManager`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudFilestoreManager::list_instances].
+    /// Implements [super::client::CloudFilestoreManager::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -53,7 +53,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::get_instance].
+    /// Implements [super::client::CloudFilestoreManager::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -64,7 +64,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::create_instance].
+    /// Implements [super::client::CloudFilestoreManager::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -76,7 +76,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::update_instance].
+    /// Implements [super::client::CloudFilestoreManager::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -88,7 +88,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::restore_instance].
+    /// Implements [super::client::CloudFilestoreManager::restore_instance].
     fn restore_instance(
         &self,
         _req: crate::model::RestoreInstanceRequest,
@@ -100,7 +100,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::revert_instance].
+    /// Implements [super::client::CloudFilestoreManager::revert_instance].
     fn revert_instance(
         &self,
         _req: crate::model::RevertInstanceRequest,
@@ -112,7 +112,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::delete_instance].
+    /// Implements [super::client::CloudFilestoreManager::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -124,7 +124,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::list_snapshots].
+    /// Implements [super::client::CloudFilestoreManager::list_snapshots].
     fn list_snapshots(
         &self,
         _req: crate::model::ListSnapshotsRequest,
@@ -136,7 +136,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::get_snapshot].
+    /// Implements [super::client::CloudFilestoreManager::get_snapshot].
     fn get_snapshot(
         &self,
         _req: crate::model::GetSnapshotRequest,
@@ -147,7 +147,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::create_snapshot].
+    /// Implements [super::client::CloudFilestoreManager::create_snapshot].
     fn create_snapshot(
         &self,
         _req: crate::model::CreateSnapshotRequest,
@@ -159,7 +159,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::delete_snapshot].
+    /// Implements [super::client::CloudFilestoreManager::delete_snapshot].
     fn delete_snapshot(
         &self,
         _req: crate::model::DeleteSnapshotRequest,
@@ -171,7 +171,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::update_snapshot].
+    /// Implements [super::client::CloudFilestoreManager::update_snapshot].
     fn update_snapshot(
         &self,
         _req: crate::model::UpdateSnapshotRequest,
@@ -183,7 +183,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::list_backups].
+    /// Implements [super::client::CloudFilestoreManager::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -195,7 +195,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::get_backup].
+    /// Implements [super::client::CloudFilestoreManager::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -206,7 +206,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::create_backup].
+    /// Implements [super::client::CloudFilestoreManager::create_backup].
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
@@ -218,7 +218,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::delete_backup].
+    /// Implements [super::client::CloudFilestoreManager::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -230,7 +230,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::update_backup].
+    /// Implements [super::client::CloudFilestoreManager::update_backup].
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
@@ -242,7 +242,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::promote_replica].
+    /// Implements [super::client::CloudFilestoreManager::promote_replica].
     fn promote_replica(
         &self,
         _req: crate::model::PromoteReplicaRequest,
@@ -254,7 +254,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::list_locations].
+    /// Implements [super::client::CloudFilestoreManager::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -266,7 +266,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::get_location].
+    /// Implements [super::client::CloudFilestoreManager::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -277,7 +277,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::list_operations].
+    /// Implements [super::client::CloudFilestoreManager::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -289,7 +289,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::get_operation].
+    /// Implements [super::client::CloudFilestoreManager::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -301,7 +301,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::delete_operation].
+    /// Implements [super::client::CloudFilestoreManager::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -310,7 +310,7 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudFilestoreManager::cancel_operation].
+    /// Implements [super::client::CloudFilestoreManager::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

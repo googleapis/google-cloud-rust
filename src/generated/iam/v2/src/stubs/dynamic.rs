@@ -66,9 +66,9 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Policies] also implement [Policies].
+/// All implementations of [super::Policies] also implement [Policies].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Policies> Policies for T {
+impl<T: super::Policies> Policies for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_policies(
         &self,

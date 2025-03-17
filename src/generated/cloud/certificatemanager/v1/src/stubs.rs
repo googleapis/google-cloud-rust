@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CertificateManager].
+/// Defines the trait used to implement [super::client::CertificateManager].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CertificateManager`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CertificateManager: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CertificateManager::list_certificates].
+    /// Implements [super::client::CertificateManager::list_certificates].
     fn list_certificates(
         &self,
         _req: crate::model::ListCertificatesRequest,
@@ -53,7 +53,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateManager::get_certificate].
+    /// Implements [super::client::CertificateManager::get_certificate].
     fn get_certificate(
         &self,
         _req: crate::model::GetCertificateRequest,
@@ -64,7 +64,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::create_certificate].
+    /// Implements [super::client::CertificateManager::create_certificate].
     fn create_certificate(
         &self,
         _req: crate::model::CreateCertificateRequest,
@@ -76,7 +76,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::update_certificate].
+    /// Implements [super::client::CertificateManager::update_certificate].
     fn update_certificate(
         &self,
         _req: crate::model::UpdateCertificateRequest,
@@ -88,7 +88,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::delete_certificate].
+    /// Implements [super::client::CertificateManager::delete_certificate].
     fn delete_certificate(
         &self,
         _req: crate::model::DeleteCertificateRequest,
@@ -100,7 +100,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::list_certificate_maps].
+    /// Implements [super::client::CertificateManager::list_certificate_maps].
     fn list_certificate_maps(
         &self,
         _req: crate::model::ListCertificateMapsRequest,
@@ -112,7 +112,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateManager::get_certificate_map].
+    /// Implements [super::client::CertificateManager::get_certificate_map].
     fn get_certificate_map(
         &self,
         _req: crate::model::GetCertificateMapRequest,
@@ -123,7 +123,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::create_certificate_map].
+    /// Implements [super::client::CertificateManager::create_certificate_map].
     fn create_certificate_map(
         &self,
         _req: crate::model::CreateCertificateMapRequest,
@@ -135,7 +135,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::update_certificate_map].
+    /// Implements [super::client::CertificateManager::update_certificate_map].
     fn update_certificate_map(
         &self,
         _req: crate::model::UpdateCertificateMapRequest,
@@ -147,7 +147,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::delete_certificate_map].
+    /// Implements [super::client::CertificateManager::delete_certificate_map].
     fn delete_certificate_map(
         &self,
         _req: crate::model::DeleteCertificateMapRequest,
@@ -159,7 +159,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::list_certificate_map_entries].
+    /// Implements [super::client::CertificateManager::list_certificate_map_entries].
     fn list_certificate_map_entries(
         &self,
         _req: crate::model::ListCertificateMapEntriesRequest,
@@ -172,7 +172,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateManager::get_certificate_map_entry].
+    /// Implements [super::client::CertificateManager::get_certificate_map_entry].
     fn get_certificate_map_entry(
         &self,
         _req: crate::model::GetCertificateMapEntryRequest,
@@ -184,7 +184,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::create_certificate_map_entry].
+    /// Implements [super::client::CertificateManager::create_certificate_map_entry].
     fn create_certificate_map_entry(
         &self,
         _req: crate::model::CreateCertificateMapEntryRequest,
@@ -196,7 +196,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::update_certificate_map_entry].
+    /// Implements [super::client::CertificateManager::update_certificate_map_entry].
     fn update_certificate_map_entry(
         &self,
         _req: crate::model::UpdateCertificateMapEntryRequest,
@@ -208,7 +208,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::delete_certificate_map_entry].
+    /// Implements [super::client::CertificateManager::delete_certificate_map_entry].
     fn delete_certificate_map_entry(
         &self,
         _req: crate::model::DeleteCertificateMapEntryRequest,
@@ -220,7 +220,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::list_dns_authorizations].
+    /// Implements [super::client::CertificateManager::list_dns_authorizations].
     fn list_dns_authorizations(
         &self,
         _req: crate::model::ListDnsAuthorizationsRequest,
@@ -232,7 +232,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateManager::get_dns_authorization].
+    /// Implements [super::client::CertificateManager::get_dns_authorization].
     fn get_dns_authorization(
         &self,
         _req: crate::model::GetDnsAuthorizationRequest,
@@ -244,7 +244,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::create_dns_authorization].
+    /// Implements [super::client::CertificateManager::create_dns_authorization].
     fn create_dns_authorization(
         &self,
         _req: crate::model::CreateDnsAuthorizationRequest,
@@ -256,7 +256,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::update_dns_authorization].
+    /// Implements [super::client::CertificateManager::update_dns_authorization].
     fn update_dns_authorization(
         &self,
         _req: crate::model::UpdateDnsAuthorizationRequest,
@@ -268,7 +268,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::delete_dns_authorization].
+    /// Implements [super::client::CertificateManager::delete_dns_authorization].
     fn delete_dns_authorization(
         &self,
         _req: crate::model::DeleteDnsAuthorizationRequest,
@@ -280,7 +280,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::list_certificate_issuance_configs].
+    /// Implements [super::client::CertificateManager::list_certificate_issuance_configs].
     fn list_certificate_issuance_configs(
         &self,
         _req: crate::model::ListCertificateIssuanceConfigsRequest,
@@ -293,7 +293,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::CertificateManager::get_certificate_issuance_config].
+    /// Implements [super::client::CertificateManager::get_certificate_issuance_config].
     fn get_certificate_issuance_config(
         &self,
         _req: crate::model::GetCertificateIssuanceConfigRequest,
@@ -305,7 +305,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateManager::create_certificate_issuance_config].
+    /// Implements [super::client::CertificateManager::create_certificate_issuance_config].
     fn create_certificate_issuance_config(
         &self,
         _req: crate::model::CreateCertificateIssuanceConfigRequest,
@@ -317,7 +317,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::delete_certificate_issuance_config].
+    /// Implements [super::client::CertificateManager::delete_certificate_issuance_config].
     fn delete_certificate_issuance_config(
         &self,
         _req: crate::model::DeleteCertificateIssuanceConfigRequest,
@@ -329,7 +329,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::list_trust_configs].
+    /// Implements [super::client::CertificateManager::list_trust_configs].
     fn list_trust_configs(
         &self,
         _req: crate::model::ListTrustConfigsRequest,
@@ -341,7 +341,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateManager::get_trust_config].
+    /// Implements [super::client::CertificateManager::get_trust_config].
     fn get_trust_config(
         &self,
         _req: crate::model::GetTrustConfigRequest,
@@ -352,7 +352,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::create_trust_config].
+    /// Implements [super::client::CertificateManager::create_trust_config].
     fn create_trust_config(
         &self,
         _req: crate::model::CreateTrustConfigRequest,
@@ -364,7 +364,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::update_trust_config].
+    /// Implements [super::client::CertificateManager::update_trust_config].
     fn update_trust_config(
         &self,
         _req: crate::model::UpdateTrustConfigRequest,
@@ -376,7 +376,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::delete_trust_config].
+    /// Implements [super::client::CertificateManager::delete_trust_config].
     fn delete_trust_config(
         &self,
         _req: crate::model::DeleteTrustConfigRequest,
@@ -388,7 +388,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::list_locations].
+    /// Implements [super::client::CertificateManager::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -400,7 +400,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateManager::get_location].
+    /// Implements [super::client::CertificateManager::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -411,7 +411,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::list_operations].
+    /// Implements [super::client::CertificateManager::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -423,7 +423,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CertificateManager::get_operation].
+    /// Implements [super::client::CertificateManager::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -435,7 +435,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CertificateManager::delete_operation].
+    /// Implements [super::client::CertificateManager::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -444,7 +444,7 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CertificateManager::cancel_operation].
+    /// Implements [super::client::CertificateManager::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

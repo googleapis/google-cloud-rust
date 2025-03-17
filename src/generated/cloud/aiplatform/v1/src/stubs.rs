@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DatasetService].
+/// Defines the trait used to implement [super::client::DatasetService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DatasetService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DatasetService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DatasetService::create_dataset].
+    /// Implements [super::client::DatasetService::create_dataset].
     fn create_dataset(
         &self,
         _req: crate::model::CreateDatasetRequest,
@@ -53,7 +53,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::get_dataset].
+    /// Implements [super::client::DatasetService::get_dataset].
     fn get_dataset(
         &self,
         _req: crate::model::GetDatasetRequest,
@@ -64,7 +64,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::update_dataset].
+    /// Implements [super::client::DatasetService::update_dataset].
     fn update_dataset(
         &self,
         _req: crate::model::UpdateDatasetRequest,
@@ -75,7 +75,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::list_datasets].
+    /// Implements [super::client::DatasetService::list_datasets].
     fn list_datasets(
         &self,
         _req: crate::model::ListDatasetsRequest,
@@ -87,7 +87,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::delete_dataset].
+    /// Implements [super::client::DatasetService::delete_dataset].
     fn delete_dataset(
         &self,
         _req: crate::model::DeleteDatasetRequest,
@@ -99,7 +99,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::import_data].
+    /// Implements [super::client::DatasetService::import_data].
     fn import_data(
         &self,
         _req: crate::model::ImportDataRequest,
@@ -111,7 +111,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::export_data].
+    /// Implements [super::client::DatasetService::export_data].
     fn export_data(
         &self,
         _req: crate::model::ExportDataRequest,
@@ -123,7 +123,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::create_dataset_version].
+    /// Implements [super::client::DatasetService::create_dataset_version].
     fn create_dataset_version(
         &self,
         _req: crate::model::CreateDatasetVersionRequest,
@@ -135,7 +135,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::update_dataset_version].
+    /// Implements [super::client::DatasetService::update_dataset_version].
     fn update_dataset_version(
         &self,
         _req: crate::model::UpdateDatasetVersionRequest,
@@ -146,7 +146,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::delete_dataset_version].
+    /// Implements [super::client::DatasetService::delete_dataset_version].
     fn delete_dataset_version(
         &self,
         _req: crate::model::DeleteDatasetVersionRequest,
@@ -158,7 +158,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::get_dataset_version].
+    /// Implements [super::client::DatasetService::get_dataset_version].
     fn get_dataset_version(
         &self,
         _req: crate::model::GetDatasetVersionRequest,
@@ -169,7 +169,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::list_dataset_versions].
+    /// Implements [super::client::DatasetService::list_dataset_versions].
     fn list_dataset_versions(
         &self,
         _req: crate::model::ListDatasetVersionsRequest,
@@ -181,7 +181,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatasetService::restore_dataset_version].
+    /// Implements [super::client::DatasetService::restore_dataset_version].
     fn restore_dataset_version(
         &self,
         _req: crate::model::RestoreDatasetVersionRequest,
@@ -193,7 +193,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::list_data_items].
+    /// Implements [super::client::DatasetService::list_data_items].
     fn list_data_items(
         &self,
         _req: crate::model::ListDataItemsRequest,
@@ -205,7 +205,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::search_data_items].
+    /// Implements [super::client::DatasetService::search_data_items].
     fn search_data_items(
         &self,
         _req: crate::model::SearchDataItemsRequest,
@@ -217,7 +217,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatasetService::list_saved_queries].
+    /// Implements [super::client::DatasetService::list_saved_queries].
     fn list_saved_queries(
         &self,
         _req: crate::model::ListSavedQueriesRequest,
@@ -229,7 +229,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatasetService::delete_saved_query].
+    /// Implements [super::client::DatasetService::delete_saved_query].
     fn delete_saved_query(
         &self,
         _req: crate::model::DeleteSavedQueryRequest,
@@ -241,7 +241,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::get_annotation_spec].
+    /// Implements [super::client::DatasetService::get_annotation_spec].
     fn get_annotation_spec(
         &self,
         _req: crate::model::GetAnnotationSpecRequest,
@@ -252,7 +252,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::list_annotations].
+    /// Implements [super::client::DatasetService::list_annotations].
     fn list_annotations(
         &self,
         _req: crate::model::ListAnnotationsRequest,
@@ -264,7 +264,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatasetService::list_locations].
+    /// Implements [super::client::DatasetService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -276,7 +276,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatasetService::get_location].
+    /// Implements [super::client::DatasetService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -287,7 +287,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::set_iam_policy].
+    /// Implements [super::client::DatasetService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -298,7 +298,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::get_iam_policy].
+    /// Implements [super::client::DatasetService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -309,7 +309,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::test_iam_permissions].
+    /// Implements [super::client::DatasetService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -321,7 +321,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatasetService::list_operations].
+    /// Implements [super::client::DatasetService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -333,7 +333,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatasetService::get_operation].
+    /// Implements [super::client::DatasetService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -345,7 +345,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatasetService::delete_operation].
+    /// Implements [super::client::DatasetService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -354,7 +354,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DatasetService::cancel_operation].
+    /// Implements [super::client::DatasetService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -363,7 +363,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DatasetService::wait_operation].
+    /// Implements [super::client::DatasetService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -398,7 +398,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::DeploymentResourcePoolService].
+/// Defines the trait used to implement [super::client::DeploymentResourcePoolService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DeploymentResourcePoolService`.  In other use-cases, application developers only
@@ -410,7 +410,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DeploymentResourcePoolService::create_deployment_resource_pool].
+    /// Implements [super::client::DeploymentResourcePoolService::create_deployment_resource_pool].
     fn create_deployment_resource_pool(
         &self,
         _req: crate::model::CreateDeploymentResourcePoolRequest,
@@ -422,7 +422,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::get_deployment_resource_pool].
+    /// Implements [super::client::DeploymentResourcePoolService::get_deployment_resource_pool].
     fn get_deployment_resource_pool(
         &self,
         _req: crate::model::GetDeploymentResourcePoolRequest,
@@ -434,7 +434,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::list_deployment_resource_pools].
+    /// Implements [super::client::DeploymentResourcePoolService::list_deployment_resource_pools].
     fn list_deployment_resource_pools(
         &self,
         _req: crate::model::ListDeploymentResourcePoolsRequest,
@@ -447,7 +447,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::update_deployment_resource_pool].
+    /// Implements [super::client::DeploymentResourcePoolService::update_deployment_resource_pool].
     fn update_deployment_resource_pool(
         &self,
         _req: crate::model::UpdateDeploymentResourcePoolRequest,
@@ -459,7 +459,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::delete_deployment_resource_pool].
+    /// Implements [super::client::DeploymentResourcePoolService::delete_deployment_resource_pool].
     fn delete_deployment_resource_pool(
         &self,
         _req: crate::model::DeleteDeploymentResourcePoolRequest,
@@ -471,7 +471,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::query_deployed_models].
+    /// Implements [super::client::DeploymentResourcePoolService::query_deployed_models].
     fn query_deployed_models(
         &self,
         _req: crate::model::QueryDeployedModelsRequest,
@@ -483,7 +483,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::list_locations].
+    /// Implements [super::client::DeploymentResourcePoolService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -495,7 +495,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::get_location].
+    /// Implements [super::client::DeploymentResourcePoolService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -506,7 +506,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::set_iam_policy].
+    /// Implements [super::client::DeploymentResourcePoolService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -517,7 +517,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::get_iam_policy].
+    /// Implements [super::client::DeploymentResourcePoolService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -528,7 +528,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::test_iam_permissions].
+    /// Implements [super::client::DeploymentResourcePoolService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -540,7 +540,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::list_operations].
+    /// Implements [super::client::DeploymentResourcePoolService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -552,7 +552,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::get_operation].
+    /// Implements [super::client::DeploymentResourcePoolService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -564,7 +564,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::delete_operation].
+    /// Implements [super::client::DeploymentResourcePoolService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -573,7 +573,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::cancel_operation].
+    /// Implements [super::client::DeploymentResourcePoolService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -582,7 +582,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DeploymentResourcePoolService::wait_operation].
+    /// Implements [super::client::DeploymentResourcePoolService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -617,7 +617,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::EndpointService].
+/// Defines the trait used to implement [super::client::EndpointService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::EndpointService`.  In other use-cases, application developers only
@@ -629,7 +629,7 @@ pub trait DeploymentResourcePoolService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait EndpointService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::EndpointService::create_endpoint].
+    /// Implements [super::client::EndpointService::create_endpoint].
     fn create_endpoint(
         &self,
         _req: crate::model::CreateEndpointRequest,
@@ -641,7 +641,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::get_endpoint].
+    /// Implements [super::client::EndpointService::get_endpoint].
     fn get_endpoint(
         &self,
         _req: crate::model::GetEndpointRequest,
@@ -652,7 +652,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::list_endpoints].
+    /// Implements [super::client::EndpointService::list_endpoints].
     fn list_endpoints(
         &self,
         _req: crate::model::ListEndpointsRequest,
@@ -664,7 +664,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::update_endpoint].
+    /// Implements [super::client::EndpointService::update_endpoint].
     fn update_endpoint(
         &self,
         _req: crate::model::UpdateEndpointRequest,
@@ -675,7 +675,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::update_endpoint_long_running].
+    /// Implements [super::client::EndpointService::update_endpoint_long_running].
     fn update_endpoint_long_running(
         &self,
         _req: crate::model::UpdateEndpointLongRunningRequest,
@@ -687,7 +687,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::delete_endpoint].
+    /// Implements [super::client::EndpointService::delete_endpoint].
     fn delete_endpoint(
         &self,
         _req: crate::model::DeleteEndpointRequest,
@@ -699,7 +699,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::deploy_model].
+    /// Implements [super::client::EndpointService::deploy_model].
     fn deploy_model(
         &self,
         _req: crate::model::DeployModelRequest,
@@ -711,7 +711,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::undeploy_model].
+    /// Implements [super::client::EndpointService::undeploy_model].
     fn undeploy_model(
         &self,
         _req: crate::model::UndeployModelRequest,
@@ -723,7 +723,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::mutate_deployed_model].
+    /// Implements [super::client::EndpointService::mutate_deployed_model].
     fn mutate_deployed_model(
         &self,
         _req: crate::model::MutateDeployedModelRequest,
@@ -735,7 +735,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::list_locations].
+    /// Implements [super::client::EndpointService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -747,7 +747,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EndpointService::get_location].
+    /// Implements [super::client::EndpointService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -758,7 +758,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::set_iam_policy].
+    /// Implements [super::client::EndpointService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -769,7 +769,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::get_iam_policy].
+    /// Implements [super::client::EndpointService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -780,7 +780,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::test_iam_permissions].
+    /// Implements [super::client::EndpointService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -792,7 +792,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EndpointService::list_operations].
+    /// Implements [super::client::EndpointService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -804,7 +804,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EndpointService::get_operation].
+    /// Implements [super::client::EndpointService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -816,7 +816,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EndpointService::delete_operation].
+    /// Implements [super::client::EndpointService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -825,7 +825,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::EndpointService::cancel_operation].
+    /// Implements [super::client::EndpointService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -834,7 +834,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::EndpointService::wait_operation].
+    /// Implements [super::client::EndpointService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -869,7 +869,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::EvaluationService].
+/// Defines the trait used to implement [super::client::EvaluationService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::EvaluationService`.  In other use-cases, application developers only
@@ -881,7 +881,7 @@ pub trait EndpointService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait EvaluationService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::EvaluationService::evaluate_instances].
+    /// Implements [super::client::EvaluationService::evaluate_instances].
     fn evaluate_instances(
         &self,
         _req: crate::model::EvaluateInstancesRequest,
@@ -893,7 +893,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EvaluationService::list_locations].
+    /// Implements [super::client::EvaluationService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -905,7 +905,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EvaluationService::get_location].
+    /// Implements [super::client::EvaluationService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -916,7 +916,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EvaluationService::set_iam_policy].
+    /// Implements [super::client::EvaluationService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -927,7 +927,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EvaluationService::get_iam_policy].
+    /// Implements [super::client::EvaluationService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -938,7 +938,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EvaluationService::test_iam_permissions].
+    /// Implements [super::client::EvaluationService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -950,7 +950,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EvaluationService::list_operations].
+    /// Implements [super::client::EvaluationService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -962,7 +962,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EvaluationService::get_operation].
+    /// Implements [super::client::EvaluationService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -974,7 +974,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EvaluationService::delete_operation].
+    /// Implements [super::client::EvaluationService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -983,7 +983,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::EvaluationService::cancel_operation].
+    /// Implements [super::client::EvaluationService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -992,7 +992,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::EvaluationService::wait_operation].
+    /// Implements [super::client::EvaluationService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -1005,7 +1005,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::FeatureOnlineStoreAdminService].
+/// Defines the trait used to implement [super::client::FeatureOnlineStoreAdminService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::FeatureOnlineStoreAdminService`.  In other use-cases, application developers only
@@ -1017,7 +1017,7 @@ pub trait EvaluationService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::create_feature_online_store].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::create_feature_online_store].
     fn create_feature_online_store(
         &self,
         _req: crate::model::CreateFeatureOnlineStoreRequest,
@@ -1029,7 +1029,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::get_feature_online_store].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::get_feature_online_store].
     fn get_feature_online_store(
         &self,
         _req: crate::model::GetFeatureOnlineStoreRequest,
@@ -1041,7 +1041,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::list_feature_online_stores].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::list_feature_online_stores].
     fn list_feature_online_stores(
         &self,
         _req: crate::model::ListFeatureOnlineStoresRequest,
@@ -1054,7 +1054,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::update_feature_online_store].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::update_feature_online_store].
     fn update_feature_online_store(
         &self,
         _req: crate::model::UpdateFeatureOnlineStoreRequest,
@@ -1066,7 +1066,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::delete_feature_online_store].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::delete_feature_online_store].
     fn delete_feature_online_store(
         &self,
         _req: crate::model::DeleteFeatureOnlineStoreRequest,
@@ -1078,7 +1078,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::create_feature_view].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::create_feature_view].
     fn create_feature_view(
         &self,
         _req: crate::model::CreateFeatureViewRequest,
@@ -1090,7 +1090,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::get_feature_view].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::get_feature_view].
     fn get_feature_view(
         &self,
         _req: crate::model::GetFeatureViewRequest,
@@ -1101,7 +1101,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::list_feature_views].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::list_feature_views].
     fn list_feature_views(
         &self,
         _req: crate::model::ListFeatureViewsRequest,
@@ -1113,7 +1113,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::update_feature_view].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::update_feature_view].
     fn update_feature_view(
         &self,
         _req: crate::model::UpdateFeatureViewRequest,
@@ -1125,7 +1125,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::delete_feature_view].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::delete_feature_view].
     fn delete_feature_view(
         &self,
         _req: crate::model::DeleteFeatureViewRequest,
@@ -1137,7 +1137,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::sync_feature_view].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::sync_feature_view].
     fn sync_feature_view(
         &self,
         _req: crate::model::SyncFeatureViewRequest,
@@ -1149,7 +1149,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::get_feature_view_sync].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::get_feature_view_sync].
     fn get_feature_view_sync(
         &self,
         _req: crate::model::GetFeatureViewSyncRequest,
@@ -1161,7 +1161,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::list_feature_view_syncs].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::list_feature_view_syncs].
     fn list_feature_view_syncs(
         &self,
         _req: crate::model::ListFeatureViewSyncsRequest,
@@ -1173,7 +1173,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::list_locations].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1185,7 +1185,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::get_location].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1196,7 +1196,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::set_iam_policy].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -1207,7 +1207,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::get_iam_policy].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -1218,7 +1218,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::test_iam_permissions].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -1230,7 +1230,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::list_operations].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1242,7 +1242,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::get_operation].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1254,7 +1254,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::delete_operation].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -1263,7 +1263,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::cancel_operation].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1272,7 +1272,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreAdminService::wait_operation].
+    /// Implements [super::client::FeatureOnlineStoreAdminService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -1307,7 +1307,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::FeatureOnlineStoreService].
+/// Defines the trait used to implement [super::client::FeatureOnlineStoreService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::FeatureOnlineStoreService`.  In other use-cases, application developers only
@@ -1319,7 +1319,7 @@ pub trait FeatureOnlineStoreAdminService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::FeatureOnlineStoreService::fetch_feature_values].
+    /// Implements [super::client::FeatureOnlineStoreService::fetch_feature_values].
     fn fetch_feature_values(
         &self,
         _req: crate::model::FetchFeatureValuesRequest,
@@ -1331,7 +1331,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::search_nearest_entities].
+    /// Implements [super::client::FeatureOnlineStoreService::search_nearest_entities].
     fn search_nearest_entities(
         &self,
         _req: crate::model::SearchNearestEntitiesRequest,
@@ -1343,7 +1343,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::list_locations].
+    /// Implements [super::client::FeatureOnlineStoreService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1355,7 +1355,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::get_location].
+    /// Implements [super::client::FeatureOnlineStoreService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1366,7 +1366,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::set_iam_policy].
+    /// Implements [super::client::FeatureOnlineStoreService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -1377,7 +1377,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::get_iam_policy].
+    /// Implements [super::client::FeatureOnlineStoreService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -1388,7 +1388,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::test_iam_permissions].
+    /// Implements [super::client::FeatureOnlineStoreService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -1400,7 +1400,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::list_operations].
+    /// Implements [super::client::FeatureOnlineStoreService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1412,7 +1412,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::get_operation].
+    /// Implements [super::client::FeatureOnlineStoreService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1424,7 +1424,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::delete_operation].
+    /// Implements [super::client::FeatureOnlineStoreService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -1433,7 +1433,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::cancel_operation].
+    /// Implements [super::client::FeatureOnlineStoreService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1442,7 +1442,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FeatureOnlineStoreService::wait_operation].
+    /// Implements [super::client::FeatureOnlineStoreService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -1455,7 +1455,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::FeatureRegistryService].
+/// Defines the trait used to implement [super::client::FeatureRegistryService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::FeatureRegistryService`.  In other use-cases, application developers only
@@ -1467,7 +1467,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::FeatureRegistryService::create_feature_group].
+    /// Implements [super::client::FeatureRegistryService::create_feature_group].
     fn create_feature_group(
         &self,
         _req: crate::model::CreateFeatureGroupRequest,
@@ -1479,7 +1479,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::get_feature_group].
+    /// Implements [super::client::FeatureRegistryService::get_feature_group].
     fn get_feature_group(
         &self,
         _req: crate::model::GetFeatureGroupRequest,
@@ -1490,7 +1490,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::list_feature_groups].
+    /// Implements [super::client::FeatureRegistryService::list_feature_groups].
     fn list_feature_groups(
         &self,
         _req: crate::model::ListFeatureGroupsRequest,
@@ -1502,7 +1502,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::update_feature_group].
+    /// Implements [super::client::FeatureRegistryService::update_feature_group].
     fn update_feature_group(
         &self,
         _req: crate::model::UpdateFeatureGroupRequest,
@@ -1514,7 +1514,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::delete_feature_group].
+    /// Implements [super::client::FeatureRegistryService::delete_feature_group].
     fn delete_feature_group(
         &self,
         _req: crate::model::DeleteFeatureGroupRequest,
@@ -1526,7 +1526,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::create_feature].
+    /// Implements [super::client::FeatureRegistryService::create_feature].
     fn create_feature(
         &self,
         _req: crate::model::CreateFeatureRequest,
@@ -1538,7 +1538,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::batch_create_features].
+    /// Implements [super::client::FeatureRegistryService::batch_create_features].
     fn batch_create_features(
         &self,
         _req: crate::model::BatchCreateFeaturesRequest,
@@ -1550,7 +1550,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::get_feature].
+    /// Implements [super::client::FeatureRegistryService::get_feature].
     fn get_feature(
         &self,
         _req: crate::model::GetFeatureRequest,
@@ -1561,7 +1561,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::list_features].
+    /// Implements [super::client::FeatureRegistryService::list_features].
     fn list_features(
         &self,
         _req: crate::model::ListFeaturesRequest,
@@ -1573,7 +1573,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::update_feature].
+    /// Implements [super::client::FeatureRegistryService::update_feature].
     fn update_feature(
         &self,
         _req: crate::model::UpdateFeatureRequest,
@@ -1585,7 +1585,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::delete_feature].
+    /// Implements [super::client::FeatureRegistryService::delete_feature].
     fn delete_feature(
         &self,
         _req: crate::model::DeleteFeatureRequest,
@@ -1597,7 +1597,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::list_locations].
+    /// Implements [super::client::FeatureRegistryService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1609,7 +1609,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::get_location].
+    /// Implements [super::client::FeatureRegistryService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1620,7 +1620,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::set_iam_policy].
+    /// Implements [super::client::FeatureRegistryService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -1631,7 +1631,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::get_iam_policy].
+    /// Implements [super::client::FeatureRegistryService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -1642,7 +1642,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::test_iam_permissions].
+    /// Implements [super::client::FeatureRegistryService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -1654,7 +1654,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::list_operations].
+    /// Implements [super::client::FeatureRegistryService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1666,7 +1666,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::get_operation].
+    /// Implements [super::client::FeatureRegistryService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1678,7 +1678,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::delete_operation].
+    /// Implements [super::client::FeatureRegistryService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -1687,7 +1687,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::cancel_operation].
+    /// Implements [super::client::FeatureRegistryService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1696,7 +1696,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FeatureRegistryService::wait_operation].
+    /// Implements [super::client::FeatureRegistryService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -1731,7 +1731,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::FeaturestoreOnlineServingService].
+/// Defines the trait used to implement [super::client::FeaturestoreOnlineServingService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::FeaturestoreOnlineServingService`.  In other use-cases, application developers only
@@ -1743,7 +1743,7 @@ pub trait FeatureRegistryService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::FeaturestoreOnlineServingService::read_feature_values].
+    /// Implements [super::client::FeaturestoreOnlineServingService::read_feature_values].
     fn read_feature_values(
         &self,
         _req: crate::model::ReadFeatureValuesRequest,
@@ -1755,7 +1755,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::write_feature_values].
+    /// Implements [super::client::FeaturestoreOnlineServingService::write_feature_values].
     fn write_feature_values(
         &self,
         _req: crate::model::WriteFeatureValuesRequest,
@@ -1767,7 +1767,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::list_locations].
+    /// Implements [super::client::FeaturestoreOnlineServingService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1779,7 +1779,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::get_location].
+    /// Implements [super::client::FeaturestoreOnlineServingService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1790,7 +1790,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::set_iam_policy].
+    /// Implements [super::client::FeaturestoreOnlineServingService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -1801,7 +1801,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::get_iam_policy].
+    /// Implements [super::client::FeaturestoreOnlineServingService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -1812,7 +1812,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::test_iam_permissions].
+    /// Implements [super::client::FeaturestoreOnlineServingService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -1824,7 +1824,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::list_operations].
+    /// Implements [super::client::FeaturestoreOnlineServingService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -1836,7 +1836,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::get_operation].
+    /// Implements [super::client::FeaturestoreOnlineServingService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1848,7 +1848,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::delete_operation].
+    /// Implements [super::client::FeaturestoreOnlineServingService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -1857,7 +1857,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::cancel_operation].
+    /// Implements [super::client::FeaturestoreOnlineServingService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -1866,7 +1866,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FeaturestoreOnlineServingService::wait_operation].
+    /// Implements [super::client::FeaturestoreOnlineServingService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -1879,7 +1879,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::FeaturestoreService].
+/// Defines the trait used to implement [super::client::FeaturestoreService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::FeaturestoreService`.  In other use-cases, application developers only
@@ -1891,7 +1891,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::FeaturestoreService::create_featurestore].
+    /// Implements [super::client::FeaturestoreService::create_featurestore].
     fn create_featurestore(
         &self,
         _req: crate::model::CreateFeaturestoreRequest,
@@ -1903,7 +1903,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::get_featurestore].
+    /// Implements [super::client::FeaturestoreService::get_featurestore].
     fn get_featurestore(
         &self,
         _req: crate::model::GetFeaturestoreRequest,
@@ -1914,7 +1914,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::list_featurestores].
+    /// Implements [super::client::FeaturestoreService::list_featurestores].
     fn list_featurestores(
         &self,
         _req: crate::model::ListFeaturestoresRequest,
@@ -1926,7 +1926,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreService::update_featurestore].
+    /// Implements [super::client::FeaturestoreService::update_featurestore].
     fn update_featurestore(
         &self,
         _req: crate::model::UpdateFeaturestoreRequest,
@@ -1938,7 +1938,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::delete_featurestore].
+    /// Implements [super::client::FeaturestoreService::delete_featurestore].
     fn delete_featurestore(
         &self,
         _req: crate::model::DeleteFeaturestoreRequest,
@@ -1950,7 +1950,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::create_entity_type].
+    /// Implements [super::client::FeaturestoreService::create_entity_type].
     fn create_entity_type(
         &self,
         _req: crate::model::CreateEntityTypeRequest,
@@ -1962,7 +1962,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::get_entity_type].
+    /// Implements [super::client::FeaturestoreService::get_entity_type].
     fn get_entity_type(
         &self,
         _req: crate::model::GetEntityTypeRequest,
@@ -1973,7 +1973,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::list_entity_types].
+    /// Implements [super::client::FeaturestoreService::list_entity_types].
     fn list_entity_types(
         &self,
         _req: crate::model::ListEntityTypesRequest,
@@ -1985,7 +1985,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreService::update_entity_type].
+    /// Implements [super::client::FeaturestoreService::update_entity_type].
     fn update_entity_type(
         &self,
         _req: crate::model::UpdateEntityTypeRequest,
@@ -1996,7 +1996,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::delete_entity_type].
+    /// Implements [super::client::FeaturestoreService::delete_entity_type].
     fn delete_entity_type(
         &self,
         _req: crate::model::DeleteEntityTypeRequest,
@@ -2008,7 +2008,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::create_feature].
+    /// Implements [super::client::FeaturestoreService::create_feature].
     fn create_feature(
         &self,
         _req: crate::model::CreateFeatureRequest,
@@ -2020,7 +2020,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::batch_create_features].
+    /// Implements [super::client::FeaturestoreService::batch_create_features].
     fn batch_create_features(
         &self,
         _req: crate::model::BatchCreateFeaturesRequest,
@@ -2032,7 +2032,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::get_feature].
+    /// Implements [super::client::FeaturestoreService::get_feature].
     fn get_feature(
         &self,
         _req: crate::model::GetFeatureRequest,
@@ -2043,7 +2043,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::list_features].
+    /// Implements [super::client::FeaturestoreService::list_features].
     fn list_features(
         &self,
         _req: crate::model::ListFeaturesRequest,
@@ -2055,7 +2055,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::update_feature].
+    /// Implements [super::client::FeaturestoreService::update_feature].
     fn update_feature(
         &self,
         _req: crate::model::UpdateFeatureRequest,
@@ -2066,7 +2066,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::delete_feature].
+    /// Implements [super::client::FeaturestoreService::delete_feature].
     fn delete_feature(
         &self,
         _req: crate::model::DeleteFeatureRequest,
@@ -2078,7 +2078,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::import_feature_values].
+    /// Implements [super::client::FeaturestoreService::import_feature_values].
     fn import_feature_values(
         &self,
         _req: crate::model::ImportFeatureValuesRequest,
@@ -2090,7 +2090,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::batch_read_feature_values].
+    /// Implements [super::client::FeaturestoreService::batch_read_feature_values].
     fn batch_read_feature_values(
         &self,
         _req: crate::model::BatchReadFeatureValuesRequest,
@@ -2102,7 +2102,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::export_feature_values].
+    /// Implements [super::client::FeaturestoreService::export_feature_values].
     fn export_feature_values(
         &self,
         _req: crate::model::ExportFeatureValuesRequest,
@@ -2114,7 +2114,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::delete_feature_values].
+    /// Implements [super::client::FeaturestoreService::delete_feature_values].
     fn delete_feature_values(
         &self,
         _req: crate::model::DeleteFeatureValuesRequest,
@@ -2126,7 +2126,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::search_features].
+    /// Implements [super::client::FeaturestoreService::search_features].
     fn search_features(
         &self,
         _req: crate::model::SearchFeaturesRequest,
@@ -2138,7 +2138,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreService::list_locations].
+    /// Implements [super::client::FeaturestoreService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -2150,7 +2150,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreService::get_location].
+    /// Implements [super::client::FeaturestoreService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -2161,7 +2161,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::set_iam_policy].
+    /// Implements [super::client::FeaturestoreService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -2172,7 +2172,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::get_iam_policy].
+    /// Implements [super::client::FeaturestoreService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -2183,7 +2183,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::test_iam_permissions].
+    /// Implements [super::client::FeaturestoreService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -2195,7 +2195,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreService::list_operations].
+    /// Implements [super::client::FeaturestoreService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -2207,7 +2207,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FeaturestoreService::get_operation].
+    /// Implements [super::client::FeaturestoreService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -2219,7 +2219,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FeaturestoreService::delete_operation].
+    /// Implements [super::client::FeaturestoreService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -2228,7 +2228,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FeaturestoreService::cancel_operation].
+    /// Implements [super::client::FeaturestoreService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -2237,7 +2237,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FeaturestoreService::wait_operation].
+    /// Implements [super::client::FeaturestoreService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -2272,7 +2272,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::GenAiCacheService].
+/// Defines the trait used to implement [super::client::GenAiCacheService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::GenAiCacheService`.  In other use-cases, application developers only
@@ -2284,7 +2284,7 @@ pub trait FeaturestoreService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::GenAiCacheService::create_cached_content].
+    /// Implements [super::client::GenAiCacheService::create_cached_content].
     fn create_cached_content(
         &self,
         _req: crate::model::CreateCachedContentRequest,
@@ -2295,7 +2295,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiCacheService::get_cached_content].
+    /// Implements [super::client::GenAiCacheService::get_cached_content].
     fn get_cached_content(
         &self,
         _req: crate::model::GetCachedContentRequest,
@@ -2306,7 +2306,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiCacheService::update_cached_content].
+    /// Implements [super::client::GenAiCacheService::update_cached_content].
     fn update_cached_content(
         &self,
         _req: crate::model::UpdateCachedContentRequest,
@@ -2317,7 +2317,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiCacheService::delete_cached_content].
+    /// Implements [super::client::GenAiCacheService::delete_cached_content].
     fn delete_cached_content(
         &self,
         _req: crate::model::DeleteCachedContentRequest,
@@ -2326,7 +2326,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::GenAiCacheService::list_cached_contents].
+    /// Implements [super::client::GenAiCacheService::list_cached_contents].
     fn list_cached_contents(
         &self,
         _req: crate::model::ListCachedContentsRequest,
@@ -2338,7 +2338,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GenAiCacheService::list_locations].
+    /// Implements [super::client::GenAiCacheService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -2350,7 +2350,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GenAiCacheService::get_location].
+    /// Implements [super::client::GenAiCacheService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -2361,7 +2361,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiCacheService::set_iam_policy].
+    /// Implements [super::client::GenAiCacheService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -2372,7 +2372,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiCacheService::get_iam_policy].
+    /// Implements [super::client::GenAiCacheService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -2383,7 +2383,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiCacheService::test_iam_permissions].
+    /// Implements [super::client::GenAiCacheService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -2395,7 +2395,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GenAiCacheService::list_operations].
+    /// Implements [super::client::GenAiCacheService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -2407,7 +2407,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GenAiCacheService::get_operation].
+    /// Implements [super::client::GenAiCacheService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -2419,7 +2419,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiCacheService::delete_operation].
+    /// Implements [super::client::GenAiCacheService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -2428,7 +2428,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::GenAiCacheService::cancel_operation].
+    /// Implements [super::client::GenAiCacheService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -2437,7 +2437,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::GenAiCacheService::wait_operation].
+    /// Implements [super::client::GenAiCacheService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -2450,7 +2450,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::GenAiTuningService].
+/// Defines the trait used to implement [super::client::GenAiTuningService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::GenAiTuningService`.  In other use-cases, application developers only
@@ -2462,7 +2462,7 @@ pub trait GenAiCacheService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::GenAiTuningService::create_tuning_job].
+    /// Implements [super::client::GenAiTuningService::create_tuning_job].
     fn create_tuning_job(
         &self,
         _req: crate::model::CreateTuningJobRequest,
@@ -2473,7 +2473,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiTuningService::get_tuning_job].
+    /// Implements [super::client::GenAiTuningService::get_tuning_job].
     fn get_tuning_job(
         &self,
         _req: crate::model::GetTuningJobRequest,
@@ -2484,7 +2484,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiTuningService::list_tuning_jobs].
+    /// Implements [super::client::GenAiTuningService::list_tuning_jobs].
     fn list_tuning_jobs(
         &self,
         _req: crate::model::ListTuningJobsRequest,
@@ -2496,7 +2496,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GenAiTuningService::cancel_tuning_job].
+    /// Implements [super::client::GenAiTuningService::cancel_tuning_job].
     fn cancel_tuning_job(
         &self,
         _req: crate::model::CancelTuningJobRequest,
@@ -2505,7 +2505,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::GenAiTuningService::rebase_tuned_model].
+    /// Implements [super::client::GenAiTuningService::rebase_tuned_model].
     fn rebase_tuned_model(
         &self,
         _req: crate::model::RebaseTunedModelRequest,
@@ -2517,7 +2517,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiTuningService::list_locations].
+    /// Implements [super::client::GenAiTuningService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -2529,7 +2529,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GenAiTuningService::get_location].
+    /// Implements [super::client::GenAiTuningService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -2540,7 +2540,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiTuningService::set_iam_policy].
+    /// Implements [super::client::GenAiTuningService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -2551,7 +2551,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiTuningService::get_iam_policy].
+    /// Implements [super::client::GenAiTuningService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -2562,7 +2562,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiTuningService::test_iam_permissions].
+    /// Implements [super::client::GenAiTuningService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -2574,7 +2574,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GenAiTuningService::list_operations].
+    /// Implements [super::client::GenAiTuningService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -2586,7 +2586,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GenAiTuningService::get_operation].
+    /// Implements [super::client::GenAiTuningService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -2598,7 +2598,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GenAiTuningService::delete_operation].
+    /// Implements [super::client::GenAiTuningService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -2607,7 +2607,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::GenAiTuningService::cancel_operation].
+    /// Implements [super::client::GenAiTuningService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -2616,7 +2616,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::GenAiTuningService::wait_operation].
+    /// Implements [super::client::GenAiTuningService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -2651,7 +2651,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::IndexEndpointService].
+/// Defines the trait used to implement [super::client::IndexEndpointService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::IndexEndpointService`.  In other use-cases, application developers only
@@ -2663,7 +2663,7 @@ pub trait GenAiTuningService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::IndexEndpointService::create_index_endpoint].
+    /// Implements [super::client::IndexEndpointService::create_index_endpoint].
     fn create_index_endpoint(
         &self,
         _req: crate::model::CreateIndexEndpointRequest,
@@ -2675,7 +2675,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::get_index_endpoint].
+    /// Implements [super::client::IndexEndpointService::get_index_endpoint].
     fn get_index_endpoint(
         &self,
         _req: crate::model::GetIndexEndpointRequest,
@@ -2686,7 +2686,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::list_index_endpoints].
+    /// Implements [super::client::IndexEndpointService::list_index_endpoints].
     fn list_index_endpoints(
         &self,
         _req: crate::model::ListIndexEndpointsRequest,
@@ -2698,7 +2698,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IndexEndpointService::update_index_endpoint].
+    /// Implements [super::client::IndexEndpointService::update_index_endpoint].
     fn update_index_endpoint(
         &self,
         _req: crate::model::UpdateIndexEndpointRequest,
@@ -2709,7 +2709,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::delete_index_endpoint].
+    /// Implements [super::client::IndexEndpointService::delete_index_endpoint].
     fn delete_index_endpoint(
         &self,
         _req: crate::model::DeleteIndexEndpointRequest,
@@ -2721,7 +2721,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::deploy_index].
+    /// Implements [super::client::IndexEndpointService::deploy_index].
     fn deploy_index(
         &self,
         _req: crate::model::DeployIndexRequest,
@@ -2733,7 +2733,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::undeploy_index].
+    /// Implements [super::client::IndexEndpointService::undeploy_index].
     fn undeploy_index(
         &self,
         _req: crate::model::UndeployIndexRequest,
@@ -2745,7 +2745,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::mutate_deployed_index].
+    /// Implements [super::client::IndexEndpointService::mutate_deployed_index].
     fn mutate_deployed_index(
         &self,
         _req: crate::model::MutateDeployedIndexRequest,
@@ -2757,7 +2757,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::list_locations].
+    /// Implements [super::client::IndexEndpointService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -2769,7 +2769,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IndexEndpointService::get_location].
+    /// Implements [super::client::IndexEndpointService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -2780,7 +2780,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::set_iam_policy].
+    /// Implements [super::client::IndexEndpointService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -2791,7 +2791,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::get_iam_policy].
+    /// Implements [super::client::IndexEndpointService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -2802,7 +2802,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::test_iam_permissions].
+    /// Implements [super::client::IndexEndpointService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -2814,7 +2814,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IndexEndpointService::list_operations].
+    /// Implements [super::client::IndexEndpointService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -2826,7 +2826,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IndexEndpointService::get_operation].
+    /// Implements [super::client::IndexEndpointService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -2838,7 +2838,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexEndpointService::delete_operation].
+    /// Implements [super::client::IndexEndpointService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -2847,7 +2847,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::IndexEndpointService::cancel_operation].
+    /// Implements [super::client::IndexEndpointService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -2856,7 +2856,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::IndexEndpointService::wait_operation].
+    /// Implements [super::client::IndexEndpointService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -2891,7 +2891,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::IndexService].
+/// Defines the trait used to implement [super::client::IndexService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::IndexService`.  In other use-cases, application developers only
@@ -2903,7 +2903,7 @@ pub trait IndexEndpointService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait IndexService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::IndexService::create_index].
+    /// Implements [super::client::IndexService::create_index].
     fn create_index(
         &self,
         _req: crate::model::CreateIndexRequest,
@@ -2915,7 +2915,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexService::get_index].
+    /// Implements [super::client::IndexService::get_index].
     fn get_index(
         &self,
         _req: crate::model::GetIndexRequest,
@@ -2924,7 +2924,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Index>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::IndexService::list_indexes].
+    /// Implements [super::client::IndexService::list_indexes].
     fn list_indexes(
         &self,
         _req: crate::model::ListIndexesRequest,
@@ -2936,7 +2936,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexService::update_index].
+    /// Implements [super::client::IndexService::update_index].
     fn update_index(
         &self,
         _req: crate::model::UpdateIndexRequest,
@@ -2948,7 +2948,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexService::delete_index].
+    /// Implements [super::client::IndexService::delete_index].
     fn delete_index(
         &self,
         _req: crate::model::DeleteIndexRequest,
@@ -2960,7 +2960,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexService::upsert_datapoints].
+    /// Implements [super::client::IndexService::upsert_datapoints].
     fn upsert_datapoints(
         &self,
         _req: crate::model::UpsertDatapointsRequest,
@@ -2972,7 +2972,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IndexService::remove_datapoints].
+    /// Implements [super::client::IndexService::remove_datapoints].
     fn remove_datapoints(
         &self,
         _req: crate::model::RemoveDatapointsRequest,
@@ -2984,7 +2984,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IndexService::list_locations].
+    /// Implements [super::client::IndexService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -2996,7 +2996,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IndexService::get_location].
+    /// Implements [super::client::IndexService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -3007,7 +3007,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexService::set_iam_policy].
+    /// Implements [super::client::IndexService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -3018,7 +3018,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexService::get_iam_policy].
+    /// Implements [super::client::IndexService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -3029,7 +3029,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexService::test_iam_permissions].
+    /// Implements [super::client::IndexService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -3041,7 +3041,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IndexService::list_operations].
+    /// Implements [super::client::IndexService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -3053,7 +3053,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::IndexService::get_operation].
+    /// Implements [super::client::IndexService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -3065,7 +3065,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::IndexService::delete_operation].
+    /// Implements [super::client::IndexService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -3074,7 +3074,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::IndexService::cancel_operation].
+    /// Implements [super::client::IndexService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -3083,7 +3083,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::IndexService::wait_operation].
+    /// Implements [super::client::IndexService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -3118,7 +3118,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::JobService].
+/// Defines the trait used to implement [super::client::JobService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::JobService`.  In other use-cases, application developers only
@@ -3130,7 +3130,7 @@ pub trait IndexService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait JobService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::JobService::create_custom_job].
+    /// Implements [super::client::JobService::create_custom_job].
     fn create_custom_job(
         &self,
         _req: crate::model::CreateCustomJobRequest,
@@ -3141,7 +3141,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::get_custom_job].
+    /// Implements [super::client::JobService::get_custom_job].
     fn get_custom_job(
         &self,
         _req: crate::model::GetCustomJobRequest,
@@ -3152,7 +3152,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::list_custom_jobs].
+    /// Implements [super::client::JobService::list_custom_jobs].
     fn list_custom_jobs(
         &self,
         _req: crate::model::ListCustomJobsRequest,
@@ -3164,7 +3164,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::delete_custom_job].
+    /// Implements [super::client::JobService::delete_custom_job].
     fn delete_custom_job(
         &self,
         _req: crate::model::DeleteCustomJobRequest,
@@ -3176,7 +3176,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::cancel_custom_job].
+    /// Implements [super::client::JobService::cancel_custom_job].
     fn cancel_custom_job(
         &self,
         _req: crate::model::CancelCustomJobRequest,
@@ -3185,7 +3185,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::create_data_labeling_job].
+    /// Implements [super::client::JobService::create_data_labeling_job].
     fn create_data_labeling_job(
         &self,
         _req: crate::model::CreateDataLabelingJobRequest,
@@ -3197,7 +3197,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::get_data_labeling_job].
+    /// Implements [super::client::JobService::get_data_labeling_job].
     fn get_data_labeling_job(
         &self,
         _req: crate::model::GetDataLabelingJobRequest,
@@ -3209,7 +3209,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::list_data_labeling_jobs].
+    /// Implements [super::client::JobService::list_data_labeling_jobs].
     fn list_data_labeling_jobs(
         &self,
         _req: crate::model::ListDataLabelingJobsRequest,
@@ -3221,7 +3221,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::delete_data_labeling_job].
+    /// Implements [super::client::JobService::delete_data_labeling_job].
     fn delete_data_labeling_job(
         &self,
         _req: crate::model::DeleteDataLabelingJobRequest,
@@ -3233,7 +3233,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::cancel_data_labeling_job].
+    /// Implements [super::client::JobService::cancel_data_labeling_job].
     fn cancel_data_labeling_job(
         &self,
         _req: crate::model::CancelDataLabelingJobRequest,
@@ -3242,7 +3242,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::create_hyperparameter_tuning_job].
+    /// Implements [super::client::JobService::create_hyperparameter_tuning_job].
     fn create_hyperparameter_tuning_job(
         &self,
         _req: crate::model::CreateHyperparameterTuningJobRequest,
@@ -3254,7 +3254,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::get_hyperparameter_tuning_job].
+    /// Implements [super::client::JobService::get_hyperparameter_tuning_job].
     fn get_hyperparameter_tuning_job(
         &self,
         _req: crate::model::GetHyperparameterTuningJobRequest,
@@ -3266,7 +3266,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::list_hyperparameter_tuning_jobs].
+    /// Implements [super::client::JobService::list_hyperparameter_tuning_jobs].
     fn list_hyperparameter_tuning_jobs(
         &self,
         _req: crate::model::ListHyperparameterTuningJobsRequest,
@@ -3279,7 +3279,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::JobService::delete_hyperparameter_tuning_job].
+    /// Implements [super::client::JobService::delete_hyperparameter_tuning_job].
     fn delete_hyperparameter_tuning_job(
         &self,
         _req: crate::model::DeleteHyperparameterTuningJobRequest,
@@ -3291,7 +3291,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::cancel_hyperparameter_tuning_job].
+    /// Implements [super::client::JobService::cancel_hyperparameter_tuning_job].
     fn cancel_hyperparameter_tuning_job(
         &self,
         _req: crate::model::CancelHyperparameterTuningJobRequest,
@@ -3300,7 +3300,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::create_nas_job].
+    /// Implements [super::client::JobService::create_nas_job].
     fn create_nas_job(
         &self,
         _req: crate::model::CreateNasJobRequest,
@@ -3311,7 +3311,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::get_nas_job].
+    /// Implements [super::client::JobService::get_nas_job].
     fn get_nas_job(
         &self,
         _req: crate::model::GetNasJobRequest,
@@ -3322,7 +3322,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::list_nas_jobs].
+    /// Implements [super::client::JobService::list_nas_jobs].
     fn list_nas_jobs(
         &self,
         _req: crate::model::ListNasJobsRequest,
@@ -3334,7 +3334,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::delete_nas_job].
+    /// Implements [super::client::JobService::delete_nas_job].
     fn delete_nas_job(
         &self,
         _req: crate::model::DeleteNasJobRequest,
@@ -3346,7 +3346,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::cancel_nas_job].
+    /// Implements [super::client::JobService::cancel_nas_job].
     fn cancel_nas_job(
         &self,
         _req: crate::model::CancelNasJobRequest,
@@ -3355,7 +3355,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::get_nas_trial_detail].
+    /// Implements [super::client::JobService::get_nas_trial_detail].
     fn get_nas_trial_detail(
         &self,
         _req: crate::model::GetNasTrialDetailRequest,
@@ -3366,7 +3366,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::list_nas_trial_details].
+    /// Implements [super::client::JobService::list_nas_trial_details].
     fn list_nas_trial_details(
         &self,
         _req: crate::model::ListNasTrialDetailsRequest,
@@ -3378,7 +3378,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::create_batch_prediction_job].
+    /// Implements [super::client::JobService::create_batch_prediction_job].
     fn create_batch_prediction_job(
         &self,
         _req: crate::model::CreateBatchPredictionJobRequest,
@@ -3390,7 +3390,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::get_batch_prediction_job].
+    /// Implements [super::client::JobService::get_batch_prediction_job].
     fn get_batch_prediction_job(
         &self,
         _req: crate::model::GetBatchPredictionJobRequest,
@@ -3402,7 +3402,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::list_batch_prediction_jobs].
+    /// Implements [super::client::JobService::list_batch_prediction_jobs].
     fn list_batch_prediction_jobs(
         &self,
         _req: crate::model::ListBatchPredictionJobsRequest,
@@ -3415,7 +3415,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::delete_batch_prediction_job].
+    /// Implements [super::client::JobService::delete_batch_prediction_job].
     fn delete_batch_prediction_job(
         &self,
         _req: crate::model::DeleteBatchPredictionJobRequest,
@@ -3427,7 +3427,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::cancel_batch_prediction_job].
+    /// Implements [super::client::JobService::cancel_batch_prediction_job].
     fn cancel_batch_prediction_job(
         &self,
         _req: crate::model::CancelBatchPredictionJobRequest,
@@ -3436,7 +3436,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::create_model_deployment_monitoring_job].
+    /// Implements [super::client::JobService::create_model_deployment_monitoring_job].
     fn create_model_deployment_monitoring_job(
         &self,
         _req: crate::model::CreateModelDeploymentMonitoringJobRequest,
@@ -3448,7 +3448,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::search_model_deployment_monitoring_stats_anomalies].
+    /// Implements [super::client::JobService::search_model_deployment_monitoring_stats_anomalies].
     fn search_model_deployment_monitoring_stats_anomalies(
         &self,
         _req: crate::model::SearchModelDeploymentMonitoringStatsAnomaliesRequest,
@@ -3461,7 +3461,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::get_model_deployment_monitoring_job].
+    /// Implements [super::client::JobService::get_model_deployment_monitoring_job].
     fn get_model_deployment_monitoring_job(
         &self,
         _req: crate::model::GetModelDeploymentMonitoringJobRequest,
@@ -3473,7 +3473,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::list_model_deployment_monitoring_jobs].
+    /// Implements [super::client::JobService::list_model_deployment_monitoring_jobs].
     fn list_model_deployment_monitoring_jobs(
         &self,
         _req: crate::model::ListModelDeploymentMonitoringJobsRequest,
@@ -3486,7 +3486,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::JobService::update_model_deployment_monitoring_job].
+    /// Implements [super::client::JobService::update_model_deployment_monitoring_job].
     fn update_model_deployment_monitoring_job(
         &self,
         _req: crate::model::UpdateModelDeploymentMonitoringJobRequest,
@@ -3498,7 +3498,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::delete_model_deployment_monitoring_job].
+    /// Implements [super::client::JobService::delete_model_deployment_monitoring_job].
     fn delete_model_deployment_monitoring_job(
         &self,
         _req: crate::model::DeleteModelDeploymentMonitoringJobRequest,
@@ -3510,7 +3510,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::pause_model_deployment_monitoring_job].
+    /// Implements [super::client::JobService::pause_model_deployment_monitoring_job].
     fn pause_model_deployment_monitoring_job(
         &self,
         _req: crate::model::PauseModelDeploymentMonitoringJobRequest,
@@ -3519,7 +3519,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::resume_model_deployment_monitoring_job].
+    /// Implements [super::client::JobService::resume_model_deployment_monitoring_job].
     fn resume_model_deployment_monitoring_job(
         &self,
         _req: crate::model::ResumeModelDeploymentMonitoringJobRequest,
@@ -3528,7 +3528,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::list_locations].
+    /// Implements [super::client::JobService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -3540,7 +3540,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::get_location].
+    /// Implements [super::client::JobService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -3551,7 +3551,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::set_iam_policy].
+    /// Implements [super::client::JobService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -3562,7 +3562,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::get_iam_policy].
+    /// Implements [super::client::JobService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -3573,7 +3573,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::test_iam_permissions].
+    /// Implements [super::client::JobService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -3585,7 +3585,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::list_operations].
+    /// Implements [super::client::JobService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -3597,7 +3597,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::JobService::get_operation].
+    /// Implements [super::client::JobService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -3609,7 +3609,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::JobService::delete_operation].
+    /// Implements [super::client::JobService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -3618,7 +3618,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::cancel_operation].
+    /// Implements [super::client::JobService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -3627,7 +3627,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::JobService::wait_operation].
+    /// Implements [super::client::JobService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -3662,7 +3662,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::LlmUtilityService].
+/// Defines the trait used to implement [super::client::LlmUtilityService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::LlmUtilityService`.  In other use-cases, application developers only
@@ -3674,7 +3674,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::LlmUtilityService::count_tokens].
+    /// Implements [super::client::LlmUtilityService::count_tokens].
     fn count_tokens(
         &self,
         _req: crate::model::CountTokensRequest,
@@ -3686,7 +3686,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LlmUtilityService::compute_tokens].
+    /// Implements [super::client::LlmUtilityService::compute_tokens].
     fn compute_tokens(
         &self,
         _req: crate::model::ComputeTokensRequest,
@@ -3698,7 +3698,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LlmUtilityService::list_locations].
+    /// Implements [super::client::LlmUtilityService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -3710,7 +3710,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LlmUtilityService::get_location].
+    /// Implements [super::client::LlmUtilityService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -3721,7 +3721,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LlmUtilityService::set_iam_policy].
+    /// Implements [super::client::LlmUtilityService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -3732,7 +3732,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LlmUtilityService::get_iam_policy].
+    /// Implements [super::client::LlmUtilityService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -3743,7 +3743,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LlmUtilityService::test_iam_permissions].
+    /// Implements [super::client::LlmUtilityService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -3755,7 +3755,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LlmUtilityService::list_operations].
+    /// Implements [super::client::LlmUtilityService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -3767,7 +3767,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LlmUtilityService::get_operation].
+    /// Implements [super::client::LlmUtilityService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -3779,7 +3779,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LlmUtilityService::delete_operation].
+    /// Implements [super::client::LlmUtilityService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -3788,7 +3788,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LlmUtilityService::cancel_operation].
+    /// Implements [super::client::LlmUtilityService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -3797,7 +3797,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LlmUtilityService::wait_operation].
+    /// Implements [super::client::LlmUtilityService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -3810,7 +3810,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::MatchService].
+/// Defines the trait used to implement [super::client::MatchService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::MatchService`.  In other use-cases, application developers only
@@ -3822,7 +3822,7 @@ pub trait LlmUtilityService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait MatchService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::MatchService::find_neighbors].
+    /// Implements [super::client::MatchService::find_neighbors].
     fn find_neighbors(
         &self,
         _req: crate::model::FindNeighborsRequest,
@@ -3834,7 +3834,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MatchService::read_index_datapoints].
+    /// Implements [super::client::MatchService::read_index_datapoints].
     fn read_index_datapoints(
         &self,
         _req: crate::model::ReadIndexDatapointsRequest,
@@ -3846,7 +3846,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MatchService::list_locations].
+    /// Implements [super::client::MatchService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -3858,7 +3858,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MatchService::get_location].
+    /// Implements [super::client::MatchService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -3869,7 +3869,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MatchService::set_iam_policy].
+    /// Implements [super::client::MatchService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -3880,7 +3880,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MatchService::get_iam_policy].
+    /// Implements [super::client::MatchService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -3891,7 +3891,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MatchService::test_iam_permissions].
+    /// Implements [super::client::MatchService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -3903,7 +3903,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MatchService::list_operations].
+    /// Implements [super::client::MatchService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -3915,7 +3915,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MatchService::get_operation].
+    /// Implements [super::client::MatchService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -3927,7 +3927,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MatchService::delete_operation].
+    /// Implements [super::client::MatchService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -3936,7 +3936,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MatchService::cancel_operation].
+    /// Implements [super::client::MatchService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -3945,7 +3945,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MatchService::wait_operation].
+    /// Implements [super::client::MatchService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -3958,7 +3958,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::MetadataService].
+/// Defines the trait used to implement [super::client::MetadataService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::MetadataService`.  In other use-cases, application developers only
@@ -3970,7 +3970,7 @@ pub trait MatchService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait MetadataService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::MetadataService::create_metadata_store].
+    /// Implements [super::client::MetadataService::create_metadata_store].
     fn create_metadata_store(
         &self,
         _req: crate::model::CreateMetadataStoreRequest,
@@ -3982,7 +3982,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::get_metadata_store].
+    /// Implements [super::client::MetadataService::get_metadata_store].
     fn get_metadata_store(
         &self,
         _req: crate::model::GetMetadataStoreRequest,
@@ -3993,7 +3993,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::list_metadata_stores].
+    /// Implements [super::client::MetadataService::list_metadata_stores].
     fn list_metadata_stores(
         &self,
         _req: crate::model::ListMetadataStoresRequest,
@@ -4005,7 +4005,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetadataService::delete_metadata_store].
+    /// Implements [super::client::MetadataService::delete_metadata_store].
     fn delete_metadata_store(
         &self,
         _req: crate::model::DeleteMetadataStoreRequest,
@@ -4017,7 +4017,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::create_artifact].
+    /// Implements [super::client::MetadataService::create_artifact].
     fn create_artifact(
         &self,
         _req: crate::model::CreateArtifactRequest,
@@ -4028,7 +4028,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::get_artifact].
+    /// Implements [super::client::MetadataService::get_artifact].
     fn get_artifact(
         &self,
         _req: crate::model::GetArtifactRequest,
@@ -4039,7 +4039,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::list_artifacts].
+    /// Implements [super::client::MetadataService::list_artifacts].
     fn list_artifacts(
         &self,
         _req: crate::model::ListArtifactsRequest,
@@ -4051,7 +4051,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::update_artifact].
+    /// Implements [super::client::MetadataService::update_artifact].
     fn update_artifact(
         &self,
         _req: crate::model::UpdateArtifactRequest,
@@ -4062,7 +4062,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::delete_artifact].
+    /// Implements [super::client::MetadataService::delete_artifact].
     fn delete_artifact(
         &self,
         _req: crate::model::DeleteArtifactRequest,
@@ -4074,7 +4074,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::purge_artifacts].
+    /// Implements [super::client::MetadataService::purge_artifacts].
     fn purge_artifacts(
         &self,
         _req: crate::model::PurgeArtifactsRequest,
@@ -4086,7 +4086,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::create_context].
+    /// Implements [super::client::MetadataService::create_context].
     fn create_context(
         &self,
         _req: crate::model::CreateContextRequest,
@@ -4097,7 +4097,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::get_context].
+    /// Implements [super::client::MetadataService::get_context].
     fn get_context(
         &self,
         _req: crate::model::GetContextRequest,
@@ -4108,7 +4108,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::list_contexts].
+    /// Implements [super::client::MetadataService::list_contexts].
     fn list_contexts(
         &self,
         _req: crate::model::ListContextsRequest,
@@ -4120,7 +4120,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::update_context].
+    /// Implements [super::client::MetadataService::update_context].
     fn update_context(
         &self,
         _req: crate::model::UpdateContextRequest,
@@ -4131,7 +4131,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::delete_context].
+    /// Implements [super::client::MetadataService::delete_context].
     fn delete_context(
         &self,
         _req: crate::model::DeleteContextRequest,
@@ -4143,7 +4143,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::purge_contexts].
+    /// Implements [super::client::MetadataService::purge_contexts].
     fn purge_contexts(
         &self,
         _req: crate::model::PurgeContextsRequest,
@@ -4155,7 +4155,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::add_context_artifacts_and_executions].
+    /// Implements [super::client::MetadataService::add_context_artifacts_and_executions].
     fn add_context_artifacts_and_executions(
         &self,
         _req: crate::model::AddContextArtifactsAndExecutionsRequest,
@@ -4168,7 +4168,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::MetadataService::add_context_children].
+    /// Implements [super::client::MetadataService::add_context_children].
     fn add_context_children(
         &self,
         _req: crate::model::AddContextChildrenRequest,
@@ -4180,7 +4180,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetadataService::remove_context_children].
+    /// Implements [super::client::MetadataService::remove_context_children].
     fn remove_context_children(
         &self,
         _req: crate::model::RemoveContextChildrenRequest,
@@ -4192,7 +4192,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetadataService::query_context_lineage_subgraph].
+    /// Implements [super::client::MetadataService::query_context_lineage_subgraph].
     fn query_context_lineage_subgraph(
         &self,
         _req: crate::model::QueryContextLineageSubgraphRequest,
@@ -4204,7 +4204,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::create_execution].
+    /// Implements [super::client::MetadataService::create_execution].
     fn create_execution(
         &self,
         _req: crate::model::CreateExecutionRequest,
@@ -4215,7 +4215,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::get_execution].
+    /// Implements [super::client::MetadataService::get_execution].
     fn get_execution(
         &self,
         _req: crate::model::GetExecutionRequest,
@@ -4226,7 +4226,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::list_executions].
+    /// Implements [super::client::MetadataService::list_executions].
     fn list_executions(
         &self,
         _req: crate::model::ListExecutionsRequest,
@@ -4238,7 +4238,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetadataService::update_execution].
+    /// Implements [super::client::MetadataService::update_execution].
     fn update_execution(
         &self,
         _req: crate::model::UpdateExecutionRequest,
@@ -4249,7 +4249,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::delete_execution].
+    /// Implements [super::client::MetadataService::delete_execution].
     fn delete_execution(
         &self,
         _req: crate::model::DeleteExecutionRequest,
@@ -4261,7 +4261,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::purge_executions].
+    /// Implements [super::client::MetadataService::purge_executions].
     fn purge_executions(
         &self,
         _req: crate::model::PurgeExecutionsRequest,
@@ -4273,7 +4273,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::add_execution_events].
+    /// Implements [super::client::MetadataService::add_execution_events].
     fn add_execution_events(
         &self,
         _req: crate::model::AddExecutionEventsRequest,
@@ -4285,7 +4285,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetadataService::query_execution_inputs_and_outputs].
+    /// Implements [super::client::MetadataService::query_execution_inputs_and_outputs].
     fn query_execution_inputs_and_outputs(
         &self,
         _req: crate::model::QueryExecutionInputsAndOutputsRequest,
@@ -4297,7 +4297,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::create_metadata_schema].
+    /// Implements [super::client::MetadataService::create_metadata_schema].
     fn create_metadata_schema(
         &self,
         _req: crate::model::CreateMetadataSchemaRequest,
@@ -4308,7 +4308,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::get_metadata_schema].
+    /// Implements [super::client::MetadataService::get_metadata_schema].
     fn get_metadata_schema(
         &self,
         _req: crate::model::GetMetadataSchemaRequest,
@@ -4319,7 +4319,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::list_metadata_schemas].
+    /// Implements [super::client::MetadataService::list_metadata_schemas].
     fn list_metadata_schemas(
         &self,
         _req: crate::model::ListMetadataSchemasRequest,
@@ -4331,7 +4331,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetadataService::query_artifact_lineage_subgraph].
+    /// Implements [super::client::MetadataService::query_artifact_lineage_subgraph].
     fn query_artifact_lineage_subgraph(
         &self,
         _req: crate::model::QueryArtifactLineageSubgraphRequest,
@@ -4343,7 +4343,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::list_locations].
+    /// Implements [super::client::MetadataService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -4355,7 +4355,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetadataService::get_location].
+    /// Implements [super::client::MetadataService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -4366,7 +4366,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::set_iam_policy].
+    /// Implements [super::client::MetadataService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -4377,7 +4377,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::get_iam_policy].
+    /// Implements [super::client::MetadataService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -4388,7 +4388,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::test_iam_permissions].
+    /// Implements [super::client::MetadataService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -4400,7 +4400,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetadataService::list_operations].
+    /// Implements [super::client::MetadataService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -4412,7 +4412,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetadataService::get_operation].
+    /// Implements [super::client::MetadataService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -4424,7 +4424,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetadataService::delete_operation].
+    /// Implements [super::client::MetadataService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -4433,7 +4433,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MetadataService::cancel_operation].
+    /// Implements [super::client::MetadataService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -4442,7 +4442,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MetadataService::wait_operation].
+    /// Implements [super::client::MetadataService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -4477,7 +4477,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::MigrationService].
+/// Defines the trait used to implement [super::client::MigrationService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::MigrationService`.  In other use-cases, application developers only
@@ -4489,7 +4489,7 @@ pub trait MetadataService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait MigrationService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::MigrationService::search_migratable_resources].
+    /// Implements [super::client::MigrationService::search_migratable_resources].
     fn search_migratable_resources(
         &self,
         _req: crate::model::SearchMigratableResourcesRequest,
@@ -4502,7 +4502,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationService::batch_migrate_resources].
+    /// Implements [super::client::MigrationService::batch_migrate_resources].
     fn batch_migrate_resources(
         &self,
         _req: crate::model::BatchMigrateResourcesRequest,
@@ -4514,7 +4514,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationService::list_locations].
+    /// Implements [super::client::MigrationService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -4526,7 +4526,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationService::get_location].
+    /// Implements [super::client::MigrationService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -4537,7 +4537,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationService::set_iam_policy].
+    /// Implements [super::client::MigrationService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -4548,7 +4548,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationService::get_iam_policy].
+    /// Implements [super::client::MigrationService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -4559,7 +4559,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationService::test_iam_permissions].
+    /// Implements [super::client::MigrationService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -4571,7 +4571,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationService::list_operations].
+    /// Implements [super::client::MigrationService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -4583,7 +4583,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MigrationService::get_operation].
+    /// Implements [super::client::MigrationService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -4595,7 +4595,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MigrationService::delete_operation].
+    /// Implements [super::client::MigrationService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -4604,7 +4604,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MigrationService::cancel_operation].
+    /// Implements [super::client::MigrationService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -4613,7 +4613,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MigrationService::wait_operation].
+    /// Implements [super::client::MigrationService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -4648,7 +4648,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ModelGardenService].
+/// Defines the trait used to implement [super::client::ModelGardenService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ModelGardenService`.  In other use-cases, application developers only
@@ -4660,7 +4660,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ModelGardenService::get_publisher_model].
+    /// Implements [super::client::ModelGardenService::get_publisher_model].
     fn get_publisher_model(
         &self,
         _req: crate::model::GetPublisherModelRequest,
@@ -4671,7 +4671,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelGardenService::list_locations].
+    /// Implements [super::client::ModelGardenService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -4683,7 +4683,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelGardenService::get_location].
+    /// Implements [super::client::ModelGardenService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -4694,7 +4694,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelGardenService::set_iam_policy].
+    /// Implements [super::client::ModelGardenService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -4705,7 +4705,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelGardenService::get_iam_policy].
+    /// Implements [super::client::ModelGardenService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -4716,7 +4716,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelGardenService::test_iam_permissions].
+    /// Implements [super::client::ModelGardenService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -4728,7 +4728,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelGardenService::list_operations].
+    /// Implements [super::client::ModelGardenService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -4740,7 +4740,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelGardenService::get_operation].
+    /// Implements [super::client::ModelGardenService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -4752,7 +4752,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelGardenService::delete_operation].
+    /// Implements [super::client::ModelGardenService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -4761,7 +4761,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ModelGardenService::cancel_operation].
+    /// Implements [super::client::ModelGardenService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -4770,7 +4770,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ModelGardenService::wait_operation].
+    /// Implements [super::client::ModelGardenService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -4783,7 +4783,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ModelService].
+/// Defines the trait used to implement [super::client::ModelService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ModelService`.  In other use-cases, application developers only
@@ -4795,7 +4795,7 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ModelService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ModelService::upload_model].
+    /// Implements [super::client::ModelService::upload_model].
     fn upload_model(
         &self,
         _req: crate::model::UploadModelRequest,
@@ -4807,7 +4807,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::get_model].
+    /// Implements [super::client::ModelService::get_model].
     fn get_model(
         &self,
         _req: crate::model::GetModelRequest,
@@ -4816,7 +4816,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Model>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ModelService::list_models].
+    /// Implements [super::client::ModelService::list_models].
     fn list_models(
         &self,
         _req: crate::model::ListModelsRequest,
@@ -4828,7 +4828,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::list_model_versions].
+    /// Implements [super::client::ModelService::list_model_versions].
     fn list_model_versions(
         &self,
         _req: crate::model::ListModelVersionsRequest,
@@ -4840,7 +4840,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelService::list_model_version_checkpoints].
+    /// Implements [super::client::ModelService::list_model_version_checkpoints].
     fn list_model_version_checkpoints(
         &self,
         _req: crate::model::ListModelVersionCheckpointsRequest,
@@ -4853,7 +4853,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelService::update_model].
+    /// Implements [super::client::ModelService::update_model].
     fn update_model(
         &self,
         _req: crate::model::UpdateModelRequest,
@@ -4862,7 +4862,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Model>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ModelService::update_explanation_dataset].
+    /// Implements [super::client::ModelService::update_explanation_dataset].
     fn update_explanation_dataset(
         &self,
         _req: crate::model::UpdateExplanationDatasetRequest,
@@ -4874,7 +4874,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::delete_model].
+    /// Implements [super::client::ModelService::delete_model].
     fn delete_model(
         &self,
         _req: crate::model::DeleteModelRequest,
@@ -4886,7 +4886,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::delete_model_version].
+    /// Implements [super::client::ModelService::delete_model_version].
     fn delete_model_version(
         &self,
         _req: crate::model::DeleteModelVersionRequest,
@@ -4898,7 +4898,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::merge_version_aliases].
+    /// Implements [super::client::ModelService::merge_version_aliases].
     fn merge_version_aliases(
         &self,
         _req: crate::model::MergeVersionAliasesRequest,
@@ -4907,7 +4907,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Model>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ModelService::export_model].
+    /// Implements [super::client::ModelService::export_model].
     fn export_model(
         &self,
         _req: crate::model::ExportModelRequest,
@@ -4919,7 +4919,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::copy_model].
+    /// Implements [super::client::ModelService::copy_model].
     fn copy_model(
         &self,
         _req: crate::model::CopyModelRequest,
@@ -4931,7 +4931,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::import_model_evaluation].
+    /// Implements [super::client::ModelService::import_model_evaluation].
     fn import_model_evaluation(
         &self,
         _req: crate::model::ImportModelEvaluationRequest,
@@ -4943,7 +4943,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::batch_import_model_evaluation_slices].
+    /// Implements [super::client::ModelService::batch_import_model_evaluation_slices].
     fn batch_import_model_evaluation_slices(
         &self,
         _req: crate::model::BatchImportModelEvaluationSlicesRequest,
@@ -4956,7 +4956,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::ModelService::batch_import_evaluated_annotations].
+    /// Implements [super::client::ModelService::batch_import_evaluated_annotations].
     fn batch_import_evaluated_annotations(
         &self,
         _req: crate::model::BatchImportEvaluatedAnnotationsRequest,
@@ -4969,7 +4969,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::ModelService::get_model_evaluation].
+    /// Implements [super::client::ModelService::get_model_evaluation].
     fn get_model_evaluation(
         &self,
         _req: crate::model::GetModelEvaluationRequest,
@@ -4981,7 +4981,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::list_model_evaluations].
+    /// Implements [super::client::ModelService::list_model_evaluations].
     fn list_model_evaluations(
         &self,
         _req: crate::model::ListModelEvaluationsRequest,
@@ -4993,7 +4993,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelService::get_model_evaluation_slice].
+    /// Implements [super::client::ModelService::get_model_evaluation_slice].
     fn get_model_evaluation_slice(
         &self,
         _req: crate::model::GetModelEvaluationSliceRequest,
@@ -5005,7 +5005,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::list_model_evaluation_slices].
+    /// Implements [super::client::ModelService::list_model_evaluation_slices].
     fn list_model_evaluation_slices(
         &self,
         _req: crate::model::ListModelEvaluationSlicesRequest,
@@ -5018,7 +5018,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelService::list_locations].
+    /// Implements [super::client::ModelService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -5030,7 +5030,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelService::get_location].
+    /// Implements [super::client::ModelService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -5041,7 +5041,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::set_iam_policy].
+    /// Implements [super::client::ModelService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -5052,7 +5052,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::get_iam_policy].
+    /// Implements [super::client::ModelService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -5063,7 +5063,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::test_iam_permissions].
+    /// Implements [super::client::ModelService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -5075,7 +5075,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelService::list_operations].
+    /// Implements [super::client::ModelService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -5087,7 +5087,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ModelService::get_operation].
+    /// Implements [super::client::ModelService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -5099,7 +5099,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ModelService::delete_operation].
+    /// Implements [super::client::ModelService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -5108,7 +5108,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ModelService::cancel_operation].
+    /// Implements [super::client::ModelService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -5117,7 +5117,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ModelService::wait_operation].
+    /// Implements [super::client::ModelService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -5152,7 +5152,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::NotebookService].
+/// Defines the trait used to implement [super::client::NotebookService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::NotebookService`.  In other use-cases, application developers only
@@ -5164,7 +5164,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait NotebookService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::NotebookService::create_notebook_runtime_template].
+    /// Implements [super::client::NotebookService::create_notebook_runtime_template].
     fn create_notebook_runtime_template(
         &self,
         _req: crate::model::CreateNotebookRuntimeTemplateRequest,
@@ -5176,7 +5176,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::get_notebook_runtime_template].
+    /// Implements [super::client::NotebookService::get_notebook_runtime_template].
     fn get_notebook_runtime_template(
         &self,
         _req: crate::model::GetNotebookRuntimeTemplateRequest,
@@ -5188,7 +5188,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::list_notebook_runtime_templates].
+    /// Implements [super::client::NotebookService::list_notebook_runtime_templates].
     fn list_notebook_runtime_templates(
         &self,
         _req: crate::model::ListNotebookRuntimeTemplatesRequest,
@@ -5201,7 +5201,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::NotebookService::delete_notebook_runtime_template].
+    /// Implements [super::client::NotebookService::delete_notebook_runtime_template].
     fn delete_notebook_runtime_template(
         &self,
         _req: crate::model::DeleteNotebookRuntimeTemplateRequest,
@@ -5213,7 +5213,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::update_notebook_runtime_template].
+    /// Implements [super::client::NotebookService::update_notebook_runtime_template].
     fn update_notebook_runtime_template(
         &self,
         _req: crate::model::UpdateNotebookRuntimeTemplateRequest,
@@ -5225,7 +5225,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::assign_notebook_runtime].
+    /// Implements [super::client::NotebookService::assign_notebook_runtime].
     fn assign_notebook_runtime(
         &self,
         _req: crate::model::AssignNotebookRuntimeRequest,
@@ -5237,7 +5237,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::get_notebook_runtime].
+    /// Implements [super::client::NotebookService::get_notebook_runtime].
     fn get_notebook_runtime(
         &self,
         _req: crate::model::GetNotebookRuntimeRequest,
@@ -5249,7 +5249,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::list_notebook_runtimes].
+    /// Implements [super::client::NotebookService::list_notebook_runtimes].
     fn list_notebook_runtimes(
         &self,
         _req: crate::model::ListNotebookRuntimesRequest,
@@ -5261,7 +5261,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::delete_notebook_runtime].
+    /// Implements [super::client::NotebookService::delete_notebook_runtime].
     fn delete_notebook_runtime(
         &self,
         _req: crate::model::DeleteNotebookRuntimeRequest,
@@ -5273,7 +5273,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::upgrade_notebook_runtime].
+    /// Implements [super::client::NotebookService::upgrade_notebook_runtime].
     fn upgrade_notebook_runtime(
         &self,
         _req: crate::model::UpgradeNotebookRuntimeRequest,
@@ -5285,7 +5285,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::start_notebook_runtime].
+    /// Implements [super::client::NotebookService::start_notebook_runtime].
     fn start_notebook_runtime(
         &self,
         _req: crate::model::StartNotebookRuntimeRequest,
@@ -5297,7 +5297,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::stop_notebook_runtime].
+    /// Implements [super::client::NotebookService::stop_notebook_runtime].
     fn stop_notebook_runtime(
         &self,
         _req: crate::model::StopNotebookRuntimeRequest,
@@ -5309,7 +5309,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::create_notebook_execution_job].
+    /// Implements [super::client::NotebookService::create_notebook_execution_job].
     fn create_notebook_execution_job(
         &self,
         _req: crate::model::CreateNotebookExecutionJobRequest,
@@ -5321,7 +5321,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::get_notebook_execution_job].
+    /// Implements [super::client::NotebookService::get_notebook_execution_job].
     fn get_notebook_execution_job(
         &self,
         _req: crate::model::GetNotebookExecutionJobRequest,
@@ -5333,7 +5333,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::list_notebook_execution_jobs].
+    /// Implements [super::client::NotebookService::list_notebook_execution_jobs].
     fn list_notebook_execution_jobs(
         &self,
         _req: crate::model::ListNotebookExecutionJobsRequest,
@@ -5346,7 +5346,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::delete_notebook_execution_job].
+    /// Implements [super::client::NotebookService::delete_notebook_execution_job].
     fn delete_notebook_execution_job(
         &self,
         _req: crate::model::DeleteNotebookExecutionJobRequest,
@@ -5358,7 +5358,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::list_locations].
+    /// Implements [super::client::NotebookService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -5370,7 +5370,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::get_location].
+    /// Implements [super::client::NotebookService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -5381,7 +5381,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::set_iam_policy].
+    /// Implements [super::client::NotebookService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -5392,7 +5392,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::get_iam_policy].
+    /// Implements [super::client::NotebookService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -5403,7 +5403,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::test_iam_permissions].
+    /// Implements [super::client::NotebookService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -5415,7 +5415,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::list_operations].
+    /// Implements [super::client::NotebookService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -5427,7 +5427,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::NotebookService::get_operation].
+    /// Implements [super::client::NotebookService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -5439,7 +5439,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::NotebookService::delete_operation].
+    /// Implements [super::client::NotebookService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -5448,7 +5448,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::NotebookService::cancel_operation].
+    /// Implements [super::client::NotebookService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -5457,7 +5457,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::NotebookService::wait_operation].
+    /// Implements [super::client::NotebookService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -5492,7 +5492,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::PersistentResourceService].
+/// Defines the trait used to implement [super::client::PersistentResourceService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PersistentResourceService`.  In other use-cases, application developers only
@@ -5504,7 +5504,7 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PersistentResourceService::create_persistent_resource].
+    /// Implements [super::client::PersistentResourceService::create_persistent_resource].
     fn create_persistent_resource(
         &self,
         _req: crate::model::CreatePersistentResourceRequest,
@@ -5516,7 +5516,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PersistentResourceService::get_persistent_resource].
+    /// Implements [super::client::PersistentResourceService::get_persistent_resource].
     fn get_persistent_resource(
         &self,
         _req: crate::model::GetPersistentResourceRequest,
@@ -5528,7 +5528,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PersistentResourceService::list_persistent_resources].
+    /// Implements [super::client::PersistentResourceService::list_persistent_resources].
     fn list_persistent_resources(
         &self,
         _req: crate::model::ListPersistentResourcesRequest,
@@ -5541,7 +5541,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PersistentResourceService::delete_persistent_resource].
+    /// Implements [super::client::PersistentResourceService::delete_persistent_resource].
     fn delete_persistent_resource(
         &self,
         _req: crate::model::DeletePersistentResourceRequest,
@@ -5553,7 +5553,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PersistentResourceService::update_persistent_resource].
+    /// Implements [super::client::PersistentResourceService::update_persistent_resource].
     fn update_persistent_resource(
         &self,
         _req: crate::model::UpdatePersistentResourceRequest,
@@ -5565,7 +5565,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PersistentResourceService::reboot_persistent_resource].
+    /// Implements [super::client::PersistentResourceService::reboot_persistent_resource].
     fn reboot_persistent_resource(
         &self,
         _req: crate::model::RebootPersistentResourceRequest,
@@ -5577,7 +5577,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PersistentResourceService::list_locations].
+    /// Implements [super::client::PersistentResourceService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -5589,7 +5589,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PersistentResourceService::get_location].
+    /// Implements [super::client::PersistentResourceService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -5600,7 +5600,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PersistentResourceService::set_iam_policy].
+    /// Implements [super::client::PersistentResourceService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -5611,7 +5611,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PersistentResourceService::get_iam_policy].
+    /// Implements [super::client::PersistentResourceService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -5622,7 +5622,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PersistentResourceService::test_iam_permissions].
+    /// Implements [super::client::PersistentResourceService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -5634,7 +5634,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PersistentResourceService::list_operations].
+    /// Implements [super::client::PersistentResourceService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -5646,7 +5646,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PersistentResourceService::get_operation].
+    /// Implements [super::client::PersistentResourceService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -5658,7 +5658,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PersistentResourceService::delete_operation].
+    /// Implements [super::client::PersistentResourceService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -5667,7 +5667,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PersistentResourceService::cancel_operation].
+    /// Implements [super::client::PersistentResourceService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -5676,7 +5676,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PersistentResourceService::wait_operation].
+    /// Implements [super::client::PersistentResourceService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -5711,7 +5711,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::PipelineService].
+/// Defines the trait used to implement [super::client::PipelineService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PipelineService`.  In other use-cases, application developers only
@@ -5723,7 +5723,7 @@ pub trait PersistentResourceService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PipelineService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PipelineService::create_training_pipeline].
+    /// Implements [super::client::PipelineService::create_training_pipeline].
     fn create_training_pipeline(
         &self,
         _req: crate::model::CreateTrainingPipelineRequest,
@@ -5735,7 +5735,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::get_training_pipeline].
+    /// Implements [super::client::PipelineService::get_training_pipeline].
     fn get_training_pipeline(
         &self,
         _req: crate::model::GetTrainingPipelineRequest,
@@ -5747,7 +5747,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::list_training_pipelines].
+    /// Implements [super::client::PipelineService::list_training_pipelines].
     fn list_training_pipelines(
         &self,
         _req: crate::model::ListTrainingPipelinesRequest,
@@ -5759,7 +5759,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PipelineService::delete_training_pipeline].
+    /// Implements [super::client::PipelineService::delete_training_pipeline].
     fn delete_training_pipeline(
         &self,
         _req: crate::model::DeleteTrainingPipelineRequest,
@@ -5771,7 +5771,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::cancel_training_pipeline].
+    /// Implements [super::client::PipelineService::cancel_training_pipeline].
     fn cancel_training_pipeline(
         &self,
         _req: crate::model::CancelTrainingPipelineRequest,
@@ -5780,7 +5780,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PipelineService::create_pipeline_job].
+    /// Implements [super::client::PipelineService::create_pipeline_job].
     fn create_pipeline_job(
         &self,
         _req: crate::model::CreatePipelineJobRequest,
@@ -5791,7 +5791,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::get_pipeline_job].
+    /// Implements [super::client::PipelineService::get_pipeline_job].
     fn get_pipeline_job(
         &self,
         _req: crate::model::GetPipelineJobRequest,
@@ -5802,7 +5802,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::list_pipeline_jobs].
+    /// Implements [super::client::PipelineService::list_pipeline_jobs].
     fn list_pipeline_jobs(
         &self,
         _req: crate::model::ListPipelineJobsRequest,
@@ -5814,7 +5814,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PipelineService::delete_pipeline_job].
+    /// Implements [super::client::PipelineService::delete_pipeline_job].
     fn delete_pipeline_job(
         &self,
         _req: crate::model::DeletePipelineJobRequest,
@@ -5826,7 +5826,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::batch_delete_pipeline_jobs].
+    /// Implements [super::client::PipelineService::batch_delete_pipeline_jobs].
     fn batch_delete_pipeline_jobs(
         &self,
         _req: crate::model::BatchDeletePipelineJobsRequest,
@@ -5838,7 +5838,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::cancel_pipeline_job].
+    /// Implements [super::client::PipelineService::cancel_pipeline_job].
     fn cancel_pipeline_job(
         &self,
         _req: crate::model::CancelPipelineJobRequest,
@@ -5847,7 +5847,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PipelineService::batch_cancel_pipeline_jobs].
+    /// Implements [super::client::PipelineService::batch_cancel_pipeline_jobs].
     fn batch_cancel_pipeline_jobs(
         &self,
         _req: crate::model::BatchCancelPipelineJobsRequest,
@@ -5859,7 +5859,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::list_locations].
+    /// Implements [super::client::PipelineService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -5871,7 +5871,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PipelineService::get_location].
+    /// Implements [super::client::PipelineService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -5882,7 +5882,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::set_iam_policy].
+    /// Implements [super::client::PipelineService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -5893,7 +5893,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::get_iam_policy].
+    /// Implements [super::client::PipelineService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -5904,7 +5904,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::test_iam_permissions].
+    /// Implements [super::client::PipelineService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -5916,7 +5916,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PipelineService::list_operations].
+    /// Implements [super::client::PipelineService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -5928,7 +5928,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PipelineService::get_operation].
+    /// Implements [super::client::PipelineService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -5940,7 +5940,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PipelineService::delete_operation].
+    /// Implements [super::client::PipelineService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -5949,7 +5949,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PipelineService::cancel_operation].
+    /// Implements [super::client::PipelineService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -5958,7 +5958,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PipelineService::wait_operation].
+    /// Implements [super::client::PipelineService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -5993,7 +5993,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::PredictionService].
+/// Defines the trait used to implement [super::client::PredictionService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PredictionService`.  In other use-cases, application developers only
@@ -6005,7 +6005,7 @@ pub trait PipelineService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PredictionService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PredictionService::predict].
+    /// Implements [super::client::PredictionService::predict].
     fn predict(
         &self,
         _req: crate::model::PredictRequest,
@@ -6017,7 +6017,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PredictionService::raw_predict].
+    /// Implements [super::client::PredictionService::raw_predict].
     fn raw_predict(
         &self,
         _req: crate::model::RawPredictRequest,
@@ -6028,7 +6028,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PredictionService::direct_predict].
+    /// Implements [super::client::PredictionService::direct_predict].
     fn direct_predict(
         &self,
         _req: crate::model::DirectPredictRequest,
@@ -6040,7 +6040,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PredictionService::direct_raw_predict].
+    /// Implements [super::client::PredictionService::direct_raw_predict].
     fn direct_raw_predict(
         &self,
         _req: crate::model::DirectRawPredictRequest,
@@ -6052,7 +6052,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PredictionService::explain].
+    /// Implements [super::client::PredictionService::explain].
     fn explain(
         &self,
         _req: crate::model::ExplainRequest,
@@ -6064,7 +6064,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PredictionService::generate_content].
+    /// Implements [super::client::PredictionService::generate_content].
     fn generate_content(
         &self,
         _req: crate::model::GenerateContentRequest,
@@ -6076,7 +6076,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PredictionService::list_locations].
+    /// Implements [super::client::PredictionService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -6088,7 +6088,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PredictionService::get_location].
+    /// Implements [super::client::PredictionService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -6099,7 +6099,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PredictionService::set_iam_policy].
+    /// Implements [super::client::PredictionService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -6110,7 +6110,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PredictionService::get_iam_policy].
+    /// Implements [super::client::PredictionService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -6121,7 +6121,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PredictionService::test_iam_permissions].
+    /// Implements [super::client::PredictionService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -6133,7 +6133,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PredictionService::list_operations].
+    /// Implements [super::client::PredictionService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -6145,7 +6145,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PredictionService::get_operation].
+    /// Implements [super::client::PredictionService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -6157,7 +6157,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PredictionService::delete_operation].
+    /// Implements [super::client::PredictionService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -6166,7 +6166,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PredictionService::cancel_operation].
+    /// Implements [super::client::PredictionService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -6175,7 +6175,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PredictionService::wait_operation].
+    /// Implements [super::client::PredictionService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -6188,7 +6188,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ReasoningEngineExecutionService].
+/// Defines the trait used to implement [super::client::ReasoningEngineExecutionService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ReasoningEngineExecutionService`.  In other use-cases, application developers only
@@ -6200,7 +6200,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ReasoningEngineExecutionService::query_reasoning_engine].
+    /// Implements [super::client::ReasoningEngineExecutionService::query_reasoning_engine].
     fn query_reasoning_engine(
         &self,
         _req: crate::model::QueryReasoningEngineRequest,
@@ -6212,7 +6212,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReasoningEngineExecutionService::list_locations].
+    /// Implements [super::client::ReasoningEngineExecutionService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -6224,7 +6224,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReasoningEngineExecutionService::get_location].
+    /// Implements [super::client::ReasoningEngineExecutionService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -6235,7 +6235,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineExecutionService::set_iam_policy].
+    /// Implements [super::client::ReasoningEngineExecutionService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -6246,7 +6246,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineExecutionService::get_iam_policy].
+    /// Implements [super::client::ReasoningEngineExecutionService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -6257,7 +6257,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineExecutionService::test_iam_permissions].
+    /// Implements [super::client::ReasoningEngineExecutionService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -6269,7 +6269,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReasoningEngineExecutionService::list_operations].
+    /// Implements [super::client::ReasoningEngineExecutionService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -6281,7 +6281,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReasoningEngineExecutionService::get_operation].
+    /// Implements [super::client::ReasoningEngineExecutionService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -6293,7 +6293,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineExecutionService::delete_operation].
+    /// Implements [super::client::ReasoningEngineExecutionService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -6302,7 +6302,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ReasoningEngineExecutionService::cancel_operation].
+    /// Implements [super::client::ReasoningEngineExecutionService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -6311,7 +6311,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ReasoningEngineExecutionService::wait_operation].
+    /// Implements [super::client::ReasoningEngineExecutionService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -6324,7 +6324,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ReasoningEngineService].
+/// Defines the trait used to implement [super::client::ReasoningEngineService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ReasoningEngineService`.  In other use-cases, application developers only
@@ -6336,7 +6336,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ReasoningEngineService::create_reasoning_engine].
+    /// Implements [super::client::ReasoningEngineService::create_reasoning_engine].
     fn create_reasoning_engine(
         &self,
         _req: crate::model::CreateReasoningEngineRequest,
@@ -6348,7 +6348,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::get_reasoning_engine].
+    /// Implements [super::client::ReasoningEngineService::get_reasoning_engine].
     fn get_reasoning_engine(
         &self,
         _req: crate::model::GetReasoningEngineRequest,
@@ -6360,7 +6360,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::list_reasoning_engines].
+    /// Implements [super::client::ReasoningEngineService::list_reasoning_engines].
     fn list_reasoning_engines(
         &self,
         _req: crate::model::ListReasoningEnginesRequest,
@@ -6372,7 +6372,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::update_reasoning_engine].
+    /// Implements [super::client::ReasoningEngineService::update_reasoning_engine].
     fn update_reasoning_engine(
         &self,
         _req: crate::model::UpdateReasoningEngineRequest,
@@ -6384,7 +6384,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::delete_reasoning_engine].
+    /// Implements [super::client::ReasoningEngineService::delete_reasoning_engine].
     fn delete_reasoning_engine(
         &self,
         _req: crate::model::DeleteReasoningEngineRequest,
@@ -6396,7 +6396,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::list_locations].
+    /// Implements [super::client::ReasoningEngineService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -6408,7 +6408,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::get_location].
+    /// Implements [super::client::ReasoningEngineService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -6419,7 +6419,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::set_iam_policy].
+    /// Implements [super::client::ReasoningEngineService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -6430,7 +6430,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::get_iam_policy].
+    /// Implements [super::client::ReasoningEngineService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -6441,7 +6441,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::test_iam_permissions].
+    /// Implements [super::client::ReasoningEngineService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -6453,7 +6453,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::list_operations].
+    /// Implements [super::client::ReasoningEngineService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -6465,7 +6465,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::get_operation].
+    /// Implements [super::client::ReasoningEngineService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -6477,7 +6477,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::delete_operation].
+    /// Implements [super::client::ReasoningEngineService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -6486,7 +6486,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::cancel_operation].
+    /// Implements [super::client::ReasoningEngineService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -6495,7 +6495,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ReasoningEngineService::wait_operation].
+    /// Implements [super::client::ReasoningEngineService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -6530,7 +6530,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ScheduleService].
+/// Defines the trait used to implement [super::client::ScheduleService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ScheduleService`.  In other use-cases, application developers only
@@ -6542,7 +6542,7 @@ pub trait ReasoningEngineService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ScheduleService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ScheduleService::create_schedule].
+    /// Implements [super::client::ScheduleService::create_schedule].
     fn create_schedule(
         &self,
         _req: crate::model::CreateScheduleRequest,
@@ -6553,7 +6553,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ScheduleService::delete_schedule].
+    /// Implements [super::client::ScheduleService::delete_schedule].
     fn delete_schedule(
         &self,
         _req: crate::model::DeleteScheduleRequest,
@@ -6565,7 +6565,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ScheduleService::get_schedule].
+    /// Implements [super::client::ScheduleService::get_schedule].
     fn get_schedule(
         &self,
         _req: crate::model::GetScheduleRequest,
@@ -6576,7 +6576,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ScheduleService::list_schedules].
+    /// Implements [super::client::ScheduleService::list_schedules].
     fn list_schedules(
         &self,
         _req: crate::model::ListSchedulesRequest,
@@ -6588,7 +6588,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ScheduleService::pause_schedule].
+    /// Implements [super::client::ScheduleService::pause_schedule].
     fn pause_schedule(
         &self,
         _req: crate::model::PauseScheduleRequest,
@@ -6597,7 +6597,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ScheduleService::resume_schedule].
+    /// Implements [super::client::ScheduleService::resume_schedule].
     fn resume_schedule(
         &self,
         _req: crate::model::ResumeScheduleRequest,
@@ -6606,7 +6606,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ScheduleService::update_schedule].
+    /// Implements [super::client::ScheduleService::update_schedule].
     fn update_schedule(
         &self,
         _req: crate::model::UpdateScheduleRequest,
@@ -6617,7 +6617,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ScheduleService::list_locations].
+    /// Implements [super::client::ScheduleService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -6629,7 +6629,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ScheduleService::get_location].
+    /// Implements [super::client::ScheduleService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -6640,7 +6640,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ScheduleService::set_iam_policy].
+    /// Implements [super::client::ScheduleService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -6651,7 +6651,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ScheduleService::get_iam_policy].
+    /// Implements [super::client::ScheduleService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -6662,7 +6662,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ScheduleService::test_iam_permissions].
+    /// Implements [super::client::ScheduleService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -6674,7 +6674,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ScheduleService::list_operations].
+    /// Implements [super::client::ScheduleService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -6686,7 +6686,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ScheduleService::get_operation].
+    /// Implements [super::client::ScheduleService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -6698,7 +6698,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ScheduleService::delete_operation].
+    /// Implements [super::client::ScheduleService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -6707,7 +6707,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ScheduleService::cancel_operation].
+    /// Implements [super::client::ScheduleService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -6716,7 +6716,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ScheduleService::wait_operation].
+    /// Implements [super::client::ScheduleService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -6751,7 +6751,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::SpecialistPoolService].
+/// Defines the trait used to implement [super::client::SpecialistPoolService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SpecialistPoolService`.  In other use-cases, application developers only
@@ -6763,7 +6763,7 @@ pub trait ScheduleService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::SpecialistPoolService::create_specialist_pool].
+    /// Implements [super::client::SpecialistPoolService::create_specialist_pool].
     fn create_specialist_pool(
         &self,
         _req: crate::model::CreateSpecialistPoolRequest,
@@ -6775,7 +6775,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::get_specialist_pool].
+    /// Implements [super::client::SpecialistPoolService::get_specialist_pool].
     fn get_specialist_pool(
         &self,
         _req: crate::model::GetSpecialistPoolRequest,
@@ -6786,7 +6786,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::list_specialist_pools].
+    /// Implements [super::client::SpecialistPoolService::list_specialist_pools].
     fn list_specialist_pools(
         &self,
         _req: crate::model::ListSpecialistPoolsRequest,
@@ -6798,7 +6798,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::delete_specialist_pool].
+    /// Implements [super::client::SpecialistPoolService::delete_specialist_pool].
     fn delete_specialist_pool(
         &self,
         _req: crate::model::DeleteSpecialistPoolRequest,
@@ -6810,7 +6810,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::update_specialist_pool].
+    /// Implements [super::client::SpecialistPoolService::update_specialist_pool].
     fn update_specialist_pool(
         &self,
         _req: crate::model::UpdateSpecialistPoolRequest,
@@ -6822,7 +6822,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::list_locations].
+    /// Implements [super::client::SpecialistPoolService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -6834,7 +6834,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::get_location].
+    /// Implements [super::client::SpecialistPoolService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -6845,7 +6845,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::set_iam_policy].
+    /// Implements [super::client::SpecialistPoolService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -6856,7 +6856,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::get_iam_policy].
+    /// Implements [super::client::SpecialistPoolService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -6867,7 +6867,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::test_iam_permissions].
+    /// Implements [super::client::SpecialistPoolService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -6879,7 +6879,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::list_operations].
+    /// Implements [super::client::SpecialistPoolService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -6891,7 +6891,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::get_operation].
+    /// Implements [super::client::SpecialistPoolService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -6903,7 +6903,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::delete_operation].
+    /// Implements [super::client::SpecialistPoolService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -6912,7 +6912,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::cancel_operation].
+    /// Implements [super::client::SpecialistPoolService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -6921,7 +6921,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SpecialistPoolService::wait_operation].
+    /// Implements [super::client::SpecialistPoolService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -6956,7 +6956,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::TensorboardService].
+/// Defines the trait used to implement [super::client::TensorboardService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TensorboardService`.  In other use-cases, application developers only
@@ -6968,7 +6968,7 @@ pub trait SpecialistPoolService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TensorboardService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TensorboardService::create_tensorboard].
+    /// Implements [super::client::TensorboardService::create_tensorboard].
     fn create_tensorboard(
         &self,
         _req: crate::model::CreateTensorboardRequest,
@@ -6980,7 +6980,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::get_tensorboard].
+    /// Implements [super::client::TensorboardService::get_tensorboard].
     fn get_tensorboard(
         &self,
         _req: crate::model::GetTensorboardRequest,
@@ -6991,7 +6991,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::update_tensorboard].
+    /// Implements [super::client::TensorboardService::update_tensorboard].
     fn update_tensorboard(
         &self,
         _req: crate::model::UpdateTensorboardRequest,
@@ -7003,7 +7003,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::list_tensorboards].
+    /// Implements [super::client::TensorboardService::list_tensorboards].
     fn list_tensorboards(
         &self,
         _req: crate::model::ListTensorboardsRequest,
@@ -7015,7 +7015,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::delete_tensorboard].
+    /// Implements [super::client::TensorboardService::delete_tensorboard].
     fn delete_tensorboard(
         &self,
         _req: crate::model::DeleteTensorboardRequest,
@@ -7027,7 +7027,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::read_tensorboard_usage].
+    /// Implements [super::client::TensorboardService::read_tensorboard_usage].
     fn read_tensorboard_usage(
         &self,
         _req: crate::model::ReadTensorboardUsageRequest,
@@ -7039,7 +7039,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::read_tensorboard_size].
+    /// Implements [super::client::TensorboardService::read_tensorboard_size].
     fn read_tensorboard_size(
         &self,
         _req: crate::model::ReadTensorboardSizeRequest,
@@ -7051,7 +7051,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::create_tensorboard_experiment].
+    /// Implements [super::client::TensorboardService::create_tensorboard_experiment].
     fn create_tensorboard_experiment(
         &self,
         _req: crate::model::CreateTensorboardExperimentRequest,
@@ -7063,7 +7063,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::get_tensorboard_experiment].
+    /// Implements [super::client::TensorboardService::get_tensorboard_experiment].
     fn get_tensorboard_experiment(
         &self,
         _req: crate::model::GetTensorboardExperimentRequest,
@@ -7075,7 +7075,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::update_tensorboard_experiment].
+    /// Implements [super::client::TensorboardService::update_tensorboard_experiment].
     fn update_tensorboard_experiment(
         &self,
         _req: crate::model::UpdateTensorboardExperimentRequest,
@@ -7087,7 +7087,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::list_tensorboard_experiments].
+    /// Implements [super::client::TensorboardService::list_tensorboard_experiments].
     fn list_tensorboard_experiments(
         &self,
         _req: crate::model::ListTensorboardExperimentsRequest,
@@ -7100,7 +7100,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::delete_tensorboard_experiment].
+    /// Implements [super::client::TensorboardService::delete_tensorboard_experiment].
     fn delete_tensorboard_experiment(
         &self,
         _req: crate::model::DeleteTensorboardExperimentRequest,
@@ -7112,7 +7112,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::create_tensorboard_run].
+    /// Implements [super::client::TensorboardService::create_tensorboard_run].
     fn create_tensorboard_run(
         &self,
         _req: crate::model::CreateTensorboardRunRequest,
@@ -7123,7 +7123,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::batch_create_tensorboard_runs].
+    /// Implements [super::client::TensorboardService::batch_create_tensorboard_runs].
     fn batch_create_tensorboard_runs(
         &self,
         _req: crate::model::BatchCreateTensorboardRunsRequest,
@@ -7136,7 +7136,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::get_tensorboard_run].
+    /// Implements [super::client::TensorboardService::get_tensorboard_run].
     fn get_tensorboard_run(
         &self,
         _req: crate::model::GetTensorboardRunRequest,
@@ -7147,7 +7147,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::update_tensorboard_run].
+    /// Implements [super::client::TensorboardService::update_tensorboard_run].
     fn update_tensorboard_run(
         &self,
         _req: crate::model::UpdateTensorboardRunRequest,
@@ -7158,7 +7158,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::list_tensorboard_runs].
+    /// Implements [super::client::TensorboardService::list_tensorboard_runs].
     fn list_tensorboard_runs(
         &self,
         _req: crate::model::ListTensorboardRunsRequest,
@@ -7170,7 +7170,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::delete_tensorboard_run].
+    /// Implements [super::client::TensorboardService::delete_tensorboard_run].
     fn delete_tensorboard_run(
         &self,
         _req: crate::model::DeleteTensorboardRunRequest,
@@ -7182,7 +7182,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::batch_create_tensorboard_time_series].
+    /// Implements [super::client::TensorboardService::batch_create_tensorboard_time_series].
     fn batch_create_tensorboard_time_series(
         &self,
         _req: crate::model::BatchCreateTensorboardTimeSeriesRequest,
@@ -7195,7 +7195,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::TensorboardService::create_tensorboard_time_series].
+    /// Implements [super::client::TensorboardService::create_tensorboard_time_series].
     fn create_tensorboard_time_series(
         &self,
         _req: crate::model::CreateTensorboardTimeSeriesRequest,
@@ -7207,7 +7207,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::get_tensorboard_time_series].
+    /// Implements [super::client::TensorboardService::get_tensorboard_time_series].
     fn get_tensorboard_time_series(
         &self,
         _req: crate::model::GetTensorboardTimeSeriesRequest,
@@ -7219,7 +7219,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::update_tensorboard_time_series].
+    /// Implements [super::client::TensorboardService::update_tensorboard_time_series].
     fn update_tensorboard_time_series(
         &self,
         _req: crate::model::UpdateTensorboardTimeSeriesRequest,
@@ -7231,7 +7231,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::list_tensorboard_time_series].
+    /// Implements [super::client::TensorboardService::list_tensorboard_time_series].
     fn list_tensorboard_time_series(
         &self,
         _req: crate::model::ListTensorboardTimeSeriesRequest,
@@ -7244,7 +7244,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::delete_tensorboard_time_series].
+    /// Implements [super::client::TensorboardService::delete_tensorboard_time_series].
     fn delete_tensorboard_time_series(
         &self,
         _req: crate::model::DeleteTensorboardTimeSeriesRequest,
@@ -7256,7 +7256,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::batch_read_tensorboard_time_series_data].
+    /// Implements [super::client::TensorboardService::batch_read_tensorboard_time_series_data].
     fn batch_read_tensorboard_time_series_data(
         &self,
         _req: crate::model::BatchReadTensorboardTimeSeriesDataRequest,
@@ -7269,7 +7269,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::TensorboardService::read_tensorboard_time_series_data].
+    /// Implements [super::client::TensorboardService::read_tensorboard_time_series_data].
     fn read_tensorboard_time_series_data(
         &self,
         _req: crate::model::ReadTensorboardTimeSeriesDataRequest,
@@ -7282,7 +7282,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::TensorboardService::write_tensorboard_experiment_data].
+    /// Implements [super::client::TensorboardService::write_tensorboard_experiment_data].
     fn write_tensorboard_experiment_data(
         &self,
         _req: crate::model::WriteTensorboardExperimentDataRequest,
@@ -7295,7 +7295,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::TensorboardService::write_tensorboard_run_data].
+    /// Implements [super::client::TensorboardService::write_tensorboard_run_data].
     fn write_tensorboard_run_data(
         &self,
         _req: crate::model::WriteTensorboardRunDataRequest,
@@ -7308,7 +7308,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::export_tensorboard_time_series_data].
+    /// Implements [super::client::TensorboardService::export_tensorboard_time_series_data].
     fn export_tensorboard_time_series_data(
         &self,
         _req: crate::model::ExportTensorboardTimeSeriesDataRequest,
@@ -7321,7 +7321,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::TensorboardService::list_locations].
+    /// Implements [super::client::TensorboardService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -7333,7 +7333,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::get_location].
+    /// Implements [super::client::TensorboardService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -7344,7 +7344,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::set_iam_policy].
+    /// Implements [super::client::TensorboardService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -7355,7 +7355,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::get_iam_policy].
+    /// Implements [super::client::TensorboardService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -7366,7 +7366,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::test_iam_permissions].
+    /// Implements [super::client::TensorboardService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -7378,7 +7378,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::list_operations].
+    /// Implements [super::client::TensorboardService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -7390,7 +7390,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::TensorboardService::get_operation].
+    /// Implements [super::client::TensorboardService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -7402,7 +7402,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TensorboardService::delete_operation].
+    /// Implements [super::client::TensorboardService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -7411,7 +7411,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TensorboardService::cancel_operation].
+    /// Implements [super::client::TensorboardService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -7420,7 +7420,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TensorboardService::wait_operation].
+    /// Implements [super::client::TensorboardService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -7455,7 +7455,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::VertexRagDataService].
+/// Defines the trait used to implement [super::client::VertexRagDataService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::VertexRagDataService`.  In other use-cases, application developers only
@@ -7467,7 +7467,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::VertexRagDataService::create_rag_corpus].
+    /// Implements [super::client::VertexRagDataService::create_rag_corpus].
     fn create_rag_corpus(
         &self,
         _req: crate::model::CreateRagCorpusRequest,
@@ -7479,7 +7479,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::update_rag_corpus].
+    /// Implements [super::client::VertexRagDataService::update_rag_corpus].
     fn update_rag_corpus(
         &self,
         _req: crate::model::UpdateRagCorpusRequest,
@@ -7491,7 +7491,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::get_rag_corpus].
+    /// Implements [super::client::VertexRagDataService::get_rag_corpus].
     fn get_rag_corpus(
         &self,
         _req: crate::model::GetRagCorpusRequest,
@@ -7502,7 +7502,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::list_rag_corpora].
+    /// Implements [super::client::VertexRagDataService::list_rag_corpora].
     fn list_rag_corpora(
         &self,
         _req: crate::model::ListRagCorporaRequest,
@@ -7514,7 +7514,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VertexRagDataService::delete_rag_corpus].
+    /// Implements [super::client::VertexRagDataService::delete_rag_corpus].
     fn delete_rag_corpus(
         &self,
         _req: crate::model::DeleteRagCorpusRequest,
@@ -7526,7 +7526,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::upload_rag_file].
+    /// Implements [super::client::VertexRagDataService::upload_rag_file].
     fn upload_rag_file(
         &self,
         _req: crate::model::UploadRagFileRequest,
@@ -7538,7 +7538,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::import_rag_files].
+    /// Implements [super::client::VertexRagDataService::import_rag_files].
     fn import_rag_files(
         &self,
         _req: crate::model::ImportRagFilesRequest,
@@ -7550,7 +7550,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::get_rag_file].
+    /// Implements [super::client::VertexRagDataService::get_rag_file].
     fn get_rag_file(
         &self,
         _req: crate::model::GetRagFileRequest,
@@ -7561,7 +7561,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::list_rag_files].
+    /// Implements [super::client::VertexRagDataService::list_rag_files].
     fn list_rag_files(
         &self,
         _req: crate::model::ListRagFilesRequest,
@@ -7573,7 +7573,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::delete_rag_file].
+    /// Implements [super::client::VertexRagDataService::delete_rag_file].
     fn delete_rag_file(
         &self,
         _req: crate::model::DeleteRagFileRequest,
@@ -7585,7 +7585,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::list_locations].
+    /// Implements [super::client::VertexRagDataService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -7597,7 +7597,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VertexRagDataService::get_location].
+    /// Implements [super::client::VertexRagDataService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -7608,7 +7608,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::set_iam_policy].
+    /// Implements [super::client::VertexRagDataService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -7619,7 +7619,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::get_iam_policy].
+    /// Implements [super::client::VertexRagDataService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -7630,7 +7630,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::test_iam_permissions].
+    /// Implements [super::client::VertexRagDataService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -7642,7 +7642,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VertexRagDataService::list_operations].
+    /// Implements [super::client::VertexRagDataService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -7654,7 +7654,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VertexRagDataService::get_operation].
+    /// Implements [super::client::VertexRagDataService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -7666,7 +7666,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagDataService::delete_operation].
+    /// Implements [super::client::VertexRagDataService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -7675,7 +7675,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VertexRagDataService::cancel_operation].
+    /// Implements [super::client::VertexRagDataService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -7684,7 +7684,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VertexRagDataService::wait_operation].
+    /// Implements [super::client::VertexRagDataService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -7719,7 +7719,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::VertexRagService].
+/// Defines the trait used to implement [super::client::VertexRagService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::VertexRagService`.  In other use-cases, application developers only
@@ -7731,7 +7731,7 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait VertexRagService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::VertexRagService::retrieve_contexts].
+    /// Implements [super::client::VertexRagService::retrieve_contexts].
     fn retrieve_contexts(
         &self,
         _req: crate::model::RetrieveContextsRequest,
@@ -7743,7 +7743,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VertexRagService::augment_prompt].
+    /// Implements [super::client::VertexRagService::augment_prompt].
     fn augment_prompt(
         &self,
         _req: crate::model::AugmentPromptRequest,
@@ -7755,7 +7755,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagService::corroborate_content].
+    /// Implements [super::client::VertexRagService::corroborate_content].
     fn corroborate_content(
         &self,
         _req: crate::model::CorroborateContentRequest,
@@ -7767,7 +7767,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VertexRagService::list_locations].
+    /// Implements [super::client::VertexRagService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -7779,7 +7779,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VertexRagService::get_location].
+    /// Implements [super::client::VertexRagService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -7790,7 +7790,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagService::set_iam_policy].
+    /// Implements [super::client::VertexRagService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -7801,7 +7801,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagService::get_iam_policy].
+    /// Implements [super::client::VertexRagService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -7812,7 +7812,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagService::test_iam_permissions].
+    /// Implements [super::client::VertexRagService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -7824,7 +7824,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VertexRagService::list_operations].
+    /// Implements [super::client::VertexRagService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -7836,7 +7836,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VertexRagService::get_operation].
+    /// Implements [super::client::VertexRagService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -7848,7 +7848,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VertexRagService::delete_operation].
+    /// Implements [super::client::VertexRagService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -7857,7 +7857,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VertexRagService::cancel_operation].
+    /// Implements [super::client::VertexRagService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -7866,7 +7866,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VertexRagService::wait_operation].
+    /// Implements [super::client::VertexRagService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -7879,7 +7879,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::VizierService].
+/// Defines the trait used to implement [super::client::VizierService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::VizierService`.  In other use-cases, application developers only
@@ -7891,7 +7891,7 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait VizierService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::VizierService::create_study].
+    /// Implements [super::client::VizierService::create_study].
     fn create_study(
         &self,
         _req: crate::model::CreateStudyRequest,
@@ -7900,7 +7900,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Study>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::get_study].
+    /// Implements [super::client::VizierService::get_study].
     fn get_study(
         &self,
         _req: crate::model::GetStudyRequest,
@@ -7909,7 +7909,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Study>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::list_studies].
+    /// Implements [super::client::VizierService::list_studies].
     fn list_studies(
         &self,
         _req: crate::model::ListStudiesRequest,
@@ -7921,7 +7921,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VizierService::delete_study].
+    /// Implements [super::client::VizierService::delete_study].
     fn delete_study(
         &self,
         _req: crate::model::DeleteStudyRequest,
@@ -7930,7 +7930,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::lookup_study].
+    /// Implements [super::client::VizierService::lookup_study].
     fn lookup_study(
         &self,
         _req: crate::model::LookupStudyRequest,
@@ -7939,7 +7939,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Study>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::suggest_trials].
+    /// Implements [super::client::VizierService::suggest_trials].
     fn suggest_trials(
         &self,
         _req: crate::model::SuggestTrialsRequest,
@@ -7951,7 +7951,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VizierService::create_trial].
+    /// Implements [super::client::VizierService::create_trial].
     fn create_trial(
         &self,
         _req: crate::model::CreateTrialRequest,
@@ -7960,7 +7960,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Trial>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::get_trial].
+    /// Implements [super::client::VizierService::get_trial].
     fn get_trial(
         &self,
         _req: crate::model::GetTrialRequest,
@@ -7969,7 +7969,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Trial>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::list_trials].
+    /// Implements [super::client::VizierService::list_trials].
     fn list_trials(
         &self,
         _req: crate::model::ListTrialsRequest,
@@ -7981,7 +7981,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VizierService::add_trial_measurement].
+    /// Implements [super::client::VizierService::add_trial_measurement].
     fn add_trial_measurement(
         &self,
         _req: crate::model::AddTrialMeasurementRequest,
@@ -7990,7 +7990,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Trial>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::complete_trial].
+    /// Implements [super::client::VizierService::complete_trial].
     fn complete_trial(
         &self,
         _req: crate::model::CompleteTrialRequest,
@@ -7999,7 +7999,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Trial>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::delete_trial].
+    /// Implements [super::client::VizierService::delete_trial].
     fn delete_trial(
         &self,
         _req: crate::model::DeleteTrialRequest,
@@ -8008,7 +8008,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::check_trial_early_stopping_state].
+    /// Implements [super::client::VizierService::check_trial_early_stopping_state].
     fn check_trial_early_stopping_state(
         &self,
         _req: crate::model::CheckTrialEarlyStoppingStateRequest,
@@ -8020,7 +8020,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VizierService::stop_trial].
+    /// Implements [super::client::VizierService::stop_trial].
     fn stop_trial(
         &self,
         _req: crate::model::StopTrialRequest,
@@ -8029,7 +8029,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Trial>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::list_optimal_trials].
+    /// Implements [super::client::VizierService::list_optimal_trials].
     fn list_optimal_trials(
         &self,
         _req: crate::model::ListOptimalTrialsRequest,
@@ -8041,7 +8041,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VizierService::list_locations].
+    /// Implements [super::client::VizierService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -8053,7 +8053,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VizierService::get_location].
+    /// Implements [super::client::VizierService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -8064,7 +8064,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VizierService::set_iam_policy].
+    /// Implements [super::client::VizierService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -8075,7 +8075,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VizierService::get_iam_policy].
+    /// Implements [super::client::VizierService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -8086,7 +8086,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VizierService::test_iam_permissions].
+    /// Implements [super::client::VizierService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -8098,7 +8098,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VizierService::list_operations].
+    /// Implements [super::client::VizierService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -8110,7 +8110,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VizierService::get_operation].
+    /// Implements [super::client::VizierService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -8122,7 +8122,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VizierService::delete_operation].
+    /// Implements [super::client::VizierService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -8131,7 +8131,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::cancel_operation].
+    /// Implements [super::client::VizierService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -8140,7 +8140,7 @@ pub trait VizierService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VizierService::wait_operation].
+    /// Implements [super::client::VizierService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,

@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DataPolicyService].
+/// Defines the trait used to implement [super::client::DataPolicyService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DataPolicyService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DataPolicyService::create_data_policy].
+    /// Implements [super::client::DataPolicyService::create_data_policy].
     fn create_data_policy(
         &self,
         _req: crate::model::CreateDataPolicyRequest,
@@ -51,7 +51,7 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataPolicyService::update_data_policy].
+    /// Implements [super::client::DataPolicyService::update_data_policy].
     fn update_data_policy(
         &self,
         _req: crate::model::UpdateDataPolicyRequest,
@@ -62,7 +62,7 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataPolicyService::rename_data_policy].
+    /// Implements [super::client::DataPolicyService::rename_data_policy].
     fn rename_data_policy(
         &self,
         _req: crate::model::RenameDataPolicyRequest,
@@ -73,7 +73,7 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataPolicyService::delete_data_policy].
+    /// Implements [super::client::DataPolicyService::delete_data_policy].
     fn delete_data_policy(
         &self,
         _req: crate::model::DeleteDataPolicyRequest,
@@ -82,7 +82,7 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataPolicyService::get_data_policy].
+    /// Implements [super::client::DataPolicyService::get_data_policy].
     fn get_data_policy(
         &self,
         _req: crate::model::GetDataPolicyRequest,
@@ -93,7 +93,7 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataPolicyService::list_data_policies].
+    /// Implements [super::client::DataPolicyService::list_data_policies].
     fn list_data_policies(
         &self,
         _req: crate::model::ListDataPoliciesRequest,
@@ -105,7 +105,7 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataPolicyService::get_iam_policy].
+    /// Implements [super::client::DataPolicyService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -116,7 +116,7 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataPolicyService::set_iam_policy].
+    /// Implements [super::client::DataPolicyService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -127,7 +127,7 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataPolicyService::test_iam_permissions].
+    /// Implements [super::client::DataPolicyService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,

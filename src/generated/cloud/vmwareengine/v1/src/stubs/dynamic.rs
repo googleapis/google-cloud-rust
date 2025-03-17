@@ -522,9 +522,9 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::VmwareEngine] also implement [VmwareEngine].
+/// All implementations of [super::VmwareEngine] also implement [VmwareEngine].
 #[async_trait::async_trait]
-impl<T: crate::stubs::VmwareEngine> VmwareEngine for T {
+impl<T: super::VmwareEngine> VmwareEngine for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_private_clouds(
         &self,

@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ConnectionService {
-    inner: Arc<dyn crate::stubs::dynamic::ConnectionService>,
+    inner: Arc<dyn super::stubs::dynamic::ConnectionService>,
 }
 
 impl ConnectionService {
@@ -59,7 +59,7 @@ impl ConnectionService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ConnectionService + 'static,
+        T: super::stubs::ConnectionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl ConnectionService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ConnectionService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ConnectionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl ConnectionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ConnectionService> {
-        crate::transport::ConnectionService::new(conf).await
+    ) -> Result<impl super::stubs::ConnectionService> {
+        super::transport::ConnectionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ConnectionService> {
+    ) -> Result<impl super::stubs::ConnectionService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ConnectionService::new)
+            .map(super::tracing::ConnectionService::new)
     }
 
     /// Lists connections that are currently active for the given Apigee Connect
@@ -94,8 +94,8 @@ impl ConnectionService {
     pub fn list_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::connection_service::ListConnections {
-        crate::builders::connection_service::ListConnections::new(self.inner.clone())
+    ) -> super::builders::connection_service::ListConnections {
+        super::builders::connection_service::ListConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }

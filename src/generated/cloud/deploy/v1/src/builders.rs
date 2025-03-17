@@ -18,10 +18,10 @@ pub mod cloud_deploy {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudDeploy] request builders.
+    /// Common implementation for [super::super::client::CloudDeploy] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod cloud_deploy {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod cloud_deploy {
     pub struct ListDeliveryPipelines(RequestBuilder<crate::model::ListDeliveryPipelinesRequest>);
 
     impl ListDeliveryPipelines {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -126,7 +126,7 @@ pub mod cloud_deploy {
     pub struct GetDeliveryPipeline(RequestBuilder<crate::model::GetDeliveryPipelineRequest>);
 
     impl GetDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -170,7 +170,7 @@ pub mod cloud_deploy {
     pub struct CreateDeliveryPipeline(RequestBuilder<crate::model::CreateDeliveryPipelineRequest>);
 
     impl CreateDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -194,7 +194,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_delivery_pipeline][crate::client::CloudDeploy::create_delivery_pipeline].
+        /// on [create_delivery_pipeline][super::super::client::CloudDeploy::create_delivery_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_delivery_pipeline(self.0.request, self.0.options)
@@ -282,7 +282,7 @@ pub mod cloud_deploy {
     pub struct UpdateDeliveryPipeline(RequestBuilder<crate::model::UpdateDeliveryPipelineRequest>);
 
     impl UpdateDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -306,7 +306,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_delivery_pipeline][crate::client::CloudDeploy::update_delivery_pipeline].
+        /// on [update_delivery_pipeline][super::super::client::CloudDeploy::update_delivery_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_delivery_pipeline(self.0.request, self.0.options)
@@ -397,7 +397,7 @@ pub mod cloud_deploy {
     pub struct DeleteDeliveryPipeline(RequestBuilder<crate::model::DeleteDeliveryPipelineRequest>);
 
     impl DeleteDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -421,7 +421,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_delivery_pipeline][crate::client::CloudDeploy::delete_delivery_pipeline].
+        /// on [delete_delivery_pipeline][super::super::client::CloudDeploy::delete_delivery_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_delivery_pipeline(self.0.request, self.0.options)
@@ -506,7 +506,7 @@ pub mod cloud_deploy {
     pub struct ListTargets(RequestBuilder<crate::model::ListTargetsRequest>);
 
     impl ListTargets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -585,7 +585,7 @@ pub mod cloud_deploy {
     pub struct RollbackTarget(RequestBuilder<crate::model::RollbackTargetRequest>);
 
     impl RollbackTarget {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -678,7 +678,7 @@ pub mod cloud_deploy {
     pub struct GetTarget(RequestBuilder<crate::model::GetTargetRequest>);
 
     impl GetTarget {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -719,7 +719,7 @@ pub mod cloud_deploy {
     pub struct CreateTarget(RequestBuilder<crate::model::CreateTargetRequest>);
 
     impl CreateTarget {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -740,7 +740,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_target][crate::client::CloudDeploy::create_target].
+        /// on [create_target][super::super::client::CloudDeploy::create_target].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_target(self.0.request, self.0.options)
@@ -824,7 +824,7 @@ pub mod cloud_deploy {
     pub struct UpdateTarget(RequestBuilder<crate::model::UpdateTargetRequest>);
 
     impl UpdateTarget {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -845,7 +845,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_target][crate::client::CloudDeploy::update_target].
+        /// on [update_target][super::super::client::CloudDeploy::update_target].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_target(self.0.request, self.0.options)
@@ -932,7 +932,7 @@ pub mod cloud_deploy {
     pub struct DeleteTarget(RequestBuilder<crate::model::DeleteTargetRequest>);
 
     impl DeleteTarget {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -953,7 +953,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_target][crate::client::CloudDeploy::delete_target].
+        /// on [delete_target][super::super::client::CloudDeploy::delete_target].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_target(self.0.request, self.0.options)
@@ -1032,7 +1032,7 @@ pub mod cloud_deploy {
     pub struct ListCustomTargetTypes(RequestBuilder<crate::model::ListCustomTargetTypesRequest>);
 
     impl ListCustomTargetTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1114,7 +1114,7 @@ pub mod cloud_deploy {
     pub struct GetCustomTargetType(RequestBuilder<crate::model::GetCustomTargetTypeRequest>);
 
     impl GetCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1158,7 +1158,7 @@ pub mod cloud_deploy {
     pub struct CreateCustomTargetType(RequestBuilder<crate::model::CreateCustomTargetTypeRequest>);
 
     impl CreateCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1182,7 +1182,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_custom_target_type][crate::client::CloudDeploy::create_custom_target_type].
+        /// on [create_custom_target_type][super::super::client::CloudDeploy::create_custom_target_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_custom_target_type(self.0.request, self.0.options)
@@ -1270,7 +1270,7 @@ pub mod cloud_deploy {
     pub struct UpdateCustomTargetType(RequestBuilder<crate::model::UpdateCustomTargetTypeRequest>);
 
     impl UpdateCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1294,7 +1294,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_custom_target_type][crate::client::CloudDeploy::update_custom_target_type].
+        /// on [update_custom_target_type][super::super::client::CloudDeploy::update_custom_target_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_custom_target_type(self.0.request, self.0.options)
@@ -1385,7 +1385,7 @@ pub mod cloud_deploy {
     pub struct DeleteCustomTargetType(RequestBuilder<crate::model::DeleteCustomTargetTypeRequest>);
 
     impl DeleteCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1409,7 +1409,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_custom_target_type][crate::client::CloudDeploy::delete_custom_target_type].
+        /// on [delete_custom_target_type][super::super::client::CloudDeploy::delete_custom_target_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_custom_target_type(self.0.request, self.0.options)
@@ -1488,7 +1488,7 @@ pub mod cloud_deploy {
     pub struct ListReleases(RequestBuilder<crate::model::ListReleasesRequest>);
 
     impl ListReleases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1567,7 +1567,7 @@ pub mod cloud_deploy {
     pub struct GetRelease(RequestBuilder<crate::model::GetReleaseRequest>);
 
     impl GetRelease {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1608,7 +1608,7 @@ pub mod cloud_deploy {
     pub struct CreateRelease(RequestBuilder<crate::model::CreateReleaseRequest>);
 
     impl CreateRelease {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1629,7 +1629,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_release][crate::client::CloudDeploy::create_release].
+        /// on [create_release][super::super::client::CloudDeploy::create_release].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_release(self.0.request, self.0.options)
@@ -1724,7 +1724,7 @@ pub mod cloud_deploy {
     pub struct AbandonRelease(RequestBuilder<crate::model::AbandonReleaseRequest>);
 
     impl AbandonRelease {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1765,7 +1765,7 @@ pub mod cloud_deploy {
     pub struct CreateDeployPolicy(RequestBuilder<crate::model::CreateDeployPolicyRequest>);
 
     impl CreateDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1789,7 +1789,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_deploy_policy][crate::client::CloudDeploy::create_deploy_policy].
+        /// on [create_deploy_policy][super::super::client::CloudDeploy::create_deploy_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_deploy_policy(self.0.request, self.0.options)
@@ -1874,7 +1874,7 @@ pub mod cloud_deploy {
     pub struct UpdateDeployPolicy(RequestBuilder<crate::model::UpdateDeployPolicyRequest>);
 
     impl UpdateDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1898,7 +1898,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_deploy_policy][crate::client::CloudDeploy::update_deploy_policy].
+        /// on [update_deploy_policy][super::super::client::CloudDeploy::update_deploy_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_deploy_policy(self.0.request, self.0.options)
@@ -1986,7 +1986,7 @@ pub mod cloud_deploy {
     pub struct DeleteDeployPolicy(RequestBuilder<crate::model::DeleteDeployPolicyRequest>);
 
     impl DeleteDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2010,7 +2010,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_deploy_policy][crate::client::CloudDeploy::delete_deploy_policy].
+        /// on [delete_deploy_policy][super::super::client::CloudDeploy::delete_deploy_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_deploy_policy(self.0.request, self.0.options)
@@ -2089,7 +2089,7 @@ pub mod cloud_deploy {
     pub struct ListDeployPolicies(RequestBuilder<crate::model::ListDeployPoliciesRequest>);
 
     impl ListDeployPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2171,7 +2171,7 @@ pub mod cloud_deploy {
     pub struct GetDeployPolicy(RequestBuilder<crate::model::GetDeployPolicyRequest>);
 
     impl GetDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2212,7 +2212,7 @@ pub mod cloud_deploy {
     pub struct ApproveRollout(RequestBuilder<crate::model::ApproveRolloutRequest>);
 
     impl ApproveRollout {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2270,7 +2270,7 @@ pub mod cloud_deploy {
     pub struct AdvanceRollout(RequestBuilder<crate::model::AdvanceRolloutRequest>);
 
     impl AdvanceRollout {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2328,7 +2328,7 @@ pub mod cloud_deploy {
     pub struct CancelRollout(RequestBuilder<crate::model::CancelRolloutRequest>);
 
     impl CancelRollout {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2380,7 +2380,7 @@ pub mod cloud_deploy {
     pub struct ListRollouts(RequestBuilder<crate::model::ListRolloutsRequest>);
 
     impl ListRollouts {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2459,7 +2459,7 @@ pub mod cloud_deploy {
     pub struct GetRollout(RequestBuilder<crate::model::GetRolloutRequest>);
 
     impl GetRollout {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2500,7 +2500,7 @@ pub mod cloud_deploy {
     pub struct CreateRollout(RequestBuilder<crate::model::CreateRolloutRequest>);
 
     impl CreateRollout {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2521,7 +2521,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_rollout][crate::client::CloudDeploy::create_rollout].
+        /// on [create_rollout][super::super::client::CloudDeploy::create_rollout].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_rollout(self.0.request, self.0.options)
@@ -2622,7 +2622,7 @@ pub mod cloud_deploy {
     pub struct IgnoreJob(RequestBuilder<crate::model::IgnoreJobRequest>);
 
     impl IgnoreJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2686,7 +2686,7 @@ pub mod cloud_deploy {
     pub struct RetryJob(RequestBuilder<crate::model::RetryJobRequest>);
 
     impl RetryJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2750,7 +2750,7 @@ pub mod cloud_deploy {
     pub struct ListJobRuns(RequestBuilder<crate::model::ListJobRunsRequest>);
 
     impl ListJobRuns {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2829,7 +2829,7 @@ pub mod cloud_deploy {
     pub struct GetJobRun(RequestBuilder<crate::model::GetJobRunRequest>);
 
     impl GetJobRun {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2870,7 +2870,7 @@ pub mod cloud_deploy {
     pub struct TerminateJobRun(RequestBuilder<crate::model::TerminateJobRunRequest>);
 
     impl TerminateJobRun {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2922,7 +2922,7 @@ pub mod cloud_deploy {
     pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
 
     impl GetConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2963,7 +2963,7 @@ pub mod cloud_deploy {
     pub struct CreateAutomation(RequestBuilder<crate::model::CreateAutomationRequest>);
 
     impl CreateAutomation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2987,7 +2987,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_automation][crate::client::CloudDeploy::create_automation].
+        /// on [create_automation][super::super::client::CloudDeploy::create_automation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_automation(self.0.request, self.0.options)
@@ -3072,7 +3072,7 @@ pub mod cloud_deploy {
     pub struct UpdateAutomation(RequestBuilder<crate::model::UpdateAutomationRequest>);
 
     impl UpdateAutomation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3096,7 +3096,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_automation][crate::client::CloudDeploy::update_automation].
+        /// on [update_automation][super::super::client::CloudDeploy::update_automation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_automation(self.0.request, self.0.options)
@@ -3184,7 +3184,7 @@ pub mod cloud_deploy {
     pub struct DeleteAutomation(RequestBuilder<crate::model::DeleteAutomationRequest>);
 
     impl DeleteAutomation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3208,7 +3208,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_automation][crate::client::CloudDeploy::delete_automation].
+        /// on [delete_automation][super::super::client::CloudDeploy::delete_automation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_automation(self.0.request, self.0.options)
@@ -3287,7 +3287,7 @@ pub mod cloud_deploy {
     pub struct GetAutomation(RequestBuilder<crate::model::GetAutomationRequest>);
 
     impl GetAutomation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3328,7 +3328,7 @@ pub mod cloud_deploy {
     pub struct ListAutomations(RequestBuilder<crate::model::ListAutomationsRequest>);
 
     impl ListAutomations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3407,7 +3407,7 @@ pub mod cloud_deploy {
     pub struct GetAutomationRun(RequestBuilder<crate::model::GetAutomationRunRequest>);
 
     impl GetAutomationRun {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3451,7 +3451,7 @@ pub mod cloud_deploy {
     pub struct ListAutomationRuns(RequestBuilder<crate::model::ListAutomationRunsRequest>);
 
     impl ListAutomationRuns {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3533,7 +3533,7 @@ pub mod cloud_deploy {
     pub struct CancelAutomationRun(RequestBuilder<crate::model::CancelAutomationRunRequest>);
 
     impl CancelAutomationRun {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3577,7 +3577,7 @@ pub mod cloud_deploy {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3653,7 +3653,7 @@ pub mod cloud_deploy {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3694,7 +3694,7 @@ pub mod cloud_deploy {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3753,7 +3753,7 @@ pub mod cloud_deploy {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3803,7 +3803,7 @@ pub mod cloud_deploy {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3858,7 +3858,7 @@ pub mod cloud_deploy {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3934,7 +3934,7 @@ pub mod cloud_deploy {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3978,7 +3978,7 @@ pub mod cloud_deploy {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4022,7 +4022,7 @@ pub mod cloud_deploy {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudDeploy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Policies {
-    inner: Arc<dyn crate::stubs::dynamic::Policies>,
+    inner: Arc<dyn super::stubs::dynamic::Policies>,
 }
 
 impl Policies {
@@ -59,7 +59,7 @@ impl Policies {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Policies + 'static,
+        T: super::stubs::Policies + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl Policies {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Policies>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Policies>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl Policies {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Policies> {
-        crate::transport::Policies::new(conf).await
+    ) -> Result<impl super::stubs::Policies> {
+        super::transport::Policies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Policies> {
+    ) -> Result<impl super::stubs::Policies> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Policies::new)
+            .map(super::tracing::Policies::new)
     }
 
     /// Retrieves the policies of the specified kind that are attached to a
@@ -97,16 +97,16 @@ impl Policies {
     pub fn list_policies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::policies::ListPolicies {
-        crate::builders::policies::ListPolicies::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::policies::ListPolicies {
+        super::builders::policies::ListPolicies::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a policy.
     pub fn get_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policies::GetPolicy {
-        crate::builders::policies::GetPolicy::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::policies::GetPolicy {
+        super::builders::policies::GetPolicy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a policy.
@@ -123,8 +123,8 @@ impl Policies {
     pub fn create_policy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::policies::CreatePolicy {
-        crate::builders::policies::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::policies::CreatePolicy {
+        super::builders::policies::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates the specified policy.
@@ -153,8 +153,8 @@ impl Policies {
     pub fn update_policy(
         &self,
         policy: impl Into<crate::model::Policy>,
-    ) -> crate::builders::policies::UpdatePolicy {
-        crate::builders::policies::UpdatePolicy::new(self.inner.clone()).set_policy(policy.into())
+    ) -> super::builders::policies::UpdatePolicy {
+        super::builders::policies::UpdatePolicy::new(self.inner.clone()).set_policy(policy.into())
     }
 
     /// Deletes a policy. This action is permanent.
@@ -171,8 +171,8 @@ impl Policies {
     pub fn delete_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policies::DeletePolicy {
-        crate::builders::policies::DeletePolicy::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::policies::DeletePolicy {
+        super::builders::policies::DeletePolicy::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -181,7 +181,7 @@ impl Policies {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policies::GetOperation {
-        crate::builders::policies::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::policies::GetOperation {
+        super::builders::policies::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

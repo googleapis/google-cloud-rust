@@ -102,9 +102,9 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Folders] also implement [Folders].
+/// All implementations of [super::Folders] also implement [Folders].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Folders> Folders for T {
+impl<T: super::Folders> Folders for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_folder(
         &self,
@@ -268,9 +268,9 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::Organizations] also implement [Organizations].
+/// All implementations of [super::Organizations] also implement [Organizations].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Organizations> Organizations for T {
+impl<T: super::Organizations> Organizations for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_organization(
         &self,
@@ -412,9 +412,9 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Projects] also implement [Projects].
+/// All implementations of [super::Projects] also implement [Projects].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Projects> Projects for T {
+impl<T: super::Projects> Projects for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_project(
         &self,
@@ -582,9 +582,9 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::TagBindings] also implement [TagBindings].
+/// All implementations of [super::TagBindings] also implement [TagBindings].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TagBindings> TagBindings for T {
+impl<T: super::TagBindings> TagBindings for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_tag_bindings(
         &self,
@@ -683,9 +683,9 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::TagHolds] also implement [TagHolds].
+/// All implementations of [super::TagHolds] also implement [TagHolds].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TagHolds> TagHolds for T {
+impl<T: super::TagHolds> TagHolds for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_tag_hold(
         &self,
@@ -811,9 +811,9 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::TagKeys] also implement [TagKeys].
+/// All implementations of [super::TagKeys] also implement [TagKeys].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TagKeys> TagKeys for T {
+impl<T: super::TagKeys> TagKeys for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_tag_keys(
         &self,
@@ -993,9 +993,9 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::TagValues] also implement [TagValues].
+/// All implementations of [super::TagValues] also implement [TagValues].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TagValues> TagValues for T {
+impl<T: super::TagValues> TagValues for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_tag_values(
         &self,

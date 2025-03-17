@@ -41,7 +41,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct QuotaController {
-    inner: Arc<dyn crate::stubs::dynamic::QuotaController>,
+    inner: Arc<dyn super::stubs::dynamic::QuotaController>,
 }
 
 impl QuotaController {
@@ -62,7 +62,7 @@ impl QuotaController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::QuotaController + 'static,
+        T: super::stubs::QuotaController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -71,7 +71,7 @@ impl QuotaController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::QuotaController>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::QuotaController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -80,16 +80,16 @@ impl QuotaController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::QuotaController> {
-        crate::transport::QuotaController::new(conf).await
+    ) -> Result<impl super::stubs::QuotaController> {
+        super::transport::QuotaController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::QuotaController> {
+    ) -> Result<impl super::stubs::QuotaController> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::QuotaController::new)
+            .map(super::tracing::QuotaController::new)
     }
 
     /// Attempts to allocate quota for the specified consumer. It should be called
@@ -106,8 +106,8 @@ impl QuotaController {
     pub fn allocate_quota(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::quota_controller::AllocateQuota {
-        crate::builders::quota_controller::AllocateQuota::new(self.inner.clone())
+    ) -> super::builders::quota_controller::AllocateQuota {
+        super::builders::quota_controller::AllocateQuota::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 }
@@ -134,7 +134,7 @@ impl QuotaController {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServiceController {
-    inner: Arc<dyn crate::stubs::dynamic::ServiceController>,
+    inner: Arc<dyn super::stubs::dynamic::ServiceController>,
 }
 
 impl ServiceController {
@@ -155,7 +155,7 @@ impl ServiceController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ServiceController + 'static,
+        T: super::stubs::ServiceController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -164,7 +164,7 @@ impl ServiceController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ServiceController>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ServiceController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -173,16 +173,16 @@ impl ServiceController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceController> {
-        crate::transport::ServiceController::new(conf).await
+    ) -> Result<impl super::stubs::ServiceController> {
+        super::transport::ServiceController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceController> {
+    ) -> Result<impl super::stubs::ServiceController> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ServiceController::new)
+            .map(super::tracing::ServiceController::new)
     }
 
     /// Checks whether an operation on a service should be allowed to proceed
@@ -207,8 +207,8 @@ impl ServiceController {
     pub fn check(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_controller::Check {
-        crate::builders::service_controller::Check::new(self.inner.clone())
+    ) -> super::builders::service_controller::Check {
+        super::builders::service_controller::Check::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -232,8 +232,8 @@ impl ServiceController {
     pub fn report(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_controller::Report {
-        crate::builders::service_controller::Report::new(self.inner.clone())
+    ) -> super::builders::service_controller::Report {
+        super::builders::service_controller::Report::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 }

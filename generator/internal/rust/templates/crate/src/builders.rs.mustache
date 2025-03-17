@@ -23,17 +23,17 @@ pub mod {{Codec.ModuleName}} {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::{{Codec.Name}}] request builders.
+    /// Common implementation for [super::super::client::{{Codec.Name}}] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::{{Codec.Name}}>,
+        stub: Arc<dyn super::super::stubs::dynamic::{{Codec.Name}}>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::{{Codec.Name}}>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::{{Codec.Name}}>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -48,7 +48,7 @@ pub mod {{Codec.ModuleName}} {
     pub struct {{Codec.BuilderName}}(RequestBuilder<{{InputType.Codec.QualifiedName}}>);
 
     impl {{Codec.BuilderName}} {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::{{Codec.ServiceNameToPascal}}>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::{{Codec.ServiceNameToPascal}}>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
@@ -72,7 +72,7 @@ pub mod {{Codec.ModuleName}} {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [{{Method.Codec.Name}}][crate::client::{{Method.Codec.ServiceNameToPascal}}::{{Method.Codec.Name}}].
+        /// on [{{Method.Codec.Name}}][super::super::client::{{Method.Codec.ServiceNameToPascal}}::{{Method.Codec.Name}}].
         {{/OperationInfo}}
         pub async fn send(self) -> Result<{{OutputType.Codec.QualifiedName}}> {
             {{!

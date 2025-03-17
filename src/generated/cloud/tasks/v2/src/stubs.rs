@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudTasks].
+/// Defines the trait used to implement [super::client::CloudTasks].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudTasks`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudTasks: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudTasks::list_queues].
+    /// Implements [super::client::CloudTasks::list_queues].
     fn list_queues(
         &self,
         _req: crate::model::ListQueuesRequest,
@@ -52,7 +52,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudTasks::get_queue].
+    /// Implements [super::client::CloudTasks::get_queue].
     fn get_queue(
         &self,
         _req: crate::model::GetQueueRequest,
@@ -61,7 +61,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::create_queue].
+    /// Implements [super::client::CloudTasks::create_queue].
     fn create_queue(
         &self,
         _req: crate::model::CreateQueueRequest,
@@ -70,7 +70,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::update_queue].
+    /// Implements [super::client::CloudTasks::update_queue].
     fn update_queue(
         &self,
         _req: crate::model::UpdateQueueRequest,
@@ -79,7 +79,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::delete_queue].
+    /// Implements [super::client::CloudTasks::delete_queue].
     fn delete_queue(
         &self,
         _req: crate::model::DeleteQueueRequest,
@@ -88,7 +88,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::purge_queue].
+    /// Implements [super::client::CloudTasks::purge_queue].
     fn purge_queue(
         &self,
         _req: crate::model::PurgeQueueRequest,
@@ -97,7 +97,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::pause_queue].
+    /// Implements [super::client::CloudTasks::pause_queue].
     fn pause_queue(
         &self,
         _req: crate::model::PauseQueueRequest,
@@ -106,7 +106,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::resume_queue].
+    /// Implements [super::client::CloudTasks::resume_queue].
     fn resume_queue(
         &self,
         _req: crate::model::ResumeQueueRequest,
@@ -115,7 +115,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::get_iam_policy].
+    /// Implements [super::client::CloudTasks::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -126,7 +126,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudTasks::set_iam_policy].
+    /// Implements [super::client::CloudTasks::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -137,7 +137,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudTasks::test_iam_permissions].
+    /// Implements [super::client::CloudTasks::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -149,7 +149,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudTasks::list_tasks].
+    /// Implements [super::client::CloudTasks::list_tasks].
     fn list_tasks(
         &self,
         _req: crate::model::ListTasksRequest,
@@ -161,7 +161,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudTasks::get_task].
+    /// Implements [super::client::CloudTasks::get_task].
     fn get_task(
         &self,
         _req: crate::model::GetTaskRequest,
@@ -170,7 +170,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Task>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::create_task].
+    /// Implements [super::client::CloudTasks::create_task].
     fn create_task(
         &self,
         _req: crate::model::CreateTaskRequest,
@@ -179,7 +179,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Task>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::delete_task].
+    /// Implements [super::client::CloudTasks::delete_task].
     fn delete_task(
         &self,
         _req: crate::model::DeleteTaskRequest,
@@ -188,7 +188,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::run_task].
+    /// Implements [super::client::CloudTasks::run_task].
     fn run_task(
         &self,
         _req: crate::model::RunTaskRequest,
@@ -197,7 +197,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Task>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::CloudTasks::list_locations].
+    /// Implements [super::client::CloudTasks::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -209,7 +209,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudTasks::get_location].
+    /// Implements [super::client::CloudTasks::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,

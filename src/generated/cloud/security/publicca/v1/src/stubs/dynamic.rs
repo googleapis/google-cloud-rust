@@ -24,9 +24,9 @@ pub trait PublicCertificateAuthorityService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ExternalAccountKey>;
 }
 
-/// All implementations of [crate::stubs::PublicCertificateAuthorityService] also implement [PublicCertificateAuthorityService].
+/// All implementations of [super::PublicCertificateAuthorityService] also implement [PublicCertificateAuthorityService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::PublicCertificateAuthorityService> PublicCertificateAuthorityService for T {
+impl<T: super::PublicCertificateAuthorityService> PublicCertificateAuthorityService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_external_account_key(
         &self,

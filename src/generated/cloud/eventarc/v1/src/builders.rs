@@ -18,10 +18,10 @@ pub mod eventarc {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Eventarc] request builders.
+    /// Common implementation for [super::super::client::Eventarc] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Eventarc>,
+        stub: Arc<dyn super::super::stubs::dynamic::Eventarc>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod eventarc {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod eventarc {
     pub struct GetTrigger(RequestBuilder<crate::model::GetTriggerRequest>);
 
     impl GetTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -85,7 +85,7 @@ pub mod eventarc {
     pub struct ListTriggers(RequestBuilder<crate::model::ListTriggersRequest>);
 
     impl ListTriggers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -164,7 +164,7 @@ pub mod eventarc {
     pub struct CreateTrigger(RequestBuilder<crate::model::CreateTriggerRequest>);
 
     impl CreateTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -185,7 +185,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_trigger][crate::client::Eventarc::create_trigger].
+        /// on [create_trigger][super::super::client::Eventarc::create_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_trigger(self.0.request, self.0.options)
@@ -263,7 +263,7 @@ pub mod eventarc {
     pub struct UpdateTrigger(RequestBuilder<crate::model::UpdateTriggerRequest>);
 
     impl UpdateTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -284,7 +284,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_trigger][crate::client::Eventarc::update_trigger].
+        /// on [update_trigger][super::super::client::Eventarc::update_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_trigger(self.0.request, self.0.options)
@@ -365,7 +365,7 @@ pub mod eventarc {
     pub struct DeleteTrigger(RequestBuilder<crate::model::DeleteTriggerRequest>);
 
     impl DeleteTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -386,7 +386,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_trigger][crate::client::Eventarc::delete_trigger].
+        /// on [delete_trigger][super::super::client::Eventarc::delete_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_trigger(self.0.request, self.0.options)
@@ -461,7 +461,7 @@ pub mod eventarc {
     pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
 
     impl GetChannel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -502,7 +502,7 @@ pub mod eventarc {
     pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
 
     impl ListChannels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -575,7 +575,7 @@ pub mod eventarc {
     pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
 
     impl CreateChannel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -596,7 +596,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_channel][crate::client::Eventarc::create_channel].
+        /// on [create_channel][super::super::client::Eventarc::create_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_channel(self.0.request, self.0.options)
@@ -674,7 +674,7 @@ pub mod eventarc {
     pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
 
     impl UpdateChannel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -695,7 +695,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_channel][crate::client::Eventarc::update_channel].
+        /// on [update_channel][super::super::client::Eventarc::update_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_channel(self.0.request, self.0.options)
@@ -770,7 +770,7 @@ pub mod eventarc {
     pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
 
     impl DeleteChannel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -791,7 +791,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_channel][crate::client::Eventarc::delete_channel].
+        /// on [delete_channel][super::super::client::Eventarc::delete_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_channel(self.0.request, self.0.options)
@@ -854,7 +854,7 @@ pub mod eventarc {
     pub struct GetProvider(RequestBuilder<crate::model::GetProviderRequest>);
 
     impl GetProvider {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -895,7 +895,7 @@ pub mod eventarc {
     pub struct ListProviders(RequestBuilder<crate::model::ListProvidersRequest>);
 
     impl ListProviders {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -974,7 +974,7 @@ pub mod eventarc {
     pub struct GetChannelConnection(RequestBuilder<crate::model::GetChannelConnectionRequest>);
 
     impl GetChannelConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1018,7 +1018,7 @@ pub mod eventarc {
     pub struct ListChannelConnections(RequestBuilder<crate::model::ListChannelConnectionsRequest>);
 
     impl ListChannelConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1092,7 +1092,7 @@ pub mod eventarc {
     );
 
     impl CreateChannelConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1116,7 +1116,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_channel_connection][crate::client::Eventarc::create_channel_connection].
+        /// on [create_channel_connection][super::super::client::Eventarc::create_channel_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_channel_connection(self.0.request, self.0.options)
@@ -1194,7 +1194,7 @@ pub mod eventarc {
     );
 
     impl DeleteChannelConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1218,7 +1218,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_channel_connection][crate::client::Eventarc::delete_channel_connection].
+        /// on [delete_channel_connection][super::super::client::Eventarc::delete_channel_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_channel_connection(self.0.request, self.0.options)
@@ -1277,7 +1277,7 @@ pub mod eventarc {
     pub struct GetGoogleChannelConfig(RequestBuilder<crate::model::GetGoogleChannelConfigRequest>);
 
     impl GetGoogleChannelConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1323,7 +1323,7 @@ pub mod eventarc {
     );
 
     impl UpdateGoogleChannelConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1381,7 +1381,7 @@ pub mod eventarc {
     pub struct GetMessageBus(RequestBuilder<crate::model::GetMessageBusRequest>);
 
     impl GetMessageBus {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1422,7 +1422,7 @@ pub mod eventarc {
     pub struct ListMessageBuses(RequestBuilder<crate::model::ListMessageBusesRequest>);
 
     impl ListMessageBuses {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1506,7 +1506,7 @@ pub mod eventarc {
     );
 
     impl ListMessageBusEnrollments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1562,7 +1562,7 @@ pub mod eventarc {
     pub struct CreateMessageBus(RequestBuilder<crate::model::CreateMessageBusRequest>);
 
     impl CreateMessageBus {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1586,7 +1586,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_message_bus][crate::client::Eventarc::create_message_bus].
+        /// on [create_message_bus][super::super::client::Eventarc::create_message_bus].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_message_bus(self.0.request, self.0.options)
@@ -1665,7 +1665,7 @@ pub mod eventarc {
     pub struct UpdateMessageBus(RequestBuilder<crate::model::UpdateMessageBusRequest>);
 
     impl UpdateMessageBus {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1689,7 +1689,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_message_bus][crate::client::Eventarc::update_message_bus].
+        /// on [update_message_bus][super::super::client::Eventarc::update_message_bus].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_message_bus(self.0.request, self.0.options)
@@ -1771,7 +1771,7 @@ pub mod eventarc {
     pub struct DeleteMessageBus(RequestBuilder<crate::model::DeleteMessageBusRequest>);
 
     impl DeleteMessageBus {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1795,7 +1795,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_message_bus][crate::client::Eventarc::delete_message_bus].
+        /// on [delete_message_bus][super::super::client::Eventarc::delete_message_bus].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_message_bus(self.0.request, self.0.options)
@@ -1871,7 +1871,7 @@ pub mod eventarc {
     pub struct GetEnrollment(RequestBuilder<crate::model::GetEnrollmentRequest>);
 
     impl GetEnrollment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1912,7 +1912,7 @@ pub mod eventarc {
     pub struct ListEnrollments(RequestBuilder<crate::model::ListEnrollmentsRequest>);
 
     impl ListEnrollments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1991,7 +1991,7 @@ pub mod eventarc {
     pub struct CreateEnrollment(RequestBuilder<crate::model::CreateEnrollmentRequest>);
 
     impl CreateEnrollment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2015,7 +2015,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_enrollment][crate::client::Eventarc::create_enrollment].
+        /// on [create_enrollment][super::super::client::Eventarc::create_enrollment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_enrollment(self.0.request, self.0.options)
@@ -2094,7 +2094,7 @@ pub mod eventarc {
     pub struct UpdateEnrollment(RequestBuilder<crate::model::UpdateEnrollmentRequest>);
 
     impl UpdateEnrollment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2118,7 +2118,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_enrollment][crate::client::Eventarc::update_enrollment].
+        /// on [update_enrollment][super::super::client::Eventarc::update_enrollment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_enrollment(self.0.request, self.0.options)
@@ -2200,7 +2200,7 @@ pub mod eventarc {
     pub struct DeleteEnrollment(RequestBuilder<crate::model::DeleteEnrollmentRequest>);
 
     impl DeleteEnrollment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2224,7 +2224,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_enrollment][crate::client::Eventarc::delete_enrollment].
+        /// on [delete_enrollment][super::super::client::Eventarc::delete_enrollment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_enrollment(self.0.request, self.0.options)
@@ -2300,7 +2300,7 @@ pub mod eventarc {
     pub struct GetPipeline(RequestBuilder<crate::model::GetPipelineRequest>);
 
     impl GetPipeline {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2341,7 +2341,7 @@ pub mod eventarc {
     pub struct ListPipelines(RequestBuilder<crate::model::ListPipelinesRequest>);
 
     impl ListPipelines {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2420,7 +2420,7 @@ pub mod eventarc {
     pub struct CreatePipeline(RequestBuilder<crate::model::CreatePipelineRequest>);
 
     impl CreatePipeline {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2441,7 +2441,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_pipeline][crate::client::Eventarc::create_pipeline].
+        /// on [create_pipeline][super::super::client::Eventarc::create_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_pipeline(self.0.request, self.0.options)
@@ -2520,7 +2520,7 @@ pub mod eventarc {
     pub struct UpdatePipeline(RequestBuilder<crate::model::UpdatePipelineRequest>);
 
     impl UpdatePipeline {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2541,7 +2541,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_pipeline][crate::client::Eventarc::update_pipeline].
+        /// on [update_pipeline][super::super::client::Eventarc::update_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_pipeline(self.0.request, self.0.options)
@@ -2623,7 +2623,7 @@ pub mod eventarc {
     pub struct DeletePipeline(RequestBuilder<crate::model::DeletePipelineRequest>);
 
     impl DeletePipeline {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2644,7 +2644,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_pipeline][crate::client::Eventarc::delete_pipeline].
+        /// on [delete_pipeline][super::super::client::Eventarc::delete_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_pipeline(self.0.request, self.0.options)
@@ -2720,7 +2720,7 @@ pub mod eventarc {
     pub struct GetGoogleApiSource(RequestBuilder<crate::model::GetGoogleApiSourceRequest>);
 
     impl GetGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2764,7 +2764,7 @@ pub mod eventarc {
     pub struct ListGoogleApiSources(RequestBuilder<crate::model::ListGoogleApiSourcesRequest>);
 
     impl ListGoogleApiSources {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2846,7 +2846,7 @@ pub mod eventarc {
     pub struct CreateGoogleApiSource(RequestBuilder<crate::model::CreateGoogleApiSourceRequest>);
 
     impl CreateGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2870,7 +2870,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_google_api_source][crate::client::Eventarc::create_google_api_source].
+        /// on [create_google_api_source][super::super::client::Eventarc::create_google_api_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_google_api_source(self.0.request, self.0.options)
@@ -2952,7 +2952,7 @@ pub mod eventarc {
     pub struct UpdateGoogleApiSource(RequestBuilder<crate::model::UpdateGoogleApiSourceRequest>);
 
     impl UpdateGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2976,7 +2976,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_google_api_source][crate::client::Eventarc::update_google_api_source].
+        /// on [update_google_api_source][super::super::client::Eventarc::update_google_api_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_google_api_source(self.0.request, self.0.options)
@@ -3061,7 +3061,7 @@ pub mod eventarc {
     pub struct DeleteGoogleApiSource(RequestBuilder<crate::model::DeleteGoogleApiSourceRequest>);
 
     impl DeleteGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3085,7 +3085,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_google_api_source][crate::client::Eventarc::delete_google_api_source].
+        /// on [delete_google_api_source][super::super::client::Eventarc::delete_google_api_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_google_api_source(self.0.request, self.0.options)
@@ -3162,7 +3162,7 @@ pub mod eventarc {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3238,7 +3238,7 @@ pub mod eventarc {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3279,7 +3279,7 @@ pub mod eventarc {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3338,7 +3338,7 @@ pub mod eventarc {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3388,7 +3388,7 @@ pub mod eventarc {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3443,7 +3443,7 @@ pub mod eventarc {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3519,7 +3519,7 @@ pub mod eventarc {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3563,7 +3563,7 @@ pub mod eventarc {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3607,7 +3607,7 @@ pub mod eventarc {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

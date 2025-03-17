@@ -180,9 +180,9 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::SecureSourceManager] also implement [SecureSourceManager].
+/// All implementations of [super::SecureSourceManager] also implement [SecureSourceManager].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SecureSourceManager> SecureSourceManager for T {
+impl<T: super::SecureSourceManager> SecureSourceManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_instances(
         &self,

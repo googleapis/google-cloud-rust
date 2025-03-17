@@ -18,10 +18,10 @@ pub mod cloud_tasks {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudTasks] request builders.
+    /// Common implementation for [super::super::client::CloudTasks] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudTasks>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod cloud_tasks {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod cloud_tasks {
     pub struct ListQueues(RequestBuilder<crate::model::ListQueuesRequest>);
 
     impl ListQueues {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -117,7 +117,7 @@ pub mod cloud_tasks {
     pub struct GetQueue(RequestBuilder<crate::model::GetQueueRequest>);
 
     impl GetQueue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -158,7 +158,7 @@ pub mod cloud_tasks {
     pub struct CreateQueue(RequestBuilder<crate::model::CreateQueueRequest>);
 
     impl CreateQueue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -208,7 +208,7 @@ pub mod cloud_tasks {
     pub struct UpdateQueue(RequestBuilder<crate::model::UpdateQueueRequest>);
 
     impl UpdateQueue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -261,7 +261,7 @@ pub mod cloud_tasks {
     pub struct DeleteQueue(RequestBuilder<crate::model::DeleteQueueRequest>);
 
     impl DeleteQueue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -302,7 +302,7 @@ pub mod cloud_tasks {
     pub struct PurgeQueue(RequestBuilder<crate::model::PurgeQueueRequest>);
 
     impl PurgeQueue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -343,7 +343,7 @@ pub mod cloud_tasks {
     pub struct PauseQueue(RequestBuilder<crate::model::PauseQueueRequest>);
 
     impl PauseQueue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -384,7 +384,7 @@ pub mod cloud_tasks {
     pub struct ResumeQueue(RequestBuilder<crate::model::ResumeQueueRequest>);
 
     impl ResumeQueue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -425,7 +425,7 @@ pub mod cloud_tasks {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -475,7 +475,7 @@ pub mod cloud_tasks {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -534,7 +534,7 @@ pub mod cloud_tasks {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -589,7 +589,7 @@ pub mod cloud_tasks {
     pub struct ListTasks(RequestBuilder<crate::model::ListTasksRequest>);
 
     impl ListTasks {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -661,7 +661,7 @@ pub mod cloud_tasks {
     pub struct GetTask(RequestBuilder<crate::model::GetTaskRequest>);
 
     impl GetTask {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -708,7 +708,7 @@ pub mod cloud_tasks {
     pub struct CreateTask(RequestBuilder<crate::model::CreateTaskRequest>);
 
     impl CreateTask {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -761,7 +761,7 @@ pub mod cloud_tasks {
     pub struct DeleteTask(RequestBuilder<crate::model::DeleteTaskRequest>);
 
     impl DeleteTask {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -802,7 +802,7 @@ pub mod cloud_tasks {
     pub struct RunTask(RequestBuilder<crate::model::RunTaskRequest>);
 
     impl RunTask {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -849,7 +849,7 @@ pub mod cloud_tasks {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -925,7 +925,7 @@ pub mod cloud_tasks {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudTasks>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

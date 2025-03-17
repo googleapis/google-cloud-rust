@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AlloyDBAdmin](crate::stubs::AlloyDBAdmin) using a [gclient::ReqwestClient].
+/// Implements [AlloyDBAdmin](super::stubs::AlloyDBAdmin) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct AlloyDBAdmin {
     inner: gclient::ReqwestClient,
@@ -39,7 +39,7 @@ impl AlloyDBAdmin {
     }
 }
 
-impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
+impl super::stubs::AlloyDBAdmin for AlloyDBAdmin {
     async fn list_clusters(
         &self,
         req: crate::model::ListClustersRequest,

@@ -192,9 +192,9 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Environments] also implement [Environments].
+/// All implementations of [super::Environments] also implement [Environments].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Environments> Environments for T {
+impl<T: super::Environments> Environments for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_environment(
         &self,
@@ -481,9 +481,9 @@ pub trait ImageVersions: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::ImageVersions] also implement [ImageVersions].
+/// All implementations of [super::ImageVersions] also implement [ImageVersions].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ImageVersions> ImageVersions for T {
+impl<T: super::ImageVersions> ImageVersions for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_image_versions(
         &self,

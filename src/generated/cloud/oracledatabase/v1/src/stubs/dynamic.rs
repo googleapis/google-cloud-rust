@@ -198,9 +198,9 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::OracleDatabase] also implement [OracleDatabase].
+/// All implementations of [super::OracleDatabase] also implement [OracleDatabase].
 #[async_trait::async_trait]
-impl<T: crate::stubs::OracleDatabase> OracleDatabase for T {
+impl<T: super::OracleDatabase> OracleDatabase for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_cloud_exadata_infrastructures(
         &self,

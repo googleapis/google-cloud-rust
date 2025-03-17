@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::LoggingServiceV2].
+/// Defines the trait used to implement [super::client::LoggingServiceV2].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::LoggingServiceV2`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::LoggingServiceV2::delete_log].
+    /// Implements [super::client::LoggingServiceV2::delete_log].
     fn delete_log(
         &self,
         _req: crate::model::DeleteLogRequest,
@@ -50,7 +50,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::LoggingServiceV2::write_log_entries].
+    /// Implements [super::client::LoggingServiceV2::write_log_entries].
     fn write_log_entries(
         &self,
         _req: crate::model::WriteLogEntriesRequest,
@@ -62,7 +62,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LoggingServiceV2::list_log_entries].
+    /// Implements [super::client::LoggingServiceV2::list_log_entries].
     fn list_log_entries(
         &self,
         _req: crate::model::ListLogEntriesRequest,
@@ -74,7 +74,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LoggingServiceV2::list_monitored_resource_descriptors].
+    /// Implements [super::client::LoggingServiceV2::list_monitored_resource_descriptors].
     fn list_monitored_resource_descriptors(
         &self,
         _req: crate::model::ListMonitoredResourceDescriptorsRequest,
@@ -87,7 +87,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::LoggingServiceV2::list_logs].
+    /// Implements [super::client::LoggingServiceV2::list_logs].
     fn list_logs(
         &self,
         _req: crate::model::ListLogsRequest,
@@ -99,7 +99,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LoggingServiceV2::list_operations].
+    /// Implements [super::client::LoggingServiceV2::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -111,7 +111,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LoggingServiceV2::get_operation].
+    /// Implements [super::client::LoggingServiceV2::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -123,7 +123,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LoggingServiceV2::cancel_operation].
+    /// Implements [super::client::LoggingServiceV2::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -133,7 +133,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ConfigServiceV2].
+/// Defines the trait used to implement [super::client::ConfigServiceV2].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ConfigServiceV2`.  In other use-cases, application developers only
@@ -145,7 +145,7 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ConfigServiceV2::list_buckets].
+    /// Implements [super::client::ConfigServiceV2::list_buckets].
     fn list_buckets(
         &self,
         _req: crate::model::ListBucketsRequest,
@@ -157,7 +157,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::get_bucket].
+    /// Implements [super::client::ConfigServiceV2::get_bucket].
     fn get_bucket(
         &self,
         _req: crate::model::GetBucketRequest,
@@ -168,7 +168,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::create_bucket_async].
+    /// Implements [super::client::ConfigServiceV2::create_bucket_async].
     fn create_bucket_async(
         &self,
         _req: crate::model::CreateBucketRequest,
@@ -180,7 +180,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::update_bucket_async].
+    /// Implements [super::client::ConfigServiceV2::update_bucket_async].
     fn update_bucket_async(
         &self,
         _req: crate::model::UpdateBucketRequest,
@@ -192,7 +192,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::create_bucket].
+    /// Implements [super::client::ConfigServiceV2::create_bucket].
     fn create_bucket(
         &self,
         _req: crate::model::CreateBucketRequest,
@@ -203,7 +203,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::update_bucket].
+    /// Implements [super::client::ConfigServiceV2::update_bucket].
     fn update_bucket(
         &self,
         _req: crate::model::UpdateBucketRequest,
@@ -214,7 +214,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::delete_bucket].
+    /// Implements [super::client::ConfigServiceV2::delete_bucket].
     fn delete_bucket(
         &self,
         _req: crate::model::DeleteBucketRequest,
@@ -223,7 +223,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::undelete_bucket].
+    /// Implements [super::client::ConfigServiceV2::undelete_bucket].
     fn undelete_bucket(
         &self,
         _req: crate::model::UndeleteBucketRequest,
@@ -232,7 +232,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::list_views].
+    /// Implements [super::client::ConfigServiceV2::list_views].
     fn list_views(
         &self,
         _req: crate::model::ListViewsRequest,
@@ -244,7 +244,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::get_view].
+    /// Implements [super::client::ConfigServiceV2::get_view].
     fn get_view(
         &self,
         _req: crate::model::GetViewRequest,
@@ -255,7 +255,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::create_view].
+    /// Implements [super::client::ConfigServiceV2::create_view].
     fn create_view(
         &self,
         _req: crate::model::CreateViewRequest,
@@ -266,7 +266,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::update_view].
+    /// Implements [super::client::ConfigServiceV2::update_view].
     fn update_view(
         &self,
         _req: crate::model::UpdateViewRequest,
@@ -277,7 +277,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::delete_view].
+    /// Implements [super::client::ConfigServiceV2::delete_view].
     fn delete_view(
         &self,
         _req: crate::model::DeleteViewRequest,
@@ -286,7 +286,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::list_sinks].
+    /// Implements [super::client::ConfigServiceV2::list_sinks].
     fn list_sinks(
         &self,
         _req: crate::model::ListSinksRequest,
@@ -298,7 +298,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::get_sink].
+    /// Implements [super::client::ConfigServiceV2::get_sink].
     fn get_sink(
         &self,
         _req: crate::model::GetSinkRequest,
@@ -309,7 +309,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::create_sink].
+    /// Implements [super::client::ConfigServiceV2::create_sink].
     fn create_sink(
         &self,
         _req: crate::model::CreateSinkRequest,
@@ -320,7 +320,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::update_sink].
+    /// Implements [super::client::ConfigServiceV2::update_sink].
     fn update_sink(
         &self,
         _req: crate::model::UpdateSinkRequest,
@@ -331,7 +331,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::delete_sink].
+    /// Implements [super::client::ConfigServiceV2::delete_sink].
     fn delete_sink(
         &self,
         _req: crate::model::DeleteSinkRequest,
@@ -340,7 +340,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::create_link].
+    /// Implements [super::client::ConfigServiceV2::create_link].
     fn create_link(
         &self,
         _req: crate::model::CreateLinkRequest,
@@ -352,7 +352,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::delete_link].
+    /// Implements [super::client::ConfigServiceV2::delete_link].
     fn delete_link(
         &self,
         _req: crate::model::DeleteLinkRequest,
@@ -364,7 +364,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::list_links].
+    /// Implements [super::client::ConfigServiceV2::list_links].
     fn list_links(
         &self,
         _req: crate::model::ListLinksRequest,
@@ -376,7 +376,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::get_link].
+    /// Implements [super::client::ConfigServiceV2::get_link].
     fn get_link(
         &self,
         _req: crate::model::GetLinkRequest,
@@ -385,7 +385,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Link>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::list_exclusions].
+    /// Implements [super::client::ConfigServiceV2::list_exclusions].
     fn list_exclusions(
         &self,
         _req: crate::model::ListExclusionsRequest,
@@ -397,7 +397,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::get_exclusion].
+    /// Implements [super::client::ConfigServiceV2::get_exclusion].
     fn get_exclusion(
         &self,
         _req: crate::model::GetExclusionRequest,
@@ -408,7 +408,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::create_exclusion].
+    /// Implements [super::client::ConfigServiceV2::create_exclusion].
     fn create_exclusion(
         &self,
         _req: crate::model::CreateExclusionRequest,
@@ -419,7 +419,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::update_exclusion].
+    /// Implements [super::client::ConfigServiceV2::update_exclusion].
     fn update_exclusion(
         &self,
         _req: crate::model::UpdateExclusionRequest,
@@ -430,7 +430,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::delete_exclusion].
+    /// Implements [super::client::ConfigServiceV2::delete_exclusion].
     fn delete_exclusion(
         &self,
         _req: crate::model::DeleteExclusionRequest,
@@ -439,7 +439,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::get_cmek_settings].
+    /// Implements [super::client::ConfigServiceV2::get_cmek_settings].
     fn get_cmek_settings(
         &self,
         _req: crate::model::GetCmekSettingsRequest,
@@ -450,7 +450,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::update_cmek_settings].
+    /// Implements [super::client::ConfigServiceV2::update_cmek_settings].
     fn update_cmek_settings(
         &self,
         _req: crate::model::UpdateCmekSettingsRequest,
@@ -461,7 +461,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::get_settings].
+    /// Implements [super::client::ConfigServiceV2::get_settings].
     fn get_settings(
         &self,
         _req: crate::model::GetSettingsRequest,
@@ -472,7 +472,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::update_settings].
+    /// Implements [super::client::ConfigServiceV2::update_settings].
     fn update_settings(
         &self,
         _req: crate::model::UpdateSettingsRequest,
@@ -483,7 +483,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::copy_log_entries].
+    /// Implements [super::client::ConfigServiceV2::copy_log_entries].
     fn copy_log_entries(
         &self,
         _req: crate::model::CopyLogEntriesRequest,
@@ -495,7 +495,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::list_operations].
+    /// Implements [super::client::ConfigServiceV2::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -507,7 +507,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::get_operation].
+    /// Implements [super::client::ConfigServiceV2::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -519,7 +519,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConfigServiceV2::cancel_operation].
+    /// Implements [super::client::ConfigServiceV2::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -551,7 +551,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::MetricsServiceV2].
+/// Defines the trait used to implement [super::client::MetricsServiceV2].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::MetricsServiceV2`.  In other use-cases, application developers only
@@ -563,7 +563,7 @@ pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::MetricsServiceV2::list_log_metrics].
+    /// Implements [super::client::MetricsServiceV2::list_log_metrics].
     fn list_log_metrics(
         &self,
         _req: crate::model::ListLogMetricsRequest,
@@ -575,7 +575,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetricsServiceV2::get_log_metric].
+    /// Implements [super::client::MetricsServiceV2::get_log_metric].
     fn get_log_metric(
         &self,
         _req: crate::model::GetLogMetricRequest,
@@ -586,7 +586,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetricsServiceV2::create_log_metric].
+    /// Implements [super::client::MetricsServiceV2::create_log_metric].
     fn create_log_metric(
         &self,
         _req: crate::model::CreateLogMetricRequest,
@@ -597,7 +597,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetricsServiceV2::update_log_metric].
+    /// Implements [super::client::MetricsServiceV2::update_log_metric].
     fn update_log_metric(
         &self,
         _req: crate::model::UpdateLogMetricRequest,
@@ -608,7 +608,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetricsServiceV2::delete_log_metric].
+    /// Implements [super::client::MetricsServiceV2::delete_log_metric].
     fn delete_log_metric(
         &self,
         _req: crate::model::DeleteLogMetricRequest,
@@ -617,7 +617,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::MetricsServiceV2::list_operations].
+    /// Implements [super::client::MetricsServiceV2::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -629,7 +629,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::MetricsServiceV2::get_operation].
+    /// Implements [super::client::MetricsServiceV2::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -641,7 +641,7 @@ pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::MetricsServiceV2::cancel_operation].
+    /// Implements [super::client::MetricsServiceV2::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
