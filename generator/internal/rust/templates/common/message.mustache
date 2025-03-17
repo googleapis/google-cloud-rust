@@ -182,10 +182,7 @@ impl gax::paginator::PageableResponse for {{Name}} {
         self.{{Codec.FieldName}}.clone()
         {{/Optional}}
         {{#Optional}}
-        match &self.{{Codec.FieldName}} {
-            std::option::Option::Some(v) => v.clone(),
-            std::option::Option::None => std::string::String::new(),
-        }
+        self.{{Codec.FieldName}}.clone().unwrap_or_default()
         {{/Optional}}
     }
     {{/NextPageToken}}

@@ -89,10 +89,7 @@ pub mod {{Codec.ModuleName}} {
         pub async fn paginator(self) -> gax::paginator::Paginator<{{OutputType.Codec.QualifiedName}}, gax::error::Error> {
             use std::clone::Clone;
             {{#Optional}}
-            let token = match &self.0.request.{{Codec.FieldName}} {
-                std::option::Option::Some(v) => v.clone(),
-                std::option::Option::None => std::string::String::new(),
-            };
+            let token = self.0.request.{{Codec.FieldName}}.clone().unwrap_or_default();
             {{/Optional}}
             {{^Optional}}
             let token = self.0.request.{{Codec.FieldName}}.clone();
