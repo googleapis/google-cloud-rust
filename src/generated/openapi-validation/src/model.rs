@@ -85,7 +85,11 @@ impl gax::paginator::PageableResponse for ListLocationsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        match &self.next_page_token {
+            std::option::Option::Some(v) => v.clone(),
+            std::option::Option::None => std::string::String::new(),
+        }
     }
 }
 
@@ -251,7 +255,11 @@ impl gax::paginator::PageableResponse for ListSecretsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        match &self.next_page_token {
+            std::option::Option::Some(v) => v.clone(),
+            std::option::Option::None => std::string::String::new(),
+        }
     }
 }
 
@@ -1409,7 +1417,11 @@ impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        match &self.next_page_token {
+            std::option::Option::Some(v) => v.clone(),
+            std::option::Option::None => std::string::String::new(),
+        }
     }
 }
 

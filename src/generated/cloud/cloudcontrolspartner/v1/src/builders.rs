@@ -119,7 +119,8 @@ pub mod cloud_controls_partner_core {
             self,
         ) -> gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -243,7 +244,8 @@ pub mod cloud_controls_partner_core {
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCustomersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -423,7 +425,8 @@ pub mod cloud_controls_partner_core {
             crate::model::ListAccessApprovalRequestsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -575,7 +578,8 @@ pub mod cloud_controls_partner_monitoring {
             self,
         ) -> gax::paginator::Paginator<crate::model::ListViolationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
