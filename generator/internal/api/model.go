@@ -117,9 +117,9 @@ type Method struct {
 	OutputType   *Message
 	// PathInfo information about the HTTP request
 	PathInfo *PathInfo
-	// IsPageable is true if the method conforms to standard defined by
-	// [AIP-4233](https://google.aip.dev/client-libraries/4233).
-	IsPageable bool
+	// Pagination holds the `page_token` field if the method conforms to the
+	// standard defined by [AIP-4233](https://google.aip.dev/client-libraries/4233).
+	Pagination *Field
 	// The streaming attributes of the method. Bidi streaming methods have both
 	// set to true.
 	ClientSideStreaming bool
@@ -242,13 +242,19 @@ type Message struct {
 	// The Protobuf package this message belongs to.
 	Package string
 	IsMap   bool
-	// IsPageableResponse indicated that this Message is returned by a standard
+	// Indicates that this Message is returned by a standard
 	// List RPC and conforms to [AIP-4233](https://google.aip.dev/client-libraries/4233).
-	IsPageableResponse bool
-	// PageableItem is the field to be paginated over.
-	PageableItem *Field
+	Pagination *PaginationInfo
 	// Language specific annotations.
 	Codec any
+}
+
+// Information related to pagination aka [AIP-4233](https://google.aip.dev/client-libraries/4233).
+type PaginationInfo struct {
+	// The field that gives us the next page token.
+	NextPageToken *Field
+	// PageableItem is the field to be paginated over.
+	PageableItem *Field
 }
 
 // Enum defines a message used in request/response handling.

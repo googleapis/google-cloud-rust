@@ -35,19 +35,19 @@ func updateMethodPagination(a *api.API) {
 			continue
 		}
 		var hasPageSize bool
-		var hasPageToken bool
+		var hasPageToken *api.Field
 		for _, f := range reqMsg.Fields {
 			if f.JSONName == pageSize && f.Typez == api.INT32_TYPE {
 				hasPageSize = true
 			}
 			if f.JSONName == pageToken && f.Typez == api.STRING_TYPE {
-				hasPageToken = true
+				hasPageToken = f
 			}
-			if hasPageSize && hasPageToken {
+			if hasPageSize && hasPageToken != nil {
 				break
 			}
 		}
-		if !(hasPageSize && hasPageToken) {
+		if !(hasPageSize && hasPageToken != nil) {
 			continue
 		}
 
@@ -57,13 +57,15 @@ func updateMethodPagination(a *api.API) {
 		}
 		var hasNextPageToken bool
 		var hasRepeatedItem bool
+		info := api.PaginationInfo{}
 		for _, f := range respMsg.Fields {
 			if f.JSONName == nextPageToken && f.Typez == api.STRING_TYPE {
 				hasNextPageToken = true
+				info.NextPageToken = f
 			}
 			if f.Repeated && f.Typez == api.MESSAGE_TYPE {
 				hasRepeatedItem = true
-				respMsg.PageableItem = f
+				info.PageableItem = f
 			}
 			if hasNextPageToken && hasRepeatedItem {
 				break
@@ -72,7 +74,7 @@ func updateMethodPagination(a *api.API) {
 		if !(hasNextPageToken && hasRepeatedItem) {
 			continue
 		}
-		m.IsPageable = true
-		respMsg.IsPageableResponse = true
+		m.Pagination = hasPageToken
+		respMsg.Pagination = &info
 	}
 }
