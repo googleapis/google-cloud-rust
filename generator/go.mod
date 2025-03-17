@@ -3,7 +3,7 @@ module github.com/googleapis/google-cloud-rust/generator
 go 1.23.6
 
 require (
-	cloud.google.com/go/iam v1.4.1
+	cloud.google.com/go/iam v1.4.2
 	cloud.google.com/go/longrunning v0.6.5
 	github.com/cbroglie/mustache v1.4.0
 	github.com/ghodss/yaml v1.0.0
@@ -13,8 +13,8 @@ require (
 	github.com/pelletier/go-toml/v2 v2.2.3
 	github.com/walle/targz v0.0.0-20140417120357-57fe4206da5a
 	github.com/yuin/goldmark v1.7.8
-	google.golang.org/genproto v0.0.0-20250122153221-138b5a5a4fd4
-	google.golang.org/genproto/googleapis/api v0.0.0-20250219182151-9fdb1cabc7b2
+	google.golang.org/genproto v0.0.0-20250303144028-a0af3efb3deb
+	google.golang.org/genproto/googleapis/api v0.0.0-20250303144028-a0af3efb3deb
 	google.golang.org/protobuf v1.36.5
 )
 
@@ -26,11 +26,11 @@ require (
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/speakeasy-api/jsonpath v0.6.1 // indirect
 	github.com/wk8/go-ordered-map/v2 v2.1.9-0.20240815153524-6ea36470d1bd // indirect
-	golang.org/x/net v0.36.0 // indirect
-	golang.org/x/sys v0.30.0 // indirect
-	golang.org/x/text v0.22.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250219182151-9fdb1cabc7b2 // indirect
-	google.golang.org/grpc v1.70.0 // indirect
+	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
+	golang.org/x/text v0.23.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250227231956-55c901821b1e // indirect
+	google.golang.org/grpc v1.71.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
