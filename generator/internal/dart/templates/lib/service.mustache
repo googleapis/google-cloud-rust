@@ -17,11 +17,19 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
-class {{Codec.Name}} extends CloudService {
-  static const String host = '{{DefaultHost}}';
+class {{Codec.Name}} {
+  static const String _host = '{{DefaultHost}}';
 
-  {{Codec.Name}}({required super.client});
+  final ServiceClient _client;
+
+  {{Codec.Name}}({required http.Client httpClient})
+      : _client = ServiceClient(httpClient: httpClient);
   {{#Codec.Methods}}
   {{> method}}
   {{/Codec.Methods}}
+
+  /// Closes the client and cleans up any resources associated with it.
+  ///
+  /// Once [close] is called, no other methods should be called.
+  void close() => _client.close();
 }

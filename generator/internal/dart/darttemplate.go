@@ -16,6 +16,7 @@ package dart
 
 import (
 	"fmt"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -194,8 +195,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 	delete(imports, model.PackageName)
 
 	// Add the import for the base google_cloud_common package.
-	commonImport := "package:google_cloud_common/common.dart"
-	imports["google_cloud_common"] = commonImport
+	imports["cloud_common"] = commonImport
 
 	deps := calculateDependencies(imports)
 
@@ -259,7 +259,11 @@ func calculateDependencies(imports map[string]string) []packageDependency {
 			name := strings.TrimPrefix(imp, "package:")
 			name = strings.Split(name, "/")[0]
 
-			deps = append(deps, packageDependency{Name: name, Constraint: "any"})
+			if !slices.ContainsFunc(deps, func(dep packageDependency) bool {
+				return dep.Name == name
+			}) {
+				deps = append(deps, packageDependency{Name: name, Constraint: "any"})
+			}
 		}
 	}
 
@@ -288,7 +292,13 @@ func calculateImports(usedImports map[string]string) []string {
 		}
 		previousImportType = importType
 
-		imports = append(imports, fmt.Sprintf("import '%s';", imp))
+		// The package:http import should be imported with a prefix.
+		prefix := ""
+		if imp == httpImport {
+			prefix = " as http"
+		}
+
+		imports = append(imports, fmt.Sprintf("import '%s'%s;", imp, prefix))
 	}
 
 	return imports
@@ -320,6 +330,9 @@ func calculateRequiredFields(model *api.API) map[string]*api.Field {
 }
 
 func annotateService(s *api.Service, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
+	// Add a package:http import if we're generating a service.
+	imports["http"] = httpImport
+
 	// Some methods are skipped.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return generateMethod(m)
@@ -341,6 +354,9 @@ func annotateService(s *api.Service, state *api.APIState, packageMapping map[str
 
 func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[string]string,
 	imports map[string]string, requiredFields map[string]*api.Field) {
+	// Add the import for the common json helpers.
+	imports["cloud_common_helpers"] = commonHelpersImport
+
 	for _, f := range m.Fields {
 		annotateField(f, state, packageMapping, imports, requiredFields)
 	}
@@ -403,16 +419,16 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 
 	if isMap {
 		if isMessageMap {
-			// message maps: $decodeMap(json['name'], Status.fromJson)!,
-			return "$decodeMap(" + data + ", " + fn + ")" + bang
+			// message maps: decodeMap(json['name'], Status.fromJson)!,
+			return "decodeMap(" + data + ", " + fn + ")" + bang
 		} else {
 			// primitive maps: (json['name'] as Map?)?.cast(),
 			return "(" + data + " as Map" + opt + ")" + opt + ".cast()"
 		}
 	} else if isList {
 		if isMessage {
-			// message lists, custom lists: $decodeList(json['name'], FieldMask.fromJson)!,
-			return "$decodeList(" + data + ", " + fn + ")" + bang
+			// message lists, custom lists: decodeList(json['name'], FieldMask.fromJson)!,
+			return "decodeList(" + data + ", " + fn + ")" + bang
 		} else {
 			// primitive lists: (json['name'] as List?)?.cast(),
 			return "(" + data + " as List" + opt + ")" + opt + ".cast()"
@@ -423,8 +439,8 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 			// FieldMask.fromJson(json['name']),
 			return fn + "(" + data + ")"
 		} else {
-			// $decode(json['name'], FieldMask.fromJson),
-			return "$decode(" + data + ", " + fn + ")"
+			// decode(json['name'], FieldMask.fromJson),
+			return "decode(" + data + ", " + fn + ")"
 		}
 	} else {
 		// json['name']
@@ -447,11 +463,11 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	}
 
 	if isMessageMap {
-		// message maps: $encodeMap(name)
-		return "$encodeMap(" + name + ")"
+		// message maps: encodeMap(name)
+		return "encodeMap(" + name + ")"
 	} else if isList && (isMessage || isEnum) {
-		// message lists, custom lists, and enum lists: $encodeList(name)
-		return "$encodeList(" + name + ")"
+		// message lists, custom lists, and enum lists: encodeList(name)
+		return "encodeList(" + name + ")"
 	} else if isMap {
 		// primitive maps
 		return name

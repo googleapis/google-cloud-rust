@@ -32,6 +32,8 @@ var dartTemplates embed.FS
 
 var typedDataImport = "dart:typed_data"
 var httpImport = "package:http/http.dart"
+var commonImport = "package:google_cloud_common/common.dart"
+var commonHelpersImport = "package:google_cloud_common/src/json_helpers.dart"
 
 var needsCtorValidation = map[string]string{
 	".google.protobuf.Duration": ".google.protobuf.Duration",
