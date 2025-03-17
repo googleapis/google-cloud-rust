@@ -162,4 +162,12 @@ mod test {
         assert_eq!(output, input);
         Ok(())
     }
+
+    #[test]
+    fn test_bool_value_error() -> Result {
+        let input = serde_json::Value::Bool(true);
+        let any = Any::try_from(&input)?;
+        assert!(any.try_into_message::<BoolValue>().is_err());
+        Ok(())
+    }
 }
