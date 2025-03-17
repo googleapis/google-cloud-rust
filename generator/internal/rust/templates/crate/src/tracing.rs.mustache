@@ -22,22 +22,22 @@ use crate::Result;
 
 {{/Codec.HasServices}}
 {{#Codec.Services}}
-/// Implements a [{{Codec.Name}}](crate::stubs::{{Codec.Name}}) decorator for logging and tracing.
+/// Implements a [{{Codec.Name}}](super::stubs::{{Codec.Name}}) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct {{Codec.Name}}<T>
-where T: crate::stubs::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
+where T: super::stubs::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> {{Codec.Name}}<T>
-where T: crate::stubs::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
+where T: super::stubs::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
-impl<T> crate::stubs::{{Codec.Name}} for {{Codec.Name}}<T>
-where T: crate::stubs::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
+impl<T> super::stubs::{{Codec.Name}} for {{Codec.Name}}<T>
+where T: super::stubs::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
     {{#Codec.Methods}}
     #[tracing::instrument(ret)]
     async fn {{Codec.Name}}(

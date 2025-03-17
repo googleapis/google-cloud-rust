@@ -26,7 +26,7 @@ use gax::error::Error;
 
 {{/Codec.HasServices}}
 {{#Codec.Services}}
-/// Implements [{{Codec.Name}}](crate::stubs::{{Codec.Name}}) using a [gclient::ReqwestClient].
+/// Implements [{{Codec.Name}}](super::stubs::{{Codec.Name}}) using a [gclient::ReqwestClient].
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
     inner: gclient::ReqwestClient,
@@ -47,7 +47,7 @@ impl {{Codec.Name}} {
     }
 }
 
-impl crate::stubs::{{Codec.Name}} for {{Codec.Name}} {
+impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
     {{#Codec.Methods}}
     async fn {{Codec.Name}}(
         &self,

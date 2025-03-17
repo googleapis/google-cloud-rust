@@ -47,9 +47,9 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     {{/Codec.HasLROs}}
 }
 
-/// All implementations of [crate::stubs::{{Codec.Name}}] also implement [{{Codec.Name}}].
+/// All implementations of [super::{{Codec.Name}}] also implement [{{Codec.Name}}].
 #[async_trait::async_trait]
-impl<T: crate::stubs::{{Codec.Name}}> {{Codec.Name}} for T {
+impl<T: super::{{Codec.Name}}> {{Codec.Name}} for T {
     {{#Codec.Methods}}
     /// Forwards the call to the implementation provided by `T`.
     async fn {{Codec.Name}}(
