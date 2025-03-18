@@ -46,22 +46,11 @@ go run cmd/sidekick/main.go generate -project-root=.. \
   -codec-option package:gax=package=gax,path=gax,feature=unstable-sdk-client
 ```
 
-## Developing
-
-### Testing
+## Testing
 
 From the repo root: `go -C generator/ test ./...`
 
 Or from `generator/`: `go test ./...`
-
-### Regenerating the Dart packages
-
-The generated Dart packages live in `generator/dart/packages/generated/`. To
-regenerate them:
-
-From the repo root: `go -C generator/ run ./cmd/sidekick refreshall -project-root dart`
-
-Or from `generator/`: `go run ./cmd/sidekick refreshall -project-root dart`
 
 ## Prerequisites
 

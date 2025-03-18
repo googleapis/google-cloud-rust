@@ -1,0 +1,13 @@
+name: examples
+description: Various examples of Google Cloud client usage.
+
+publish_to: none
+
+environment: 
+  sdk: ^3.6.0
+
+resolution: workspace
+
+dependencies:
+  google_cloud_language: any
+  googleapis_auth: ^1.6.0

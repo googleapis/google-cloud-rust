@@ -21,8 +21,8 @@
 /// Defines common types for Google APIs.
 library;
 
-import 'package:google_cloud_common/common.dart';
-import 'package:google_cloud_common/src/json_helpers.dart';
+import 'package:google_cloud_gax/common.dart';
+import 'package:google_cloud_gax/src/json_helpers.dart';
 
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL

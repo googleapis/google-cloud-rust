@@ -194,8 +194,8 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 	// Remove our self-reference.
 	delete(imports, model.PackageName)
 
-	// Add the import for the base google_cloud_common package.
-	imports["cloud_common"] = commonImport
+	// Add the import for the google_cloud_gax package.
+	imports["cloud_gax"] = commonImport
 
 	deps := calculateDependencies(imports)
 
@@ -354,8 +354,8 @@ func annotateService(s *api.Service, state *api.APIState, packageMapping map[str
 
 func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[string]string,
 	imports map[string]string, requiredFields map[string]*api.Field) {
-	// Add the import for the common json helpers.
-	imports["cloud_common_helpers"] = commonHelpersImport
+	// Add the import for the common JSON helpers.
+	imports["cloud_gax_helpers"] = commonHelpersImport
 
 	for _, f := range m.Fields {
 		annotateField(f, state, packageMapping, imports, requiredFields)

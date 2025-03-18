@@ -1,6 +1,7 @@
-## Google Cloud Common
+## Google Cloud GAX
 
-Common code for the Google Cloud client library packages.
+Google API eXtensions - common code for the Google Cloud client library
+packages.
 
 > [!CAUTION]
 > This package is under active development! We expect multiple breaking changes
