@@ -18,12 +18,12 @@ name: google_cloud_secretmanager
 description: The Google Cloud client library for the Secret Manager API.
 publish_to: none
 
-environment: 
+environment:
   sdk: ^3.6.0
 
 resolution: workspace
 
 dependencies:
-  google_cloud_common: any
+  google_cloud_gax: any
   google_cloud_protobuf: any
   http: any

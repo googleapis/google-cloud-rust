@@ -14,8 +14,8 @@
 
 import 'dart:convert';
 
-import 'package:google_cloud_rpc/rpc.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
+import 'package:google_cloud_rpc/rpc.dart';
 import 'package:test/test.dart';
 
 // Tests to validate the generated JSON encoding code using types from

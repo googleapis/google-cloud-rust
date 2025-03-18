@@ -23,8 +23,8 @@
 /// annotations, to developers.
 library;
 
-import 'package:google_cloud_common/common.dart';
-import 'package:google_cloud_common/src/json_helpers.dart';
+import 'package:google_cloud_gax/common.dart';
+import 'package:google_cloud_gax/src/json_helpers.dart';
 import 'package:http/http.dart' as http;
 
 /// Provides text analysis operations such as sentiment analysis and entity
