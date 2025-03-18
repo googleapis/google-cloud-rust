@@ -227,6 +227,96 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn create_logical_view(
+        &self,
+        req: crate::model::CreateLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        self.inner.create_logical_view(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_logical_view(
+        &self,
+        req: crate::model::GetLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::LogicalView> {
+        self.inner.get_logical_view(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_logical_views(
+        &self,
+        req: crate::model::ListLogicalViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListLogicalViewsResponse> {
+        self.inner.list_logical_views(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_logical_view(
+        &self,
+        req: crate::model::UpdateLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        self.inner.update_logical_view(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_logical_view(
+        &self,
+        req: crate::model::DeleteLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<wkt::Empty> {
+        self.inner.delete_logical_view(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_materialized_view(
+        &self,
+        req: crate::model::CreateMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        self.inner.create_materialized_view(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_materialized_view(
+        &self,
+        req: crate::model::GetMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::MaterializedView> {
+        self.inner.get_materialized_view(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_materialized_views(
+        &self,
+        req: crate::model::ListMaterializedViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListMaterializedViewsResponse> {
+        self.inner.list_materialized_views(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_materialized_view(
+        &self,
+        req: crate::model::UpdateMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        self.inner.update_materialized_view(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_materialized_view(
+        &self,
+        req: crate::model::DeleteMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<wkt::Empty> {
+        self.inner.delete_materialized_view(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,

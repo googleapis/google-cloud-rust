@@ -100,6 +100,18 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
+    /// Implements [super::client::Workflows::list_workflow_revisions].
+    fn list_workflow_revisions(
+        &self,
+        _req: crate::model::ListWorkflowRevisionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListWorkflowRevisionsResponse>>
+           + Send {
+        std::future::ready::<crate::Result<crate::model::ListWorkflowRevisionsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
     /// Implements [super::client::Workflows::list_locations].
     fn list_locations(
         &self,

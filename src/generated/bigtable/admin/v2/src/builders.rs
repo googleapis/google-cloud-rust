@@ -1526,6 +1526,747 @@ pub mod bigtable_instance_admin {
         }
     }
 
+    /// The request builder for a BigtableInstanceAdmin::create_logical_view call.
+    #[derive(Clone, Debug)]
+    pub struct CreateLogicalView(RequestBuilder<crate::model::CreateLogicalViewRequest>);
+
+    impl CreateLogicalView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateLogicalViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_logical_view][super::super::client::BigtableInstanceAdmin::create_logical_view].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_logical_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_logical_view`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>
+        {
+            type Operation =
+                lro::Operation<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>;
+            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [logical_view_id][crate::model::CreateLogicalViewRequest::logical_view_id].
+        pub fn set_logical_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.logical_view_id = v.into();
+            self
+        }
+
+        /// Sets the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
+        pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.logical_view = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for CreateLogicalView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::get_logical_view call.
+    #[derive(Clone, Debug)]
+    pub struct GetLogicalView(RequestBuilder<crate::model::GetLogicalViewRequest>);
+
+    impl GetLogicalView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetLogicalViewRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::LogicalView> {
+            (*self.0.stub)
+                .get_logical_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::GetLogicalViewRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for GetLogicalView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::list_logical_views call.
+    #[derive(Clone, Debug)]
+    pub struct ListLogicalViews(RequestBuilder<crate::model::ListLogicalViewsRequest>);
+
+    impl ListLogicalViews {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListLogicalViewsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListLogicalViewsResponse> {
+            (*self.0.stub)
+                .list_logical_views(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Streams the responses back.
+        pub async fn paginator(
+            self,
+        ) -> gax::paginator::Paginator<crate::model::ListLogicalViewsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::Paginator::new(token, execute)
+        }
+
+        /// Sets the value of [parent][crate::model::ListLogicalViewsRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListLogicalViewsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListLogicalViewsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for ListLogicalViews {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::update_logical_view call.
+    #[derive(Clone, Debug)]
+    pub struct UpdateLogicalView(RequestBuilder<crate::model::UpdateLogicalViewRequest>);
+
+    impl UpdateLogicalView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateLogicalViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_logical_view][super::super::client::BigtableInstanceAdmin::update_logical_view].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_logical_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_logical_view`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>
+        {
+            type Operation =
+                lro::Operation<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>;
+            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
+        pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.logical_view = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mask = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for UpdateLogicalView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::delete_logical_view call.
+    #[derive(Clone, Debug)]
+    pub struct DeleteLogicalView(RequestBuilder<crate::model::DeleteLogicalViewRequest>);
+
+    impl DeleteLogicalView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteLogicalViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<wkt::Empty> {
+            (*self.0.stub)
+                .delete_logical_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::DeleteLogicalViewRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteLogicalViewRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for DeleteLogicalView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::create_materialized_view call.
+    #[derive(Clone, Debug)]
+    pub struct CreateMaterializedView(RequestBuilder<crate::model::CreateMaterializedViewRequest>);
+
+    impl CreateMaterializedView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateMaterializedViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_materialized_view][super::super::client::BigtableInstanceAdmin::create_materialized_view].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_materialized_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_materialized_view`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::CreateMaterializedViewMetadata>
+        {
+            type Operation = lro::Operation<
+                crate::model::MaterializedView,
+                crate::model::CreateMaterializedViewMetadata,
+            >;
+            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [materialized_view_id][crate::model::CreateMaterializedViewRequest::materialized_view_id].
+        pub fn set_materialized_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.materialized_view_id = v.into();
+            self
+        }
+
+        /// Sets the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
+        pub fn set_materialized_view<
+            T: Into<std::option::Option<crate::model::MaterializedView>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.materialized_view = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for CreateMaterializedView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::get_materialized_view call.
+    #[derive(Clone, Debug)]
+    pub struct GetMaterializedView(RequestBuilder<crate::model::GetMaterializedViewRequest>);
+
+    impl GetMaterializedView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMaterializedViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::MaterializedView> {
+            (*self.0.stub)
+                .get_materialized_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::GetMaterializedViewRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for GetMaterializedView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::list_materialized_views call.
+    #[derive(Clone, Debug)]
+    pub struct ListMaterializedViews(RequestBuilder<crate::model::ListMaterializedViewsRequest>);
+
+    impl ListMaterializedViews {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMaterializedViewsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMaterializedViewsResponse> {
+            (*self.0.stub)
+                .list_materialized_views(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Streams the responses back.
+        pub async fn paginator(
+            self,
+        ) -> gax::paginator::Paginator<crate::model::ListMaterializedViewsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::Paginator::new(token, execute)
+        }
+
+        /// Sets the value of [parent][crate::model::ListMaterializedViewsRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMaterializedViewsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMaterializedViewsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for ListMaterializedViews {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::update_materialized_view call.
+    #[derive(Clone, Debug)]
+    pub struct UpdateMaterializedView(RequestBuilder<crate::model::UpdateMaterializedViewRequest>);
+
+    impl UpdateMaterializedView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateMaterializedViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_materialized_view][super::super::client::BigtableInstanceAdmin::update_materialized_view].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_materialized_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_materialized_view`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::UpdateMaterializedViewMetadata>
+        {
+            type Operation = lro::Operation<
+                crate::model::MaterializedView,
+                crate::model::UpdateMaterializedViewMetadata,
+            >;
+            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
+        pub fn set_materialized_view<
+            T: Into<std::option::Option<crate::model::MaterializedView>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.materialized_view = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mask = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for UpdateMaterializedView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::delete_materialized_view call.
+    #[derive(Clone, Debug)]
+    pub struct DeleteMaterializedView(RequestBuilder<crate::model::DeleteMaterializedViewRequest>);
+
+    impl DeleteMaterializedView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteMaterializedViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<wkt::Empty> {
+            (*self.0.stub)
+                .delete_materialized_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMaterializedViewRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteMaterializedViewRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for DeleteMaterializedView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for a BigtableInstanceAdmin::list_operations call.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);

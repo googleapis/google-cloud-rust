@@ -166,6 +166,30 @@ impl super::stubs::Workflows for Workflows {
             .await
     }
 
+    async fn list_workflow_revisions(
+        &self,
+        req: crate::model::ListWorkflowRevisionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListWorkflowRevisionsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}:listRevisions", req.name),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        self.inner
+            .execute(builder, None::<gclient::NoBody>, options)
+            .await
+    }
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

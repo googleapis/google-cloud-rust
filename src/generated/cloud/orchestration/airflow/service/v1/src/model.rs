@@ -3109,7 +3109,7 @@ pub struct SoftwareConfig {
     /// If unspecified, the field defaults to `PLUGINS_ENABLED`.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub web_server_plugins_mode: crate::model::software_config::WebServerPluginsMode,
 }
 
@@ -3651,7 +3651,7 @@ pub struct NodeConfig {
     /// projects/{project}/regions/{region}/networkAttachments/{networkAttachment}.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub composer_network_attachment: std::string::String,
 
@@ -3662,7 +3662,7 @@ pub struct NodeConfig {
     /// If not specified, the default value of '100.64.128.0/20' is used.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub composer_internal_ipv4_cidr_block: std::string::String,
 }
@@ -3962,7 +3962,7 @@ pub struct PrivateEnvironmentConfig {
     /// internet.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub enable_private_builds_only: bool,
 
     /// Optional. Configuration for the private GKE cluster for a Private IP
@@ -4169,7 +4169,7 @@ pub struct WorkloadsConfig {
     /// Optional. Resources used by Airflow DAG processors.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub dag_processor: std::option::Option<crate::model::workloads_config::DagProcessorResource>,
 }
@@ -4467,7 +4467,7 @@ pub mod workloads_config {
     /// Configuration for resources used by Airflow DAG processors.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]

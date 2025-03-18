@@ -516,7 +516,7 @@ pub mod annotate_assessment_request {
     pub struct Reason(i32);
 
     impl Reason {
-        /// Default unspecified reason.
+        /// Unspecified reason. Do not use.
         pub const REASON_UNSPECIFIED: Reason = Reason::new(0);
 
         /// Indicates that the transaction had a chargeback issued with no other
@@ -1323,9 +1323,15 @@ pub struct Event {
     /// WAF-enabled key.
     pub waf_token_assessment: bool,
 
-    /// Optional. JA3 fingerprint for SSL clients.
+    /// Optional. JA3 fingerprint for SSL clients. To learn how to compute this
+    /// fingerprint, please refer to <https://github.com/salesforce/ja3>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub ja3: std::string::String,
+
+    /// Optional. JA4 fingerprint for SSL clients. To learn how to compute this
+    /// fingerprint, please refer to <https://github.com/FoxIO-LLC/ja4>.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub ja4: std::string::String,
 
     /// Optional. HTTP header information about the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -1418,6 +1424,12 @@ impl Event {
         self
     }
 
+    /// Sets the value of [ja4][crate::model::Event::ja4].
+    pub fn set_ja4<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ja4 = v.into();
+        self
+    }
+
     /// Sets the value of [firewall_policy_evaluation][crate::model::Event::firewall_policy_evaluation].
     pub fn set_firewall_policy_evaluation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.firewall_policy_evaluation = v.into();
@@ -1490,8 +1502,8 @@ pub mod event {
         /// enabled in the Google Cloud console.
         pub const ENABLED: FraudPrevention = FraudPrevention::new(1);
 
-        /// Disable Fraud Prevention for this assessment, regardless of Google Cloud
-        /// console settings.
+        /// Disable Fraud Prevention for this assessment, regardless of the Google
+        /// Cloud console settings.
         pub const DISABLED: FraudPrevention = FraudPrevention::new(2);
 
         /// Creates a new FraudPrevention instance.
@@ -4000,7 +4012,8 @@ pub struct Metrics {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// Inclusive start time aligned to a day (UTC).
+    /// Inclusive start time aligned to a day in the America/Los_Angeles (Pacific)
+    /// timezone.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
 

@@ -161,8 +161,7 @@ impl wkt::message::Message for PosixAccount {
 #[non_exhaustive]
 pub struct SshPublicKey {
     /// Public key text in SSH format, defined by
-    /// <a href="https://www.ietf.org/rfc/rfc4253.txt" target="_blank">RFC4253</a>
-    /// section 6.6.
+    /// [RFC4253](https://www.ietf.org/rfc/rfc4253.txt) section 6.6.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key: std::string::String,
 

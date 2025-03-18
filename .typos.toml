@@ -100,9 +100,6 @@ vaiable   = "vaiable"
 telphony = "telphony"
 analyis  = "analyis"
 abolute  = "abolute"
-# src/generated/cloud/datacatalog/v1 has typos, they need to be fixed upstream.
-Underlaying = "Underlaying"
-aplies      = "aplies"
 # src/generated/cloud/dialogflow/cx/v3 has typos, they need to be fixed
 # upstream.
 verion = "verion"
