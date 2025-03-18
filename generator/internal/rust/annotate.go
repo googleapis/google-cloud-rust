@@ -118,7 +118,7 @@ type pathInfoAnnotation struct {
 	Method        string
 	MethodToLower string
 	PathFmt       string
-	PathArgs      []string
+	PathArgs      []pathArg
 	HasPathArgs   bool
 	HasBody       bool
 }
