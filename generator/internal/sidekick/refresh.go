@@ -25,6 +25,7 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 	"github.com/googleapis/google-cloud-rust/generator/internal/rust"
 	"github.com/googleapis/google-cloud-rust/generator/internal/rust_prost"
+	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
 
 func init() {
@@ -104,6 +105,8 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 		return golang.Generate(model, output, config)
 	case "dart":
 		return dart.Generate(model, output, config)
+	case "sample":
+		return sample.Generate(model, output, config)
 	default:
 		return fmt.Errorf("unknown language: %s", config.General.Language)
 	}
