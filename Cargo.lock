@@ -2434,6 +2434,7 @@ dependencies = [
  "serde_json",
  "serde_with",
  "serial_test",
+ "test-case",
  "thiserror",
  "tokio",
 ]

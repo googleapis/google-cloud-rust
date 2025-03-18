@@ -42,6 +42,7 @@ http        = "1"
 mockall     = "0.13"
 serde_with  = "3"
 serial_test = "3"
+test-case   = "3"
 tokio       = { version = "1", features = ["test-util"] }
 # Local crates
 echo-server = { path = "echo-server" }
