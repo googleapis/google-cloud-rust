@@ -213,6 +213,34 @@ impl crate::message::Message for Int64Value {
     }
 }
 
+use base64::{engine::general_purpose::STANDARD, Engine};
+
+impl crate::message::Message for BytesValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.BytesValue"
+    }
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
+    where
+        Self: serde::ser::Serialize + Sized,
+    {
+        encode_string::<Self>(STANDARD.encode(self))
+    }
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
+    where
+        Self: serde::de::DeserializeOwned,
+    {
+        let s = map
+            .get("value")
+            .ok_or_else(crate::message::missing_value_field)?
+            .as_str()
+            .ok_or_else(expected_string_value)?;
+        STANDARD
+            .decode(s)
+            .map(BytesValue::from)
+            .map_err(crate::AnyError::deser)
+    }
+}
+
 fn expected_string_value() -> crate::AnyError {
     crate::AnyError::deser("expected value field to be a string")
 }
@@ -220,9 +248,13 @@ fn expected_string_value() -> crate::AnyError {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::message::Message;
     use crate::Any;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
     use test_case::test_case;
+
+    // Generated with: `echo -n 'Hello, World!' | base64`
+    const HELLO_WORLD_BASE64: &str = "SGVsbG8sIFdvcmxkIQ==";
 
     #[test_case(1234.5 as DoubleValue, 1234.5, "DoubleValue")]
     #[test_case(9876.5 as FloatValue, 9876.5, "FloatValue")]
@@ -232,6 +264,7 @@ mod test {
     #[test_case(123 as UInt32Value, 123, "UInt32Value")]
     #[test_case(true as BoolValue, true, "BoolValue")]
     #[test_case(StringValue::from("Hello, World!"), "Hello, World!", "StringValue")]
+    #[test_case(BytesValue::from("Hello, World!"), HELLO_WORLD_BASE64, "BytesValue")]
     fn test_wrapper_in_any<I, V>(input: I, value: V, typename: &str) -> Result
     where
         I: crate::message::Message
@@ -261,6 +294,7 @@ mod test {
     #[test_case(DoubleValue::default(), UInt32Value::default())]
     #[test_case(DoubleValue::default(), BoolValue::default())]
     #[test_case(DoubleValue::default(), StringValue::default())]
+    #[test_case(DoubleValue::default(), BytesValue::default())]
     fn test_wrapper_in_any_with_bad_typenames<T, U>(from: T, _into: U) -> Result
     where
         T: crate::message::Message + std::fmt::Debug + serde::ser::Serialize,
@@ -288,6 +322,16 @@ mod test {
         assert!(e.is_err());
         let fmt = format!("{:?}", e);
         assert!(fmt.contains("expected value field to be a string"), "{fmt}");
+        Ok(())
+    }
+
+    #[test]
+    fn test_wrapper_bad_encoding_base64() -> Result {
+        let map = serde_json::json!({
+            "@type": "type.googleapis.com/google.protobuf.BytesValue",
+            "value": "Oops, I forgot to base64 encode this.",
+        });
+        assert!(BytesValue::from_map(map.as_object().unwrap()).is_err());
         Ok(())
     }
 }
