@@ -145,8 +145,6 @@ macro_rules! impl_message {
 
 impl_message!(DoubleValue);
 impl_message!(FloatValue);
-impl_message!(Int64Value);
-impl_message!(UInt64Value);
 impl_message!(Int32Value);
 impl_message!(UInt32Value);
 impl_message!(BoolValue);
@@ -162,9 +160,7 @@ mod test {
 
     #[test_case(1234.5 as DoubleValue, "DoubleValue")]
     #[test_case(9876.5 as FloatValue, "FloatValue")]
-    #[test_case(-1234567890123456789 as Int64Value, "Int64Value")]
     #[test_case(-123 as Int32Value, "Int32Value")]
-    #[test_case(1234567890123456789 as UInt64Value, "UInt64Value")]
     #[test_case(123 as UInt32Value, "UInt32Value")]
     #[test_case(true as BoolValue, "BoolValue")]
     #[test_case(StringValue::from("I am a string"), "StringValue")]
@@ -190,9 +186,7 @@ mod test {
 
     #[test_case(Int32Value::default(), DoubleValue::default())]
     #[test_case(Int32Value::default(), FloatValue::default())]
-    #[test_case(DoubleValue::default(), Int64Value::default())]
     #[test_case(DoubleValue::default(), Int32Value::default())]
-    #[test_case(DoubleValue::default(), UInt64Value::default())]
     #[test_case(DoubleValue::default(), UInt32Value::default())]
     #[test_case(DoubleValue::default(), BoolValue::default())]
     #[test_case(DoubleValue::default(), StringValue::default())]
