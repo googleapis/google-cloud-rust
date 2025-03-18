@@ -66,7 +66,7 @@ impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
                 {{#PathInfo.Codec.HasPathArgs}}
                 format!("{{PathInfo.Codec.PathFmt}}"
                     {{#PathInfo.Codec.PathArgs}}
-                        , req{{{.}}}
+                        , req{{{Accessor}}}
                     {{/PathInfo.Codec.PathArgs}}
                 )
                 {{/PathInfo.Codec.HasPathArgs}}

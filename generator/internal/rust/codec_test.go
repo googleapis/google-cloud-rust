@@ -2020,7 +2020,7 @@ func TestEnumNames(t *testing.T) {
 	}
 }
 
-func Test_RustPathFmt(t *testing.T) {
+func TestPathFmt(t *testing.T) {
 	for _, test := range []struct {
 		want     string
 		pathInfo *api.PathInfo
@@ -2067,7 +2067,7 @@ func Test_RustPathFmt(t *testing.T) {
 
 }
 
-func Test_RustPathArgs(t *testing.T) {
+func TestPathArgs(t *testing.T) {
 	subMessage := &api.Message{
 		Name: "Body",
 		ID:   ".test.Body",
@@ -2101,7 +2101,7 @@ func Test_RustPathArgs(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{subMessage, message}, []*api.Enum{}, []*api.Service{service})
 
 	for _, test := range []struct {
-		want     []string
+		want     []pathArg
 		pathInfo *api.PathInfo
 	}{
 		{
@@ -2113,7 +2113,7 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{".a"},
+			[]pathArg{{Name: "a", Accessor: ".a"}},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2121,7 +2121,12 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.b.as_ref().ok_or_else(|| gclient::path_parameter::missing("b"))?`},
+			[]pathArg{
+				{
+					Name:     "b",
+					Accessor: `.b.as_ref().ok_or_else(|| gclient::path_parameter::missing("b"))?`,
+				},
+			},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2130,7 +2135,7 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.c.value()`},
+			[]pathArg{{Name: "c", Accessor: `.c.value()`}},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2139,7 +2144,12 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.d.as_ref().ok_or_else(|| gclient::path_parameter::missing("d"))?.value()`},
+			[]pathArg{
+				{
+					Name:     "d",
+					Accessor: `.d.as_ref().ok_or_else(|| gclient::path_parameter::missing("d"))?.value()`,
+				},
+			},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2148,7 +2158,12 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?.a`},
+			[]pathArg{
+				{
+					Name:     "e.a",
+					Accessor: `.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?.a`,
+				},
+			},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2157,8 +2172,13 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?` +
-				`.b.as_ref().ok_or_else(|| gclient::path_parameter::missing("b"))?`},
+			[]pathArg{
+				{
+					Name: "e.b",
+					Accessor: `.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?` +
+						`.b.as_ref().ok_or_else(|| gclient::path_parameter::missing("b"))?`,
+				},
+			},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2167,8 +2187,13 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?` +
-				`.c.value()`},
+			[]pathArg{
+				{
+					Name: "e.c",
+					Accessor: `.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?` +
+						`.c.value()`,
+				},
+			},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2177,9 +2202,14 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{`.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?` +
-				`.d.as_ref().ok_or_else(|| gclient::path_parameter::missing("d"))?` +
-				`.value()`},
+			[]pathArg{
+				{
+					Name: "e.d",
+					Accessor: `.e.as_ref().ok_or_else(|| gclient::path_parameter::missing("e"))?` +
+						`.d.as_ref().ok_or_else(|| gclient::path_parameter::missing("d"))?` +
+						`.value()`,
+				},
+			},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2188,7 +2218,16 @@ func Test_RustPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]string{".a", `.b.as_ref().ok_or_else(|| gclient::path_parameter::missing("b"))?`},
+			[]pathArg{
+				{
+					Name:     "a",
+					Accessor: ".a",
+				},
+				{
+					Name:     "b",
+					Accessor: `.b.as_ref().ok_or_else(|| gclient::path_parameter::missing("b"))?`,
+				},
+			},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),

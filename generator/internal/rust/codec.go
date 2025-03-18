@@ -799,19 +799,27 @@ func derefFieldPath(fieldPath string, message *api.Message, state *api.APIState)
 	return expression.String()
 }
 
-func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []string {
+type pathArg struct {
+	Name     string
+	Accessor string
+}
+
+func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pathArg {
 	message, ok := state.MessageByID[method.InputTypeID]
 	if !ok {
 		slog.Error("cannot find input message for", "method", method)
-		return []string{}
+		return []pathArg{}
 	}
-	var args []string
+	var params []pathArg
 	for _, arg := range h.PathTemplate {
 		if arg.FieldPath != nil {
-			args = append(args, derefFieldPath(*arg.FieldPath, message, state))
+			params = append(params, pathArg{
+				Name:     *arg.FieldPath,
+				Accessor: derefFieldPath(*arg.FieldPath, message, state),
+			})
 		}
 	}
-	return args
+	return params
 }
 
 // Convert a name to `snake_case`. The Rust naming conventions use this style
