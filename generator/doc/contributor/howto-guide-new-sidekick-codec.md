@@ -81,7 +81,7 @@ cat generator/internal/codec_sample/generate.go
 This module has a single (and relatively simple) template file:
 
 ```shell
-cat generator/internal/codec_sample/templats/readme/README.md.mustache
+cat generator/internal/codec_sample/templates/readme/README.md.mustache
 ```
 
 The codec is invoked from a single point in sidekick:
@@ -114,9 +114,29 @@ the `api.API` data structure. Look at the other codecs for examples.
 
 ## Annotations
 
-Eventually your codec will need to annotate the `api.API` structure. Look at the
-other codecs for examples. The most common annotations are the names of the
-generated elements, as these often differ in non-trivial ways from the source
-name.
+Eventually your codec will need to add annotations to the `api.API` structure. A
+simple annotation may be a boolean indicating if an API has any services. If you
+needed such an annotation would would write you own `annotate()` function:
+
+```go
+type modelAnnotation {
+  HasServices bool
+}
+
+func annotate(model *api.API) {
+  model.Codec = &modelAnnotation{
+    HasServices: len(model.Services) > 0
+  }
+}
+```
+
+You would need to call this function from your `Generate()` function. Note that
+only the `.Codec` field is modified, and that the type is of your own choosing.
+
+In a more interesting codec you would iterate over the `model` data structure
+and set the `.Codec` field with annotations about methods, messages, enums, and
+so forth. Look at the other codecs for examples. The most common annotations are
+the names of the generated elements, as these often differ in non-trivial ways
+from the source name.
 
 [#1500]: https://github.com/googleapis/google-cloud-rust/issues/1500
