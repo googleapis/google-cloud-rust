@@ -147,19 +147,19 @@ func TestCalculateImports(t *testing.T) {
 			"import 'dart:typed_data';",
 		}},
 		{name: "package import", imports: []string{httpImport}, want: []string{
-			"import 'package:http/http.dart';",
+			"import 'package:http/http.dart' as http;",
 		}},
 		{name: "dart and package imports", imports: []string{typedDataImport, httpImport}, want: []string{
 			"import 'dart:typed_data';",
 			"",
-			"import 'package:http/http.dart';",
+			"import 'package:http/http.dart' as http;",
 		}},
 		{name: "package imports", imports: []string{
 			httpImport,
 			"package:google_cloud_foo/foo.dart",
 		}, want: []string{
 			"import 'package:google_cloud_foo/foo.dart';",
-			"import 'package:http/http.dart';",
+			"import 'package:http/http.dart' as http;",
 		}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
