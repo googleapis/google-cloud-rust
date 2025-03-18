@@ -373,6 +373,136 @@ impl BigtableInstanceAdmin {
             .set_parent(parent.into())
     }
 
+    /// Creates a logical view within an instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_logical_view(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builders::bigtable_instance_admin::CreateLogicalView {
+        super::builders::bigtable_instance_admin::CreateLogicalView::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Gets information about a logical view.
+    pub fn get_logical_view(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builders::bigtable_instance_admin::GetLogicalView {
+        super::builders::bigtable_instance_admin::GetLogicalView::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Lists information about logical views in an instance.
+    pub fn list_logical_views(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builders::bigtable_instance_admin::ListLogicalViews {
+        super::builders::bigtable_instance_admin::ListLogicalViews::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Updates a logical view within an instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_logical_view(
+        &self,
+        logical_view: impl Into<crate::model::LogicalView>,
+    ) -> super::builders::bigtable_instance_admin::UpdateLogicalView {
+        super::builders::bigtable_instance_admin::UpdateLogicalView::new(self.inner.clone())
+            .set_logical_view(logical_view.into())
+    }
+
+    /// Deletes a logical view from an instance.
+    pub fn delete_logical_view(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builders::bigtable_instance_admin::DeleteLogicalView {
+        super::builders::bigtable_instance_admin::DeleteLogicalView::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Creates a materialized view within an instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_materialized_view(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builders::bigtable_instance_admin::CreateMaterializedView {
+        super::builders::bigtable_instance_admin::CreateMaterializedView::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Gets information about a materialized view.
+    pub fn get_materialized_view(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builders::bigtable_instance_admin::GetMaterializedView {
+        super::builders::bigtable_instance_admin::GetMaterializedView::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Lists information about materialized views in an instance.
+    pub fn list_materialized_views(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builders::bigtable_instance_admin::ListMaterializedViews {
+        super::builders::bigtable_instance_admin::ListMaterializedViews::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Updates a materialized view within an instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_materialized_view(
+        &self,
+        materialized_view: impl Into<crate::model::MaterializedView>,
+    ) -> super::builders::bigtable_instance_admin::UpdateMaterializedView {
+        super::builders::bigtable_instance_admin::UpdateMaterializedView::new(self.inner.clone())
+            .set_materialized_view(materialized_view.into())
+    }
+
+    /// Deletes a materialized view from an instance.
+    pub fn delete_materialized_view(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builders::bigtable_instance_admin::DeleteMaterializedView {
+        super::builders::bigtable_instance_admin::DeleteMaterializedView::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations

@@ -83,6 +83,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn list_workflow_revisions(
+        &self,
+        req: crate::model::ListWorkflowRevisionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListWorkflowRevisionsResponse> {
+        self.inner.list_workflow_revisions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

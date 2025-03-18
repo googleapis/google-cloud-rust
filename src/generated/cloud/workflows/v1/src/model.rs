@@ -40,12 +40,14 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct Workflow {
     /// The resource name of the workflow.
-    /// Format: projects/{project}/locations/{location}/workflows/{workflow}
+    /// Format: projects/{project}/locations/{location}/workflows/{workflow}.
+    /// This is a workflow-wide field and is not tied to a specific revision.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Description of the workflow provided by the user.
-    /// Must be at most 1000 unicode characters long.
+    /// Must be at most 1000 Unicode characters long.
+    /// This is a workflow-wide field and is not tied to a specific revision.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
@@ -70,10 +72,12 @@ pub struct Workflow {
     pub revision_id: std::string::String,
 
     /// Output only. The timestamp for when the workflow was created.
+    /// This is a workflow-wide field and is not tied to a specific revision.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The timestamp for when the workflow was last updated.
+    /// This is a workflow-wide field and is not tied to a specific revision.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
@@ -87,6 +91,7 @@ pub struct Workflow {
     /// than 63 characters and can only contain lowercase letters, numeric
     /// characters, underscores, and dashes. Label keys must start with a letter.
     /// International characters are allowed.
+    /// This is a workflow-wide field and is not tied to a specific revision.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -133,10 +138,35 @@ pub struct Workflow {
 
     /// Optional. User-defined environment variables associated with this workflow
     /// revision. This map has a maximum length of 20. Each string can take up to
-    /// 40KiB. Keys cannot be empty strings and cannot start with “GOOGLE” or
-    /// “WORKFLOWS".
+    /// 4KiB. Keys cannot be empty strings and cannot start with "GOOGLE" or
+    /// "WORKFLOWS".
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub user_env_vars: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Describes the execution history level to apply to this workflow.
+    pub execution_history_level: crate::model::ExecutionHistoryLevel,
+
+    /// Output only. A list of all KMS crypto keys used to encrypt or decrypt the
+    /// data associated with the workflow.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub all_kms_keys: std::vec::Vec<std::string::String>,
+
+    /// Output only. A list of all KMS crypto key versions used to encrypt or
+    /// decrypt the data associated with the workflow.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub all_kms_keys_versions: std::vec::Vec<std::string::String>,
+
+    /// Output only. The resource name of a KMS crypto key version used to encrypt
+    /// or decrypt the data associated with the workflow.
+    ///
+    /// Format:
+    /// projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey}/cryptoKeyVersions/{cryptoKeyVersion}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub crypto_key_version: std::string::String,
+
+    /// Optional. Input only. Immutable. Tags associated with this workflow.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Location of the workflow source code.
     /// Modifying this field for an existing workflow results in a new workflow
@@ -233,6 +263,48 @@ impl Workflow {
         self
     }
 
+    /// Sets the value of [execution_history_level][crate::model::Workflow::execution_history_level].
+    pub fn set_execution_history_level<
+        T: std::convert::Into<crate::model::ExecutionHistoryLevel>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.execution_history_level = v.into();
+        self
+    }
+
+    /// Sets the value of [crypto_key_version][crate::model::Workflow::crypto_key_version].
+    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.crypto_key_version = v.into();
+        self
+    }
+
+    /// Sets the value of [all_kms_keys][crate::model::Workflow::all_kms_keys].
+    pub fn set_all_kms_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.all_kms_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [all_kms_keys_versions][crate::model::Workflow::all_kms_keys_versions].
+    pub fn set_all_kms_keys_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.all_kms_keys_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [labels][crate::model::Workflow::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -254,6 +326,18 @@ impl Workflow {
     {
         use std::iter::Iterator;
         self.user_env_vars = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::Workflow::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -567,6 +651,16 @@ pub struct ListWorkflowsRequest {
     pub page_token: std::string::String,
 
     /// Filter to restrict results to specific workflows.
+    /// For details, see <a href="https://google.aip.dev/160"
+    /// class="external"\>AIP-160</a>.
+    ///
+    /// For example, if you are using the Google APIs Explorer:
+    ///
+    /// `state="SUCCEEDED"`
+    ///
+    /// or
+    ///
+    /// `createTime>"2023-08-01" AND state="FAILED"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
 
@@ -964,5 +1058,185 @@ impl OperationMetadata {
 impl wkt::message::Message for OperationMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.workflows.v1.OperationMetadata"
+    }
+}
+
+/// Request for the
+/// [ListWorkflowRevisions][google.cloud.workflows.v1.Workflows.ListWorkflowRevisions]
+/// method.
+///
+/// [google.cloud.workflows.v1.Workflows.ListWorkflowRevisions]: crate::client::Workflows::list_workflow_revisions
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListWorkflowRevisionsRequest {
+    /// Required. Workflow for which the revisions should be listed.
+    /// Format: projects/{project}/locations/{location}/workflows/{workflow}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// The maximum number of revisions to return per page. If a value is not
+    /// specified, a default value of 20 is used. The maximum permitted value is
+    /// 100. Values greater than 100 are coerced down to 100.
+    pub page_size: i32,
+
+    /// The page token, received from a previous ListWorkflowRevisions call.
+    /// Provide this to retrieve the subsequent page.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+}
+
+impl ListWorkflowRevisionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ListWorkflowRevisionsRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListWorkflowRevisionsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListWorkflowRevisionsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListWorkflowRevisionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.workflows.v1.ListWorkflowRevisionsRequest"
+    }
+}
+
+/// Response for the
+/// [ListWorkflowRevisions][google.cloud.workflows.v1.Workflows.ListWorkflowRevisions]
+/// method.
+///
+/// [google.cloud.workflows.v1.Workflows.ListWorkflowRevisions]: crate::client::Workflows::list_workflow_revisions
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListWorkflowRevisionsResponse {
+    /// The revisions of the workflow, ordered in reverse chronological order.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub workflows: std::vec::Vec<crate::model::Workflow>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+}
+
+impl ListWorkflowRevisionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkflowRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [workflows][crate::model::ListWorkflowRevisionsResponse::workflows].
+    pub fn set_workflows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Workflow>,
+    {
+        use std::iter::Iterator;
+        self.workflows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListWorkflowRevisionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.workflows.v1.ListWorkflowRevisionsResponse"
+    }
+}
+
+impl gax::paginator::PageableResponse for ListWorkflowRevisionsResponse {
+    type PageItem = crate::model::Workflow;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.workflows
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Define possible options for enabling the execution history level.
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct ExecutionHistoryLevel(i32);
+
+impl ExecutionHistoryLevel {
+    /// The default/unset value.
+    pub const EXECUTION_HISTORY_LEVEL_UNSPECIFIED: ExecutionHistoryLevel =
+        ExecutionHistoryLevel::new(0);
+
+    /// Enable execution history basic feature.
+    pub const EXECUTION_HISTORY_BASIC: ExecutionHistoryLevel = ExecutionHistoryLevel::new(1);
+
+    /// Enable execution history detailed feature.
+    pub const EXECUTION_HISTORY_DETAILED: ExecutionHistoryLevel = ExecutionHistoryLevel::new(2);
+
+    /// Creates a new ExecutionHistoryLevel instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("EXECUTION_HISTORY_LEVEL_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("EXECUTION_HISTORY_BASIC"),
+            2 => std::borrow::Cow::Borrowed("EXECUTION_HISTORY_DETAILED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "EXECUTION_HISTORY_LEVEL_UNSPECIFIED" => {
+                std::option::Option::Some(Self::EXECUTION_HISTORY_LEVEL_UNSPECIFIED)
+            }
+            "EXECUTION_HISTORY_BASIC" => std::option::Option::Some(Self::EXECUTION_HISTORY_BASIC),
+            "EXECUTION_HISTORY_DETAILED" => {
+                std::option::Option::Some(Self::EXECUTION_HISTORY_DETAILED)
+            }
+            _ => std::option::Option::None,
+        }
+    }
+}
+
+impl std::convert::From<i32> for ExecutionHistoryLevel {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+impl std::default::Default for ExecutionHistoryLevel {
+    fn default() -> Self {
+        Self::new(0)
     }
 }

@@ -427,6 +427,77 @@ pub mod workflows {
         }
     }
 
+    /// The request builder for a Workflows::list_workflow_revisions call.
+    #[derive(Clone, Debug)]
+    pub struct ListWorkflowRevisions(RequestBuilder<crate::model::ListWorkflowRevisionsRequest>);
+
+    impl ListWorkflowRevisions {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Workflows>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListWorkflowRevisionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListWorkflowRevisionsResponse> {
+            (*self.0.stub)
+                .list_workflow_revisions(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Streams the responses back.
+        pub async fn paginator(
+            self,
+        ) -> gax::paginator::Paginator<crate::model::ListWorkflowRevisionsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::Paginator::new(token, execute)
+        }
+
+        /// Sets the value of [name][crate::model::ListWorkflowRevisionsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListWorkflowRevisionsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListWorkflowRevisionsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for ListWorkflowRevisions {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for a Workflows::list_locations call.
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);

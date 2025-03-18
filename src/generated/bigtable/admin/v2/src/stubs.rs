@@ -277,6 +277,119 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
+    /// Implements [super::client::BigtableInstanceAdmin::create_logical_view].
+    fn create_logical_view(
+        &self,
+        _req: crate::model::CreateLogicalViewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::get_logical_view].
+    fn get_logical_view(
+        &self,
+        _req: crate::model::GetLogicalViewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::LogicalView>> + Send {
+        std::future::ready::<crate::Result<crate::model::LogicalView>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::list_logical_views].
+    fn list_logical_views(
+        &self,
+        _req: crate::model::ListLogicalViewsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLogicalViewsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::ListLogicalViewsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::update_logical_view].
+    fn update_logical_view(
+        &self,
+        _req: crate::model::UpdateLogicalViewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::delete_logical_view].
+    fn delete_logical_view(
+        &self,
+        _req: crate::model::DeleteLogicalViewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
+        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::create_materialized_view].
+    fn create_materialized_view(
+        &self,
+        _req: crate::model::CreateMaterializedViewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::get_materialized_view].
+    fn get_materialized_view(
+        &self,
+        _req: crate::model::GetMaterializedViewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::MaterializedView>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::MaterializedView>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::list_materialized_views].
+    fn list_materialized_views(
+        &self,
+        _req: crate::model::ListMaterializedViewsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListMaterializedViewsResponse>>
+           + Send {
+        std::future::ready::<crate::Result<crate::model::ListMaterializedViewsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::update_materialized_view].
+    fn update_materialized_view(
+        &self,
+        _req: crate::model::UpdateMaterializedViewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::delete_materialized_view].
+    fn delete_materialized_view(
+        &self,
+        _req: crate::model::DeleteMaterializedViewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
+        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
+    }
+
     /// Implements [super::client::BigtableInstanceAdmin::list_operations].
     fn list_operations(
         &self,

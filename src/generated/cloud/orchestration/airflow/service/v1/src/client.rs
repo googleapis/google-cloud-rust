@@ -227,7 +227,7 @@ impl Environments {
     /// Creates a user workloads Secret.
     ///
     /// This method is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn create_user_workloads_secret(
         &self,
         parent: impl Into<std::string::String>,
@@ -240,7 +240,7 @@ impl Environments {
     /// Values of the "data" field in the response are cleared.
     ///
     /// This method is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn get_user_workloads_secret(
         &self,
         name: impl Into<std::string::String>,
@@ -252,7 +252,7 @@ impl Environments {
     /// Lists user workloads Secrets.
     ///
     /// This method is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn list_user_workloads_secrets(
         &self,
         parent: impl Into<std::string::String>,
@@ -264,7 +264,7 @@ impl Environments {
     /// Updates a user workloads Secret.
     ///
     /// This method is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn update_user_workloads_secret(
         &self,
         user_workloads_secret: impl Into<crate::model::UserWorkloadsSecret>,
@@ -276,7 +276,7 @@ impl Environments {
     /// Deletes a user workloads Secret.
     ///
     /// This method is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn delete_user_workloads_secret(
         &self,
         name: impl Into<std::string::String>,
@@ -288,7 +288,7 @@ impl Environments {
     /// Creates a user workloads ConfigMap.
     ///
     /// This method is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn create_user_workloads_config_map(
         &self,
         parent: impl Into<std::string::String>,
@@ -300,7 +300,7 @@ impl Environments {
     /// Gets an existing user workloads ConfigMap.
     ///
     /// This method is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn get_user_workloads_config_map(
         &self,
         name: impl Into<std::string::String>,
@@ -312,7 +312,7 @@ impl Environments {
     /// Lists user workloads ConfigMaps.
     ///
     /// This method is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn list_user_workloads_config_maps(
         &self,
         parent: impl Into<std::string::String>,
@@ -324,7 +324,7 @@ impl Environments {
     /// Updates a user workloads ConfigMap.
     ///
     /// This method is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn update_user_workloads_config_map(
         &self,
         user_workloads_config_map: impl Into<crate::model::UserWorkloadsConfigMap>,
@@ -336,7 +336,7 @@ impl Environments {
     /// Deletes a user workloads ConfigMap.
     ///
     /// This method is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn delete_user_workloads_config_map(
         &self,
         name: impl Into<std::string::String>,

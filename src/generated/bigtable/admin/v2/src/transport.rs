@@ -542,6 +542,254 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .await
     }
 
+    async fn create_logical_view(
+        &self,
+        req: crate::model::CreateLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v2/{}/logicalViews", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("logicalViewId", &req.logical_view_id)]);
+        self.inner
+            .execute(builder, Some(req.logical_view), options)
+            .await
+    }
+
+    async fn get_logical_view(
+        &self,
+        req: crate::model::GetLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::LogicalView> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gclient::NoBody>, options)
+            .await
+    }
+
+    async fn list_logical_views(
+        &self,
+        req: crate::model::ListLogicalViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListLogicalViewsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v2/{}/logicalViews", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        self.inner
+            .execute(builder, None::<gclient::NoBody>, options)
+            .await
+    }
+
+    async fn update_logical_view(
+        &self,
+        req: crate::model::UpdateLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::PATCH,
+                format!(
+                    "/v2/{}",
+                    req.logical_view
+                        .as_ref()
+                        .ok_or_else(|| gclient::path_parameter::missing("logical_view"))?
+                        .name
+                ),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .update_mask
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gclient::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
+        self.inner
+            .execute(builder, Some(req.logical_view), options)
+            .await
+    }
+
+    async fn delete_logical_view(
+        &self,
+        req: crate::model::DeleteLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<wkt::Empty> {
+        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("etag", &req.etag)]);
+        self.inner
+            .execute(builder, None::<gclient::NoBody>, options)
+            .await
+    }
+
+    async fn create_materialized_view(
+        &self,
+        req: crate::model::CreateMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v2/{}/materializedViews", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("materializedViewId", &req.materialized_view_id)]);
+        self.inner
+            .execute(builder, Some(req.materialized_view), options)
+            .await
+    }
+
+    async fn get_materialized_view(
+        &self,
+        req: crate::model::GetMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::MaterializedView> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gclient::NoBody>, options)
+            .await
+    }
+
+    async fn list_materialized_views(
+        &self,
+        req: crate::model::ListMaterializedViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListMaterializedViewsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v2/{}/materializedViews", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        self.inner
+            .execute(builder, None::<gclient::NoBody>, options)
+            .await
+    }
+
+    async fn update_materialized_view(
+        &self,
+        req: crate::model::UpdateMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::PATCH,
+                format!(
+                    "/v2/{}",
+                    req.materialized_view
+                        .as_ref()
+                        .ok_or_else(|| gclient::path_parameter::missing("materialized_view"))?
+                        .name
+                ),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .update_mask
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gclient::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
+        self.inner
+            .execute(builder, Some(req.materialized_view), options)
+            .await
+    }
+
+    async fn delete_materialized_view(
+        &self,
+        req: crate::model::DeleteMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<wkt::Empty> {
+        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("etag", &req.etag)]);
+        self.inner
+            .execute(builder, None::<gclient::NoBody>, options)
+            .await
+    }
+
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,

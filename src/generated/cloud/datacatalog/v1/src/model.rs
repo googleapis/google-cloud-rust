@@ -2625,7 +2625,7 @@ pub struct DatabaseTableSpec {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub dataplex_table: std::option::Option<crate::model::DataplexTableSpec>,
 
-    /// Spec what aplies to tables that are actually views.
+    /// Spec what applies to tables that are actually views.
     /// Not set for "real" tables.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub database_view_spec:
@@ -4263,7 +4263,7 @@ pub mod model_spec {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct FeatureOnlineStoreSpec {
-    /// Output only. Type of underelaying storage for the FeatureOnlineStore.
+    /// Output only. Type of underlying storage for the FeatureOnlineStore.
     pub storage_type: crate::model::feature_online_store_spec::StorageType,
 }
 
@@ -4295,7 +4295,7 @@ pub mod feature_online_store_spec {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Type of underlaying storage type.
+    /// Type of underlying storage type.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StorageType(i32);
 
@@ -4306,7 +4306,7 @@ pub mod feature_online_store_spec {
         /// Underlsying storgae is Bigtable.
         pub const BIGTABLE: StorageType = StorageType::new(1);
 
-        /// Underlaying is optimized online server (Lightning).
+        /// Underlying is optimized online server (Lightning).
         pub const OPTIMIZED: StorageType = StorageType::new(2);
 
         /// Creates a new StorageType instance.

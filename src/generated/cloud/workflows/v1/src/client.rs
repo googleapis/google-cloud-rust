@@ -172,6 +172,15 @@ impl Workflows {
             .set_workflow(workflow.into())
     }
 
+    /// Lists revisions for a given workflow.
+    pub fn list_workflow_revisions(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builders::workflows::ListWorkflowRevisions {
+        super::builders::workflows::ListWorkflowRevisions::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
