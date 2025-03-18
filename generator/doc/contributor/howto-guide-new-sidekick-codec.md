@@ -68,26 +68,26 @@ into your codec.
 First, add a module, something like this would do:
 
 ```shell
-ls -l generator/internal/sample
+ls -l generator/internal/codec_sample
 ```
 
 The main entry point in that module is the `Generate()` function, found in
 `generate.go`:
 
 ```shell
-cat generator/internal/sample/generate.go
+cat generator/internal/codec_sample/generate.go
 ```
 
 This module has a single (and relatively simple) template file:
 
 ```shell
-cat generator/internal/sample/templats/readme/README.md.mustache
+cat generator/internal/codec_sample/templats/readme/README.md.mustache
 ```
 
 The codec is invoked from a single point in sidekick:
 
 ```shell
-git grep -A 2 -B 2 sample.Generate
+git grep -A 2 -B 2 codec_sample.Generate
 ```
 
 ## Basic integration tests
