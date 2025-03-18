@@ -150,53 +150,144 @@ impl_message!(UInt32Value);
 impl_message!(BoolValue);
 impl_message!(StringValue);
 
+fn encode_string<T>(value: String) -> Result<crate::message::Map, crate::AnyError>
+where
+    T: crate::message::Message,
+{
+    let map: crate::message::Map = [
+        (
+            "@type",
+            serde_json::Value::String(T::typename().to_string()),
+        ),
+        ("value", serde_json::Value::String(value)),
+    ]
+    .into_iter()
+    .map(|(k, v)| (k.to_string(), v))
+    .collect();
+    Ok(map)
+}
+
+impl crate::message::Message for UInt64Value {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.UInt64Value"
+    }
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
+    where
+        Self: serde::ser::Serialize + Sized,
+    {
+        encode_string::<Self>(self.to_string())
+    }
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
+    where
+        Self: serde::de::DeserializeOwned,
+    {
+        map.get("value")
+            .ok_or_else(crate::message::missing_value_field)?
+            .as_str()
+            .ok_or_else(expected_string_value)?
+            .parse::<UInt64Value>()
+            .map_err(crate::AnyError::deser)
+    }
+}
+
+impl crate::message::Message for Int64Value {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.Int64Value"
+    }
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
+    where
+        Self: serde::ser::Serialize + Sized,
+    {
+        encode_string::<Self>(self.to_string())
+    }
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
+    where
+        Self: serde::de::DeserializeOwned,
+    {
+        map.get("value")
+            .ok_or_else(crate::message::missing_value_field)?
+            .as_str()
+            .ok_or_else(expected_string_value)?
+            .parse::<Int64Value>()
+            .map_err(crate::AnyError::deser)
+    }
+}
+
+fn expected_string_value() -> crate::AnyError {
+    crate::AnyError::deser("expected value field to be a string")
+}
+
 #[cfg(test)]
 mod test {
-
     use super::*;
     use crate::Any;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
     use test_case::test_case;
 
-    #[test_case(1234.5 as DoubleValue, "DoubleValue")]
-    #[test_case(9876.5 as FloatValue, "FloatValue")]
-    #[test_case(-123 as Int32Value, "Int32Value")]
-    #[test_case(123 as UInt32Value, "UInt32Value")]
-    #[test_case(true as BoolValue, "BoolValue")]
-    #[test_case(StringValue::from("I am a string"), "StringValue")]
-    fn test_wrapper_in_any<T>(input: T, typename: &str) -> Result
+    #[test_case(1234.5 as DoubleValue, 1234.5, "DoubleValue")]
+    #[test_case(9876.5 as FloatValue, 9876.5, "FloatValue")]
+    #[test_case(-123 as Int64Value, "-123", "Int64Value")]
+    #[test_case(123 as UInt64Value, "123", "UInt64Value")]
+    #[test_case(-123 as Int32Value, -123, "Int32Value")]
+    #[test_case(123 as UInt32Value, 123, "UInt32Value")]
+    #[test_case(true as BoolValue, true, "BoolValue")]
+    #[test_case(StringValue::from("Hello, World!"), "Hello, World!", "StringValue")]
+    fn test_wrapper_in_any<I, V>(input: I, value: V, typename: &str) -> Result
     where
-        T: crate::message::Message
+        I: crate::message::Message
             + std::fmt::Debug
             + PartialEq
             + serde::de::DeserializeOwned
             + serde::ser::Serialize,
+        V: serde::ser::Serialize,
     {
         let any = Any::try_from(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": format!("type.googleapis.com/google.protobuf.{}", typename),
-            "value": input,
+            "value": value,
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<T>()?;
+        let output = any.try_into_message::<I>()?;
         assert_eq!(output, input);
         Ok(())
     }
 
     #[test_case(Int32Value::default(), DoubleValue::default())]
     #[test_case(Int32Value::default(), FloatValue::default())]
+    #[test_case(DoubleValue::default(), Int64Value::default())]
+    #[test_case(DoubleValue::default(), UInt64Value::default())]
     #[test_case(DoubleValue::default(), Int32Value::default())]
     #[test_case(DoubleValue::default(), UInt32Value::default())]
     #[test_case(DoubleValue::default(), BoolValue::default())]
     #[test_case(DoubleValue::default(), StringValue::default())]
-    fn test_wrapper_in_any_with_bad_types<T, U>(from: T, _into: U) -> Result
+    fn test_wrapper_in_any_with_bad_typenames<T, U>(from: T, _into: U) -> Result
     where
         T: crate::message::Message + std::fmt::Debug + serde::ser::Serialize,
         U: crate::message::Message + std::fmt::Debug + serde::de::DeserializeOwned,
     {
         let any = Any::try_from(&from)?;
         assert!(any.try_into_message::<U>().is_err());
+        Ok(())
+    }
+
+    #[test_case(Int64Value::default(), "Int64Value")]
+    #[test_case(UInt64Value::default(), "UInt64Value")]
+    fn test_wrapper_bad_encoding<T>(_input: T, typename: &str) -> Result
+    where
+        T: crate::message::Message
+            + std::fmt::Debug
+            + serde::ser::Serialize
+            + serde::de::DeserializeOwned,
+    {
+        let map = serde_json::json!({
+            "@type": format!("type.googleapis.com/google.protobuf.{}", typename),
+            "value": 0,
+        });
+        let e = T::from_map(map.as_object().unwrap());
+        assert!(e.is_err());
+        let fmt = format!("{:?}", e);
+        assert!(fmt.contains("expected value field to be a string"), "{fmt}");
         Ok(())
     }
 }
