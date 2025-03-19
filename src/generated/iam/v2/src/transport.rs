@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Policies](super::stubs::Policies) using a [gclient::ReqwestClient].
+/// Implements [Policies](super::stubs::Policies) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct Policies {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for Policies {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for Policies {
 }
 
 impl Policies {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -57,7 +57,7 @@ impl super::stubs::Policies for Policies {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -76,7 +76,7 @@ impl super::stubs::Policies for Policies {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -112,7 +112,7 @@ impl super::stubs::Policies for Policies {
                     "/v2/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -140,7 +140,7 @@ impl super::stubs::Policies for Policies {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -159,7 +159,7 @@ impl super::stubs::Policies for Policies {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

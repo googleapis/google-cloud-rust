@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ProfilerService](super::stubs::ProfilerService) using a [gclient::ReqwestClient].
+/// Implements [ProfilerService](super::stubs::ProfilerService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ProfilerService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ProfilerService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ProfilerService {
 }
 
 impl ProfilerService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -96,7 +96,7 @@ impl super::stubs::ProfilerService for ProfilerService {
                     "/v2/{}",
                     req.profile
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("profile"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("profile"))?
                         .name
                 ),
             )
@@ -112,7 +112,7 @@ impl super::stubs::ProfilerService for ProfilerService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -121,10 +121,10 @@ impl super::stubs::ProfilerService for ProfilerService {
     }
 }
 
-/// Implements [ExportService](super::stubs::ExportService) using a [gclient::ReqwestClient].
+/// Implements [ExportService](super::stubs::ExportService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ExportService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ExportService {
@@ -136,8 +136,8 @@ impl std::fmt::Debug for ExportService {
 }
 
 impl ExportService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -160,7 +160,7 @@ impl super::stubs::ExportService for ExportService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

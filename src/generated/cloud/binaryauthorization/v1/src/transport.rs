@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BinauthzManagementServiceV1](super::stubs::BinauthzManagementServiceV1) using a [gclient::ReqwestClient].
+/// Implements [BinauthzManagementServiceV1](super::stubs::BinauthzManagementServiceV1) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct BinauthzManagementServiceV1 {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for BinauthzManagementServiceV1 {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for BinauthzManagementServiceV1 {
 }
 
 impl BinauthzManagementServiceV1 {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -55,7 +55,7 @@ impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -73,7 +73,7 @@ impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     "/v1/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -123,7 +123,7 @@ impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -141,7 +141,7 @@ impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     "/v1/{}",
                     req.attestor
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("attestor"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("attestor"))?
                         .name
                 ),
             )
@@ -175,7 +175,7 @@ impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -194,15 +194,15 @@ impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }
 
-/// Implements [SystemPolicyV1](super::stubs::SystemPolicyV1) using a [gclient::ReqwestClient].
+/// Implements [SystemPolicyV1](super::stubs::SystemPolicyV1) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SystemPolicyV1 {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SystemPolicyV1 {
@@ -214,8 +214,8 @@ impl std::fmt::Debug for SystemPolicyV1 {
 }
 
 impl SystemPolicyV1 {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -236,15 +236,15 @@ impl super::stubs::SystemPolicyV1 for SystemPolicyV1 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }
 
-/// Implements [ValidationHelperV1](super::stubs::ValidationHelperV1) using a [gclient::ReqwestClient].
+/// Implements [ValidationHelperV1](super::stubs::ValidationHelperV1) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ValidationHelperV1 {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ValidationHelperV1 {
@@ -256,8 +256,8 @@ impl std::fmt::Debug for ValidationHelperV1 {
 }
 
 impl ValidationHelperV1 {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }

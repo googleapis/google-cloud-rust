@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecretManagerService](super::stubs::SecretManagerService) using a [gclient::ReqwestClient].
+/// Implements [SecretManagerService](super::stubs::SecretManagerService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SecretManagerService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SecretManagerService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for SecretManagerService {
 }
 
 impl SecretManagerService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -87,7 +87,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -114,7 +114,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -167,7 +167,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -269,7 +269,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -295,7 +295,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -317,7 +317,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = { use gclient::query_parameter::QueryParameter; serde_json::to_value(&req.update_mask).map_err(Error::serde)?.add(builder, "updateMask") };
+        let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.update_mask).map_err(Error::serde)?.add(builder, "updateMask") };
         self.inner.execute(
             builder,
             Some(req.request_body)
@@ -347,7 +347,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -374,7 +374,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -397,7 +397,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = { use gclient::query_parameter::QueryParameter; serde_json::to_value(&req.update_mask).map_err(Error::serde)?.add(builder, "updateMask") };
+        let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.update_mask).map_err(Error::serde)?.add(builder, "updateMask") };
         self.inner.execute(
             builder,
             Some(req.request_body)
@@ -429,7 +429,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -458,7 +458,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -484,7 +484,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -511,7 +511,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -537,7 +537,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -564,7 +564,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -800,7 +800,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -827,7 +827,7 @@ impl super::stubs::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }

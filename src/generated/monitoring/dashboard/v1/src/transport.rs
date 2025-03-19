@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DashboardsService](super::stubs::DashboardsService) using a [gclient::ReqwestClient].
+/// Implements [DashboardsService](super::stubs::DashboardsService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct DashboardsService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for DashboardsService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for DashboardsService {
 }
 
 impl DashboardsService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -83,7 +83,7 @@ impl super::stubs::DashboardsService for DashboardsService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -102,7 +102,7 @@ impl super::stubs::DashboardsService for DashboardsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -121,7 +121,7 @@ impl super::stubs::DashboardsService for DashboardsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -139,7 +139,7 @@ impl super::stubs::DashboardsService for DashboardsService {
                     "/v1/{}",
                     req.dashboard
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("dashboard"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("dashboard"))?
                         .name
                 ),
             )

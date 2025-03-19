@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BigtableInstanceAdmin](super::stubs::BigtableInstanceAdmin) using a [gclient::ReqwestClient].
+/// Implements [BigtableInstanceAdmin](super::stubs::BigtableInstanceAdmin) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct BigtableInstanceAdmin {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for BigtableInstanceAdmin {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for BigtableInstanceAdmin {
 }
 
 impl BigtableInstanceAdmin {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -75,7 +75,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -98,7 +98,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             );
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -133,7 +133,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     "/v2/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -149,7 +149,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -172,7 +172,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -214,7 +214,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -234,7 +234,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             );
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -269,7 +269,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     "/v2/{}",
                     req.cluster
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("cluster"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("cluster"))?
                         .name
                 ),
             )
@@ -285,7 +285,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -308,7 +308,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -351,7 +351,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -375,7 +375,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -393,7 +393,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     "/v2/{}",
                     req.app_profile
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("app_profile"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("app_profile"))?
                         .name
                 ),
             )
@@ -409,7 +409,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
@@ -434,7 +434,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             );
         let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -522,7 +522,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "startTime")
             });
         let builder = req
@@ -532,13 +532,13 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "endTime")
             });
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -580,7 +580,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -604,7 +604,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -622,7 +622,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     "/v2/{}",
                     req.logical_view
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("logical_view"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("logical_view"))?
                         .name
                 ),
             )
@@ -638,7 +638,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -662,7 +662,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -704,7 +704,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -728,7 +728,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -746,7 +746,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     "/v2/{}",
                     req.materialized_view
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("materialized_view"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("materialized_view"))?
                         .name
                 ),
             )
@@ -762,7 +762,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -786,7 +786,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -808,7 +808,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -827,7 +827,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -846,7 +846,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -865,7 +865,7 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -884,10 +884,10 @@ impl super::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
     }
 }
 
-/// Implements [BigtableTableAdmin](super::stubs::BigtableTableAdmin) using a [gclient::ReqwestClient].
+/// Implements [BigtableTableAdmin](super::stubs::BigtableTableAdmin) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct BigtableTableAdmin {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for BigtableTableAdmin {
@@ -899,8 +899,8 @@ impl std::fmt::Debug for BigtableTableAdmin {
 }
 
 impl BigtableTableAdmin {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -961,7 +961,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -981,7 +981,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -999,7 +999,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                     "/v2/{}",
                     req.table
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("table"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("table"))?
                         .name
                 ),
             )
@@ -1015,7 +1015,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
@@ -1037,7 +1037,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1102,7 +1102,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1122,7 +1122,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1140,7 +1140,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                     "/v2/{}",
                     req.authorized_view
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("authorized_view"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("authorized_view"))?
                         .name
                 ),
             )
@@ -1156,7 +1156,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
@@ -1181,7 +1181,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1297,7 +1297,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1321,7 +1321,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1340,7 +1340,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1377,7 +1377,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1395,7 +1395,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                     "/v2/{}",
                     req.backup
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("backup"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -1411,7 +1411,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.backup), options).await
@@ -1432,7 +1432,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1455,7 +1455,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1577,7 +1577,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1596,7 +1596,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1615,7 +1615,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1634,7 +1634,7 @@ impl super::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [WebSecurityScanner](super::stubs::WebSecurityScanner) using a [gclient::ReqwestClient].
+/// Implements [WebSecurityScanner](super::stubs::WebSecurityScanner) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct WebSecurityScanner {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for WebSecurityScanner {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for WebSecurityScanner {
 }
 
 impl WebSecurityScanner {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -77,7 +77,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -96,7 +96,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -120,7 +120,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -138,7 +138,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
                     "/v1/{}",
                     req.scan_config
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("scan_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("scan_config"))?
                         .name
                 ),
             )
@@ -154,7 +154,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -194,7 +194,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -215,7 +215,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -256,7 +256,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -275,7 +275,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -297,7 +297,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -319,7 +319,7 @@ impl super::stubs::WebSecurityScanner for WebSecurityScanner {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DatabaseAdmin](super::stubs::DatabaseAdmin) using a [gclient::ReqwestClient].
+/// Implements [DatabaseAdmin](super::stubs::DatabaseAdmin) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct DatabaseAdmin {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for DatabaseAdmin {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for DatabaseAdmin {
 }
 
 impl DatabaseAdmin {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -60,7 +60,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -99,7 +99,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -117,7 +117,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                     "/v1/{}",
                     req.database
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("database"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("database"))?
                         .name
                 ),
             )
@@ -133,7 +133,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -173,7 +173,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -192,7 +192,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -278,7 +278,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "encryptionConfig")
             });
         self.inner.execute(builder, Some(req.backup), options).await
@@ -319,7 +319,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -337,7 +337,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                     "/v1/{}",
                     req.backup
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("backup"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -353,7 +353,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.backup), options).await
@@ -374,7 +374,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -396,7 +396,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -441,7 +441,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -466,7 +466,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -490,7 +490,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -552,7 +552,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -570,7 +570,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                     "/v1/{}",
                     req.backup_schedule
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("backup_schedule"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("backup_schedule"))?
                         .name
                 ),
             )
@@ -586,7 +586,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -609,7 +609,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -633,7 +633,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -655,7 +655,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -674,7 +674,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -693,7 +693,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -712,7 +712,7 @@ impl super::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

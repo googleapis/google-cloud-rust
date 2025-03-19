@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Autokey](super::stubs::Autokey) using a [gclient::ReqwestClient].
+/// Implements [Autokey](super::stubs::Autokey) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct Autokey {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for Autokey {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for Autokey {
 }
 
 impl Autokey {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -78,7 +78,7 @@ impl super::stubs::Autokey for Autokey {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -103,7 +103,7 @@ impl super::stubs::Autokey for Autokey {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -125,7 +125,7 @@ impl super::stubs::Autokey for Autokey {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -144,7 +144,7 @@ impl super::stubs::Autokey for Autokey {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -192,11 +192,11 @@ impl super::stubs::Autokey for Autokey {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -235,7 +235,7 @@ impl super::stubs::Autokey for Autokey {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -254,10 +254,10 @@ impl super::stubs::Autokey for Autokey {
     }
 }
 
-/// Implements [AutokeyAdmin](super::stubs::AutokeyAdmin) using a [gclient::ReqwestClient].
+/// Implements [AutokeyAdmin](super::stubs::AutokeyAdmin) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct AutokeyAdmin {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for AutokeyAdmin {
@@ -269,8 +269,8 @@ impl std::fmt::Debug for AutokeyAdmin {
 }
 
 impl AutokeyAdmin {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -290,7 +290,7 @@ impl super::stubs::AutokeyAdmin for AutokeyAdmin {
                     "/v1/{}",
                     req.autokey_config
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("autokey_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("autokey_config"))?
                         .name
                 ),
             )
@@ -306,7 +306,7 @@ impl super::stubs::AutokeyAdmin for AutokeyAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -329,7 +329,7 @@ impl super::stubs::AutokeyAdmin for AutokeyAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -351,7 +351,7 @@ impl super::stubs::AutokeyAdmin for AutokeyAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -373,7 +373,7 @@ impl super::stubs::AutokeyAdmin for AutokeyAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -392,7 +392,7 @@ impl super::stubs::AutokeyAdmin for AutokeyAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -440,11 +440,11 @@ impl super::stubs::AutokeyAdmin for AutokeyAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -483,15 +483,15 @@ impl super::stubs::AutokeyAdmin for AutokeyAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }
 
-/// Implements [EkmService](super::stubs::EkmService) using a [gclient::ReqwestClient].
+/// Implements [EkmService](super::stubs::EkmService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct EkmService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for EkmService {
@@ -503,8 +503,8 @@ impl std::fmt::Debug for EkmService {
 }
 
 impl EkmService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -532,7 +532,7 @@ impl super::stubs::EkmService for EkmService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -551,7 +551,7 @@ impl super::stubs::EkmService for EkmService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -592,7 +592,7 @@ impl super::stubs::EkmService for EkmService {
                     "/v1/{}",
                     req.ekm_connection
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("ekm_connection"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("ekm_connection"))?
                         .name
                 ),
             )
@@ -608,7 +608,7 @@ impl super::stubs::EkmService for EkmService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -631,7 +631,7 @@ impl super::stubs::EkmService for EkmService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -649,7 +649,7 @@ impl super::stubs::EkmService for EkmService {
                     "/v1/{}",
                     req.ekm_config
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("ekm_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("ekm_config"))?
                         .name
                 ),
             )
@@ -665,7 +665,7 @@ impl super::stubs::EkmService for EkmService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -691,7 +691,7 @@ impl super::stubs::EkmService for EkmService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -713,7 +713,7 @@ impl super::stubs::EkmService for EkmService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -732,7 +732,7 @@ impl super::stubs::EkmService for EkmService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -780,11 +780,11 @@ impl super::stubs::EkmService for EkmService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -823,15 +823,15 @@ impl super::stubs::EkmService for EkmService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }
 
-/// Implements [KeyManagementService](super::stubs::KeyManagementService) using a [gclient::ReqwestClient].
+/// Implements [KeyManagementService](super::stubs::KeyManagementService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct KeyManagementService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for KeyManagementService {
@@ -843,8 +843,8 @@ impl std::fmt::Debug for KeyManagementService {
 }
 
 impl KeyManagementService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -869,7 +869,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -896,7 +896,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -923,7 +923,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -949,7 +949,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -968,7 +968,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -987,7 +987,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1006,7 +1006,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1026,7 +1026,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
             );
         let builder = builder.query(&[("publicKeyFormat", &req.public_key_format.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1045,7 +1045,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1178,7 +1178,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
                     "/v1/{}",
                     req.crypto_key
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("crypto_key"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("crypto_key"))?
                         .name
                 ),
             )
@@ -1194,7 +1194,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1216,7 +1216,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
                     "/v1/{}",
                     req.crypto_key_version
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("crypto_key_version"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("crypto_key_version"))?
                         .name
                 ),
             )
@@ -1232,7 +1232,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -1480,7 +1480,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1499,7 +1499,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1547,11 +1547,11 @@ impl super::stubs::KeyManagementService for KeyManagementService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1590,7 +1590,7 @@ impl super::stubs::KeyManagementService for KeyManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

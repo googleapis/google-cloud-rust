@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ContainerAnalysis](super::stubs::ContainerAnalysis) using a [gclient::ReqwestClient].
+/// Implements [ContainerAnalysis](super::stubs::ContainerAnalysis) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ContainerAnalysis {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ContainerAnalysis {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ContainerAnalysis {
 }
 
 impl ContainerAnalysis {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -119,7 +119,7 @@ impl super::stubs::ContainerAnalysis for ContainerAnalysis {
             );
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

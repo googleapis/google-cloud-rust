@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [NotebookService](super::stubs::NotebookService) using a [gclient::ReqwestClient].
+/// Implements [NotebookService](super::stubs::NotebookService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct NotebookService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for NotebookService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for NotebookService {
 }
 
 impl NotebookService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::NotebookService for NotebookService {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl super::stubs::NotebookService for NotebookService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -123,7 +123,7 @@ impl super::stubs::NotebookService for NotebookService {
                     "/v2/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl super::stubs::NotebookService for NotebookService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -164,7 +164,7 @@ impl super::stubs::NotebookService for NotebookService {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -237,7 +237,7 @@ impl super::stubs::NotebookService for NotebookService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -310,7 +310,7 @@ impl super::stubs::NotebookService for NotebookService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -329,7 +329,7 @@ impl super::stubs::NotebookService for NotebookService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -377,11 +377,11 @@ impl super::stubs::NotebookService for NotebookService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -423,7 +423,7 @@ impl super::stubs::NotebookService for NotebookService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -442,7 +442,7 @@ impl super::stubs::NotebookService for NotebookService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -461,7 +461,7 @@ impl super::stubs::NotebookService for NotebookService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

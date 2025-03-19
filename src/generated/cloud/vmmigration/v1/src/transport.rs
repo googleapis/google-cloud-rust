@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [VmMigration](super::stubs::VmMigration) using a [gclient::ReqwestClient].
+/// Implements [VmMigration](super::stubs::VmMigration) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct VmMigration {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for VmMigration {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for VmMigration {
 }
 
 impl VmMigration {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -59,7 +59,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -78,7 +78,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -115,7 +115,7 @@ impl super::stubs::VmMigration for VmMigration {
                     "/v1/{}",
                     req.source
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("source"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("source"))?
                         .name
                 ),
             )
@@ -131,7 +131,7 @@ impl super::stubs::VmMigration for VmMigration {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -154,7 +154,7 @@ impl super::stubs::VmMigration for VmMigration {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -177,7 +177,7 @@ impl super::stubs::VmMigration for VmMigration {
             );
         let builder = builder.query(&[("forceRefresh", &req.force_refresh)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -204,7 +204,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -224,7 +224,7 @@ impl super::stubs::VmMigration for VmMigration {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -268,7 +268,7 @@ impl super::stubs::VmMigration for VmMigration {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -294,7 +294,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -313,7 +313,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -357,7 +357,7 @@ impl super::stubs::VmMigration for VmMigration {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -428,7 +428,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -448,7 +448,7 @@ impl super::stubs::VmMigration for VmMigration {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -466,7 +466,7 @@ impl super::stubs::VmMigration for VmMigration {
                     "/v1/{}",
                     req.migrating_vm
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("migrating_vm"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("migrating_vm"))?
                         .name
                 ),
             )
@@ -482,7 +482,7 @@ impl super::stubs::VmMigration for VmMigration {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -506,7 +506,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -653,7 +653,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -672,7 +672,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -739,7 +739,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -758,7 +758,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -781,7 +781,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -800,7 +800,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -837,7 +837,7 @@ impl super::stubs::VmMigration for VmMigration {
                     "/v1/{}",
                     req.group
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("group"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("group"))?
                         .name
                 ),
             )
@@ -853,7 +853,7 @@ impl super::stubs::VmMigration for VmMigration {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -876,7 +876,7 @@ impl super::stubs::VmMigration for VmMigration {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -942,7 +942,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -961,7 +961,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1003,7 +1003,7 @@ impl super::stubs::VmMigration for VmMigration {
                     "/v1/{}",
                     req.target_project
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("target_project"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("target_project"))?
                         .name
                 ),
             )
@@ -1019,7 +1019,7 @@ impl super::stubs::VmMigration for VmMigration {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1044,7 +1044,7 @@ impl super::stubs::VmMigration for VmMigration {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1070,7 +1070,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1089,7 +1089,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1111,7 +1111,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1130,7 +1130,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1152,7 +1152,7 @@ impl super::stubs::VmMigration for VmMigration {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1171,7 +1171,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1190,7 +1190,7 @@ impl super::stubs::VmMigration for VmMigration {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

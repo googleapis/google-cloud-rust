@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CaseAttachmentService](super::stubs::CaseAttachmentService) using a [gclient::ReqwestClient].
+/// Implements [CaseAttachmentService](super::stubs::CaseAttachmentService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct CaseAttachmentService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for CaseAttachmentService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for CaseAttachmentService {
 }
 
 impl CaseAttachmentService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -60,15 +60,15 @@ impl super::stubs::CaseAttachmentService for CaseAttachmentService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }
 
-/// Implements [CaseService](super::stubs::CaseService) using a [gclient::ReqwestClient].
+/// Implements [CaseService](super::stubs::CaseService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct CaseService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for CaseService {
@@ -80,8 +80,8 @@ impl std::fmt::Debug for CaseService {
 }
 
 impl CaseService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -102,7 +102,7 @@ impl super::stubs::CaseService for CaseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -124,7 +124,7 @@ impl super::stubs::CaseService for CaseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -149,7 +149,7 @@ impl super::stubs::CaseService for CaseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -184,7 +184,7 @@ impl super::stubs::CaseService for CaseService {
                     "/v2/{}",
                     req.case
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("case"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("case"))?
                         .name
                 ),
             )
@@ -200,7 +200,7 @@ impl super::stubs::CaseService for CaseService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.case), options).await
@@ -261,15 +261,15 @@ impl super::stubs::CaseService for CaseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }
 
-/// Implements [CommentService](super::stubs::CommentService) using a [gclient::ReqwestClient].
+/// Implements [CommentService](super::stubs::CommentService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct CommentService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for CommentService {
@@ -281,8 +281,8 @@ impl std::fmt::Debug for CommentService {
 }
 
 impl CommentService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -305,7 +305,7 @@ impl super::stubs::CommentService for CommentService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

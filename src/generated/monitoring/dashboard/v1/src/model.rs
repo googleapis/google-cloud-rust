@@ -21,7 +21,7 @@ extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
-extern crate gclient;
+extern crate gaxi;
 extern crate gtype;
 extern crate lazy_static;
 extern crate reqwest;

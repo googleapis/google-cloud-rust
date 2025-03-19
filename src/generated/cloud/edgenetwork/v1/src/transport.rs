@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [EdgeNetwork](super::stubs::EdgeNetwork) using a [gclient::ReqwestClient].
+/// Implements [EdgeNetwork](super::stubs::EdgeNetwork) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct EdgeNetwork {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for EdgeNetwork {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for EdgeNetwork {
 }
 
 impl EdgeNetwork {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -79,7 +79,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -98,7 +98,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -121,7 +121,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -140,7 +140,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -159,7 +159,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -203,7 +203,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -226,7 +226,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -245,7 +245,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -282,7 +282,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                     "/v1/{}",
                     req.subnet
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("subnet"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("subnet"))?
                         .name
                 ),
             )
@@ -298,7 +298,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -321,7 +321,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -347,7 +347,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -366,7 +366,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -385,7 +385,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -411,7 +411,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -430,7 +430,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -475,7 +475,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -498,7 +498,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -517,7 +517,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -536,7 +536,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -573,7 +573,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                     "/v1/{}",
                     req.router
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("router"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("router"))?
                         .name
                 ),
             )
@@ -589,7 +589,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -612,7 +612,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -634,7 +634,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -653,7 +653,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -675,7 +675,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -694,7 +694,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -713,7 +713,7 @@ impl super::stubs::EdgeNetwork for EdgeNetwork {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

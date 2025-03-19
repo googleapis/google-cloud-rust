@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OsLoginService](super::stubs::OsLoginService) using a [gclient::ReqwestClient].
+/// Implements [OsLoginService](super::stubs::OsLoginService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct OsLoginService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for OsLoginService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for OsLoginService {
 }
 
 impl OsLoginService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -77,7 +77,7 @@ impl super::stubs::OsLoginService for OsLoginService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -96,7 +96,7 @@ impl super::stubs::OsLoginService for OsLoginService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -120,7 +120,7 @@ impl super::stubs::OsLoginService for OsLoginService {
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("systemId", &req.system_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -139,7 +139,7 @@ impl super::stubs::OsLoginService for OsLoginService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -191,7 +191,7 @@ impl super::stubs::OsLoginService for OsLoginService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

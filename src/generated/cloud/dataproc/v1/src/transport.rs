@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AutoscalingPolicyService](super::stubs::AutoscalingPolicyService) using a [gclient::ReqwestClient].
+/// Implements [AutoscalingPolicyService](super::stubs::AutoscalingPolicyService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct AutoscalingPolicyService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for AutoscalingPolicyService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for AutoscalingPolicyService {
 }
 
 impl AutoscalingPolicyService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -74,7 +74,7 @@ impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
                     "/v1/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -101,7 +101,7 @@ impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -125,7 +125,7 @@ impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -144,7 +144,7 @@ impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -226,7 +226,7 @@ impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -245,7 +245,7 @@ impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -264,7 +264,7 @@ impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -283,15 +283,15 @@ impl super::stubs::AutoscalingPolicyService for AutoscalingPolicyService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }
 
-/// Implements [BatchController](super::stubs::BatchController) using a [gclient::ReqwestClient].
+/// Implements [BatchController](super::stubs::BatchController) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct BatchController {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for BatchController {
@@ -303,8 +303,8 @@ impl std::fmt::Debug for BatchController {
 }
 
 impl BatchController {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -344,7 +344,7 @@ impl super::stubs::BatchController for BatchController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -367,7 +367,7 @@ impl super::stubs::BatchController for BatchController {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -386,7 +386,7 @@ impl super::stubs::BatchController for BatchController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -468,7 +468,7 @@ impl super::stubs::BatchController for BatchController {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -487,7 +487,7 @@ impl super::stubs::BatchController for BatchController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -506,7 +506,7 @@ impl super::stubs::BatchController for BatchController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -525,7 +525,7 @@ impl super::stubs::BatchController for BatchController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -544,10 +544,10 @@ impl super::stubs::BatchController for BatchController {
     }
 }
 
-/// Implements [ClusterController](super::stubs::ClusterController) using a [gclient::ReqwestClient].
+/// Implements [ClusterController](super::stubs::ClusterController) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ClusterController {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ClusterController {
@@ -559,8 +559,8 @@ impl std::fmt::Debug for ClusterController {
 }
 
 impl ClusterController {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -623,7 +623,7 @@ impl super::stubs::ClusterController for ClusterController {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "gracefulDecommissionTimeout")
             });
         let builder = req
@@ -633,7 +633,7 @@ impl super::stubs::ClusterController for ClusterController {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -711,7 +711,7 @@ impl super::stubs::ClusterController for ClusterController {
         let builder = builder.query(&[("clusterUuid", &req.cluster_uuid)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -736,7 +736,7 @@ impl super::stubs::ClusterController for ClusterController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -764,7 +764,7 @@ impl super::stubs::ClusterController for ClusterController {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -869,7 +869,7 @@ impl super::stubs::ClusterController for ClusterController {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -888,7 +888,7 @@ impl super::stubs::ClusterController for ClusterController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -907,7 +907,7 @@ impl super::stubs::ClusterController for ClusterController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -926,7 +926,7 @@ impl super::stubs::ClusterController for ClusterController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -945,10 +945,10 @@ impl super::stubs::ClusterController for ClusterController {
     }
 }
 
-/// Implements [JobController](super::stubs::JobController) using a [gclient::ReqwestClient].
+/// Implements [JobController](super::stubs::JobController) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct JobController {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for JobController {
@@ -960,8 +960,8 @@ impl std::fmt::Debug for JobController {
 }
 
 impl JobController {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1034,7 +1034,7 @@ impl super::stubs::JobController for JobController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1064,7 +1064,7 @@ impl super::stubs::JobController for JobController {
         let builder = builder.query(&[("jobStateMatcher", &req.job_state_matcher.value())]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1095,7 +1095,7 @@ impl super::stubs::JobController for JobController {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.job), options).await
@@ -1145,7 +1145,7 @@ impl super::stubs::JobController for JobController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1227,7 +1227,7 @@ impl super::stubs::JobController for JobController {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1246,7 +1246,7 @@ impl super::stubs::JobController for JobController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1265,7 +1265,7 @@ impl super::stubs::JobController for JobController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1284,7 +1284,7 @@ impl super::stubs::JobController for JobController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1303,10 +1303,10 @@ impl super::stubs::JobController for JobController {
     }
 }
 
-/// Implements [NodeGroupController](super::stubs::NodeGroupController) using a [gclient::ReqwestClient].
+/// Implements [NodeGroupController](super::stubs::NodeGroupController) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct NodeGroupController {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for NodeGroupController {
@@ -1318,8 +1318,8 @@ impl std::fmt::Debug for NodeGroupController {
 }
 
 impl NodeGroupController {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1381,7 +1381,7 @@ impl super::stubs::NodeGroupController for NodeGroupController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1463,7 +1463,7 @@ impl super::stubs::NodeGroupController for NodeGroupController {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1482,7 +1482,7 @@ impl super::stubs::NodeGroupController for NodeGroupController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1501,7 +1501,7 @@ impl super::stubs::NodeGroupController for NodeGroupController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1520,7 +1520,7 @@ impl super::stubs::NodeGroupController for NodeGroupController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1539,10 +1539,10 @@ impl super::stubs::NodeGroupController for NodeGroupController {
     }
 }
 
-/// Implements [SessionTemplateController](super::stubs::SessionTemplateController) using a [gclient::ReqwestClient].
+/// Implements [SessionTemplateController](super::stubs::SessionTemplateController) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SessionTemplateController {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SessionTemplateController {
@@ -1554,8 +1554,8 @@ impl std::fmt::Debug for SessionTemplateController {
 }
 
 impl SessionTemplateController {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1597,7 +1597,7 @@ impl super::stubs::SessionTemplateController for SessionTemplateController {
                     "/v1/{}",
                     req.session_template
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("session_template"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("session_template"))?
                         .name
                 ),
             )
@@ -1626,7 +1626,7 @@ impl super::stubs::SessionTemplateController for SessionTemplateController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1651,7 +1651,7 @@ impl super::stubs::SessionTemplateController for SessionTemplateController {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1670,7 +1670,7 @@ impl super::stubs::SessionTemplateController for SessionTemplateController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1752,7 +1752,7 @@ impl super::stubs::SessionTemplateController for SessionTemplateController {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1771,7 +1771,7 @@ impl super::stubs::SessionTemplateController for SessionTemplateController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1790,7 +1790,7 @@ impl super::stubs::SessionTemplateController for SessionTemplateController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1809,15 +1809,15 @@ impl super::stubs::SessionTemplateController for SessionTemplateController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }
 
-/// Implements [SessionController](super::stubs::SessionController) using a [gclient::ReqwestClient].
+/// Implements [SessionController](super::stubs::SessionController) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SessionController {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SessionController {
@@ -1829,8 +1829,8 @@ impl std::fmt::Debug for SessionController {
 }
 
 impl SessionController {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1875,7 +1875,7 @@ impl super::stubs::SessionController for SessionController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1897,7 +1897,7 @@ impl super::stubs::SessionController for SessionController {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1934,7 +1934,7 @@ impl super::stubs::SessionController for SessionController {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2016,7 +2016,7 @@ impl super::stubs::SessionController for SessionController {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2035,7 +2035,7 @@ impl super::stubs::SessionController for SessionController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2054,7 +2054,7 @@ impl super::stubs::SessionController for SessionController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2073,7 +2073,7 @@ impl super::stubs::SessionController for SessionController {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2092,10 +2092,10 @@ impl super::stubs::SessionController for SessionController {
     }
 }
 
-/// Implements [WorkflowTemplateService](super::stubs::WorkflowTemplateService) using a [gclient::ReqwestClient].
+/// Implements [WorkflowTemplateService](super::stubs::WorkflowTemplateService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct WorkflowTemplateService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for WorkflowTemplateService {
@@ -2107,8 +2107,8 @@ impl std::fmt::Debug for WorkflowTemplateService {
 }
 
 impl WorkflowTemplateService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -2152,7 +2152,7 @@ impl super::stubs::WorkflowTemplateService for WorkflowTemplateService {
             );
         let builder = builder.query(&[("version", &req.version)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2213,7 +2213,7 @@ impl super::stubs::WorkflowTemplateService for WorkflowTemplateService {
                     "/v1/{}",
                     req.template
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("template"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("template"))?
                         .name
                 ),
             )
@@ -2247,7 +2247,7 @@ impl super::stubs::WorkflowTemplateService for WorkflowTemplateService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2267,7 +2267,7 @@ impl super::stubs::WorkflowTemplateService for WorkflowTemplateService {
             );
         let builder = builder.query(&[("version", &req.version)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2349,7 +2349,7 @@ impl super::stubs::WorkflowTemplateService for WorkflowTemplateService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2368,7 +2368,7 @@ impl super::stubs::WorkflowTemplateService for WorkflowTemplateService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2387,7 +2387,7 @@ impl super::stubs::WorkflowTemplateService for WorkflowTemplateService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -2406,7 +2406,7 @@ impl super::stubs::WorkflowTemplateService for WorkflowTemplateService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ServiceManager](super::stubs::ServiceManager) using a [gclient::ReqwestClient].
+/// Implements [ServiceManager](super::stubs::ServiceManager) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceManager {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ServiceManager {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ServiceManager {
 }
 
 impl ServiceManager {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -59,7 +59,7 @@ impl super::stubs::ServiceManager for ServiceManager {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("consumerId", &req.consumer_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl super::stubs::ServiceManager for ServiceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -122,7 +122,7 @@ impl super::stubs::ServiceManager for ServiceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -144,7 +144,7 @@ impl super::stubs::ServiceManager for ServiceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -168,7 +168,7 @@ impl super::stubs::ServiceManager for ServiceManager {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -194,7 +194,7 @@ impl super::stubs::ServiceManager for ServiceManager {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -261,7 +261,7 @@ impl super::stubs::ServiceManager for ServiceManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -286,7 +286,7 @@ impl super::stubs::ServiceManager for ServiceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -411,7 +411,7 @@ impl super::stubs::ServiceManager for ServiceManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -430,7 +430,7 @@ impl super::stubs::ServiceManager for ServiceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

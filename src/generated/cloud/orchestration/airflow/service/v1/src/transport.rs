@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Environments](super::stubs::Environments) using a [gclient::ReqwestClient].
+/// Implements [Environments](super::stubs::Environments) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct Environments {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for Environments {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for Environments {
 }
 
 impl Environments {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -77,7 +77,7 @@ impl super::stubs::Environments for Environments {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -101,7 +101,7 @@ impl super::stubs::Environments for Environments {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -126,7 +126,7 @@ impl super::stubs::Environments for Environments {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -149,7 +149,7 @@ impl super::stubs::Environments for Environments {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -234,7 +234,7 @@ impl super::stubs::Environments for Environments {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -295,7 +295,7 @@ impl super::stubs::Environments for Environments {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -319,7 +319,7 @@ impl super::stubs::Environments for Environments {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -337,7 +337,7 @@ impl super::stubs::Environments for Environments {
                     "/v1/{}",
                     req.user_workloads_secret
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("user_workloads_secret"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("user_workloads_secret"))?
                         .name
                 ),
             )
@@ -366,7 +366,7 @@ impl super::stubs::Environments for Environments {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -407,7 +407,7 @@ impl super::stubs::Environments for Environments {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -431,7 +431,7 @@ impl super::stubs::Environments for Environments {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -449,9 +449,7 @@ impl super::stubs::Environments for Environments {
                     "/v1/{}",
                     req.user_workloads_config_map
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing(
-                            "user_workloads_config_map"
-                        ))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("user_workloads_config_map"))?
                         .name
                 ),
             )
@@ -480,7 +478,7 @@ impl super::stubs::Environments for Environments {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -562,7 +560,7 @@ impl super::stubs::Environments for Environments {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -584,7 +582,7 @@ impl super::stubs::Environments for Environments {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -603,7 +601,7 @@ impl super::stubs::Environments for Environments {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -622,7 +620,7 @@ impl super::stubs::Environments for Environments {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -641,10 +639,10 @@ impl super::stubs::Environments for Environments {
     }
 }
 
-/// Implements [ImageVersions](super::stubs::ImageVersions) using a [gclient::ReqwestClient].
+/// Implements [ImageVersions](super::stubs::ImageVersions) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ImageVersions {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ImageVersions {
@@ -656,8 +654,8 @@ impl std::fmt::Debug for ImageVersions {
 }
 
 impl ImageVersions {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -684,7 +682,7 @@ impl super::stubs::ImageVersions for ImageVersions {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("includePastReleases", &req.include_past_releases)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -706,7 +704,7 @@ impl super::stubs::ImageVersions for ImageVersions {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -725,7 +723,7 @@ impl super::stubs::ImageVersions for ImageVersions {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -744,7 +742,7 @@ impl super::stubs::ImageVersions for ImageVersions {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

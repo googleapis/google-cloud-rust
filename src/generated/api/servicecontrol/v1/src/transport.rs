@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [QuotaController](super::stubs::QuotaController) using a [gclient::ReqwestClient].
+/// Implements [QuotaController](super::stubs::QuotaController) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct QuotaController {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for QuotaController {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for QuotaController {
 }
 
 impl QuotaController {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -61,10 +61,10 @@ impl super::stubs::QuotaController for QuotaController {
     }
 }
 
-/// Implements [ServiceController](super::stubs::ServiceController) using a [gclient::ReqwestClient].
+/// Implements [ServiceController](super::stubs::ServiceController) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceController {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ServiceController {
@@ -76,8 +76,8 @@ impl std::fmt::Debug for ServiceController {
 }
 
 impl ServiceController {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }

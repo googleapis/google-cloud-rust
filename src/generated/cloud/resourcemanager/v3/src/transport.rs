@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Folders](super::stubs::Folders) using a [gclient::ReqwestClient].
+/// Implements [Folders](super::stubs::Folders) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct Folders {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for Folders {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for Folders {
 }
 
 impl Folders {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -55,7 +55,7 @@ impl super::stubs::Folders for Folders {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -78,7 +78,7 @@ impl super::stubs::Folders for Folders {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -100,7 +100,7 @@ impl super::stubs::Folders for Folders {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("query", &req.query)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -135,7 +135,7 @@ impl super::stubs::Folders for Folders {
                     "/v3/{}",
                     req.folder
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("folder"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("folder"))?
                         .name
                 ),
             )
@@ -151,7 +151,7 @@ impl super::stubs::Folders for Folders {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.folder), options).await
@@ -189,7 +189,7 @@ impl super::stubs::Folders for Folders {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -285,7 +285,7 @@ impl super::stubs::Folders for Folders {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -304,10 +304,10 @@ impl super::stubs::Folders for Folders {
     }
 }
 
-/// Implements [Organizations](super::stubs::Organizations) using a [gclient::ReqwestClient].
+/// Implements [Organizations](super::stubs::Organizations) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct Organizations {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for Organizations {
@@ -319,8 +319,8 @@ impl std::fmt::Debug for Organizations {
 }
 
 impl Organizations {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -341,7 +341,7 @@ impl super::stubs::Organizations for Organizations {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -363,7 +363,7 @@ impl super::stubs::Organizations for Organizations {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("query", &req.query)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -442,15 +442,15 @@ impl super::stubs::Organizations for Organizations {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }
 
-/// Implements [Projects](super::stubs::Projects) using a [gclient::ReqwestClient].
+/// Implements [Projects](super::stubs::Projects) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct Projects {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for Projects {
@@ -462,8 +462,8 @@ impl std::fmt::Debug for Projects {
 }
 
 impl Projects {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -484,7 +484,7 @@ impl super::stubs::Projects for Projects {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -507,7 +507,7 @@ impl super::stubs::Projects for Projects {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -529,7 +529,7 @@ impl super::stubs::Projects for Projects {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -566,7 +566,7 @@ impl super::stubs::Projects for Projects {
                     "/v3/{}",
                     req.project
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("project"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("project"))?
                         .name
                 ),
             )
@@ -582,7 +582,7 @@ impl super::stubs::Projects for Projects {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -622,7 +622,7 @@ impl super::stubs::Projects for Projects {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -718,7 +718,7 @@ impl super::stubs::Projects for Projects {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -737,10 +737,10 @@ impl super::stubs::Projects for Projects {
     }
 }
 
-/// Implements [TagBindings](super::stubs::TagBindings) using a [gclient::ReqwestClient].
+/// Implements [TagBindings](super::stubs::TagBindings) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct TagBindings {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for TagBindings {
@@ -752,8 +752,8 @@ impl std::fmt::Debug for TagBindings {
 }
 
 impl TagBindings {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -777,7 +777,7 @@ impl super::stubs::TagBindings for TagBindings {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -816,7 +816,7 @@ impl super::stubs::TagBindings for TagBindings {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -838,7 +838,7 @@ impl super::stubs::TagBindings for TagBindings {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -857,7 +857,7 @@ impl super::stubs::TagBindings for TagBindings {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -876,10 +876,10 @@ impl super::stubs::TagBindings for TagBindings {
     }
 }
 
-/// Implements [TagHolds](super::stubs::TagHolds) using a [gclient::ReqwestClient].
+/// Implements [TagHolds](super::stubs::TagHolds) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct TagHolds {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for TagHolds {
@@ -891,8 +891,8 @@ impl std::fmt::Debug for TagHolds {
 }
 
 impl TagHolds {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -937,7 +937,7 @@ impl super::stubs::TagHolds for TagHolds {
             );
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -959,7 +959,7 @@ impl super::stubs::TagHolds for TagHolds {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -978,7 +978,7 @@ impl super::stubs::TagHolds for TagHolds {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -997,10 +997,10 @@ impl super::stubs::TagHolds for TagHolds {
     }
 }
 
-/// Implements [TagKeys](super::stubs::TagKeys) using a [gclient::ReqwestClient].
+/// Implements [TagKeys](super::stubs::TagKeys) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct TagKeys {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for TagKeys {
@@ -1012,8 +1012,8 @@ impl std::fmt::Debug for TagKeys {
 }
 
 impl TagKeys {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1037,7 +1037,7 @@ impl super::stubs::TagKeys for TagKeys {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1056,7 +1056,7 @@ impl super::stubs::TagKeys for TagKeys {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1076,7 +1076,7 @@ impl super::stubs::TagKeys for TagKeys {
             );
         let builder = builder.query(&[("name", &req.name)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1114,7 +1114,7 @@ impl super::stubs::TagKeys for TagKeys {
                     "/v3/{}",
                     req.tag_key
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("tag_key"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("tag_key"))?
                         .name
                 ),
             )
@@ -1130,7 +1130,7 @@ impl super::stubs::TagKeys for TagKeys {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -1156,7 +1156,7 @@ impl super::stubs::TagKeys for TagKeys {
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1235,7 +1235,7 @@ impl super::stubs::TagKeys for TagKeys {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1254,10 +1254,10 @@ impl super::stubs::TagKeys for TagKeys {
     }
 }
 
-/// Implements [TagValues](super::stubs::TagValues) using a [gclient::ReqwestClient].
+/// Implements [TagValues](super::stubs::TagValues) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct TagValues {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for TagValues {
@@ -1269,8 +1269,8 @@ impl std::fmt::Debug for TagValues {
 }
 
 impl TagValues {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1294,7 +1294,7 @@ impl super::stubs::TagValues for TagValues {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1313,7 +1313,7 @@ impl super::stubs::TagValues for TagValues {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1333,7 +1333,7 @@ impl super::stubs::TagValues for TagValues {
             );
         let builder = builder.query(&[("name", &req.name)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1371,7 +1371,7 @@ impl super::stubs::TagValues for TagValues {
                     "/v3/{}",
                     req.tag_value
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("tag_value"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("tag_value"))?
                         .name
                 ),
             )
@@ -1387,7 +1387,7 @@ impl super::stubs::TagValues for TagValues {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -1413,7 +1413,7 @@ impl super::stubs::TagValues for TagValues {
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1492,7 +1492,7 @@ impl super::stubs::TagValues for TagValues {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

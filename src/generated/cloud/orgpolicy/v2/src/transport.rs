@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OrgPolicy](super::stubs::OrgPolicy) using a [gclient::ReqwestClient].
+/// Implements [OrgPolicy](super::stubs::OrgPolicy) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct OrgPolicy {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for OrgPolicy {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for OrgPolicy {
 }
 
 impl OrgPolicy {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -60,7 +60,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -100,7 +100,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -122,7 +122,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -160,7 +160,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
                     "/v2/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -176,7 +176,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.policy), options).await
@@ -198,7 +198,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -238,7 +238,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
                     "/v2/{}",
                     req.custom_constraint
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("custom_constraint"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("custom_constraint"))?
                         .name
                 ),
             )
@@ -267,7 +267,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -291,7 +291,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -310,7 +310,7 @@ impl super::stubs::OrgPolicy for OrgPolicy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

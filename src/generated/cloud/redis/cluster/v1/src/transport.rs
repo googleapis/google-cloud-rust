@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudRedisCluster](super::stubs::CloudRedisCluster) using a [gclient::ReqwestClient].
+/// Implements [CloudRedisCluster](super::stubs::CloudRedisCluster) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudRedisCluster {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for CloudRedisCluster {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for CloudRedisCluster {
 }
 
 impl CloudRedisCluster {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -57,7 +57,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -76,7 +76,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -94,7 +94,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
                     "/v1/{}",
                     req.cluster
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("cluster"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("cluster"))?
                         .name
                 ),
             )
@@ -110,7 +110,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -135,7 +135,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -178,7 +178,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -222,7 +222,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -241,7 +241,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -262,7 +262,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -281,7 +281,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -301,7 +301,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -357,7 +357,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -376,7 +376,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -398,7 +398,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -417,7 +417,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -436,7 +436,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -455,7 +455,7 @@ impl super::stubs::CloudRedisCluster for CloudRedisCluster {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
