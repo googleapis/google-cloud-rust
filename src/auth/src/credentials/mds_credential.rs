@@ -85,7 +85,7 @@ impl MDSCredentialBuilder {
         self
     }
 
-    fn build(&self) -> MDSCredential<MDSAccessTokenProvider> {
+    pub fn build(&self) -> MDSCredential<MDSAccessTokenProvider> {
         let endpoint = self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string());
 
         let token_provider = MDSAccessTokenProvider::builder()
