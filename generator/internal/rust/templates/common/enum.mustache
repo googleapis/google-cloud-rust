@@ -21,13 +21,13 @@ limitations under the License.
 pub struct {{Codec.Name}}(i32);
 
 impl {{Codec.Name}} {
-    {{#Values}}
+    {{#Codec.UniqueNames}}
 
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
     pub const {{Codec.Name}}: {{Codec.EnumType}} = {{Codec.EnumType}}::new({{Number}});
-    {{/Values}}
+    {{/Codec.UniqueNames}}
 
     /// Creates a new {{Codec.Name}} instance.
     pub(crate) const fn new(value: i32) -> Self {

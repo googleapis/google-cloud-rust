@@ -16,6 +16,7 @@ package rust
 
 import (
 	"fmt"
+	"log/slog"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -187,10 +188,10 @@ type fieldAnnotations struct {
 }
 
 type enumAnnotation struct {
-	Name             string
-	ModuleName       string
-	DocLines         []string
-	DefaultValueName string
+	Name        string
+	ModuleName  string
+	DocLines    []string
+	UniqueNames []*api.EnumValue
 	// The fully qualified name, including the `codec.modulePath`
 	// (typically `crate::model::`) prefix. For external enums this is prefixed
 	// by the external crate name.
@@ -491,22 +492,37 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 	for _, ev := range e.Values {
 		c.annotateEnumValue(ev, e, state)
 	}
-	defaultValueName := ""
+	// For BigQuery (and so far only BigQuery), the enum values conflict when
+	// converted to the Rust style [1]. Basically, there are several enum values
+	// in this service that differ only in case, such as `FULL` vs. `full`.
+	//
+	// We create a list with the duplicates removed to avoid conflicts in the
+	// generated code.
+	//
+	// [1]: Both Rust and Protobuf use `SCREAMING_SNAKE_CASE` for these, but
+	//      some services do not follow the Protobuf convention.
+	seen := map[string]*api.EnumValue{}
+	var unique []*api.EnumValue
 	for _, ev := range e.Values {
-		if ev.Number == 0 {
-			defaultValueName = enumValueName(ev)
-			break
+		name := enumValueName(ev)
+		if existing, ok := seen[name]; ok {
+			if existing.Number != ev.Number {
+				slog.Warn("conflicting names for enum values", "enum.ID", e.ID)
+			}
+		} else {
+			unique = append(unique, ev)
+			seen[name] = ev
 		}
 	}
 	qualifiedName := fullyQualifiedEnumName(e, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	e.Codec = &enumAnnotation{
-		Name:             enumName(e),
-		ModuleName:       toSnake(enumName(e)),
-		DocLines:         formatDocComments(e.Documentation, e.ID, state, c.modulePath, e.Scopes(), c.packageMapping),
-		DefaultValueName: defaultValueName,
-		QualifiedName:    qualifiedName,
-		RelativeName:     relativeName,
+		Name:          enumName(e),
+		ModuleName:    toSnake(enumName(e)),
+		DocLines:      formatDocComments(e.Documentation, e.ID, state, c.modulePath, e.Scopes(), c.packageMapping),
+		UniqueNames:   unique,
+		QualifiedName: qualifiedName,
+		RelativeName:  relativeName,
 	}
 }
 
