@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Speech](super::stubs::Speech) using a [gclient::ReqwestClient].
+/// Implements [Speech](super::stubs::Speech) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct Speech {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for Speech {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for Speech {
 }
 
 impl Speech {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -85,7 +85,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -104,7 +104,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -122,7 +122,7 @@ impl super::stubs::Speech for Speech {
                     "/v2/{}",
                     req.recognizer
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("recognizer"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("recognizer"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl super::stubs::Speech for Speech {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -165,7 +165,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -241,7 +241,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -259,7 +259,7 @@ impl super::stubs::Speech for Speech {
                     "/v2/{}",
                     req.config
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("config"))?
                         .name
                 ),
             )
@@ -275,7 +275,7 @@ impl super::stubs::Speech for Speech {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.config), options).await
@@ -326,7 +326,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -345,7 +345,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -363,7 +363,7 @@ impl super::stubs::Speech for Speech {
                     "/v2/{}",
                     req.custom_class
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("custom_class"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("custom_class"))?
                         .name
                 ),
             )
@@ -379,7 +379,7 @@ impl super::stubs::Speech for Speech {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -406,7 +406,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -472,7 +472,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -491,7 +491,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -509,7 +509,7 @@ impl super::stubs::Speech for Speech {
                     "/v2/{}",
                     req.phrase_set
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("phrase_set"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("phrase_set"))?
                         .name
                 ),
             )
@@ -525,7 +525,7 @@ impl super::stubs::Speech for Speech {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -552,7 +552,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -591,7 +591,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -610,7 +610,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -632,7 +632,7 @@ impl super::stubs::Speech for Speech {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -651,7 +651,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -670,7 +670,7 @@ impl super::stubs::Speech for Speech {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

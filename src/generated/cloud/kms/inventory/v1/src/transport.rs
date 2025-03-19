@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [KeyDashboardService](super::stubs::KeyDashboardService) using a [gclient::ReqwestClient].
+/// Implements [KeyDashboardService](super::stubs::KeyDashboardService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct KeyDashboardService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for KeyDashboardService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for KeyDashboardService {
 }
 
 impl KeyDashboardService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -60,15 +60,15 @@ impl super::stubs::KeyDashboardService for KeyDashboardService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }
 
-/// Implements [KeyTrackingService](super::stubs::KeyTrackingService) using a [gclient::ReqwestClient].
+/// Implements [KeyTrackingService](super::stubs::KeyTrackingService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct KeyTrackingService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for KeyTrackingService {
@@ -80,8 +80,8 @@ impl std::fmt::Debug for KeyTrackingService {
 }
 
 impl KeyTrackingService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -105,7 +105,7 @@ impl super::stubs::KeyTrackingService for KeyTrackingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -134,7 +134,7 @@ impl super::stubs::KeyTrackingService for KeyTrackingService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("resourceTypes", p)]));
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

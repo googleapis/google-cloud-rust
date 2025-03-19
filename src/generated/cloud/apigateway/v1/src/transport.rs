@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ApiGatewayService](super::stubs::ApiGatewayService) using a [gclient::ReqwestClient].
+/// Implements [ApiGatewayService](super::stubs::ApiGatewayService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiGatewayService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ApiGatewayService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ApiGatewayService {
 }
 
 impl ApiGatewayService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -59,7 +59,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -78,7 +78,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -119,7 +119,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                     "/v1/{}",
                     req.gateway
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("gateway"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("gateway"))?
                         .name
                 ),
             )
@@ -135,7 +135,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -158,7 +158,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -181,7 +181,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -200,7 +200,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -236,7 +236,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                     "/v1/{}",
                     req.api
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("api"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("api"))?
                         .name
                 ),
             )
@@ -252,7 +252,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.api), options).await
@@ -273,7 +273,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -296,7 +296,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -316,7 +316,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -354,7 +354,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                     "/v1/{}",
                     req.api_config
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("api_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("api_config"))?
                         .name
                 ),
             )
@@ -370,7 +370,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -393,7 +393,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -415,7 +415,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -434,7 +434,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -453,7 +453,7 @@ impl super::stubs::ApiGatewayService for ApiGatewayService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

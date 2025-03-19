@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SqlBackupRunsService](super::stubs::SqlBackupRunsService) using a [gclient::ReqwestClient].
+/// Implements [SqlBackupRunsService](super::stubs::SqlBackupRunsService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlBackupRunsService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SqlBackupRunsService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for SqlBackupRunsService {
 }
 
 impl SqlBackupRunsService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -61,7 +61,7 @@ impl super::stubs::SqlBackupRunsService for SqlBackupRunsService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -87,7 +87,7 @@ impl super::stubs::SqlBackupRunsService for SqlBackupRunsService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -139,17 +139,17 @@ impl super::stubs::SqlBackupRunsService for SqlBackupRunsService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
 
 }
 
-/// Implements [SqlConnectService](super::stubs::SqlConnectService) using a [gclient::ReqwestClient].
+/// Implements [SqlConnectService](super::stubs::SqlConnectService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlConnectService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SqlConnectService {
@@ -161,8 +161,8 @@ impl std::fmt::Debug for SqlConnectService {
 }
 
 impl SqlConnectService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -185,11 +185,11 @@ impl super::stubs::SqlConnectService for SqlConnectService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = req.read_time.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gclient::query_parameter::QueryParameter; v.add(builder, "readTime") });
+        let builder = req.read_time.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "readTime") });
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -221,10 +221,10 @@ impl super::stubs::SqlConnectService for SqlConnectService {
 
 }
 
-/// Implements [SqlDatabasesService](super::stubs::SqlDatabasesService) using a [gclient::ReqwestClient].
+/// Implements [SqlDatabasesService](super::stubs::SqlDatabasesService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlDatabasesService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SqlDatabasesService {
@@ -236,8 +236,8 @@ impl std::fmt::Debug for SqlDatabasesService {
 }
 
 impl SqlDatabasesService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -264,7 +264,7 @@ impl super::stubs::SqlDatabasesService for SqlDatabasesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -290,7 +290,7 @@ impl super::stubs::SqlDatabasesService for SqlDatabasesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -340,7 +340,7 @@ impl super::stubs::SqlDatabasesService for SqlDatabasesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -399,10 +399,10 @@ impl super::stubs::SqlDatabasesService for SqlDatabasesService {
 
 }
 
-/// Implements [SqlFlagsService](super::stubs::SqlFlagsService) using a [gclient::ReqwestClient].
+/// Implements [SqlFlagsService](super::stubs::SqlFlagsService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlFlagsService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SqlFlagsService {
@@ -414,8 +414,8 @@ impl std::fmt::Debug for SqlFlagsService {
 }
 
 impl SqlFlagsService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -439,17 +439,17 @@ impl super::stubs::SqlFlagsService for SqlFlagsService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
 
 }
 
-/// Implements [SqlInstancesService](super::stubs::SqlInstancesService) using a [gclient::ReqwestClient].
+/// Implements [SqlInstancesService](super::stubs::SqlInstancesService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlInstancesService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SqlInstancesService {
@@ -461,8 +461,8 @@ impl std::fmt::Debug for SqlInstancesService {
 }
 
 impl SqlInstancesService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -488,7 +488,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -538,7 +538,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -688,7 +688,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -764,7 +764,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -789,7 +789,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -840,7 +840,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -862,11 +862,11 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = req.db_timeout.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gclient::query_parameter::QueryParameter; v.add(builder, "dbTimeout") });
+        let builder = req.db_timeout.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "dbTimeout") });
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -891,7 +891,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -916,7 +916,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -991,7 +991,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -1016,7 +1016,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -1216,7 +1216,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -1266,7 +1266,7 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -1316,17 +1316,17 @@ impl super::stubs::SqlInstancesService for SqlInstancesService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
 
 }
 
-/// Implements [SqlOperationsService](super::stubs::SqlOperationsService) using a [gclient::ReqwestClient].
+/// Implements [SqlOperationsService](super::stubs::SqlOperationsService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlOperationsService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SqlOperationsService {
@@ -1338,8 +1338,8 @@ impl std::fmt::Debug for SqlOperationsService {
 }
 
 impl SqlOperationsService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1365,7 +1365,7 @@ impl super::stubs::SqlOperationsService for SqlOperationsService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -1392,7 +1392,7 @@ impl super::stubs::SqlOperationsService for SqlOperationsService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -1417,17 +1417,17 @@ impl super::stubs::SqlOperationsService for SqlOperationsService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
 
 }
 
-/// Implements [SqlSslCertsService](super::stubs::SqlSslCertsService) using a [gclient::ReqwestClient].
+/// Implements [SqlSslCertsService](super::stubs::SqlSslCertsService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlSslCertsService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SqlSslCertsService {
@@ -1439,8 +1439,8 @@ impl std::fmt::Debug for SqlSslCertsService {
 }
 
 impl SqlSslCertsService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1467,7 +1467,7 @@ impl super::stubs::SqlSslCertsService for SqlSslCertsService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -1493,7 +1493,7 @@ impl super::stubs::SqlSslCertsService for SqlSslCertsService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -1543,17 +1543,17 @@ impl super::stubs::SqlSslCertsService for SqlSslCertsService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
 
 }
 
-/// Implements [SqlTiersService](super::stubs::SqlTiersService) using a [gclient::ReqwestClient].
+/// Implements [SqlTiersService](super::stubs::SqlTiersService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlTiersService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SqlTiersService {
@@ -1565,8 +1565,8 @@ impl std::fmt::Debug for SqlTiersService {
 }
 
 impl SqlTiersService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1591,17 +1591,17 @@ impl super::stubs::SqlTiersService for SqlTiersService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
 
 }
 
-/// Implements [SqlUsersService](super::stubs::SqlUsersService) using a [gclient::ReqwestClient].
+/// Implements [SqlUsersService](super::stubs::SqlUsersService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlUsersService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SqlUsersService {
@@ -1613,8 +1613,8 @@ impl std::fmt::Debug for SqlUsersService {
 }
 
 impl SqlUsersService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -1642,7 +1642,7 @@ impl super::stubs::SqlUsersService for SqlUsersService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -1669,7 +1669,7 @@ impl super::stubs::SqlUsersService for SqlUsersService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }
@@ -1719,7 +1719,7 @@ impl super::stubs::SqlUsersService for SqlUsersService {
         self.inner.execute(
             builder,
             
-            None::<gclient::NoBody>,
+            None::<gaxi::NoBody>,
             options,
         ).await
     }

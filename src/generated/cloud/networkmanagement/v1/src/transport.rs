@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ReachabilityService](super::stubs::ReachabilityService) using a [gclient::ReqwestClient].
+/// Implements [ReachabilityService](super::stubs::ReachabilityService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ReachabilityService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ReachabilityService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ReachabilityService {
 }
 
 impl ReachabilityService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -122,7 +122,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
                     "/v1/{}",
                     req.resource
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("resource"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("resource"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -178,7 +178,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -200,7 +200,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -219,7 +219,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -267,11 +267,11 @@ impl super::stubs::ReachabilityService for ReachabilityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -313,7 +313,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -332,7 +332,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -351,7 +351,7 @@ impl super::stubs::ReachabilityService for ReachabilityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -387,10 +387,10 @@ impl super::stubs::ReachabilityService for ReachabilityService {
     }
 }
 
-/// Implements [VpcFlowLogsService](super::stubs::VpcFlowLogsService) using a [gclient::ReqwestClient].
+/// Implements [VpcFlowLogsService](super::stubs::VpcFlowLogsService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct VpcFlowLogsService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for VpcFlowLogsService {
@@ -402,8 +402,8 @@ impl std::fmt::Debug for VpcFlowLogsService {
 }
 
 impl VpcFlowLogsService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -431,7 +431,7 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -450,7 +450,7 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -491,7 +491,7 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
                     "/v1/{}",
                     req.vpc_flow_logs_config
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("vpc_flow_logs_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("vpc_flow_logs_config"))?
                         .name
                 ),
             )
@@ -507,7 +507,7 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -530,7 +530,7 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -552,7 +552,7 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -571,7 +571,7 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -619,11 +619,11 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -665,7 +665,7 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -684,7 +684,7 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -703,7 +703,7 @@ impl super::stubs::VpcFlowLogsService for VpcFlowLogsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

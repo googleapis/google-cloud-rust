@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ApiKeys](super::stubs::ApiKeys) using a [gclient::ReqwestClient].
+/// Implements [ApiKeys](super::stubs::ApiKeys) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ApiKeys {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ApiKeys {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ApiKeys {
 }
 
 impl ApiKeys {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -76,7 +76,7 @@ impl super::stubs::ApiKeys for ApiKeys {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -95,7 +95,7 @@ impl super::stubs::ApiKeys for ApiKeys {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -114,7 +114,7 @@ impl super::stubs::ApiKeys for ApiKeys {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -132,7 +132,7 @@ impl super::stubs::ApiKeys for ApiKeys {
                     "/v2/{}",
                     req.key
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("key"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("key"))?
                         .name
                 ),
             )
@@ -148,7 +148,7 @@ impl super::stubs::ApiKeys for ApiKeys {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.key), options).await
@@ -170,7 +170,7 @@ impl super::stubs::ApiKeys for ApiKeys {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -207,7 +207,7 @@ impl super::stubs::ApiKeys for ApiKeys {
             );
         let builder = builder.query(&[("keyString", &req.key_string)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -226,7 +226,7 @@ impl super::stubs::ApiKeys for ApiKeys {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

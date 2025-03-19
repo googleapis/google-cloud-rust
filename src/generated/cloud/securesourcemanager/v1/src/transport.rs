@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecureSourceManager](super::stubs::SecureSourceManager) using a [gclient::ReqwestClient].
+/// Implements [SecureSourceManager](super::stubs::SecureSourceManager) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SecureSourceManager {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SecureSourceManager {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for SecureSourceManager {
 }
 
 impl SecureSourceManager {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -125,7 +125,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -151,7 +151,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("instance", &req.instance)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -170,7 +170,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -213,7 +213,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
             );
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -241,11 +241,11 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -332,7 +332,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -351,7 +351,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -369,7 +369,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
                     "/v1/{}",
                     req.branch_rule
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("branch_rule"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("branch_rule"))?
                         .name
                 ),
             )
@@ -386,7 +386,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -410,7 +410,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
             );
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -432,7 +432,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -451,7 +451,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -499,11 +499,11 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -545,7 +545,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -564,7 +564,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -583,7 +583,7 @@ impl super::stubs::SecureSourceManager for SecureSourceManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

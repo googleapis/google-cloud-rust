@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ConfidentialComputing](super::stubs::ConfidentialComputing) using a [gclient::ReqwestClient].
+/// Implements [ConfidentialComputing](super::stubs::ConfidentialComputing) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ConfidentialComputing {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ConfidentialComputing {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ConfidentialComputing {
 }
 
 impl ConfidentialComputing {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -100,7 +100,7 @@ impl super::stubs::ConfidentialComputing for ConfidentialComputing {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -119,7 +119,7 @@ impl super::stubs::ConfidentialComputing for ConfidentialComputing {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

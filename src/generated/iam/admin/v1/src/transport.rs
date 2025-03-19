@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Iam](super::stubs::Iam) using a [gclient::ReqwestClient].
+/// Implements [Iam](super::stubs::Iam) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct Iam {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for Iam {
@@ -31,8 +31,8 @@ impl std::fmt::Debug for Iam {
 }
 
 impl Iam {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -58,7 +58,7 @@ impl super::stubs::Iam for Iam {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -77,7 +77,7 @@ impl super::stubs::Iam for Iam {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -132,7 +132,7 @@ impl super::stubs::Iam for Iam {
                     "/v1/{}",
                     req.service_account
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("service_account"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("service_account"))?
                         .name
                 ),
             )
@@ -159,7 +159,7 @@ impl super::stubs::Iam for Iam {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -232,7 +232,7 @@ impl super::stubs::Iam for Iam {
             builder.query(&[("keyTypes", p.value())])
         });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -252,7 +252,7 @@ impl super::stubs::Iam for Iam {
             );
         let builder = builder.query(&[("publicKeyType", &req.public_key_type.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -308,7 +308,7 @@ impl super::stubs::Iam for Iam {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -404,11 +404,11 @@ impl super::stubs::Iam for Iam {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -492,7 +492,7 @@ impl super::stubs::Iam for Iam {
         let builder = builder.query(&[("view", &req.view.value())]);
         let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -511,7 +511,7 @@ impl super::stubs::Iam for Iam {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -553,7 +553,7 @@ impl super::stubs::Iam for Iam {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.role), options).await
@@ -575,7 +575,7 @@ impl super::stubs::Iam for Iam {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

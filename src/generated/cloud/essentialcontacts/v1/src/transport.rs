@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [EssentialContactsService](super::stubs::EssentialContactsService) using a [gclient::ReqwestClient].
+/// Implements [EssentialContactsService](super::stubs::EssentialContactsService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct EssentialContactsService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for EssentialContactsService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for EssentialContactsService {
 }
 
 impl EssentialContactsService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -76,7 +76,7 @@ impl super::stubs::EssentialContactsService for EssentialContactsService {
                     "/v1/{}",
                     req.contact
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("contact"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("contact"))?
                         .name
                 ),
             )
@@ -92,7 +92,7 @@ impl super::stubs::EssentialContactsService for EssentialContactsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -117,7 +117,7 @@ impl super::stubs::EssentialContactsService for EssentialContactsService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -136,7 +136,7 @@ impl super::stubs::EssentialContactsService for EssentialContactsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -155,7 +155,7 @@ impl super::stubs::EssentialContactsService for EssentialContactsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -185,7 +185,7 @@ impl super::stubs::EssentialContactsService for EssentialContactsService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

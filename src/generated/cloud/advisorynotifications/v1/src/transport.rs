@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AdvisoryNotificationsService](super::stubs::AdvisoryNotificationsService) using a [gclient::ReqwestClient].
+/// Implements [AdvisoryNotificationsService](super::stubs::AdvisoryNotificationsService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct AdvisoryNotificationsService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for AdvisoryNotificationsService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for AdvisoryNotificationsService {
 }
 
 impl AdvisoryNotificationsService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::AdvisoryNotificationsService for AdvisoryNotificationsService
         let builder = builder.query(&[("view", &req.view.value())]);
         let builder = builder.query(&[("languageCode", &req.language_code)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -82,7 +82,7 @@ impl super::stubs::AdvisoryNotificationsService for AdvisoryNotificationsService
             );
         let builder = builder.query(&[("languageCode", &req.language_code)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -101,7 +101,7 @@ impl super::stubs::AdvisoryNotificationsService for AdvisoryNotificationsService
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -119,7 +119,7 @@ impl super::stubs::AdvisoryNotificationsService for AdvisoryNotificationsService
                     "/v1/{}",
                     req.settings
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("settings"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("settings"))?
                         .name
                 ),
             )

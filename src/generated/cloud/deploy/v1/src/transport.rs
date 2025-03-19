@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudDeploy](super::stubs::CloudDeploy) using a [gclient::ReqwestClient].
+/// Implements [CloudDeploy](super::stubs::CloudDeploy) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudDeploy {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for CloudDeploy {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for CloudDeploy {
 }
 
 impl CloudDeploy {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -124,7 +124,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                     "/v1/{}",
                     req.delivery_pipeline
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("delivery_pipeline"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("delivery_pipeline"))?
                         .name
                 ),
             )
@@ -140,7 +140,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -171,7 +171,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("force", &req.force)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -194,7 +194,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -233,7 +233,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -271,7 +271,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                     "/v1/{}",
                     req.target
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("target"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("target"))?
                         .name
                 ),
             )
@@ -287,7 +287,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -315,7 +315,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -341,7 +341,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -360,7 +360,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -403,7 +403,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                     "/v1/{}",
                     req.custom_target_type
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("custom_target_type"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("custom_target_type"))?
                         .name
                 ),
             )
@@ -419,7 +419,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -449,7 +449,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -472,7 +472,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -491,7 +491,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -582,7 +582,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                     "/v1/{}",
                     req.deploy_policy
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("deploy_policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("deploy_policy"))?
                         .name
                 ),
             )
@@ -598,7 +598,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -628,7 +628,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -654,7 +654,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -673,7 +673,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -747,7 +747,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -766,7 +766,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -861,7 +861,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -880,7 +880,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -916,7 +916,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -959,7 +959,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                     "/v1/{}",
                     req.automation
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("automation"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("automation"))?
                         .name
                 ),
             )
@@ -975,7 +975,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1005,7 +1005,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1024,7 +1024,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1050,7 +1050,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1069,7 +1069,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1095,7 +1095,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1134,7 +1134,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1153,7 +1153,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1201,11 +1201,11 @@ impl super::stubs::CloudDeploy for CloudDeploy {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1247,7 +1247,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1266,7 +1266,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1285,7 +1285,7 @@ impl super::stubs::CloudDeploy for CloudDeploy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecurityCenter](super::stubs::SecurityCenter) using a [gclient::ReqwestClient].
+/// Implements [SecurityCenter](super::stubs::SecurityCenter) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct SecurityCenter {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for SecurityCenter {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for SecurityCenter {
 }
 
 impl SecurityCenter {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -204,7 +204,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -223,7 +223,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -242,7 +242,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -261,7 +261,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -280,7 +280,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -299,7 +299,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -318,7 +318,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -357,7 +357,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -376,7 +376,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -395,7 +395,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -414,7 +414,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -459,7 +459,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -483,7 +483,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -510,13 +510,13 @@ impl super::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "fieldMask")
             });
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -540,7 +540,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -564,7 +564,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -588,7 +588,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -609,7 +609,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -635,7 +635,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -727,7 +727,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.big_query_export
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("big_query_export"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("big_query_export"))?
                         .name
                 ),
             )
@@ -743,7 +743,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -765,7 +765,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.external_system
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("external_system"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("external_system"))?
                         .name
                 ),
             )
@@ -781,7 +781,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -803,7 +803,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.finding
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("finding"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("finding"))?
                         .name
                 ),
             )
@@ -819,7 +819,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -841,7 +841,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.mute_config
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("mute_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("mute_config"))?
                         .name
                 ),
             )
@@ -857,7 +857,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -879,7 +879,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.notification_config
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("notification_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("notification_config"))?
                         .name
                 ),
             )
@@ -895,7 +895,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -917,7 +917,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.resource_value_config
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("resource_value_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("resource_value_config"))?
                         .name
                 ),
             )
@@ -933,7 +933,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -955,7 +955,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.security_marks
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("security_marks"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("security_marks"))?
                         .name
                 ),
             )
@@ -971,7 +971,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -993,7 +993,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                     "/v2/{}",
                     req.source
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("source"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("source"))?
                         .name
                 ),
             )
@@ -1009,7 +1009,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.source), options).await
@@ -1033,7 +1033,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1052,7 +1052,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1071,7 +1071,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -1090,7 +1090,7 @@ impl super::stubs::SecurityCenter for SecurityCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

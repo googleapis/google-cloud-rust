@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BackupForGKE](super::stubs::BackupForGKE) using a [gclient::ReqwestClient].
+/// Implements [BackupForGKE](super::stubs::BackupForGKE) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct BackupForGKE {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for BackupForGKE {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for BackupForGKE {
 }
 
 impl BackupForGKE {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -85,7 +85,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -104,7 +104,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -122,7 +122,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                     "/v1/{}",
                     req.backup_plan
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("backup_plan"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("backup_plan"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -162,7 +162,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -203,7 +203,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -222,7 +222,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -240,7 +240,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                     "/v1/{}",
                     req.backup
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("backup"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -256,7 +256,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.backup), options).await
@@ -279,7 +279,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -305,7 +305,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -324,7 +324,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -373,7 +373,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -392,7 +392,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -410,7 +410,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                     "/v1/{}",
                     req.restore_plan
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("restore_plan"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("restore_plan"))?
                         .name
                 ),
             )
@@ -426,7 +426,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -451,7 +451,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -497,7 +497,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -516,7 +516,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -534,7 +534,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                     "/v1/{}",
                     req.restore
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("restore"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("restore"))?
                         .name
                 ),
             )
@@ -550,7 +550,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -575,7 +575,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -601,7 +601,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -620,7 +620,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -642,7 +642,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -664,7 +664,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -683,7 +683,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -731,11 +731,11 @@ impl super::stubs::BackupForGKE for BackupForGKE {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -777,7 +777,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -796,7 +796,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -815,7 +815,7 @@ impl super::stubs::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

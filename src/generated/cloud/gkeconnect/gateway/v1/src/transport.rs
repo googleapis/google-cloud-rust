@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [GatewayControl](super::stubs::GatewayControl) using a [gclient::ReqwestClient].
+/// Implements [GatewayControl](super::stubs::GatewayControl) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct GatewayControl {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for GatewayControl {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for GatewayControl {
 }
 
 impl GatewayControl {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -62,7 +62,7 @@ impl super::stubs::GatewayControl for GatewayControl {
         let builder = builder.query(&[("kubernetesNamespace", &req.kubernetes_namespace)]);
         let builder = builder.query(&[("operatingSystem", &req.operating_system.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

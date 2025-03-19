@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AccessContextManager](super::stubs::AccessContextManager) using a [gclient::ReqwestClient].
+/// Implements [AccessContextManager](super::stubs::AccessContextManager) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct AccessContextManager {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for AccessContextManager {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for AccessContextManager {
 }
 
 impl AccessContextManager {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -58,7 +58,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -77,7 +77,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -112,7 +112,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -128,7 +128,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.policy), options).await
@@ -149,7 +149,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -174,7 +174,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("accessLevelFormat", &req.access_level_format.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -194,7 +194,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
             );
         let builder = builder.query(&[("accessLevelFormat", &req.access_level_format.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -234,7 +234,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     req.access_level
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("access_level"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("access_level"))?
                         .name
                 ),
             )
@@ -250,7 +250,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -273,7 +273,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -317,7 +317,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -336,7 +336,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -376,7 +376,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     req.service_perimeter
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("service_perimeter"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("service_perimeter"))?
                         .name
                 ),
             )
@@ -392,7 +392,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -415,7 +415,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -479,7 +479,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -498,7 +498,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -538,7 +538,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                     "/v1/{}",
                     req.gcp_user_access_binding
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("gcp_user_access_binding"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("gcp_user_access_binding"))?
                         .name
                 ),
             )
@@ -554,7 +554,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -577,7 +577,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -656,7 +656,7 @@ impl super::stubs::AccessContextManager for AccessContextManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

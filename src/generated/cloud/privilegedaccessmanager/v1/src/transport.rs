@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [PrivilegedAccessManager](super::stubs::PrivilegedAccessManager) using a [gclient::ReqwestClient].
+/// Implements [PrivilegedAccessManager](super::stubs::PrivilegedAccessManager) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct PrivilegedAccessManager {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for PrivilegedAccessManager {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for PrivilegedAccessManager {
 }
 
 impl PrivilegedAccessManager {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -58,7 +58,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -84,7 +84,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -110,7 +110,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -129,7 +129,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -174,7 +174,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -192,7 +192,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                     "/v1/{}",
                     req.entitlement
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("entitlement"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("entitlement"))?
                         .name
                 ),
             )
@@ -208,7 +208,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -235,7 +235,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -261,7 +261,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -280,7 +280,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -371,7 +371,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -390,7 +390,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -412,7 +412,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -431,7 +431,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -450,7 +450,7 @@ impl super::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

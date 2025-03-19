@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [RecaptchaEnterpriseService](super::stubs::RecaptchaEnterpriseService) using a [gclient::ReqwestClient].
+/// Implements [RecaptchaEnterpriseService](super::stubs::RecaptchaEnterpriseService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct RecaptchaEnterpriseService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for RecaptchaEnterpriseService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for RecaptchaEnterpriseService {
 }
 
 impl RecaptchaEnterpriseService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -113,7 +113,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -135,7 +135,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -154,7 +154,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -172,7 +172,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}",
                     req.key
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("key"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("key"))?
                         .name
                 ),
             )
@@ -188,7 +188,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.key), options).await
@@ -209,7 +209,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -290,7 +290,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -309,7 +309,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -355,7 +355,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -374,7 +374,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -392,7 +392,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                     "/v1/{}",
                     req.firewall_policy
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("firewall_policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("firewall_policy"))?
                         .name
                 ),
             )
@@ -408,7 +408,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -431,7 +431,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -475,7 +475,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -499,7 +499,7 @@ impl super::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 

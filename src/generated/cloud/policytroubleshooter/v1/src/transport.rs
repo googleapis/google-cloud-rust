@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [IamChecker](super::stubs::IamChecker) using a [gclient::ReqwestClient].
+/// Implements [IamChecker](super::stubs::IamChecker) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct IamChecker {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for IamChecker {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for IamChecker {
 }
 
 impl IamChecker {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }

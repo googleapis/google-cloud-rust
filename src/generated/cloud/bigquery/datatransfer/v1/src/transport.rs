@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataTransferService](super::stubs::DataTransferService) using a [gclient::ReqwestClient].
+/// Implements [DataTransferService](super::stubs::DataTransferService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct DataTransferService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for DataTransferService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for DataTransferService {
 }
 
 impl DataTransferService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -55,7 +55,7 @@ impl super::stubs::DataTransferService for DataTransferService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -79,7 +79,7 @@ impl super::stubs::DataTransferService for DataTransferService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -122,7 +122,7 @@ impl super::stubs::DataTransferService for DataTransferService {
                     "/v1/{}",
                     req.transfer_config
                         .as_ref()
-                        .ok_or_else(|| gclient::path_parameter::missing("transfer_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("transfer_config"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl super::stubs::DataTransferService for DataTransferService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("versionInfo", &req.version_info)]);
@@ -164,7 +164,7 @@ impl super::stubs::DataTransferService for DataTransferService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -183,7 +183,7 @@ impl super::stubs::DataTransferService for DataTransferService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -211,7 +211,7 @@ impl super::stubs::DataTransferService for DataTransferService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -270,7 +270,7 @@ impl super::stubs::DataTransferService for DataTransferService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -289,7 +289,7 @@ impl super::stubs::DataTransferService for DataTransferService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -314,7 +314,7 @@ impl super::stubs::DataTransferService for DataTransferService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("runAttempt", &req.run_attempt.value())]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -341,7 +341,7 @@ impl super::stubs::DataTransferService for DataTransferService {
             builder.query(&[("messageTypes", p.value())])
         });
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -423,7 +423,7 @@ impl super::stubs::DataTransferService for DataTransferService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 
@@ -442,7 +442,7 @@ impl super::stubs::DataTransferService for DataTransferService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

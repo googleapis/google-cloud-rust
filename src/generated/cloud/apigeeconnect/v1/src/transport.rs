@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ConnectionService](super::stubs::ConnectionService) using a [gclient::ReqwestClient].
+/// Implements [ConnectionService](super::stubs::ConnectionService) using a [gaxi::ReqwestClient].
 #[derive(Clone)]
 pub struct ConnectionService {
-    inner: gclient::ReqwestClient,
+    inner: gaxi::ReqwestClient,
 }
 
 impl std::fmt::Debug for ConnectionService {
@@ -33,8 +33,8 @@ impl std::fmt::Debug for ConnectionService {
 }
 
 impl ConnectionService {
-    pub async fn new(config: gclient::ClientConfig) -> Result<Self> {
-        let inner = gclient::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -60,7 +60,7 @@ impl super::stubs::ConnectionService for ConnectionService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gclient::NoBody>, options)
+            .execute(builder, None::<gaxi::NoBody>, options)
             .await
     }
 }

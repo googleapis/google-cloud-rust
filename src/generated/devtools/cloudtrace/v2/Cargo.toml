@@ -29,7 +29,7 @@ categories.workspace = true
 async-trait = { version = "0.1" }
 bytes      = { version = "1", features = ["serde"] }
 gax        = { version = "0.21", path = "../../../../../src/gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
-gclient    = { version = "0.1", path = "../../../../../src/http-client", package = "google-cloud-http-client" }
+gaxi       = { version = "0.1", path = "../../../../../src/http-client", package = "google-cloud-http-client" }
 lazy_static = { version = "1" }
 reqwest    = { version = "0.12", features = ["json"] }
 rpc        = { version = "0.2", path = "../../../../../src/generated/rpc/types", package = "google-cloud-rpc" }
