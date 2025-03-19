@@ -31,9 +31,9 @@ abstract class JsonEncodable {
 abstract class Message implements JsonEncodable {
   /// The fully qualified name of this message, i.e., `google.protobuf.Duration`
   /// or `google.rpc.ErrorInfo`
-  final String qualfiedName;
+  final String qualifiedName;
 
-  Message(this.qualfiedName);
+  Message(this.qualifiedName);
 }
 
 /// The abstract common superclass of all enum values.

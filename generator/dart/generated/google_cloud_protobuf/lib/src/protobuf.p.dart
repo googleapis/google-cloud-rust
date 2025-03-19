@@ -94,7 +94,7 @@ class Any extends Message {
 
   /// Serialize the given message into this `Any` instance.
   void packInto(Message message) {
-    final qualifiedName = message.qualfiedName;
+    final qualifiedName = message.qualifiedName;
 
     // @type
     json['@type'] = 'type.googleapis.com/$qualifiedName';
