@@ -212,9 +212,7 @@ where
         ud_rx
             .changed()
             .await
-            .map_err(|_e| {
-                CredentialError::non_retryable_from_str("Failed to get universe_domain.")
-            })
+            .map_err(|_e| CredentialError::non_retryable_from_str("Failed to get universe_domain."))
             .unwrap();
         return ud_rx.borrow().universe_domain.clone();
     }
@@ -947,6 +945,14 @@ mod test {
         assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
         server.abort();
         let _ = server.await;
+        assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn get_universe_domain_success_cached_user_value() {
+        let ud = "test-universe-domain";
+
+        let mdcs = MDSCredentialBuilder::default().universe_domain(ud).build();
         assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
     }
 }
