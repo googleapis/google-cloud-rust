@@ -289,14 +289,15 @@ func TestEnumAnnotations(t *testing.T) {
 	}
 	annotateModel(model, codec, "")
 
-	if diff := cmp.Diff(&enumAnnotation{
-		Name:             "TestEnum",
-		ModuleName:       "test_enum",
-		QualifiedName:    "crate::model::TestEnum",
-		RelativeName:     "TestEnum",
-		DocLines:         []string{"/// The enum is documented."},
-		DefaultValueName: "VALUE",
-	}, enum.Codec); diff != "" {
+	want := &enumAnnotation{
+		Name:          "TestEnum",
+		ModuleName:    "test_enum",
+		QualifiedName: "crate::model::TestEnum",
+		RelativeName:  "TestEnum",
+		DocLines:      []string{"/// The enum is documented."},
+		UniqueNames:   []*api.EnumValue{v0, v1, v2},
+	}
+	if diff := cmp.Diff(want, enum.Codec, cmpopts.IgnoreFields(api.EnumValue{}, "Codec", "Parent")); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 
@@ -315,12 +316,62 @@ func TestEnumAnnotations(t *testing.T) {
 	}, v1.Codec); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
-
 	if diff := cmp.Diff(&enumValueAnnotation{
 		Name:     "VALUE",
 		EnumType: "TestEnum",
 		DocLines: []string{"/// VALUE is also documented."},
 	}, v2.Codec); diff != "" {
+		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestDuplicateEnumValueAnnotations(t *testing.T) {
+	// Verify we can handle values that are not in SCREAMING_SNAKE_CASE style.
+	v0 := &api.EnumValue{
+		Name:   "full",
+		ID:     ".test.v1.TestEnum.full",
+		Number: 1,
+	}
+	v1 := &api.EnumValue{
+		Name:   "FULL",
+		ID:     ".test.v1.TestEnum.FULL",
+		Number: 1,
+	}
+	v2 := &api.EnumValue{
+		Name:   "partial",
+		ID:     ".test.v1.TestEnum.partial",
+		Number: 2,
+	}
+	// This does not happen in practice, but we want to verify the code can
+	// handle it if it ever does.
+	v3 := &api.EnumValue{
+		Name:   "PARTIAL",
+		ID:     ".test.v1.TestEnum.PARTIAL",
+		Number: 3,
+	}
+	enum := &api.Enum{
+		Name:   "TestEnum",
+		ID:     ".test.v1.TestEnum",
+		Values: []*api.EnumValue{v0, v1, v2, v3},
+	}
+
+	model := api.NewTestAPI(
+		[]*api.Message{}, []*api.Enum{enum}, []*api.Service{})
+	codec, err := newCodec(true, map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec, "")
+
+	want := &enumAnnotation{
+		Name:          "TestEnum",
+		ModuleName:    "test_enum",
+		QualifiedName: "crate::model::TestEnum",
+		RelativeName:  "TestEnum",
+		UniqueNames:   []*api.EnumValue{v0, v2},
+	}
+
+	if diff := cmp.Diff(want, enum.Codec, cmpopts.IgnoreFields(api.EnumValue{}, "Codec", "Parent")); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 }
