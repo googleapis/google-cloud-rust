@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::*;
-use gclient::ReqwestClient;
+use gaxi::ReqwestClient;
 pub struct Client {
     // A sidekick-generated client contains a `Arc<dyn T>`. The code
     // in this test skips some layers of abstraction.
