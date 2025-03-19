@@ -116,7 +116,7 @@ the `api.API` data structure. Look at the other codecs for examples.
 
 Eventually your codec will need to add annotations to the `api.API` structure. A
 simple annotation may be a boolean indicating if an API has any services. If you
-needed such an annotation would would write you own `annotate()` function:
+needed such an annotation you would write your own `annotate()` function:
 
 ```go
 type modelAnnotation {
