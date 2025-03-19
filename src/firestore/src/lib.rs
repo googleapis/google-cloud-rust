@@ -16,9 +16,7 @@ pub use gax::error::Error;
 pub use gax::Result;
 pub(crate) mod generated;
 
-pub mod model {
-    pub use super::generated::model::*;
-}
+pub use generated::gapic::model;
 
 pub(crate) mod google {
     pub mod firestore {

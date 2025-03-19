@@ -19,4 +19,4 @@ specification-source = 'google/firestore/v1'
 [codec]
 copyright-year    = '2025'
 template-override = 'templates/convert-prost'
-module-path       = 'crate::generated::model'
+module-path       = 'crate::generated::gapic::model'

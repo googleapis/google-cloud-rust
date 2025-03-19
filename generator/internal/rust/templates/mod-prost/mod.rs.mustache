@@ -13,4 +13,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-{{> ../mod/mod.rs}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
+//{{{.}}}
+{{/Codec.BoilerPlate}}
+
+/// The messages and enums that are part of this client library.
+#[allow(clippy::module_inception)]
+pub mod model;
