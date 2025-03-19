@@ -32,7 +32,7 @@ const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1";
 
 pub(crate) fn new() -> Credential {
-    let mds_credential: MDSCredential<MDSAccessTokenProvider> = MDSCredentialBuilder::default()
+    let mds_credential = MDSCredentialBuilder::default()
         .endpoint(METADATA_ROOT.to_string())
         .build();
     Credential {
@@ -97,7 +97,7 @@ impl MDSCredentialBuilder {
 
         let ud_cache = UniverseDomainCache {
             universe_domain: self.universe_domain.clone(),
-            is_cached: false,
+            is_cached: self.universe_domain.is_some(),
         };
         let (ud_tx, ud_rx) = watch::channel(ud_cache);
         let notify = Arc::new(Notify::new());
