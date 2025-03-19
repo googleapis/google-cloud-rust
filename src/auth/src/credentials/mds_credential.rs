@@ -32,9 +32,7 @@ const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1";
 
 pub(crate) fn new() -> Credential {
-    let mds_credential = MDSCredentialBuilder::default()
-        .endpoint(METADATA_ROOT.to_string())
-        .build();
+    let mds_credential = MDSCredentialBuilder::default().build();
     Credential {
         inner: Arc::new(mds_credential),
     }
@@ -87,7 +85,7 @@ impl MDSCredentialBuilder {
         self
     }
 
-    fn build(&mut self) -> MDSCredential<MDSAccessTokenProvider> {
+    fn build(&self) -> MDSCredential<MDSAccessTokenProvider> {
         let endpoint = self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string());
 
         let token_provider = MDSAccessTokenProvider::builder()
@@ -955,5 +953,11 @@ mod test {
 
         let mdcs = MDSCredentialBuilder::default().universe_domain(ud).build();
         assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
+    }
+
+    #[tokio::test]
+    async fn default_endpoint_should_be_metadata_server() {
+        let mdcs = MDSCredentialBuilder::default().build();
+        assert_eq!(mdcs.token_provider.endpoint, METADATA_ROOT);
     }
 }
