@@ -67,22 +67,22 @@ pub struct MDSCredentialBuilder {
 
 #[allow(dead_code)]
 impl MDSCredentialBuilder {
-    pub fn endpoint<S: Into<String>>(&mut self, endpoint: S) -> &mut Self {
+    pub fn endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
         self
     }
 
-    pub fn quota_project_id<S: Into<String>>(&mut self, quota_project_id: S) -> &mut Self {
+    pub fn quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
         self
     }
 
-    pub fn universe_domain<S: Into<String>>(&mut self, universe_domain: S) -> &mut Self {
+    pub fn universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
 
-    pub fn scopes<S: Into<String>>(&mut self, scopes: Vec<S>) -> &mut Self {
+    pub fn scopes<S: Into<String>>(mut self, scopes: Vec<S>) -> Self {
         self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
         self
     }
