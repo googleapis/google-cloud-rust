@@ -63,6 +63,7 @@ type serviceAnnotations struct {
 
 type messageAnnotation struct {
 	Name              string
+	QualifiedName     string
 	DocLines          []string
 	ConstructorBody   string // A custom body for the message's constructor.
 	HasFields         bool
@@ -381,6 +382,7 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 
 	m.Codec = &messageAnnotation{
 		Name:              messageName(m),
+		QualifiedName:     qualifiedName(m),
 		DocLines:          formatDocComments(m.Documentation, state),
 		ConstructorBody:   constructorBody,
 		HasFields:         len(m.Fields) > 0,

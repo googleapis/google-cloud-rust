@@ -214,6 +214,8 @@ class SecretManagerService {
 /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] that represent
 /// the secret data.
 class Secret extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Secret';
+
   /// Output only. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] in the format
   /// `projects/*/secrets/*`.
@@ -375,6 +377,8 @@ class Secret extends Message {
 
 /// A secret version resource in the Secret Manager API.
 class SecretVersion extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.SecretVersion';
+
   /// Output only. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*`.
@@ -519,6 +523,8 @@ class SecretVersion$State extends Enum {
 
 /// A policy that defines the replication and encryption configuration of data.
 class Replication extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Replication';
+
   /// The [Secret][google.cloud.secretmanager.v1.Secret] will automatically be
   /// replicated without any restrictions.
   final Replication$Automatic? automatic;
@@ -555,6 +561,8 @@ class Replication extends Message {
 /// [Secret][google.cloud.secretmanager.v1.Secret] payload without any
 /// restrictions.
 class Replication$Automatic extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Replication.Automatic';
+
   /// Optional. The customer-managed encryption configuration of the
   /// [Secret][google.cloud.secretmanager.v1.Secret]. If no configuration is
   /// provided, Google-managed default encryption is used.
@@ -591,6 +599,8 @@ class Replication$Automatic extends Message {
 /// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
 /// specified in [Secret.replication.user_managed.replicas][]
 class Replication$UserManaged extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Replication.UserManaged';
+
   /// Required. The list of Replicas for this
   /// [Secret][google.cloud.secretmanager.v1.Secret].
   ///
@@ -621,6 +631,8 @@ class Replication$UserManaged extends Message {
 /// Represents a Replica for this
 /// [Secret][google.cloud.secretmanager.v1.Secret].
 class Replication$UserManaged$Replica extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Replication.UserManaged.Replica';
+
   /// The canonical IDs of the location to replicate data.
   /// For example: `"us-east1"`.
   final String? location;
@@ -668,6 +680,8 @@ class Replication$UserManaged$Replica extends Message {
 /// Configuration for encrypting secret payloads using customer-managed
 /// encryption keys (CMEK).
 class CustomerManagedEncryption extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.CustomerManagedEncryption';
+
   /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt
   /// secret payloads.
   ///
@@ -712,6 +726,8 @@ class CustomerManagedEncryption extends Message {
 /// The replication status of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 class ReplicationStatus extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ReplicationStatus';
+
   /// Describes the replication status of a
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
   /// automatic replication.
@@ -761,6 +777,8 @@ class ReplicationStatus extends Message {
 /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
 /// has an automatic replication policy.
 class ReplicationStatus$AutomaticStatus extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ReplicationStatus.AutomaticStatus';
+
   /// Output only. The customer-managed encryption status of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
   /// populated if customer-managed encryption is used.
@@ -794,6 +812,8 @@ class ReplicationStatus$AutomaticStatus extends Message {
 /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
 /// has a user-managed replication policy.
 class ReplicationStatus$UserManagedStatus extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ReplicationStatus.UserManagedStatus';
+
   /// Output only. The list of replica statuses for the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
   final List<ReplicationStatus$UserManagedStatus$ReplicaStatus>? replicas;
@@ -822,6 +842,8 @@ class ReplicationStatus$UserManagedStatus extends Message {
 /// Describes the status of a user-managed replica for the
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 class ReplicationStatus$UserManagedStatus$ReplicaStatus extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ReplicationStatus.UserManagedStatus.ReplicaStatus';
+
   /// Output only. The canonical ID of the replica location.
   /// For example: `"us-east1"`.
   final String? location;
@@ -862,6 +884,8 @@ class ReplicationStatus$UserManagedStatus$ReplicaStatus extends Message {
 
 /// Describes the status of customer-managed encryption.
 class CustomerManagedEncryptionStatus extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.CustomerManagedEncryptionStatus';
+
   /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to
   /// encrypt the secret payload, in the following format:
   /// `projects/*/locations/*/keyRings/*/cryptoKeys/*/versions/*`.
@@ -896,6 +920,8 @@ class CustomerManagedEncryptionStatus extends Message {
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
 class Topic extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Topic';
+
   /// Required. The resource name of the Pub/Sub topic that will be published to,
   /// in the following format: `projects/*/topics/*`. For publication to succeed,
   /// the Secret Manager service agent must have the `pubsub.topic.publish`
@@ -935,6 +961,8 @@ class Topic extends Message {
 /// Secret. [Secret.topics][google.cloud.secretmanager.v1.Secret.topics] must be
 /// set to configure rotation.
 class Rotation extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Rotation';
+
   /// Optional. Timestamp in UTC at which the
   /// [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to rotate.
   /// Cannot be set to less than 300s (5 min) in the future and at most
@@ -987,6 +1015,8 @@ class Rotation extends Message {
 /// sensitive secret payload that is associated with a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 class SecretPayload extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.SecretPayload';
+
   /// The secret data. Must be no larger than 64KiB.
   final Uint8List? data;
 
@@ -1041,6 +1071,8 @@ class SecretPayload extends Message {
 /// Request message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 class ListSecretsRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ListSecretsRequest';
+
   /// Required. The resource name of the project associated with the
   /// [Secrets][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
   /// or `projects/*/locations/*`
@@ -1103,6 +1135,8 @@ class ListSecretsRequest extends Message {
 /// Response message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 class ListSecretsResponse extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ListSecretsResponse';
+
   /// The list of [Secrets][google.cloud.secretmanager.v1.Secret] sorted in
   /// reverse by create_time (newest first).
   final List<Secret>? secrets;
@@ -1154,6 +1188,8 @@ class ListSecretsResponse extends Message {
 /// Request message for
 /// [SecretManagerService.CreateSecret][google.cloud.secretmanager.v1.SecretManagerService.CreateSecret].
 class CreateSecretRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.CreateSecretRequest';
+
   /// Required. The resource name of the project to associate with the
   /// [Secret][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
   /// or `projects/*/locations/*`.
@@ -1206,6 +1242,8 @@ class CreateSecretRequest extends Message {
 /// Request message for
 /// [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
 class AddSecretVersionRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.AddSecretVersionRequest';
+
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] to associate with the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
@@ -1248,6 +1286,8 @@ class AddSecretVersionRequest extends Message {
 /// Request message for
 /// [SecretManagerService.GetSecret][google.cloud.secretmanager.v1.SecretManagerService.GetSecret].
 class GetSecretRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.GetSecretRequest';
+
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret], in the format
   /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
@@ -1282,6 +1322,8 @@ class GetSecretRequest extends Message {
 /// Request message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 class ListSecretVersionsRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ListSecretVersionsRequest';
+
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] associated with the
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] to list, in
@@ -1345,6 +1387,8 @@ class ListSecretVersionsRequest extends Message {
 /// Response message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 class ListSecretVersionsResponse extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ListSecretVersionsResponse';
+
   /// The list of [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]
   /// sorted in reverse by create_time (newest first).
   final List<SecretVersion>? versions;
@@ -1397,6 +1441,8 @@ class ListSecretVersionsResponse extends Message {
 /// Request message for
 /// [SecretManagerService.GetSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion].
 class GetSecretVersionRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.GetSecretVersionRequest';
+
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*` or
@@ -1437,6 +1483,8 @@ class GetSecretVersionRequest extends Message {
 /// Request message for
 /// [SecretManagerService.UpdateSecret][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret].
 class UpdateSecretRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.UpdateSecretRequest';
+
   /// Required. [Secret][google.cloud.secretmanager.v1.Secret] with updated field
   /// values.
   final Secret secret;
@@ -1471,6 +1519,8 @@ class UpdateSecretRequest extends Message {
 /// Request message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 class AccessSecretVersionRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.AccessSecretVersionRequest';
+
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*` or
@@ -1511,6 +1561,8 @@ class AccessSecretVersionRequest extends Message {
 /// Response message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 class AccessSecretVersionResponse extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.AccessSecretVersionResponse';
+
   /// The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*` or
@@ -1552,6 +1604,8 @@ class AccessSecretVersionResponse extends Message {
 /// Request message for
 /// [SecretManagerService.DeleteSecret][google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret].
 class DeleteSecretRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.DeleteSecretRequest';
+
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] to delete in the format
   /// `projects/*/secrets/*`.
@@ -1595,6 +1649,8 @@ class DeleteSecretRequest extends Message {
 /// Request message for
 /// [SecretManagerService.DisableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion].
 class DisableSecretVersionRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.DisableSecretVersionRequest';
+
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to disable in
   /// the format `projects/*/secrets/*/versions/*` or
@@ -1640,6 +1696,8 @@ class DisableSecretVersionRequest extends Message {
 /// Request message for
 /// [SecretManagerService.EnableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion].
 class EnableSecretVersionRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.EnableSecretVersionRequest';
+
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to enable in
   /// the format `projects/*/secrets/*/versions/*` or
@@ -1685,6 +1743,8 @@ class EnableSecretVersionRequest extends Message {
 /// Request message for
 /// [SecretManagerService.DestroySecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion].
 class DestroySecretVersionRequest extends Message {
+  static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.DestroySecretVersionRequest';
+
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to destroy in
   /// the format `projects/*/secrets/*/versions/*` or

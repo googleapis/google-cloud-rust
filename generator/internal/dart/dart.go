@@ -177,6 +177,11 @@ func messageName(m *api.Message) string {
 	}
 }
 
+func qualifiedName(m *api.Message) string {
+	// Convert '.google.protobuf.Duration' to 'google.protobuf.Duration'.
+	return strings.TrimPrefix(m.ID, ".")
+}
+
 func enumName(e *api.Enum) string {
 	if e.Parent != nil {
 		return messageName(e.Parent) + "$" + strcase.ToCamel(e.Name)
