@@ -209,11 +209,7 @@ where
 
         // Wait for the universe domain to be updated by the background task.
         let mut ud_rx = self.ud_rx.clone();
-        ud_rx
-            .changed()
-            .await
-            .map_err(|_e| CredentialError::non_retryable_from_str("Failed to get universe_domain."))
-            .unwrap();
+        ud_rx.changed().await.ok()?;
         return ud_rx.borrow().universe_domain.clone();
     }
 }
@@ -434,49 +430,6 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_success_with_quota_project() {
-        let token = Token {
-            token: "test-token".to_string(),
-            token_type: "Bearer".to_string(),
-            expires_at: None,
-            metadata: None,
-        };
-
-        let mut mock = MockTokenProvider::new();
-        mock.expect_get_token().times(1).return_once(|| Ok(token));
-
-        let ud_cache = UniverseDomainCache {
-            universe_domain: None,
-            is_cached: true,
-        };
-        let (_, ud_rx) = watch::channel(ud_cache);
-
-        let mdsc: MDSCredential<MockTokenProvider> = MDSCredential {
-            quota_project_id: Some("test-project".to_string()),
-            ud_rx,
-            wakeup_tx: Arc::new(Notify::new()),
-            token_provider: mock,
-        };
-
-        let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
-        assert_eq!(
-            headers,
-            vec![
-                HV {
-                    header: AUTHORIZATION.to_string(),
-                    value: "Bearer test-token".to_string(),
-                    is_sensitive: true,
-                },
-                HV {
-                    header: QUOTA_PROJECT_KEY.to_string(),
-                    value: "test-project".to_string(),
-                    is_sensitive: false,
-                }
-            ]
-        );
-    }
-
-    #[tokio::test]
     async fn get_headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
@@ -588,6 +541,54 @@ mod test {
 
         let result = token_provider.get_service_account_info(&request).await;
         assert!(result.is_err());
+    }
+
+    #[tokio::test]
+    async fn get_headers_success_with_quota_project() {
+        let scopes = vec!["scope1".to_string()];
+        let response = MDSTokenResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_value(&response).unwrap();
+        let path = "/instance/service-accounts/default/token";
+
+        let (endpoint, _server) = start(HashMap::from([(
+            path.to_string(),
+            (
+                StatusCode::OK,
+                response_body,
+                TokenQueryParams {
+                    scopes: Some(scopes.join(",")),
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
+
+        let mdsc = MDSCredentialBuilder::default()
+            .scopes(scopes)
+            .endpoint(endpoint)
+            .quota_project_id("test-project")
+            .build();
+
+        let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
+        assert_eq!(
+            headers,
+            vec![
+                HV {
+                    header: AUTHORIZATION.to_string(),
+                    value: "test-token-type test-access-token".to_string(),
+                    is_sensitive: true,
+                },
+                HV {
+                    header: QUOTA_PROJECT_KEY.to_string(),
+                    value: "test-project".to_string(),
+                    is_sensitive: false,
+                }
+            ]
+        );
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
