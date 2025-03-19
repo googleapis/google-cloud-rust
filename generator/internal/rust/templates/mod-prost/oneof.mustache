@@ -17,7 +17,7 @@ limitations under the License.
 
 impl {{Codec.EnumName}} {
     {{#Fields}}
-    /// Initializes the enum to the [{{Codec.BranchName}}] branch.
+    /// Initializes the enum to the [{{Codec.BranchName}}](Self::{{Codec.BranchName}}) branch.
     pub fn from_{{Codec.SetterName}}(value: impl std::convert::Into<{{{Codec.FieldType}}}>) -> Self {
         Self::{{Codec.BranchName}}(value.into())
     }

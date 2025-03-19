@@ -14,6 +14,8 @@
 
 pub use gax::error::Error;
 pub use gax::Result;
+// TODO(#1549) - remove this workaround once all code is generated.
+#[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
 pub use generated::gapic::model;
