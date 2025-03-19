@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use base64::{engine::general_purpose::STANDARD, Engine};
+
 /// Implements the `google.cloud.DoubleValue` well-known type.
 ///
 /// In early versions of the `proto3` syntax optional primitive types were
@@ -212,8 +214,6 @@ impl crate::message::Message for Int64Value {
             .map_err(crate::AnyError::deser)
     }
 }
-
-use base64::{engine::general_purpose::STANDARD, Engine};
 
 impl crate::message::Message for BytesValue {
     fn typename() -> &'static str {
