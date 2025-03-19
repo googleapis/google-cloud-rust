@@ -113,7 +113,7 @@ class Document extends Message {
     this.content,
     this.gcsContentUri,
     this.languageCode,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
@@ -184,7 +184,7 @@ class Sentence extends Message {
   Sentence({
     this.text,
     this.sentiment,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Sentence.fromJson(Map<String, dynamic> json) {
     return Sentence(
@@ -239,7 +239,7 @@ class Entity extends Message {
     this.metadata,
     this.mentions,
     this.sentiment,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Entity.fromJson(Map<String, dynamic> json) {
     return Entity(
@@ -378,7 +378,7 @@ class Sentiment extends Message {
   Sentiment({
     this.magnitude,
     this.score,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Sentiment.fromJson(Map<String, dynamic> json) {
     return Sentiment(
@@ -433,7 +433,7 @@ class EntityMention extends Message {
     this.type,
     this.sentiment,
     this.probability,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory EntityMention.fromJson(Map<String, dynamic> json) {
     return EntityMention(
@@ -503,7 +503,7 @@ class TextSpan extends Message {
   TextSpan({
     this.content,
     this.beginOffset,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory TextSpan.fromJson(Map<String, dynamic> json) {
     return TextSpan(
@@ -550,7 +550,7 @@ class ClassificationCategory extends Message {
     this.name,
     this.confidence,
     this.severity,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory ClassificationCategory.fromJson(Map<String, dynamic> json) {
     return ClassificationCategory(
@@ -593,7 +593,7 @@ class AnalyzeSentimentRequest extends Message {
   AnalyzeSentimentRequest({
     this.document,
     this.encodingType,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory AnalyzeSentimentRequest.fromJson(Map<String, dynamic> json) {
     return AnalyzeSentimentRequest(
@@ -644,7 +644,7 @@ class AnalyzeSentimentResponse extends Message {
     this.languageCode,
     this.sentences,
     this.languageSupported,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory AnalyzeSentimentResponse.fromJson(Map<String, dynamic> json) {
     return AnalyzeSentimentResponse(
@@ -688,7 +688,7 @@ class AnalyzeEntitiesRequest extends Message {
   AnalyzeEntitiesRequest({
     this.document,
     this.encodingType,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory AnalyzeEntitiesRequest.fromJson(Map<String, dynamic> json) {
     return AnalyzeEntitiesRequest(
@@ -735,7 +735,7 @@ class AnalyzeEntitiesResponse extends Message {
     this.entities,
     this.languageCode,
     this.languageSupported,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory AnalyzeEntitiesResponse.fromJson(Map<String, dynamic> json) {
     return AnalyzeEntitiesResponse(
@@ -773,7 +773,7 @@ class ClassifyTextRequest extends Message {
 
   ClassifyTextRequest({
     this.document,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory ClassifyTextRequest.fromJson(Map<String, dynamic> json) {
     return ClassifyTextRequest(
@@ -813,7 +813,7 @@ class ClassifyTextResponse extends Message {
     this.categories,
     this.languageCode,
     this.languageSupported,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory ClassifyTextResponse.fromJson(Map<String, dynamic> json) {
     return ClassifyTextResponse(
@@ -855,7 +855,7 @@ class ModerateTextRequest extends Message {
   ModerateTextRequest({
     this.document,
     this.modelVersion,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory ModerateTextRequest.fromJson(Map<String, dynamic> json) {
     return ModerateTextRequest(
@@ -929,7 +929,7 @@ class ModerateTextResponse extends Message {
     this.moderationCategories,
     this.languageCode,
     this.languageSupported,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory ModerateTextResponse.fromJson(Map<String, dynamic> json) {
     return ModerateTextResponse(
@@ -976,7 +976,7 @@ class AnnotateTextRequest extends Message {
     this.document,
     this.features,
     this.encodingType,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory AnnotateTextRequest.fromJson(Map<String, dynamic> json) {
     return AnnotateTextRequest(
@@ -1026,7 +1026,7 @@ class AnnotateTextRequest$Features extends Message {
     this.extractDocumentSentiment,
     this.classifyText,
     this.moderateText,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory AnnotateTextRequest$Features.fromJson(Map<String, dynamic> json) {
     return AnnotateTextRequest$Features(
@@ -1102,7 +1102,7 @@ class AnnotateTextResponse extends Message {
     this.categories,
     this.moderationCategories,
     this.languageSupported,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory AnnotateTextResponse.fromJson(Map<String, dynamic> json) {
     return AnnotateTextResponse(

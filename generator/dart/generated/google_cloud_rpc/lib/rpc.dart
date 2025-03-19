@@ -84,7 +84,7 @@ class ErrorInfo extends Message {
     this.reason,
     this.domain,
     this.metadata,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory ErrorInfo.fromJson(Map<String, dynamic> json) {
     return ErrorInfo(
@@ -134,7 +134,7 @@ class RetryInfo extends Message {
 
   RetryInfo({
     this.retryDelay,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory RetryInfo.fromJson(Map<String, dynamic> json) {
     return RetryInfo(
@@ -166,7 +166,7 @@ class DebugInfo extends Message {
   DebugInfo({
     this.stackEntries,
     this.detail,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory DebugInfo.fromJson(Map<String, dynamic> json) {
     return DebugInfo(
@@ -211,7 +211,7 @@ class QuotaFailure extends Message {
 
   QuotaFailure({
     this.violations,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory QuotaFailure.fromJson(Map<String, dynamic> json) {
     return QuotaFailure(
@@ -252,7 +252,7 @@ class QuotaFailure$Violation extends Message {
   QuotaFailure$Violation({
     this.subject,
     this.description,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory QuotaFailure$Violation.fromJson(Map<String, dynamic> json) {
     return QuotaFailure$Violation(
@@ -292,7 +292,7 @@ class PreconditionFailure extends Message {
 
   PreconditionFailure({
     this.violations,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory PreconditionFailure.fromJson(Map<String, dynamic> json) {
     return PreconditionFailure(
@@ -335,7 +335,7 @@ class PreconditionFailure$Violation extends Message {
     this.type,
     this.subject,
     this.description,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory PreconditionFailure$Violation.fromJson(Map<String, dynamic> json) {
     return PreconditionFailure$Violation(
@@ -375,7 +375,7 @@ class BadRequest extends Message {
 
   BadRequest({
     this.fieldViolations,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory BadRequest.fromJson(Map<String, dynamic> json) {
     return BadRequest(
@@ -457,7 +457,7 @@ class BadRequest$FieldViolation extends Message {
     this.description,
     this.reason,
     this.localizedMessage,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory BadRequest$FieldViolation.fromJson(Map<String, dynamic> json) {
     return BadRequest$FieldViolation(
@@ -505,7 +505,7 @@ class RequestInfo extends Message {
   RequestInfo({
     this.requestId,
     this.servingData,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory RequestInfo.fromJson(Map<String, dynamic> json) {
     return RequestInfo(
@@ -562,7 +562,7 @@ class ResourceInfo extends Message {
     this.resourceName,
     this.owner,
     this.description,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory ResourceInfo.fromJson(Map<String, dynamic> json) {
     return ResourceInfo(
@@ -608,7 +608,7 @@ class Help extends Message {
 
   Help({
     this.links,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Help.fromJson(Map<String, dynamic> json) {
     return Help(
@@ -640,7 +640,7 @@ class Help$Link extends Message {
   Help$Link({
     this.description,
     this.url,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Help$Link.fromJson(Map<String, dynamic> json) {
     return Help$Link(
@@ -683,7 +683,7 @@ class LocalizedMessage extends Message {
   LocalizedMessage({
     this.locale,
     this.message,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory LocalizedMessage.fromJson(Map<String, dynamic> json) {
     return LocalizedMessage(
@@ -732,7 +732,7 @@ class HttpRequest extends Message {
     this.uri,
     this.headers,
     this.body,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory HttpRequest.fromJson(Map<String, dynamic> json) {
     return HttpRequest(
@@ -786,7 +786,7 @@ class HttpResponse extends Message {
     this.reason,
     this.headers,
     this.body,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory HttpResponse.fromJson(Map<String, dynamic> json) {
     return HttpResponse(
@@ -831,7 +831,7 @@ class HttpHeader extends Message {
   HttpHeader({
     this.key,
     this.value,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory HttpHeader.fromJson(Map<String, dynamic> json) {
     return HttpHeader(
@@ -886,7 +886,7 @@ class Status extends Message {
     this.code,
     this.message,
     this.details,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Status.fromJson(Map<String, dynamic> json) {
     return Status(

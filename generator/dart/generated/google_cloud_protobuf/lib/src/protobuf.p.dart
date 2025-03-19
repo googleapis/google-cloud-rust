@@ -17,6 +17,8 @@ part of '../protobuf.dart';
 /// `Any` contains an arbitrary serialized message along with a URL that
 /// describes the type of the serialized message.
 class Any extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.Any';
+
   static const Set<String> _customEncodedTypes = {
     'google.protobuf.Duration',
     'google.protobuf.FieldMask'
@@ -25,14 +27,15 @@ class Any extends Message {
   /// The raw JSON encoding of the underlying value.
   final Map<String, dynamic> json;
 
-  Any({Map<String, dynamic>? json}) : this.json = json ?? {};
+  Any({Map<String, dynamic>? json})
+      : this.json = json ?? {},
+        super(fullyQualifiedName);
 
   /// Create an [Any] from an existing [message].
-  ///
-  /// [fullyQualifiedName] should be the fully qualified type name of the given
-  /// message (for example, `google.protobuf.Duration`).
-  Any.from(Message message, String fullyQualifiedName) : json = {} {
-    packInto(message, fullyQualifiedName);
+  Any.from(Message message)
+      : json = {},
+        super(fullyQualifiedName) {
+    packInto(message);
   }
 
   factory Any.fromJson(Map<String, dynamic> json) {
@@ -48,12 +51,16 @@ class Any extends Message {
   ///
   /// For example, `google.protobuf.Duration`, or `google.rpc.ErrorInfo`.
   String get typeName {
+    const prefix = 'type.googleapis.com/';
+
     final type = _type;
 
-    final index = type.lastIndexOf('/');
-    if (index == -1) return type;
-
-    return type.substring(index + 1);
+    // Only extract the type name if we recognize the prefix.
+    if (type.startsWith(prefix)) {
+      return type.substring(prefix.length);
+    } else {
+      return type;
+    }
   }
 
   /// Returns whether the type represented by this `Any` is the same as [name].
@@ -86,16 +93,15 @@ class Any extends Message {
   }
 
   /// Serialize the given message into this `Any` instance.
-  ///
-  /// [fullyQualifiedName] should be the fully qualified type name of the given
-  /// message (for example, `google.protobuf.Duration`).
-  void packInto(Message message, String fullyQualifiedName) {
+  void packInto(Message message) {
+    final qualifiedName = message.qualfiedName;
+
     // @type
-    json['@type'] = 'type.googleapis.com/$fullyQualifiedName';
+    json['@type'] = 'type.googleapis.com/$qualifiedName';
 
     // values
     final encoded = message.toJson();
-    if (_customEncodedTypes.contains(fullyQualifiedName)) {
+    if (_customEncodedTypes.contains(qualifiedName)) {
       json['value'] = encoded;
     } else {
       for (final key in (encoded as Map).keys) {

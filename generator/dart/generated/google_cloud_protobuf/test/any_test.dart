@@ -22,7 +22,7 @@ void main() {
     final duration = Duration(seconds: 10, nanos: 100);
 
     final any = Any(json: {});
-    any.packInto(duration, Duration.fullyQualifiedName);
+    any.packInto(duration);
     expect(any.typeName, 'google.protobuf.Duration');
 
     final actual = any.unpackFrom(Duration.fromJson);
@@ -34,7 +34,7 @@ void main() {
   test('json round-tripping', () {
     final duration = Duration(seconds: 10, nanos: 100);
 
-    final any = Any()..packInto(duration, Duration.fullyQualifiedName);
+    final any = Any()..packInto(duration);
 
     final anyCopy = Any.fromJson(any.toJson());
     final actual = anyCopy.unpackFrom(Duration.fromJson);
@@ -46,7 +46,7 @@ void main() {
   test('pack into and from FieldMask', () {
     final fieldMask = FieldMask(paths: ['foo', 'bar']);
 
-    final any = Any()..packInto(fieldMask, FieldMask.fullyQualifiedName);
+    final any = Any()..packInto(fieldMask);
     expect(any.typeName, 'google.protobuf.FieldMask');
 
     final actual = any.unpackFrom(FieldMask.fromJson);
@@ -69,5 +69,16 @@ void main() {
     final any = Any.fromJson(json);
 
     expect(any.typeName, 'google.rpc.ErrorInfo');
+  });
+
+  test('bad type prefix', () {
+    final data = '''{
+  "@type": "www.cheese.com/google.rpc.ErrorInfo",
+  "foo": "bar"
+}''';
+    final json = jsonDecode(data);
+    final any = Any.fromJson(json);
+
+    expect(any.typeName, equals('www.cheese.com/google.rpc.ErrorInfo'));
   });
 }
