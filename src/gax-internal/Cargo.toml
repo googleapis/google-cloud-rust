@@ -27,7 +27,7 @@ categories.workspace = true
 [features]
 _internal_http_client = ["_internal_common"]
 _internal_grpc_client = ["_internal_common"]
-_internal_common = []
+_internal_common      = []
 
 [dependencies]
 reqwest    = "0.12"

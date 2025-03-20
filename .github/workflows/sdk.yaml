@@ -45,15 +45,15 @@ jobs:
       - name: Test gax with features disabled
         run: cargo test --package google-cloud-gax
       - name: Test gax-internal with no features
-        run:  cargo test --package google-cloud-gax-internal --no-default-features
+        run: cargo test --package google-cloud-gax-internal --no-default-features
       - name: Test gax-internal with common features
-        run:  cargo test --package google-cloud-gax-internal --features _internal_common
+        run: cargo test --package google-cloud-gax-internal --features _internal_common
       - name: Test gax-internal with http features
-        run:  cargo test --package google-cloud-gax-internal --features _internal_http_client
+        run: cargo test --package google-cloud-gax-internal --features _internal_http_client
       - name: Test gax-internal with gRPC features
-        run:  cargo test --package google-cloud-gax-internal --features _internal_grpc_client
+        run: cargo test --package google-cloud-gax-internal --features _internal_grpc_client
       - name: Test gax-internal with all features
-        run:  cargo test --package google-cloud-gax-internal --all-features
+        run: cargo test --package google-cloud-gax-internal --all-features
       - run: cargo test --workspace
   coverage:
     runs-on: ubuntu-24.04
