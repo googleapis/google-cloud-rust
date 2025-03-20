@@ -24,9 +24,6 @@
 //! This is intentional, as they are not intended for general use and will be
 //! changed without notice.
 
-// TODO(#1539) - remove these once all the generated clients use gax:: directly.
-pub use gax::options::ClientConfig;
-
 #[doc(hidden)]
 pub mod path_parameter;
 
