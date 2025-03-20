@@ -130,11 +130,14 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		packageNameOverride string
 		generationYear      string
 		packageVersion      string
+		partFileReference   string
+		doNotPublish        bool
+		devDependencies     = []string{}
+
+		// todo: instance field
 		// The Dart imports discovered while annotating the API model.
-		imports           = map[string]string{}
-		partFileReference string
-		devDependencies   = []string{}
-		doNotPublish      bool
+		imports = map[string]string{}
+		// todo: instance field
 		// A mapping from protobuf packages to Dart import URLs.
 		packageMapping = map[string]string{}
 	)
@@ -176,6 +179,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 	registerMissingWkt(model.State)
 
 	// Calculate required fields.
+	// todo: instance field
 	requiredFields := calculateRequiredFields(model)
 
 	// Traverse and annotate the enums defined in this API.

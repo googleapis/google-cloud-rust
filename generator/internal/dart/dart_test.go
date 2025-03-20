@@ -15,50 +15,12 @@
 package dart
 
 import (
-	"io/fs"
-	"path/filepath"
-	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
-
-func TestGeneratedFiles(t *testing.T) {
-	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	annotateModel(model, map[string]string{})
-	files := generatedFiles(model)
-	if len(files) == 0 {
-		t.Errorf("expected a non-empty list of template files from generatedFiles()")
-	}
-
-	// Validate that main.dart was replaced with {servicename}.dart.
-	for _, fileInfo := range files {
-		if filepath.Base(fileInfo.OutputPath) == "main.dart" {
-			t.Errorf("expected the main.dart template to be generated as {servicename}.dart")
-		}
-	}
-}
-
-func TestTemplatesAvailable(t *testing.T) {
-	var count = 0
-	fs.WalkDir(dartTemplates, "templates", func(path string, d fs.DirEntry, err error) error {
-		if filepath.Ext(path) != ".mustache" {
-			return nil
-		}
-		if strings.Count(d.Name(), ".") == 1 {
-			// skip partials
-			return nil
-		}
-		count++
-		return nil
-	})
-
-	if count == 0 {
-		t.Errorf("no dart templates found")
-	}
-}
 
 func TestMessageNames(t *testing.T) {
 	r := sample.Replication()

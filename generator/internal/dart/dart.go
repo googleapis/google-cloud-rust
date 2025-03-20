@@ -15,20 +15,13 @@
 package dart
 
 import (
-	"embed"
 	"log/slog"
-	"path/filepath"
 	"strings"
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
-	"github.com/googleapis/google-cloud-rust/generator/internal/config"
-	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/iancoleman/strcase"
 )
-
-//go:embed templates
-var dartTemplates embed.FS
 
 var typedDataImport = "dart:typed_data"
 var httpImport = "package:http/http.dart"
@@ -46,35 +39,6 @@ var usesCustomEncoding = map[string]string{
 
 var reservedNames = map[string]string{
 	"Function": "",
-}
-
-func Generate(model *api.API, outdir string, cfg *config.Config) error {
-	_, err := annotateModel(model, cfg.Codec)
-	if err != nil {
-		return err
-	}
-	provider := templatesProvider()
-	// TODO(#1034): Walk the generated files; dartfmt Dart ones.
-	return language.GenerateFromRoot(outdir, model, provider, generatedFiles(model))
-}
-
-func generatedFiles(model *api.API) []language.GeneratedFile {
-	codec := model.Codec.(*modelAnnotations)
-	mainFileName := codec.MainFileName
-
-	files := language.WalkTemplatesDir(dartTemplates, "templates")
-
-	// Look for and replace 'main.dart' with '{servicename}.dart'
-	for index, fileInfo := range files {
-		if filepath.Base(fileInfo.TemplatePath) == "main.dart.mustache" {
-			outDir := filepath.Dir(fileInfo.OutputPath)
-			fileInfo.OutputPath = filepath.Join(outDir, mainFileName+".dart")
-
-			files[index] = fileInfo
-		}
-	}
-
-	return files
 }
 
 func fieldType(f *api.Field, state *api.APIState, packageMapping map[string]string, imports map[string]string) string {
@@ -98,7 +62,7 @@ func fieldType(f *api.Field, state *api.APIState, packageMapping map[string]stri
 	case api.STRING_TYPE:
 		out = "String"
 	case api.BYTES_TYPE:
-		// TODO(#1034): We should instead reference a custom type (ProtoBuffer or
+		// TODO(#1563): We should instead reference a custom type (ProtoBuffer or
 		// similar), encode/decode to it, and add Uint8List related utility methods.
 		imports["typed_data"] = typedDataImport
 		out = "Uint8List"
@@ -131,16 +95,6 @@ func fieldType(f *api.Field, state *api.APIState, packageMapping map[string]stri
 	}
 
 	return out
-}
-
-func templatesProvider() language.TemplateProvider {
-	return func(name string) (string, error) {
-		contents, err := dartTemplates.ReadFile(name)
-		if err != nil {
-			return "", err
-		}
-		return string(contents), nil
-	}
 }
 
 func resolveTypeName(message *api.Message, packageMapping map[string]string, imports map[string]string) string {
@@ -222,7 +176,7 @@ func httpPathFmt(pathInfo *api.PathInfo) string {
 
 func httpPathArgs(_ *api.PathInfo) []string {
 	var args []string
-	// TODO(#1034): Determine the correct format for Dart.
+	// TODO(#1577): Determine the correct format for Dart.
 	return args
 }
 
