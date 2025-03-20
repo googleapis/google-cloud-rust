@@ -38,8 +38,8 @@
 
 #[cfg(test)]
 mod test {
-    use crate::generated::model;
     use crate::google;
+    use crate::model;
     use wkt::prost::Convert;
 
     #[test]

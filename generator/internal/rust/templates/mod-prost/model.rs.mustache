@@ -1,5 +1,5 @@
 {{!
-Copyright 2025 Google LLC
+Copyright 2024 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,13 +13,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-{{> ../common/oneof}}
-
-impl {{Codec.EnumName}} {
-    {{#Fields}}
-    /// Initializes the enum to the [{{Codec.BranchName}}](Self::{{Codec.BranchName}}) branch.
-    pub fn from_{{Codec.SetterName}}(value: impl std::convert::Into<{{{Codec.FieldType}}}>) -> Self {
-        Self::{{Codec.BranchName}}(value.into())
-    }
-    {{/Fields}}
-}
+{{> ../mod/mod.rs}}
