@@ -14,7 +14,6 @@ A data platform for customers to create, manage, share and query data.
 The main types to work with this crate are the clients:
 
 * [DatasetService](https://docs.rs/google-cloud-bigquery-admin-v2/latest/google_cloud_bigquery_admin_v2/client/struct.DatasetService.html)
-* [JobService](https://docs.rs/google-cloud-bigquery-admin-v2/latest/google_cloud_bigquery_admin_v2/client/struct.JobService.html)
 * [ModelService](https://docs.rs/google-cloud-bigquery-admin-v2/latest/google_cloud_bigquery_admin_v2/client/struct.ModelService.html)
 * [ProjectService](https://docs.rs/google-cloud-bigquery-admin-v2/latest/google_cloud_bigquery_admin_v2/client/struct.ProjectService.html)
 * [RoutineService](https://docs.rs/google-cloud-bigquery-admin-v2/latest/google_cloud_bigquery_admin_v2/client/struct.RoutineService.html)
