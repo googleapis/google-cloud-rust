@@ -17,14 +17,17 @@ specification-source = 'google/cloud/bigquery/v2'
 service-config = 'google/cloud/bigquery/v2/bigquery_v2.yaml'
 
 [source]
-skipped-ids = """
-.google.cloud.bigquery.v2.JobService.Query,\
-.google.cloud.bigquery.v2.PostQueryRequest,\
-.google.cloud.bigquery.v2.QueryRequest,\
-.google.cloud.bigquery.v2.QueryResponse,\
-.google.cloud.bigquery.v2.JobService.GetQueryResults,\
-.google.cloud.bigquery.v2.GetQueryResultsRequest,\
-.google.cloud.bigquery.v2.GetQueryResultsResponse"""
+exclude-list = """\
+data_format_options.proto,\
+job_config.proto,\
+job_creation_reason.proto,\
+job_reference.proto,\
+job_stats.proto,\
+job_status.proto,\
+job.proto,
+query_parameter.proto,\
+session_info.proto,\
+"""
 
 [codec]
 copyright-year = '2025'
