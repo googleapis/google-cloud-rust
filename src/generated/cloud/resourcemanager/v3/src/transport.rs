@@ -33,7 +33,7 @@ impl std::fmt::Debug for Folders {
 }
 
 impl Folders {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -319,7 +319,7 @@ impl std::fmt::Debug for Organizations {
 }
 
 impl Organizations {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -462,7 +462,7 @@ impl std::fmt::Debug for Projects {
 }
 
 impl Projects {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -752,7 +752,7 @@ impl std::fmt::Debug for TagBindings {
 }
 
 impl TagBindings {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -891,7 +891,7 @@ impl std::fmt::Debug for TagHolds {
 }
 
 impl TagHolds {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1012,7 +1012,7 @@ impl std::fmt::Debug for TagKeys {
 }
 
 impl TagKeys {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1269,7 +1269,7 @@ impl std::fmt::Debug for TagValues {
 }
 
 impl TagValues {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

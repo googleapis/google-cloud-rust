@@ -33,7 +33,7 @@ impl std::fmt::Debug for CaseAttachmentService {
 }
 
 impl CaseAttachmentService {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -80,7 +80,7 @@ impl std::fmt::Debug for CaseService {
 }
 
 impl CaseService {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -281,7 +281,7 @@ impl std::fmt::Debug for CommentService {
 }
 
 impl CommentService {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
