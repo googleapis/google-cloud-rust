@@ -33,7 +33,7 @@ impl std::fmt::Debug for BigtableInstanceAdmin {
 }
 
 impl BigtableInstanceAdmin {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -899,7 +899,7 @@ impl std::fmt::Debug for BigtableTableAdmin {
 }
 
 impl BigtableTableAdmin {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

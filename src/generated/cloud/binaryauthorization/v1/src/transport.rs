@@ -33,7 +33,7 @@ impl std::fmt::Debug for BinauthzManagementServiceV1 {
 }
 
 impl BinauthzManagementServiceV1 {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -214,7 +214,7 @@ impl std::fmt::Debug for SystemPolicyV1 {
 }
 
 impl SystemPolicyV1 {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -256,7 +256,7 @@ impl std::fmt::Debug for ValidationHelperV1 {
 }
 
 impl ValidationHelperV1 {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

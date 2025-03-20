@@ -33,7 +33,7 @@ impl std::fmt::Debug for CertificateAuthorityService {
 }
 
 impl CertificateAuthorityService {
-    pub async fn new(config: gaxi::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
