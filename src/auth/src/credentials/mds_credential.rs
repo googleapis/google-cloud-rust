@@ -213,11 +213,6 @@ struct MDSAccessTokenProvider {
     endpoint: String,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-struct UniverseDomainResponse {
-    universe_domain: String,
-}
-
 impl MDSAccessTokenProvider {
     async fn get_service_account_info(&self, client: &Client) -> Result<ServiceAccountInfo> {
         let request = client

@@ -14,10 +14,10 @@
 
 //! Examples showing how to credentials for fetching tokens.
 
-// ANCHOR: credentials-use
+// ANCHOR: use
 use google_cloud_auth::credentials::mds_credential::MDSCredentialBuilder;
 use google_cloud_auth::credentials::Credential;
-// ANCHOR_END: credentials-use
+// ANCHOR_END: use
 
 // ANCHOR: build-mds-credentials
 pub fn build_mds_credentials() -> Credential {
