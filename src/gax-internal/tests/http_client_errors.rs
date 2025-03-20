@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use gax::options::*;
-use google_cloud_http_client::ReqwestClient;
+use google_cloud_gax_internal::ReqwestClient;
 use serde_json::json;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;

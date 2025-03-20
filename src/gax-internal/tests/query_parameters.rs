@@ -14,7 +14,7 @@
 
 #[cfg(test)]
 mod test {
-    use google_cloud_http_client as gclient;
+    use google_cloud_gax_internal as gaxi;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
     // We use this to simulate a request and how it is used in query parameters.
@@ -172,7 +172,7 @@ mod test {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "optionalDuration")
             });
         let builder = request
@@ -182,11 +182,11 @@ mod test {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "fieldMask")
             });
         let builder = {
-            use gclient::query_parameter::QueryParameter;
+            use gaxi::query_parameter::QueryParameter;
             serde_json::to_value(&request.required_field_mask)
                 .map_err(Error::serde)?
                 .add(builder, "requiredFieldMask")
@@ -199,7 +199,7 @@ mod test {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "expiration")
             });
         let builder = request
@@ -209,7 +209,7 @@ mod test {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gclient::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "optionalNested")
             });
 

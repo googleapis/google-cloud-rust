@@ -13,9 +13,9 @@
 # limitations under the License.
 
 [package]
-name        = "google-cloud-http-client"
+name        = "google-cloud-gax-internal"
 version     = "0.1.0"
-description = "Google Cloud Client Libraries for Rust - Common HTTP Client"
+description = "Google Cloud Client Libraries for Rust - Implementation Details"
 # Inherit other attributes from the workspace.
 edition.workspace    = true
 authors.workspace    = true

@@ -29,7 +29,7 @@ categories.workspace = true
 async-trait = { version = "0.1" }
 bytes      = { version = "1", features = ["serde"] }
 gax        = { version = "0.21", path = "../../../../../src/gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
-gaxi       = { version = "0.1", path = "../../../../../src/http-client", package = "google-cloud-http-client" }
+gaxi       = { version = "0.1", path = "../../../../../src/gax-internal", package = "google-cloud-gax-internal" }
 gkehub_configmanagement_v1 = { version = "0.2", path = "../../../../../src/generated/cloud/gkehub/configmanagement/v1", package = "google-cloud-gkehub-configmanagement-v1" }
 gkehub_multiclusteringress_v1 = { version = "0.2", path = "../../../../../src/generated/cloud/gkehub/multiclusteringress/v1", package = "google-cloud-gkehub-multiclusteringress-v1" }
 lazy_static = { version = "1" }

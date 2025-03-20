@@ -15,7 +15,7 @@
 // Model the sidekick-generated builders for a service using LROs.
 
 use super::*;
-use gclient::ReqwestClient;
+use gaxi::ReqwestClient;
 
 #[derive(Clone, Debug)]
 pub struct CreateResource {
@@ -52,7 +52,7 @@ impl CreateResource {
             .stub
             .execute(
                 builder,
-                None::<gclient::NoBody>,
+                None::<gaxi::NoBody>,
                 gax::options::RequestOptions::default(),
             )
             .await?;
@@ -128,7 +128,7 @@ impl GetOperation {
             .inner
             .execute(
                 builder,
-                None::<gclient::NoBody>,
+                None::<gaxi::NoBody>,
                 gax::options::RequestOptions::default(),
             )
             .await?;

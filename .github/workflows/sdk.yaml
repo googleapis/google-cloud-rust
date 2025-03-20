@@ -70,7 +70,7 @@ jobs:
           cargo tarpaulin --out xml \
             --package google-cloud-auth \
             --package google-cloud-gax \
-            --package google-cloud-http-client \
+            --package google-cloud-gax-internal \
             --package google-cloud-lro \
             --package google-cloud-wkt
       - name: Upload to codecov.io

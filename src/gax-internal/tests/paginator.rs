@@ -15,7 +15,7 @@
 use axum::extract::Query;
 use axum::http::StatusCode;
 use gax::paginator::{ItemPaginator, PageableResponse, Paginator};
-use google_cloud_http_client::*;
+use google_cloud_gax_internal::*;
 use std::collections::HashMap;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
