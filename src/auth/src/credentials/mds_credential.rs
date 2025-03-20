@@ -12,6 +12,53 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Provides functionality for interacting with the Metadata Service (MDS) to obtain access token.
+//!
+//! This module defines the `MDSCredentialBuilder` struct for creating credentials
+//! that can retrieve access tokens from the Google Cloud Metadata Service.
+//!
+//! # Overview
+//!
+//! The Metadata Service is a component of Google Cloud environments that provides
+//! information about the running instance and its configuration. This module leverages
+//! the Metadata Service to dynamically obtain access tokens, which can then be used
+//! to authenticate with other Google Cloud services.
+//!
+//! # Key Components
+//!
+//! *   **`MDSCredentialBuilder`**: A builder pattern implementation for constructing
+//!     credentials that obtain tokens from the Metadata Service. It allows customization
+//!     of the Metadata Service endpoint, quota project id, scopes, and universe domain.
+//!
+//! If no value is provided for `endpoint`, `quota_project_id` or `universe_domain` the default will be used.
+//! If scopes are not provided we will try to obtain it from the metadata server.
+//! # Usage
+//!
+//! The `MDSCredentialBuilder` is the primary entry point for creating MDS credentials.
+//! Here's a basic example:
+//!
+//! ```
+//! # use google_cloud_auth::credentials::mds_credential::MDSCredentialBuilder;
+//! # use google_cloud_auth::credentials::Credential;
+//! # async fn doc() -> Result<(), Box<dyn std::error::Error>>{
+//! // Create a new Credential that will use the Metadata Service with default settings.
+//! let credential: Credential = MDSCredentialBuilder::default().build();
+//!
+//! // Customize the credential with a specific endpoint and quota project ID.
+//! let credential_customized: Credential = MDSCredentialBuilder::default()
+//!     .endpoint("http://metadata.google.internal/computeMetadata/v1")
+//!     .quota_project_id("my-quota-project")
+//!     .build();
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! # Note
+//!
+//! This module is primarily intended for use within Google Cloud environments where
+//! the Metadata Service is available. Attempting to use it outside of such
+//! environments may result in errors.
+
 use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::{Credential, Result, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
 use crate::errors::{is_retryable, CredentialError};
@@ -20,12 +67,9 @@ use async_trait::async_trait;
 use bon::Builder;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use reqwest::Client;
-use reqwest::StatusCode;
 use std::default::Default;
 use std::sync::Arc;
 use std::time::Duration;
-use tokio::sync::watch;
-use tokio::sync::Notify;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
@@ -36,22 +80,20 @@ pub(crate) fn new() -> Credential {
 }
 
 #[derive(Debug)]
-struct UniverseDomainCache {
-    universe_domain: Option<String>,
-    is_cached: bool,
-}
-
-#[derive(Debug)]
 struct MDSCredential<T>
 where
     T: TokenProvider,
 {
     quota_project_id: Option<String>,
-    ud_rx: watch::Receiver<UniverseDomainCache>,
-    wakeup_tx: Arc<Notify>,
+    universe_domain: Option<String>,
     token_provider: T,
 }
 
+/// A builder for creating `MDSCredential` instances.
+///
+/// This struct provides an interface for customizing the creation of
+/// `MDSCredential` instances. It allows you to specify the Metadata Service
+/// endpoint, quota project id, scopes, and universe domain.
 #[derive(Debug, Default)]
 pub struct MDSCredentialBuilder {
     endpoint: Option<String>,
@@ -62,27 +104,42 @@ pub struct MDSCredentialBuilder {
 
 #[allow(dead_code)]
 impl MDSCredentialBuilder {
+    /// Sets the endpoint that this credential will use.
+    /// # Default
+    ///
+    /// if `endpoint` is not specified then  `http://metadata.google.internal/computeMetadata/v1` is used.
     pub fn endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
         self
     }
 
+    /// Sets the quota project that this credential will use.
     pub fn quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
         self
     }
 
+    /// Sets the universe domain that this credential will use.
     pub fn universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
 
+    /// Sets the scopes that this credential will use.
+    /// # Default
+    ///
+    /// If scopes are not specified, they are fetched from the Metadata Server.
     pub fn scopes<S: Into<String>>(mut self, scopes: Vec<S>) -> Self {
         self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
         self
     }
 
-    pub fn build(&self) -> Credential {
+    /// Builds and returns a `Credential` instance with the configured settings.
+    ///
+    /// # Returns
+    ///
+    /// A new `Credential` instance that will use Metadata Service.
+    pub fn build(self) -> Credential {
         let endpoint = self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string());
 
         let token_provider = MDSAccessTokenProvider::builder()
@@ -90,84 +147,14 @@ impl MDSCredentialBuilder {
             .maybe_scopes(self.scopes.clone())
             .build();
 
-        let ud_cache = UniverseDomainCache {
-            universe_domain: self.universe_domain.clone(),
-            is_cached: self.universe_domain.is_some(),
-        };
-        let (ud_tx, ud_rx) = watch::channel(ud_cache);
-        let notify = Arc::new(Notify::new());
-
         let mdsc = MDSCredential {
             quota_project_id: self.quota_project_id.clone(),
             token_provider,
-            ud_rx,
-            wakeup_tx: notify.clone(),
+            universe_domain: self.universe_domain,
         };
-
-        if self.universe_domain.is_none() {
-            tokio::spawn(async move {
-                MDSCredential::<MDSAccessTokenProvider>::universe_domain_background_task(
-                    endpoint,
-                    ud_tx,
-                    notify.clone(),
-                )
-                .await;
-            });
-        }
         Credential {
             inner: Arc::new(mdsc),
         }
-    }
-}
-
-impl<T> MDSCredential<T>
-where
-    T: TokenProvider,
-{
-    async fn get_universe_domain_from_mds(endpoint: String) -> Option<String> {
-        let client = Client::new();
-        let request = client
-            .get(format!("{}/universe/universe-domain", endpoint))
-            .header(
-                METADATA_FLAVOR,
-                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
-            );
-
-        let response = request.send().await.ok()?;
-
-        if !response.status().is_success() {
-            let status = response.status();
-            if status == StatusCode::NOT_FOUND {
-                return Some(DEFAULT_UNIVERSE_DOMAIN.to_string());
-            }
-            return None;
-        }
-        let universe_domain = response
-            .json::<UniverseDomainResponse>()
-            .await
-            .ok()?
-            .universe_domain;
-
-        Some(universe_domain)
-    }
-
-    async fn universe_domain_background_task(
-        endpoint: String,
-        ud_tx: watch::Sender<UniverseDomainCache>,
-        wakeup_rx: Arc<Notify>,
-    ) {
-        // Wait to be woken up
-        let _ = wakeup_rx.notified().await;
-
-        // Obtain the universe domain from the MDS.
-        let universe_domain =
-            MDSCredential::<MDSAccessTokenProvider>::get_universe_domain_from_mds(endpoint).await;
-
-        // Push it onto the watch channel.
-        let _ = ud_tx.send(UniverseDomainCache {
-            universe_domain,
-            is_cached: true,
-        }); // We ignore the error if the receiver is dropped.
     }
 }
 
@@ -196,18 +183,10 @@ where
     }
 
     async fn get_universe_domain(&self) -> Option<String> {
-        // Check if a value is already available in the watch channel.
-        if self.ud_rx.borrow().is_cached {
-            return self.ud_rx.borrow().universe_domain.clone();
+        if self.universe_domain.is_some() {
+            return self.universe_domain.clone();
         }
-
-        // if universe_domain background task has not ran yet, wake it up
-        self.wakeup_tx.notify_one();
-
-        // Wait for the universe domain to be updated by the background task.
-        let mut ud_rx = self.ud_rx.clone();
-        ud_rx.changed().await.ok()?;
-        return ud_rx.borrow().universe_domain.clone();
+        return Some(DEFAULT_UNIVERSE_DOMAIN.to_string());
     }
 }
 
@@ -352,16 +331,10 @@ mod test {
         mock.expect_get_token()
             .times(1)
             .return_once(|| Ok(expected_clone));
-        let ud_cache = UniverseDomainCache {
-            universe_domain: None,
-            is_cached: true,
-        };
-        let (_, ud_rx) = watch::channel(ud_cache);
 
         let mdsc = MDSCredential {
             quota_project_id: None,
-            ud_rx,
-            wakeup_tx: Arc::new(Notify::new()),
+            universe_domain: None,
             token_provider: mock,
         };
         let actual = mdsc.get_token().await.unwrap();
@@ -375,16 +348,9 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
-        let ud_cache = UniverseDomainCache {
-            universe_domain: None,
-            is_cached: true,
-        };
-        let (_, ud_rx) = watch::channel(ud_cache);
-
         let mdsc = MDSCredential {
             quota_project_id: None,
-            ud_rx,
-            wakeup_tx: Arc::new(Notify::new()),
+            universe_domain: None,
             token_provider: mock,
         };
         assert!(mdsc.get_token().await.is_err());
@@ -402,16 +368,9 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let ud_cache = UniverseDomainCache {
-            universe_domain: None,
-            is_cached: true,
-        };
-        let (_, ud_rx) = watch::channel(ud_cache);
-
         let mdsc = MDSCredential {
             quota_project_id: None,
-            ud_rx,
-            wakeup_tx: Arc::new(Notify::new()),
+            universe_domain: None,
             token_provider: mock,
         };
         let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
@@ -433,16 +392,9 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
-        let ud_cache = UniverseDomainCache {
-            universe_domain: None,
-            is_cached: true,
-        };
-        let (_, ud_rx) = watch::channel(ud_cache);
-
         let mdsc = MDSCredential {
             quota_project_id: None,
-            ud_rx,
-            wakeup_tx: Arc::new(Notify::new()),
+            universe_domain: None,
             token_provider: mock,
         };
         assert!(mdsc.get_headers().await.is_err());
@@ -806,157 +758,4 @@ mod test {
 
         Ok(())
     }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn get_universe_domain_success() {
-        let path = "/universe/universe-domain";
-        let ud = "test-universe-domain";
-        let universe_domain_response = serde_json::to_value(UniverseDomainResponse {
-            universe_domain: ud.to_string(),
-        })
-        .unwrap();
-
-        let (endpoint, _server) = start(HashMap::from([(
-            path.to_string(),
-            (
-                StatusCode::OK,
-                universe_domain_response,
-                TokenQueryParams {
-                    scopes: None,
-                    recursive: None,
-                },
-            ),
-        )]))
-        .await;
-
-        let universe_domain_response = MDSCredentialBuilder::default()
-            .endpoint(endpoint)
-            .build()
-            .get_universe_domain()
-            .await
-            .unwrap();
-        assert_eq!(universe_domain_response, ud);
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn get_universe_domain_not_found() {
-        let path = "/universe/universe-domain";
-        let universe_domain_response = serde_json::to_value("invalid_response").unwrap();
-
-        let (endpoint, _server) = start(HashMap::from([(
-            path.to_string(),
-            (
-                StatusCode::NOT_FOUND,
-                universe_domain_response,
-                TokenQueryParams {
-                    scopes: None,
-                    recursive: None,
-                },
-            ),
-        )]))
-        .await;
-
-        let universe_domain_response = MDSCredentialBuilder::default()
-            .endpoint(endpoint)
-            .build()
-            .get_universe_domain()
-            .await
-            .unwrap();
-        assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
-    }
-
-    #[tokio::test]
-    async fn get_universe_domain_error() {
-        let path = "/universe/universe-domain";
-        let universe_domain_response = serde_json::to_value("invalid_response").unwrap();
-
-        let (endpoint, _server) = start(HashMap::from([(
-            path.to_string(),
-            (
-                StatusCode::SERVICE_UNAVAILABLE,
-                universe_domain_response,
-                TokenQueryParams {
-                    scopes: None,
-                    recursive: None,
-                },
-            ),
-        )]))
-        .await;
-
-        let universe_domain_response = MDSCredentialBuilder::default()
-            .endpoint(endpoint)
-            .build()
-            .get_universe_domain()
-            .await;
-        assert!(universe_domain_response.is_none());
-    }
-
-    #[tokio::test]
-    async fn get_universe_domain_error_invalid_json() {
-        let path = "/universe/universe-domain";
-        let universe_domain_response = serde_json::to_value("invalid_response").unwrap();
-
-        let (endpoint, _server) = start(HashMap::from([(
-            path.to_string(),
-            (
-                StatusCode::OK,
-                universe_domain_response,
-                TokenQueryParams {
-                    scopes: None,
-                    recursive: None,
-                },
-            ),
-        )]))
-        .await;
-
-        let universe_domain_response = MDSCredentialBuilder::default()
-            .endpoint(endpoint)
-            .build()
-            .get_universe_domain()
-            .await;
-        assert!(universe_domain_response.is_none());
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn get_universe_domain_success_cached() {
-        let path = "/universe/universe-domain";
-        let ud = "test-universe-domain";
-        let universe_domain_response = serde_json::to_value(UniverseDomainResponse {
-            universe_domain: ud.to_string(),
-        })
-        .unwrap();
-
-        let (endpoint, server) = start(HashMap::from([(
-            path.to_string(),
-            (
-                StatusCode::OK,
-                universe_domain_response,
-                TokenQueryParams {
-                    scopes: None,
-                    recursive: None,
-                },
-            ),
-        )]))
-        .await;
-
-        let mdcs = MDSCredentialBuilder::default().endpoint(endpoint).build();
-        assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
-        server.abort();
-        let _ = server.await;
-        assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn get_universe_domain_success_cached_user_value() {
-        let ud = "test-universe-domain";
-
-        let mdcs = MDSCredentialBuilder::default().universe_domain(ud).build();
-        assert_eq!(mdcs.get_universe_domain().await.unwrap(), ud);
-    }
-
-    // #[tokio::test]
-    // async fn default_endpoint_should_be_metadata_server() {
-    //     let mdcs = MDSCredentialBuilder::default().build();
-    //     assert_eq!(mdcs.inner.token_provider.endpoint, METADATA_ROOT);
-    // }
 }

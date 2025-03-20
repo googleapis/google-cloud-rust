@@ -6208,6 +6208,7 @@ dependencies = [
 name = "user-guide-samples"
 version = "0.0.0"
 dependencies = [
+ "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-longrunning",
  "google-cloud-secretmanager-v1",
