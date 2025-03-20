@@ -1,16 +1,15 @@
 use crate::token::{Token, TokenProvider};
-use tokio::time::{sleep, sleep_until, Instant, Duration};
-use tokio::sync::watch;
 use crate::Result;
-
+use tokio::sync::watch;
+use tokio::time::{sleep, sleep_until, Duration, Instant};
 
 const FIVE_MINUTES: Duration = Duration::from_secs(300);
-const TEN_SECONDS: Duration = Duration::from_secs(10); 
+const TEN_SECONDS: Duration = Duration::from_secs(10);
 
 #[derive(Debug)]
 pub(crate) struct TokenCache<T>
 where
-    T: TokenProvider + Send + Sync + 'static
+    T: TokenProvider + Send + Sync + 'static,
 {
     rx_token: watch::Receiver<Option<Result<Token>>>,
     _phantom: std::marker::PhantomData<T>,
@@ -29,7 +28,7 @@ impl<T: TokenProvider> Clone for TokenCache<T> {
 #[allow(dead_code)]
 impl<T> TokenCache<T>
 where
-    T: TokenProvider + Send + Sync + 'static
+    T: TokenProvider + Send + Sync + 'static,
 {
     pub(crate) fn new(inner: T) -> Self {
         let (tx_token, rx_token) = watch::channel::<Option<Result<Token>>>(None);
@@ -47,8 +46,8 @@ where
 
 #[async_trait::async_trait]
 impl<T> TokenProvider for TokenCache<T>
-    where 
-        T: TokenProvider + Send + Sync + 'static
+where
+    T: TokenProvider + Send + Sync + 'static,
 {
     async fn get_token(&self) -> Result<Token> {
         let mut rx = self.rx_token.clone();
@@ -57,46 +56,39 @@ impl<T> TokenProvider for TokenCache<T>
         if let Some(token_result) = token_result {
             match token_result {
                 Ok(token) => match token.expires_at {
-                        None => return Ok(token),
-                        Some(e) => {
-                            if e < Instant::now().into_std() {
-                                // Expired token, wait for refresh
-                                return get_token_from_channel(rx).await
-                            } else {
-                                // valid token
-                                return Ok(token)
-                            }
+                    None => return Ok(token),
+                    Some(e) => {
+                        if e < Instant::now().into_std() {
+                            // Expired token, wait for refresh
+                            return get_token_from_channel(rx).await;
+                        } else {
+                            // valid token
+                            return Ok(token);
                         }
-                    },
+                    }
+                },
                 // An error in the result is still a valid result to propagate to the client library
                 Err(e) => Err(e),
             }
-        }
-        else {
+        } else {
             get_token_from_channel(rx).await
         }
     }
 }
 
-async fn get_token_from_channel(mut rx_token: watch::Receiver<Option<Result<Token>>>) -> Result<Token> {
+async fn get_token_from_channel(
+    mut rx_token: watch::Receiver<Option<Result<Token>>>,
+) -> Result<Token> {
     // We have already checked the current token in the channel, wait for new one
     rx_token.changed().await.unwrap();
     let token_result = rx_token.borrow().clone();
 
-    if let Some(token_result) = token_result {
-        return token_result;
-    }
-    else {
-        panic!("There should always be a token or error in the channel after changed()")
-    }
+    token_result.expect("There should always be a token or error in the channel after changed()")
 }
 
-async fn refresh_task<T>(
-    token_provider: T,
-    tx_token: watch::Sender<Option<Result<Token>>>,
-)
+async fn refresh_task<T>(token_provider: T, tx_token: watch::Sender<Option<Result<Token>>>)
 where
-    T: TokenProvider + Send + Sync + 'static
+    T: TokenProvider + Send + Sync + 'static,
 {
     loop {
         let token_result = token_provider.get_token().await;
@@ -110,12 +102,12 @@ where
 
                     if time_until_expiry > FIVE_MINUTES {
                         let time_to_sleep = Instant::now() + time_until_expiry - FIVE_MINUTES;
-                        sleep_until(time_to_sleep.into()).await;
+                        sleep_until(time_to_sleep).await;
                     } else if time_until_expiry > TEN_SECONDS {
                         // If expiry is less than 5 mins, wait till last 10 seconds to refresh
                         // This is to handle cases where MDS returns about to refresh tokens
                         let time_to_sleep = Instant::now() + time_until_expiry - TEN_SECONDS;
-                        sleep_until(time_to_sleep.into()).await;
+                        sleep_until(time_to_sleep).await;
                     }
                 } else {
                     // Handle case where expiry is not available
@@ -132,7 +124,6 @@ where
     }
 }
 
-
 #[cfg(test)]
 mod test {
     use super::*;
@@ -140,7 +131,7 @@ mod test {
     use crate::token::test::MockTokenProvider;
     use std::ops::{Add, Sub};
     use std::sync::{Arc, Mutex};
-    use tokio::time::{Instant, Duration};
+    use tokio::time::{Duration, Instant};
 
     static TOKEN_VALID_DURATION: Duration = Duration::from_secs(3600);
 
@@ -361,7 +352,7 @@ mod test {
         let actual = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token1.clone());
 
-        // time machine takes execution to 3 minutes before expiry       
+        // time machine takes execution to 3 minutes before expiry
         tokio::time::advance(TOKEN_VALID_DURATION.sub(Duration::from_secs(300))).await;
 
         rx.changed().await.unwrap();
