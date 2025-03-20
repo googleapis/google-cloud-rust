@@ -27,8 +27,16 @@ abstract class JsonEncodable {
   Object toJson();
 }
 
-abstract class Message implements JsonEncodable {}
+/// The abstract common superclass of all messages.
+abstract class Message implements JsonEncodable {
+  /// The fully qualified name of this message, i.e., `google.protobuf.Duration`
+  /// or `google.rpc.ErrorInfo`
+  final String qualifiedName;
 
+  Message(this.qualifiedName);
+}
+
+/// The abstract common superclass of all enum values.
 abstract class Enum implements JsonEncodable {
   final String value;
 

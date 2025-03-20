@@ -19,9 +19,8 @@ specification-source = 'google/protobuf'
 name-override = 'protobuf'
 title-override = 'Core Protobuf Types'
 description-override = 'Core Protobuf types used by most services.'
-# TODO(#1034): Note that we generate 'Any' in order to get correct analysis but
-# do not yet have a custom implementation for it.
-include-list = "any.proto,duration.proto,field_mask.proto"
+# Don't generate 'any.proto'; use the hand-written version in protobuf.p.dart.
+include-list = "duration.proto,field_mask.proto"
 
 [codec]
 copyright-year = '2025'

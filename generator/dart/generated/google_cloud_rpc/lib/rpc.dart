@@ -52,6 +52,8 @@ import 'package:google_cloud_protobuf/protobuf.dart';
 ///       }
 ///     }
 class ErrorInfo extends Message {
+  static const String fullyQualifiedName = 'google.rpc.ErrorInfo';
+
   /// The reason of the error. This is a constant value that identifies the
   /// proximate cause of the error. Error reasons are unique within a particular
   /// domain of errors. This should be at most 63 characters and match a
@@ -82,7 +84,7 @@ class ErrorInfo extends Message {
     this.reason,
     this.domain,
     this.metadata,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory ErrorInfo.fromJson(Map<String, dynamic> json) {
     return ErrorInfo(
@@ -125,12 +127,14 @@ class ErrorInfo extends Message {
 /// number of retries have been reached or a maximum retry delay cap has been
 /// reached.
 class RetryInfo extends Message {
+  static const String fullyQualifiedName = 'google.rpc.RetryInfo';
+
   /// Clients should wait at least this long between retrying the same request.
   final Duration? retryDelay;
 
   RetryInfo({
     this.retryDelay,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory RetryInfo.fromJson(Map<String, dynamic> json) {
     return RetryInfo(
@@ -151,6 +155,8 @@ class RetryInfo extends Message {
 
 /// Describes additional debugging info.
 class DebugInfo extends Message {
+  static const String fullyQualifiedName = 'google.rpc.DebugInfo';
+
   /// The stack trace entries indicating where the error occurred.
   final List<String>? stackEntries;
 
@@ -160,7 +166,7 @@ class DebugInfo extends Message {
   DebugInfo({
     this.stackEntries,
     this.detail,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory DebugInfo.fromJson(Map<String, dynamic> json) {
     return DebugInfo(
@@ -198,12 +204,14 @@ class DebugInfo extends Message {
 /// Also see RetryInfo and Help types for other details about handling a
 /// quota failure.
 class QuotaFailure extends Message {
+  static const String fullyQualifiedName = 'google.rpc.QuotaFailure';
+
   /// Describes all quota violations.
   final List<QuotaFailure$Violation>? violations;
 
   QuotaFailure({
     this.violations,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory QuotaFailure.fromJson(Map<String, dynamic> json) {
     return QuotaFailure(
@@ -225,6 +233,8 @@ class QuotaFailure extends Message {
 /// A message type used to describe a single quota violation.  For example, a
 /// daily quota or a custom quota that was exceeded.
 class QuotaFailure$Violation extends Message {
+  static const String fullyQualifiedName = 'google.rpc.QuotaFailure.Violation';
+
   /// The subject on which the quota check failed.
   /// For example, "clientip:<ip address of client>" or "project:<Google
   /// developer project id>".
@@ -242,7 +252,7 @@ class QuotaFailure$Violation extends Message {
   QuotaFailure$Violation({
     this.subject,
     this.description,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory QuotaFailure$Violation.fromJson(Map<String, dynamic> json) {
     return QuotaFailure$Violation(
@@ -275,12 +285,14 @@ class QuotaFailure$Violation extends Message {
 /// acknowledged, it could list the terms of service violation in the
 /// PreconditionFailure message.
 class PreconditionFailure extends Message {
+  static const String fullyQualifiedName = 'google.rpc.PreconditionFailure';
+
   /// Describes all precondition violations.
   final List<PreconditionFailure$Violation>? violations;
 
   PreconditionFailure({
     this.violations,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory PreconditionFailure.fromJson(Map<String, dynamic> json) {
     return PreconditionFailure(
@@ -301,6 +313,8 @@ class PreconditionFailure extends Message {
 
 /// A message type used to describe a single precondition failure.
 class PreconditionFailure$Violation extends Message {
+  static const String fullyQualifiedName = 'google.rpc.PreconditionFailure.Violation';
+
   /// The type of PreconditionFailure. We recommend using a service-specific
   /// enum type to define the supported precondition violation subjects. For
   /// example, "TOS" for "Terms of Service violation".
@@ -321,7 +335,7 @@ class PreconditionFailure$Violation extends Message {
     this.type,
     this.subject,
     this.description,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory PreconditionFailure$Violation.fromJson(Map<String, dynamic> json) {
     return PreconditionFailure$Violation(
@@ -354,12 +368,14 @@ class PreconditionFailure$Violation extends Message {
 /// Describes violations in a client request. This error type focuses on the
 /// syntactic aspects of the request.
 class BadRequest extends Message {
+  static const String fullyQualifiedName = 'google.rpc.BadRequest';
+
   /// Describes all violations in a client request.
   final List<BadRequest$FieldViolation>? fieldViolations;
 
   BadRequest({
     this.fieldViolations,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory BadRequest.fromJson(Map<String, dynamic> json) {
     return BadRequest(
@@ -380,6 +396,8 @@ class BadRequest extends Message {
 
 /// A message type used to describe a single bad request field.
 class BadRequest$FieldViolation extends Message {
+  static const String fullyQualifiedName = 'google.rpc.BadRequest.FieldViolation';
+
   /// A path that leads to a field in the request body. The value will be a
   /// sequence of dot-separated identifiers that identify a protocol buffer
   /// field.
@@ -439,7 +457,7 @@ class BadRequest$FieldViolation extends Message {
     this.description,
     this.reason,
     this.localizedMessage,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory BadRequest$FieldViolation.fromJson(Map<String, dynamic> json) {
     return BadRequest$FieldViolation(
@@ -474,6 +492,8 @@ class BadRequest$FieldViolation extends Message {
 /// Contains metadata about the request that clients can attach when filing a bug
 /// or providing other forms of feedback.
 class RequestInfo extends Message {
+  static const String fullyQualifiedName = 'google.rpc.RequestInfo';
+
   /// An opaque string that should only be interpreted by the service generating
   /// it. For example, it can be used to identify requests in the service's logs.
   final String? requestId;
@@ -485,7 +505,7 @@ class RequestInfo extends Message {
   RequestInfo({
     this.requestId,
     this.servingData,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory RequestInfo.fromJson(Map<String, dynamic> json) {
     return RequestInfo(
@@ -514,6 +534,8 @@ class RequestInfo extends Message {
 
 /// Describes the resource that is being accessed.
 class ResourceInfo extends Message {
+  static const String fullyQualifiedName = 'google.rpc.ResourceInfo';
+
   /// A name for the type of resource being accessed, e.g. "sql table",
   /// "cloud storage bucket", "file", "Google calendar"; or the type URL
   /// of the resource: e.g. "type.googleapis.com/google.pubsub.v1.Topic".
@@ -540,7 +562,7 @@ class ResourceInfo extends Message {
     this.resourceName,
     this.owner,
     this.description,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory ResourceInfo.fromJson(Map<String, dynamic> json) {
     return ResourceInfo(
@@ -579,12 +601,14 @@ class ResourceInfo extends Message {
 /// project hasn't enabled the accessed service, this can contain a URL pointing
 /// directly to the right place in the developer console to flip the bit.
 class Help extends Message {
+  static const String fullyQualifiedName = 'google.rpc.Help';
+
   /// URL(s) pointing to additional information on handling the current error.
   final List<Help$Link>? links;
 
   Help({
     this.links,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Help.fromJson(Map<String, dynamic> json) {
     return Help(
@@ -605,6 +629,8 @@ class Help extends Message {
 
 /// Describes a URL link.
 class Help$Link extends Message {
+  static const String fullyQualifiedName = 'google.rpc.Help.Link';
+
   /// Describes what the link offers.
   final String? description;
 
@@ -614,7 +640,7 @@ class Help$Link extends Message {
   Help$Link({
     this.description,
     this.url,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Help$Link.fromJson(Map<String, dynamic> json) {
     return Help$Link(
@@ -644,6 +670,8 @@ class Help$Link extends Message {
 /// Provides a localized error message that is safe to return to the user
 /// which can be attached to an RPC error.
 class LocalizedMessage extends Message {
+  static const String fullyQualifiedName = 'google.rpc.LocalizedMessage';
+
   /// The locale used following the specification defined at
   /// https://www.rfc-editor.org/rfc/bcp/bcp47.txt.
   /// Examples are: "en-US", "fr-CH", "es-MX"
@@ -655,7 +683,7 @@ class LocalizedMessage extends Message {
   LocalizedMessage({
     this.locale,
     this.message,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory LocalizedMessage.fromJson(Map<String, dynamic> json) {
     return LocalizedMessage(
@@ -684,6 +712,8 @@ class LocalizedMessage extends Message {
 
 /// Represents an HTTP request.
 class HttpRequest extends Message {
+  static const String fullyQualifiedName = 'google.rpc.HttpRequest';
+
   /// The HTTP request method.
   final String? method;
 
@@ -702,7 +732,7 @@ class HttpRequest extends Message {
     this.uri,
     this.headers,
     this.body,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory HttpRequest.fromJson(Map<String, dynamic> json) {
     return HttpRequest(
@@ -736,6 +766,8 @@ class HttpRequest extends Message {
 
 /// Represents an HTTP response.
 class HttpResponse extends Message {
+  static const String fullyQualifiedName = 'google.rpc.HttpResponse';
+
   /// The HTTP status code, such as 200 or 404.
   final int? status;
 
@@ -754,7 +786,7 @@ class HttpResponse extends Message {
     this.reason,
     this.headers,
     this.body,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory HttpResponse.fromJson(Map<String, dynamic> json) {
     return HttpResponse(
@@ -788,6 +820,8 @@ class HttpResponse extends Message {
 
 /// Represents an HTTP header.
 class HttpHeader extends Message {
+  static const String fullyQualifiedName = 'google.rpc.HttpHeader';
+
   /// The HTTP header key. It is case insensitive.
   final String? key;
 
@@ -797,7 +831,7 @@ class HttpHeader extends Message {
   HttpHeader({
     this.key,
     this.value,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory HttpHeader.fromJson(Map<String, dynamic> json) {
     return HttpHeader(
@@ -832,6 +866,8 @@ class HttpHeader extends Message {
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
 class Status extends Message {
+  static const String fullyQualifiedName = 'google.rpc.Status';
+
   /// The status code, which should be an enum value of
   /// [google.rpc.Code][google.rpc.Code].
   final int? code;
@@ -850,7 +886,7 @@ class Status extends Message {
     this.code,
     this.message,
     this.details,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Status.fromJson(Map<String, dynamic> json) {
     return Status(

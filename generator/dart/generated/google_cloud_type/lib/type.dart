@@ -56,6 +56,8 @@ import 'package:google_cloud_gax/src/json_helpers.dart';
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
 class Expr extends Message {
+  static const String fullyQualifiedName = 'google.type.Expr';
+
   /// Textual representation of an expression in Common Expression Language
   /// syntax.
   final String? expression;
@@ -78,7 +80,7 @@ class Expr extends Message {
     this.title,
     this.description,
     this.location,
-  });
+  }) : super(fullyQualifiedName) ;
 
   factory Expr.fromJson(Map<String, dynamic> json) {
     return Expr(

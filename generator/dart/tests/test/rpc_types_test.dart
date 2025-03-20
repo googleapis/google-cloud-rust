@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/// Tests to validate the generated JSON encoding code using types from
+/// package:google_cloud_rpc.
+library;
+
 import 'dart:convert';
 
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:google_cloud_rpc/rpc.dart';
 import 'package:test/test.dart';
-
-// Tests to validate the generated JSON encoding code using types from
-// package:google_cloud_rpc.
 
 void main() {
   // simple fields

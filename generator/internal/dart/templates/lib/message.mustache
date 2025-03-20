@@ -19,6 +19,8 @@ limitations under the License.
 {{{.}}}
 {{/Codec.DocLines}}
 class {{Codec.Name}} extends Message {
+  static const String fullyQualifiedName = '{{Codec.QualifiedName}}';
+
   {{#Fields}}
   {{> field}}
   {{/Fields}}
@@ -26,7 +28,7 @@ class {{Codec.Name}} extends Message {
   {{#Fields}}
     {{#Codec.Required}}required {{/Codec.Required}}this.{{Codec.Name}},
   {{/Fields}}
-  }{{/Codec.HasFields}}){{Codec.ConstructorBody}}
+  }{{/Codec.HasFields}}) : super(fullyQualifiedName) {{Codec.ConstructorBody}}
 
   {{#Codec.HasCustomEncoding}}
   factory {{Codec.Name}}.fromJson(String json) => {{Codec.Name}}Helper.decode(json);
