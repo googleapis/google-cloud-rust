@@ -1352,7 +1352,7 @@ dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
- "google-cloud-http-client",
+ "google-cloud-gax-internal",
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
