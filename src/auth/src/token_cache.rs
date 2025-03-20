@@ -1,7 +1,5 @@
 use crate::token::{Token, TokenProvider};
-use std::sync::RwLock;
-use std::time::{Duration, Instant};
-use tokio::time::{sleep, sleep_until};
+use tokio::time::{sleep, sleep_until, Instant, Duration};
 use tokio::sync::watch;
 use crate::Result;
 
@@ -27,6 +25,8 @@ impl<T: TokenProvider> Clone for TokenCache<T> {
     }
 }
 
+// TODO 1552: Use the token cache in all creds
+#[allow(dead_code)]
 impl<T> TokenCache<T>
 where
     T: TokenProvider + Send + Sync + 'static
@@ -41,18 +41,6 @@ where
         Self {
             rx_token,
             _phantom: std::marker::PhantomData,
-        }
-    }
-
-    async fn get_token_from_channel(&self, mut rx_token: watch::Receiver<Option<Result<Token>>>) -> Result<Token> {
-        rx_token.changed().await.unwrap();
-        let token_result = rx_token.borrow().clone();
-
-        if let Some(token_result) = token_result {
-            return token_result;
-        }
-        else {
-            panic!("There should always be a token or error in the channel after changed()")
         }
     }
 }
@@ -71,9 +59,9 @@ impl<T> TokenProvider for TokenCache<T>
                 Ok(token) => match token.expires_at {
                         None => return Ok(token),
                         Some(e) => {
-                            if e < tokio::time::Instant::now().into_std() {
+                            if e < Instant::now().into_std() {
                                 // Expired token, wait for refresh
-                                return self.get_token_from_channel(rx).await
+                                return get_token_from_channel(rx).await
                             } else {
                                 // valid token
                                 return Ok(token)
@@ -85,8 +73,21 @@ impl<T> TokenProvider for TokenCache<T>
             }
         }
         else {
-            self.get_token_from_channel(rx).await
+            get_token_from_channel(rx).await
         }
+    }
+}
+
+async fn get_token_from_channel(mut rx_token: watch::Receiver<Option<Result<Token>>>) -> Result<Token> {
+    // We have already checked the current token in the channel, wait for new one
+    rx_token.changed().await.unwrap();
+    let token_result = rx_token.borrow().clone();
+
+    if let Some(token_result) = token_result {
+        return token_result;
+    }
+    else {
+        panic!("There should always be a token or error in the channel after changed()")
     }
 }
 
@@ -105,18 +106,20 @@ where
         match token_result {
             Ok(new_token) => {
                 if let Some(expiry) = new_token.expires_at {
-                    let time_until_expiry = expiry.duration_since(Instant::now());
+                    let time_until_expiry = expiry.duration_since(Instant::now().into_std());
 
                     if time_until_expiry > FIVE_MINUTES {
                         let time_to_sleep = Instant::now() + time_until_expiry - FIVE_MINUTES;
                         sleep_until(time_to_sleep.into()).await;
                     } else if time_until_expiry > TEN_SECONDS {
+                        // If expiry is less than 5 mins, wait till last 10 seconds to refresh
+                        // This is to handle cases where MDS returns about to refresh tokens
                         let time_to_sleep = Instant::now() + time_until_expiry - TEN_SECONDS;
                         sleep_until(time_to_sleep.into()).await;
                     }
                 } else {
                     // Handle case where expiry is not available
-                    // TODO: Validate that all auth backends provide expiry and make expiry not optional.
+                    // TODO 1553: Validate that all auth backends provide expiry and make expiry not optional.
                     sleep(FIVE_MINUTES).await;
                 }
             }
@@ -137,7 +140,7 @@ mod test {
     use crate::token::test::MockTokenProvider;
     use std::ops::{Add, Sub};
     use std::sync::{Arc, Mutex};
-    use std::time::Duration;
+    use tokio::time::{Instant, Duration};
 
     static TOKEN_VALID_DURATION: Duration = Duration::from_secs(3600);
 
@@ -188,7 +191,7 @@ mod test {
         let initial = Token {
             token: "initial-token".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now + TOKEN_VALID_DURATION),
+            expires_at: Some((now + TOKEN_VALID_DURATION).into_std()),
             metadata: None,
         };
         let initial_clone = initial.clone();
@@ -196,7 +199,7 @@ mod test {
         let refresh = Token {
             token: "refreshed-token".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now + 2 * TOKEN_VALID_DURATION),
+            expires_at: Some((now + 2 * TOKEN_VALID_DURATION).into_std()),
             metadata: None,
         };
         let refresh_clone = refresh.clone();
@@ -232,7 +235,7 @@ mod test {
         let initial = Token {
             token: "initial-token".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now + TOKEN_VALID_DURATION),
+            expires_at: Some((now + TOKEN_VALID_DURATION).into_std()),
             metadata: None,
         };
         let initial_clone = initial.clone();
@@ -266,7 +269,7 @@ mod test {
         let token = Token {
             token: "initial-token".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now + TOKEN_VALID_DURATION),
+            expires_at: Some((now + TOKEN_VALID_DURATION).into_std()),
             metadata: None,
         };
         let token_clone = token.clone();
@@ -304,7 +307,7 @@ mod test {
         let token1 = Token {
             token: "token1".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now + TOKEN_VALID_DURATION),
+            expires_at: Some((now + TOKEN_VALID_DURATION).into_std()),
             metadata: None,
         };
         let token1_clone = token1.clone();
@@ -312,7 +315,7 @@ mod test {
         let token2 = Token {
             token: "token2".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now + 2 * TOKEN_VALID_DURATION),
+            expires_at: Some((now + 2 * TOKEN_VALID_DURATION).into_std()),
             metadata: None,
         };
         let token2_clone = token2.clone();
@@ -320,7 +323,7 @@ mod test {
         let token3 = Token {
             token: "token3".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now + 3 * TOKEN_VALID_DURATION),
+            expires_at: Some((now + 3 * TOKEN_VALID_DURATION).into_std()),
             metadata: None,
         };
         let token3_clone = token3.clone();
@@ -358,19 +361,19 @@ mod test {
         let actual = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token1.clone());
 
-        // time machine takes execution to 2 minutes before expiry       
-        tokio::time::advance(TOKEN_VALID_DURATION.sub(Duration::from_secs(60))).await;
+        // time machine takes execution to 3 minutes before expiry       
+        tokio::time::advance(TOKEN_VALID_DURATION.sub(Duration::from_secs(300))).await;
 
         rx.changed().await.unwrap();
 
-        // validate that the token changed before it expires
+        // validate that the token changed less than 5 mins before expiry
         assert!(Instant::now() < now + TOKEN_VALID_DURATION);
         let actual = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token2);
 
         // wait long enough for the token to be expired
-        // get_token should be waiting until the new token is available
-        let sleep = TOKEN_VALID_DURATION.add(Duration::from_secs(100));
+        // Adding 500 secs to account for the time manipulation above
+        let sleep = TOKEN_VALID_DURATION.add(Duration::from_secs(500));
         tokio::time::advance(sleep).await;
 
         rx.changed().await.unwrap();
@@ -385,7 +388,7 @@ mod test {
         let token1 = Token {
             token: "token1".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now + Duration::from_secs(200)),
+            expires_at: Some((now + Duration::from_secs(120)).into_std()),
             metadata: None,
         };
         let token1_clone = token1.clone();
@@ -393,7 +396,7 @@ mod test {
         let token2 = Token {
             token: "token2".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now + 2 * TOKEN_VALID_DURATION),
+            expires_at: Some((now + 2 * TOKEN_VALID_DURATION).into_std()),
             metadata: None,
         };
         let token2_clone = token2.clone();
@@ -421,14 +424,14 @@ mod test {
         let actual = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token1);
 
-        // time machine forwards time by 20 seconds to check if refresh happens
-        tokio::time::advance(Duration::from_secs(10)).await;
+        // time machine forwards time to 10 seconds before expiry
+        tokio::time::advance(Duration::from_secs(110)).await;
 
         rx.changed().await.unwrap();
 
         // validate that the token was refreshed within 10ish seconds
-        // of obtaining previous token. 
-        assert!(Instant::now() < now + Duration::from_secs(12));
+        // before expiry
+        assert!(Instant::now() < now + Duration::from_secs(111));
         let actual = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token2);
     }
@@ -456,7 +459,7 @@ mod test {
     impl TokenProvider for FakeTokenProvider {
         async fn get_token(&self) -> Result<Token> {
             // We give enough time for the a thundering herd to pile up waiting for a change notification from watch channel
-            tokio::time::sleep(Duration::from_millis(50000)).await;
+            tokio::time::sleep(Duration::from_millis(50)).await;
 
             // Track how many calls were made to the inner token provider.
             *self.calls.lock().unwrap() += 1;
@@ -471,7 +474,7 @@ mod test {
         let token = Token {
             token: "delayed-token".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(Instant::now()),
+            expires_at: Some(std::time::Instant::now()),
             metadata: None,
         };
 
@@ -480,7 +483,7 @@ mod test {
         let cache = TokenCache::new(tp.clone());
 
         // Spawn N tasks, all asking for a token at once.
-        let tasks = (0..1)
+        let tasks = (0..100)
             .map(|_| {
                 let cache_clone = cache.clone();
                 tokio::spawn(async move { cache_clone.get_token().await })
