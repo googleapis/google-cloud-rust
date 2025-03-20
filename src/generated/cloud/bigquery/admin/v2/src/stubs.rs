@@ -116,69 +116,6 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [super::client::JobService].
-///
-/// Application developers may need to implement this trait to mock
-/// `client::JobService`.  In other use-cases, application developers only
-/// use `client::JobService` and need not be concerned with this trait or
-/// its implementations.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation of each method. Most of these implementations just return an
-/// error.
-pub trait JobService: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::JobService::cancel_job].
-    fn cancel_job(
-        &self,
-        _req: crate::model::CancelJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::JobCancelResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::JobCancelResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
-    }
-
-    /// Implements [super::client::JobService::get_job].
-    fn get_job(
-        &self,
-        _req: crate::model::GetJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Job>> + Send {
-        std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
-    }
-
-    /// Implements [super::client::JobService::insert_job].
-    fn insert_job(
-        &self,
-        _req: crate::model::InsertJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Job>> + Send {
-        std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
-    }
-
-    /// Implements [super::client::JobService::delete_job].
-    fn delete_job(
-        &self,
-        _req: crate::model::DeleteJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
-        std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
-    }
-
-    /// Implements [super::client::JobService::list_jobs].
-    fn list_jobs(
-        &self,
-        _req: crate::model::ListJobsRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::JobList>> + Send {
-        std::future::ready::<crate::Result<crate::model::JobList>>(Err(Error::other(
-            "unimplemented",
-        )))
-    }
-}
-
 /// Defines the trait used to implement [super::client::ModelService].
 ///
 /// Application developers may need to implement this trait to mock
