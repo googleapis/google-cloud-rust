@@ -43,6 +43,7 @@ google-cloud-secretmanager-v1 = { version = "0.1", features = [
   "unstable-stream",
 ], path = "../../src/generated/cloud/secretmanager/v1" }
 # ANCHOR_END: secretmanager
+
 [features]
 run-integration-tests = []
 log-integration-tests = []

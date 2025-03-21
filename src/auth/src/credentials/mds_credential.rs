@@ -112,7 +112,7 @@ impl MDSCredentialBuilder {
     /// one project for authentication and authorization, and charge
     /// the usage to a different project. This may require that the
     /// service account has serviceusage.services.use on the quota project.
-    /// 
+    ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
@@ -132,7 +132,7 @@ impl MDSCredentialBuilder {
     /// Metadata server issues tokens based on the requested scopes.
     /// If no scopes are specified, the credential defaults to all
     /// scopes configured for the [default service account] on the instance.
-    /// 
+    ///
     /// [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn scopes<S: Into<String>>(mut self, scopes: Vec<S>) -> Self {
