@@ -83,7 +83,12 @@ jobs:
       - name: Display rustc version
         run: rustup show active-toolchain -v
       - run: |
-          cargo tarpaulin --out xml --all-features
+          cargo tarpaulin --out xml --all-features \
+            --package google-cloud-auth \
+            --package google-cloud-gax \
+            --package google-cloud-gax-internal \
+            --package google-cloud-lro \
+            --package google-cloud-wkt
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v5
         with:
