@@ -500,10 +500,10 @@ func TestProtobuf_UniqueEnumValues(t *testing.T) {
 
 	less := func(a, b *api.EnumValue) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(fullList, withAlias.Values, cmpopts.SortSlices(less), cmpopts.IgnoreFields(api.EnumValue{}, "Parent")); diff != "" {
-		t.Errorf("method mismatch (-want, +got):\n%s", diff)
+		t.Errorf("enum values mismatch (-want, +got):\n%s", diff)
 	}
 	if diff := cmp.Diff(uniqueList, withAlias.UniqueNumberValues, cmpopts.SortSlices(less), cmpopts.IgnoreFields(api.EnumValue{}, "Parent")); diff != "" {
-		t.Errorf("method mismatch (-want, +got):\n%s", diff)
+		t.Errorf("enum values mismatch (-want, +got):\n%s", diff)
 	}
 }
 
@@ -845,6 +845,22 @@ func TestProtobuf_Service(t *testing.T) {
 					QueryParameters: map[string]bool{"foo_id": true},
 					BodyFieldPath:   "foo",
 				},
+			},
+			{
+				Name:          "DeleteFoo",
+				ID:            ".test.TestService.DeleteFoo",
+				Documentation: "Deletes a Foo resource.",
+				InputTypeID:   ".test.DeleteFooRequest",
+				OutputTypeID:  ".google.protobuf.Empty",
+				PathInfo: &api.PathInfo{
+					Verb: "DELETE",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("name"),
+					},
+					QueryParameters: map[string]bool{},
+				},
+				ReturnsEmpty: true,
 			},
 			{
 				Name:          "UploadFoos",

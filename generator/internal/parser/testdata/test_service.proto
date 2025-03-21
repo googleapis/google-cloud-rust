@@ -19,6 +19,7 @@ import "google/api/annotations.proto";
 import "google/api/client.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
+import "google/protobuf/empty.proto";
 
 // A service to unit test the protobuf translator.
 service TestService {
@@ -41,6 +42,13 @@ service TestService {
       body: "foo"
     };
     option (google.api.method_signature) = "parent,foo_id,foo";
+  }
+
+  // Deletes a Foo resource.
+  rpc DeleteFoo(DeleteFooRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=projects/*/foos/*}"
+    };
   }
 
   // A client-side streaming RPC.
@@ -96,4 +104,13 @@ message CreateFooRequest {
 
   // Required. A [Foo][test.Foo] with initial field values.
   Foo foo = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+// The request message for `DeleteFoo`.
+message DeleteFooRequest {
+  // Required. The resource name in `projects/{project}/foos/{foo}` format.
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = { type: "test.googleapis.com/Foo" }
+  ];
 }
