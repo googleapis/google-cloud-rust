@@ -331,6 +331,9 @@ mod test {
             refresh_task(mock, tx).await;
         });
 
+        // Give the refresh task a chance to run
+        sleep(Duration::from_millis(100));
+
         rx.changed().await.unwrap();
 
         // Validate that the refresh loop tried getting new token almost immediately
