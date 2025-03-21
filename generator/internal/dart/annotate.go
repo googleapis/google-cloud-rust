@@ -122,7 +122,7 @@ type packageDependency struct {
 	Constraint string
 }
 
-type AnnotateModel struct {
+type annotateModel struct {
 	// The API model we're annotating.
 	model *api.API
 	// Mappings from IDs to types.
@@ -148,7 +148,7 @@ func NewAnnotateModel(model *api.API) *AnnotateModel {
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
-func (annotate AnnotateModel) annotateModel(options map[string]string) (*modelAnnotations, error) {
+func (annotate *AnnotateModel) annotateModel(options map[string]string) (*modelAnnotations, error) {
 	var (
 		packageNameOverride string
 		generationYear      string
