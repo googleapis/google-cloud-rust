@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ProfilerService](super::stubs::ProfilerService) using a [gaxi::ReqwestClient].
+/// Implements [ProfilerService](super::stubs::ProfilerService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ProfilerService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ProfilerService {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for ProfilerService {
 
 impl ProfilerService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -121,10 +121,10 @@ impl super::stubs::ProfilerService for ProfilerService {
     }
 }
 
-/// Implements [ExportService](super::stubs::ExportService) using a [gaxi::ReqwestClient].
+/// Implements [ExportService](super::stubs::ExportService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ExportService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ExportService {
@@ -137,7 +137,7 @@ impl std::fmt::Debug for ExportService {
 
 impl ExportService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -160,7 +160,7 @@ impl super::stubs::ExportService for ExportService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

@@ -17,7 +17,7 @@ use auth::errors::CredentialError;
 use auth::token::Token;
 use gax::options::*;
 use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
-use google_cloud_gax_internal::ReqwestClient;
+use google_cloud_gax_internal::http::ReqwestClient;
 use http::header::{HeaderName, HeaderValue};
 use serde_json::json;
 

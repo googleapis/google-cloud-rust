@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ServiceUsage](super::stubs::ServiceUsage) using a [gaxi::ReqwestClient].
+/// Implements [ServiceUsage](super::stubs::ServiceUsage) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceUsage {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ServiceUsage {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for ServiceUsage {
 
 impl ServiceUsage {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -89,7 +89,7 @@ impl super::stubs::ServiceUsage for ServiceUsage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -111,7 +111,7 @@ impl super::stubs::ServiceUsage for ServiceUsage {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -157,7 +157,7 @@ impl super::stubs::ServiceUsage for ServiceUsage {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("names", p)]));
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -180,7 +180,7 @@ impl super::stubs::ServiceUsage for ServiceUsage {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -199,7 +199,7 @@ impl super::stubs::ServiceUsage for ServiceUsage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

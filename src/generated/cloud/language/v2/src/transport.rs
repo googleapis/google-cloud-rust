@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [LanguageService](super::stubs::LanguageService) using a [gaxi::ReqwestClient].
+/// Implements [LanguageService](super::stubs::LanguageService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct LanguageService {
-    inner: gaxi::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for LanguageService {
@@ -34,7 +34,7 @@ impl std::fmt::Debug for LanguageService {
 
 impl LanguageService {
     pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
-        let inner = gaxi::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
