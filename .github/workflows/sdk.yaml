@@ -19,15 +19,18 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+env:
+  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.81", "rust:current": "1.85" }'
+  GHA_GO_VERSIONS: '{ "go:current": "1.23.5" }'
 jobs:
   build:
     strategy:
       matrix:
         os: ['macos-14', 'ubuntu-24.04', 'windows-2022']
-        rust-version: ['1.83']
+        rust-version: ['rust:current']
         include:
           - os: 'ubuntu-24.04'
-            rust-version: '1.70'
+            rust-version: 'rust:msrv'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -35,13 +38,14 @@ jobs:
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
       - name: Setup Rust ${{ matrix.rust-version }}
-        run: rustup toolchain install ${{ matrix.rust-version }}
+        run: rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+      - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
-        run: rustc --version
+        run: rustup show active-toolchain -v
       - name: Test gax with features disabled
         run: cargo clean && cargo test --package google-cloud-gax
       - name: Test gax-internal with no features
@@ -60,23 +64,24 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        rust-version: ['1.83']
+        rust-version: ['rust:current']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
-          rustup toolchain install ${{ matrix.rust-version }}
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
           cargo install cargo-tarpaulin --version 0.32.1 --locked
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
-        run: rustc --version
+        run: rustup show active-toolchain -v
       - run: |
           cargo tarpaulin --out xml \
             --package google-cloud-auth \
@@ -93,23 +98,24 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        rust-version: ['1.84']
+        rust-version: ['rust:current']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
-          rustup toolchain install ${{ matrix.rust-version }}
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
           cargo install mdbook
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
-        run: rustc --version
+        run: rustup show active-toolchain -v
       - run: cargo doc --workspace
         env:
           RUSTDOCFLAGS: "-D warnings"
@@ -143,20 +149,24 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        rust-version: ['1.83']
+        rust-version: ['rust:current']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
       - name: Setup Rust ${{ matrix.rust-version }}
-        run: rustup toolchain install ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup component add clippy rustfmt
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
-        run: rustc --version
+        run: rustup show active-toolchain -v
       - run: cargo clippy --workspace -- --deny warnings
       - run: cargo fmt
       - run: git diff --exit-code
@@ -166,8 +176,8 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        rust-version: ['1.83']
-        go-version: ['1.23.5']
+        rust-version: ['rust:current']
+        go-version: ['go:current']
     steps:
       - uses: actions/cache@v4
         with:
@@ -176,15 +186,19 @@ jobs:
           key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
       - uses: actions/checkout@v4
       - name: Setup Rust ${{ matrix.rust-version }}
-        run: rustup toolchain install ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup component add rustfmt
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
-        run: rustc --version
+        run: rustup show active-toolchain -v
       - name: Setup Go ${{ matrix.go-version }}
         uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
           cache-dependency-path: |
             generator/go.sum
       - name: Install protoc
