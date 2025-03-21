@@ -236,6 +236,10 @@ extend-ignore-re = [
   "VerticaDialect",
   "\\W[Vv]ertica\\W",
   "vertica_dialect",
+  # src/generated/cloud/bigquery/v2 uses `ALS` which is a false positive typo
+  # for `ALSO`
+  "weighted-ALS",
+  "weighted-als",
   # src/generated/cloud/config/v1 has false positives on a product name.
   "HashiCorp",
   # src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere

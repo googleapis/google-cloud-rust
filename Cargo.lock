@@ -1459,6 +1459,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-bigquery-v2"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-bigtable-admin-v2"
 version = "0.2.0"
 dependencies = [
