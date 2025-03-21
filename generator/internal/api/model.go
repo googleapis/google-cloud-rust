@@ -115,6 +115,15 @@ type Method struct {
 	// OutputType is the output of the Method
 	OutputTypeID string
 	OutputType   *Message
+	// Some methods return nothing and the language mapping represents such
+	// method with a special type such as `void`, or `()`.
+	//
+	// Protobuf uses the well-known type `google.protobuf.Empty` message to
+	// represent this.
+	//
+	// OpenAPIv3 uses a missing content field:
+	//   https://swagger.io/docs/specification/v3_0/describing-responses/#empty-response-body
+	ReturnsEmpty bool
 	// PathInfo information about the HTTP request
 	PathInfo *PathInfo
 	// Pagination holds the `page_token` field if the method conforms to the

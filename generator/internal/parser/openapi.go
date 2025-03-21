@@ -368,9 +368,11 @@ func makeResponseMessage(api *api.API, operation *v3.Operation, packageName stri
 		return nil, fmt.Errorf("missing Responses in specification for operation %s", operation.OperationId)
 	}
 	if operation.Responses.Default == nil {
-		// Google's OpenAPI v3 specifications only include the "default" response. In the future we may want to support
+		// Google's OpenAPI v3 specifications only include the "default"
+		// response. In the future we may want to support more than this.
 		return nil, fmt.Errorf("expected Default response for operation %s", operation.OperationId)
 	}
+	// TODO(#1590) - support a missing `Content` as an indication of `void`.
 	reference, err := findReferenceInContentMap(operation.Responses.Default.Content)
 	if err != nil {
 		return nil, err

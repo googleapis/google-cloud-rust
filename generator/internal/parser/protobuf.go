@@ -440,15 +440,17 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 		slog.Error("unsupported http method", "method", m)
 		return nil
 	}
+	outputTypeID := m.GetOutputType()
 	method := &api.Method{
 		ID:                  mFQN,
 		PathInfo:            pathInfo,
 		Name:                m.GetName(),
 		InputTypeID:         m.GetInputType(),
-		OutputTypeID:        m.GetOutputType(),
+		OutputTypeID:        outputTypeID,
 		ClientSideStreaming: m.GetClientStreaming(),
 		ServerSideStreaming: m.GetServerStreaming(),
 		OperationInfo:       parseOperationInfo(packagez, m),
+		ReturnsEmpty:        outputTypeID == ".google.protobuf.Empty",
 	}
 	state.MethodByID[mFQN] = method
 	return method
