@@ -86,7 +86,7 @@ where
 /// backed by the metadata service, some applications may need to:
 /// * Customize the metadata service credentials in some way
 /// * Bypass the [Application Default Credentials] lookup and only
-///    use the metadata server credentials
+///   use the metadata server credentials
 /// * Use the credentials directly outside the client libraries
 ///
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
@@ -526,7 +526,7 @@ mod test {
         .await;
 
         let mdsc = Builder::default()
-            .scopes(scopes)
+            .scopes(["scope1", "scope2"])
             .endpoint(endpoint)
             .quota_project_id("test-project")
             .build();
