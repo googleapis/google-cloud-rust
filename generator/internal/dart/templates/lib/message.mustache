@@ -28,7 +28,7 @@ class {{Codec.Name}} extends Message {
   {{#Fields}}
     {{#Codec.Required}}required {{/Codec.Required}}this.{{Codec.Name}},
   {{/Fields}}
-  }{{/Codec.HasFields}}) : super(fullyQualifiedName) {{Codec.ConstructorBody}}
+  }{{/Codec.HasFields}}) : super(fullyQualifiedName){{Codec.ConstructorBody}}
 
   {{#Codec.HasCustomEncoding}}
   factory {{Codec.Name}}.fromJson(String json) => {{Codec.Name}}Helper.decode(json);
