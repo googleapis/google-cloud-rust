@@ -19,17 +19,18 @@ limitations under the License.
 {{/Codec.BoilerPlate}}
 
 [package]
-name                 = "{{Codec.PackageName}}"
-version              = "{{Codec.PackageVersion}}"
-description          = "Google Cloud Client Libraries for Rust - {{{Title}}}"
-edition.workspace    = true
-authors.workspace    = true
-license.workspace    = true
-repository.workspace = true
-keywords.workspace   = true
-categories.workspace = true
+name                   = "{{Codec.PackageName}}"
+version                = "{{Codec.PackageVersion}}"
+description            = "Google Cloud Client Libraries for Rust - {{{Title}}}"
+edition.workspace      = true
+authors.workspace      = true
+license.workspace      = true
+repository.workspace   = true
+keywords.workspace     = true
+categories.workspace   = true
+rust-version.workspace = true
 {{#Codec.NotForPublication}}
-publish              = false
+publish                = false
 {{/Codec.NotForPublication}}
 
 [dependencies]
