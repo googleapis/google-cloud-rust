@@ -63,4 +63,4 @@ test-case   = "3"
 tokio       = { version = "1", features = ["test-util"] }
 # Local crates
 echo-server = { path = "echo-server" }
-wkt         = { version = "0.2", path = "../wkt", package = "google-cloud-wkt" }
+wkt         = { version = "0.3", path = "../wkt", package = "google-cloud-wkt" }
