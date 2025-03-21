@@ -33,11 +33,11 @@
 //! Example usage:
 //!
 //! ```
-//! # use google_cloud_auth::credentials::mds_credential::MDSCredentialBuilder;
+//! # use google_cloud_auth::credentials::mds::Builder;
 //! # use google_cloud_auth::credentials::Credential;
 //! # use google_cloud_auth::errors::CredentialError;
 //! # tokio_test::block_on(async {
-//! let credential: Credential = MDSCredentialBuilder::default().quota_project_id("my-quota-project").build();
+//! let credential: Credential = Builder::default().quota_project_id("my-quota-project").build();
 //! let token = credential.get_token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialError>(())
@@ -67,7 +67,7 @@ const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal/";
 
 pub(crate) fn new() -> Credential {
-    MDSCredentialBuilder::default().build()
+    Builder::default().build()
 }
 
 #[derive(Debug)]
@@ -92,15 +92,16 @@ where
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
 /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 #[derive(Debug, Default)]
-pub struct MDSCredentialBuilder {
+pub struct Builder {
     endpoint: Option<String>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
     universe_domain: Option<String>,
 }
 
-impl MDSCredentialBuilder {
+impl Builder {
     /// Sets the endpoint for this credential.
+    ///
     /// If not set, the credentials use `http://metadata.google.internal/`.
     pub fn endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
@@ -108,10 +109,11 @@ impl MDSCredentialBuilder {
     }
 
     /// Set the [quota project] for this credential.
+    ///
     /// In some services, you can use a service account in
     /// one project for authentication and authorization, and charge
     /// the usage to a different project. This may require that the
-    /// service account has serviceusage.services.use on the quota project.
+    /// service account has `serviceusage.services.use` permissions on the quota project.
     ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
@@ -119,23 +121,30 @@ impl MDSCredentialBuilder {
         self
     }
 
-    /// Sets the universe_domain for this credential.
+    /// Sets the universe domain for this credential.
+    ///
     /// Client libraries use `universe_domain` to determine
     /// the API endpoints to use for making requests.
-    /// If not set, then credentials use `googleapis.com`.
+    /// If not set, then credentials use `${service}.googleapis.com`,
+    /// otherwise they use `${service}.${universe_domain}.
     pub fn universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
 
     /// Sets the [scopes] for this credential.
+    ///
     /// Metadata server issues tokens based on the requested scopes.
     /// If no scopes are specified, the credential defaults to all
     /// scopes configured for the [default service account] on the instance.
     ///
     /// [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
-    pub fn scopes<S: Into<String>>(mut self, scopes: Vec<S>) -> Self {
+    pub fn scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
         self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
         self
     }
@@ -516,7 +525,7 @@ mod test {
         )]))
         .await;
 
-        let mdsc = MDSCredentialBuilder::default()
+        let mdsc = Builder::default()
             .scopes(scopes)
             .endpoint(endpoint)
             .quota_project_id("test-project")
@@ -564,10 +573,7 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let mdsc = MDSCredentialBuilder::default()
-            .scopes(scopes)
-            .endpoint(endpoint)
-            .build();
+        let mdsc = Builder::default().scopes(scopes).endpoint(endpoint).build();
         let now = std::time::Instant::now();
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -625,7 +631,7 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let mdsc = MDSCredentialBuilder::default().endpoint(endpoint).build();
+        let mdsc = Builder::default().endpoint(endpoint).build();
         let now = std::time::Instant::now();
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -660,10 +666,7 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let mdsc = MDSCredentialBuilder::default()
-            .endpoint(endpoint)
-            .scopes(scopes)
-            .build();
+        let mdsc = Builder::default().endpoint(endpoint).scopes(scopes).build();
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
@@ -688,10 +691,7 @@ mod test {
         )]))
         .await;
 
-        let mdsc = MDSCredentialBuilder::default()
-            .endpoint(endpoint)
-            .scopes(scopes)
-            .build();
+        let mdsc = Builder::default().endpoint(endpoint).scopes(scopes).build();
         let e = mdsc.get_token().await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
@@ -715,10 +715,7 @@ mod test {
         )]))
         .await;
 
-        let mdsc = MDSCredentialBuilder::default()
-            .endpoint(endpoint)
-            .scopes(scopes)
-            .build();
+        let mdsc = Builder::default().endpoint(endpoint).scopes(scopes).build();
 
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
@@ -743,10 +740,7 @@ mod test {
         )]))
         .await;
 
-        let mdsc = MDSCredentialBuilder::default()
-            .endpoint(endpoint)
-            .scopes(scopes)
-            .build();
+        let mdsc = Builder::default().endpoint(endpoint).scopes(scopes).build();
 
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
@@ -756,7 +750,7 @@ mod test {
 
     #[tokio::test]
     async fn get_default_universe_domain_success() {
-        let universe_domain_response = MDSCredentialBuilder::default()
+        let universe_domain_response = Builder::default()
             .build()
             .get_universe_domain()
             .await
@@ -767,7 +761,7 @@ mod test {
     #[tokio::test]
     async fn get_custom_universe_domain_success() {
         let universe_domain = "test-universe";
-        let universe_domain_response = MDSCredentialBuilder::default()
+        let universe_domain_response = Builder::default()
             .universe_domain(universe_domain)
             .build()
             .get_universe_domain()

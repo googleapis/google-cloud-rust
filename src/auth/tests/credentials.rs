@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_auth::credentials::mds_credential::MDSCredentialBuilder;
+use google_cloud_auth::credentials::mds::Builder;
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::{
     create_access_token_credential, create_api_key_credential, ApiKeyOptions, Credential,
@@ -185,7 +185,7 @@ mod test {
         let test_quota_project = "test-quota-project";
         let test_universe_domain = "test-universe-domain";
         let default_metadata_server = "http://metadata.google.internal";
-        let mdcs = MDSCredentialBuilder::default()
+        let mdcs = Builder::default()
             .quota_project_id(test_quota_project)
             .universe_domain(test_universe_domain)
             .build();
