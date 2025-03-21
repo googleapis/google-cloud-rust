@@ -297,4 +297,9 @@ mod test {
         let got: crate::Value = convert.cnv();
         assert_eq!(got, input);
     }
+
+    #[test]
+    fn empty_from_unit() {
+        let _: crate::Empty = ().cnv();
+    }
 }
