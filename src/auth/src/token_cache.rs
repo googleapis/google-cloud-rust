@@ -15,8 +15,12 @@
 use crate::Result;
 use crate::token::{Token, TokenProvider};
 use tokio::sync::watch;
-use tokio::time::{Duration, Instant, sleep, sleep_until};
+use tokio::time::{Duration, Instant, sleep};
 
+// Different MDS(Metadata Service) backends have different policies to
+// determine when to refresh a token. Most MDS' refresh token 5 mins before
+// expiry, except for Serverless which refresh tokens 4 mins before
+// expiry. So we are using 4 mins as the staleness limit for our refresh logic.
 const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(240);
 const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
 
@@ -92,19 +96,23 @@ where
         match token_result {
             Ok(new_token) => {
                 if let Some(expiry) = new_token.expires_at {
-                    let time_until_expiry = expiry.duration_since(Instant::now().into_std());
+                    let time_until_expiry =
+                        expiry.checked_duration_since(Instant::now().into_std());
 
-                    if time_until_expiry > NORMAL_REFRESH_SLACK {
-                        let time_to_sleep =
-                            Instant::now() + time_until_expiry - NORMAL_REFRESH_SLACK;
-                        sleep_until(time_to_sleep).await;
-                    } else if time_until_expiry > SHORT_REFRESH_SLACK {
-                        // If expiry is less than 4 mins, try to refresh every 10 seconds
-                        // This is to handle cases where MDS **repeatedly** returns about to expire tokens
-                        sleep(SHORT_REFRESH_SLACK).await;
-                    } else {
-                        // We were given a token that is expired, or expires in less than 10 seconds.
-                        // We will immediately restart the loop, and fetch a new token.
+                    match time_until_expiry {
+                        None => {
+                            // We were given a token that is expired, or expires in less than 10 seconds.
+                            // We will immediately restart the loop, and fetch a new token.
+                        }
+                        Some(time_until_expiry) => {
+                            if time_until_expiry > NORMAL_REFRESH_SLACK {
+                                sleep(time_until_expiry - NORMAL_REFRESH_SLACK).await;
+                            } else if time_until_expiry > SHORT_REFRESH_SLACK {
+                                // If expiry is less than 4 mins, try to refresh every 10 seconds
+                                // This is to handle cases where MDS **repeatedly** returns about to expire tokens.
+                                sleep(SHORT_REFRESH_SLACK).await;
+                            }
+                        }
                     }
                 } else {
                     // If there is no expiry, the token is valid forever, so no need to refresh
