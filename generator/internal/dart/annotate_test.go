@@ -24,7 +24,8 @@ import (
 
 func TestAnnotateModel(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	_, err := annotateModel(model, map[string]string{})
+	annotate := newAnnotateModel(model)
+	_, err := annotate.annotateModel(map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -41,7 +42,8 @@ func TestAnnotateModel(t *testing.T) {
 
 func TestAnnotateModel_Options(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	_, err := annotateModel(model, map[string]string{
+	annotate := newAnnotateModel(model)
+	_, err := annotate.annotateModel(map[string]string{
 		"version":   "1.0.0",
 		"part-file": "src/test.p.dart",
 	})
@@ -76,12 +78,13 @@ func TestAnnotateMethod(t *testing.T) {
 		[]*api.Service{service},
 	)
 	api.Validate(model)
-	_, err := annotateModel(model, map[string]string{})
+	annotate := newAnnotateModel(model)
+	_, err := annotate.annotateModel(map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	annotateMethod(method, model.State, map[string]string{}, map[string]string{})
+	annotate.annotateMethod(method)
 	codec := method.Codec.(*methodAnnotation)
 
 	got := codec.Name
@@ -183,6 +186,8 @@ func TestAnnotateMessageToString(t *testing.T) {
 		[]*api.Enum{sample.EnumState()},
 		[]*api.Service{},
 	)
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
 
 	for _, test := range []struct {
 		message  *api.Message
@@ -195,11 +200,8 @@ func TestAnnotateMessageToString(t *testing.T) {
 		{message: sample.Automatic(), expected: 0},
 	} {
 		t.Run(test.message.Name, func(t *testing.T) {
-			packageMapping := map[string]string{}
 			imports := map[string]string{}
-			requiredFields := map[string]*api.Field{}
-
-			annotateMessage(test.message, model.State, packageMapping, imports, requiredFields)
+			annotate.annotateMessage(test.message, imports)
 
 			codec := test.message.Codec.(*messageAnnotation)
 			actual := codec.ToStringLines

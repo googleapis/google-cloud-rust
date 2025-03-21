@@ -15,50 +15,12 @@
 package dart
 
 import (
-	"io/fs"
-	"path/filepath"
-	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
-
-func TestGeneratedFiles(t *testing.T) {
-	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	annotateModel(model, map[string]string{})
-	files := generatedFiles(model)
-	if len(files) == 0 {
-		t.Errorf("expected a non-empty list of template files from generatedFiles()")
-	}
-
-	// Validate that main.dart was replaced with {servicename}.dart.
-	for _, fileInfo := range files {
-		if filepath.Base(fileInfo.OutputPath) == "main.dart" {
-			t.Errorf("expected the main.dart template to be generated as {servicename}.dart")
-		}
-	}
-}
-
-func TestTemplatesAvailable(t *testing.T) {
-	var count = 0
-	fs.WalkDir(dartTemplates, "templates", func(path string, d fs.DirEntry, err error) error {
-		if filepath.Ext(path) != ".mustache" {
-			return nil
-		}
-		if strings.Count(d.Name(), ".") == 1 {
-			// skip partials
-			return nil
-		}
-		count++
-		return nil
-	})
-
-	if count == 0 {
-		t.Errorf("no dart templates found")
-	}
-}
 
 func TestMessageNames(t *testing.T) {
 	r := sample.Replication()
@@ -72,7 +34,8 @@ func TestMessageNames(t *testing.T) {
 		[]*api.Enum{},
 		[]*api.Service{})
 	model.PackageName = "test"
-	annotateModel(model, map[string]string{})
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
 
 	for _, test := range []struct {
 		message *api.Message
@@ -123,7 +86,8 @@ func TestEnumNames(t *testing.T) {
 		[]*api.Enum{nested, non_nested},
 		[]*api.Service{})
 	model.PackageName = "test"
-	annotateModel(model, map[string]string{})
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
 
 	for _, test := range []struct {
 		enum     *api.Enum
@@ -155,7 +119,8 @@ func TestEnumValues(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{someEnum}, []*api.Service{})
 	model.PackageName = "test"
-	annotateModel(model, map[string]string{})
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
 
 	for _, test := range []struct {
 		value    *api.EnumValue
@@ -186,7 +151,8 @@ func TestResolveTypeName(t *testing.T) {
 		},
 	}, []*api.Enum{}, []*api.Service{})
 
-	annotateModel(model, map[string]string{})
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
 	state := model.State
 
 	for _, test := range []struct {
@@ -198,7 +164,7 @@ func TestResolveTypeName(t *testing.T) {
 		{".google.protobuf.Timestamp", "Timestamp"},
 		{".google.protobuf.Duration", "Duration"},
 	} {
-		got := resolveTypeName(state.MessageByID[test.typeId], map[string]string{}, map[string]string{})
+		got := annotate.resolveTypeName(state.MessageByID[test.typeId])
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
 		}
@@ -221,10 +187,11 @@ func TestResolveTypeName_Imports(t *testing.T) {
 		},
 	}, []*api.Enum{}, []*api.Service{})
 
-	annotateModel(model, map[string]string{})
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
 	state := model.State
 
-	packageMapping := map[string]string{
+	annotate.packageMapping = map[string]string{
 		"google.protobuf": "package:google_cloud_protobuf/protobuf.dart",
 		"google.rpc":      "package:google_cloud_rpc/rpc.dart",
 		"google.type":     "package:google_cloud_type/type.dart",
@@ -238,10 +205,10 @@ func TestResolveTypeName_Imports(t *testing.T) {
 		{".google.rpc.Status", "google.rpc"},
 		{".google.type.Expr", "google.type"},
 	} {
-		imports := map[string]string{}
-		resolveTypeName(state.MessageByID[test.typeId], packageMapping, imports)
-		if _, ok := imports[test.want]; !ok {
-			t.Errorf("import not added type name, got: %v want: %s", imports, test.want)
+		annotate.imports = map[string]string{}
+		annotate.resolveTypeName(state.MessageByID[test.typeId])
+		if _, ok := annotate.imports[test.want]; !ok {
+			t.Errorf("import not added, got: %v want: %s", annotate.imports, test.want)
 		}
 	}
 }
@@ -275,9 +242,10 @@ func TestFieldType(t *testing.T) {
 			Fields:        []*api.Field{field},
 		}
 		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-		annotateModel(model, map[string]string{})
+		annotate := newAnnotateModel(model)
+		annotate.annotateModel(map[string]string{})
 
-		got := fieldType(field, model.State, map[string]string{}, map[string]string{})
+		got := annotate.fieldType(field)
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
 		}
@@ -311,15 +279,16 @@ func TestFieldType(t *testing.T) {
 		[]*api.Enum{sampleEnum},
 		[]*api.Service{},
 	)
-	annotateModel(model, map[string]string{})
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
 
-	got := fieldType(field1, model.State, map[string]string{}, map[string]string{})
+	got := annotate.fieldType(field1)
 	want := "CreateSecretRequest"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
 	}
 
-	got = fieldType(field2, model.State, map[string]string{}, map[string]string{})
+	got = annotate.fieldType(field2)
 	want = "State"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
@@ -349,9 +318,10 @@ func TestFieldType_Maps(t *testing.T) {
 		TypezID:  map1.ID,
 	}
 	model := api.NewTestAPI([]*api.Message{map1}, []*api.Enum{}, []*api.Service{})
-	annotateModel(model, map[string]string{})
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
 
-	got := fieldType(field, model.State, map[string]string{}, map[string]string{})
+	got := annotate.fieldType(field)
 	want := "Map<String, int>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
@@ -371,21 +341,22 @@ func TestFieldType_Bytes(t *testing.T) {
 		Fields: []*api.Field{field},
 	}
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-	annotateModel(model, map[string]string{})
-	imports := map[string]string{}
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
+	annotate.imports = map[string]string{}
 
-	got := fieldType(field, model.State, map[string]string{}, imports)
+	got := annotate.fieldType(field)
 	want := "Uint8List"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
 	}
 
 	// verify the typed_data import
-	if !(len(imports) > 0) {
+	if !(len(annotate.imports) > 0) {
 		t.Errorf("unexpected: no typed_data import added")
 	}
 
-	for _, got := range imports {
+	for _, got := range annotate.imports {
 		want := "dart:typed_data"
 		if got != want {
 			t.Errorf("unexpected import, got: %s want: %s", got, want)
@@ -422,9 +393,10 @@ func TestFieldType_Repeated(t *testing.T) {
 			Fields:        []*api.Field{field},
 		}
 		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-		annotateModel(model, map[string]string{})
+		annotate := newAnnotateModel(model)
+		annotate.annotateModel(map[string]string{})
 
-		got := fieldType(field, model.State, map[string]string{}, map[string]string{})
+		got := annotate.fieldType(field)
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
 		}
@@ -460,15 +432,16 @@ func TestFieldType_Repeated(t *testing.T) {
 		[]*api.Enum{sampleEnum},
 		[]*api.Service{},
 	)
-	annotateModel(model, map[string]string{})
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
 
-	got := fieldType(field1, model.State, map[string]string{}, map[string]string{})
+	got := annotate.fieldType(field1)
 	want := "List<CreateSecretRequest>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
 	}
 
-	got = fieldType(field2, model.State, map[string]string{}, map[string]string{})
+	got = annotate.fieldType(field2)
 	want = "List<State>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)

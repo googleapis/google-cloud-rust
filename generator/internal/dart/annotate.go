@@ -16,6 +16,7 @@ package dart
 
 import (
 	"fmt"
+	"log/slog"
 	"slices"
 	"sort"
 	"strconv"
@@ -41,7 +42,7 @@ type modelAnnotations struct {
 	DefaultHost       string
 	DocLines          []string
 	HasDependencies   bool
-	// A reference to a hand-written part file.
+	// A reference to an optional hand-written part file.
 	PartFileReference   string
 	PackageDependencies []packageDependency
 	Imports             []string
@@ -121,22 +122,40 @@ type packageDependency struct {
 	Constraint string
 }
 
+type annotateModel struct {
+	// The API model we're annotating.
+	model *api.API
+	// Mappings from IDs to types.
+	state *api.APIState
+	// The set of imports that have been calculated.
+	imports map[string]string
+	// The mapping from protobuf packages to Dart import statements.
+	packageMapping map[string]string
+	// A mapping from field IDs to fields for the fields we know to be required.
+	requiredFields map[string]*api.Field
+}
+
+func newAnnotateModel(model *api.API) *annotateModel {
+	return &annotateModel{
+		model:          model,
+		state:          model.State,
+		imports:        map[string]string{},
+		packageMapping: map[string]string{},
+	}
+}
+
 // annotateModel creates a struct used as input for Mustache templates.
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
-func annotateModel(model *api.API, options map[string]string) (*modelAnnotations, error) {
+func (annotate *annotateModel) annotateModel(options map[string]string) (*modelAnnotations, error) {
 	var (
 		packageNameOverride string
 		generationYear      string
 		packageVersion      string
-		// The Dart imports discovered while annotating the API model.
-		imports           = map[string]string{}
-		partFileReference string
-		devDependencies   = []string{}
-		doNotPublish      bool
-		// A mapping from protobuf packages to Dart import URLs.
-		packageMapping = map[string]string{}
+		partFileReference   string
+		doNotPublish        bool
+		devDependencies     = []string{}
 	)
 
 	for key, definition := range options {
@@ -168,40 +187,42 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 				return nil, fmt.Errorf("key should be in the format proto:<proto-package>, got=%q", key)
 			}
 			protoPackage := keys[1]
-			packageMapping[protoPackage] = definition
+			annotate.packageMapping[protoPackage] = definition
 		}
 	}
 
-	// Register any missing WKT.
-	registerMissingWkt(model.State)
+	// Register any missing WKTs.
+	registerMissingWkt(annotate.state)
+
+	model := annotate.model
 
 	// Calculate required fields.
-	requiredFields := calculateRequiredFields(model)
+	annotate.requiredFields = calculateRequiredFields(model)
 
 	// Traverse and annotate the enums defined in this API.
 	for _, e := range model.Enums {
-		annotateEnum(e, model.State)
+		annotate.annotateEnum(e)
 	}
 
 	// Traverse and annotate the messages defined in this API.
 	for _, m := range model.Messages {
-		annotateMessage(m, model.State, packageMapping, imports, requiredFields)
+		annotate.annotateMessage(m, annotate.imports)
 	}
 
 	for _, s := range model.Services {
-		annotateService(s, model.State, packageMapping, imports)
+		annotate.annotateService(s)
 	}
 
-	// Remove our self-reference.
-	delete(imports, model.PackageName)
+	// Remove our package self-reference.
+	delete(annotate.imports, model.PackageName)
 
 	// Add the import for the google_cloud_gax package.
-	imports["cloud_gax"] = commonImport
+	annotate.imports["cloud_gax"] = commonImport
 
-	deps := calculateDependencies(imports)
+	packageDependencies := calculateDependencies(annotate.imports)
 
 	ann := &modelAnnotations{
-		PackageName:    modelPackageName(model, packageNameOverride),
+		PackageName:    packageName(model, packageNameOverride),
 		PackageVersion: packageVersion,
 		MainFileName:   strcase.ToSnake(model.Name),
 		HasServices:    len(model.Services) > 0,
@@ -216,10 +237,10 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 			return ""
 		}(),
 		DocLines:            formatDocComments(model.Description, model.State),
-		HasDependencies:     len(deps) > 0,
+		Imports:             calculateImports(annotate.imports),
 		PartFileReference:   partFileReference,
-		PackageDependencies: deps,
-		Imports:             calculateImports(imports),
+		HasDependencies:     len(packageDependencies) > 0,
+		PackageDependencies: packageDependencies,
 		HasDevDependencies:  len(devDependencies) > 0,
 		DevDependencies:     devDependencies,
 		DoNotPublish:        doNotPublish,
@@ -229,26 +250,29 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 	return ann, nil
 }
 
-func registerMissingWkt(state *api.APIState) {
-	// If these definitions weren't provided by protoc then provide our own
-	// placeholders.
-	for _, message := range []struct {
-		ID      string
-		Name    string
-		Package string
-	}{
-		{".google.protobuf.Any", "Any", "google.protobuf"},
-		{".google.protobuf.Empty", "Empty", "google.protobuf"},
-	} {
-		_, ok := state.MessageByID[message.ID]
-		if !ok {
-			state.MessageByID[message.ID] = &api.Message{
-				ID:      message.ID,
-				Name:    message.Name,
-				Package: message.Package,
+func calculateRequiredFields(model *api.API) map[string]*api.Field {
+	required := map[string]*api.Field{}
+
+	for _, s := range model.Services {
+		// Some methods are skipped.
+		methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
+			return shouldGenerateMethod(m)
+		})
+
+		for _, method := range methods {
+			for _, field := range language.PathParams(method, model.State) {
+				required[field.ID] = field
+			}
+
+			for _, field := range method.InputType.Fields {
+				if field.Name == method.PathInfo.BodyFieldPath {
+					required[field.ID] = field
+				}
 			}
 		}
 	}
+
+	return required
 }
 
 // Calculate package dependencies based on `package:` imports.
@@ -275,21 +299,21 @@ func calculateDependencies(imports map[string]string) []packageDependency {
 	return deps
 }
 
-func calculateImports(usedImports map[string]string) []string {
+func calculateImports(imports map[string]string) []string {
 	var dartImports []string
-	for _, imp := range usedImports {
+	for _, imp := range imports {
 		dartImports = append(dartImports, imp)
 	}
 	sort.Strings(dartImports)
 
 	previousImportType := ""
-	var imports []string
+	var results []string
 
 	for _, imp := range dartImports {
 		// Emit a blank line when changing between 'dart:' and 'package:' imports.
 		importType := strings.Split(imp, ":")[0]
 		if previousImportType != "" && previousImportType != importType {
-			imports = append(imports, "")
+			results = append(results, "")
 		}
 		previousImportType = importType
 
@@ -299,52 +323,27 @@ func calculateImports(usedImports map[string]string) []string {
 			prefix = " as http"
 		}
 
-		imports = append(imports, fmt.Sprintf("import '%s'%s;", imp, prefix))
+		results = append(results, fmt.Sprintf("import '%s'%s;", imp, prefix))
 	}
 
-	return imports
+	return results
 }
 
-func calculateRequiredFields(model *api.API) map[string]*api.Field {
-	required := map[string]*api.Field{}
-
-	for _, s := range model.Services {
-		// Some methods are skipped.
-		methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
-			return generateMethod(m)
-		})
-
-		for _, method := range methods {
-			for _, field := range language.PathParams(method, model.State) {
-				required[field.ID] = field
-			}
-
-			for _, field := range method.InputType.Fields {
-				if field.Name == method.PathInfo.BodyFieldPath {
-					required[field.ID] = field
-				}
-			}
-		}
-	}
-
-	return required
-}
-
-func annotateService(s *api.Service, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
+func (annotate *annotateModel) annotateService(s *api.Service) {
 	// Add a package:http import if we're generating a service.
-	imports["http"] = httpImport
+	annotate.imports["http"] = httpImport
 
 	// Some methods are skipped.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
-		return generateMethod(m)
+		return shouldGenerateMethod(m)
 	})
 
 	for _, m := range methods {
-		annotateMethod(m, state, packageMapping, imports)
+		annotate.annotateMethod(m)
 	}
 	ann := &serviceAnnotations{
 		Name:        s.Name,
-		DocLines:    formatDocComments(s.Documentation, state),
+		DocLines:    formatDocComments(s.Documentation, annotate.state),
 		Methods:     methods,
 		FieldName:   strcase.ToLowerCamel(s.Name),
 		StructName:  s.Name,
@@ -353,28 +352,29 @@ func annotateService(s *api.Service, state *api.APIState, packageMapping map[str
 	s.Codec = ann
 }
 
-func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[string]string,
-	imports map[string]string, requiredFields map[string]*api.Field) {
+func (annotate *annotateModel) annotateMessage(m *api.Message, imports map[string]string) {
 	// Add the import for the common JSON helpers.
 	imports["cloud_gax_helpers"] = commonHelpersImport
 
 	for _, f := range m.Fields {
-		annotateField(f, state, packageMapping, imports, requiredFields)
+		annotate.annotateField(f)
 	}
 	for _, f := range m.OneOfs {
-		annotateOneOf(f, state)
+		annotate.annotateOneOf(f)
 	}
 	for _, e := range m.Enums {
-		annotateEnum(e, state)
+		annotate.annotateEnum(e)
 	}
 	for _, m := range m.Messages {
-		annotateMessage(m, state, packageMapping, imports, requiredFields)
+		annotate.annotateMessage(m, imports)
 	}
 
 	constructorBody := ";"
 	_, needsValidation := needsCtorValidation[m.ID]
 	if needsValidation {
-		constructorBody = " {\n    _validate();\n  }"
+		constructorBody = " {\n" +
+			"    _validate();\n" +
+			"  }"
 	}
 
 	_, hasCustomEncoding := usesCustomEncoding[m.ID]
@@ -383,12 +383,101 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 	m.Codec = &messageAnnotation{
 		Name:              messageName(m),
 		QualifiedName:     qualifiedName(m),
-		DocLines:          formatDocComments(m.Documentation, state),
+		DocLines:          formatDocComments(m.Documentation, annotate.state),
 		ConstructorBody:   constructorBody,
 		HasFields:         len(m.Fields) > 0,
 		HasCustomEncoding: hasCustomEncoding,
 		HasToStringLines:  len(toStringLines) > 0,
 		ToStringLines:     toStringLines,
+	}
+}
+
+func createToStringLines(message *api.Message) []string {
+	lines := []string{}
+
+	for _, field := range message.Fields {
+		codec := field.Codec.(*fieldAnnotation)
+		name := codec.Name
+
+		isList := field.Repeated
+		isMessage := field.Typez == api.MESSAGE_TYPE
+
+		// Don't generate toString() entries for lists, maps, or messages.
+		if isList || isMessage {
+			continue
+		}
+
+		if codec.Required {
+			// 'name=$name',
+			lines = append(lines, fmt.Sprintf("'%s=$%s',", name, name))
+		} else {
+			// if (name != null) 'name=$name',
+			lines = append(lines, fmt.Sprintf("if (%s != null) '%s=$%s',", name, name, name))
+		}
+	}
+
+	return lines
+}
+
+func (annotate *annotateModel) annotateMethod(method *api.Method) {
+	// Ignore imports added from the input and output messages.
+	tempImports := map[string]string{}
+	if method.InputType.Codec == nil {
+		annotate.annotateMessage(method.InputType, tempImports)
+	}
+	if method.OutputType.Codec == nil {
+		annotate.annotateMessage(method.OutputType, tempImports)
+	}
+
+	pathInfoAnnotation := &pathInfoAnnotation{
+		PathFmt:  httpPathFmt(method.PathInfo),
+		PathArgs: httpPathArgs(method.PathInfo),
+	}
+	method.PathInfo.Codec = pathInfoAnnotation
+
+	bodyMessageName := method.PathInfo.BodyFieldPath
+	if bodyMessageName == "*" {
+		bodyMessageName = "request"
+	} else if bodyMessageName != "" {
+		bodyMessageName = "request." + strcase.ToLowerCamel(bodyMessageName)
+	}
+
+	state := annotate.state
+
+	annotation := &methodAnnotation{
+		Name:            strcase.ToLowerCamel(method.Name),
+		RequestMethod:   strings.ToLower(method.PathInfo.Verb),
+		RequestType:     annotate.resolveTypeName(state.MessageByID[method.InputTypeID]),
+		ResponseType:    annotate.resolveTypeName(state.MessageByID[method.OutputTypeID]),
+		DocLines:        formatDocComments(method.Documentation, state),
+		HasBody:         method.PathInfo.BodyFieldPath != "",
+		ReturnsValue:    method.OutputTypeID != ".google.protobuf.Empty",
+		BodyMessageName: bodyMessageName,
+		PathParams:      language.PathParams(method, state),
+		QueryParams:     language.QueryParams(method, state),
+	}
+	method.Codec = annotation
+}
+
+func (annotate *annotateModel) annotateOneOf(field *api.OneOf) {
+	field.Codec = &oneOfAnnotation{
+		Name:     strcase.ToLowerCamel(field.Name),
+		DocLines: formatDocComments(field.Documentation, annotate.state),
+	}
+}
+
+func (annotate *annotateModel) annotateField(field *api.Field) {
+	_, required := annotate.requiredFields[field.ID]
+	state := annotate.state
+
+	field.Codec = &fieldAnnotation{
+		Name:     strcase.ToLowerCamel(field.Name),
+		Type:     annotate.fieldType(field),
+		DocLines: formatDocComments(field.Documentation, state),
+		Required: required,
+		Nullable: !required,
+		FromJson: createFromJsonLine(field, state, required),
+		ToJson:   createToJsonLine(field, state, required),
 	}
 }
 
@@ -482,107 +571,116 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	}
 }
 
-func createToStringLines(message *api.Message) []string {
-	lines := []string{}
-
-	for _, field := range message.Fields {
-		codec := field.Codec.(*fieldAnnotation)
-		name := codec.Name
-
-		isList := field.Repeated
-		isMessage := field.Typez == api.MESSAGE_TYPE
-
-		// Don't generate toString() entries for lists, maps, or messages.
-		if isList || isMessage {
-			continue
-		}
-
-		if codec.Required {
-			// 'name=$name',
-			lines = append(lines, fmt.Sprintf("'%s=$%s',", name, name))
-		} else {
-			// if (name != null) 'name=$name',
-			lines = append(lines, fmt.Sprintf("if (%s != null) '%s=$%s',", name, name, name))
-		}
-	}
-
-	return lines
-}
-
-func annotateMethod(method *api.Method, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
-	// Ignore imports added from the input and output messages.
-	tempImports := map[string]string{}
-	tempRequiredFields := map[string]*api.Field{}
-	if method.InputType.Codec == nil {
-		annotateMessage(method.InputType, state, packageMapping, tempImports, tempRequiredFields)
-	}
-	if method.OutputType.Codec == nil {
-		annotateMessage(method.OutputType, state, packageMapping, tempImports, tempRequiredFields)
-	}
-
-	pathInfoAnnotation := &pathInfoAnnotation{
-		PathFmt:  httpPathFmt(method.PathInfo),
-		PathArgs: httpPathArgs(method.PathInfo),
-	}
-	method.PathInfo.Codec = pathInfoAnnotation
-
-	bodyMessageName := method.PathInfo.BodyFieldPath
-	if bodyMessageName == "*" {
-		bodyMessageName = "request"
-	} else if bodyMessageName != "" {
-		bodyMessageName = "request." + strcase.ToLowerCamel(bodyMessageName)
-	}
-
-	annotation := &methodAnnotation{
-		Name:            strcase.ToLowerCamel(method.Name),
-		RequestMethod:   strings.ToLower(method.PathInfo.Verb),
-		RequestType:     resolveTypeName(state.MessageByID[method.InputTypeID], packageMapping, imports),
-		ResponseType:    resolveTypeName(state.MessageByID[method.OutputTypeID], packageMapping, imports),
-		DocLines:        formatDocComments(method.Documentation, state),
-		HasBody:         method.PathInfo.BodyFieldPath != "",
-		ReturnsValue:    method.OutputTypeID != ".google.protobuf.Empty",
-		BodyMessageName: bodyMessageName,
-		PathParams:      language.PathParams(method, state),
-		QueryParams:     language.QueryParams(method, state),
-	}
-	method.Codec = annotation
-}
-
-func annotateOneOf(field *api.OneOf, state *api.APIState) {
-	field.Codec = &oneOfAnnotation{
-		Name:     strcase.ToLowerCamel(field.Name),
-		DocLines: formatDocComments(field.Documentation, state),
-	}
-}
-
-func annotateField(field *api.Field, state *api.APIState, packageMapping map[string]string,
-	imports map[string]string, requiredFields map[string]*api.Field) {
-	_, required := requiredFields[field.ID]
-
-	field.Codec = &fieldAnnotation{
-		Name:     strcase.ToLowerCamel(field.Name),
-		Type:     fieldType(field, state, packageMapping, imports),
-		DocLines: formatDocComments(field.Documentation, state),
-		Required: required,
-		Nullable: !required,
-		FromJson: createFromJsonLine(field, state, required),
-		ToJson:   createToJsonLine(field, state, required),
-	}
-}
-
-func annotateEnum(enum *api.Enum, state *api.APIState) {
+func (annotate *annotateModel) annotateEnum(enum *api.Enum) {
 	for _, ev := range enum.Values {
-		annotateEnumValue(ev, state)
+		annotate.annotateEnumValue(ev)
 	}
 	enum.Codec = &enumAnnotation{
 		Name:     enumName(enum),
-		DocLines: formatDocComments(enum.Documentation, state),
+		DocLines: formatDocComments(enum.Documentation, annotate.state),
 	}
 }
 
-func annotateEnumValue(ev *api.EnumValue, state *api.APIState) {
+func (annotate *annotateModel) annotateEnumValue(ev *api.EnumValue) {
 	ev.Codec = &enumValueAnnotation{
 		Name:     enumValueName(ev),
-		DocLines: formatDocComments(ev.Documentation, state),
+		DocLines: formatDocComments(ev.Documentation, annotate.state),
+	}
+}
+
+func (annotate *annotateModel) fieldType(f *api.Field) string {
+	var out string
+
+	switch f.Typez {
+	case api.BOOL_TYPE:
+		out = "bool"
+	case api.INT32_TYPE:
+		out = "int"
+	case api.INT64_TYPE:
+		out = "int"
+	case api.UINT32_TYPE:
+		out = "int"
+	case api.UINT64_TYPE:
+		out = "int"
+	case api.FLOAT_TYPE:
+		out = "double"
+	case api.DOUBLE_TYPE:
+		out = "double"
+	case api.STRING_TYPE:
+		out = "String"
+	case api.BYTES_TYPE:
+		// TODO(#1563): We should instead reference a custom type (ProtoBuffer or
+		// similar), encode/decode to it, and add Uint8List related utility methods.
+		annotate.imports["typed_data"] = typedDataImport
+		out = "Uint8List"
+	case api.MESSAGE_TYPE:
+		message, ok := annotate.state.MessageByID[f.TypezID]
+		if !ok {
+			slog.Error("unable to lookup type", "id", f.TypezID)
+			return ""
+		}
+		if message.IsMap {
+			key := annotate.fieldType(message.Fields[0])
+			val := annotate.fieldType(message.Fields[1])
+			out = "Map<" + key + ", " + val + ">"
+		} else {
+			out = annotate.resolveTypeName(message)
+		}
+	case api.ENUM_TYPE:
+		e, ok := annotate.state.EnumByID[f.TypezID]
+		if !ok {
+			slog.Error("unable to lookup type", "id", f.TypezID)
+			return ""
+		}
+		out = enumName(e)
+	default:
+		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
+	}
+
+	if f.Repeated {
+		out = "List<" + out + ">"
+	}
+
+	return out
+}
+
+func (annotate *annotateModel) resolveTypeName(message *api.Message) string {
+	if message == nil {
+		slog.Error("unable to lookup type")
+		return ""
+	}
+
+	if message.ID == ".google.protobuf.Empty" {
+		return "void"
+	}
+
+	// Use the packageMapping info to add any necessary import.
+	dartImport, ok := annotate.packageMapping[message.Package]
+	if ok {
+		annotate.imports[message.Package] = dartImport
+	}
+
+	return messageName(message)
+}
+
+func registerMissingWkt(state *api.APIState) {
+	// If these definitions weren't provided by protoc then provide our own
+	// placeholders.
+	for _, message := range []struct {
+		ID      string
+		Name    string
+		Package string
+	}{
+		{".google.protobuf.Any", "Any", "google.protobuf"},
+		{".google.protobuf.Empty", "Empty", "google.protobuf"},
+	} {
+		_, ok := state.MessageByID[message.ID]
+		if !ok {
+			state.MessageByID[message.ID] = &api.Message{
+				ID:      message.ID,
+				Name:    message.Name,
+				Package: message.Package,
+			}
+		}
 	}
 }
