@@ -51,7 +51,7 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::{Credential, Result, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
+use crate::credentials::{Credential, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY, Result};
 use crate::errors::{CredentialError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
