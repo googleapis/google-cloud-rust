@@ -16,6 +16,9 @@
 language             = 'rust'
 specification-source = 'google/firestore/v1'
 
+[source]
+title-override = 'Cloud Firestore API'
+
 [codec]
 copyright-year    = '2025'
 template-override = 'templates/grpc-client'
