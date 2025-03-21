@@ -144,9 +144,9 @@ pub trait ApiGatewayService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ApiGatewayService] also implement [ApiGatewayService].
+/// All implementations of [super::ApiGatewayService] also implement [ApiGatewayService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ApiGatewayService> ApiGatewayService for T {
+impl<T: super::ApiGatewayService> ApiGatewayService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_gateways(
         &self,

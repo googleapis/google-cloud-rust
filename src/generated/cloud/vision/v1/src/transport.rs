@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ImageAnnotator](crate::stubs::ImageAnnotator) using a [gax::http_client::ReqwestClient].
+/// Implements [ImageAnnotator](super::stubs::ImageAnnotator) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ImageAnnotator {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ImageAnnotator {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for ImageAnnotator {
 }
 
 impl ImageAnnotator {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::ImageAnnotator for ImageAnnotator {
+impl super::stubs::ImageAnnotator for ImageAnnotator {
     async fn batch_annotate_images(
         &self,
         req: crate::model::BatchAnnotateImagesRequest,
@@ -129,7 +129,7 @@ impl crate::stubs::ImageAnnotator for ImageAnnotator {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -148,10 +148,10 @@ impl crate::stubs::ImageAnnotator for ImageAnnotator {
     }
 }
 
-/// Implements [ProductSearch](crate::stubs::ProductSearch) using a [gax::http_client::ReqwestClient].
+/// Implements [ProductSearch](super::stubs::ProductSearch) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ProductSearch {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ProductSearch {
@@ -163,13 +163,13 @@ impl std::fmt::Debug for ProductSearch {
 }
 
 impl ProductSearch {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::ProductSearch for ProductSearch {
+impl super::stubs::ProductSearch for ProductSearch {
     async fn create_product_set(
         &self,
         req: crate::model::CreateProductSetRequest,
@@ -213,7 +213,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -232,7 +232,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -250,7 +250,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                     "/v1/{}",
                     req.product_set
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("product_set"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("product_set"))?
                         .name
                 ),
             )
@@ -266,7 +266,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -289,7 +289,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -333,7 +333,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -352,7 +352,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -370,7 +370,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                     "/v1/{}",
                     req.product
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("product"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("product"))?
                         .name
                 ),
             )
@@ -386,7 +386,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -409,7 +409,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -451,7 +451,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -475,7 +475,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -494,7 +494,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -555,7 +555,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -614,7 +614,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BinauthzManagementServiceV1](crate::stubs::BinauthzManagementServiceV1) using a [gax::http_client::ReqwestClient].
+/// Implements [BinauthzManagementServiceV1](super::stubs::BinauthzManagementServiceV1) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct BinauthzManagementServiceV1 {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for BinauthzManagementServiceV1 {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for BinauthzManagementServiceV1 {
 }
 
 impl BinauthzManagementServiceV1 {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
+impl super::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
@@ -55,7 +55,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -73,7 +73,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     "/v1/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -123,7 +123,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -141,7 +141,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                     "/v1/{}",
                     req.attestor
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("attestor"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("attestor"))?
                         .name
                 ),
             )
@@ -175,7 +175,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -194,15 +194,15 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }
 
-/// Implements [SystemPolicyV1](crate::stubs::SystemPolicyV1) using a [gax::http_client::ReqwestClient].
+/// Implements [SystemPolicyV1](super::stubs::SystemPolicyV1) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SystemPolicyV1 {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for SystemPolicyV1 {
@@ -214,13 +214,13 @@ impl std::fmt::Debug for SystemPolicyV1 {
 }
 
 impl SystemPolicyV1 {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::SystemPolicyV1 for SystemPolicyV1 {
+impl super::stubs::SystemPolicyV1 for SystemPolicyV1 {
     async fn get_system_policy(
         &self,
         req: crate::model::GetSystemPolicyRequest,
@@ -236,15 +236,15 @@ impl crate::stubs::SystemPolicyV1 for SystemPolicyV1 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }
 
-/// Implements [ValidationHelperV1](crate::stubs::ValidationHelperV1) using a [gax::http_client::ReqwestClient].
+/// Implements [ValidationHelperV1](super::stubs::ValidationHelperV1) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ValidationHelperV1 {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ValidationHelperV1 {
@@ -256,13 +256,13 @@ impl std::fmt::Debug for ValidationHelperV1 {
 }
 
 impl ValidationHelperV1 {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::ValidationHelperV1 for ValidationHelperV1 {
+impl super::stubs::ValidationHelperV1 for ValidationHelperV1 {
     async fn validate_attestation_occurrence(
         &self,
         req: crate::model::ValidateAttestationOccurrenceRequest,

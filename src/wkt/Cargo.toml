@@ -15,14 +15,20 @@
 [package]
 description = "Google Cloud Client Libraries for Rust - Well Known Types"
 name        = "google-cloud-wkt"
-version     = "0.1.0"
+version     = "0.2.0"
 # Inherit other attributes from the workspace.
-authors.workspace    = true
-categories.workspace = true
-edition.workspace    = true
-keywords.workspace   = true
-license.workspace    = true
-repository.workspace = true
+authors.workspace      = true
+categories.workspace   = true
+edition.workspace      = true
+keywords.workspace     = true
+license.workspace      = true
+repository.workspace   = true
+rust-version.workspace = true
+
+[package.metadata.docs.rs]
+# Generate documentation for some of the optional conversions. It is too early
+# for `prost`.
+features = ["chrono", "time"]
 
 [features]
 chrono = ["dep:chrono"]
@@ -30,6 +36,7 @@ prost  = ["dep:prost-types"]
 time   = []
 
 [dependencies]
+base64      = "0.22"
 bytes       = { version = "1", features = ["serde"] }
 chrono      = { version = "0.4", optional = true }
 prost-types = { version = "0.13", optional = true }

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::OracleDatabase].
+/// Defines the trait used to implement [super::client::OracleDatabase].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::OracleDatabase`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::OracleDatabase::list_cloud_exadata_infrastructures].
+    /// Implements [super::client::OracleDatabase::list_cloud_exadata_infrastructures].
     fn list_cloud_exadata_infrastructures(
         &self,
         _req: crate::model::ListCloudExadataInfrastructuresRequest,
@@ -54,7 +54,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::OracleDatabase::get_cloud_exadata_infrastructure].
+    /// Implements [super::client::OracleDatabase::get_cloud_exadata_infrastructure].
     fn get_cloud_exadata_infrastructure(
         &self,
         _req: crate::model::GetCloudExadataInfrastructureRequest,
@@ -66,7 +66,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OracleDatabase::create_cloud_exadata_infrastructure].
+    /// Implements [super::client::OracleDatabase::create_cloud_exadata_infrastructure].
     fn create_cloud_exadata_infrastructure(
         &self,
         _req: crate::model::CreateCloudExadataInfrastructureRequest,
@@ -78,7 +78,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::delete_cloud_exadata_infrastructure].
+    /// Implements [super::client::OracleDatabase::delete_cloud_exadata_infrastructure].
     fn delete_cloud_exadata_infrastructure(
         &self,
         _req: crate::model::DeleteCloudExadataInfrastructureRequest,
@@ -90,7 +90,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::list_cloud_vm_clusters].
+    /// Implements [super::client::OracleDatabase::list_cloud_vm_clusters].
     fn list_cloud_vm_clusters(
         &self,
         _req: crate::model::ListCloudVmClustersRequest,
@@ -102,7 +102,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OracleDatabase::get_cloud_vm_cluster].
+    /// Implements [super::client::OracleDatabase::get_cloud_vm_cluster].
     fn get_cloud_vm_cluster(
         &self,
         _req: crate::model::GetCloudVmClusterRequest,
@@ -113,7 +113,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::create_cloud_vm_cluster].
+    /// Implements [super::client::OracleDatabase::create_cloud_vm_cluster].
     fn create_cloud_vm_cluster(
         &self,
         _req: crate::model::CreateCloudVmClusterRequest,
@@ -125,7 +125,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::delete_cloud_vm_cluster].
+    /// Implements [super::client::OracleDatabase::delete_cloud_vm_cluster].
     fn delete_cloud_vm_cluster(
         &self,
         _req: crate::model::DeleteCloudVmClusterRequest,
@@ -137,7 +137,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::list_entitlements].
+    /// Implements [super::client::OracleDatabase::list_entitlements].
     fn list_entitlements(
         &self,
         _req: crate::model::ListEntitlementsRequest,
@@ -149,7 +149,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OracleDatabase::list_db_servers].
+    /// Implements [super::client::OracleDatabase::list_db_servers].
     fn list_db_servers(
         &self,
         _req: crate::model::ListDbServersRequest,
@@ -161,7 +161,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::list_db_nodes].
+    /// Implements [super::client::OracleDatabase::list_db_nodes].
     fn list_db_nodes(
         &self,
         _req: crate::model::ListDbNodesRequest,
@@ -173,7 +173,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::list_gi_versions].
+    /// Implements [super::client::OracleDatabase::list_gi_versions].
     fn list_gi_versions(
         &self,
         _req: crate::model::ListGiVersionsRequest,
@@ -185,7 +185,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OracleDatabase::list_db_system_shapes].
+    /// Implements [super::client::OracleDatabase::list_db_system_shapes].
     fn list_db_system_shapes(
         &self,
         _req: crate::model::ListDbSystemShapesRequest,
@@ -197,7 +197,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OracleDatabase::list_autonomous_databases].
+    /// Implements [super::client::OracleDatabase::list_autonomous_databases].
     fn list_autonomous_databases(
         &self,
         _req: crate::model::ListAutonomousDatabasesRequest,
@@ -210,7 +210,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OracleDatabase::get_autonomous_database].
+    /// Implements [super::client::OracleDatabase::get_autonomous_database].
     fn get_autonomous_database(
         &self,
         _req: crate::model::GetAutonomousDatabaseRequest,
@@ -222,7 +222,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::create_autonomous_database].
+    /// Implements [super::client::OracleDatabase::create_autonomous_database].
     fn create_autonomous_database(
         &self,
         _req: crate::model::CreateAutonomousDatabaseRequest,
@@ -234,7 +234,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::delete_autonomous_database].
+    /// Implements [super::client::OracleDatabase::delete_autonomous_database].
     fn delete_autonomous_database(
         &self,
         _req: crate::model::DeleteAutonomousDatabaseRequest,
@@ -246,7 +246,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::restore_autonomous_database].
+    /// Implements [super::client::OracleDatabase::restore_autonomous_database].
     fn restore_autonomous_database(
         &self,
         _req: crate::model::RestoreAutonomousDatabaseRequest,
@@ -258,7 +258,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::generate_autonomous_database_wallet].
+    /// Implements [super::client::OracleDatabase::generate_autonomous_database_wallet].
     fn generate_autonomous_database_wallet(
         &self,
         _req: crate::model::GenerateAutonomousDatabaseWalletRequest,
@@ -271,7 +271,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::OracleDatabase::list_autonomous_db_versions].
+    /// Implements [super::client::OracleDatabase::list_autonomous_db_versions].
     fn list_autonomous_db_versions(
         &self,
         _req: crate::model::ListAutonomousDbVersionsRequest,
@@ -284,7 +284,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OracleDatabase::list_autonomous_database_character_sets].
+    /// Implements [super::client::OracleDatabase::list_autonomous_database_character_sets].
     fn list_autonomous_database_character_sets(
         &self,
         _req: crate::model::ListAutonomousDatabaseCharacterSetsRequest,
@@ -297,7 +297,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::OracleDatabase::list_autonomous_database_backups].
+    /// Implements [super::client::OracleDatabase::list_autonomous_database_backups].
     fn list_autonomous_database_backups(
         &self,
         _req: crate::model::ListAutonomousDatabaseBackupsRequest,
@@ -310,7 +310,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::OracleDatabase::list_locations].
+    /// Implements [super::client::OracleDatabase::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -322,7 +322,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OracleDatabase::get_location].
+    /// Implements [super::client::OracleDatabase::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -333,7 +333,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::list_operations].
+    /// Implements [super::client::OracleDatabase::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -345,7 +345,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::OracleDatabase::get_operation].
+    /// Implements [super::client::OracleDatabase::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -357,7 +357,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::OracleDatabase::delete_operation].
+    /// Implements [super::client::OracleDatabase::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -366,7 +366,7 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::OracleDatabase::cancel_operation].
+    /// Implements [super::client::OracleDatabase::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

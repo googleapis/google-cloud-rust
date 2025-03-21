@@ -18,10 +18,10 @@ pub mod data_policy_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DataPolicyService] request builders.
+    /// Common implementation for [super::super::client::DataPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>,
+        stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod data_policy_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod data_policy_service {
     pub struct CreateDataPolicy(RequestBuilder<crate::model::CreateDataPolicyRequest>);
 
     impl CreateDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,7 +97,7 @@ pub mod data_policy_service {
     pub struct UpdateDataPolicy(RequestBuilder<crate::model::UpdateDataPolicyRequest>);
 
     impl UpdateDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -153,7 +153,7 @@ pub mod data_policy_service {
     pub struct RenameDataPolicy(RequestBuilder<crate::model::RenameDataPolicyRequest>);
 
     impl RenameDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -203,7 +203,7 @@ pub mod data_policy_service {
     pub struct DeleteDataPolicy(RequestBuilder<crate::model::DeleteDataPolicyRequest>);
 
     impl DeleteDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -247,7 +247,7 @@ pub mod data_policy_service {
     pub struct GetDataPolicy(RequestBuilder<crate::model::GetDataPolicyRequest>);
 
     impl GetDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -288,7 +288,7 @@ pub mod data_policy_service {
     pub struct ListDataPolicies(RequestBuilder<crate::model::ListDataPoliciesRequest>);
 
     impl ListDataPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -315,12 +315,12 @@ pub mod data_policy_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDataPoliciesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -365,7 +365,7 @@ pub mod data_policy_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -415,7 +415,7 @@ pub mod data_policy_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -474,7 +474,7 @@ pub mod data_policy_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -144,9 +144,9 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::PrivilegedAccessManager] also implement [PrivilegedAccessManager].
+/// All implementations of [super::PrivilegedAccessManager] also implement [PrivilegedAccessManager].
 #[async_trait::async_trait]
-impl<T: crate::stubs::PrivilegedAccessManager> PrivilegedAccessManager for T {
+impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn check_onboarding_status(
         &self,

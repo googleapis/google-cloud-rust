@@ -54,7 +54,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudRedisCluster {
-    inner: Arc<dyn crate::stubs::dynamic::CloudRedisCluster>,
+    inner: Arc<dyn super::stubs::dynamic::CloudRedisCluster>,
 }
 
 impl CloudRedisCluster {
@@ -75,7 +75,7 @@ impl CloudRedisCluster {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CloudRedisCluster + 'static,
+        T: super::stubs::CloudRedisCluster + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -84,7 +84,7 @@ impl CloudRedisCluster {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CloudRedisCluster>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CloudRedisCluster>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -93,16 +93,16 @@ impl CloudRedisCluster {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudRedisCluster> {
-        crate::transport::CloudRedisCluster::new(conf).await
+    ) -> Result<impl super::stubs::CloudRedisCluster> {
+        super::transport::CloudRedisCluster::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudRedisCluster> {
+    ) -> Result<impl super::stubs::CloudRedisCluster> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CloudRedisCluster::new)
+            .map(super::tracing::CloudRedisCluster::new)
     }
 
     /// Lists all Redis clusters owned by a project in either the specified
@@ -117,8 +117,8 @@ impl CloudRedisCluster {
     pub fn list_clusters(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::ListClusters {
-        crate::builders::cloud_redis_cluster::ListClusters::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::ListClusters {
+        super::builders::cloud_redis_cluster::ListClusters::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -126,8 +126,8 @@ impl CloudRedisCluster {
     pub fn get_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::GetCluster {
-        crate::builders::cloud_redis_cluster::GetCluster::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::GetCluster {
+        super::builders::cloud_redis_cluster::GetCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -149,8 +149,8 @@ impl CloudRedisCluster {
     pub fn update_cluster(
         &self,
         cluster: impl Into<crate::model::Cluster>,
-    ) -> crate::builders::cloud_redis_cluster::UpdateCluster {
-        crate::builders::cloud_redis_cluster::UpdateCluster::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::UpdateCluster {
+        super::builders::cloud_redis_cluster::UpdateCluster::new(self.inner.clone())
             .set_cluster(cluster.into())
     }
 
@@ -169,8 +169,8 @@ impl CloudRedisCluster {
     pub fn delete_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::DeleteCluster {
-        crate::builders::cloud_redis_cluster::DeleteCluster::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::DeleteCluster {
+        super::builders::cloud_redis_cluster::DeleteCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -195,8 +195,8 @@ impl CloudRedisCluster {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::CreateCluster {
-        crate::builders::cloud_redis_cluster::CreateCluster::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::CreateCluster {
+        super::builders::cloud_redis_cluster::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -204,8 +204,8 @@ impl CloudRedisCluster {
     pub fn get_cluster_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::GetClusterCertificateAuthority {
-        crate::builders::cloud_redis_cluster::GetClusterCertificateAuthority::new(
+    ) -> super::builders::cloud_redis_cluster::GetClusterCertificateAuthority {
+        super::builders::cloud_redis_cluster::GetClusterCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -225,8 +225,8 @@ impl CloudRedisCluster {
     pub fn reschedule_cluster_maintenance(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::RescheduleClusterMaintenance {
-        crate::builders::cloud_redis_cluster::RescheduleClusterMaintenance::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::RescheduleClusterMaintenance {
+        super::builders::cloud_redis_cluster::RescheduleClusterMaintenance::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -238,8 +238,8 @@ impl CloudRedisCluster {
     pub fn list_backup_collections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::ListBackupCollections {
-        crate::builders::cloud_redis_cluster::ListBackupCollections::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::ListBackupCollections {
+        super::builders::cloud_redis_cluster::ListBackupCollections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -247,8 +247,8 @@ impl CloudRedisCluster {
     pub fn get_backup_collection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::GetBackupCollection {
-        crate::builders::cloud_redis_cluster::GetBackupCollection::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::GetBackupCollection {
+        super::builders::cloud_redis_cluster::GetBackupCollection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -256,8 +256,8 @@ impl CloudRedisCluster {
     pub fn list_backups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::ListBackups {
-        crate::builders::cloud_redis_cluster::ListBackups::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::ListBackups {
+        super::builders::cloud_redis_cluster::ListBackups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -265,8 +265,8 @@ impl CloudRedisCluster {
     pub fn get_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::GetBackup {
-        crate::builders::cloud_redis_cluster::GetBackup::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::GetBackup {
+        super::builders::cloud_redis_cluster::GetBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -284,8 +284,8 @@ impl CloudRedisCluster {
     pub fn delete_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::DeleteBackup {
-        crate::builders::cloud_redis_cluster::DeleteBackup::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::DeleteBackup {
+        super::builders::cloud_redis_cluster::DeleteBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -303,8 +303,8 @@ impl CloudRedisCluster {
     pub fn export_backup(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::ExportBackup {
-        crate::builders::cloud_redis_cluster::ExportBackup::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::ExportBackup {
+        super::builders::cloud_redis_cluster::ExportBackup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -333,8 +333,8 @@ impl CloudRedisCluster {
     pub fn backup_cluster(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::BackupCluster {
-        crate::builders::cloud_redis_cluster::BackupCluster::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::BackupCluster {
+        super::builders::cloud_redis_cluster::BackupCluster::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -342,8 +342,8 @@ impl CloudRedisCluster {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::ListLocations {
-        crate::builders::cloud_redis_cluster::ListLocations::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::ListLocations {
+        super::builders::cloud_redis_cluster::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -351,8 +351,8 @@ impl CloudRedisCluster {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::GetLocation {
-        crate::builders::cloud_redis_cluster::GetLocation::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::GetLocation {
+        super::builders::cloud_redis_cluster::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -362,8 +362,8 @@ impl CloudRedisCluster {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::ListOperations {
-        crate::builders::cloud_redis_cluster::ListOperations::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::ListOperations {
+        super::builders::cloud_redis_cluster::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -373,8 +373,8 @@ impl CloudRedisCluster {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::GetOperation {
-        crate::builders::cloud_redis_cluster::GetOperation::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::GetOperation {
+        super::builders::cloud_redis_cluster::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -384,8 +384,8 @@ impl CloudRedisCluster {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::DeleteOperation {
-        crate::builders::cloud_redis_cluster::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::DeleteOperation {
+        super::builders::cloud_redis_cluster::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -395,8 +395,8 @@ impl CloudRedisCluster {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_redis_cluster::CancelOperation {
-        crate::builders::cloud_redis_cluster::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::cloud_redis_cluster::CancelOperation {
+        super::builders::cloud_redis_cluster::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

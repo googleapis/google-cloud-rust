@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudShellService].
+/// Defines the trait used to implement [super::client::CloudShellService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudShellService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudShellService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudShellService::get_environment].
+    /// Implements [super::client::CloudShellService::get_environment].
     fn get_environment(
         &self,
         _req: crate::model::GetEnvironmentRequest,
@@ -52,7 +52,7 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudShellService::start_environment].
+    /// Implements [super::client::CloudShellService::start_environment].
     fn start_environment(
         &self,
         _req: crate::model::StartEnvironmentRequest,
@@ -64,7 +64,7 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudShellService::authorize_environment].
+    /// Implements [super::client::CloudShellService::authorize_environment].
     fn authorize_environment(
         &self,
         _req: crate::model::AuthorizeEnvironmentRequest,
@@ -76,7 +76,7 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudShellService::add_public_key].
+    /// Implements [super::client::CloudShellService::add_public_key].
     fn add_public_key(
         &self,
         _req: crate::model::AddPublicKeyRequest,
@@ -88,7 +88,7 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudShellService::remove_public_key].
+    /// Implements [super::client::CloudShellService::remove_public_key].
     fn remove_public_key(
         &self,
         _req: crate::model::RemovePublicKeyRequest,
@@ -100,7 +100,7 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudShellService::get_operation].
+    /// Implements [super::client::CloudShellService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

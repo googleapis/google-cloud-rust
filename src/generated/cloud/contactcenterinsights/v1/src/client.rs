@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ContactCenterInsights {
-    inner: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>,
+    inner: Arc<dyn super::stubs::dynamic::ContactCenterInsights>,
 }
 
 impl ContactCenterInsights {
@@ -59,7 +59,7 @@ impl ContactCenterInsights {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ContactCenterInsights + 'static,
+        T: super::stubs::ContactCenterInsights + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl ContactCenterInsights {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ContactCenterInsights>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ContactCenterInsights>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl ContactCenterInsights {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ContactCenterInsights> {
-        crate::transport::ContactCenterInsights::new(conf).await
+    ) -> Result<impl super::stubs::ContactCenterInsights> {
+        super::transport::ContactCenterInsights::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ContactCenterInsights> {
+    ) -> Result<impl super::stubs::ContactCenterInsights> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ContactCenterInsights::new)
+            .map(super::tracing::ContactCenterInsights::new)
     }
 
     /// Creates a conversation.
@@ -95,8 +95,8 @@ impl ContactCenterInsights {
     pub fn create_conversation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CreateConversation {
-        crate::builders::contact_center_insights::CreateConversation::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CreateConversation {
+        super::builders::contact_center_insights::CreateConversation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -116,8 +116,8 @@ impl ContactCenterInsights {
     pub fn upload_conversation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::UploadConversation {
-        crate::builders::contact_center_insights::UploadConversation::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UploadConversation {
+        super::builders::contact_center_insights::UploadConversation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -125,8 +125,8 @@ impl ContactCenterInsights {
     pub fn update_conversation(
         &self,
         conversation: impl Into<crate::model::Conversation>,
-    ) -> crate::builders::contact_center_insights::UpdateConversation {
-        crate::builders::contact_center_insights::UpdateConversation::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UpdateConversation {
+        super::builders::contact_center_insights::UpdateConversation::new(self.inner.clone())
             .set_conversation(conversation.into())
     }
 
@@ -134,8 +134,8 @@ impl ContactCenterInsights {
     pub fn get_conversation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetConversation {
-        crate::builders::contact_center_insights::GetConversation::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetConversation {
+        super::builders::contact_center_insights::GetConversation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -143,8 +143,8 @@ impl ContactCenterInsights {
     pub fn list_conversations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListConversations {
-        crate::builders::contact_center_insights::ListConversations::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListConversations {
+        super::builders::contact_center_insights::ListConversations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -152,8 +152,8 @@ impl ContactCenterInsights {
     pub fn delete_conversation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeleteConversation {
-        crate::builders::contact_center_insights::DeleteConversation::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeleteConversation {
+        super::builders::contact_center_insights::DeleteConversation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -172,8 +172,8 @@ impl ContactCenterInsights {
     pub fn create_analysis(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CreateAnalysis {
-        crate::builders::contact_center_insights::CreateAnalysis::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CreateAnalysis {
+        super::builders::contact_center_insights::CreateAnalysis::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -181,8 +181,8 @@ impl ContactCenterInsights {
     pub fn get_analysis(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetAnalysis {
-        crate::builders::contact_center_insights::GetAnalysis::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetAnalysis {
+        super::builders::contact_center_insights::GetAnalysis::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -190,8 +190,8 @@ impl ContactCenterInsights {
     pub fn list_analyses(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListAnalyses {
-        crate::builders::contact_center_insights::ListAnalyses::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListAnalyses {
+        super::builders::contact_center_insights::ListAnalyses::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -199,8 +199,8 @@ impl ContactCenterInsights {
     pub fn delete_analysis(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeleteAnalysis {
-        crate::builders::contact_center_insights::DeleteAnalysis::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeleteAnalysis {
+        super::builders::contact_center_insights::DeleteAnalysis::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -218,8 +218,8 @@ impl ContactCenterInsights {
     pub fn bulk_analyze_conversations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::BulkAnalyzeConversations {
-        crate::builders::contact_center_insights::BulkAnalyzeConversations::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::BulkAnalyzeConversations {
+        super::builders::contact_center_insights::BulkAnalyzeConversations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -237,8 +237,8 @@ impl ContactCenterInsights {
     pub fn bulk_delete_conversations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::BulkDeleteConversations {
-        crate::builders::contact_center_insights::BulkDeleteConversations::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::BulkDeleteConversations {
+        super::builders::contact_center_insights::BulkDeleteConversations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -257,8 +257,8 @@ impl ContactCenterInsights {
     pub fn ingest_conversations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::IngestConversations {
-        crate::builders::contact_center_insights::IngestConversations::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::IngestConversations {
+        super::builders::contact_center_insights::IngestConversations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -276,8 +276,8 @@ impl ContactCenterInsights {
     pub fn export_insights_data(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ExportInsightsData {
-        crate::builders::contact_center_insights::ExportInsightsData::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ExportInsightsData {
+        super::builders::contact_center_insights::ExportInsightsData::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -295,8 +295,8 @@ impl ContactCenterInsights {
     pub fn create_issue_model(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CreateIssueModel {
-        crate::builders::contact_center_insights::CreateIssueModel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CreateIssueModel {
+        super::builders::contact_center_insights::CreateIssueModel::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -304,8 +304,8 @@ impl ContactCenterInsights {
     pub fn update_issue_model(
         &self,
         issue_model: impl Into<crate::model::IssueModel>,
-    ) -> crate::builders::contact_center_insights::UpdateIssueModel {
-        crate::builders::contact_center_insights::UpdateIssueModel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UpdateIssueModel {
+        super::builders::contact_center_insights::UpdateIssueModel::new(self.inner.clone())
             .set_issue_model(issue_model.into())
     }
 
@@ -313,8 +313,8 @@ impl ContactCenterInsights {
     pub fn get_issue_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetIssueModel {
-        crate::builders::contact_center_insights::GetIssueModel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetIssueModel {
+        super::builders::contact_center_insights::GetIssueModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -322,8 +322,8 @@ impl ContactCenterInsights {
     pub fn list_issue_models(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListIssueModels {
-        crate::builders::contact_center_insights::ListIssueModels::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListIssueModels {
+        super::builders::contact_center_insights::ListIssueModels::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -341,8 +341,8 @@ impl ContactCenterInsights {
     pub fn delete_issue_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeleteIssueModel {
-        crate::builders::contact_center_insights::DeleteIssueModel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeleteIssueModel {
+        super::builders::contact_center_insights::DeleteIssueModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -361,8 +361,8 @@ impl ContactCenterInsights {
     pub fn deploy_issue_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeployIssueModel {
-        crate::builders::contact_center_insights::DeployIssueModel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeployIssueModel {
+        super::builders::contact_center_insights::DeployIssueModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -381,8 +381,8 @@ impl ContactCenterInsights {
     pub fn undeploy_issue_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::UndeployIssueModel {
-        crate::builders::contact_center_insights::UndeployIssueModel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UndeployIssueModel {
+        super::builders::contact_center_insights::UndeployIssueModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -400,8 +400,8 @@ impl ContactCenterInsights {
     pub fn export_issue_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ExportIssueModel {
-        crate::builders::contact_center_insights::ExportIssueModel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ExportIssueModel {
+        super::builders::contact_center_insights::ExportIssueModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -419,8 +419,8 @@ impl ContactCenterInsights {
     pub fn import_issue_model(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ImportIssueModel {
-        crate::builders::contact_center_insights::ImportIssueModel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ImportIssueModel {
+        super::builders::contact_center_insights::ImportIssueModel::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -428,8 +428,8 @@ impl ContactCenterInsights {
     pub fn get_issue(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetIssue {
-        crate::builders::contact_center_insights::GetIssue::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetIssue {
+        super::builders::contact_center_insights::GetIssue::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -437,8 +437,8 @@ impl ContactCenterInsights {
     pub fn list_issues(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListIssues {
-        crate::builders::contact_center_insights::ListIssues::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListIssues {
+        super::builders::contact_center_insights::ListIssues::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -446,8 +446,8 @@ impl ContactCenterInsights {
     pub fn update_issue(
         &self,
         issue: impl Into<crate::model::Issue>,
-    ) -> crate::builders::contact_center_insights::UpdateIssue {
-        crate::builders::contact_center_insights::UpdateIssue::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UpdateIssue {
+        super::builders::contact_center_insights::UpdateIssue::new(self.inner.clone())
             .set_issue(issue.into())
     }
 
@@ -455,8 +455,8 @@ impl ContactCenterInsights {
     pub fn delete_issue(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeleteIssue {
-        crate::builders::contact_center_insights::DeleteIssue::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeleteIssue {
+        super::builders::contact_center_insights::DeleteIssue::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -464,8 +464,8 @@ impl ContactCenterInsights {
     pub fn calculate_issue_model_stats(
         &self,
         issue_model: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CalculateIssueModelStats {
-        crate::builders::contact_center_insights::CalculateIssueModelStats::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CalculateIssueModelStats {
+        super::builders::contact_center_insights::CalculateIssueModelStats::new(self.inner.clone())
             .set_issue_model(issue_model.into())
     }
 
@@ -473,8 +473,8 @@ impl ContactCenterInsights {
     pub fn create_phrase_matcher(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CreatePhraseMatcher {
-        crate::builders::contact_center_insights::CreatePhraseMatcher::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CreatePhraseMatcher {
+        super::builders::contact_center_insights::CreatePhraseMatcher::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -482,8 +482,8 @@ impl ContactCenterInsights {
     pub fn get_phrase_matcher(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetPhraseMatcher {
-        crate::builders::contact_center_insights::GetPhraseMatcher::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetPhraseMatcher {
+        super::builders::contact_center_insights::GetPhraseMatcher::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -491,8 +491,8 @@ impl ContactCenterInsights {
     pub fn list_phrase_matchers(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListPhraseMatchers {
-        crate::builders::contact_center_insights::ListPhraseMatchers::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListPhraseMatchers {
+        super::builders::contact_center_insights::ListPhraseMatchers::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -500,8 +500,8 @@ impl ContactCenterInsights {
     pub fn delete_phrase_matcher(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeletePhraseMatcher {
-        crate::builders::contact_center_insights::DeletePhraseMatcher::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeletePhraseMatcher {
+        super::builders::contact_center_insights::DeletePhraseMatcher::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -509,8 +509,8 @@ impl ContactCenterInsights {
     pub fn update_phrase_matcher(
         &self,
         phrase_matcher: impl Into<crate::model::PhraseMatcher>,
-    ) -> crate::builders::contact_center_insights::UpdatePhraseMatcher {
-        crate::builders::contact_center_insights::UpdatePhraseMatcher::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UpdatePhraseMatcher {
+        super::builders::contact_center_insights::UpdatePhraseMatcher::new(self.inner.clone())
             .set_phrase_matcher(phrase_matcher.into())
     }
 
@@ -518,8 +518,8 @@ impl ContactCenterInsights {
     pub fn calculate_stats(
         &self,
         location: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CalculateStats {
-        crate::builders::contact_center_insights::CalculateStats::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CalculateStats {
+        super::builders::contact_center_insights::CalculateStats::new(self.inner.clone())
             .set_location(location.into())
     }
 
@@ -527,8 +527,8 @@ impl ContactCenterInsights {
     pub fn get_settings(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetSettings {
-        crate::builders::contact_center_insights::GetSettings::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetSettings {
+        super::builders::contact_center_insights::GetSettings::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -536,8 +536,8 @@ impl ContactCenterInsights {
     pub fn update_settings(
         &self,
         settings: impl Into<crate::model::Settings>,
-    ) -> crate::builders::contact_center_insights::UpdateSettings {
-        crate::builders::contact_center_insights::UpdateSettings::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UpdateSettings {
+        super::builders::contact_center_insights::UpdateSettings::new(self.inner.clone())
             .set_settings(settings.into())
     }
 
@@ -545,8 +545,8 @@ impl ContactCenterInsights {
     pub fn create_analysis_rule(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CreateAnalysisRule {
-        crate::builders::contact_center_insights::CreateAnalysisRule::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CreateAnalysisRule {
+        super::builders::contact_center_insights::CreateAnalysisRule::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -554,8 +554,8 @@ impl ContactCenterInsights {
     pub fn get_analysis_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetAnalysisRule {
-        crate::builders::contact_center_insights::GetAnalysisRule::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetAnalysisRule {
+        super::builders::contact_center_insights::GetAnalysisRule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -563,8 +563,8 @@ impl ContactCenterInsights {
     pub fn list_analysis_rules(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListAnalysisRules {
-        crate::builders::contact_center_insights::ListAnalysisRules::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListAnalysisRules {
+        super::builders::contact_center_insights::ListAnalysisRules::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -572,8 +572,8 @@ impl ContactCenterInsights {
     pub fn update_analysis_rule(
         &self,
         analysis_rule: impl Into<crate::model::AnalysisRule>,
-    ) -> crate::builders::contact_center_insights::UpdateAnalysisRule {
-        crate::builders::contact_center_insights::UpdateAnalysisRule::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UpdateAnalysisRule {
+        super::builders::contact_center_insights::UpdateAnalysisRule::new(self.inner.clone())
             .set_analysis_rule(analysis_rule.into())
     }
 
@@ -581,8 +581,8 @@ impl ContactCenterInsights {
     pub fn delete_analysis_rule(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeleteAnalysisRule {
-        crate::builders::contact_center_insights::DeleteAnalysisRule::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeleteAnalysisRule {
+        super::builders::contact_center_insights::DeleteAnalysisRule::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -590,8 +590,8 @@ impl ContactCenterInsights {
     pub fn get_encryption_spec(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetEncryptionSpec {
-        crate::builders::contact_center_insights::GetEncryptionSpec::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetEncryptionSpec {
+        super::builders::contact_center_insights::GetEncryptionSpec::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -613,8 +613,8 @@ impl ContactCenterInsights {
     pub fn initialize_encryption_spec(
         &self,
         encryption_spec: impl Into<crate::model::EncryptionSpec>,
-    ) -> crate::builders::contact_center_insights::InitializeEncryptionSpec {
-        crate::builders::contact_center_insights::InitializeEncryptionSpec::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::InitializeEncryptionSpec {
+        super::builders::contact_center_insights::InitializeEncryptionSpec::new(self.inner.clone())
             .set_encryption_spec(encryption_spec.into())
     }
 
@@ -622,8 +622,8 @@ impl ContactCenterInsights {
     pub fn create_view(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CreateView {
-        crate::builders::contact_center_insights::CreateView::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CreateView {
+        super::builders::contact_center_insights::CreateView::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -631,8 +631,8 @@ impl ContactCenterInsights {
     pub fn get_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetView {
-        crate::builders::contact_center_insights::GetView::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetView {
+        super::builders::contact_center_insights::GetView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -640,8 +640,8 @@ impl ContactCenterInsights {
     pub fn list_views(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListViews {
-        crate::builders::contact_center_insights::ListViews::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListViews {
+        super::builders::contact_center_insights::ListViews::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -649,8 +649,8 @@ impl ContactCenterInsights {
     pub fn update_view(
         &self,
         view: impl Into<crate::model::View>,
-    ) -> crate::builders::contact_center_insights::UpdateView {
-        crate::builders::contact_center_insights::UpdateView::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UpdateView {
+        super::builders::contact_center_insights::UpdateView::new(self.inner.clone())
             .set_view(view.into())
     }
 
@@ -658,8 +658,8 @@ impl ContactCenterInsights {
     pub fn delete_view(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeleteView {
-        crate::builders::contact_center_insights::DeleteView::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeleteView {
+        super::builders::contact_center_insights::DeleteView::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -677,8 +677,8 @@ impl ContactCenterInsights {
     pub fn query_metrics(
         &self,
         location: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::QueryMetrics {
-        crate::builders::contact_center_insights::QueryMetrics::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::QueryMetrics {
+        super::builders::contact_center_insights::QueryMetrics::new(self.inner.clone())
             .set_location(location.into())
     }
 
@@ -686,8 +686,8 @@ impl ContactCenterInsights {
     pub fn create_qa_question(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CreateQaQuestion {
-        crate::builders::contact_center_insights::CreateQaQuestion::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CreateQaQuestion {
+        super::builders::contact_center_insights::CreateQaQuestion::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -695,8 +695,8 @@ impl ContactCenterInsights {
     pub fn get_qa_question(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetQaQuestion {
-        crate::builders::contact_center_insights::GetQaQuestion::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetQaQuestion {
+        super::builders::contact_center_insights::GetQaQuestion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -704,8 +704,8 @@ impl ContactCenterInsights {
     pub fn update_qa_question(
         &self,
         qa_question: impl Into<crate::model::QaQuestion>,
-    ) -> crate::builders::contact_center_insights::UpdateQaQuestion {
-        crate::builders::contact_center_insights::UpdateQaQuestion::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UpdateQaQuestion {
+        super::builders::contact_center_insights::UpdateQaQuestion::new(self.inner.clone())
             .set_qa_question(qa_question.into())
     }
 
@@ -713,8 +713,8 @@ impl ContactCenterInsights {
     pub fn delete_qa_question(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeleteQaQuestion {
-        crate::builders::contact_center_insights::DeleteQaQuestion::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeleteQaQuestion {
+        super::builders::contact_center_insights::DeleteQaQuestion::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -722,8 +722,8 @@ impl ContactCenterInsights {
     pub fn list_qa_questions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListQaQuestions {
-        crate::builders::contact_center_insights::ListQaQuestions::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListQaQuestions {
+        super::builders::contact_center_insights::ListQaQuestions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -731,8 +731,8 @@ impl ContactCenterInsights {
     pub fn create_qa_scorecard(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CreateQaScorecard {
-        crate::builders::contact_center_insights::CreateQaScorecard::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CreateQaScorecard {
+        super::builders::contact_center_insights::CreateQaScorecard::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -740,8 +740,8 @@ impl ContactCenterInsights {
     pub fn get_qa_scorecard(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetQaScorecard {
-        crate::builders::contact_center_insights::GetQaScorecard::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetQaScorecard {
+        super::builders::contact_center_insights::GetQaScorecard::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -749,8 +749,8 @@ impl ContactCenterInsights {
     pub fn update_qa_scorecard(
         &self,
         qa_scorecard: impl Into<crate::model::QaScorecard>,
-    ) -> crate::builders::contact_center_insights::UpdateQaScorecard {
-        crate::builders::contact_center_insights::UpdateQaScorecard::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UpdateQaScorecard {
+        super::builders::contact_center_insights::UpdateQaScorecard::new(self.inner.clone())
             .set_qa_scorecard(qa_scorecard.into())
     }
 
@@ -758,8 +758,8 @@ impl ContactCenterInsights {
     pub fn delete_qa_scorecard(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeleteQaScorecard {
-        crate::builders::contact_center_insights::DeleteQaScorecard::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeleteQaScorecard {
+        super::builders::contact_center_insights::DeleteQaScorecard::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -767,8 +767,8 @@ impl ContactCenterInsights {
     pub fn list_qa_scorecards(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListQaScorecards {
-        crate::builders::contact_center_insights::ListQaScorecards::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListQaScorecards {
+        super::builders::contact_center_insights::ListQaScorecards::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -776,8 +776,8 @@ impl ContactCenterInsights {
     pub fn create_qa_scorecard_revision(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CreateQaScorecardRevision {
-        crate::builders::contact_center_insights::CreateQaScorecardRevision::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CreateQaScorecardRevision {
+        super::builders::contact_center_insights::CreateQaScorecardRevision::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -785,8 +785,8 @@ impl ContactCenterInsights {
     pub fn get_qa_scorecard_revision(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetQaScorecardRevision {
-        crate::builders::contact_center_insights::GetQaScorecardRevision::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetQaScorecardRevision {
+        super::builders::contact_center_insights::GetQaScorecardRevision::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -804,8 +804,8 @@ impl ContactCenterInsights {
     pub fn tune_qa_scorecard_revision(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::TuneQaScorecardRevision {
-        crate::builders::contact_center_insights::TuneQaScorecardRevision::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::TuneQaScorecardRevision {
+        super::builders::contact_center_insights::TuneQaScorecardRevision::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -813,8 +813,8 @@ impl ContactCenterInsights {
     pub fn deploy_qa_scorecard_revision(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeployQaScorecardRevision {
-        crate::builders::contact_center_insights::DeployQaScorecardRevision::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeployQaScorecardRevision {
+        super::builders::contact_center_insights::DeployQaScorecardRevision::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -822,8 +822,8 @@ impl ContactCenterInsights {
     pub fn undeploy_qa_scorecard_revision(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::UndeployQaScorecardRevision {
-        crate::builders::contact_center_insights::UndeployQaScorecardRevision::new(
+    ) -> super::builders::contact_center_insights::UndeployQaScorecardRevision {
+        super::builders::contact_center_insights::UndeployQaScorecardRevision::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -833,8 +833,8 @@ impl ContactCenterInsights {
     pub fn delete_qa_scorecard_revision(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeleteQaScorecardRevision {
-        crate::builders::contact_center_insights::DeleteQaScorecardRevision::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeleteQaScorecardRevision {
+        super::builders::contact_center_insights::DeleteQaScorecardRevision::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -842,8 +842,8 @@ impl ContactCenterInsights {
     pub fn list_qa_scorecard_revisions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListQaScorecardRevisions {
-        crate::builders::contact_center_insights::ListQaScorecardRevisions::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListQaScorecardRevisions {
+        super::builders::contact_center_insights::ListQaScorecardRevisions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -851,8 +851,8 @@ impl ContactCenterInsights {
     pub fn create_feedback_label(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CreateFeedbackLabel {
-        crate::builders::contact_center_insights::CreateFeedbackLabel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CreateFeedbackLabel {
+        super::builders::contact_center_insights::CreateFeedbackLabel::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -860,8 +860,8 @@ impl ContactCenterInsights {
     pub fn list_feedback_labels(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListFeedbackLabels {
-        crate::builders::contact_center_insights::ListFeedbackLabels::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListFeedbackLabels {
+        super::builders::contact_center_insights::ListFeedbackLabels::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -869,8 +869,8 @@ impl ContactCenterInsights {
     pub fn get_feedback_label(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetFeedbackLabel {
-        crate::builders::contact_center_insights::GetFeedbackLabel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetFeedbackLabel {
+        super::builders::contact_center_insights::GetFeedbackLabel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -878,8 +878,8 @@ impl ContactCenterInsights {
     pub fn update_feedback_label(
         &self,
         feedback_label: impl Into<crate::model::FeedbackLabel>,
-    ) -> crate::builders::contact_center_insights::UpdateFeedbackLabel {
-        crate::builders::contact_center_insights::UpdateFeedbackLabel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::UpdateFeedbackLabel {
+        super::builders::contact_center_insights::UpdateFeedbackLabel::new(self.inner.clone())
             .set_feedback_label(feedback_label.into())
     }
 
@@ -887,8 +887,8 @@ impl ContactCenterInsights {
     pub fn delete_feedback_label(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::DeleteFeedbackLabel {
-        crate::builders::contact_center_insights::DeleteFeedbackLabel::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::DeleteFeedbackLabel {
+        super::builders::contact_center_insights::DeleteFeedbackLabel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -896,8 +896,8 @@ impl ContactCenterInsights {
     pub fn list_all_feedback_labels(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListAllFeedbackLabels {
-        crate::builders::contact_center_insights::ListAllFeedbackLabels::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListAllFeedbackLabels {
+        super::builders::contact_center_insights::ListAllFeedbackLabels::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -915,8 +915,8 @@ impl ContactCenterInsights {
     pub fn bulk_upload_feedback_labels(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::BulkUploadFeedbackLabels {
-        crate::builders::contact_center_insights::BulkUploadFeedbackLabels::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::BulkUploadFeedbackLabels {
+        super::builders::contact_center_insights::BulkUploadFeedbackLabels::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -934,8 +934,8 @@ impl ContactCenterInsights {
     pub fn bulk_download_feedback_labels(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::BulkDownloadFeedbackLabels {
-        crate::builders::contact_center_insights::BulkDownloadFeedbackLabels::new(
+    ) -> super::builders::contact_center_insights::BulkDownloadFeedbackLabels {
+        super::builders::contact_center_insights::BulkDownloadFeedbackLabels::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -947,8 +947,8 @@ impl ContactCenterInsights {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::ListOperations {
-        crate::builders::contact_center_insights::ListOperations::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::ListOperations {
+        super::builders::contact_center_insights::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -958,8 +958,8 @@ impl ContactCenterInsights {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::GetOperation {
-        crate::builders::contact_center_insights::GetOperation::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::GetOperation {
+        super::builders::contact_center_insights::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -969,8 +969,8 @@ impl ContactCenterInsights {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::contact_center_insights::CancelOperation {
-        crate::builders::contact_center_insights::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::contact_center_insights::CancelOperation {
+        super::builders::contact_center_insights::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -18,10 +18,10 @@ pub mod migration_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::MigrationService] request builders.
+    /// Common implementation for [super::super::client::MigrationService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::MigrationService>,
+        stub: Arc<dyn super::super::stubs::dynamic::MigrationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod migration_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -46,7 +46,7 @@ pub mod migration_service {
     );
 
     impl CreateMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -101,7 +101,7 @@ pub mod migration_service {
     pub struct GetMigrationWorkflow(RequestBuilder<crate::model::GetMigrationWorkflowRequest>);
 
     impl GetMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -151,7 +151,7 @@ pub mod migration_service {
     pub struct ListMigrationWorkflows(RequestBuilder<crate::model::ListMigrationWorkflowsRequest>);
 
     impl ListMigrationWorkflows {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -178,14 +178,14 @@ pub mod migration_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListMigrationWorkflowsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -232,7 +232,7 @@ pub mod migration_service {
     );
 
     impl DeleteMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -276,7 +276,7 @@ pub mod migration_service {
     pub struct StartMigrationWorkflow(RequestBuilder<crate::model::StartMigrationWorkflowRequest>);
 
     impl StartMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -320,7 +320,7 @@ pub mod migration_service {
     pub struct GetMigrationSubtask(RequestBuilder<crate::model::GetMigrationSubtaskRequest>);
 
     impl GetMigrationSubtask {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -370,7 +370,7 @@ pub mod migration_service {
     pub struct ListMigrationSubtasks(RequestBuilder<crate::model::ListMigrationSubtasksRequest>);
 
     impl ListMigrationSubtasks {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -397,12 +397,12 @@ pub mod migration_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMigrationSubtasksResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);

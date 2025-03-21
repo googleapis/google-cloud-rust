@@ -18,10 +18,10 @@ pub mod alert_policy_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AlertPolicyService] request builders.
+    /// Common implementation for [super::super::client::AlertPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AlertPolicyService>,
+        stub: Arc<dyn super::super::stubs::dynamic::AlertPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod alert_policy_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlertPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlertPolicyService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod alert_policy_service {
     pub struct ListAlertPolicies(RequestBuilder<crate::model::ListAlertPoliciesRequest>);
 
     impl ListAlertPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlertPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlertPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -71,12 +71,12 @@ pub mod alert_policy_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAlertPoliciesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -127,7 +127,7 @@ pub mod alert_policy_service {
     pub struct GetAlertPolicy(RequestBuilder<crate::model::GetAlertPolicyRequest>);
 
     impl GetAlertPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlertPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlertPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -168,7 +168,7 @@ pub mod alert_policy_service {
     pub struct CreateAlertPolicy(RequestBuilder<crate::model::CreateAlertPolicyRequest>);
 
     impl CreateAlertPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlertPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlertPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -221,7 +221,7 @@ pub mod alert_policy_service {
     pub struct DeleteAlertPolicy(RequestBuilder<crate::model::DeleteAlertPolicyRequest>);
 
     impl DeleteAlertPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlertPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlertPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -265,7 +265,7 @@ pub mod alert_policy_service {
     pub struct UpdateAlertPolicy(RequestBuilder<crate::model::UpdateAlertPolicyRequest>);
 
     impl UpdateAlertPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AlertPolicyService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AlertPolicyService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -321,10 +321,10 @@ pub mod group_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::GroupService] request builders.
+    /// Common implementation for [super::super::client::GroupService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::GroupService>,
+        stub: Arc<dyn super::super::stubs::dynamic::GroupService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -333,7 +333,7 @@ pub mod group_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GroupService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -347,7 +347,7 @@ pub mod group_service {
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GroupService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -371,12 +371,12 @@ pub mod group_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -424,7 +424,7 @@ pub mod group_service {
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GroupService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -465,7 +465,7 @@ pub mod group_service {
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GroupService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -521,7 +521,7 @@ pub mod group_service {
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GroupService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -571,7 +571,7 @@ pub mod group_service {
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GroupService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -618,7 +618,7 @@ pub mod group_service {
     pub struct ListGroupMembers(RequestBuilder<crate::model::ListGroupMembersRequest>);
 
     impl ListGroupMembers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroupService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GroupService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -645,12 +645,12 @@ pub mod group_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGroupMembersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -704,10 +704,10 @@ pub mod metric_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::MetricService] request builders.
+    /// Common implementation for [super::super::client::MetricService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::MetricService>,
+        stub: Arc<dyn super::super::stubs::dynamic::MetricService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -716,7 +716,7 @@ pub mod metric_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MetricService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -732,7 +732,7 @@ pub mod metric_service {
     );
 
     impl ListMonitoredResourceDescriptors {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MetricService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -759,14 +759,14 @@ pub mod metric_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListMonitoredResourceDescriptorsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -813,7 +813,7 @@ pub mod metric_service {
     );
 
     impl GetMonitoredResourceDescriptor {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MetricService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -857,7 +857,7 @@ pub mod metric_service {
     pub struct ListMetricDescriptors(RequestBuilder<crate::model::ListMetricDescriptorsRequest>);
 
     impl ListMetricDescriptors {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MetricService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -884,12 +884,12 @@ pub mod metric_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMetricDescriptorsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -940,7 +940,7 @@ pub mod metric_service {
     pub struct GetMetricDescriptor(RequestBuilder<crate::model::GetMetricDescriptorRequest>);
 
     impl GetMetricDescriptor {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MetricService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -984,7 +984,7 @@ pub mod metric_service {
     pub struct CreateMetricDescriptor(RequestBuilder<crate::model::CreateMetricDescriptorRequest>);
 
     impl CreateMetricDescriptor {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MetricService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1037,7 +1037,7 @@ pub mod metric_service {
     pub struct DeleteMetricDescriptor(RequestBuilder<crate::model::DeleteMetricDescriptorRequest>);
 
     impl DeleteMetricDescriptor {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MetricService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1081,7 +1081,7 @@ pub mod metric_service {
     pub struct ListTimeSeries(RequestBuilder<crate::model::ListTimeSeriesRequest>);
 
     impl ListTimeSeries {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MetricService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1105,12 +1105,12 @@ pub mod metric_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTimeSeriesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1199,7 +1199,7 @@ pub mod metric_service {
     pub struct CreateTimeSeries(RequestBuilder<crate::model::CreateTimeSeriesRequest>);
 
     impl CreateTimeSeries {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MetricService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1254,7 +1254,7 @@ pub mod metric_service {
     pub struct CreateServiceTimeSeries(RequestBuilder<crate::model::CreateTimeSeriesRequest>);
 
     impl CreateServiceTimeSeries {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MetricService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1309,10 +1309,10 @@ pub mod notification_channel_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::NotificationChannelService] request builders.
+    /// Common implementation for [super::super::client::NotificationChannelService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+        stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1322,7 +1322,7 @@ pub mod notification_channel_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self {
                 stub,
@@ -1340,7 +1340,7 @@ pub mod notification_channel_service {
 
     impl ListNotificationChannelDescriptors {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1370,14 +1370,14 @@ pub mod notification_channel_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListNotificationChannelDescriptorsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1419,7 +1419,7 @@ pub mod notification_channel_service {
 
     impl GetNotificationChannelDescriptor {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1467,7 +1467,7 @@ pub mod notification_channel_service {
 
     impl ListNotificationChannels {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1495,14 +1495,14 @@ pub mod notification_channel_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListNotificationChannelsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1554,7 +1554,7 @@ pub mod notification_channel_service {
 
     impl GetNotificationChannel {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1602,7 +1602,7 @@ pub mod notification_channel_service {
 
     impl CreateNotificationChannel {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1661,7 +1661,7 @@ pub mod notification_channel_service {
 
     impl UpdateNotificationChannel {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1723,7 +1723,7 @@ pub mod notification_channel_service {
 
     impl DeleteNotificationChannel {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1777,7 +1777,7 @@ pub mod notification_channel_service {
 
     impl SendNotificationChannelVerificationCode {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1827,7 +1827,7 @@ pub mod notification_channel_service {
 
     impl GetNotificationChannelVerificationCode {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1888,7 +1888,7 @@ pub mod notification_channel_service {
 
     impl VerifyNotificationChannel {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+            stub: Arc<dyn super::super::stubs::dynamic::NotificationChannelService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1939,10 +1939,10 @@ pub mod query_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::QueryService] request builders.
+    /// Common implementation for [super::super::client::QueryService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::QueryService>,
+        stub: Arc<dyn super::super::stubs::dynamic::QueryService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1951,7 +1951,7 @@ pub mod query_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::QueryService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::QueryService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1965,7 +1965,7 @@ pub mod query_service {
     pub struct QueryTimeSeries(RequestBuilder<crate::model::QueryTimeSeriesRequest>);
 
     impl QueryTimeSeries {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::QueryService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::QueryService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1989,12 +1989,12 @@ pub mod query_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::QueryTimeSeriesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2039,10 +2039,10 @@ pub mod service_monitoring_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ServiceMonitoringService] request builders.
+    /// Common implementation for [super::super::client::ServiceMonitoringService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2051,7 +2051,9 @@ pub mod service_monitoring_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2065,7 +2067,9 @@ pub mod service_monitoring_service {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2121,7 +2125,9 @@ pub mod service_monitoring_service {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2162,7 +2168,9 @@ pub mod service_monitoring_service {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2186,12 +2194,12 @@ pub mod service_monitoring_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2236,7 +2244,9 @@ pub mod service_monitoring_service {
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2289,7 +2299,9 @@ pub mod service_monitoring_service {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2332,7 +2344,9 @@ pub mod service_monitoring_service {
     );
 
     impl CreateServiceLevelObjective {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2398,7 +2412,9 @@ pub mod service_monitoring_service {
     );
 
     impl GetServiceLevelObjective {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2453,7 +2469,9 @@ pub mod service_monitoring_service {
     );
 
     impl ListServiceLevelObjectives {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2480,14 +2498,14 @@ pub mod service_monitoring_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListServiceLevelObjectivesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2543,7 +2561,9 @@ pub mod service_monitoring_service {
     );
 
     impl UpdateServiceLevelObjective {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2603,7 +2623,9 @@ pub mod service_monitoring_service {
     );
 
     impl DeleteServiceLevelObjective {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ServiceMonitoringService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2647,10 +2669,10 @@ pub mod snooze_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SnoozeService] request builders.
+    /// Common implementation for [super::super::client::SnoozeService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SnoozeService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SnoozeService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2659,7 +2681,7 @@ pub mod snooze_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SnoozeService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SnoozeService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2673,7 +2695,7 @@ pub mod snooze_service {
     pub struct CreateSnooze(RequestBuilder<crate::model::CreateSnoozeRequest>);
 
     impl CreateSnooze {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SnoozeService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SnoozeService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2723,7 +2745,7 @@ pub mod snooze_service {
     pub struct ListSnoozes(RequestBuilder<crate::model::ListSnoozesRequest>);
 
     impl ListSnoozes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SnoozeService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SnoozeService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2747,12 +2769,12 @@ pub mod snooze_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSnoozesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2797,7 +2819,7 @@ pub mod snooze_service {
     pub struct GetSnooze(RequestBuilder<crate::model::GetSnoozeRequest>);
 
     impl GetSnooze {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SnoozeService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SnoozeService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2838,7 +2860,7 @@ pub mod snooze_service {
     pub struct UpdateSnooze(RequestBuilder<crate::model::UpdateSnoozeRequest>);
 
     impl UpdateSnooze {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SnoozeService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SnoozeService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2891,10 +2913,10 @@ pub mod uptime_check_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::UptimeCheckService] request builders.
+    /// Common implementation for [super::super::client::UptimeCheckService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::UptimeCheckService>,
+        stub: Arc<dyn super::super::stubs::dynamic::UptimeCheckService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2903,7 +2925,7 @@ pub mod uptime_check_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UptimeCheckService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UptimeCheckService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2917,7 +2939,7 @@ pub mod uptime_check_service {
     pub struct ListUptimeCheckConfigs(RequestBuilder<crate::model::ListUptimeCheckConfigsRequest>);
 
     impl ListUptimeCheckConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UptimeCheckService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UptimeCheckService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2944,14 +2966,14 @@ pub mod uptime_check_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListUptimeCheckConfigsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2996,7 +3018,7 @@ pub mod uptime_check_service {
     pub struct GetUptimeCheckConfig(RequestBuilder<crate::model::GetUptimeCheckConfigRequest>);
 
     impl GetUptimeCheckConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UptimeCheckService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UptimeCheckService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3042,7 +3064,7 @@ pub mod uptime_check_service {
     );
 
     impl CreateUptimeCheckConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UptimeCheckService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UptimeCheckService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3099,7 +3121,7 @@ pub mod uptime_check_service {
     );
 
     impl UpdateUptimeCheckConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UptimeCheckService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UptimeCheckService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3159,7 +3181,7 @@ pub mod uptime_check_service {
     );
 
     impl DeleteUptimeCheckConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UptimeCheckService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UptimeCheckService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3203,7 +3225,7 @@ pub mod uptime_check_service {
     pub struct ListUptimeCheckIps(RequestBuilder<crate::model::ListUptimeCheckIpsRequest>);
 
     impl ListUptimeCheckIps {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UptimeCheckService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UptimeCheckService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3230,12 +3252,12 @@ pub mod uptime_check_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListUptimeCheckIpsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);

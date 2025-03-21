@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate gtype;
 extern crate iam_v1;
 extern crate lazy_static;
@@ -439,7 +440,6 @@ impl wkt::message::Message for ListServiceAccountsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServiceAccountsResponse {
     type PageItem = crate::model::ServiceAccount;
 
@@ -448,7 +448,8 @@ impl gax::paginator::PageableResponse for ListServiceAccountsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1793,7 +1794,6 @@ impl wkt::message::Message for QueryGrantableRolesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for QueryGrantableRolesResponse {
     type PageItem = crate::model::Role;
 
@@ -1802,7 +1802,8 @@ impl gax::paginator::PageableResponse for QueryGrantableRolesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1952,7 +1953,6 @@ impl wkt::message::Message for ListRolesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRolesResponse {
     type PageItem = crate::model::Role;
 
@@ -1961,7 +1961,8 @@ impl gax::paginator::PageableResponse for ListRolesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -2644,7 +2645,6 @@ impl wkt::message::Message for QueryTestablePermissionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for QueryTestablePermissionsResponse {
     type PageItem = crate::model::Permission;
 
@@ -2653,7 +2653,8 @@ impl gax::paginator::PageableResponse for QueryTestablePermissionsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

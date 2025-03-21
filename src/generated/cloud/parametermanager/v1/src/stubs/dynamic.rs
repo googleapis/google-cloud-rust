@@ -96,9 +96,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<location::model::Location>;
 }
 
-/// All implementations of [crate::stubs::ParameterManager] also implement [ParameterManager].
+/// All implementations of [super::ParameterManager] also implement [ParameterManager].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ParameterManager> ParameterManager for T {
+impl<T: super::ParameterManager> ParameterManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_parameters(
         &self,

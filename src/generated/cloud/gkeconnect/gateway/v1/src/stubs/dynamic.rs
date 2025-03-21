@@ -24,9 +24,9 @@ pub trait GatewayControl: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::GenerateCredentialsResponse>;
 }
 
-/// All implementations of [crate::stubs::GatewayControl] also implement [GatewayControl].
+/// All implementations of [super::GatewayControl] also implement [GatewayControl].
 #[async_trait::async_trait]
-impl<T: crate::stubs::GatewayControl> GatewayControl for T {
+impl<T: super::GatewayControl> GatewayControl for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn generate_credentials(
         &self,

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DatastoreAdmin](crate::stubs::DatastoreAdmin) using a [gax::http_client::ReqwestClient].
+/// Implements [DatastoreAdmin](super::stubs::DatastoreAdmin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DatastoreAdmin {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for DatastoreAdmin {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for DatastoreAdmin {
 }
 
 impl DatastoreAdmin {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
+impl super::stubs::DatastoreAdmin for DatastoreAdmin {
     async fn export_entities(
         &self,
         req: crate::model::ExportEntitiesRequest,
@@ -118,7 +118,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -140,7 +140,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -165,7 +165,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -187,7 +187,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -206,7 +206,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -225,7 +225,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -244,7 +244,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

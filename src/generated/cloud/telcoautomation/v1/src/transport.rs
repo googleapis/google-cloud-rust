@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TelcoAutomation](crate::stubs::TelcoAutomation) using a [gax::http_client::ReqwestClient].
+/// Implements [TelcoAutomation](super::stubs::TelcoAutomation) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TelcoAutomation {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for TelcoAutomation {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for TelcoAutomation {
 }
 
 impl TelcoAutomation {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::TelcoAutomation for TelcoAutomation {
+impl super::stubs::TelcoAutomation for TelcoAutomation {
     async fn list_orchestration_clusters(
         &self,
         req: crate::model::ListOrchestrationClustersRequest,
@@ -62,7 +62,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -125,7 +125,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -148,7 +148,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -167,7 +167,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -211,7 +211,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -252,7 +252,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                     "/v1/{}",
                     req.blueprint
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("blueprint"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("blueprint"))?
                         .name
                 ),
             )
@@ -268,7 +268,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -292,7 +292,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -311,7 +311,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -336,7 +336,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -411,7 +411,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -436,7 +436,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -461,7 +461,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -502,7 +502,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -521,7 +521,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -562,7 +562,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                     "/v1/{}",
                     req.deployment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("deployment"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("deployment"))?
                         .name
                 ),
             )
@@ -578,7 +578,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -602,7 +602,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -644,7 +644,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -668,7 +668,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -724,7 +724,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -760,7 +760,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -784,7 +784,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -802,7 +802,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                     "/v1/{}",
                     req.hydrated_deployment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("hydrated_deployment"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("hydrated_deployment"))?
                         .name
                 ),
             )
@@ -818,7 +818,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -861,7 +861,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -880,7 +880,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -902,7 +902,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -921,7 +921,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -940,7 +940,7 @@ impl crate::stubs::TelcoAutomation for TelcoAutomation {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

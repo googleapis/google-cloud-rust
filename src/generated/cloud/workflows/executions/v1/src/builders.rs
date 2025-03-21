@@ -18,10 +18,10 @@ pub mod executions {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Executions] request builders.
+    /// Common implementation for [super::super::client::Executions] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Executions>,
+        stub: Arc<dyn super::super::stubs::dynamic::Executions>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod executions {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Executions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Executions>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod executions {
     pub struct ListExecutions(RequestBuilder<crate::model::ListExecutionsRequest>);
 
     impl ListExecutions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Executions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Executions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod executions {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListExecutionsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -130,7 +130,7 @@ pub mod executions {
     pub struct CreateExecution(RequestBuilder<crate::model::CreateExecutionRequest>);
 
     impl CreateExecution {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Executions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Executions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -180,7 +180,7 @@ pub mod executions {
     pub struct GetExecution(RequestBuilder<crate::model::GetExecutionRequest>);
 
     impl GetExecution {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Executions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Executions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -227,7 +227,7 @@ pub mod executions {
     pub struct CancelExecution(RequestBuilder<crate::model::CancelExecutionRequest>);
 
     impl CancelExecution {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Executions>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Executions>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

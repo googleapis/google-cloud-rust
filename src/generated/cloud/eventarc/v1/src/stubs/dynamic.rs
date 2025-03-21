@@ -318,9 +318,9 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Eventarc] also implement [Eventarc].
+/// All implementations of [super::Eventarc] also implement [Eventarc].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Eventarc> Eventarc for T {
+impl<T: super::Eventarc> Eventarc for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_trigger(
         &self,

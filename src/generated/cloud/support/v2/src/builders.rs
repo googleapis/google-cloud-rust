@@ -18,10 +18,10 @@ pub mod case_attachment_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CaseAttachmentService] request builders.
+    /// Common implementation for [super::super::client::CaseAttachmentService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CaseAttachmentService>,
+        stub: Arc<dyn super::super::stubs::dynamic::CaseAttachmentService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod case_attachment_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseAttachmentService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CaseAttachmentService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod case_attachment_service {
     pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
 
     impl ListAttachments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseAttachmentService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::CaseAttachmentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +72,12 @@ pub mod case_attachment_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -112,10 +116,10 @@ pub mod case_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CaseService] request builders.
+    /// Common implementation for [super::super::client::CaseService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CaseService>,
+        stub: Arc<dyn super::super::stubs::dynamic::CaseService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -124,7 +128,7 @@ pub mod case_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CaseService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -138,7 +142,7 @@ pub mod case_service {
     pub struct GetCase(RequestBuilder<crate::model::GetCaseRequest>);
 
     impl GetCase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CaseService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -179,7 +183,7 @@ pub mod case_service {
     pub struct ListCases(RequestBuilder<crate::model::ListCasesRequest>);
 
     impl ListCases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CaseService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -203,11 +207,11 @@ pub mod case_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCasesResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -252,7 +256,7 @@ pub mod case_service {
     pub struct SearchCases(RequestBuilder<crate::model::SearchCasesRequest>);
 
     impl SearchCases {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CaseService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -276,12 +280,12 @@ pub mod case_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchCasesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -326,7 +330,7 @@ pub mod case_service {
     pub struct CreateCase(RequestBuilder<crate::model::CreateCaseRequest>);
 
     impl CreateCase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CaseService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -373,7 +377,7 @@ pub mod case_service {
     pub struct UpdateCase(RequestBuilder<crate::model::UpdateCaseRequest>);
 
     impl UpdateCase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CaseService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -423,7 +427,7 @@ pub mod case_service {
     pub struct EscalateCase(RequestBuilder<crate::model::EscalateCaseRequest>);
 
     impl EscalateCase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CaseService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -473,7 +477,7 @@ pub mod case_service {
     pub struct CloseCase(RequestBuilder<crate::model::CloseCaseRequest>);
 
     impl CloseCase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CaseService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -516,7 +520,7 @@ pub mod case_service {
     );
 
     impl SearchCaseClassifications {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CaseService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -543,14 +547,14 @@ pub mod case_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::SearchCaseClassificationsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -589,10 +593,10 @@ pub mod comment_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CommentService] request builders.
+    /// Common implementation for [super::super::client::CommentService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CommentService>,
+        stub: Arc<dyn super::super::stubs::dynamic::CommentService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -601,7 +605,7 @@ pub mod comment_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CommentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CommentService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -615,7 +619,7 @@ pub mod comment_service {
     pub struct ListComments(RequestBuilder<crate::model::ListCommentsRequest>);
 
     impl ListComments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CommentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CommentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -639,12 +643,12 @@ pub mod comment_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCommentsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -683,7 +687,7 @@ pub mod comment_service {
     pub struct CreateComment(RequestBuilder<crate::model::CreateCommentRequest>);
 
     impl CreateComment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CommentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CommentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

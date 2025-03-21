@@ -23,6 +23,8 @@ use std::sync::Arc;
 ///
 /// # Service Description
 ///
+/// Deprecated: Please use Dataplex Catalog instead.
+///
 /// Data Catalog API service allows you to discover, understand, and manage
 /// your data.
 ///
@@ -39,7 +41,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct DataCatalog {
-    inner: Arc<dyn crate::stubs::dynamic::DataCatalog>,
+    inner: Arc<dyn super::stubs::dynamic::DataCatalog>,
 }
 
 impl DataCatalog {
@@ -60,7 +62,7 @@ impl DataCatalog {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::DataCatalog + 'static,
+        T: super::stubs::DataCatalog + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +71,7 @@ impl DataCatalog {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::DataCatalog>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::DataCatalog>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,16 +80,16 @@ impl DataCatalog {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DataCatalog> {
-        crate::transport::DataCatalog::new(conf).await
+    ) -> Result<impl super::stubs::DataCatalog> {
+        super::transport::DataCatalog::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::DataCatalog> {
+    ) -> Result<impl super::stubs::DataCatalog> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::DataCatalog::new)
+            .map(super::tracing::DataCatalog::new)
     }
 
     /// Searches Data Catalog for multiple resources like entries and tags that
@@ -105,8 +107,8 @@ impl DataCatalog {
     ///
     /// For more information, see [Data Catalog search syntax]
     /// (<https://cloud.google.com/data-catalog/docs/how-to/search-reference>).
-    pub fn search_catalog(&self) -> crate::builders::data_catalog::SearchCatalog {
-        crate::builders::data_catalog::SearchCatalog::new(self.inner.clone())
+    pub fn search_catalog(&self) -> super::builders::data_catalog::SearchCatalog {
+        super::builders::data_catalog::SearchCatalog::new(self.inner.clone())
     }
 
     /// Creates an entry group.
@@ -139,8 +141,8 @@ impl DataCatalog {
     pub fn create_entry_group(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::CreateEntryGroup {
-        crate::builders::data_catalog::CreateEntryGroup::new(self.inner.clone())
+    ) -> super::builders::data_catalog::CreateEntryGroup {
+        super::builders::data_catalog::CreateEntryGroup::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -148,8 +150,8 @@ impl DataCatalog {
     pub fn get_entry_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::GetEntryGroup {
-        crate::builders::data_catalog::GetEntryGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::GetEntryGroup {
+        super::builders::data_catalog::GetEntryGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates an entry group.
@@ -161,8 +163,8 @@ impl DataCatalog {
     pub fn update_entry_group(
         &self,
         entry_group: impl Into<crate::model::EntryGroup>,
-    ) -> crate::builders::data_catalog::UpdateEntryGroup {
-        crate::builders::data_catalog::UpdateEntryGroup::new(self.inner.clone())
+    ) -> super::builders::data_catalog::UpdateEntryGroup {
+        super::builders::data_catalog::UpdateEntryGroup::new(self.inner.clone())
             .set_entry_group(entry_group.into())
     }
 
@@ -175,8 +177,8 @@ impl DataCatalog {
     pub fn delete_entry_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::DeleteEntryGroup {
-        crate::builders::data_catalog::DeleteEntryGroup::new(self.inner.clone())
+    ) -> super::builders::data_catalog::DeleteEntryGroup {
+        super::builders::data_catalog::DeleteEntryGroup::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -184,8 +186,8 @@ impl DataCatalog {
     pub fn list_entry_groups(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::ListEntryGroups {
-        crate::builders::data_catalog::ListEntryGroups::new(self.inner.clone())
+    ) -> super::builders::data_catalog::ListEntryGroups {
+        super::builders::data_catalog::ListEntryGroups::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -203,8 +205,8 @@ impl DataCatalog {
     pub fn create_entry(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::CreateEntry {
-        crate::builders::data_catalog::CreateEntry::new(self.inner.clone())
+    ) -> super::builders::data_catalog::CreateEntry {
+        super::builders::data_catalog::CreateEntry::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -217,8 +219,8 @@ impl DataCatalog {
     pub fn update_entry(
         &self,
         entry: impl Into<crate::model::Entry>,
-    ) -> crate::builders::data_catalog::UpdateEntry {
-        crate::builders::data_catalog::UpdateEntry::new(self.inner.clone()).set_entry(entry.into())
+    ) -> super::builders::data_catalog::UpdateEntry {
+        super::builders::data_catalog::UpdateEntry::new(self.inner.clone()).set_entry(entry.into())
     }
 
     /// Deletes an existing entry.
@@ -236,23 +238,23 @@ impl DataCatalog {
     pub fn delete_entry(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::DeleteEntry {
-        crate::builders::data_catalog::DeleteEntry::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::DeleteEntry {
+        super::builders::data_catalog::DeleteEntry::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets an entry.
     pub fn get_entry(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::GetEntry {
-        crate::builders::data_catalog::GetEntry::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::GetEntry {
+        super::builders::data_catalog::GetEntry::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets an entry by its target resource name.
     ///
     /// The resource name comes from the source Google Cloud Platform service.
-    pub fn lookup_entry(&self) -> crate::builders::data_catalog::LookupEntry {
-        crate::builders::data_catalog::LookupEntry::new(self.inner.clone())
+    pub fn lookup_entry(&self) -> super::builders::data_catalog::LookupEntry {
+        super::builders::data_catalog::LookupEntry::new(self.inner.clone())
     }
 
     /// Lists entries.
@@ -265,8 +267,8 @@ impl DataCatalog {
     pub fn list_entries(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::ListEntries {
-        crate::builders::data_catalog::ListEntries::new(self.inner.clone())
+    ) -> super::builders::data_catalog::ListEntries {
+        super::builders::data_catalog::ListEntries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -280,8 +282,8 @@ impl DataCatalog {
     pub fn modify_entry_overview(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::ModifyEntryOverview {
-        crate::builders::data_catalog::ModifyEntryOverview::new(self.inner.clone())
+    ) -> super::builders::data_catalog::ModifyEntryOverview {
+        super::builders::data_catalog::ModifyEntryOverview::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -295,8 +297,8 @@ impl DataCatalog {
     pub fn modify_entry_contacts(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::ModifyEntryContacts {
-        crate::builders::data_catalog::ModifyEntryContacts::new(self.inner.clone())
+    ) -> super::builders::data_catalog::ModifyEntryContacts {
+        super::builders::data_catalog::ModifyEntryContacts::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -309,8 +311,8 @@ impl DataCatalog {
     pub fn create_tag_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::CreateTagTemplate {
-        crate::builders::data_catalog::CreateTagTemplate::new(self.inner.clone())
+    ) -> super::builders::data_catalog::CreateTagTemplate {
+        super::builders::data_catalog::CreateTagTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -318,8 +320,8 @@ impl DataCatalog {
     pub fn get_tag_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::GetTagTemplate {
-        crate::builders::data_catalog::GetTagTemplate::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::GetTagTemplate {
+        super::builders::data_catalog::GetTagTemplate::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a tag template.
@@ -334,8 +336,8 @@ impl DataCatalog {
     pub fn update_tag_template(
         &self,
         tag_template: impl Into<crate::model::TagTemplate>,
-    ) -> crate::builders::data_catalog::UpdateTagTemplate {
-        crate::builders::data_catalog::UpdateTagTemplate::new(self.inner.clone())
+    ) -> super::builders::data_catalog::UpdateTagTemplate {
+        super::builders::data_catalog::UpdateTagTemplate::new(self.inner.clone())
             .set_tag_template(tag_template.into())
     }
 
@@ -347,8 +349,8 @@ impl DataCatalog {
     pub fn delete_tag_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::DeleteTagTemplate {
-        crate::builders::data_catalog::DeleteTagTemplate::new(self.inner.clone())
+    ) -> super::builders::data_catalog::DeleteTagTemplate {
+        super::builders::data_catalog::DeleteTagTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -360,8 +362,8 @@ impl DataCatalog {
     pub fn create_tag_template_field(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::CreateTagTemplateField {
-        crate::builders::data_catalog::CreateTagTemplateField::new(self.inner.clone())
+    ) -> super::builders::data_catalog::CreateTagTemplateField {
+        super::builders::data_catalog::CreateTagTemplateField::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -376,8 +378,8 @@ impl DataCatalog {
     pub fn update_tag_template_field(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::UpdateTagTemplateField {
-        crate::builders::data_catalog::UpdateTagTemplateField::new(self.inner.clone())
+    ) -> super::builders::data_catalog::UpdateTagTemplateField {
+        super::builders::data_catalog::UpdateTagTemplateField::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -389,8 +391,8 @@ impl DataCatalog {
     pub fn rename_tag_template_field(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::RenameTagTemplateField {
-        crate::builders::data_catalog::RenameTagTemplateField::new(self.inner.clone())
+    ) -> super::builders::data_catalog::RenameTagTemplateField {
+        super::builders::data_catalog::RenameTagTemplateField::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -400,8 +402,8 @@ impl DataCatalog {
     pub fn rename_tag_template_field_enum_value(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::RenameTagTemplateFieldEnumValue {
-        crate::builders::data_catalog::RenameTagTemplateFieldEnumValue::new(self.inner.clone())
+    ) -> super::builders::data_catalog::RenameTagTemplateFieldEnumValue {
+        super::builders::data_catalog::RenameTagTemplateFieldEnumValue::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -414,8 +416,8 @@ impl DataCatalog {
     pub fn delete_tag_template_field(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::DeleteTagTemplateField {
-        crate::builders::data_catalog::DeleteTagTemplateField::new(self.inner.clone())
+    ) -> super::builders::data_catalog::DeleteTagTemplateField {
+        super::builders::data_catalog::DeleteTagTemplateField::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -437,24 +439,24 @@ impl DataCatalog {
     pub fn create_tag(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::CreateTag {
-        crate::builders::data_catalog::CreateTag::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::data_catalog::CreateTag {
+        super::builders::data_catalog::CreateTag::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates an existing tag.
     pub fn update_tag(
         &self,
         tag: impl Into<crate::model::Tag>,
-    ) -> crate::builders::data_catalog::UpdateTag {
-        crate::builders::data_catalog::UpdateTag::new(self.inner.clone()).set_tag(tag.into())
+    ) -> super::builders::data_catalog::UpdateTag {
+        super::builders::data_catalog::UpdateTag::new(self.inner.clone()).set_tag(tag.into())
     }
 
     /// Deletes a tag.
     pub fn delete_tag(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::DeleteTag {
-        crate::builders::data_catalog::DeleteTag::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::DeleteTag {
+        super::builders::data_catalog::DeleteTag::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists tags assigned to an [Entry][google.cloud.datacatalog.v1.Entry].
@@ -466,8 +468,8 @@ impl DataCatalog {
     pub fn list_tags(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::ListTags {
-        crate::builders::data_catalog::ListTags::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::data_catalog::ListTags {
+        super::builders::data_catalog::ListTags::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// `ReconcileTags` creates or updates a list of tags on the entry.
@@ -498,8 +500,8 @@ impl DataCatalog {
     pub fn reconcile_tags(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::ReconcileTags {
-        crate::builders::data_catalog::ReconcileTags::new(self.inner.clone())
+    ) -> super::builders::data_catalog::ReconcileTags {
+        super::builders::data_catalog::ReconcileTags::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -510,8 +512,8 @@ impl DataCatalog {
     pub fn star_entry(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::StarEntry {
-        crate::builders::data_catalog::StarEntry::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::StarEntry {
+        super::builders::data_catalog::StarEntry::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Marks an [Entry][google.cloud.datacatalog.v1.Entry] as NOT starred by
@@ -521,8 +523,8 @@ impl DataCatalog {
     pub fn unstar_entry(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::UnstarEntry {
-        crate::builders::data_catalog::UnstarEntry::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::UnstarEntry {
+        super::builders::data_catalog::UnstarEntry::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Sets an access control policy for a resource. Replaces any existing
@@ -545,8 +547,8 @@ impl DataCatalog {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::SetIamPolicy {
-        crate::builders::data_catalog::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::data_catalog::SetIamPolicy {
+        super::builders::data_catalog::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -574,8 +576,8 @@ impl DataCatalog {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::GetIamPolicy {
-        crate::builders::data_catalog::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::data_catalog::GetIamPolicy {
+        super::builders::data_catalog::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -596,8 +598,8 @@ impl DataCatalog {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::TestIamPermissions {
-        crate::builders::data_catalog::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::data_catalog::TestIamPermissions {
+        super::builders::data_catalog::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -636,8 +638,8 @@ impl DataCatalog {
     pub fn import_entries(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::ImportEntries {
-        crate::builders::data_catalog::ImportEntries::new(self.inner.clone())
+    ) -> super::builders::data_catalog::ImportEntries {
+        super::builders::data_catalog::ImportEntries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -646,8 +648,8 @@ impl DataCatalog {
     pub fn set_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::SetConfig {
-        crate::builders::data_catalog::SetConfig::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::SetConfig {
+        super::builders::data_catalog::SetConfig::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Retrieves the configuration related to the migration from Data Catalog to
@@ -656,8 +658,8 @@ impl DataCatalog {
     pub fn retrieve_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::RetrieveConfig {
-        crate::builders::data_catalog::RetrieveConfig::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::RetrieveConfig {
+        super::builders::data_catalog::RetrieveConfig::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Retrieves the effective configuration related to the migration from Data
@@ -668,8 +670,8 @@ impl DataCatalog {
     pub fn retrieve_effective_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::RetrieveEffectiveConfig {
-        crate::builders::data_catalog::RetrieveEffectiveConfig::new(self.inner.clone())
+    ) -> super::builders::data_catalog::RetrieveEffectiveConfig {
+        super::builders::data_catalog::RetrieveEffectiveConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -679,8 +681,8 @@ impl DataCatalog {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::ListOperations {
-        crate::builders::data_catalog::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::ListOperations {
+        super::builders::data_catalog::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -689,8 +691,8 @@ impl DataCatalog {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::GetOperation {
-        crate::builders::data_catalog::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::data_catalog::GetOperation {
+        super::builders::data_catalog::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -699,8 +701,8 @@ impl DataCatalog {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::DeleteOperation {
-        crate::builders::data_catalog::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::data_catalog::DeleteOperation {
+        super::builders::data_catalog::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -710,8 +712,8 @@ impl DataCatalog {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::data_catalog::CancelOperation {
-        crate::builders::data_catalog::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::data_catalog::CancelOperation {
+        super::builders::data_catalog::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -740,7 +742,7 @@ impl DataCatalog {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManager {
-    inner: Arc<dyn crate::stubs::dynamic::PolicyTagManager>,
+    inner: Arc<dyn super::stubs::dynamic::PolicyTagManager>,
 }
 
 impl PolicyTagManager {
@@ -761,7 +763,7 @@ impl PolicyTagManager {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::PolicyTagManager + 'static,
+        T: super::stubs::PolicyTagManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -770,7 +772,7 @@ impl PolicyTagManager {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::PolicyTagManager>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::PolicyTagManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -779,16 +781,16 @@ impl PolicyTagManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::PolicyTagManager> {
-        crate::transport::PolicyTagManager::new(conf).await
+    ) -> Result<impl super::stubs::PolicyTagManager> {
+        super::transport::PolicyTagManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::PolicyTagManager> {
+    ) -> Result<impl super::stubs::PolicyTagManager> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::PolicyTagManager::new)
+            .map(super::tracing::PolicyTagManager::new)
     }
 
     /// Creates a taxonomy in a specified project.
@@ -797,8 +799,8 @@ impl PolicyTagManager {
     pub fn create_taxonomy(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::CreateTaxonomy {
-        crate::builders::policy_tag_manager::CreateTaxonomy::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::CreateTaxonomy {
+        super::builders::policy_tag_manager::CreateTaxonomy::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -808,8 +810,8 @@ impl PolicyTagManager {
     pub fn delete_taxonomy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::DeleteTaxonomy {
-        crate::builders::policy_tag_manager::DeleteTaxonomy::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::DeleteTaxonomy {
+        super::builders::policy_tag_manager::DeleteTaxonomy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -818,8 +820,8 @@ impl PolicyTagManager {
     pub fn update_taxonomy(
         &self,
         taxonomy: impl Into<crate::model::Taxonomy>,
-    ) -> crate::builders::policy_tag_manager::UpdateTaxonomy {
-        crate::builders::policy_tag_manager::UpdateTaxonomy::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::UpdateTaxonomy {
+        super::builders::policy_tag_manager::UpdateTaxonomy::new(self.inner.clone())
             .set_taxonomy(taxonomy.into())
     }
 
@@ -828,8 +830,8 @@ impl PolicyTagManager {
     pub fn list_taxonomies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::ListTaxonomies {
-        crate::builders::policy_tag_manager::ListTaxonomies::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::ListTaxonomies {
+        super::builders::policy_tag_manager::ListTaxonomies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -837,8 +839,8 @@ impl PolicyTagManager {
     pub fn get_taxonomy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::GetTaxonomy {
-        crate::builders::policy_tag_manager::GetTaxonomy::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::GetTaxonomy {
+        super::builders::policy_tag_manager::GetTaxonomy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -846,8 +848,8 @@ impl PolicyTagManager {
     pub fn create_policy_tag(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::CreatePolicyTag {
-        crate::builders::policy_tag_manager::CreatePolicyTag::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::CreatePolicyTag {
+        super::builders::policy_tag_manager::CreatePolicyTag::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -860,8 +862,8 @@ impl PolicyTagManager {
     pub fn delete_policy_tag(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::DeletePolicyTag {
-        crate::builders::policy_tag_manager::DeletePolicyTag::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::DeletePolicyTag {
+        super::builders::policy_tag_manager::DeletePolicyTag::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -870,8 +872,8 @@ impl PolicyTagManager {
     pub fn update_policy_tag(
         &self,
         policy_tag: impl Into<crate::model::PolicyTag>,
-    ) -> crate::builders::policy_tag_manager::UpdatePolicyTag {
-        crate::builders::policy_tag_manager::UpdatePolicyTag::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::UpdatePolicyTag {
+        super::builders::policy_tag_manager::UpdatePolicyTag::new(self.inner.clone())
             .set_policy_tag(policy_tag.into())
     }
 
@@ -879,8 +881,8 @@ impl PolicyTagManager {
     pub fn list_policy_tags(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::ListPolicyTags {
-        crate::builders::policy_tag_manager::ListPolicyTags::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::ListPolicyTags {
+        super::builders::policy_tag_manager::ListPolicyTags::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -888,8 +890,8 @@ impl PolicyTagManager {
     pub fn get_policy_tag(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::GetPolicyTag {
-        crate::builders::policy_tag_manager::GetPolicyTag::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::GetPolicyTag {
+        super::builders::policy_tag_manager::GetPolicyTag::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -897,8 +899,8 @@ impl PolicyTagManager {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::GetIamPolicy {
-        crate::builders::policy_tag_manager::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::GetIamPolicy {
+        super::builders::policy_tag_manager::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -906,8 +908,8 @@ impl PolicyTagManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::SetIamPolicy {
-        crate::builders::policy_tag_manager::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::SetIamPolicy {
+        super::builders::policy_tag_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -916,8 +918,8 @@ impl PolicyTagManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::TestIamPermissions {
-        crate::builders::policy_tag_manager::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::TestIamPermissions {
+        super::builders::policy_tag_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -927,8 +929,8 @@ impl PolicyTagManager {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::ListOperations {
-        crate::builders::policy_tag_manager::ListOperations::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::ListOperations {
+        super::builders::policy_tag_manager::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -938,8 +940,8 @@ impl PolicyTagManager {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::GetOperation {
-        crate::builders::policy_tag_manager::GetOperation::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::GetOperation {
+        super::builders::policy_tag_manager::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -949,8 +951,8 @@ impl PolicyTagManager {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::DeleteOperation {
-        crate::builders::policy_tag_manager::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::DeleteOperation {
+        super::builders::policy_tag_manager::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -960,8 +962,8 @@ impl PolicyTagManager {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager::CancelOperation {
-        crate::builders::policy_tag_manager::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager::CancelOperation {
+        super::builders::policy_tag_manager::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -988,7 +990,7 @@ impl PolicyTagManager {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManagerSerialization {
-    inner: Arc<dyn crate::stubs::dynamic::PolicyTagManagerSerialization>,
+    inner: Arc<dyn super::stubs::dynamic::PolicyTagManagerSerialization>,
 }
 
 impl PolicyTagManagerSerialization {
@@ -1009,7 +1011,7 @@ impl PolicyTagManagerSerialization {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::PolicyTagManagerSerialization + 'static,
+        T: super::stubs::PolicyTagManagerSerialization + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1018,7 +1020,7 @@ impl PolicyTagManagerSerialization {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::PolicyTagManagerSerialization>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::PolicyTagManagerSerialization>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1027,16 +1029,16 @@ impl PolicyTagManagerSerialization {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::PolicyTagManagerSerialization> {
-        crate::transport::PolicyTagManagerSerialization::new(conf).await
+    ) -> Result<impl super::stubs::PolicyTagManagerSerialization> {
+        super::transport::PolicyTagManagerSerialization::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::PolicyTagManagerSerialization> {
+    ) -> Result<impl super::stubs::PolicyTagManagerSerialization> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::PolicyTagManagerSerialization::new)
+            .map(super::tracing::PolicyTagManagerSerialization::new)
     }
 
     /// Replaces (updates) a taxonomy and all its policy tags.
@@ -1055,8 +1057,8 @@ impl PolicyTagManagerSerialization {
     pub fn replace_taxonomy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager_serialization::ReplaceTaxonomy {
-        crate::builders::policy_tag_manager_serialization::ReplaceTaxonomy::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager_serialization::ReplaceTaxonomy {
+        super::builders::policy_tag_manager_serialization::ReplaceTaxonomy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1071,8 +1073,8 @@ impl PolicyTagManagerSerialization {
     pub fn import_taxonomies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager_serialization::ImportTaxonomies {
-        crate::builders::policy_tag_manager_serialization::ImportTaxonomies::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager_serialization::ImportTaxonomies {
+        super::builders::policy_tag_manager_serialization::ImportTaxonomies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1085,8 +1087,8 @@ impl PolicyTagManagerSerialization {
     pub fn export_taxonomies(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager_serialization::ExportTaxonomies {
-        crate::builders::policy_tag_manager_serialization::ExportTaxonomies::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager_serialization::ExportTaxonomies {
+        super::builders::policy_tag_manager_serialization::ExportTaxonomies::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1096,8 +1098,8 @@ impl PolicyTagManagerSerialization {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager_serialization::ListOperations {
-        crate::builders::policy_tag_manager_serialization::ListOperations::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager_serialization::ListOperations {
+        super::builders::policy_tag_manager_serialization::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1107,8 +1109,8 @@ impl PolicyTagManagerSerialization {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager_serialization::GetOperation {
-        crate::builders::policy_tag_manager_serialization::GetOperation::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager_serialization::GetOperation {
+        super::builders::policy_tag_manager_serialization::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1118,8 +1120,8 @@ impl PolicyTagManagerSerialization {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager_serialization::DeleteOperation {
-        crate::builders::policy_tag_manager_serialization::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager_serialization::DeleteOperation {
+        super::builders::policy_tag_manager_serialization::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1129,8 +1131,8 @@ impl PolicyTagManagerSerialization {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::policy_tag_manager_serialization::CancelOperation {
-        crate::builders::policy_tag_manager_serialization::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::policy_tag_manager_serialization::CancelOperation {
+        super::builders::policy_tag_manager_serialization::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

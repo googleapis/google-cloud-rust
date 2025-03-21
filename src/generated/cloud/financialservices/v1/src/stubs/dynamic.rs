@@ -294,9 +294,9 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Aml] also implement [Aml].
+/// All implementations of [super::Aml] also implement [Aml].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Aml> Aml for T {
+impl<T: super::Aml> Aml for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_instances(
         &self,

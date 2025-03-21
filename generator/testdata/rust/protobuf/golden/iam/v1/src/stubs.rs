@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::IAMPolicy].
+/// Defines the trait used to implement [super::client::IAMPolicy].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::IAMPolicy`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// error.
 pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
 
-    /// Implements [crate::client::IAMPolicy::set_iam_policy].
+    /// Implements [super::client::IAMPolicy::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: crate::model::SetIamPolicyRequest,
@@ -50,7 +50,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::IAMPolicy::get_iam_policy].
+    /// Implements [super::client::IAMPolicy::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: crate::model::GetIamPolicyRequest,
@@ -59,7 +59,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::IAMPolicy::test_iam_permissions].
+    /// Implements [super::client::IAMPolicy::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: crate::model::TestIamPermissionsRequest,

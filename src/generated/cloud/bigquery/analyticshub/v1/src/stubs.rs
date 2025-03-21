@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AnalyticsHubService].
+/// Defines the trait used to implement [super::client::AnalyticsHubService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AnalyticsHubService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AnalyticsHubService::list_data_exchanges].
+    /// Implements [super::client::AnalyticsHubService::list_data_exchanges].
     fn list_data_exchanges(
         &self,
         _req: crate::model::ListDataExchangesRequest,
@@ -53,7 +53,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::list_org_data_exchanges].
+    /// Implements [super::client::AnalyticsHubService::list_org_data_exchanges].
     fn list_org_data_exchanges(
         &self,
         _req: crate::model::ListOrgDataExchangesRequest,
@@ -65,7 +65,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::get_data_exchange].
+    /// Implements [super::client::AnalyticsHubService::get_data_exchange].
     fn get_data_exchange(
         &self,
         _req: crate::model::GetDataExchangeRequest,
@@ -76,7 +76,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::create_data_exchange].
+    /// Implements [super::client::AnalyticsHubService::create_data_exchange].
     fn create_data_exchange(
         &self,
         _req: crate::model::CreateDataExchangeRequest,
@@ -87,7 +87,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::update_data_exchange].
+    /// Implements [super::client::AnalyticsHubService::update_data_exchange].
     fn update_data_exchange(
         &self,
         _req: crate::model::UpdateDataExchangeRequest,
@@ -98,7 +98,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::delete_data_exchange].
+    /// Implements [super::client::AnalyticsHubService::delete_data_exchange].
     fn delete_data_exchange(
         &self,
         _req: crate::model::DeleteDataExchangeRequest,
@@ -107,7 +107,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::list_listings].
+    /// Implements [super::client::AnalyticsHubService::list_listings].
     fn list_listings(
         &self,
         _req: crate::model::ListListingsRequest,
@@ -119,7 +119,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::get_listing].
+    /// Implements [super::client::AnalyticsHubService::get_listing].
     fn get_listing(
         &self,
         _req: crate::model::GetListingRequest,
@@ -130,7 +130,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::create_listing].
+    /// Implements [super::client::AnalyticsHubService::create_listing].
     fn create_listing(
         &self,
         _req: crate::model::CreateListingRequest,
@@ -141,7 +141,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::update_listing].
+    /// Implements [super::client::AnalyticsHubService::update_listing].
     fn update_listing(
         &self,
         _req: crate::model::UpdateListingRequest,
@@ -152,7 +152,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::delete_listing].
+    /// Implements [super::client::AnalyticsHubService::delete_listing].
     fn delete_listing(
         &self,
         _req: crate::model::DeleteListingRequest,
@@ -161,7 +161,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::subscribe_listing].
+    /// Implements [super::client::AnalyticsHubService::subscribe_listing].
     fn subscribe_listing(
         &self,
         _req: crate::model::SubscribeListingRequest,
@@ -173,7 +173,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::subscribe_data_exchange].
+    /// Implements [super::client::AnalyticsHubService::subscribe_data_exchange].
     fn subscribe_data_exchange(
         &self,
         _req: crate::model::SubscribeDataExchangeRequest,
@@ -185,7 +185,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::refresh_subscription].
+    /// Implements [super::client::AnalyticsHubService::refresh_subscription].
     fn refresh_subscription(
         &self,
         _req: crate::model::RefreshSubscriptionRequest,
@@ -197,7 +197,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::get_subscription].
+    /// Implements [super::client::AnalyticsHubService::get_subscription].
     fn get_subscription(
         &self,
         _req: crate::model::GetSubscriptionRequest,
@@ -208,7 +208,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::list_subscriptions].
+    /// Implements [super::client::AnalyticsHubService::list_subscriptions].
     fn list_subscriptions(
         &self,
         _req: crate::model::ListSubscriptionsRequest,
@@ -220,7 +220,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::list_shared_resource_subscriptions].
+    /// Implements [super::client::AnalyticsHubService::list_shared_resource_subscriptions].
     fn list_shared_resource_subscriptions(
         &self,
         _req: crate::model::ListSharedResourceSubscriptionsRequest,
@@ -233,7 +233,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::AnalyticsHubService::revoke_subscription].
+    /// Implements [super::client::AnalyticsHubService::revoke_subscription].
     fn revoke_subscription(
         &self,
         _req: crate::model::RevokeSubscriptionRequest,
@@ -245,7 +245,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::delete_subscription].
+    /// Implements [super::client::AnalyticsHubService::delete_subscription].
     fn delete_subscription(
         &self,
         _req: crate::model::DeleteSubscriptionRequest,
@@ -257,7 +257,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::get_iam_policy].
+    /// Implements [super::client::AnalyticsHubService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -268,7 +268,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::set_iam_policy].
+    /// Implements [super::client::AnalyticsHubService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -279,7 +279,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::test_iam_permissions].
+    /// Implements [super::client::AnalyticsHubService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -291,7 +291,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AnalyticsHubService::get_operation].
+    /// Implements [super::client::AnalyticsHubService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

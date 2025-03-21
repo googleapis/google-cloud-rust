@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::EdgeNetwork].
+/// Defines the trait used to implement [super::client::EdgeNetwork].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::EdgeNetwork`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::EdgeNetwork::initialize_zone].
+    /// Implements [super::client::EdgeNetwork::initialize_zone].
     fn initialize_zone(
         &self,
         _req: crate::model::InitializeZoneRequest,
@@ -53,7 +53,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeNetwork::list_zones].
+    /// Implements [super::client::EdgeNetwork::list_zones].
     fn list_zones(
         &self,
         _req: crate::model::ListZonesRequest,
@@ -65,7 +65,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::get_zone].
+    /// Implements [super::client::EdgeNetwork::get_zone].
     fn get_zone(
         &self,
         _req: crate::model::GetZoneRequest,
@@ -74,7 +74,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Zone>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::EdgeNetwork::list_networks].
+    /// Implements [super::client::EdgeNetwork::list_networks].
     fn list_networks(
         &self,
         _req: crate::model::ListNetworksRequest,
@@ -86,7 +86,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::get_network].
+    /// Implements [super::client::EdgeNetwork::get_network].
     fn get_network(
         &self,
         _req: crate::model::GetNetworkRequest,
@@ -97,7 +97,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::diagnose_network].
+    /// Implements [super::client::EdgeNetwork::diagnose_network].
     fn diagnose_network(
         &self,
         _req: crate::model::DiagnoseNetworkRequest,
@@ -109,7 +109,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeNetwork::create_network].
+    /// Implements [super::client::EdgeNetwork::create_network].
     fn create_network(
         &self,
         _req: crate::model::CreateNetworkRequest,
@@ -121,7 +121,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::delete_network].
+    /// Implements [super::client::EdgeNetwork::delete_network].
     fn delete_network(
         &self,
         _req: crate::model::DeleteNetworkRequest,
@@ -133,7 +133,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::list_subnets].
+    /// Implements [super::client::EdgeNetwork::list_subnets].
     fn list_subnets(
         &self,
         _req: crate::model::ListSubnetsRequest,
@@ -145,7 +145,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::get_subnet].
+    /// Implements [super::client::EdgeNetwork::get_subnet].
     fn get_subnet(
         &self,
         _req: crate::model::GetSubnetRequest,
@@ -156,7 +156,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::create_subnet].
+    /// Implements [super::client::EdgeNetwork::create_subnet].
     fn create_subnet(
         &self,
         _req: crate::model::CreateSubnetRequest,
@@ -168,7 +168,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::update_subnet].
+    /// Implements [super::client::EdgeNetwork::update_subnet].
     fn update_subnet(
         &self,
         _req: crate::model::UpdateSubnetRequest,
@@ -180,7 +180,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::delete_subnet].
+    /// Implements [super::client::EdgeNetwork::delete_subnet].
     fn delete_subnet(
         &self,
         _req: crate::model::DeleteSubnetRequest,
@@ -192,7 +192,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::list_interconnects].
+    /// Implements [super::client::EdgeNetwork::list_interconnects].
     fn list_interconnects(
         &self,
         _req: crate::model::ListInterconnectsRequest,
@@ -204,7 +204,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeNetwork::get_interconnect].
+    /// Implements [super::client::EdgeNetwork::get_interconnect].
     fn get_interconnect(
         &self,
         _req: crate::model::GetInterconnectRequest,
@@ -215,7 +215,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::diagnose_interconnect].
+    /// Implements [super::client::EdgeNetwork::diagnose_interconnect].
     fn diagnose_interconnect(
         &self,
         _req: crate::model::DiagnoseInterconnectRequest,
@@ -227,7 +227,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeNetwork::list_interconnect_attachments].
+    /// Implements [super::client::EdgeNetwork::list_interconnect_attachments].
     fn list_interconnect_attachments(
         &self,
         _req: crate::model::ListInterconnectAttachmentsRequest,
@@ -240,7 +240,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeNetwork::get_interconnect_attachment].
+    /// Implements [super::client::EdgeNetwork::get_interconnect_attachment].
     fn get_interconnect_attachment(
         &self,
         _req: crate::model::GetInterconnectAttachmentRequest,
@@ -252,7 +252,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeNetwork::create_interconnect_attachment].
+    /// Implements [super::client::EdgeNetwork::create_interconnect_attachment].
     fn create_interconnect_attachment(
         &self,
         _req: crate::model::CreateInterconnectAttachmentRequest,
@@ -264,7 +264,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::delete_interconnect_attachment].
+    /// Implements [super::client::EdgeNetwork::delete_interconnect_attachment].
     fn delete_interconnect_attachment(
         &self,
         _req: crate::model::DeleteInterconnectAttachmentRequest,
@@ -276,7 +276,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::list_routers].
+    /// Implements [super::client::EdgeNetwork::list_routers].
     fn list_routers(
         &self,
         _req: crate::model::ListRoutersRequest,
@@ -288,7 +288,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::get_router].
+    /// Implements [super::client::EdgeNetwork::get_router].
     fn get_router(
         &self,
         _req: crate::model::GetRouterRequest,
@@ -299,7 +299,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::diagnose_router].
+    /// Implements [super::client::EdgeNetwork::diagnose_router].
     fn diagnose_router(
         &self,
         _req: crate::model::DiagnoseRouterRequest,
@@ -311,7 +311,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeNetwork::create_router].
+    /// Implements [super::client::EdgeNetwork::create_router].
     fn create_router(
         &self,
         _req: crate::model::CreateRouterRequest,
@@ -323,7 +323,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::update_router].
+    /// Implements [super::client::EdgeNetwork::update_router].
     fn update_router(
         &self,
         _req: crate::model::UpdateRouterRequest,
@@ -335,7 +335,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::delete_router].
+    /// Implements [super::client::EdgeNetwork::delete_router].
     fn delete_router(
         &self,
         _req: crate::model::DeleteRouterRequest,
@@ -347,7 +347,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::list_locations].
+    /// Implements [super::client::EdgeNetwork::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -359,7 +359,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeNetwork::get_location].
+    /// Implements [super::client::EdgeNetwork::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -370,7 +370,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::list_operations].
+    /// Implements [super::client::EdgeNetwork::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -382,7 +382,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::EdgeNetwork::get_operation].
+    /// Implements [super::client::EdgeNetwork::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -394,7 +394,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::EdgeNetwork::delete_operation].
+    /// Implements [super::client::EdgeNetwork::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -403,7 +403,7 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::EdgeNetwork::cancel_operation].
+    /// Implements [super::client::EdgeNetwork::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -24,9 +24,9 @@ pub trait IamChecker: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::TroubleshootIamPolicyResponse>;
 }
 
-/// All implementations of [crate::stubs::IamChecker] also implement [IamChecker].
+/// All implementations of [super::IamChecker] also implement [IamChecker].
 #[async_trait::async_trait]
-impl<T: crate::stubs::IamChecker> IamChecker for T {
+impl<T: super::IamChecker> IamChecker for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn troubleshoot_iam_policy(
         &self,

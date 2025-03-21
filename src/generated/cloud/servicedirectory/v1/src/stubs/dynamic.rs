@@ -36,9 +36,9 @@ pub trait LookupService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<location::model::Location>;
 }
 
-/// All implementations of [crate::stubs::LookupService] also implement [LookupService].
+/// All implementations of [super::LookupService] also implement [LookupService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::LookupService> LookupService for T {
+impl<T: super::LookupService> LookupService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn resolve_service(
         &self,
@@ -191,9 +191,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<location::model::Location>;
 }
 
-/// All implementations of [crate::stubs::RegistrationService] also implement [RegistrationService].
+/// All implementations of [super::RegistrationService] also implement [RegistrationService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::RegistrationService> RegistrationService for T {
+impl<T: super::RegistrationService> RegistrationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_namespace(
         &self,

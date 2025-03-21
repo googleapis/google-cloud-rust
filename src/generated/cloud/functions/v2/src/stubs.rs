@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::FunctionService].
+/// Defines the trait used to implement [super::client::FunctionService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::FunctionService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait FunctionService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::FunctionService::get_function].
+    /// Implements [super::client::FunctionService::get_function].
     fn get_function(
         &self,
         _req: crate::model::GetFunctionRequest,
@@ -52,7 +52,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FunctionService::list_functions].
+    /// Implements [super::client::FunctionService::list_functions].
     fn list_functions(
         &self,
         _req: crate::model::ListFunctionsRequest,
@@ -64,7 +64,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FunctionService::create_function].
+    /// Implements [super::client::FunctionService::create_function].
     fn create_function(
         &self,
         _req: crate::model::CreateFunctionRequest,
@@ -76,7 +76,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FunctionService::update_function].
+    /// Implements [super::client::FunctionService::update_function].
     fn update_function(
         &self,
         _req: crate::model::UpdateFunctionRequest,
@@ -88,7 +88,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FunctionService::delete_function].
+    /// Implements [super::client::FunctionService::delete_function].
     fn delete_function(
         &self,
         _req: crate::model::DeleteFunctionRequest,
@@ -100,7 +100,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FunctionService::generate_upload_url].
+    /// Implements [super::client::FunctionService::generate_upload_url].
     fn generate_upload_url(
         &self,
         _req: crate::model::GenerateUploadUrlRequest,
@@ -112,7 +112,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FunctionService::generate_download_url].
+    /// Implements [super::client::FunctionService::generate_download_url].
     fn generate_download_url(
         &self,
         _req: crate::model::GenerateDownloadUrlRequest,
@@ -124,7 +124,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FunctionService::list_runtimes].
+    /// Implements [super::client::FunctionService::list_runtimes].
     fn list_runtimes(
         &self,
         _req: crate::model::ListRuntimesRequest,
@@ -136,7 +136,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FunctionService::list_locations].
+    /// Implements [super::client::FunctionService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -148,7 +148,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FunctionService::set_iam_policy].
+    /// Implements [super::client::FunctionService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -159,7 +159,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FunctionService::get_iam_policy].
+    /// Implements [super::client::FunctionService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -170,7 +170,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FunctionService::test_iam_permissions].
+    /// Implements [super::client::FunctionService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -182,7 +182,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FunctionService::list_operations].
+    /// Implements [super::client::FunctionService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -194,7 +194,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FunctionService::get_operation].
+    /// Implements [super::client::FunctionService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

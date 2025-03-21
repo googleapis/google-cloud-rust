@@ -18,10 +18,10 @@ pub mod vmware_engine {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::VmwareEngine] request builders.
+    /// Common implementation for [super::super::client::VmwareEngine] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>,
+        stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod vmware_engine {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod vmware_engine {
     pub struct ListPrivateClouds(RequestBuilder<crate::model::ListPrivateCloudsRequest>);
 
     impl ListPrivateClouds {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -71,12 +71,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPrivateCloudsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -127,7 +127,7 @@ pub mod vmware_engine {
     pub struct GetPrivateCloud(RequestBuilder<crate::model::GetPrivateCloudRequest>);
 
     impl GetPrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -168,7 +168,7 @@ pub mod vmware_engine {
     pub struct CreatePrivateCloud(RequestBuilder<crate::model::CreatePrivateCloudRequest>);
 
     impl CreatePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -192,7 +192,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_private_cloud][crate::client::VmwareEngine::create_private_cloud].
+        /// on [create_private_cloud][super::super::client::VmwareEngine::create_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_cloud(self.0.request, self.0.options)
@@ -277,7 +277,7 @@ pub mod vmware_engine {
     pub struct UpdatePrivateCloud(RequestBuilder<crate::model::UpdatePrivateCloudRequest>);
 
     impl UpdatePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -301,7 +301,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_private_cloud][crate::client::VmwareEngine::update_private_cloud].
+        /// on [update_private_cloud][super::super::client::VmwareEngine::update_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_private_cloud(self.0.request, self.0.options)
@@ -377,7 +377,7 @@ pub mod vmware_engine {
     pub struct DeletePrivateCloud(RequestBuilder<crate::model::DeletePrivateCloudRequest>);
 
     impl DeletePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -401,7 +401,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_private_cloud][crate::client::VmwareEngine::delete_private_cloud].
+        /// on [delete_private_cloud][super::super::client::VmwareEngine::delete_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_cloud(self.0.request, self.0.options)
@@ -477,7 +477,7 @@ pub mod vmware_engine {
     pub struct UndeletePrivateCloud(RequestBuilder<crate::model::UndeletePrivateCloudRequest>);
 
     impl UndeletePrivateCloud {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -501,7 +501,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_private_cloud][crate::client::VmwareEngine::undelete_private_cloud].
+        /// on [undelete_private_cloud][super::super::client::VmwareEngine::undelete_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_private_cloud(self.0.request, self.0.options)
@@ -565,7 +565,7 @@ pub mod vmware_engine {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -589,12 +589,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -645,7 +645,7 @@ pub mod vmware_engine {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -686,7 +686,7 @@ pub mod vmware_engine {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -707,7 +707,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][crate::client::VmwareEngine::create_cluster].
+        /// on [create_cluster][super::super::client::VmwareEngine::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -791,7 +791,7 @@ pub mod vmware_engine {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -812,7 +812,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][crate::client::VmwareEngine::update_cluster].
+        /// on [update_cluster][super::super::client::VmwareEngine::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -893,7 +893,7 @@ pub mod vmware_engine {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -914,7 +914,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][crate::client::VmwareEngine::delete_cluster].
+        /// on [delete_cluster][super::super::client::VmwareEngine::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -975,7 +975,7 @@ pub mod vmware_engine {
     pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
 
     impl ListNodes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -999,11 +999,11 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNodesResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1042,7 +1042,7 @@ pub mod vmware_engine {
     pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
 
     impl GetNode {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1083,7 +1083,7 @@ pub mod vmware_engine {
     pub struct ListExternalAddresses(RequestBuilder<crate::model::ListExternalAddressesRequest>);
 
     impl ListExternalAddresses {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1110,12 +1110,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListExternalAddressesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1168,7 +1168,7 @@ pub mod vmware_engine {
     );
 
     impl FetchNetworkPolicyExternalAddresses {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1197,14 +1197,14 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::FetchNetworkPolicyExternalAddressesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1243,7 +1243,7 @@ pub mod vmware_engine {
     pub struct GetExternalAddress(RequestBuilder<crate::model::GetExternalAddressRequest>);
 
     impl GetExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1287,7 +1287,7 @@ pub mod vmware_engine {
     pub struct CreateExternalAddress(RequestBuilder<crate::model::CreateExternalAddressRequest>);
 
     impl CreateExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1311,7 +1311,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_external_address][crate::client::VmwareEngine::create_external_address].
+        /// on [create_external_address][super::super::client::VmwareEngine::create_external_address].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_external_address(self.0.request, self.0.options)
@@ -1391,7 +1391,7 @@ pub mod vmware_engine {
     pub struct UpdateExternalAddress(RequestBuilder<crate::model::UpdateExternalAddressRequest>);
 
     impl UpdateExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1415,7 +1415,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_external_address][crate::client::VmwareEngine::update_external_address].
+        /// on [update_external_address][super::super::client::VmwareEngine::update_external_address].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_external_address(self.0.request, self.0.options)
@@ -1492,7 +1492,7 @@ pub mod vmware_engine {
     pub struct DeleteExternalAddress(RequestBuilder<crate::model::DeleteExternalAddressRequest>);
 
     impl DeleteExternalAddress {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1516,7 +1516,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_external_address][crate::client::VmwareEngine::delete_external_address].
+        /// on [delete_external_address][super::super::client::VmwareEngine::delete_external_address].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_external_address(self.0.request, self.0.options)
@@ -1577,7 +1577,7 @@ pub mod vmware_engine {
     pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
 
     impl ListSubnets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1601,12 +1601,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSubnetsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1645,7 +1645,7 @@ pub mod vmware_engine {
     pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
 
     impl GetSubnet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1686,7 +1686,7 @@ pub mod vmware_engine {
     pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
 
     impl UpdateSubnet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1707,7 +1707,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_subnet][crate::client::VmwareEngine::update_subnet].
+        /// on [update_subnet][super::super::client::VmwareEngine::update_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_subnet(self.0.request, self.0.options)
@@ -1778,7 +1778,7 @@ pub mod vmware_engine {
     );
 
     impl ListExternalAccessRules {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1805,14 +1805,14 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListExternalAccessRulesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1863,7 +1863,7 @@ pub mod vmware_engine {
     pub struct GetExternalAccessRule(RequestBuilder<crate::model::GetExternalAccessRuleRequest>);
 
     impl GetExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1909,7 +1909,7 @@ pub mod vmware_engine {
     );
 
     impl CreateExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1933,7 +1933,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_external_access_rule][crate::client::VmwareEngine::create_external_access_rule].
+        /// on [create_external_access_rule][super::super::client::VmwareEngine::create_external_access_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_external_access_rule(self.0.request, self.0.options)
@@ -2017,7 +2017,7 @@ pub mod vmware_engine {
     );
 
     impl UpdateExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2041,7 +2041,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_external_access_rule][crate::client::VmwareEngine::update_external_access_rule].
+        /// on [update_external_access_rule][super::super::client::VmwareEngine::update_external_access_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_external_access_rule(self.0.request, self.0.options)
@@ -2122,7 +2122,7 @@ pub mod vmware_engine {
     );
 
     impl DeleteExternalAccessRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2146,7 +2146,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_external_access_rule][crate::client::VmwareEngine::delete_external_access_rule].
+        /// on [delete_external_access_rule][super::super::client::VmwareEngine::delete_external_access_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_external_access_rule(self.0.request, self.0.options)
@@ -2207,7 +2207,7 @@ pub mod vmware_engine {
     pub struct ListLoggingServers(RequestBuilder<crate::model::ListLoggingServersRequest>);
 
     impl ListLoggingServers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2234,12 +2234,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLoggingServersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2290,7 +2290,7 @@ pub mod vmware_engine {
     pub struct GetLoggingServer(RequestBuilder<crate::model::GetLoggingServerRequest>);
 
     impl GetLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2334,7 +2334,7 @@ pub mod vmware_engine {
     pub struct CreateLoggingServer(RequestBuilder<crate::model::CreateLoggingServerRequest>);
 
     impl CreateLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2358,7 +2358,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_logging_server][crate::client::VmwareEngine::create_logging_server].
+        /// on [create_logging_server][super::super::client::VmwareEngine::create_logging_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_logging_server(self.0.request, self.0.options)
@@ -2438,7 +2438,7 @@ pub mod vmware_engine {
     pub struct UpdateLoggingServer(RequestBuilder<crate::model::UpdateLoggingServerRequest>);
 
     impl UpdateLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2462,7 +2462,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_logging_server][crate::client::VmwareEngine::update_logging_server].
+        /// on [update_logging_server][super::super::client::VmwareEngine::update_logging_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_logging_server(self.0.request, self.0.options)
@@ -2539,7 +2539,7 @@ pub mod vmware_engine {
     pub struct DeleteLoggingServer(RequestBuilder<crate::model::DeleteLoggingServerRequest>);
 
     impl DeleteLoggingServer {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2563,7 +2563,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_logging_server][crate::client::VmwareEngine::delete_logging_server].
+        /// on [delete_logging_server][super::super::client::VmwareEngine::delete_logging_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_logging_server(self.0.request, self.0.options)
@@ -2624,7 +2624,7 @@ pub mod vmware_engine {
     pub struct ListNodeTypes(RequestBuilder<crate::model::ListNodeTypesRequest>);
 
     impl ListNodeTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2648,12 +2648,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNodeTypesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2698,7 +2698,7 @@ pub mod vmware_engine {
     pub struct GetNodeType(RequestBuilder<crate::model::GetNodeTypeRequest>);
 
     impl GetNodeType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2739,7 +2739,7 @@ pub mod vmware_engine {
     pub struct ShowNsxCredentials(RequestBuilder<crate::model::ShowNsxCredentialsRequest>);
 
     impl ShowNsxCredentials {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2783,7 +2783,7 @@ pub mod vmware_engine {
     pub struct ShowVcenterCredentials(RequestBuilder<crate::model::ShowVcenterCredentialsRequest>);
 
     impl ShowVcenterCredentials {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2833,7 +2833,7 @@ pub mod vmware_engine {
     pub struct ResetNsxCredentials(RequestBuilder<crate::model::ResetNsxCredentialsRequest>);
 
     impl ResetNsxCredentials {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2857,7 +2857,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_nsx_credentials][crate::client::VmwareEngine::reset_nsx_credentials].
+        /// on [reset_nsx_credentials][super::super::client::VmwareEngine::reset_nsx_credentials].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_nsx_credentials(self.0.request, self.0.options)
@@ -2923,7 +2923,7 @@ pub mod vmware_engine {
     );
 
     impl ResetVcenterCredentials {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2947,7 +2947,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_vcenter_credentials][crate::client::VmwareEngine::reset_vcenter_credentials].
+        /// on [reset_vcenter_credentials][super::super::client::VmwareEngine::reset_vcenter_credentials].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_vcenter_credentials(self.0.request, self.0.options)
@@ -3017,7 +3017,7 @@ pub mod vmware_engine {
     pub struct GetDnsForwarding(RequestBuilder<crate::model::GetDnsForwardingRequest>);
 
     impl GetDnsForwarding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3061,7 +3061,7 @@ pub mod vmware_engine {
     pub struct UpdateDnsForwarding(RequestBuilder<crate::model::UpdateDnsForwardingRequest>);
 
     impl UpdateDnsForwarding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3085,7 +3085,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_dns_forwarding][crate::client::VmwareEngine::update_dns_forwarding].
+        /// on [update_dns_forwarding][super::super::client::VmwareEngine::update_dns_forwarding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dns_forwarding(self.0.request, self.0.options)
@@ -3162,7 +3162,7 @@ pub mod vmware_engine {
     pub struct GetNetworkPeering(RequestBuilder<crate::model::GetNetworkPeeringRequest>);
 
     impl GetNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3206,7 +3206,7 @@ pub mod vmware_engine {
     pub struct ListNetworkPeerings(RequestBuilder<crate::model::ListNetworkPeeringsRequest>);
 
     impl ListNetworkPeerings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3233,12 +3233,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNetworkPeeringsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3289,7 +3289,7 @@ pub mod vmware_engine {
     pub struct CreateNetworkPeering(RequestBuilder<crate::model::CreateNetworkPeeringRequest>);
 
     impl CreateNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3313,7 +3313,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_network_peering][crate::client::VmwareEngine::create_network_peering].
+        /// on [create_network_peering][super::super::client::VmwareEngine::create_network_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_network_peering(self.0.request, self.0.options)
@@ -3393,7 +3393,7 @@ pub mod vmware_engine {
     pub struct DeleteNetworkPeering(RequestBuilder<crate::model::DeleteNetworkPeeringRequest>);
 
     impl DeleteNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3417,7 +3417,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_network_peering][crate::client::VmwareEngine::delete_network_peering].
+        /// on [delete_network_peering][super::super::client::VmwareEngine::delete_network_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_network_peering(self.0.request, self.0.options)
@@ -3478,7 +3478,7 @@ pub mod vmware_engine {
     pub struct UpdateNetworkPeering(RequestBuilder<crate::model::UpdateNetworkPeeringRequest>);
 
     impl UpdateNetworkPeering {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3502,7 +3502,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_network_peering][crate::client::VmwareEngine::update_network_peering].
+        /// on [update_network_peering][super::super::client::VmwareEngine::update_network_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network_peering(self.0.request, self.0.options)
@@ -3579,7 +3579,7 @@ pub mod vmware_engine {
     pub struct ListPeeringRoutes(RequestBuilder<crate::model::ListPeeringRoutesRequest>);
 
     impl ListPeeringRoutes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3606,12 +3606,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPeeringRoutesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3656,7 +3656,7 @@ pub mod vmware_engine {
     pub struct CreateHcxActivationKey(RequestBuilder<crate::model::CreateHcxActivationKeyRequest>);
 
     impl CreateHcxActivationKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3680,7 +3680,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_hcx_activation_key][crate::client::VmwareEngine::create_hcx_activation_key].
+        /// on [create_hcx_activation_key][super::super::client::VmwareEngine::create_hcx_activation_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_hcx_activation_key(self.0.request, self.0.options)
@@ -3762,7 +3762,7 @@ pub mod vmware_engine {
     pub struct ListHcxActivationKeys(RequestBuilder<crate::model::ListHcxActivationKeysRequest>);
 
     impl ListHcxActivationKeys {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3789,12 +3789,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListHcxActivationKeysResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3833,7 +3833,7 @@ pub mod vmware_engine {
     pub struct GetHcxActivationKey(RequestBuilder<crate::model::GetHcxActivationKeyRequest>);
 
     impl GetHcxActivationKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3877,7 +3877,7 @@ pub mod vmware_engine {
     pub struct GetNetworkPolicy(RequestBuilder<crate::model::GetNetworkPolicyRequest>);
 
     impl GetNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3921,7 +3921,7 @@ pub mod vmware_engine {
     pub struct ListNetworkPolicies(RequestBuilder<crate::model::ListNetworkPoliciesRequest>);
 
     impl ListNetworkPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3948,12 +3948,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNetworkPoliciesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -4004,7 +4004,7 @@ pub mod vmware_engine {
     pub struct CreateNetworkPolicy(RequestBuilder<crate::model::CreateNetworkPolicyRequest>);
 
     impl CreateNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4028,7 +4028,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_network_policy][crate::client::VmwareEngine::create_network_policy].
+        /// on [create_network_policy][super::super::client::VmwareEngine::create_network_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_network_policy(self.0.request, self.0.options)
@@ -4108,7 +4108,7 @@ pub mod vmware_engine {
     pub struct UpdateNetworkPolicy(RequestBuilder<crate::model::UpdateNetworkPolicyRequest>);
 
     impl UpdateNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4132,7 +4132,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_network_policy][crate::client::VmwareEngine::update_network_policy].
+        /// on [update_network_policy][super::super::client::VmwareEngine::update_network_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network_policy(self.0.request, self.0.options)
@@ -4209,7 +4209,7 @@ pub mod vmware_engine {
     pub struct DeleteNetworkPolicy(RequestBuilder<crate::model::DeleteNetworkPolicyRequest>);
 
     impl DeleteNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4233,7 +4233,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_network_policy][crate::client::VmwareEngine::delete_network_policy].
+        /// on [delete_network_policy][super::super::client::VmwareEngine::delete_network_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_network_policy(self.0.request, self.0.options)
@@ -4296,7 +4296,7 @@ pub mod vmware_engine {
     );
 
     impl ListManagementDnsZoneBindings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4323,14 +4323,14 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListManagementDnsZoneBindingsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -4383,7 +4383,7 @@ pub mod vmware_engine {
     );
 
     impl GetManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4429,7 +4429,7 @@ pub mod vmware_engine {
     );
 
     impl CreateManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4453,7 +4453,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_management_dns_zone_binding][crate::client::VmwareEngine::create_management_dns_zone_binding].
+        /// on [create_management_dns_zone_binding][super::super::client::VmwareEngine::create_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_management_dns_zone_binding(self.0.request, self.0.options)
@@ -4542,7 +4542,7 @@ pub mod vmware_engine {
     );
 
     impl UpdateManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4566,7 +4566,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_management_dns_zone_binding][crate::client::VmwareEngine::update_management_dns_zone_binding].
+        /// on [update_management_dns_zone_binding][super::super::client::VmwareEngine::update_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_management_dns_zone_binding(self.0.request, self.0.options)
@@ -4649,7 +4649,7 @@ pub mod vmware_engine {
     );
 
     impl DeleteManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4673,7 +4673,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_management_dns_zone_binding][crate::client::VmwareEngine::delete_management_dns_zone_binding].
+        /// on [delete_management_dns_zone_binding][super::super::client::VmwareEngine::delete_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_management_dns_zone_binding(self.0.request, self.0.options)
@@ -4736,7 +4736,7 @@ pub mod vmware_engine {
     );
 
     impl RepairManagementDnsZoneBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4760,7 +4760,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [repair_management_dns_zone_binding][crate::client::VmwareEngine::repair_management_dns_zone_binding].
+        /// on [repair_management_dns_zone_binding][super::super::client::VmwareEngine::repair_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .repair_management_dns_zone_binding(self.0.request, self.0.options)
@@ -4829,7 +4829,7 @@ pub mod vmware_engine {
     );
 
     impl CreateVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4853,7 +4853,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vmware_engine_network][crate::client::VmwareEngine::create_vmware_engine_network].
+        /// on [create_vmware_engine_network][super::super::client::VmwareEngine::create_vmware_engine_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vmware_engine_network(self.0.request, self.0.options)
@@ -4937,7 +4937,7 @@ pub mod vmware_engine {
     );
 
     impl UpdateVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4961,7 +4961,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_vmware_engine_network][crate::client::VmwareEngine::update_vmware_engine_network].
+        /// on [update_vmware_engine_network][super::super::client::VmwareEngine::update_vmware_engine_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_vmware_engine_network(self.0.request, self.0.options)
@@ -5042,7 +5042,7 @@ pub mod vmware_engine {
     );
 
     impl DeleteVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5066,7 +5066,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vmware_engine_network][crate::client::VmwareEngine::delete_vmware_engine_network].
+        /// on [delete_vmware_engine_network][super::super::client::VmwareEngine::delete_vmware_engine_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vmware_engine_network(self.0.request, self.0.options)
@@ -5133,7 +5133,7 @@ pub mod vmware_engine {
     pub struct GetVmwareEngineNetwork(RequestBuilder<crate::model::GetVmwareEngineNetworkRequest>);
 
     impl GetVmwareEngineNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5179,7 +5179,7 @@ pub mod vmware_engine {
     );
 
     impl ListVmwareEngineNetworks {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5206,14 +5206,14 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListVmwareEngineNetworksResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -5266,7 +5266,7 @@ pub mod vmware_engine {
     );
 
     impl CreatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5290,7 +5290,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_private_connection][crate::client::VmwareEngine::create_private_connection].
+        /// on [create_private_connection][super::super::client::VmwareEngine::create_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
@@ -5372,7 +5372,7 @@ pub mod vmware_engine {
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
     impl GetPrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5416,7 +5416,7 @@ pub mod vmware_engine {
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
     impl ListPrivateConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5443,14 +5443,14 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListPrivateConnectionsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -5503,7 +5503,7 @@ pub mod vmware_engine {
     );
 
     impl UpdatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5527,7 +5527,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_private_connection][crate::client::VmwareEngine::update_private_connection].
+        /// on [update_private_connection][super::super::client::VmwareEngine::update_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_private_connection(self.0.request, self.0.options)
@@ -5608,7 +5608,7 @@ pub mod vmware_engine {
     );
 
     impl DeletePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5632,7 +5632,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_private_connection][crate::client::VmwareEngine::delete_private_connection].
+        /// on [delete_private_connection][super::super::client::VmwareEngine::delete_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
@@ -5695,7 +5695,7 @@ pub mod vmware_engine {
     );
 
     impl ListPrivateConnectionPeeringRoutes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5724,14 +5724,14 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListPrivateConnectionPeeringRoutesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -5770,7 +5770,7 @@ pub mod vmware_engine {
     pub struct GrantDnsBindPermission(RequestBuilder<crate::model::GrantDnsBindPermissionRequest>);
 
     impl GrantDnsBindPermission {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5794,7 +5794,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [grant_dns_bind_permission][crate::client::VmwareEngine::grant_dns_bind_permission].
+        /// on [grant_dns_bind_permission][super::super::client::VmwareEngine::grant_dns_bind_permission].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .grant_dns_bind_permission(self.0.request, self.0.options)
@@ -5868,7 +5868,7 @@ pub mod vmware_engine {
     pub struct GetDnsBindPermission(RequestBuilder<crate::model::GetDnsBindPermissionRequest>);
 
     impl GetDnsBindPermission {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5914,7 +5914,7 @@ pub mod vmware_engine {
     );
 
     impl RevokeDnsBindPermission {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5938,7 +5938,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [revoke_dns_bind_permission][crate::client::VmwareEngine::revoke_dns_bind_permission].
+        /// on [revoke_dns_bind_permission][super::super::client::VmwareEngine::revoke_dns_bind_permission].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .revoke_dns_bind_permission(self.0.request, self.0.options)
@@ -6012,7 +6012,7 @@ pub mod vmware_engine {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6039,12 +6039,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -6089,7 +6089,7 @@ pub mod vmware_engine {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6130,7 +6130,7 @@ pub mod vmware_engine {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6189,7 +6189,7 @@ pub mod vmware_engine {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6239,7 +6239,7 @@ pub mod vmware_engine {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6294,7 +6294,7 @@ pub mod vmware_engine {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6321,12 +6321,12 @@ pub mod vmware_engine {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -6371,7 +6371,7 @@ pub mod vmware_engine {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6415,7 +6415,7 @@ pub mod vmware_engine {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VmwareEngine>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VmwareEngine>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

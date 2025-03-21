@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CompanyService](crate::stubs::CompanyService) using a [gax::http_client::ReqwestClient].
+/// Implements [CompanyService](super::stubs::CompanyService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CompanyService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for CompanyService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for CompanyService {
 }
 
 impl CompanyService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::CompanyService for CompanyService {
+impl super::stubs::CompanyService for CompanyService {
     async fn create_company(
         &self,
         req: crate::model::CreateCompanyRequest,
@@ -77,7 +77,7 @@ impl crate::stubs::CompanyService for CompanyService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -95,7 +95,7 @@ impl crate::stubs::CompanyService for CompanyService {
                     "/v4/{}",
                     req.company
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("company"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("company"))?
                         .name
                 ),
             )
@@ -111,7 +111,7 @@ impl crate::stubs::CompanyService for CompanyService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -134,7 +134,7 @@ impl crate::stubs::CompanyService for CompanyService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -159,7 +159,7 @@ impl crate::stubs::CompanyService for CompanyService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("requireOpenJobs", &req.require_open_jobs)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -178,15 +178,15 @@ impl crate::stubs::CompanyService for CompanyService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }
 
-/// Implements [Completion](crate::stubs::Completion) using a [gax::http_client::ReqwestClient].
+/// Implements [Completion](super::stubs::Completion) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Completion {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for Completion {
@@ -198,13 +198,13 @@ impl std::fmt::Debug for Completion {
 }
 
 impl Completion {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::Completion for Completion {
+impl super::stubs::Completion for Completion {
     async fn complete_query(
         &self,
         req: crate::model::CompleteQueryRequest,
@@ -232,7 +232,7 @@ impl crate::stubs::Completion for Completion {
         let builder = builder.query(&[("scope", &req.scope.value())]);
         let builder = builder.query(&[("type", &req.r#type.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -251,15 +251,15 @@ impl crate::stubs::Completion for Completion {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }
 
-/// Implements [EventService](crate::stubs::EventService) using a [gax::http_client::ReqwestClient].
+/// Implements [EventService](super::stubs::EventService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct EventService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for EventService {
@@ -271,13 +271,13 @@ impl std::fmt::Debug for EventService {
 }
 
 impl EventService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::EventService for EventService {
+impl super::stubs::EventService for EventService {
     async fn create_client_event(
         &self,
         req: crate::model::CreateClientEventRequest,
@@ -315,15 +315,15 @@ impl crate::stubs::EventService for EventService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }
 
-/// Implements [JobService](crate::stubs::JobService) using a [gax::http_client::ReqwestClient].
+/// Implements [JobService](super::stubs::JobService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct JobService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for JobService {
@@ -335,13 +335,13 @@ impl std::fmt::Debug for JobService {
 }
 
 impl JobService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::JobService for JobService {
+impl super::stubs::JobService for JobService {
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,
@@ -394,7 +394,7 @@ impl crate::stubs::JobService for JobService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -412,7 +412,7 @@ impl crate::stubs::JobService for JobService {
                     "/v4/{}",
                     req.job
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("job"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("job"))?
                         .name
                 ),
             )
@@ -428,7 +428,7 @@ impl crate::stubs::JobService for JobService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.job), options).await
@@ -469,7 +469,7 @@ impl crate::stubs::JobService for JobService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -512,7 +512,7 @@ impl crate::stubs::JobService for JobService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("jobView", &req.job_view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -571,7 +571,7 @@ impl crate::stubs::JobService for JobService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -590,10 +590,10 @@ impl crate::stubs::JobService for JobService {
     }
 }
 
-/// Implements [TenantService](crate::stubs::TenantService) using a [gax::http_client::ReqwestClient].
+/// Implements [TenantService](super::stubs::TenantService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TenantService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for TenantService {
@@ -605,13 +605,13 @@ impl std::fmt::Debug for TenantService {
 }
 
 impl TenantService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::TenantService for TenantService {
+impl super::stubs::TenantService for TenantService {
     async fn create_tenant(
         &self,
         req: crate::model::CreateTenantRequest,
@@ -644,7 +644,7 @@ impl crate::stubs::TenantService for TenantService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -662,7 +662,7 @@ impl crate::stubs::TenantService for TenantService {
                     "/v4/{}",
                     req.tenant
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("tenant"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("tenant"))?
                         .name
                 ),
             )
@@ -678,7 +678,7 @@ impl crate::stubs::TenantService for TenantService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.tenant), options).await
@@ -699,7 +699,7 @@ impl crate::stubs::TenantService for TenantService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -720,7 +720,7 @@ impl crate::stubs::TenantService for TenantService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -739,7 +739,7 @@ impl crate::stubs::TenantService for TenantService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

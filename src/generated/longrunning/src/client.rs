@@ -48,7 +48,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Operations {
-    inner: Arc<dyn crate::stubs::dynamic::Operations>,
+    inner: Arc<dyn super::stubs::dynamic::Operations>,
 }
 
 impl Operations {
@@ -69,7 +69,7 @@ impl Operations {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Operations + 'static,
+        T: super::stubs::Operations + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -78,7 +78,7 @@ impl Operations {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Operations>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Operations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -87,16 +87,16 @@ impl Operations {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Operations> {
-        crate::transport::Operations::new(conf).await
+    ) -> Result<impl super::stubs::Operations> {
+        super::transport::Operations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Operations> {
+    ) -> Result<impl super::stubs::Operations> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Operations::new)
+            .map(super::tracing::Operations::new)
     }
 
     /// Lists operations that match the specified filter in the request. If the
@@ -104,8 +104,8 @@ impl Operations {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::operations::ListOperations {
-        crate::builders::operations::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::operations::ListOperations {
+        super::builders::operations::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the latest state of a long-running operation.  Clients can use this
@@ -114,8 +114,8 @@ impl Operations {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::operations::GetOperation {
-        crate::builders::operations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::operations::GetOperation {
+        super::builders::operations::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a long-running operation. This method indicates that the client is
@@ -125,8 +125,8 @@ impl Operations {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::operations::DeleteOperation {
-        crate::builders::operations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::operations::DeleteOperation {
+        super::builders::operations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Starts asynchronous cancellation on a long-running operation.  The server
@@ -147,7 +147,7 @@ impl Operations {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::operations::CancelOperation {
-        crate::builders::operations::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::operations::CancelOperation {
+        super::builders::operations::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

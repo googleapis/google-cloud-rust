@@ -66,9 +66,9 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::CloudShellService] also implement [CloudShellService].
+/// All implementations of [super::CloudShellService] also implement [CloudShellService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudShellService> CloudShellService for T {
+impl<T: super::CloudShellService> CloudShellService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_environment(
         &self,

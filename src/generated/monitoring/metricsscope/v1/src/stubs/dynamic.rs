@@ -60,9 +60,9 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::MetricsScopes] also implement [MetricsScopes].
+/// All implementations of [super::MetricsScopes] also implement [MetricsScopes].
 #[async_trait::async_trait]
-impl<T: crate::stubs::MetricsScopes> MetricsScopes for T {
+impl<T: super::MetricsScopes> MetricsScopes for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_metrics_scope(
         &self,

@@ -42,7 +42,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ProfilerService {
-    inner: Arc<dyn crate::stubs::dynamic::ProfilerService>,
+    inner: Arc<dyn super::stubs::dynamic::ProfilerService>,
 }
 
 impl ProfilerService {
@@ -63,7 +63,7 @@ impl ProfilerService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ProfilerService + 'static,
+        T: super::stubs::ProfilerService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -72,7 +72,7 @@ impl ProfilerService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ProfilerService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ProfilerService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -81,16 +81,16 @@ impl ProfilerService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ProfilerService> {
-        crate::transport::ProfilerService::new(conf).await
+    ) -> Result<impl super::stubs::ProfilerService> {
+        super::transport::ProfilerService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ProfilerService> {
+    ) -> Result<impl super::stubs::ProfilerService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ProfilerService::new)
+            .map(super::tracing::ProfilerService::new)
     }
 
     /// CreateProfile creates a new profile resource in the online mode.
@@ -114,8 +114,8 @@ impl ProfilerService {
     pub fn create_profile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::profiler_service::CreateProfile {
-        crate::builders::profiler_service::CreateProfile::new(self.inner.clone())
+    ) -> super::builders::profiler_service::CreateProfile {
+        super::builders::profiler_service::CreateProfile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -130,8 +130,8 @@ impl ProfilerService {
     pub fn create_offline_profile(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::profiler_service::CreateOfflineProfile {
-        crate::builders::profiler_service::CreateOfflineProfile::new(self.inner.clone())
+    ) -> super::builders::profiler_service::CreateOfflineProfile {
+        super::builders::profiler_service::CreateOfflineProfile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -147,8 +147,8 @@ impl ProfilerService {
     pub fn update_profile(
         &self,
         profile: impl Into<crate::model::Profile>,
-    ) -> crate::builders::profiler_service::UpdateProfile {
-        crate::builders::profiler_service::UpdateProfile::new(self.inner.clone())
+    ) -> super::builders::profiler_service::UpdateProfile {
+        super::builders::profiler_service::UpdateProfile::new(self.inner.clone())
             .set_profile(profile.into())
     }
 }
@@ -173,7 +173,7 @@ impl ProfilerService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ExportService {
-    inner: Arc<dyn crate::stubs::dynamic::ExportService>,
+    inner: Arc<dyn super::stubs::dynamic::ExportService>,
 }
 
 impl ExportService {
@@ -194,7 +194,7 @@ impl ExportService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ExportService + 'static,
+        T: super::stubs::ExportService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -203,7 +203,7 @@ impl ExportService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ExportService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ExportService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -212,16 +212,16 @@ impl ExportService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ExportService> {
-        crate::transport::ExportService::new(conf).await
+    ) -> Result<impl super::stubs::ExportService> {
+        super::transport::ExportService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ExportService> {
+    ) -> Result<impl super::stubs::ExportService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ExportService::new)
+            .map(super::tracing::ExportService::new)
     }
 
     /// Lists profiles which have been collected so far and for which the caller
@@ -229,8 +229,8 @@ impl ExportService {
     pub fn list_profiles(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::export_service::ListProfiles {
-        crate::builders::export_service::ListProfiles::new(self.inner.clone())
+    ) -> super::builders::export_service::ListProfiles {
+        super::builders::export_service::ListProfiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }

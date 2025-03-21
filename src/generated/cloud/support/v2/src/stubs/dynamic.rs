@@ -24,9 +24,9 @@ pub trait CaseAttachmentService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ListAttachmentsResponse>;
 }
 
-/// All implementations of [crate::stubs::CaseAttachmentService] also implement [CaseAttachmentService].
+/// All implementations of [super::CaseAttachmentService] also implement [CaseAttachmentService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CaseAttachmentService> CaseAttachmentService for T {
+impl<T: super::CaseAttachmentService> CaseAttachmentService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_attachments(
         &self,
@@ -89,9 +89,9 @@ pub trait CaseService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::SearchCaseClassificationsResponse>;
 }
 
-/// All implementations of [crate::stubs::CaseService] also implement [CaseService].
+/// All implementations of [super::CaseService] also implement [CaseService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CaseService> CaseService for T {
+impl<T: super::CaseService> CaseService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_case(
         &self,
@@ -181,9 +181,9 @@ pub trait CommentService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Comment>;
 }
 
-/// All implementations of [crate::stubs::CommentService] also implement [CommentService].
+/// All implementations of [super::CommentService] also implement [CommentService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CommentService> CommentService for T {
+impl<T: super::CommentService> CommentService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_comments(
         &self,

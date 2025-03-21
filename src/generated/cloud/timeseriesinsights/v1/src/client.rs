@@ -37,7 +37,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TimeseriesInsightsController {
-    inner: Arc<dyn crate::stubs::dynamic::TimeseriesInsightsController>,
+    inner: Arc<dyn super::stubs::dynamic::TimeseriesInsightsController>,
 }
 
 impl TimeseriesInsightsController {
@@ -58,7 +58,7 @@ impl TimeseriesInsightsController {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::TimeseriesInsightsController + 'static,
+        T: super::stubs::TimeseriesInsightsController + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -67,7 +67,7 @@ impl TimeseriesInsightsController {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::TimeseriesInsightsController>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::TimeseriesInsightsController>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -76,16 +76,16 @@ impl TimeseriesInsightsController {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TimeseriesInsightsController> {
-        crate::transport::TimeseriesInsightsController::new(conf).await
+    ) -> Result<impl super::stubs::TimeseriesInsightsController> {
+        super::transport::TimeseriesInsightsController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TimeseriesInsightsController> {
+    ) -> Result<impl super::stubs::TimeseriesInsightsController> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::TimeseriesInsightsController::new)
+            .map(super::tracing::TimeseriesInsightsController::new)
     }
 
     /// Lists [DataSets][google.cloud.timeseriesinsights.v1.DataSet] under the project.
@@ -98,8 +98,8 @@ impl TimeseriesInsightsController {
     pub fn list_data_sets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::timeseries_insights_controller::ListDataSets {
-        crate::builders::timeseries_insights_controller::ListDataSets::new(self.inner.clone())
+    ) -> super::builders::timeseries_insights_controller::ListDataSets {
+        super::builders::timeseries_insights_controller::ListDataSets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -114,8 +114,8 @@ impl TimeseriesInsightsController {
     pub fn create_data_set(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::timeseries_insights_controller::CreateDataSet {
-        crate::builders::timeseries_insights_controller::CreateDataSet::new(self.inner.clone())
+    ) -> super::builders::timeseries_insights_controller::CreateDataSet {
+        super::builders::timeseries_insights_controller::CreateDataSet::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -128,8 +128,8 @@ impl TimeseriesInsightsController {
     pub fn delete_data_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::timeseries_insights_controller::DeleteDataSet {
-        crate::builders::timeseries_insights_controller::DeleteDataSet::new(self.inner.clone())
+    ) -> super::builders::timeseries_insights_controller::DeleteDataSet {
+        super::builders::timeseries_insights_controller::DeleteDataSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -139,8 +139,8 @@ impl TimeseriesInsightsController {
     pub fn append_events(
         &self,
         dataset: impl Into<std::string::String>,
-    ) -> crate::builders::timeseries_insights_controller::AppendEvents {
-        crate::builders::timeseries_insights_controller::AppendEvents::new(self.inner.clone())
+    ) -> super::builders::timeseries_insights_controller::AppendEvents {
+        super::builders::timeseries_insights_controller::AppendEvents::new(self.inner.clone())
             .set_dataset(dataset.into())
     }
 
@@ -151,8 +151,8 @@ impl TimeseriesInsightsController {
     pub fn query_data_set(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::timeseries_insights_controller::QueryDataSet {
-        crate::builders::timeseries_insights_controller::QueryDataSet::new(self.inner.clone())
+    ) -> super::builders::timeseries_insights_controller::QueryDataSet {
+        super::builders::timeseries_insights_controller::QueryDataSet::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -162,8 +162,8 @@ impl TimeseriesInsightsController {
     pub fn evaluate_slice(
         &self,
         dataset: impl Into<std::string::String>,
-    ) -> crate::builders::timeseries_insights_controller::EvaluateSlice {
-        crate::builders::timeseries_insights_controller::EvaluateSlice::new(self.inner.clone())
+    ) -> super::builders::timeseries_insights_controller::EvaluateSlice {
+        super::builders::timeseries_insights_controller::EvaluateSlice::new(self.inner.clone())
             .set_dataset(dataset.into())
     }
 
@@ -171,8 +171,8 @@ impl TimeseriesInsightsController {
     pub fn evaluate_timeseries(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::timeseries_insights_controller::EvaluateTimeseries {
-        crate::builders::timeseries_insights_controller::EvaluateTimeseries::new(self.inner.clone())
+    ) -> super::builders::timeseries_insights_controller::EvaluateTimeseries {
+        super::builders::timeseries_insights_controller::EvaluateTimeseries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 }

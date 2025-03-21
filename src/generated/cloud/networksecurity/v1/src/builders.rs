@@ -18,10 +18,10 @@ pub mod network_security {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::NetworkSecurity] request builders.
+    /// Common implementation for [super::super::client::NetworkSecurity] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>,
+        stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod network_security {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -46,7 +46,7 @@ pub mod network_security {
     );
 
     impl ListAuthorizationPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -73,14 +73,14 @@ pub mod network_security {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListAuthorizationPoliciesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -119,7 +119,7 @@ pub mod network_security {
     pub struct GetAuthorizationPolicy(RequestBuilder<crate::model::GetAuthorizationPolicyRequest>);
 
     impl GetAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,7 +165,7 @@ pub mod network_security {
     );
 
     impl CreateAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -189,7 +189,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_authorization_policy][crate::client::NetworkSecurity::create_authorization_policy].
+        /// on [create_authorization_policy][super::super::client::NetworkSecurity::create_authorization_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_authorization_policy(self.0.request, self.0.options)
@@ -267,7 +267,7 @@ pub mod network_security {
     );
 
     impl UpdateAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -291,7 +291,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_authorization_policy][crate::client::NetworkSecurity::update_authorization_policy].
+        /// on [update_authorization_policy][super::super::client::NetworkSecurity::update_authorization_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_authorization_policy(self.0.request, self.0.options)
@@ -366,7 +366,7 @@ pub mod network_security {
     );
 
     impl DeleteAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -390,7 +390,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_authorization_policy][crate::client::NetworkSecurity::delete_authorization_policy].
+        /// on [delete_authorization_policy][super::super::client::NetworkSecurity::delete_authorization_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_authorization_policy(self.0.request, self.0.options)
@@ -445,7 +445,7 @@ pub mod network_security {
     pub struct ListServerTlsPolicies(RequestBuilder<crate::model::ListServerTlsPoliciesRequest>);
 
     impl ListServerTlsPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -472,12 +472,12 @@ pub mod network_security {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServerTlsPoliciesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -516,7 +516,7 @@ pub mod network_security {
     pub struct GetServerTlsPolicy(RequestBuilder<crate::model::GetServerTlsPolicyRequest>);
 
     impl GetServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -560,7 +560,7 @@ pub mod network_security {
     pub struct CreateServerTlsPolicy(RequestBuilder<crate::model::CreateServerTlsPolicyRequest>);
 
     impl CreateServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -584,7 +584,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_server_tls_policy][crate::client::NetworkSecurity::create_server_tls_policy].
+        /// on [create_server_tls_policy][super::super::client::NetworkSecurity::create_server_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_server_tls_policy(self.0.request, self.0.options)
@@ -660,7 +660,7 @@ pub mod network_security {
     pub struct UpdateServerTlsPolicy(RequestBuilder<crate::model::UpdateServerTlsPolicyRequest>);
 
     impl UpdateServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -684,7 +684,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_server_tls_policy][crate::client::NetworkSecurity::update_server_tls_policy].
+        /// on [update_server_tls_policy][super::super::client::NetworkSecurity::update_server_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_server_tls_policy(self.0.request, self.0.options)
@@ -757,7 +757,7 @@ pub mod network_security {
     pub struct DeleteServerTlsPolicy(RequestBuilder<crate::model::DeleteServerTlsPolicyRequest>);
 
     impl DeleteServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -781,7 +781,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_server_tls_policy][crate::client::NetworkSecurity::delete_server_tls_policy].
+        /// on [delete_server_tls_policy][super::super::client::NetworkSecurity::delete_server_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_server_tls_policy(self.0.request, self.0.options)
@@ -836,7 +836,7 @@ pub mod network_security {
     pub struct ListClientTlsPolicies(RequestBuilder<crate::model::ListClientTlsPoliciesRequest>);
 
     impl ListClientTlsPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -863,12 +863,12 @@ pub mod network_security {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListClientTlsPoliciesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -907,7 +907,7 @@ pub mod network_security {
     pub struct GetClientTlsPolicy(RequestBuilder<crate::model::GetClientTlsPolicyRequest>);
 
     impl GetClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -951,7 +951,7 @@ pub mod network_security {
     pub struct CreateClientTlsPolicy(RequestBuilder<crate::model::CreateClientTlsPolicyRequest>);
 
     impl CreateClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -975,7 +975,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_client_tls_policy][crate::client::NetworkSecurity::create_client_tls_policy].
+        /// on [create_client_tls_policy][super::super::client::NetworkSecurity::create_client_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_client_tls_policy(self.0.request, self.0.options)
@@ -1051,7 +1051,7 @@ pub mod network_security {
     pub struct UpdateClientTlsPolicy(RequestBuilder<crate::model::UpdateClientTlsPolicyRequest>);
 
     impl UpdateClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1075,7 +1075,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_client_tls_policy][crate::client::NetworkSecurity::update_client_tls_policy].
+        /// on [update_client_tls_policy][super::super::client::NetworkSecurity::update_client_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_client_tls_policy(self.0.request, self.0.options)
@@ -1148,7 +1148,7 @@ pub mod network_security {
     pub struct DeleteClientTlsPolicy(RequestBuilder<crate::model::DeleteClientTlsPolicyRequest>);
 
     impl DeleteClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1172,7 +1172,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_client_tls_policy][crate::client::NetworkSecurity::delete_client_tls_policy].
+        /// on [delete_client_tls_policy][super::super::client::NetworkSecurity::delete_client_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_client_tls_policy(self.0.request, self.0.options)
@@ -1227,7 +1227,7 @@ pub mod network_security {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1254,12 +1254,12 @@ pub mod network_security {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1304,7 +1304,7 @@ pub mod network_security {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1345,7 +1345,7 @@ pub mod network_security {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1404,7 +1404,7 @@ pub mod network_security {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1454,7 +1454,7 @@ pub mod network_security {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1509,7 +1509,7 @@ pub mod network_security {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1536,12 +1536,12 @@ pub mod network_security {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1586,7 +1586,7 @@ pub mod network_security {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1630,7 +1630,7 @@ pub mod network_security {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1674,7 +1674,7 @@ pub mod network_security {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::NetworkSecurity>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

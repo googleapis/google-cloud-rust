@@ -18,10 +18,10 @@ pub mod client_connector_services_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ClientConnectorServicesService] request builders.
+    /// Common implementation for [super::super::client::ClientConnectorServicesService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -31,7 +31,7 @@ pub mod client_connector_services_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self {
                 stub,
@@ -49,7 +49,7 @@ pub mod client_connector_services_service {
 
     impl ListClientConnectorServices {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -77,14 +77,14 @@ pub mod client_connector_services_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListClientConnectorServicesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -138,7 +138,7 @@ pub mod client_connector_services_service {
 
     impl GetClientConnectorService {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -186,7 +186,7 @@ pub mod client_connector_services_service {
 
     impl CreateClientConnectorService {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -211,7 +211,7 @@ pub mod client_connector_services_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_client_connector_service][crate::client::ClientConnectorServicesService::create_client_connector_service].
+        /// on [create_client_connector_service][super::super::client::ClientConnectorServicesService::create_client_connector_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_client_connector_service(self.0.request, self.0.options)
@@ -309,7 +309,7 @@ pub mod client_connector_services_service {
 
     impl UpdateClientConnectorService {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -334,7 +334,7 @@ pub mod client_connector_services_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_client_connector_service][crate::client::ClientConnectorServicesService::update_client_connector_service].
+        /// on [update_client_connector_service][super::super::client::ClientConnectorServicesService::update_client_connector_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_client_connector_service(self.0.request, self.0.options)
@@ -432,7 +432,7 @@ pub mod client_connector_services_service {
 
     impl DeleteClientConnectorService {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -457,7 +457,7 @@ pub mod client_connector_services_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_client_connector_service][crate::client::ClientConnectorServicesService::delete_client_connector_service].
+        /// on [delete_client_connector_service][super::super::client::ClientConnectorServicesService::delete_client_connector_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_client_connector_service(self.0.request, self.0.options)
@@ -529,7 +529,7 @@ pub mod client_connector_services_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -557,12 +557,12 @@ pub mod client_connector_services_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -608,7 +608,7 @@ pub mod client_connector_services_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -651,7 +651,7 @@ pub mod client_connector_services_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -712,7 +712,7 @@ pub mod client_connector_services_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -764,7 +764,7 @@ pub mod client_connector_services_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -821,7 +821,7 @@ pub mod client_connector_services_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -849,12 +849,12 @@ pub mod client_connector_services_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -900,7 +900,7 @@ pub mod client_connector_services_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -946,7 +946,7 @@ pub mod client_connector_services_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -992,7 +992,7 @@ pub mod client_connector_services_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ClientConnectorServicesService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ClientConnectorServicesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

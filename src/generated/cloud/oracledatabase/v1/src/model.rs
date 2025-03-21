@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate gtype;
 extern crate lazy_static;
 extern crate location;
@@ -4022,6 +4023,9 @@ pub mod entitlement {
         /// Account is suspended.
         pub const ACCOUNT_SUSPENDED: State = State::new(4);
 
+        /// Entitlement is not approved in private marketplace.
+        pub const NOT_APPROVED_IN_PRIVATE_MARKETPLACE: State = State::new(5);
+
         /// Creates a new State instance.
         pub(crate) const fn new(value: i32) -> Self {
             Self(value)
@@ -4040,6 +4044,7 @@ pub mod entitlement {
                 2 => std::borrow::Cow::Borrowed("ACCOUNT_NOT_ACTIVE"),
                 3 => std::borrow::Cow::Borrowed("ACTIVE"),
                 4 => std::borrow::Cow::Borrowed("ACCOUNT_SUSPENDED"),
+                5 => std::borrow::Cow::Borrowed("NOT_APPROVED_IN_PRIVATE_MARKETPLACE"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -4052,6 +4057,9 @@ pub mod entitlement {
                 "ACCOUNT_NOT_ACTIVE" => std::option::Option::Some(Self::ACCOUNT_NOT_ACTIVE),
                 "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
                 "ACCOUNT_SUSPENDED" => std::option::Option::Some(Self::ACCOUNT_SUSPENDED),
+                "NOT_APPROVED_IN_PRIVATE_MARKETPLACE" => {
+                    std::option::Option::Some(Self::NOT_APPROVED_IN_PRIVATE_MARKETPLACE)
+                }
                 _ => std::option::Option::None,
             }
         }
@@ -4705,8 +4713,7 @@ pub struct MaintenanceWindow {
     pub lead_time_week: i32,
 
     /// Optional. Cloud CloudExadataInfrastructure node patching method, either
-    /// "ROLLING"
-    /// or "NONROLLING". Default value is ROLLING.
+    /// "ROLLING" or "NONROLLING". Default value is ROLLING.
     pub patching_mode: crate::model::maintenance_window::PatchingMode,
 
     /// Optional. Determines the amount of time the system will wait before the
@@ -5118,7 +5125,6 @@ impl wkt::message::Message for ListCloudExadataInfrastructuresResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCloudExadataInfrastructuresResponse {
     type PageItem = crate::model::CloudExadataInfrastructure;
 
@@ -5127,7 +5133,8 @@ impl gax::paginator::PageableResponse for ListCloudExadataInfrastructuresRespons
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -5404,7 +5411,6 @@ impl wkt::message::Message for ListCloudVmClustersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCloudVmClustersResponse {
     type PageItem = crate::model::CloudVmCluster;
 
@@ -5413,7 +5419,8 @@ impl gax::paginator::PageableResponse for ListCloudVmClustersResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -5678,7 +5685,6 @@ impl wkt::message::Message for ListEntitlementsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEntitlementsResponse {
     type PageItem = crate::model::Entitlement;
 
@@ -5687,7 +5693,8 @@ impl gax::paginator::PageableResponse for ListEntitlementsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -5786,7 +5793,6 @@ impl wkt::message::Message for ListDbServersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDbServersResponse {
     type PageItem = crate::model::DbServer;
 
@@ -5795,7 +5801,8 @@ impl gax::paginator::PageableResponse for ListDbServersResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -5894,7 +5901,6 @@ impl wkt::message::Message for ListDbNodesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDbNodesResponse {
     type PageItem = crate::model::DbNode;
 
@@ -5903,7 +5909,8 @@ impl gax::paginator::PageableResponse for ListDbNodesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -6003,7 +6010,6 @@ impl wkt::message::Message for ListGiVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListGiVersionsResponse {
     type PageItem = crate::model::GiVersion;
 
@@ -6012,7 +6018,8 @@ impl gax::paginator::PageableResponse for ListGiVersionsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -6111,7 +6118,6 @@ impl wkt::message::Message for ListDbSystemShapesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDbSystemShapesResponse {
     type PageItem = crate::model::DbSystemShape;
 
@@ -6120,7 +6126,8 @@ impl gax::paginator::PageableResponse for ListDbSystemShapesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -6349,7 +6356,6 @@ impl wkt::message::Message for ListAutonomousDatabasesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutonomousDatabasesResponse {
     type PageItem = crate::model::AutonomousDatabase;
 
@@ -6358,7 +6364,8 @@ impl gax::paginator::PageableResponse for ListAutonomousDatabasesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -6747,7 +6754,6 @@ impl wkt::message::Message for ListAutonomousDbVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutonomousDbVersionsResponse {
     type PageItem = crate::model::AutonomousDbVersion;
 
@@ -6756,7 +6762,8 @@ impl gax::paginator::PageableResponse for ListAutonomousDbVersionsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -6869,7 +6876,6 @@ impl wkt::message::Message for ListAutonomousDatabaseCharacterSetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutonomousDatabaseCharacterSetsResponse {
     type PageItem = crate::model::AutonomousDatabaseCharacterSet;
 
@@ -6878,7 +6884,8 @@ impl gax::paginator::PageableResponse for ListAutonomousDatabaseCharacterSetsRes
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -6993,7 +7000,6 @@ impl wkt::message::Message for ListAutonomousDatabaseBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAutonomousDatabaseBackupsResponse {
     type PageItem = crate::model::AutonomousDatabaseBackup;
 
@@ -7002,7 +7008,8 @@ impl gax::paginator::PageableResponse for ListAutonomousDatabaseBackupsResponse 
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

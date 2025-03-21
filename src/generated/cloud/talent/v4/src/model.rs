@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate gtype;
 extern crate lazy_static;
 extern crate longrunning;
@@ -2080,7 +2081,6 @@ impl wkt::message::Message for ListCompaniesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCompaniesResponse {
     type PageItem = crate::model::Company;
 
@@ -2089,7 +2089,8 @@ impl gax::paginator::PageableResponse for ListCompaniesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -5166,7 +5167,6 @@ impl wkt::message::Message for ListJobsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListJobsResponse {
     type PageItem = crate::model::Job;
 
@@ -5175,7 +5175,8 @@ impl gax::paginator::PageableResponse for ListJobsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -7217,7 +7218,6 @@ impl wkt::message::Message for ListTenantsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTenantsResponse {
     type PageItem = crate::model::Tenant;
 
@@ -7226,7 +7226,8 @@ impl gax::paginator::PageableResponse for ListTenantsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

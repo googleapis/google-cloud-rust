@@ -18,10 +18,10 @@ pub mod simulator {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Simulator] request builders.
+    /// Common implementation for [super::super::client::Simulator] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Simulator>,
+        stub: Arc<dyn super::super::stubs::dynamic::Simulator>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod simulator {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Simulator>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod simulator {
     pub struct GetReplay(RequestBuilder<crate::model::GetReplayRequest>);
 
     impl GetReplay {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Simulator>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -85,7 +85,7 @@ pub mod simulator {
     pub struct CreateReplay(RequestBuilder<crate::model::CreateReplayRequest>);
 
     impl CreateReplay {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Simulator>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -106,7 +106,7 @@ pub mod simulator {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_replay][crate::client::Simulator::create_replay].
+        /// on [create_replay][super::super::client::Simulator::create_replay].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_replay(self.0.request, self.0.options)
@@ -173,7 +173,7 @@ pub mod simulator {
     pub struct ListReplayResults(RequestBuilder<crate::model::ListReplayResultsRequest>);
 
     impl ListReplayResults {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Simulator>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -200,12 +200,12 @@ pub mod simulator {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListReplayResultsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -244,7 +244,7 @@ pub mod simulator {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Simulator>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -271,12 +271,12 @@ pub mod simulator {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -321,7 +321,7 @@ pub mod simulator {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Simulator>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

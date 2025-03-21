@@ -43,7 +43,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct OsConfigService {
-    inner: Arc<dyn crate::stubs::dynamic::OsConfigService>,
+    inner: Arc<dyn super::stubs::dynamic::OsConfigService>,
 }
 
 impl OsConfigService {
@@ -64,7 +64,7 @@ impl OsConfigService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::OsConfigService + 'static,
+        T: super::stubs::OsConfigService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -73,7 +73,7 @@ impl OsConfigService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::OsConfigService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::OsConfigService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -82,24 +82,24 @@ impl OsConfigService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::OsConfigService> {
-        crate::transport::OsConfigService::new(conf).await
+    ) -> Result<impl super::stubs::OsConfigService> {
+        super::transport::OsConfigService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::OsConfigService> {
+    ) -> Result<impl super::stubs::OsConfigService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::OsConfigService::new)
+            .map(super::tracing::OsConfigService::new)
     }
 
     /// Patch VM instances by creating and running a patch job.
     pub fn execute_patch_job(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::ExecutePatchJob {
-        crate::builders::os_config_service::ExecutePatchJob::new(self.inner.clone())
+    ) -> super::builders::os_config_service::ExecutePatchJob {
+        super::builders::os_config_service::ExecutePatchJob::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -108,8 +108,8 @@ impl OsConfigService {
     pub fn get_patch_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::GetPatchJob {
-        crate::builders::os_config_service::GetPatchJob::new(self.inner.clone())
+    ) -> super::builders::os_config_service::GetPatchJob {
+        super::builders::os_config_service::GetPatchJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -118,8 +118,8 @@ impl OsConfigService {
     pub fn cancel_patch_job(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::CancelPatchJob {
-        crate::builders::os_config_service::CancelPatchJob::new(self.inner.clone())
+    ) -> super::builders::os_config_service::CancelPatchJob {
+        super::builders::os_config_service::CancelPatchJob::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -127,8 +127,8 @@ impl OsConfigService {
     pub fn list_patch_jobs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::ListPatchJobs {
-        crate::builders::os_config_service::ListPatchJobs::new(self.inner.clone())
+    ) -> super::builders::os_config_service::ListPatchJobs {
+        super::builders::os_config_service::ListPatchJobs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -136,8 +136,8 @@ impl OsConfigService {
     pub fn list_patch_job_instance_details(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::ListPatchJobInstanceDetails {
-        crate::builders::os_config_service::ListPatchJobInstanceDetails::new(self.inner.clone())
+    ) -> super::builders::os_config_service::ListPatchJobInstanceDetails {
+        super::builders::os_config_service::ListPatchJobInstanceDetails::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -145,8 +145,8 @@ impl OsConfigService {
     pub fn create_patch_deployment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::CreatePatchDeployment {
-        crate::builders::os_config_service::CreatePatchDeployment::new(self.inner.clone())
+    ) -> super::builders::os_config_service::CreatePatchDeployment {
+        super::builders::os_config_service::CreatePatchDeployment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -154,8 +154,8 @@ impl OsConfigService {
     pub fn get_patch_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::GetPatchDeployment {
-        crate::builders::os_config_service::GetPatchDeployment::new(self.inner.clone())
+    ) -> super::builders::os_config_service::GetPatchDeployment {
+        super::builders::os_config_service::GetPatchDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -163,8 +163,8 @@ impl OsConfigService {
     pub fn list_patch_deployments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::ListPatchDeployments {
-        crate::builders::os_config_service::ListPatchDeployments::new(self.inner.clone())
+    ) -> super::builders::os_config_service::ListPatchDeployments {
+        super::builders::os_config_service::ListPatchDeployments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -172,8 +172,8 @@ impl OsConfigService {
     pub fn delete_patch_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::DeletePatchDeployment {
-        crate::builders::os_config_service::DeletePatchDeployment::new(self.inner.clone())
+    ) -> super::builders::os_config_service::DeletePatchDeployment {
+        super::builders::os_config_service::DeletePatchDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -181,8 +181,8 @@ impl OsConfigService {
     pub fn update_patch_deployment(
         &self,
         patch_deployment: impl Into<crate::model::PatchDeployment>,
-    ) -> crate::builders::os_config_service::UpdatePatchDeployment {
-        crate::builders::os_config_service::UpdatePatchDeployment::new(self.inner.clone())
+    ) -> super::builders::os_config_service::UpdatePatchDeployment {
+        super::builders::os_config_service::UpdatePatchDeployment::new(self.inner.clone())
             .set_patch_deployment(patch_deployment.into())
     }
 
@@ -191,8 +191,8 @@ impl OsConfigService {
     pub fn pause_patch_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::PausePatchDeployment {
-        crate::builders::os_config_service::PausePatchDeployment::new(self.inner.clone())
+    ) -> super::builders::os_config_service::PausePatchDeployment {
+        super::builders::os_config_service::PausePatchDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -201,8 +201,8 @@ impl OsConfigService {
     pub fn resume_patch_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::ResumePatchDeployment {
-        crate::builders::os_config_service::ResumePatchDeployment::new(self.inner.clone())
+    ) -> super::builders::os_config_service::ResumePatchDeployment {
+        super::builders::os_config_service::ResumePatchDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -212,8 +212,8 @@ impl OsConfigService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::GetOperation {
-        crate::builders::os_config_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::os_config_service::GetOperation {
+        super::builders::os_config_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -223,8 +223,8 @@ impl OsConfigService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_service::CancelOperation {
-        crate::builders::os_config_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::os_config_service::CancelOperation {
+        super::builders::os_config_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -251,7 +251,7 @@ impl OsConfigService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct OsConfigZonalService {
-    inner: Arc<dyn crate::stubs::dynamic::OsConfigZonalService>,
+    inner: Arc<dyn super::stubs::dynamic::OsConfigZonalService>,
 }
 
 impl OsConfigZonalService {
@@ -272,7 +272,7 @@ impl OsConfigZonalService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::OsConfigZonalService + 'static,
+        T: super::stubs::OsConfigZonalService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -281,7 +281,7 @@ impl OsConfigZonalService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::OsConfigZonalService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::OsConfigZonalService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -290,16 +290,16 @@ impl OsConfigZonalService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::OsConfigZonalService> {
-        crate::transport::OsConfigZonalService::new(conf).await
+    ) -> Result<impl super::stubs::OsConfigZonalService> {
+        super::transport::OsConfigZonalService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::OsConfigZonalService> {
+    ) -> Result<impl super::stubs::OsConfigZonalService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::OsConfigZonalService::new)
+            .map(super::tracing::OsConfigZonalService::new)
     }
 
     /// Create an OS policy assignment.
@@ -324,8 +324,8 @@ impl OsConfigZonalService {
     pub fn create_os_policy_assignment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::CreateOSPolicyAssignment {
-        crate::builders::os_config_zonal_service::CreateOSPolicyAssignment::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::CreateOSPolicyAssignment {
+        super::builders::os_config_zonal_service::CreateOSPolicyAssignment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -351,8 +351,8 @@ impl OsConfigZonalService {
     pub fn update_os_policy_assignment(
         &self,
         os_policy_assignment: impl Into<crate::model::OSPolicyAssignment>,
-    ) -> crate::builders::os_config_zonal_service::UpdateOSPolicyAssignment {
-        crate::builders::os_config_zonal_service::UpdateOSPolicyAssignment::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::UpdateOSPolicyAssignment {
+        super::builders::os_config_zonal_service::UpdateOSPolicyAssignment::new(self.inner.clone())
             .set_os_policy_assignment(os_policy_assignment.into())
     }
 
@@ -364,8 +364,8 @@ impl OsConfigZonalService {
     pub fn get_os_policy_assignment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::GetOSPolicyAssignment {
-        crate::builders::os_config_zonal_service::GetOSPolicyAssignment::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::GetOSPolicyAssignment {
+        super::builders::os_config_zonal_service::GetOSPolicyAssignment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -375,8 +375,8 @@ impl OsConfigZonalService {
     pub fn list_os_policy_assignments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::ListOSPolicyAssignments {
-        crate::builders::os_config_zonal_service::ListOSPolicyAssignments::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::ListOSPolicyAssignments {
+        super::builders::os_config_zonal_service::ListOSPolicyAssignments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -384,8 +384,8 @@ impl OsConfigZonalService {
     pub fn list_os_policy_assignment_revisions(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::ListOSPolicyAssignmentRevisions {
-        crate::builders::os_config_zonal_service::ListOSPolicyAssignmentRevisions::new(
+    ) -> super::builders::os_config_zonal_service::ListOSPolicyAssignmentRevisions {
+        super::builders::os_config_zonal_service::ListOSPolicyAssignmentRevisions::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -416,8 +416,8 @@ impl OsConfigZonalService {
     pub fn delete_os_policy_assignment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::DeleteOSPolicyAssignment {
-        crate::builders::os_config_zonal_service::DeleteOSPolicyAssignment::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::DeleteOSPolicyAssignment {
+        super::builders::os_config_zonal_service::DeleteOSPolicyAssignment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -426,8 +426,8 @@ impl OsConfigZonalService {
     pub fn get_os_policy_assignment_report(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::GetOSPolicyAssignmentReport {
-        crate::builders::os_config_zonal_service::GetOSPolicyAssignmentReport::new(
+    ) -> super::builders::os_config_zonal_service::GetOSPolicyAssignmentReport {
+        super::builders::os_config_zonal_service::GetOSPolicyAssignmentReport::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -438,8 +438,8 @@ impl OsConfigZonalService {
     pub fn list_os_policy_assignment_reports(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::ListOSPolicyAssignmentReports {
-        crate::builders::os_config_zonal_service::ListOSPolicyAssignmentReports::new(
+    ) -> super::builders::os_config_zonal_service::ListOSPolicyAssignmentReports {
+        super::builders::os_config_zonal_service::ListOSPolicyAssignmentReports::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -450,8 +450,8 @@ impl OsConfigZonalService {
     pub fn get_inventory(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::GetInventory {
-        crate::builders::os_config_zonal_service::GetInventory::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::GetInventory {
+        super::builders::os_config_zonal_service::GetInventory::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -459,8 +459,8 @@ impl OsConfigZonalService {
     pub fn list_inventories(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::ListInventories {
-        crate::builders::os_config_zonal_service::ListInventories::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::ListInventories {
+        super::builders::os_config_zonal_service::ListInventories::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -469,8 +469,8 @@ impl OsConfigZonalService {
     pub fn get_vulnerability_report(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::GetVulnerabilityReport {
-        crate::builders::os_config_zonal_service::GetVulnerabilityReport::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::GetVulnerabilityReport {
+        super::builders::os_config_zonal_service::GetVulnerabilityReport::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -478,8 +478,8 @@ impl OsConfigZonalService {
     pub fn list_vulnerability_reports(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::ListVulnerabilityReports {
-        crate::builders::os_config_zonal_service::ListVulnerabilityReports::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::ListVulnerabilityReports {
+        super::builders::os_config_zonal_service::ListVulnerabilityReports::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -489,8 +489,8 @@ impl OsConfigZonalService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::GetOperation {
-        crate::builders::os_config_zonal_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::GetOperation {
+        super::builders::os_config_zonal_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -500,8 +500,8 @@ impl OsConfigZonalService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::os_config_zonal_service::CancelOperation {
-        crate::builders::os_config_zonal_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::os_config_zonal_service::CancelOperation {
+        super::builders::os_config_zonal_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

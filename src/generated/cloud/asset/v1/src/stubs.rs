@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AssetService].
+/// Defines the trait used to implement [super::client::AssetService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AssetService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AssetService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AssetService::export_assets].
+    /// Implements [super::client::AssetService::export_assets].
     fn export_assets(
         &self,
         _req: crate::model::ExportAssetsRequest,
@@ -53,7 +53,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssetService::list_assets].
+    /// Implements [super::client::AssetService::list_assets].
     fn list_assets(
         &self,
         _req: crate::model::ListAssetsRequest,
@@ -65,7 +65,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssetService::batch_get_assets_history].
+    /// Implements [super::client::AssetService::batch_get_assets_history].
     fn batch_get_assets_history(
         &self,
         _req: crate::model::BatchGetAssetsHistoryRequest,
@@ -77,7 +77,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AssetService::create_feed].
+    /// Implements [super::client::AssetService::create_feed].
     fn create_feed(
         &self,
         _req: crate::model::CreateFeedRequest,
@@ -86,7 +86,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Feed>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AssetService::get_feed].
+    /// Implements [super::client::AssetService::get_feed].
     fn get_feed(
         &self,
         _req: crate::model::GetFeedRequest,
@@ -95,7 +95,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Feed>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AssetService::list_feeds].
+    /// Implements [super::client::AssetService::list_feeds].
     fn list_feeds(
         &self,
         _req: crate::model::ListFeedsRequest,
@@ -107,7 +107,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssetService::update_feed].
+    /// Implements [super::client::AssetService::update_feed].
     fn update_feed(
         &self,
         _req: crate::model::UpdateFeedRequest,
@@ -116,7 +116,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Feed>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AssetService::delete_feed].
+    /// Implements [super::client::AssetService::delete_feed].
     fn delete_feed(
         &self,
         _req: crate::model::DeleteFeedRequest,
@@ -125,7 +125,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AssetService::search_all_resources].
+    /// Implements [super::client::AssetService::search_all_resources].
     fn search_all_resources(
         &self,
         _req: crate::model::SearchAllResourcesRequest,
@@ -137,7 +137,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AssetService::search_all_iam_policies].
+    /// Implements [super::client::AssetService::search_all_iam_policies].
     fn search_all_iam_policies(
         &self,
         _req: crate::model::SearchAllIamPoliciesRequest,
@@ -149,7 +149,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AssetService::analyze_iam_policy].
+    /// Implements [super::client::AssetService::analyze_iam_policy].
     fn analyze_iam_policy(
         &self,
         _req: crate::model::AnalyzeIamPolicyRequest,
@@ -161,7 +161,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AssetService::analyze_iam_policy_longrunning].
+    /// Implements [super::client::AssetService::analyze_iam_policy_longrunning].
     fn analyze_iam_policy_longrunning(
         &self,
         _req: crate::model::AnalyzeIamPolicyLongrunningRequest,
@@ -173,7 +173,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssetService::analyze_move].
+    /// Implements [super::client::AssetService::analyze_move].
     fn analyze_move(
         &self,
         _req: crate::model::AnalyzeMoveRequest,
@@ -185,7 +185,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssetService::query_assets].
+    /// Implements [super::client::AssetService::query_assets].
     fn query_assets(
         &self,
         _req: crate::model::QueryAssetsRequest,
@@ -197,7 +197,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssetService::create_saved_query].
+    /// Implements [super::client::AssetService::create_saved_query].
     fn create_saved_query(
         &self,
         _req: crate::model::CreateSavedQueryRequest,
@@ -208,7 +208,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssetService::get_saved_query].
+    /// Implements [super::client::AssetService::get_saved_query].
     fn get_saved_query(
         &self,
         _req: crate::model::GetSavedQueryRequest,
@@ -219,7 +219,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssetService::list_saved_queries].
+    /// Implements [super::client::AssetService::list_saved_queries].
     fn list_saved_queries(
         &self,
         _req: crate::model::ListSavedQueriesRequest,
@@ -231,7 +231,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AssetService::update_saved_query].
+    /// Implements [super::client::AssetService::update_saved_query].
     fn update_saved_query(
         &self,
         _req: crate::model::UpdateSavedQueryRequest,
@@ -242,7 +242,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AssetService::delete_saved_query].
+    /// Implements [super::client::AssetService::delete_saved_query].
     fn delete_saved_query(
         &self,
         _req: crate::model::DeleteSavedQueryRequest,
@@ -251,7 +251,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AssetService::batch_get_effective_iam_policies].
+    /// Implements [super::client::AssetService::batch_get_effective_iam_policies].
     fn batch_get_effective_iam_policies(
         &self,
         _req: crate::model::BatchGetEffectiveIamPoliciesRequest,
@@ -264,7 +264,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::AssetService::analyze_org_policies].
+    /// Implements [super::client::AssetService::analyze_org_policies].
     fn analyze_org_policies(
         &self,
         _req: crate::model::AnalyzeOrgPoliciesRequest,
@@ -276,7 +276,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AssetService::analyze_org_policy_governed_containers].
+    /// Implements [super::client::AssetService::analyze_org_policy_governed_containers].
     fn analyze_org_policy_governed_containers(
         &self,
         _req: crate::model::AnalyzeOrgPolicyGovernedContainersRequest,
@@ -289,7 +289,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::AssetService::analyze_org_policy_governed_assets].
+    /// Implements [super::client::AssetService::analyze_org_policy_governed_assets].
     fn analyze_org_policy_governed_assets(
         &self,
         _req: crate::model::AnalyzeOrgPolicyGovernedAssetsRequest,
@@ -302,7 +302,7 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::AssetService::get_operation].
+    /// Implements [super::client::AssetService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AccessApproval](crate::stubs::AccessApproval) using a [gax::http_client::ReqwestClient].
+/// Implements [AccessApproval](super::stubs::AccessApproval) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AccessApproval {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for AccessApproval {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for AccessApproval {
 }
 
 impl AccessApproval {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::AccessApproval for AccessApproval {
+impl super::stubs::AccessApproval for AccessApproval {
     async fn list_approval_requests(
         &self,
         req: crate::model::ListApprovalRequestsMessage,
@@ -61,7 +61,7 @@ impl crate::stubs::AccessApproval for AccessApproval {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -80,7 +80,7 @@ impl crate::stubs::AccessApproval for AccessApproval {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -153,7 +153,7 @@ impl crate::stubs::AccessApproval for AccessApproval {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -171,7 +171,7 @@ impl crate::stubs::AccessApproval for AccessApproval {
                     "/v1/{}",
                     req.settings
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("settings"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("settings"))?
                         .name
                 ),
             )
@@ -187,7 +187,7 @@ impl crate::stubs::AccessApproval for AccessApproval {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -210,7 +210,7 @@ impl crate::stubs::AccessApproval for AccessApproval {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -229,7 +229,7 @@ impl crate::stubs::AccessApproval for AccessApproval {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

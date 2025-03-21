@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [GatewayControl](crate::stubs::GatewayControl) using a [gax::http_client::ReqwestClient].
+/// Implements [GatewayControl](super::stubs::GatewayControl) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct GatewayControl {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for GatewayControl {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for GatewayControl {
 }
 
 impl GatewayControl {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::GatewayControl for GatewayControl {
+impl super::stubs::GatewayControl for GatewayControl {
     async fn generate_credentials(
         &self,
         req: crate::model::GenerateCredentialsRequest,
@@ -62,7 +62,7 @@ impl crate::stubs::GatewayControl for GatewayControl {
         let builder = builder.query(&[("kubernetesNamespace", &req.kubernetes_namespace)]);
         let builder = builder.query(&[("operatingSystem", &req.operating_system.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [MetricsScopes](crate::stubs::MetricsScopes) using a [gax::http_client::ReqwestClient].
+/// Implements [MetricsScopes](super::stubs::MetricsScopes) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct MetricsScopes {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for MetricsScopes {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for MetricsScopes {
 }
 
 impl MetricsScopes {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::MetricsScopes for MetricsScopes {
+impl super::stubs::MetricsScopes for MetricsScopes {
     async fn get_metrics_scope(
         &self,
         req: crate::model::GetMetricsScopeRequest,
@@ -55,7 +55,7 @@ impl crate::stubs::MetricsScopes for MetricsScopes {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -82,7 +82,7 @@ impl crate::stubs::MetricsScopes for MetricsScopes {
             &req.monitored_resource_container,
         )]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -123,7 +123,7 @@ impl crate::stubs::MetricsScopes for MetricsScopes {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -142,7 +142,7 @@ impl crate::stubs::MetricsScopes for MetricsScopes {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

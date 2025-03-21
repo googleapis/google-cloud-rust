@@ -18,10 +18,10 @@ pub mod security_center {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SecurityCenter] request builders.
+    /// Common implementation for [super::super::client::SecurityCenter] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>,
+        stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod security_center {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -46,7 +46,7 @@ pub mod security_center {
     );
 
     impl BatchCreateResourceValueConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -101,7 +101,7 @@ pub mod security_center {
     pub struct BulkMuteFindings(RequestBuilder<crate::model::BulkMuteFindingsRequest>);
 
     impl BulkMuteFindings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -125,7 +125,7 @@ pub mod security_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_mute_findings][crate::client::SecurityCenter::bulk_mute_findings].
+        /// on [bulk_mute_findings][super::super::client::SecurityCenter::bulk_mute_findings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_mute_findings(self.0.request, self.0.options)
@@ -197,7 +197,7 @@ pub mod security_center {
     pub struct CreateBigQueryExport(RequestBuilder<crate::model::CreateBigQueryExportRequest>);
 
     impl CreateBigQueryExport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -256,7 +256,7 @@ pub mod security_center {
     pub struct CreateFinding(RequestBuilder<crate::model::CreateFindingRequest>);
 
     impl CreateFinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -312,7 +312,7 @@ pub mod security_center {
     pub struct CreateMuteConfig(RequestBuilder<crate::model::CreateMuteConfigRequest>);
 
     impl CreateMuteConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -373,7 +373,7 @@ pub mod security_center {
     );
 
     impl CreateNotificationConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -434,7 +434,7 @@ pub mod security_center {
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -484,7 +484,7 @@ pub mod security_center {
     pub struct DeleteBigQueryExport(RequestBuilder<crate::model::DeleteBigQueryExportRequest>);
 
     impl DeleteBigQueryExport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -528,7 +528,7 @@ pub mod security_center {
     pub struct DeleteMuteConfig(RequestBuilder<crate::model::DeleteMuteConfigRequest>);
 
     impl DeleteMuteConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -574,7 +574,7 @@ pub mod security_center {
     );
 
     impl DeleteNotificationConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -620,7 +620,7 @@ pub mod security_center {
     );
 
     impl DeleteResourceValueConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -664,7 +664,7 @@ pub mod security_center {
     pub struct GetBigQueryExport(RequestBuilder<crate::model::GetBigQueryExportRequest>);
 
     impl GetBigQueryExport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -708,7 +708,7 @@ pub mod security_center {
     pub struct GetSimulation(RequestBuilder<crate::model::GetSimulationRequest>);
 
     impl GetSimulation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -749,7 +749,7 @@ pub mod security_center {
     pub struct GetValuedResource(RequestBuilder<crate::model::GetValuedResourceRequest>);
 
     impl GetValuedResource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -793,7 +793,7 @@ pub mod security_center {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -843,7 +843,7 @@ pub mod security_center {
     pub struct GetMuteConfig(RequestBuilder<crate::model::GetMuteConfigRequest>);
 
     impl GetMuteConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -884,7 +884,7 @@ pub mod security_center {
     pub struct GetNotificationConfig(RequestBuilder<crate::model::GetNotificationConfigRequest>);
 
     impl GetNotificationConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -928,7 +928,7 @@ pub mod security_center {
     pub struct GetResourceValueConfig(RequestBuilder<crate::model::GetResourceValueConfigRequest>);
 
     impl GetResourceValueConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -972,7 +972,7 @@ pub mod security_center {
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1013,7 +1013,7 @@ pub mod security_center {
     pub struct GroupFindings(RequestBuilder<crate::model::GroupFindingsRequest>);
 
     impl GroupFindings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1037,12 +1037,12 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::GroupFindingsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1093,7 +1093,7 @@ pub mod security_center {
     pub struct ListAttackPaths(RequestBuilder<crate::model::ListAttackPathsRequest>);
 
     impl ListAttackPaths {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1117,12 +1117,12 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAttackPathsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1167,7 +1167,7 @@ pub mod security_center {
     pub struct ListBigQueryExports(RequestBuilder<crate::model::ListBigQueryExportsRequest>);
 
     impl ListBigQueryExports {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1194,12 +1194,12 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBigQueryExportsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1238,7 +1238,7 @@ pub mod security_center {
     pub struct ListFindings(RequestBuilder<crate::model::ListFindingsRequest>);
 
     impl ListFindings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1262,12 +1262,12 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1327,7 +1327,7 @@ pub mod security_center {
     pub struct ListMuteConfigs(RequestBuilder<crate::model::ListMuteConfigsRequest>);
 
     impl ListMuteConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1351,12 +1351,12 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMuteConfigsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1397,7 +1397,7 @@ pub mod security_center {
     );
 
     impl ListNotificationConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1424,14 +1424,14 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListNotificationConfigsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1472,7 +1472,7 @@ pub mod security_center {
     );
 
     impl ListResourceValueConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1499,14 +1499,14 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListResourceValueConfigsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1545,7 +1545,7 @@ pub mod security_center {
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1569,12 +1569,12 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1613,7 +1613,7 @@ pub mod security_center {
     pub struct ListValuedResources(RequestBuilder<crate::model::ListValuedResourcesRequest>);
 
     impl ListValuedResources {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1640,12 +1640,12 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListValuedResourcesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1696,7 +1696,7 @@ pub mod security_center {
     pub struct SetFindingState(RequestBuilder<crate::model::SetFindingStateRequest>);
 
     impl SetFindingState {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1743,7 +1743,7 @@ pub mod security_center {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1802,7 +1802,7 @@ pub mod security_center {
     pub struct SetMute(RequestBuilder<crate::model::SetMuteRequest>);
 
     impl SetMute {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1849,7 +1849,7 @@ pub mod security_center {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1904,7 +1904,7 @@ pub mod security_center {
     pub struct UpdateBigQueryExport(RequestBuilder<crate::model::UpdateBigQueryExportRequest>);
 
     impl UpdateBigQueryExport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1960,7 +1960,7 @@ pub mod security_center {
     pub struct UpdateExternalSystem(RequestBuilder<crate::model::UpdateExternalSystemRequest>);
 
     impl UpdateExternalSystem {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2016,7 +2016,7 @@ pub mod security_center {
     pub struct UpdateFinding(RequestBuilder<crate::model::UpdateFindingRequest>);
 
     impl UpdateFinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2069,7 +2069,7 @@ pub mod security_center {
     pub struct UpdateMuteConfig(RequestBuilder<crate::model::UpdateMuteConfigRequest>);
 
     impl UpdateMuteConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2127,7 +2127,7 @@ pub mod security_center {
     );
 
     impl UpdateNotificationConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2187,7 +2187,7 @@ pub mod security_center {
     );
 
     impl UpdateResourceValueConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2245,7 +2245,7 @@ pub mod security_center {
     pub struct UpdateSecurityMarks(RequestBuilder<crate::model::UpdateSecurityMarksRequest>);
 
     impl UpdateSecurityMarks {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2301,7 +2301,7 @@ pub mod security_center {
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2354,7 +2354,7 @@ pub mod security_center {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2381,12 +2381,12 @@ pub mod security_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2431,7 +2431,7 @@ pub mod security_center {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2475,7 +2475,7 @@ pub mod security_center {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2519,7 +2519,7 @@ pub mod security_center {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

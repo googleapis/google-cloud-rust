@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate kms;
 extern crate lazy_static;
 extern crate reqwest;
@@ -135,7 +136,6 @@ impl wkt::message::Message for ListCryptoKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCryptoKeysResponse {
     type PageItem = kms::model::CryptoKey;
 
@@ -144,7 +144,8 @@ impl gax::paginator::PageableResponse for ListCryptoKeysResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -439,7 +440,6 @@ impl wkt::message::Message for SearchProtectedResourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchProtectedResourcesResponse {
     type PageItem = crate::model::ProtectedResource;
 
@@ -448,7 +448,8 @@ impl gax::paginator::PageableResponse for SearchProtectedResourcesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

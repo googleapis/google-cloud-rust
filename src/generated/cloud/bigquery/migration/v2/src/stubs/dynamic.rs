@@ -60,9 +60,9 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ListMigrationSubtasksResponse>;
 }
 
-/// All implementations of [crate::stubs::MigrationService] also implement [MigrationService].
+/// All implementations of [super::MigrationService] also implement [MigrationService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::MigrationService> MigrationService for T {
+impl<T: super::MigrationService> MigrationService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_migration_workflow(
         &self,

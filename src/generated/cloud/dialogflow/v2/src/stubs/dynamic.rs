@@ -114,9 +114,9 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Agents] also implement [Agents].
+/// All implementations of [super::Agents] also implement [Agents].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Agents> Agents for T {
+impl<T: super::Agents> Agents for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_agent(
         &self,
@@ -304,9 +304,9 @@ pub trait AnswerRecords: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::AnswerRecords] also implement [AnswerRecords].
+/// All implementations of [super::AnswerRecords] also implement [AnswerRecords].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AnswerRecords> AnswerRecords for T {
+impl<T: super::AnswerRecords> AnswerRecords for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_answer_records(
         &self,
@@ -441,9 +441,9 @@ pub trait Contexts: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::Contexts] also implement [Contexts].
+/// All implementations of [super::Contexts] also implement [Contexts].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Contexts> Contexts for T {
+impl<T: super::Contexts> Contexts for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_contexts(
         &self,
@@ -644,9 +644,9 @@ pub trait Conversations: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::Conversations] also implement [Conversations].
+/// All implementations of [super::Conversations] also implement [Conversations].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Conversations> Conversations for T {
+impl<T: super::Conversations> Conversations for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_conversation(
         &self,
@@ -866,9 +866,9 @@ pub trait ConversationDatasets: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ConversationDatasets] also implement [ConversationDatasets].
+/// All implementations of [super::ConversationDatasets] also implement [ConversationDatasets].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ConversationDatasets> ConversationDatasets for T {
+impl<T: super::ConversationDatasets> ConversationDatasets for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_conversation_dataset(
         &self,
@@ -1072,9 +1072,9 @@ pub trait ConversationModels: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ConversationModels] also implement [ConversationModels].
+/// All implementations of [super::ConversationModels] also implement [ConversationModels].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ConversationModels> ConversationModels for T {
+impl<T: super::ConversationModels> ConversationModels for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_conversation_model(
         &self,
@@ -1302,9 +1302,9 @@ pub trait ConversationProfiles: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ConversationProfiles] also implement [ConversationProfiles].
+/// All implementations of [super::ConversationProfiles] also implement [ConversationProfiles].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ConversationProfiles> ConversationProfiles for T {
+impl<T: super::ConversationProfiles> ConversationProfiles for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_conversation_profiles(
         &self,
@@ -1520,9 +1520,9 @@ pub trait Documents: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Documents] also implement [Documents].
+/// All implementations of [super::Documents] also implement [Documents].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Documents> Documents for T {
+impl<T: super::Documents> Documents for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_documents(
         &self,
@@ -1711,9 +1711,9 @@ pub trait EncryptionSpecService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::EncryptionSpecService] also implement [EncryptionSpecService].
+/// All implementations of [super::EncryptionSpecService] also implement [EncryptionSpecService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::EncryptionSpecService> EncryptionSpecService for T {
+impl<T: super::EncryptionSpecService> EncryptionSpecService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_encryption_spec(
         &self,
@@ -1896,9 +1896,9 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::EntityTypes] also implement [EntityTypes].
+/// All implementations of [super::EntityTypes] also implement [EntityTypes].
 #[async_trait::async_trait]
-impl<T: crate::stubs::EntityTypes> EntityTypes for T {
+impl<T: super::EntityTypes> EntityTypes for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_entity_types(
         &self,
@@ -2119,9 +2119,9 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::Environments] also implement [Environments].
+/// All implementations of [super::Environments] also implement [Environments].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Environments> Environments for T {
+impl<T: super::Environments> Environments for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_environments(
         &self,
@@ -2268,9 +2268,9 @@ pub trait Fulfillments: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::Fulfillments] also implement [Fulfillments].
+/// All implementations of [super::Fulfillments] also implement [Fulfillments].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Fulfillments> Fulfillments for T {
+impl<T: super::Fulfillments> Fulfillments for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_fulfillment(
         &self,
@@ -2399,9 +2399,9 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::Generators] also implement [Generators].
+/// All implementations of [super::Generators] also implement [Generators].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Generators> Generators for T {
+impl<T: super::Generators> Generators for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_generator(
         &self,
@@ -2579,9 +2579,9 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Intents] also implement [Intents].
+/// All implementations of [super::Intents] also implement [Intents].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Intents> Intents for T {
+impl<T: super::Intents> Intents for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_intents(
         &self,
@@ -2769,9 +2769,9 @@ pub trait KnowledgeBases: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::KnowledgeBases] also implement [KnowledgeBases].
+/// All implementations of [super::KnowledgeBases] also implement [KnowledgeBases].
 #[async_trait::async_trait]
-impl<T: crate::stubs::KnowledgeBases> KnowledgeBases for T {
+impl<T: super::KnowledgeBases> KnowledgeBases for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_knowledge_bases(
         &self,
@@ -2951,9 +2951,9 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::Participants] also implement [Participants].
+/// All implementations of [super::Participants] also implement [Participants].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Participants> Participants for T {
+impl<T: super::Participants> Participants for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_participant(
         &self,
@@ -3121,9 +3121,9 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::Sessions] also implement [Sessions].
+/// All implementations of [super::Sessions] also implement [Sessions].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Sessions> Sessions for T {
+impl<T: super::Sessions> Sessions for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn detect_intent(
         &self,
@@ -3243,9 +3243,9 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::SessionEntityTypes] also implement [SessionEntityTypes].
+/// All implementations of [super::SessionEntityTypes] also implement [SessionEntityTypes].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SessionEntityTypes> SessionEntityTypes for T {
+impl<T: super::SessionEntityTypes> SessionEntityTypes for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_session_entity_types(
         &self,
@@ -3401,9 +3401,9 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::Versions] also implement [Versions].
+/// All implementations of [super::Versions] also implement [Versions].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Versions> Versions for T {
+impl<T: super::Versions> Versions for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_versions(
         &self,

@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServiceHealth {
-    inner: Arc<dyn crate::stubs::dynamic::ServiceHealth>,
+    inner: Arc<dyn super::stubs::dynamic::ServiceHealth>,
 }
 
 impl ServiceHealth {
@@ -59,7 +59,7 @@ impl ServiceHealth {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ServiceHealth + 'static,
+        T: super::stubs::ServiceHealth + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl ServiceHealth {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ServiceHealth>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ServiceHealth>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl ServiceHealth {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceHealth> {
-        crate::transport::ServiceHealth::new(conf).await
+    ) -> Result<impl super::stubs::ServiceHealth> {
+        super::transport::ServiceHealth::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceHealth> {
+    ) -> Result<impl super::stubs::ServiceHealth> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ServiceHealth::new)
+            .map(super::tracing::ServiceHealth::new)
     }
 
     /// Lists events under a given project and location.
     pub fn list_events(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::service_health::ListEvents {
-        crate::builders::service_health::ListEvents::new(self.inner.clone())
+    ) -> super::builders::service_health::ListEvents {
+        super::builders::service_health::ListEvents::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,16 +102,16 @@ impl ServiceHealth {
     pub fn get_event(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_health::GetEvent {
-        crate::builders::service_health::GetEvent::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::service_health::GetEvent {
+        super::builders::service_health::GetEvent::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists organization events under a given organization and location.
     pub fn list_organization_events(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::service_health::ListOrganizationEvents {
-        crate::builders::service_health::ListOrganizationEvents::new(self.inner.clone())
+    ) -> super::builders::service_health::ListOrganizationEvents {
+        super::builders::service_health::ListOrganizationEvents::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -120,8 +120,8 @@ impl ServiceHealth {
     pub fn get_organization_event(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_health::GetOrganizationEvent {
-        crate::builders::service_health::GetOrganizationEvent::new(self.inner.clone())
+    ) -> super::builders::service_health::GetOrganizationEvent {
+        super::builders::service_health::GetOrganizationEvent::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -130,8 +130,8 @@ impl ServiceHealth {
     pub fn list_organization_impacts(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::service_health::ListOrganizationImpacts {
-        crate::builders::service_health::ListOrganizationImpacts::new(self.inner.clone())
+    ) -> super::builders::service_health::ListOrganizationImpacts {
+        super::builders::service_health::ListOrganizationImpacts::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +140,8 @@ impl ServiceHealth {
     pub fn get_organization_impact(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_health::GetOrganizationImpact {
-        crate::builders::service_health::GetOrganizationImpact::new(self.inner.clone())
+    ) -> super::builders::service_health::GetOrganizationImpact {
+        super::builders::service_health::GetOrganizationImpact::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -149,8 +149,8 @@ impl ServiceHealth {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_health::ListLocations {
-        crate::builders::service_health::ListLocations::new(self.inner.clone())
+    ) -> super::builders::service_health::ListLocations {
+        super::builders::service_health::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -158,7 +158,7 @@ impl ServiceHealth {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_health::GetLocation {
-        crate::builders::service_health::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::service_health::GetLocation {
+        super::builders::service_health::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 }

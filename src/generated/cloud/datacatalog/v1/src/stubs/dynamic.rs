@@ -276,9 +276,9 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::DataCatalog] also implement [DataCatalog].
+/// All implementations of [super::DataCatalog] also implement [DataCatalog].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DataCatalog> DataCatalog for T {
+impl<T: super::DataCatalog> DataCatalog for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn search_catalog(
         &self,
@@ -769,9 +769,9 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::PolicyTagManager] also implement [PolicyTagManager].
+/// All implementations of [super::PolicyTagManager] also implement [PolicyTagManager].
 #[async_trait::async_trait]
-impl<T: crate::stubs::PolicyTagManager> PolicyTagManager for T {
+impl<T: super::PolicyTagManager> PolicyTagManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_taxonomy(
         &self,
@@ -972,9 +972,9 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::PolicyTagManagerSerialization] also implement [PolicyTagManagerSerialization].
+/// All implementations of [super::PolicyTagManagerSerialization] also implement [PolicyTagManagerSerialization].
 #[async_trait::async_trait]
-impl<T: crate::stubs::PolicyTagManagerSerialization> PolicyTagManagerSerialization for T {
+impl<T: super::PolicyTagManagerSerialization> PolicyTagManagerSerialization for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn replace_taxonomy(
         &self,

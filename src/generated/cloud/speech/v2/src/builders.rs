@@ -18,10 +18,10 @@ pub mod speech {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Speech] request builders.
+    /// Common implementation for [super::super::client::Speech] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Speech>,
+        stub: Arc<dyn super::super::stubs::dynamic::Speech>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod speech {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod speech {
     pub struct CreateRecognizer(RequestBuilder<crate::model::CreateRecognizerRequest>);
 
     impl CreateRecognizer {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,7 +68,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_recognizer][crate::client::Speech::create_recognizer].
+        /// on [create_recognizer][super::super::client::Speech::create_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_recognizer(self.0.request, self.0.options)
@@ -147,7 +147,7 @@ pub mod speech {
     pub struct ListRecognizers(RequestBuilder<crate::model::ListRecognizersRequest>);
 
     impl ListRecognizers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -171,12 +171,12 @@ pub mod speech {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRecognizersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -221,7 +221,7 @@ pub mod speech {
     pub struct GetRecognizer(RequestBuilder<crate::model::GetRecognizerRequest>);
 
     impl GetRecognizer {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -262,7 +262,7 @@ pub mod speech {
     pub struct UpdateRecognizer(RequestBuilder<crate::model::UpdateRecognizerRequest>);
 
     impl UpdateRecognizer {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -286,7 +286,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_recognizer][crate::client::Speech::update_recognizer].
+        /// on [update_recognizer][super::super::client::Speech::update_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_recognizer(self.0.request, self.0.options)
@@ -362,7 +362,7 @@ pub mod speech {
     pub struct DeleteRecognizer(RequestBuilder<crate::model::DeleteRecognizerRequest>);
 
     impl DeleteRecognizer {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -386,7 +386,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_recognizer][crate::client::Speech::delete_recognizer].
+        /// on [delete_recognizer][super::super::client::Speech::delete_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_recognizer(self.0.request, self.0.options)
@@ -462,7 +462,7 @@ pub mod speech {
     pub struct UndeleteRecognizer(RequestBuilder<crate::model::UndeleteRecognizerRequest>);
 
     impl UndeleteRecognizer {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -486,7 +486,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_recognizer][crate::client::Speech::undelete_recognizer].
+        /// on [undelete_recognizer][super::super::client::Speech::undelete_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_recognizer(self.0.request, self.0.options)
@@ -556,7 +556,7 @@ pub mod speech {
     pub struct Recognize(RequestBuilder<crate::model::RecognizeRequest>);
 
     impl Recognize {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -624,7 +624,7 @@ pub mod speech {
     pub struct BatchRecognize(RequestBuilder<crate::model::BatchRecognizeRequest>);
 
     impl BatchRecognize {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -645,7 +645,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_recognize][crate::client::Speech::batch_recognize].
+        /// on [batch_recognize][super::super::client::Speech::batch_recognize].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_recognize(self.0.request, self.0.options)
@@ -757,7 +757,7 @@ pub mod speech {
     pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
 
     impl GetConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -798,7 +798,7 @@ pub mod speech {
     pub struct UpdateConfig(RequestBuilder<crate::model::UpdateConfigRequest>);
 
     impl UpdateConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -851,7 +851,7 @@ pub mod speech {
     pub struct CreateCustomClass(RequestBuilder<crate::model::CreateCustomClassRequest>);
 
     impl CreateCustomClass {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -875,7 +875,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_custom_class][crate::client::Speech::create_custom_class].
+        /// on [create_custom_class][super::super::client::Speech::create_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_custom_class(self.0.request, self.0.options)
@@ -954,7 +954,7 @@ pub mod speech {
     pub struct ListCustomClasses(RequestBuilder<crate::model::ListCustomClassesRequest>);
 
     impl ListCustomClasses {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -981,12 +981,12 @@ pub mod speech {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCustomClassesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1031,7 +1031,7 @@ pub mod speech {
     pub struct GetCustomClass(RequestBuilder<crate::model::GetCustomClassRequest>);
 
     impl GetCustomClass {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1072,7 +1072,7 @@ pub mod speech {
     pub struct UpdateCustomClass(RequestBuilder<crate::model::UpdateCustomClassRequest>);
 
     impl UpdateCustomClass {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1096,7 +1096,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_custom_class][crate::client::Speech::update_custom_class].
+        /// on [update_custom_class][super::super::client::Speech::update_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_custom_class(self.0.request, self.0.options)
@@ -1172,7 +1172,7 @@ pub mod speech {
     pub struct DeleteCustomClass(RequestBuilder<crate::model::DeleteCustomClassRequest>);
 
     impl DeleteCustomClass {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1196,7 +1196,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_custom_class][crate::client::Speech::delete_custom_class].
+        /// on [delete_custom_class][super::super::client::Speech::delete_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_custom_class(self.0.request, self.0.options)
@@ -1272,7 +1272,7 @@ pub mod speech {
     pub struct UndeleteCustomClass(RequestBuilder<crate::model::UndeleteCustomClassRequest>);
 
     impl UndeleteCustomClass {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1296,7 +1296,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_custom_class][crate::client::Speech::undelete_custom_class].
+        /// on [undelete_custom_class][super::super::client::Speech::undelete_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_custom_class(self.0.request, self.0.options)
@@ -1366,7 +1366,7 @@ pub mod speech {
     pub struct CreatePhraseSet(RequestBuilder<crate::model::CreatePhraseSetRequest>);
 
     impl CreatePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1387,7 +1387,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_phrase_set][crate::client::Speech::create_phrase_set].
+        /// on [create_phrase_set][super::super::client::Speech::create_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_phrase_set(self.0.request, self.0.options)
@@ -1466,7 +1466,7 @@ pub mod speech {
     pub struct ListPhraseSets(RequestBuilder<crate::model::ListPhraseSetsRequest>);
 
     impl ListPhraseSets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1490,12 +1490,12 @@ pub mod speech {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPhraseSetsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1540,7 +1540,7 @@ pub mod speech {
     pub struct GetPhraseSet(RequestBuilder<crate::model::GetPhraseSetRequest>);
 
     impl GetPhraseSet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1581,7 +1581,7 @@ pub mod speech {
     pub struct UpdatePhraseSet(RequestBuilder<crate::model::UpdatePhraseSetRequest>);
 
     impl UpdatePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1602,7 +1602,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_phrase_set][crate::client::Speech::update_phrase_set].
+        /// on [update_phrase_set][super::super::client::Speech::update_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_phrase_set(self.0.request, self.0.options)
@@ -1678,7 +1678,7 @@ pub mod speech {
     pub struct DeletePhraseSet(RequestBuilder<crate::model::DeletePhraseSetRequest>);
 
     impl DeletePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1699,7 +1699,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_phrase_set][crate::client::Speech::delete_phrase_set].
+        /// on [delete_phrase_set][super::super::client::Speech::delete_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_phrase_set(self.0.request, self.0.options)
@@ -1775,7 +1775,7 @@ pub mod speech {
     pub struct UndeletePhraseSet(RequestBuilder<crate::model::UndeletePhraseSetRequest>);
 
     impl UndeletePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1799,7 +1799,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_phrase_set][crate::client::Speech::undelete_phrase_set].
+        /// on [undelete_phrase_set][super::super::client::Speech::undelete_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_phrase_set(self.0.request, self.0.options)
@@ -1869,7 +1869,7 @@ pub mod speech {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1896,12 +1896,12 @@ pub mod speech {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1946,7 +1946,7 @@ pub mod speech {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1987,7 +1987,7 @@ pub mod speech {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2014,12 +2014,12 @@ pub mod speech {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2064,7 +2064,7 @@ pub mod speech {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2108,7 +2108,7 @@ pub mod speech {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2152,7 +2152,7 @@ pub mod speech {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

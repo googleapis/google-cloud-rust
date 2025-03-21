@@ -18,10 +18,10 @@ pub mod managed_identities_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ManagedIdentitiesService] request builders.
+    /// Common implementation for [super::super::client::ManagedIdentitiesService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod managed_identities_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -46,7 +48,9 @@ pub mod managed_identities_service {
     );
 
     impl CreateMicrosoftAdDomain {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -70,7 +74,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_microsoft_ad_domain][crate::client::ManagedIdentitiesService::create_microsoft_ad_domain].
+        /// on [create_microsoft_ad_domain][super::super::client::ManagedIdentitiesService::create_microsoft_ad_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_microsoft_ad_domain(self.0.request, self.0.options)
@@ -140,7 +144,9 @@ pub mod managed_identities_service {
     pub struct ResetAdminPassword(RequestBuilder<crate::model::ResetAdminPasswordRequest>);
 
     impl ResetAdminPassword {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -184,7 +190,9 @@ pub mod managed_identities_service {
     pub struct ListDomains(RequestBuilder<crate::model::ListDomainsRequest>);
 
     impl ListDomains {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -208,12 +216,12 @@ pub mod managed_identities_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDomainsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -264,7 +272,9 @@ pub mod managed_identities_service {
     pub struct GetDomain(RequestBuilder<crate::model::GetDomainRequest>);
 
     impl GetDomain {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -305,7 +315,9 @@ pub mod managed_identities_service {
     pub struct UpdateDomain(RequestBuilder<crate::model::UpdateDomainRequest>);
 
     impl UpdateDomain {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -326,7 +338,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_domain][crate::client::ManagedIdentitiesService::update_domain].
+        /// on [update_domain][super::super::client::ManagedIdentitiesService::update_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_domain(self.0.request, self.0.options)
@@ -393,7 +405,9 @@ pub mod managed_identities_service {
     pub struct DeleteDomain(RequestBuilder<crate::model::DeleteDomainRequest>);
 
     impl DeleteDomain {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -414,7 +428,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_domain][crate::client::ManagedIdentitiesService::delete_domain].
+        /// on [delete_domain][super::super::client::ManagedIdentitiesService::delete_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_domain(self.0.request, self.0.options)
@@ -469,7 +483,9 @@ pub mod managed_identities_service {
     pub struct AttachTrust(RequestBuilder<crate::model::AttachTrustRequest>);
 
     impl AttachTrust {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -490,7 +506,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [attach_trust][crate::client::ManagedIdentitiesService::attach_trust].
+        /// on [attach_trust][super::super::client::ManagedIdentitiesService::attach_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .attach_trust(self.0.request, self.0.options)
@@ -554,7 +570,9 @@ pub mod managed_identities_service {
     pub struct ReconfigureTrust(RequestBuilder<crate::model::ReconfigureTrustRequest>);
 
     impl ReconfigureTrust {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -578,7 +596,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reconfigure_trust][crate::client::ManagedIdentitiesService::reconfigure_trust].
+        /// on [reconfigure_trust][super::super::client::ManagedIdentitiesService::reconfigure_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reconfigure_trust(self.0.request, self.0.options)
@@ -650,7 +668,9 @@ pub mod managed_identities_service {
     pub struct DetachTrust(RequestBuilder<crate::model::DetachTrustRequest>);
 
     impl DetachTrust {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -671,7 +691,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [detach_trust][crate::client::ManagedIdentitiesService::detach_trust].
+        /// on [detach_trust][super::super::client::ManagedIdentitiesService::detach_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .detach_trust(self.0.request, self.0.options)
@@ -735,7 +755,9 @@ pub mod managed_identities_service {
     pub struct ValidateTrust(RequestBuilder<crate::model::ValidateTrustRequest>);
 
     impl ValidateTrust {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -756,7 +778,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [validate_trust][crate::client::ManagedIdentitiesService::validate_trust].
+        /// on [validate_trust][super::super::client::ManagedIdentitiesService::validate_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .validate_trust(self.0.request, self.0.options)
@@ -820,7 +842,9 @@ pub mod managed_identities_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -847,12 +871,12 @@ pub mod managed_identities_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -897,7 +921,9 @@ pub mod managed_identities_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -941,7 +967,9 @@ pub mod managed_identities_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -985,7 +1013,9 @@ pub mod managed_identities_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ManagedIdentitiesService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ManagedIdentitiesService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

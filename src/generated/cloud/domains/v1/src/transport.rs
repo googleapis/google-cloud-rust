@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Domains](crate::stubs::Domains) using a [gax::http_client::ReqwestClient].
+/// Implements [Domains](super::stubs::Domains) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Domains {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for Domains {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for Domains {
 }
 
 impl Domains {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::Domains for Domains {
+impl super::stubs::Domains for Domains {
     async fn search_domains(
         &self,
         req: crate::model::SearchDomainsRequest,
@@ -59,7 +59,7 @@ impl crate::stubs::Domains for Domains {
             );
         let builder = builder.query(&[("query", &req.query)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -85,7 +85,7 @@ impl crate::stubs::Domains for Domains {
             );
         let builder = builder.query(&[("domainName", &req.domain_name)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -131,7 +131,7 @@ impl crate::stubs::Domains for Domains {
             );
         let builder = builder.query(&[("domainName", &req.domain_name)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -176,7 +176,7 @@ impl crate::stubs::Domains for Domains {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -195,7 +195,7 @@ impl crate::stubs::Domains for Domains {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -213,7 +213,7 @@ impl crate::stubs::Domains for Domains {
                     "/v1/{}",
                     req.registration
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("registration"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("registration"))?
                         .name
                 ),
             )
@@ -229,7 +229,7 @@ impl crate::stubs::Domains for Domains {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -329,7 +329,7 @@ impl crate::stubs::Domains for Domains {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -351,7 +351,7 @@ impl crate::stubs::Domains for Domains {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -393,7 +393,7 @@ impl crate::stubs::Domains for Domains {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -412,7 +412,7 @@ impl crate::stubs::Domains for Domains {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

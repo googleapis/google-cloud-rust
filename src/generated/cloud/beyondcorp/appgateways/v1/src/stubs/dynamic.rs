@@ -108,9 +108,9 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AppGatewaysService] also implement [AppGatewaysService].
+/// All implementations of [super::AppGatewaysService] also implement [AppGatewaysService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AppGatewaysService> AppGatewaysService for T {
+impl<T: super::AppGatewaysService> AppGatewaysService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_app_gateways(
         &self,

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [StorageInsights](crate::stubs::StorageInsights) using a [gax::http_client::ReqwestClient].
+/// Implements [StorageInsights](super::stubs::StorageInsights) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct StorageInsights {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for StorageInsights {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for StorageInsights {
 }
 
 impl StorageInsights {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::StorageInsights for StorageInsights {
+impl super::stubs::StorageInsights for StorageInsights {
     async fn list_report_configs(
         &self,
         req: crate::model::ListReportConfigsRequest,
@@ -62,7 +62,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -122,7 +122,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
                     "/v1/{}",
                     req.report_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("report_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("report_config"))?
                         .name
                 ),
             )
@@ -138,7 +138,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -164,7 +164,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
         let builder = builder.query(&[("force", &req.force)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -190,7 +190,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -209,7 +209,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -231,7 +231,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -250,7 +250,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -272,7 +272,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -291,7 +291,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -310,7 +310,7 @@ impl crate::stubs::StorageInsights for StorageInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

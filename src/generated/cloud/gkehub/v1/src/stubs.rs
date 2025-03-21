@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::GkeHub].
+/// Defines the trait used to implement [super::client::GkeHub].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::GkeHub`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait GkeHub: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::GkeHub::list_memberships].
+    /// Implements [super::client::GkeHub::list_memberships].
     fn list_memberships(
         &self,
         _req: crate::model::ListMembershipsRequest,
@@ -53,7 +53,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GkeHub::list_features].
+    /// Implements [super::client::GkeHub::list_features].
     fn list_features(
         &self,
         _req: crate::model::ListFeaturesRequest,
@@ -65,7 +65,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GkeHub::get_membership].
+    /// Implements [super::client::GkeHub::get_membership].
     fn get_membership(
         &self,
         _req: crate::model::GetMembershipRequest,
@@ -76,7 +76,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GkeHub::get_feature].
+    /// Implements [super::client::GkeHub::get_feature].
     fn get_feature(
         &self,
         _req: crate::model::GetFeatureRequest,
@@ -87,7 +87,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GkeHub::create_membership].
+    /// Implements [super::client::GkeHub::create_membership].
     fn create_membership(
         &self,
         _req: crate::model::CreateMembershipRequest,
@@ -99,7 +99,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GkeHub::create_feature].
+    /// Implements [super::client::GkeHub::create_feature].
     fn create_feature(
         &self,
         _req: crate::model::CreateFeatureRequest,
@@ -111,7 +111,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GkeHub::delete_membership].
+    /// Implements [super::client::GkeHub::delete_membership].
     fn delete_membership(
         &self,
         _req: crate::model::DeleteMembershipRequest,
@@ -123,7 +123,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GkeHub::delete_feature].
+    /// Implements [super::client::GkeHub::delete_feature].
     fn delete_feature(
         &self,
         _req: crate::model::DeleteFeatureRequest,
@@ -135,7 +135,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GkeHub::update_membership].
+    /// Implements [super::client::GkeHub::update_membership].
     fn update_membership(
         &self,
         _req: crate::model::UpdateMembershipRequest,
@@ -147,7 +147,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GkeHub::update_feature].
+    /// Implements [super::client::GkeHub::update_feature].
     fn update_feature(
         &self,
         _req: crate::model::UpdateFeatureRequest,
@@ -159,7 +159,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GkeHub::generate_connect_manifest].
+    /// Implements [super::client::GkeHub::generate_connect_manifest].
     fn generate_connect_manifest(
         &self,
         _req: crate::model::GenerateConnectManifestRequest,
@@ -172,7 +172,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GkeHub::list_operations].
+    /// Implements [super::client::GkeHub::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -184,7 +184,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::GkeHub::get_operation].
+    /// Implements [super::client::GkeHub::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -196,7 +196,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::GkeHub::delete_operation].
+    /// Implements [super::client::GkeHub::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -205,7 +205,7 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::GkeHub::cancel_operation].
+    /// Implements [super::client::GkeHub::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -60,9 +60,9 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::EvaluatedSlice>;
 }
 
-/// All implementations of [crate::stubs::TimeseriesInsightsController] also implement [TimeseriesInsightsController].
+/// All implementations of [super::TimeseriesInsightsController] also implement [TimeseriesInsightsController].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TimeseriesInsightsController> TimeseriesInsightsController for T {
+impl<T: super::TimeseriesInsightsController> TimeseriesInsightsController for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_data_sets(
         &self,

@@ -44,7 +44,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TraceService {
-    inner: Arc<dyn crate::stubs::dynamic::TraceService>,
+    inner: Arc<dyn super::stubs::dynamic::TraceService>,
 }
 
 impl TraceService {
@@ -65,7 +65,7 @@ impl TraceService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::TraceService + 'static,
+        T: super::stubs::TraceService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -74,7 +74,7 @@ impl TraceService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::TraceService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::TraceService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -83,16 +83,16 @@ impl TraceService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TraceService> {
-        crate::transport::TraceService::new(conf).await
+    ) -> Result<impl super::stubs::TraceService> {
+        super::transport::TraceService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TraceService> {
+    ) -> Result<impl super::stubs::TraceService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::TraceService::new)
+            .map(super::tracing::TraceService::new)
     }
 
     /// Batch writes new spans to new or existing traces. You cannot update
@@ -100,8 +100,8 @@ impl TraceService {
     pub fn batch_write_spans(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::trace_service::BatchWriteSpans {
-        crate::builders::trace_service::BatchWriteSpans::new(self.inner.clone())
+    ) -> super::builders::trace_service::BatchWriteSpans {
+        super::builders::trace_service::BatchWriteSpans::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -109,7 +109,7 @@ impl TraceService {
     pub fn create_span(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::trace_service::CreateSpan {
-        crate::builders::trace_service::CreateSpan::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::trace_service::CreateSpan {
+        super::builders::trace_service::CreateSpan::new(self.inner.clone()).set_name(name.into())
     }
 }

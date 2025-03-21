@@ -18,10 +18,10 @@ pub mod security_posture {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SecurityPosture] request builders.
+    /// Common implementation for [super::super::client::SecurityPosture] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>,
+        stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod security_posture {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod security_posture {
     pub struct ListPostures(RequestBuilder<crate::model::ListPosturesRequest>);
 
     impl ListPostures {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPosturesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -112,7 +112,7 @@ pub mod security_posture {
     pub struct ListPostureRevisions(RequestBuilder<crate::model::ListPostureRevisionsRequest>);
 
     impl ListPostureRevisions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -139,12 +139,12 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPostureRevisionsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -183,7 +183,7 @@ pub mod security_posture {
     pub struct GetPosture(RequestBuilder<crate::model::GetPostureRequest>);
 
     impl GetPosture {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -230,7 +230,7 @@ pub mod security_posture {
     pub struct CreatePosture(RequestBuilder<crate::model::CreatePostureRequest>);
 
     impl CreatePosture {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -251,7 +251,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_posture][crate::client::SecurityPosture::create_posture].
+        /// on [create_posture][super::super::client::SecurityPosture::create_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_posture(self.0.request, self.0.options)
@@ -323,7 +323,7 @@ pub mod security_posture {
     pub struct UpdatePosture(RequestBuilder<crate::model::UpdatePostureRequest>);
 
     impl UpdatePosture {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -344,7 +344,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_posture][crate::client::SecurityPosture::update_posture].
+        /// on [update_posture][super::super::client::SecurityPosture::update_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_posture(self.0.request, self.0.options)
@@ -419,7 +419,7 @@ pub mod security_posture {
     pub struct DeletePosture(RequestBuilder<crate::model::DeletePostureRequest>);
 
     impl DeletePosture {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -440,7 +440,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_posture][crate::client::SecurityPosture::delete_posture].
+        /// on [delete_posture][super::super::client::SecurityPosture::delete_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_posture(self.0.request, self.0.options)
@@ -501,7 +501,7 @@ pub mod security_posture {
     pub struct ExtractPosture(RequestBuilder<crate::model::ExtractPostureRequest>);
 
     impl ExtractPosture {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -522,7 +522,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [extract_posture][crate::client::SecurityPosture::extract_posture].
+        /// on [extract_posture][super::super::client::SecurityPosture::extract_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .extract_posture(self.0.request, self.0.options)
@@ -591,7 +591,7 @@ pub mod security_posture {
     pub struct ListPostureDeployments(RequestBuilder<crate::model::ListPostureDeploymentsRequest>);
 
     impl ListPostureDeployments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -618,14 +618,14 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListPostureDeploymentsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -670,7 +670,7 @@ pub mod security_posture {
     pub struct GetPostureDeployment(RequestBuilder<crate::model::GetPostureDeploymentRequest>);
 
     impl GetPostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -716,7 +716,7 @@ pub mod security_posture {
     );
 
     impl CreatePostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -740,7 +740,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_posture_deployment][crate::client::SecurityPosture::create_posture_deployment].
+        /// on [create_posture_deployment][super::super::client::SecurityPosture::create_posture_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_posture_deployment(self.0.request, self.0.options)
@@ -818,7 +818,7 @@ pub mod security_posture {
     );
 
     impl UpdatePostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -842,7 +842,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_posture_deployment][crate::client::SecurityPosture::update_posture_deployment].
+        /// on [update_posture_deployment][super::super::client::SecurityPosture::update_posture_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_posture_deployment(self.0.request, self.0.options)
@@ -917,7 +917,7 @@ pub mod security_posture {
     );
 
     impl DeletePostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -941,7 +941,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_posture_deployment][crate::client::SecurityPosture::delete_posture_deployment].
+        /// on [delete_posture_deployment][super::super::client::SecurityPosture::delete_posture_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_posture_deployment(self.0.request, self.0.options)
@@ -1002,7 +1002,7 @@ pub mod security_posture {
     pub struct ListPostureTemplates(RequestBuilder<crate::model::ListPostureTemplatesRequest>);
 
     impl ListPostureTemplates {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1029,12 +1029,12 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPostureTemplatesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1079,7 +1079,7 @@ pub mod security_posture {
     pub struct GetPostureTemplate(RequestBuilder<crate::model::GetPostureTemplateRequest>);
 
     impl GetPostureTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1129,7 +1129,7 @@ pub mod security_posture {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1156,12 +1156,12 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1206,7 +1206,7 @@ pub mod security_posture {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1247,7 +1247,7 @@ pub mod security_posture {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1274,12 +1274,12 @@ pub mod security_posture {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1324,7 +1324,7 @@ pub mod security_posture {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1368,7 +1368,7 @@ pub mod security_posture {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1412,7 +1412,7 @@ pub mod security_posture {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SecurityPosture>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

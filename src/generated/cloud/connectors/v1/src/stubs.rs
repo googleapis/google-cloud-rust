@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Connectors].
+/// Defines the trait used to implement [super::client::Connectors].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Connectors`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Connectors: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Connectors::list_connections].
+    /// Implements [super::client::Connectors::list_connections].
     fn list_connections(
         &self,
         _req: crate::model::ListConnectionsRequest,
@@ -53,7 +53,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Connectors::get_connection].
+    /// Implements [super::client::Connectors::get_connection].
     fn get_connection(
         &self,
         _req: crate::model::GetConnectionRequest,
@@ -64,7 +64,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::create_connection].
+    /// Implements [super::client::Connectors::create_connection].
     fn create_connection(
         &self,
         _req: crate::model::CreateConnectionRequest,
@@ -76,7 +76,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::update_connection].
+    /// Implements [super::client::Connectors::update_connection].
     fn update_connection(
         &self,
         _req: crate::model::UpdateConnectionRequest,
@@ -88,7 +88,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::delete_connection].
+    /// Implements [super::client::Connectors::delete_connection].
     fn delete_connection(
         &self,
         _req: crate::model::DeleteConnectionRequest,
@@ -100,7 +100,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::list_providers].
+    /// Implements [super::client::Connectors::list_providers].
     fn list_providers(
         &self,
         _req: crate::model::ListProvidersRequest,
@@ -112,7 +112,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::get_provider].
+    /// Implements [super::client::Connectors::get_provider].
     fn get_provider(
         &self,
         _req: crate::model::GetProviderRequest,
@@ -123,7 +123,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::list_connectors].
+    /// Implements [super::client::Connectors::list_connectors].
     fn list_connectors(
         &self,
         _req: crate::model::ListConnectorsRequest,
@@ -135,7 +135,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Connectors::get_connector].
+    /// Implements [super::client::Connectors::get_connector].
     fn get_connector(
         &self,
         _req: crate::model::GetConnectorRequest,
@@ -146,7 +146,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::list_connector_versions].
+    /// Implements [super::client::Connectors::list_connector_versions].
     fn list_connector_versions(
         &self,
         _req: crate::model::ListConnectorVersionsRequest,
@@ -158,7 +158,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Connectors::get_connector_version].
+    /// Implements [super::client::Connectors::get_connector_version].
     fn get_connector_version(
         &self,
         _req: crate::model::GetConnectorVersionRequest,
@@ -170,7 +170,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::get_connection_schema_metadata].
+    /// Implements [super::client::Connectors::get_connection_schema_metadata].
     fn get_connection_schema_metadata(
         &self,
         _req: crate::model::GetConnectionSchemaMetadataRequest,
@@ -182,7 +182,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Connectors::refresh_connection_schema_metadata].
+    /// Implements [super::client::Connectors::refresh_connection_schema_metadata].
     fn refresh_connection_schema_metadata(
         &self,
         _req: crate::model::RefreshConnectionSchemaMetadataRequest,
@@ -194,7 +194,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::list_runtime_entity_schemas].
+    /// Implements [super::client::Connectors::list_runtime_entity_schemas].
     fn list_runtime_entity_schemas(
         &self,
         _req: crate::model::ListRuntimeEntitySchemasRequest,
@@ -207,7 +207,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Connectors::list_runtime_action_schemas].
+    /// Implements [super::client::Connectors::list_runtime_action_schemas].
     fn list_runtime_action_schemas(
         &self,
         _req: crate::model::ListRuntimeActionSchemasRequest,
@@ -220,7 +220,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Connectors::get_runtime_config].
+    /// Implements [super::client::Connectors::get_runtime_config].
     fn get_runtime_config(
         &self,
         _req: crate::model::GetRuntimeConfigRequest,
@@ -231,7 +231,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::get_global_settings].
+    /// Implements [super::client::Connectors::get_global_settings].
     fn get_global_settings(
         &self,
         _req: crate::model::GetGlobalSettingsRequest,
@@ -242,7 +242,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::list_locations].
+    /// Implements [super::client::Connectors::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -254,7 +254,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Connectors::get_location].
+    /// Implements [super::client::Connectors::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -265,7 +265,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::set_iam_policy].
+    /// Implements [super::client::Connectors::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -276,7 +276,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::get_iam_policy].
+    /// Implements [super::client::Connectors::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -287,7 +287,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::test_iam_permissions].
+    /// Implements [super::client::Connectors::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -299,7 +299,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Connectors::list_operations].
+    /// Implements [super::client::Connectors::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -311,7 +311,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Connectors::get_operation].
+    /// Implements [super::client::Connectors::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -323,7 +323,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Connectors::delete_operation].
+    /// Implements [super::client::Connectors::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -332,7 +332,7 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Connectors::cancel_operation].
+    /// Implements [super::client::Connectors::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

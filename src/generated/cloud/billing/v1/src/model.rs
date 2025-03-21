@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate gtype;
 extern crate iam_v1;
 extern crate lazy_static;
@@ -362,7 +363,6 @@ impl wkt::message::Message for ListBillingAccountsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBillingAccountsResponse {
     type PageItem = crate::model::BillingAccount;
 
@@ -371,7 +371,8 @@ impl gax::paginator::PageableResponse for ListBillingAccountsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -583,7 +584,6 @@ impl wkt::message::Message for ListProjectBillingInfoResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProjectBillingInfoResponse {
     type PageItem = crate::model::ProjectBillingInfo;
 
@@ -592,7 +592,8 @@ impl gax::paginator::PageableResponse for ListProjectBillingInfoResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1626,7 +1627,6 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
@@ -1635,7 +1635,8 @@ impl gax::paginator::PageableResponse for ListServicesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1784,7 +1785,6 @@ impl wkt::message::Message for ListSkusResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSkusResponse {
     type PageItem = crate::model::Sku;
 
@@ -1793,6 +1793,7 @@ impl gax::paginator::PageableResponse for ListSkusResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }

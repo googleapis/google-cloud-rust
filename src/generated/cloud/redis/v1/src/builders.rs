@@ -18,10 +18,10 @@ pub mod cloud_redis {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudRedis] request builders.
+    /// Common implementation for [super::super::client::CloudRedis] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudRedis>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod cloud_redis {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod cloud_redis {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod cloud_redis {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -112,7 +112,7 @@ pub mod cloud_redis {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -153,7 +153,7 @@ pub mod cloud_redis {
     pub struct GetInstanceAuthString(RequestBuilder<crate::model::GetInstanceAuthStringRequest>);
 
     impl GetInstanceAuthString {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -197,7 +197,7 @@ pub mod cloud_redis {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -218,7 +218,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][crate::client::CloudRedis::create_instance].
+        /// on [create_instance][super::super::client::CloudRedis::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -291,7 +291,7 @@ pub mod cloud_redis {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -312,7 +312,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][crate::client::CloudRedis::update_instance].
+        /// on [update_instance][super::super::client::CloudRedis::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -382,7 +382,7 @@ pub mod cloud_redis {
     pub struct UpgradeInstance(RequestBuilder<crate::model::UpgradeInstanceRequest>);
 
     impl UpgradeInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -403,7 +403,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_instance][crate::client::CloudRedis::upgrade_instance].
+        /// on [upgrade_instance][super::super::client::CloudRedis::upgrade_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_instance(self.0.request, self.0.options)
@@ -467,7 +467,7 @@ pub mod cloud_redis {
     pub struct ImportInstance(RequestBuilder<crate::model::ImportInstanceRequest>);
 
     impl ImportInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -488,7 +488,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_instance][crate::client::CloudRedis::import_instance].
+        /// on [import_instance][super::super::client::CloudRedis::import_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_instance(self.0.request, self.0.options)
@@ -555,7 +555,7 @@ pub mod cloud_redis {
     pub struct ExportInstance(RequestBuilder<crate::model::ExportInstanceRequest>);
 
     impl ExportInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -576,7 +576,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_instance][crate::client::CloudRedis::export_instance].
+        /// on [export_instance][super::super::client::CloudRedis::export_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_instance(self.0.request, self.0.options)
@@ -643,7 +643,7 @@ pub mod cloud_redis {
     pub struct FailoverInstance(RequestBuilder<crate::model::FailoverInstanceRequest>);
 
     impl FailoverInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -667,7 +667,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [failover_instance][crate::client::CloudRedis::failover_instance].
+        /// on [failover_instance][super::super::client::CloudRedis::failover_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .failover_instance(self.0.request, self.0.options)
@@ -736,7 +736,7 @@ pub mod cloud_redis {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -757,7 +757,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][crate::client::CloudRedis::delete_instance].
+        /// on [delete_instance][super::super::client::CloudRedis::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -812,7 +812,7 @@ pub mod cloud_redis {
     pub struct RescheduleMaintenance(RequestBuilder<crate::model::RescheduleMaintenanceRequest>);
 
     impl RescheduleMaintenance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -836,7 +836,7 @@ pub mod cloud_redis {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reschedule_maintenance][crate::client::CloudRedis::reschedule_maintenance].
+        /// on [reschedule_maintenance][super::super::client::CloudRedis::reschedule_maintenance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reschedule_maintenance(self.0.request, self.0.options)
@@ -914,7 +914,7 @@ pub mod cloud_redis {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -941,12 +941,12 @@ pub mod cloud_redis {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -991,7 +991,7 @@ pub mod cloud_redis {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1032,7 +1032,7 @@ pub mod cloud_redis {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1059,12 +1059,12 @@ pub mod cloud_redis {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1109,7 +1109,7 @@ pub mod cloud_redis {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1153,7 +1153,7 @@ pub mod cloud_redis {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1197,7 +1197,7 @@ pub mod cloud_redis {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudRedis>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudRedis>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

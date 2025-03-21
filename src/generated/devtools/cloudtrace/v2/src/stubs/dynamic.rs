@@ -30,9 +30,9 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Span>;
 }
 
-/// All implementations of [crate::stubs::TraceService] also implement [TraceService].
+/// All implementations of [super::TraceService] also implement [TraceService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TraceService> TraceService for T {
+impl<T: super::TraceService> TraceService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn batch_write_spans(
         &self,

@@ -78,9 +78,9 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::TunnelDestGroup>;
 }
 
-/// All implementations of [crate::stubs::IdentityAwareProxyAdminService] also implement [IdentityAwareProxyAdminService].
+/// All implementations of [super::IdentityAwareProxyAdminService] also implement [IdentityAwareProxyAdminService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService for T {
+impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
@@ -224,9 +224,9 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::IdentityAwareProxyOAuthService] also implement [IdentityAwareProxyOAuthService].
+/// All implementations of [super::IdentityAwareProxyOAuthService] also implement [IdentityAwareProxyOAuthService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService for T {
+impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_brands(
         &self,

@@ -145,6 +145,66 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListHotTabletsResponse>;
 
+    async fn create_logical_view(
+        &self,
+        req: crate::model::CreateLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn get_logical_view(
+        &self,
+        req: crate::model::GetLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::LogicalView>;
+
+    async fn list_logical_views(
+        &self,
+        req: crate::model::ListLogicalViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListLogicalViewsResponse>;
+
+    async fn update_logical_view(
+        &self,
+        req: crate::model::UpdateLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn delete_logical_view(
+        &self,
+        req: crate::model::DeleteLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<wkt::Empty>;
+
+    async fn create_materialized_view(
+        &self,
+        req: crate::model::CreateMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn get_materialized_view(
+        &self,
+        req: crate::model::GetMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::MaterializedView>;
+
+    async fn list_materialized_views(
+        &self,
+        req: crate::model::ListMaterializedViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListMaterializedViewsResponse>;
+
+    async fn update_materialized_view(
+        &self,
+        req: crate::model::UpdateMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn delete_materialized_view(
+        &self,
+        req: crate::model::DeleteMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<wkt::Empty>;
+
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
@@ -180,9 +240,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::BigtableInstanceAdmin] also implement [BigtableInstanceAdmin].
+/// All implementations of [super::BigtableInstanceAdmin] also implement [BigtableInstanceAdmin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
+impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_instance(
         &self,
@@ -370,6 +430,96 @@ impl<T: crate::stubs::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListHotTabletsResponse> {
         T::list_hot_tablets(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_logical_view(
+        &self,
+        req: crate::model::CreateLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::create_logical_view(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_logical_view(
+        &self,
+        req: crate::model::GetLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::LogicalView> {
+        T::get_logical_view(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_logical_views(
+        &self,
+        req: crate::model::ListLogicalViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListLogicalViewsResponse> {
+        T::list_logical_views(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_logical_view(
+        &self,
+        req: crate::model::UpdateLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::update_logical_view(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_logical_view(
+        &self,
+        req: crate::model::DeleteLogicalViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<wkt::Empty> {
+        T::delete_logical_view(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_materialized_view(
+        &self,
+        req: crate::model::CreateMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::create_materialized_view(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_materialized_view(
+        &self,
+        req: crate::model::GetMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::MaterializedView> {
+        T::get_materialized_view(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_materialized_views(
+        &self,
+        req: crate::model::ListMaterializedViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListMaterializedViewsResponse> {
+        T::list_materialized_views(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_materialized_view(
+        &self,
+        req: crate::model::UpdateMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation> {
+        T::update_materialized_view(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_materialized_view(
+        &self,
+        req: crate::model::DeleteMaterializedViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<wkt::Empty> {
+        T::delete_materialized_view(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -641,9 +791,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::BigtableTableAdmin] also implement [BigtableTableAdmin].
+/// All implementations of [super::BigtableTableAdmin] also implement [BigtableTableAdmin].
 #[async_trait::async_trait]
-impl<T: crate::stubs::BigtableTableAdmin> BigtableTableAdmin for T {
+impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_table(
         &self,

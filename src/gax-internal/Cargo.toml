@@ -1,0 +1,66 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[package]
+name        = "google-cloud-gax-internal"
+version     = "0.1.0"
+description = "Google Cloud Client Libraries for Rust - Implementation Details"
+# Inherit other attributes from the workspace.
+authors.workspace      = true
+categories.workspace   = true
+edition.workspace      = true
+keywords.workspace     = true
+license.workspace      = true
+repository.workspace   = true
+rust-version.workspace = true
+
+[features]
+_internal_http_client = [
+  "_internal_common",
+  "dep:auth",
+  "dep:gax",
+  "dep:reqwest",
+  "dep:rpc",
+  "dep:serde",
+  "dep:serde_json",
+  "dep:tokio",
+]
+_internal_grpc_client = ["_internal_common"]
+_internal_common = ["dep:gax", "dep:thiserror"]
+
+[dependencies]
+reqwest    = { version = "0.12", optional = true }
+serde      = { version = "1", optional = true }
+serde_json = { version = "1", optional = true }
+thiserror  = { version = "2", optional = true }
+tokio      = { version = "1", features = ["macros", "rt-multi-thread"], optional = true }
+# Local crates
+auth = { version = "0.18", path = "../auth", package = "google-cloud-auth", optional = true }
+gax = { version = "0.21", path = "../gax", package = "google-cloud-gax", features = [
+  "unstable-sdk-client",
+], optional = true }
+rpc = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc", optional = true }
+
+[dev-dependencies]
+axum        = "0.8"
+bytes       = "1"
+http        = "1"
+mockall     = "0.13"
+serde_with  = "3"
+serial_test = "3"
+test-case   = "3"
+tokio       = { version = "1", features = ["test-util"] }
+# Local crates
+echo-server = { path = "echo-server" }
+wkt         = { version = "0.2", path = "../wkt", package = "google-cloud-wkt" }

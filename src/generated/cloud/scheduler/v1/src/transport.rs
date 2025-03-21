@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudScheduler](crate::stubs::CloudScheduler) using a [gax::http_client::ReqwestClient].
+/// Implements [CloudScheduler](super::stubs::CloudScheduler) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudScheduler {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for CloudScheduler {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for CloudScheduler {
 }
 
 impl CloudScheduler {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::CloudScheduler for CloudScheduler {
+impl super::stubs::CloudScheduler for CloudScheduler {
     async fn list_jobs(
         &self,
         req: crate::model::ListJobsRequest,
@@ -57,7 +57,7 @@ impl crate::stubs::CloudScheduler for CloudScheduler {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -76,7 +76,7 @@ impl crate::stubs::CloudScheduler for CloudScheduler {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -111,7 +111,7 @@ impl crate::stubs::CloudScheduler for CloudScheduler {
                     "/v1/{}",
                     req.job
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("job"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("job"))?
                         .name
                 ),
             )
@@ -127,7 +127,7 @@ impl crate::stubs::CloudScheduler for CloudScheduler {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.job), options).await
@@ -148,7 +148,7 @@ impl crate::stubs::CloudScheduler for CloudScheduler {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -221,7 +221,7 @@ impl crate::stubs::CloudScheduler for CloudScheduler {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -240,7 +240,7 @@ impl crate::stubs::CloudScheduler for CloudScheduler {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

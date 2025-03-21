@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ModelArmor {
-    inner: Arc<dyn crate::stubs::dynamic::ModelArmor>,
+    inner: Arc<dyn super::stubs::dynamic::ModelArmor>,
 }
 
 impl ModelArmor {
@@ -59,7 +59,7 @@ impl ModelArmor {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ModelArmor + 'static,
+        T: super::stubs::ModelArmor + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl ModelArmor {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ModelArmor>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ModelArmor>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl ModelArmor {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ModelArmor> {
-        crate::transport::ModelArmor::new(conf).await
+    ) -> Result<impl super::stubs::ModelArmor> {
+        super::transport::ModelArmor::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ModelArmor> {
+    ) -> Result<impl super::stubs::ModelArmor> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ModelArmor::new)
+            .map(super::tracing::ModelArmor::new)
     }
 
     /// Lists Templates in a given project and location.
     pub fn list_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::model_armor::ListTemplates {
-        crate::builders::model_armor::ListTemplates::new(self.inner.clone())
+    ) -> super::builders::model_armor::ListTemplates {
+        super::builders::model_armor::ListTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,16 +102,16 @@ impl ModelArmor {
     pub fn get_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::model_armor::GetTemplate {
-        crate::builders::model_armor::GetTemplate::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::model_armor::GetTemplate {
+        super::builders::model_armor::GetTemplate::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Template in a given project and location.
     pub fn create_template(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::model_armor::CreateTemplate {
-        crate::builders::model_armor::CreateTemplate::new(self.inner.clone())
+    ) -> super::builders::model_armor::CreateTemplate {
+        super::builders::model_armor::CreateTemplate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -119,8 +119,8 @@ impl ModelArmor {
     pub fn update_template(
         &self,
         template: impl Into<crate::model::Template>,
-    ) -> crate::builders::model_armor::UpdateTemplate {
-        crate::builders::model_armor::UpdateTemplate::new(self.inner.clone())
+    ) -> super::builders::model_armor::UpdateTemplate {
+        super::builders::model_armor::UpdateTemplate::new(self.inner.clone())
             .set_template(template.into())
     }
 
@@ -128,24 +128,24 @@ impl ModelArmor {
     pub fn delete_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::model_armor::DeleteTemplate {
-        crate::builders::model_armor::DeleteTemplate::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::model_armor::DeleteTemplate {
+        super::builders::model_armor::DeleteTemplate::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets details of a single floor setting of a project
     pub fn get_floor_setting(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::model_armor::GetFloorSetting {
-        crate::builders::model_armor::GetFloorSetting::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::model_armor::GetFloorSetting {
+        super::builders::model_armor::GetFloorSetting::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates the parameters of a single floor setting of a project
     pub fn update_floor_setting(
         &self,
         floor_setting: impl Into<crate::model::FloorSetting>,
-    ) -> crate::builders::model_armor::UpdateFloorSetting {
-        crate::builders::model_armor::UpdateFloorSetting::new(self.inner.clone())
+    ) -> super::builders::model_armor::UpdateFloorSetting {
+        super::builders::model_armor::UpdateFloorSetting::new(self.inner.clone())
             .set_floor_setting(floor_setting.into())
     }
 
@@ -153,8 +153,8 @@ impl ModelArmor {
     pub fn sanitize_user_prompt(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::model_armor::SanitizeUserPrompt {
-        crate::builders::model_armor::SanitizeUserPrompt::new(self.inner.clone())
+    ) -> super::builders::model_armor::SanitizeUserPrompt {
+        super::builders::model_armor::SanitizeUserPrompt::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -162,8 +162,8 @@ impl ModelArmor {
     pub fn sanitize_model_response(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::model_armor::SanitizeModelResponse {
-        crate::builders::model_armor::SanitizeModelResponse::new(self.inner.clone())
+    ) -> super::builders::model_armor::SanitizeModelResponse {
+        super::builders::model_armor::SanitizeModelResponse::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -171,15 +171,15 @@ impl ModelArmor {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::model_armor::ListLocations {
-        crate::builders::model_armor::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::model_armor::ListLocations {
+        super::builders::model_armor::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::model_armor::GetLocation {
-        crate::builders::model_armor::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::model_armor::GetLocation {
+        super::builders::model_armor::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 }

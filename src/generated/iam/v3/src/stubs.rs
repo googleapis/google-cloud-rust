@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::PolicyBindings].
+/// Defines the trait used to implement [super::client::PolicyBindings].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PolicyBindings`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PolicyBindings: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PolicyBindings::create_policy_binding].
+    /// Implements [super::client::PolicyBindings::create_policy_binding].
     fn create_policy_binding(
         &self,
         _req: crate::model::CreatePolicyBindingRequest,
@@ -53,7 +53,7 @@ pub trait PolicyBindings: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBindings::get_policy_binding].
+    /// Implements [super::client::PolicyBindings::get_policy_binding].
     fn get_policy_binding(
         &self,
         _req: crate::model::GetPolicyBindingRequest,
@@ -64,7 +64,7 @@ pub trait PolicyBindings: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBindings::update_policy_binding].
+    /// Implements [super::client::PolicyBindings::update_policy_binding].
     fn update_policy_binding(
         &self,
         _req: crate::model::UpdatePolicyBindingRequest,
@@ -76,7 +76,7 @@ pub trait PolicyBindings: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBindings::delete_policy_binding].
+    /// Implements [super::client::PolicyBindings::delete_policy_binding].
     fn delete_policy_binding(
         &self,
         _req: crate::model::DeletePolicyBindingRequest,
@@ -88,7 +88,7 @@ pub trait PolicyBindings: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PolicyBindings::list_policy_bindings].
+    /// Implements [super::client::PolicyBindings::list_policy_bindings].
     fn list_policy_bindings(
         &self,
         _req: crate::model::ListPolicyBindingsRequest,
@@ -100,7 +100,7 @@ pub trait PolicyBindings: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyBindings::search_target_policy_bindings].
+    /// Implements [super::client::PolicyBindings::search_target_policy_bindings].
     fn search_target_policy_bindings(
         &self,
         _req: crate::model::SearchTargetPolicyBindingsRequest,
@@ -113,7 +113,7 @@ pub trait PolicyBindings: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PolicyBindings::get_operation].
+    /// Implements [super::client::PolicyBindings::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -148,7 +148,7 @@ pub trait PolicyBindings: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::PrincipalAccessBoundaryPolicies].
+/// Defines the trait used to implement [super::client::PrincipalAccessBoundaryPolicies].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::PrincipalAccessBoundaryPolicies`.  In other use-cases, application developers only
@@ -160,7 +160,7 @@ pub trait PolicyBindings: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy].
+    /// Implements [super::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy].
     fn create_principal_access_boundary_policy(
         &self,
         _req: crate::model::CreatePrincipalAccessBoundaryPolicyRequest,
@@ -172,7 +172,7 @@ pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy].
+    /// Implements [super::client::PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy].
     fn get_principal_access_boundary_policy(
         &self,
         _req: crate::model::GetPrincipalAccessBoundaryPolicyRequest,
@@ -184,7 +184,7 @@ pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy].
+    /// Implements [super::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy].
     fn update_principal_access_boundary_policy(
         &self,
         _req: crate::model::UpdatePrincipalAccessBoundaryPolicyRequest,
@@ -196,7 +196,7 @@ pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy].
+    /// Implements [super::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy].
     fn delete_principal_access_boundary_policy(
         &self,
         _req: crate::model::DeletePrincipalAccessBoundaryPolicyRequest,
@@ -208,7 +208,7 @@ pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies].
+    /// Implements [super::client::PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies].
     fn list_principal_access_boundary_policies(
         &self,
         _req: crate::model::ListPrincipalAccessBoundaryPoliciesRequest,
@@ -221,7 +221,7 @@ pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings].
+    /// Implements [super::client::PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings].
     fn search_principal_access_boundary_policy_bindings(
         &self,
         _req: crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest,
@@ -234,7 +234,7 @@ pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::PrincipalAccessBoundaryPolicies::get_operation].
+    /// Implements [super::client::PrincipalAccessBoundaryPolicies::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

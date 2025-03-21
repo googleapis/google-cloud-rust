@@ -18,10 +18,10 @@ pub mod license_management_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::LicenseManagementService] request builders.
+    /// Common implementation for [super::super::client::LicenseManagementService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::LicenseManagementService>,
+        stub: Arc<dyn super::super::stubs::dynamic::LicenseManagementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod license_management_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LicenseManagementService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::LicenseManagementService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod license_management_service {
     pub struct GetLicensePool(RequestBuilder<crate::model::GetLicensePoolRequest>);
 
     impl GetLicensePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LicenseManagementService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::LicenseManagementService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -85,7 +89,9 @@ pub mod license_management_service {
     pub struct UpdateLicensePool(RequestBuilder<crate::model::UpdateLicensePoolRequest>);
 
     impl UpdateLicensePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LicenseManagementService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::LicenseManagementService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -141,7 +147,9 @@ pub mod license_management_service {
     pub struct Assign(RequestBuilder<crate::model::AssignRequest>);
 
     impl Assign {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LicenseManagementService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::LicenseManagementService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -191,7 +199,9 @@ pub mod license_management_service {
     pub struct Unassign(RequestBuilder<crate::model::UnassignRequest>);
 
     impl Unassign {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LicenseManagementService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::LicenseManagementService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -243,7 +253,9 @@ pub mod license_management_service {
     pub struct EnumerateLicensedUsers(RequestBuilder<crate::model::EnumerateLicensedUsersRequest>);
 
     impl EnumerateLicensedUsers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LicenseManagementService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::LicenseManagementService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -270,14 +282,14 @@ pub mod license_management_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::EnumerateLicensedUsersResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -316,7 +328,9 @@ pub mod license_management_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LicenseManagementService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::LicenseManagementService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -360,10 +374,10 @@ pub mod consumer_procurement_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ConsumerProcurementService] request builders.
+    /// Common implementation for [super::super::client::ConsumerProcurementService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ConsumerProcurementService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ConsumerProcurementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -373,7 +387,7 @@ pub mod consumer_procurement_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConsumerProcurementService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self {
                 stub,
@@ -389,7 +403,7 @@ pub mod consumer_procurement_service {
 
     impl PlaceOrder {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConsumerProcurementService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -411,7 +425,7 @@ pub mod consumer_procurement_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [place_order][crate::client::ConsumerProcurementService::place_order].
+        /// on [place_order][super::super::client::ConsumerProcurementService::place_order].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .place_order(self.0.request, self.0.options)
@@ -492,7 +506,7 @@ pub mod consumer_procurement_service {
 
     impl GetOrder {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConsumerProcurementService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -535,7 +549,7 @@ pub mod consumer_procurement_service {
 
     impl ListOrders {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConsumerProcurementService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -560,12 +574,12 @@ pub mod consumer_procurement_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListOrdersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -611,7 +625,7 @@ pub mod consumer_procurement_service {
 
     impl ModifyOrder {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConsumerProcurementService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -633,7 +647,7 @@ pub mod consumer_procurement_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [modify_order][crate::client::ConsumerProcurementService::modify_order].
+        /// on [modify_order][super::super::client::ConsumerProcurementService::modify_order].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .modify_order(self.0.request, self.0.options)
@@ -714,7 +728,7 @@ pub mod consumer_procurement_service {
 
     impl CancelOrder {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConsumerProcurementService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -736,7 +750,7 @@ pub mod consumer_procurement_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [cancel_order][crate::client::ConsumerProcurementService::cancel_order].
+        /// on [cancel_order][super::super::client::ConsumerProcurementService::cancel_order].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_order(self.0.request, self.0.options)
@@ -811,7 +825,7 @@ pub mod consumer_procurement_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConsumerProcurementService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

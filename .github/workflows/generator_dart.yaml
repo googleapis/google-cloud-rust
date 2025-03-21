@@ -54,20 +54,24 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
 
+      # Run pub get.
       - run: dart pub get
         working-directory: generator/dart
 
-      - name: "analyze package:google_cloud_protobuf"
-        run: dart analyze
-        working-directory: generator/dart/packages/generated/google_cloud_protobuf
+      # Analyze code.
+      - run: dart analyze examples
+        working-directory: generator/dart
+      - run: dart analyze generated
+        working-directory: generator/dart
+      - run: dart analyze packages
+        working-directory: generator/dart
+      - run: dart analyze tests
+        working-directory: generator/dart
+
+      # Run tests.
+      - name: "dart/tests"
+        run: dart test
+        working-directory: generator/dart/tests
       - name: "test package:google_cloud_protobuf"
         run: dart test
-        working-directory: generator/dart/packages/generated/google_cloud_protobuf
-
-      - name: "analyze package:google_cloud_type"
-        run: dart analyze
-        working-directory: generator/dart/packages/generated/google_cloud_type
-
-      - name: "analyze package:google_cloud_common"
-        run: dart analyze
-        working-directory: generator/dart/packages/google_cloud_common
+        working-directory: generator/dart/generated/google_cloud_protobuf

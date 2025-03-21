@@ -92,9 +92,9 @@ pub trait AutoscalingPolicyService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::AutoscalingPolicyService] also implement [AutoscalingPolicyService].
+/// All implementations of [super::AutoscalingPolicyService] also implement [AutoscalingPolicyService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AutoscalingPolicyService> AutoscalingPolicyService for T {
+impl<T: super::AutoscalingPolicyService> AutoscalingPolicyService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_autoscaling_policy(
         &self,
@@ -284,9 +284,9 @@ pub trait BatchController: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::BatchController] also implement [BatchController].
+/// All implementations of [super::BatchController] also implement [BatchController].
 #[async_trait::async_trait]
-impl<T: crate::stubs::BatchController> BatchController for T {
+impl<T: super::BatchController> BatchController for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_batch(
         &self,
@@ -505,9 +505,9 @@ pub trait ClusterController: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ClusterController] also implement [ClusterController].
+/// All implementations of [super::ClusterController] also implement [ClusterController].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ClusterController> ClusterController for T {
+impl<T: super::ClusterController> ClusterController for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_cluster(
         &self,
@@ -756,9 +756,9 @@ pub trait JobController: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::JobController] also implement [JobController].
+/// All implementations of [super::JobController] also implement [JobController].
 #[async_trait::async_trait]
-impl<T: crate::stubs::JobController> JobController for T {
+impl<T: super::JobController> JobController for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn submit_job(
         &self,
@@ -974,9 +974,9 @@ pub trait NodeGroupController: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::NodeGroupController] also implement [NodeGroupController].
+/// All implementations of [super::NodeGroupController] also implement [NodeGroupController].
 #[async_trait::async_trait]
-impl<T: crate::stubs::NodeGroupController> NodeGroupController for T {
+impl<T: super::NodeGroupController> NodeGroupController for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_node_group(
         &self,
@@ -1158,9 +1158,9 @@ pub trait SessionTemplateController: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::SessionTemplateController] also implement [SessionTemplateController].
+/// All implementations of [super::SessionTemplateController] also implement [SessionTemplateController].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SessionTemplateController> SessionTemplateController for T {
+impl<T: super::SessionTemplateController> SessionTemplateController for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_session_template(
         &self,
@@ -1356,9 +1356,9 @@ pub trait SessionController: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::SessionController] also implement [SessionController].
+/// All implementations of [super::SessionController] also implement [SessionController].
 #[async_trait::async_trait]
-impl<T: crate::stubs::SessionController> SessionController for T {
+impl<T: super::SessionController> SessionController for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_session(
         &self,
@@ -1580,9 +1580,9 @@ pub trait WorkflowTemplateService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::WorkflowTemplateService] also implement [WorkflowTemplateService].
+/// All implementations of [super::WorkflowTemplateService] also implement [WorkflowTemplateService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::WorkflowTemplateService> WorkflowTemplateService for T {
+impl<T: super::WorkflowTemplateService> WorkflowTemplateService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_workflow_template(
         &self,

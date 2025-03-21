@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudBilling {
-    inner: Arc<dyn crate::stubs::dynamic::CloudBilling>,
+    inner: Arc<dyn super::stubs::dynamic::CloudBilling>,
 }
 
 impl CloudBilling {
@@ -60,7 +60,7 @@ impl CloudBilling {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CloudBilling + 'static,
+        T: super::stubs::CloudBilling + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl CloudBilling {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CloudBilling>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CloudBilling>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,16 +78,16 @@ impl CloudBilling {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudBilling> {
-        crate::transport::CloudBilling::new(conf).await
+    ) -> Result<impl super::stubs::CloudBilling> {
+        super::transport::CloudBilling::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudBilling> {
+    ) -> Result<impl super::stubs::CloudBilling> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CloudBilling::new)
+            .map(super::tracing::CloudBilling::new)
     }
 
     /// Gets information about a billing account. The current authenticated user
@@ -96,16 +96,16 @@ impl CloudBilling {
     pub fn get_billing_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_billing::GetBillingAccount {
-        crate::builders::cloud_billing::GetBillingAccount::new(self.inner.clone())
+    ) -> super::builders::cloud_billing::GetBillingAccount {
+        super::builders::cloud_billing::GetBillingAccount::new(self.inner.clone())
             .set_name(name.into())
     }
 
     /// Lists the billing accounts that the current authenticated user has
     /// permission to
     /// [view](https://cloud.google.com/billing/docs/how-to/billing-access).
-    pub fn list_billing_accounts(&self) -> crate::builders::cloud_billing::ListBillingAccounts {
-        crate::builders::cloud_billing::ListBillingAccounts::new(self.inner.clone())
+    pub fn list_billing_accounts(&self) -> super::builders::cloud_billing::ListBillingAccounts {
+        super::builders::cloud_billing::ListBillingAccounts::new(self.inner.clone())
     }
 
     /// Updates a billing account's fields.
@@ -117,8 +117,8 @@ impl CloudBilling {
     pub fn update_billing_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_billing::UpdateBillingAccount {
-        crate::builders::cloud_billing::UpdateBillingAccount::new(self.inner.clone())
+    ) -> super::builders::cloud_billing::UpdateBillingAccount {
+        super::builders::cloud_billing::UpdateBillingAccount::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -137,8 +137,8 @@ impl CloudBilling {
     /// [administrators](https://cloud.google.com/billing/docs/how-to/billing-access).
     /// This method will return an error if the parent account has not been
     /// provisioned for subaccounts.
-    pub fn create_billing_account(&self) -> crate::builders::cloud_billing::CreateBillingAccount {
-        crate::builders::cloud_billing::CreateBillingAccount::new(self.inner.clone())
+    pub fn create_billing_account(&self) -> super::builders::cloud_billing::CreateBillingAccount {
+        super::builders::cloud_billing::CreateBillingAccount::new(self.inner.clone())
     }
 
     /// Lists the projects associated with a billing account. The current
@@ -148,8 +148,8 @@ impl CloudBilling {
     pub fn list_project_billing_info(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_billing::ListProjectBillingInfo {
-        crate::builders::cloud_billing::ListProjectBillingInfo::new(self.inner.clone())
+    ) -> super::builders::cloud_billing::ListProjectBillingInfo {
+        super::builders::cloud_billing::ListProjectBillingInfo::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -161,8 +161,8 @@ impl CloudBilling {
     pub fn get_project_billing_info(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_billing::GetProjectBillingInfo {
-        crate::builders::cloud_billing::GetProjectBillingInfo::new(self.inner.clone())
+    ) -> super::builders::cloud_billing::GetProjectBillingInfo {
+        super::builders::cloud_billing::GetProjectBillingInfo::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -201,8 +201,8 @@ impl CloudBilling {
     pub fn update_project_billing_info(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_billing::UpdateProjectBillingInfo {
-        crate::builders::cloud_billing::UpdateProjectBillingInfo::new(self.inner.clone())
+    ) -> super::builders::cloud_billing::UpdateProjectBillingInfo {
+        super::builders::cloud_billing::UpdateProjectBillingInfo::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -213,8 +213,8 @@ impl CloudBilling {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_billing::GetIamPolicy {
-        crate::builders::cloud_billing::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::cloud_billing::GetIamPolicy {
+        super::builders::cloud_billing::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -226,8 +226,8 @@ impl CloudBilling {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_billing::SetIamPolicy {
-        crate::builders::cloud_billing::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::cloud_billing::SetIamPolicy {
+        super::builders::cloud_billing::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -237,8 +237,8 @@ impl CloudBilling {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_billing::TestIamPermissions {
-        crate::builders::cloud_billing::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::cloud_billing::TestIamPermissions {
+        super::builders::cloud_billing::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -246,8 +246,8 @@ impl CloudBilling {
     pub fn move_billing_account(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_billing::MoveBillingAccount {
-        crate::builders::cloud_billing::MoveBillingAccount::new(self.inner.clone())
+    ) -> super::builders::cloud_billing::MoveBillingAccount {
+        super::builders::cloud_billing::MoveBillingAccount::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -273,7 +273,7 @@ impl CloudBilling {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudCatalog {
-    inner: Arc<dyn crate::stubs::dynamic::CloudCatalog>,
+    inner: Arc<dyn super::stubs::dynamic::CloudCatalog>,
 }
 
 impl CloudCatalog {
@@ -294,7 +294,7 @@ impl CloudCatalog {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CloudCatalog + 'static,
+        T: super::stubs::CloudCatalog + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -303,7 +303,7 @@ impl CloudCatalog {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CloudCatalog>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CloudCatalog>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -312,28 +312,28 @@ impl CloudCatalog {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudCatalog> {
-        crate::transport::CloudCatalog::new(conf).await
+    ) -> Result<impl super::stubs::CloudCatalog> {
+        super::transport::CloudCatalog::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudCatalog> {
+    ) -> Result<impl super::stubs::CloudCatalog> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CloudCatalog::new)
+            .map(super::tracing::CloudCatalog::new)
     }
 
     /// Lists all public cloud services.
-    pub fn list_services(&self) -> crate::builders::cloud_catalog::ListServices {
-        crate::builders::cloud_catalog::ListServices::new(self.inner.clone())
+    pub fn list_services(&self) -> super::builders::cloud_catalog::ListServices {
+        super::builders::cloud_catalog::ListServices::new(self.inner.clone())
     }
 
     /// Lists all publicly available SKUs for a given cloud service.
     pub fn list_skus(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_catalog::ListSkus {
-        crate::builders::cloud_catalog::ListSkus::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::cloud_catalog::ListSkus {
+        super::builders::cloud_catalog::ListSkus::new(self.inner.clone()).set_parent(parent.into())
     }
 }

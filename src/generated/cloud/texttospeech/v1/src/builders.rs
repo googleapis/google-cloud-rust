@@ -18,10 +18,10 @@ pub mod text_to_speech {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TextToSpeech] request builders.
+    /// Common implementation for [super::super::client::TextToSpeech] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TextToSpeech>,
+        stub: Arc<dyn super::super::stubs::dynamic::TextToSpeech>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod text_to_speech {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TextToSpeech>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod text_to_speech {
     pub struct ListVoices(RequestBuilder<crate::model::ListVoicesRequest>);
 
     impl ListVoices {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TextToSpeech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -85,7 +85,7 @@ pub mod text_to_speech {
     pub struct SynthesizeSpeech(RequestBuilder<crate::model::SynthesizeSpeechRequest>);
 
     impl SynthesizeSpeech {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TextToSpeech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -161,7 +161,7 @@ pub mod text_to_speech {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TextToSpeech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -188,12 +188,12 @@ pub mod text_to_speech {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -238,7 +238,7 @@ pub mod text_to_speech {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TextToSpeech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -282,10 +282,10 @@ pub mod text_to_speech_long_audio_synthesize {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TextToSpeechLongAudioSynthesize] request builders.
+    /// Common implementation for [super::super::client::TextToSpeechLongAudioSynthesize] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
+        stub: Arc<dyn super::super::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -295,7 +295,7 @@ pub mod text_to_speech_long_audio_synthesize {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: Arc<dyn super::super::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self {
                 stub,
@@ -311,7 +311,7 @@ pub mod text_to_speech_long_audio_synthesize {
 
     impl SynthesizeLongAudio {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: Arc<dyn super::super::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -336,7 +336,7 @@ pub mod text_to_speech_long_audio_synthesize {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [synthesize_long_audio][crate::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio].
+        /// on [synthesize_long_audio][super::super::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .synthesize_long_audio(self.0.request, self.0.options)
@@ -433,7 +433,7 @@ pub mod text_to_speech_long_audio_synthesize {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: Arc<dyn super::super::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -461,12 +461,12 @@ pub mod text_to_speech_long_audio_synthesize {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -512,7 +512,7 @@ pub mod text_to_speech_long_audio_synthesize {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: Arc<dyn super::super::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AppConnectionsService].
+/// Defines the trait used to implement [super::client::AppConnectionsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AppConnectionsService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AppConnectionsService::list_app_connections].
+    /// Implements [super::client::AppConnectionsService::list_app_connections].
     fn list_app_connections(
         &self,
         _req: crate::model::ListAppConnectionsRequest,
@@ -53,7 +53,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppConnectionsService::get_app_connection].
+    /// Implements [super::client::AppConnectionsService::get_app_connection].
     fn get_app_connection(
         &self,
         _req: crate::model::GetAppConnectionRequest,
@@ -64,7 +64,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppConnectionsService::create_app_connection].
+    /// Implements [super::client::AppConnectionsService::create_app_connection].
     fn create_app_connection(
         &self,
         _req: crate::model::CreateAppConnectionRequest,
@@ -76,7 +76,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppConnectionsService::update_app_connection].
+    /// Implements [super::client::AppConnectionsService::update_app_connection].
     fn update_app_connection(
         &self,
         _req: crate::model::UpdateAppConnectionRequest,
@@ -88,7 +88,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppConnectionsService::delete_app_connection].
+    /// Implements [super::client::AppConnectionsService::delete_app_connection].
     fn delete_app_connection(
         &self,
         _req: crate::model::DeleteAppConnectionRequest,
@@ -100,7 +100,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppConnectionsService::resolve_app_connections].
+    /// Implements [super::client::AppConnectionsService::resolve_app_connections].
     fn resolve_app_connections(
         &self,
         _req: crate::model::ResolveAppConnectionsRequest,
@@ -112,7 +112,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppConnectionsService::list_locations].
+    /// Implements [super::client::AppConnectionsService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -124,7 +124,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppConnectionsService::get_location].
+    /// Implements [super::client::AppConnectionsService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -135,7 +135,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppConnectionsService::set_iam_policy].
+    /// Implements [super::client::AppConnectionsService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -146,7 +146,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppConnectionsService::get_iam_policy].
+    /// Implements [super::client::AppConnectionsService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -157,7 +157,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppConnectionsService::test_iam_permissions].
+    /// Implements [super::client::AppConnectionsService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -169,7 +169,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppConnectionsService::list_operations].
+    /// Implements [super::client::AppConnectionsService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -181,7 +181,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppConnectionsService::get_operation].
+    /// Implements [super::client::AppConnectionsService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -193,7 +193,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppConnectionsService::delete_operation].
+    /// Implements [super::client::AppConnectionsService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -202,7 +202,7 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AppConnectionsService::cancel_operation].
+    /// Implements [super::client::AppConnectionsService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

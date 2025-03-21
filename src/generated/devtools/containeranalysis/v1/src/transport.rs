@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ContainerAnalysis](crate::stubs::ContainerAnalysis) using a [gax::http_client::ReqwestClient].
+/// Implements [ContainerAnalysis](super::stubs::ContainerAnalysis) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ContainerAnalysis {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ContainerAnalysis {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for ContainerAnalysis {
 }
 
 impl ContainerAnalysis {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::ContainerAnalysis for ContainerAnalysis {
+impl super::stubs::ContainerAnalysis for ContainerAnalysis {
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
@@ -119,7 +119,7 @@ impl crate::stubs::ContainerAnalysis for ContainerAnalysis {
             );
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

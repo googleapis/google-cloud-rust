@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::SecurityCenter].
+/// Defines the trait used to implement [super::client::SecurityCenter].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SecurityCenter`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::SecurityCenter::batch_create_resource_value_configs].
+    /// Implements [super::client::SecurityCenter::batch_create_resource_value_configs].
     fn batch_create_resource_value_configs(
         &self,
         _req: crate::model::BatchCreateResourceValueConfigsRequest,
@@ -54,7 +54,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::SecurityCenter::bulk_mute_findings].
+    /// Implements [super::client::SecurityCenter::bulk_mute_findings].
     fn bulk_mute_findings(
         &self,
         _req: crate::model::BulkMuteFindingsRequest,
@@ -66,7 +66,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::create_big_query_export].
+    /// Implements [super::client::SecurityCenter::create_big_query_export].
     fn create_big_query_export(
         &self,
         _req: crate::model::CreateBigQueryExportRequest,
@@ -77,7 +77,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::create_finding].
+    /// Implements [super::client::SecurityCenter::create_finding].
     fn create_finding(
         &self,
         _req: crate::model::CreateFindingRequest,
@@ -88,7 +88,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::create_mute_config].
+    /// Implements [super::client::SecurityCenter::create_mute_config].
     fn create_mute_config(
         &self,
         _req: crate::model::CreateMuteConfigRequest,
@@ -99,7 +99,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::create_notification_config].
+    /// Implements [super::client::SecurityCenter::create_notification_config].
     fn create_notification_config(
         &self,
         _req: crate::model::CreateNotificationConfigRequest,
@@ -111,7 +111,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::create_source].
+    /// Implements [super::client::SecurityCenter::create_source].
     fn create_source(
         &self,
         _req: crate::model::CreateSourceRequest,
@@ -122,7 +122,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::delete_big_query_export].
+    /// Implements [super::client::SecurityCenter::delete_big_query_export].
     fn delete_big_query_export(
         &self,
         _req: crate::model::DeleteBigQueryExportRequest,
@@ -131,7 +131,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SecurityCenter::delete_mute_config].
+    /// Implements [super::client::SecurityCenter::delete_mute_config].
     fn delete_mute_config(
         &self,
         _req: crate::model::DeleteMuteConfigRequest,
@@ -140,7 +140,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SecurityCenter::delete_notification_config].
+    /// Implements [super::client::SecurityCenter::delete_notification_config].
     fn delete_notification_config(
         &self,
         _req: crate::model::DeleteNotificationConfigRequest,
@@ -149,7 +149,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SecurityCenter::delete_resource_value_config].
+    /// Implements [super::client::SecurityCenter::delete_resource_value_config].
     fn delete_resource_value_config(
         &self,
         _req: crate::model::DeleteResourceValueConfigRequest,
@@ -158,7 +158,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SecurityCenter::get_big_query_export].
+    /// Implements [super::client::SecurityCenter::get_big_query_export].
     fn get_big_query_export(
         &self,
         _req: crate::model::GetBigQueryExportRequest,
@@ -169,7 +169,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::get_simulation].
+    /// Implements [super::client::SecurityCenter::get_simulation].
     fn get_simulation(
         &self,
         _req: crate::model::GetSimulationRequest,
@@ -180,7 +180,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::get_valued_resource].
+    /// Implements [super::client::SecurityCenter::get_valued_resource].
     fn get_valued_resource(
         &self,
         _req: crate::model::GetValuedResourceRequest,
@@ -191,7 +191,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::get_iam_policy].
+    /// Implements [super::client::SecurityCenter::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -202,7 +202,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::get_mute_config].
+    /// Implements [super::client::SecurityCenter::get_mute_config].
     fn get_mute_config(
         &self,
         _req: crate::model::GetMuteConfigRequest,
@@ -213,7 +213,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::get_notification_config].
+    /// Implements [super::client::SecurityCenter::get_notification_config].
     fn get_notification_config(
         &self,
         _req: crate::model::GetNotificationConfigRequest,
@@ -225,7 +225,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::get_resource_value_config].
+    /// Implements [super::client::SecurityCenter::get_resource_value_config].
     fn get_resource_value_config(
         &self,
         _req: crate::model::GetResourceValueConfigRequest,
@@ -237,7 +237,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::get_source].
+    /// Implements [super::client::SecurityCenter::get_source].
     fn get_source(
         &self,
         _req: crate::model::GetSourceRequest,
@@ -248,7 +248,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::group_findings].
+    /// Implements [super::client::SecurityCenter::group_findings].
     fn group_findings(
         &self,
         _req: crate::model::GroupFindingsRequest,
@@ -260,7 +260,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::list_attack_paths].
+    /// Implements [super::client::SecurityCenter::list_attack_paths].
     fn list_attack_paths(
         &self,
         _req: crate::model::ListAttackPathsRequest,
@@ -272,7 +272,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityCenter::list_big_query_exports].
+    /// Implements [super::client::SecurityCenter::list_big_query_exports].
     fn list_big_query_exports(
         &self,
         _req: crate::model::ListBigQueryExportsRequest,
@@ -284,7 +284,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityCenter::list_findings].
+    /// Implements [super::client::SecurityCenter::list_findings].
     fn list_findings(
         &self,
         _req: crate::model::ListFindingsRequest,
@@ -296,7 +296,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::list_mute_configs].
+    /// Implements [super::client::SecurityCenter::list_mute_configs].
     fn list_mute_configs(
         &self,
         _req: crate::model::ListMuteConfigsRequest,
@@ -308,7 +308,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityCenter::list_notification_configs].
+    /// Implements [super::client::SecurityCenter::list_notification_configs].
     fn list_notification_configs(
         &self,
         _req: crate::model::ListNotificationConfigsRequest,
@@ -321,7 +321,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityCenter::list_resource_value_configs].
+    /// Implements [super::client::SecurityCenter::list_resource_value_configs].
     fn list_resource_value_configs(
         &self,
         _req: crate::model::ListResourceValueConfigsRequest,
@@ -334,7 +334,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityCenter::list_sources].
+    /// Implements [super::client::SecurityCenter::list_sources].
     fn list_sources(
         &self,
         _req: crate::model::ListSourcesRequest,
@@ -346,7 +346,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::list_valued_resources].
+    /// Implements [super::client::SecurityCenter::list_valued_resources].
     fn list_valued_resources(
         &self,
         _req: crate::model::ListValuedResourcesRequest,
@@ -358,7 +358,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityCenter::set_finding_state].
+    /// Implements [super::client::SecurityCenter::set_finding_state].
     fn set_finding_state(
         &self,
         _req: crate::model::SetFindingStateRequest,
@@ -369,7 +369,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::set_iam_policy].
+    /// Implements [super::client::SecurityCenter::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -380,7 +380,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::set_mute].
+    /// Implements [super::client::SecurityCenter::set_mute].
     fn set_mute(
         &self,
         _req: crate::model::SetMuteRequest,
@@ -391,7 +391,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::test_iam_permissions].
+    /// Implements [super::client::SecurityCenter::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -403,7 +403,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityCenter::update_big_query_export].
+    /// Implements [super::client::SecurityCenter::update_big_query_export].
     fn update_big_query_export(
         &self,
         _req: crate::model::UpdateBigQueryExportRequest,
@@ -414,7 +414,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::update_external_system].
+    /// Implements [super::client::SecurityCenter::update_external_system].
     fn update_external_system(
         &self,
         _req: crate::model::UpdateExternalSystemRequest,
@@ -425,7 +425,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::update_finding].
+    /// Implements [super::client::SecurityCenter::update_finding].
     fn update_finding(
         &self,
         _req: crate::model::UpdateFindingRequest,
@@ -436,7 +436,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::update_mute_config].
+    /// Implements [super::client::SecurityCenter::update_mute_config].
     fn update_mute_config(
         &self,
         _req: crate::model::UpdateMuteConfigRequest,
@@ -447,7 +447,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::update_notification_config].
+    /// Implements [super::client::SecurityCenter::update_notification_config].
     fn update_notification_config(
         &self,
         _req: crate::model::UpdateNotificationConfigRequest,
@@ -459,7 +459,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::update_resource_value_config].
+    /// Implements [super::client::SecurityCenter::update_resource_value_config].
     fn update_resource_value_config(
         &self,
         _req: crate::model::UpdateResourceValueConfigRequest,
@@ -471,7 +471,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::update_security_marks].
+    /// Implements [super::client::SecurityCenter::update_security_marks].
     fn update_security_marks(
         &self,
         _req: crate::model::UpdateSecurityMarksRequest,
@@ -482,7 +482,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::update_source].
+    /// Implements [super::client::SecurityCenter::update_source].
     fn update_source(
         &self,
         _req: crate::model::UpdateSourceRequest,
@@ -493,7 +493,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::list_operations].
+    /// Implements [super::client::SecurityCenter::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -505,7 +505,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecurityCenter::get_operation].
+    /// Implements [super::client::SecurityCenter::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -517,7 +517,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecurityCenter::delete_operation].
+    /// Implements [super::client::SecurityCenter::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -526,7 +526,7 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SecurityCenter::cancel_operation].
+    /// Implements [super::client::SecurityCenter::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

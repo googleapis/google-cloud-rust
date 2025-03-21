@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate gtype;
 extern crate lazy_static;
 extern crate location;
@@ -1429,7 +1430,6 @@ impl wkt::message::Message for ListPosturesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPosturesResponse {
     type PageItem = crate::model::Posture;
 
@@ -1438,7 +1438,8 @@ impl gax::paginator::PageableResponse for ListPosturesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1535,7 +1536,6 @@ impl wkt::message::Message for ListPostureRevisionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPostureRevisionsResponse {
     type PageItem = crate::model::Posture;
 
@@ -1544,7 +1544,8 @@ impl gax::paginator::PageableResponse for ListPostureRevisionsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -2209,7 +2210,6 @@ impl wkt::message::Message for ListPostureDeploymentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPostureDeploymentsResponse {
     type PageItem = crate::model::PostureDeployment;
 
@@ -2218,7 +2218,8 @@ impl gax::paginator::PageableResponse for ListPostureDeploymentsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -2647,7 +2648,6 @@ impl wkt::message::Message for ListPostureTemplatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPostureTemplatesResponse {
     type PageItem = crate::model::PostureTemplate;
 
@@ -2656,7 +2656,8 @@ impl gax::paginator::PageableResponse for ListPostureTemplatesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Aml](crate::stubs::Aml) using a [gax::http_client::ReqwestClient].
+/// Implements [Aml](super::stubs::Aml) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Aml {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for Aml {
@@ -31,13 +31,13 @@ impl std::fmt::Debug for Aml {
 }
 
 impl Aml {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::Aml for Aml {
+impl super::stubs::Aml for Aml {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
@@ -60,7 +60,7 @@ impl crate::stubs::Aml for Aml {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -79,7 +79,7 @@ impl crate::stubs::Aml for Aml {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -121,7 +121,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -137,7 +137,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -162,7 +162,7 @@ impl crate::stubs::Aml for Aml {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -225,7 +225,7 @@ impl crate::stubs::Aml for Aml {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -244,7 +244,7 @@ impl crate::stubs::Aml for Aml {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -286,7 +286,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.dataset
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("dataset"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("dataset"))?
                         .name
                 ),
             )
@@ -302,7 +302,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -327,7 +327,7 @@ impl crate::stubs::Aml for Aml {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -350,7 +350,7 @@ impl crate::stubs::Aml for Aml {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -369,7 +369,7 @@ impl crate::stubs::Aml for Aml {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -406,7 +406,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.model
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("model"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("model"))?
                         .name
                 ),
             )
@@ -422,7 +422,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -465,7 +465,7 @@ impl crate::stubs::Aml for Aml {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -491,7 +491,7 @@ impl crate::stubs::Aml for Aml {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -510,7 +510,7 @@ impl crate::stubs::Aml for Aml {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -552,7 +552,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.engine_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("engine_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("engine_config"))?
                         .name
                 ),
             )
@@ -568,7 +568,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -613,7 +613,7 @@ impl crate::stubs::Aml for Aml {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -632,7 +632,7 @@ impl crate::stubs::Aml for Aml {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -658,7 +658,7 @@ impl crate::stubs::Aml for Aml {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -684,7 +684,7 @@ impl crate::stubs::Aml for Aml {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -703,7 +703,7 @@ impl crate::stubs::Aml for Aml {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -745,7 +745,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.prediction_result
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("prediction_result"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("prediction_result"))?
                         .name
                 ),
             )
@@ -761,7 +761,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -806,7 +806,7 @@ impl crate::stubs::Aml for Aml {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -832,7 +832,7 @@ impl crate::stubs::Aml for Aml {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -851,7 +851,7 @@ impl crate::stubs::Aml for Aml {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -893,7 +893,7 @@ impl crate::stubs::Aml for Aml {
                     "/v1/{}",
                     req.backtest_result
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("backtest_result"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("backtest_result"))?
                         .name
                 ),
             )
@@ -909,7 +909,7 @@ impl crate::stubs::Aml for Aml {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -954,7 +954,7 @@ impl crate::stubs::Aml for Aml {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -976,7 +976,7 @@ impl crate::stubs::Aml for Aml {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -995,7 +995,7 @@ impl crate::stubs::Aml for Aml {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1017,7 +1017,7 @@ impl crate::stubs::Aml for Aml {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1036,7 +1036,7 @@ impl crate::stubs::Aml for Aml {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1055,7 +1055,7 @@ impl crate::stubs::Aml for Aml {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

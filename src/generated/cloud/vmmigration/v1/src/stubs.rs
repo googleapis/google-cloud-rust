@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::VmMigration].
+/// Defines the trait used to implement [super::client::VmMigration].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::VmMigration`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait VmMigration: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::VmMigration::list_sources].
+    /// Implements [super::client::VmMigration::list_sources].
     fn list_sources(
         &self,
         _req: crate::model::ListSourcesRequest,
@@ -53,7 +53,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::get_source].
+    /// Implements [super::client::VmMigration::get_source].
     fn get_source(
         &self,
         _req: crate::model::GetSourceRequest,
@@ -64,7 +64,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::create_source].
+    /// Implements [super::client::VmMigration::create_source].
     fn create_source(
         &self,
         _req: crate::model::CreateSourceRequest,
@@ -76,7 +76,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::update_source].
+    /// Implements [super::client::VmMigration::update_source].
     fn update_source(
         &self,
         _req: crate::model::UpdateSourceRequest,
@@ -88,7 +88,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::delete_source].
+    /// Implements [super::client::VmMigration::delete_source].
     fn delete_source(
         &self,
         _req: crate::model::DeleteSourceRequest,
@@ -100,7 +100,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::fetch_inventory].
+    /// Implements [super::client::VmMigration::fetch_inventory].
     fn fetch_inventory(
         &self,
         _req: crate::model::FetchInventoryRequest,
@@ -112,7 +112,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmMigration::list_utilization_reports].
+    /// Implements [super::client::VmMigration::list_utilization_reports].
     fn list_utilization_reports(
         &self,
         _req: crate::model::ListUtilizationReportsRequest,
@@ -124,7 +124,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmMigration::get_utilization_report].
+    /// Implements [super::client::VmMigration::get_utilization_report].
     fn get_utilization_report(
         &self,
         _req: crate::model::GetUtilizationReportRequest,
@@ -136,7 +136,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::create_utilization_report].
+    /// Implements [super::client::VmMigration::create_utilization_report].
     fn create_utilization_report(
         &self,
         _req: crate::model::CreateUtilizationReportRequest,
@@ -148,7 +148,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::delete_utilization_report].
+    /// Implements [super::client::VmMigration::delete_utilization_report].
     fn delete_utilization_report(
         &self,
         _req: crate::model::DeleteUtilizationReportRequest,
@@ -160,7 +160,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::list_datacenter_connectors].
+    /// Implements [super::client::VmMigration::list_datacenter_connectors].
     fn list_datacenter_connectors(
         &self,
         _req: crate::model::ListDatacenterConnectorsRequest,
@@ -173,7 +173,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmMigration::get_datacenter_connector].
+    /// Implements [super::client::VmMigration::get_datacenter_connector].
     fn get_datacenter_connector(
         &self,
         _req: crate::model::GetDatacenterConnectorRequest,
@@ -185,7 +185,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::create_datacenter_connector].
+    /// Implements [super::client::VmMigration::create_datacenter_connector].
     fn create_datacenter_connector(
         &self,
         _req: crate::model::CreateDatacenterConnectorRequest,
@@ -197,7 +197,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::delete_datacenter_connector].
+    /// Implements [super::client::VmMigration::delete_datacenter_connector].
     fn delete_datacenter_connector(
         &self,
         _req: crate::model::DeleteDatacenterConnectorRequest,
@@ -209,7 +209,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::upgrade_appliance].
+    /// Implements [super::client::VmMigration::upgrade_appliance].
     fn upgrade_appliance(
         &self,
         _req: crate::model::UpgradeApplianceRequest,
@@ -221,7 +221,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::create_migrating_vm].
+    /// Implements [super::client::VmMigration::create_migrating_vm].
     fn create_migrating_vm(
         &self,
         _req: crate::model::CreateMigratingVmRequest,
@@ -233,7 +233,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::list_migrating_vms].
+    /// Implements [super::client::VmMigration::list_migrating_vms].
     fn list_migrating_vms(
         &self,
         _req: crate::model::ListMigratingVmsRequest,
@@ -245,7 +245,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmMigration::get_migrating_vm].
+    /// Implements [super::client::VmMigration::get_migrating_vm].
     fn get_migrating_vm(
         &self,
         _req: crate::model::GetMigratingVmRequest,
@@ -256,7 +256,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::update_migrating_vm].
+    /// Implements [super::client::VmMigration::update_migrating_vm].
     fn update_migrating_vm(
         &self,
         _req: crate::model::UpdateMigratingVmRequest,
@@ -268,7 +268,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::delete_migrating_vm].
+    /// Implements [super::client::VmMigration::delete_migrating_vm].
     fn delete_migrating_vm(
         &self,
         _req: crate::model::DeleteMigratingVmRequest,
@@ -280,7 +280,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::start_migration].
+    /// Implements [super::client::VmMigration::start_migration].
     fn start_migration(
         &self,
         _req: crate::model::StartMigrationRequest,
@@ -292,7 +292,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::resume_migration].
+    /// Implements [super::client::VmMigration::resume_migration].
     fn resume_migration(
         &self,
         _req: crate::model::ResumeMigrationRequest,
@@ -304,7 +304,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::pause_migration].
+    /// Implements [super::client::VmMigration::pause_migration].
     fn pause_migration(
         &self,
         _req: crate::model::PauseMigrationRequest,
@@ -316,7 +316,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::finalize_migration].
+    /// Implements [super::client::VmMigration::finalize_migration].
     fn finalize_migration(
         &self,
         _req: crate::model::FinalizeMigrationRequest,
@@ -328,7 +328,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::create_clone_job].
+    /// Implements [super::client::VmMigration::create_clone_job].
     fn create_clone_job(
         &self,
         _req: crate::model::CreateCloneJobRequest,
@@ -340,7 +340,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::cancel_clone_job].
+    /// Implements [super::client::VmMigration::cancel_clone_job].
     fn cancel_clone_job(
         &self,
         _req: crate::model::CancelCloneJobRequest,
@@ -352,7 +352,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::list_clone_jobs].
+    /// Implements [super::client::VmMigration::list_clone_jobs].
     fn list_clone_jobs(
         &self,
         _req: crate::model::ListCloneJobsRequest,
@@ -364,7 +364,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::get_clone_job].
+    /// Implements [super::client::VmMigration::get_clone_job].
     fn get_clone_job(
         &self,
         _req: crate::model::GetCloneJobRequest,
@@ -375,7 +375,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::create_cutover_job].
+    /// Implements [super::client::VmMigration::create_cutover_job].
     fn create_cutover_job(
         &self,
         _req: crate::model::CreateCutoverJobRequest,
@@ -387,7 +387,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::cancel_cutover_job].
+    /// Implements [super::client::VmMigration::cancel_cutover_job].
     fn cancel_cutover_job(
         &self,
         _req: crate::model::CancelCutoverJobRequest,
@@ -399,7 +399,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::list_cutover_jobs].
+    /// Implements [super::client::VmMigration::list_cutover_jobs].
     fn list_cutover_jobs(
         &self,
         _req: crate::model::ListCutoverJobsRequest,
@@ -411,7 +411,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmMigration::get_cutover_job].
+    /// Implements [super::client::VmMigration::get_cutover_job].
     fn get_cutover_job(
         &self,
         _req: crate::model::GetCutoverJobRequest,
@@ -422,7 +422,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::list_groups].
+    /// Implements [super::client::VmMigration::list_groups].
     fn list_groups(
         &self,
         _req: crate::model::ListGroupsRequest,
@@ -434,7 +434,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::get_group].
+    /// Implements [super::client::VmMigration::get_group].
     fn get_group(
         &self,
         _req: crate::model::GetGroupRequest,
@@ -443,7 +443,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Group>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VmMigration::create_group].
+    /// Implements [super::client::VmMigration::create_group].
     fn create_group(
         &self,
         _req: crate::model::CreateGroupRequest,
@@ -455,7 +455,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::update_group].
+    /// Implements [super::client::VmMigration::update_group].
     fn update_group(
         &self,
         _req: crate::model::UpdateGroupRequest,
@@ -467,7 +467,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::delete_group].
+    /// Implements [super::client::VmMigration::delete_group].
     fn delete_group(
         &self,
         _req: crate::model::DeleteGroupRequest,
@@ -479,7 +479,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::add_group_migration].
+    /// Implements [super::client::VmMigration::add_group_migration].
     fn add_group_migration(
         &self,
         _req: crate::model::AddGroupMigrationRequest,
@@ -491,7 +491,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::remove_group_migration].
+    /// Implements [super::client::VmMigration::remove_group_migration].
     fn remove_group_migration(
         &self,
         _req: crate::model::RemoveGroupMigrationRequest,
@@ -503,7 +503,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::list_target_projects].
+    /// Implements [super::client::VmMigration::list_target_projects].
     fn list_target_projects(
         &self,
         _req: crate::model::ListTargetProjectsRequest,
@@ -515,7 +515,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmMigration::get_target_project].
+    /// Implements [super::client::VmMigration::get_target_project].
     fn get_target_project(
         &self,
         _req: crate::model::GetTargetProjectRequest,
@@ -526,7 +526,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::create_target_project].
+    /// Implements [super::client::VmMigration::create_target_project].
     fn create_target_project(
         &self,
         _req: crate::model::CreateTargetProjectRequest,
@@ -538,7 +538,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::update_target_project].
+    /// Implements [super::client::VmMigration::update_target_project].
     fn update_target_project(
         &self,
         _req: crate::model::UpdateTargetProjectRequest,
@@ -550,7 +550,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::delete_target_project].
+    /// Implements [super::client::VmMigration::delete_target_project].
     fn delete_target_project(
         &self,
         _req: crate::model::DeleteTargetProjectRequest,
@@ -562,7 +562,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::list_replication_cycles].
+    /// Implements [super::client::VmMigration::list_replication_cycles].
     fn list_replication_cycles(
         &self,
         _req: crate::model::ListReplicationCyclesRequest,
@@ -574,7 +574,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmMigration::get_replication_cycle].
+    /// Implements [super::client::VmMigration::get_replication_cycle].
     fn get_replication_cycle(
         &self,
         _req: crate::model::GetReplicationCycleRequest,
@@ -586,7 +586,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::list_locations].
+    /// Implements [super::client::VmMigration::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -598,7 +598,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmMigration::get_location].
+    /// Implements [super::client::VmMigration::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -609,7 +609,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::list_operations].
+    /// Implements [super::client::VmMigration::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -621,7 +621,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::VmMigration::get_operation].
+    /// Implements [super::client::VmMigration::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -633,7 +633,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::VmMigration::delete_operation].
+    /// Implements [super::client::VmMigration::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -642,7 +642,7 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::VmMigration::cancel_operation].
+    /// Implements [super::client::VmMigration::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

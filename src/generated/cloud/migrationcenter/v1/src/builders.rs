@@ -18,10 +18,10 @@ pub mod migration_center {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::MigrationCenter] request builders.
+    /// Common implementation for [super::super::client::MigrationCenter] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>,
+        stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod migration_center {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod migration_center {
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -130,7 +130,7 @@ pub mod migration_center {
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -177,7 +177,7 @@ pub mod migration_center {
     pub struct UpdateAsset(RequestBuilder<crate::model::UpdateAssetRequest>);
 
     impl UpdateAsset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -236,7 +236,7 @@ pub mod migration_center {
     pub struct BatchUpdateAssets(RequestBuilder<crate::model::BatchUpdateAssetsRequest>);
 
     impl BatchUpdateAssets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -291,7 +291,7 @@ pub mod migration_center {
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -338,7 +338,7 @@ pub mod migration_center {
     pub struct BatchDeleteAssets(RequestBuilder<crate::model::BatchDeleteAssetsRequest>);
 
     impl BatchDeleteAssets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -399,7 +399,7 @@ pub mod migration_center {
     pub struct ReportAssetFrames(RequestBuilder<crate::model::ReportAssetFramesRequest>);
 
     impl ReportAssetFrames {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -458,7 +458,7 @@ pub mod migration_center {
     pub struct AggregateAssetsValues(RequestBuilder<crate::model::AggregateAssetsValuesRequest>);
 
     impl AggregateAssetsValues {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -519,7 +519,7 @@ pub mod migration_center {
     pub struct CreateImportJob(RequestBuilder<crate::model::CreateImportJobRequest>);
 
     impl CreateImportJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -540,7 +540,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_import_job][crate::client::MigrationCenter::create_import_job].
+        /// on [create_import_job][super::super::client::MigrationCenter::create_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_import_job(self.0.request, self.0.options)
@@ -619,7 +619,7 @@ pub mod migration_center {
     pub struct ListImportJobs(RequestBuilder<crate::model::ListImportJobsRequest>);
 
     impl ListImportJobs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -643,12 +643,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListImportJobsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -705,7 +705,7 @@ pub mod migration_center {
     pub struct GetImportJob(RequestBuilder<crate::model::GetImportJobRequest>);
 
     impl GetImportJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -752,7 +752,7 @@ pub mod migration_center {
     pub struct DeleteImportJob(RequestBuilder<crate::model::DeleteImportJobRequest>);
 
     impl DeleteImportJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -773,7 +773,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_import_job][crate::client::MigrationCenter::delete_import_job].
+        /// on [delete_import_job][super::super::client::MigrationCenter::delete_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_import_job(self.0.request, self.0.options)
@@ -840,7 +840,7 @@ pub mod migration_center {
     pub struct UpdateImportJob(RequestBuilder<crate::model::UpdateImportJobRequest>);
 
     impl UpdateImportJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -861,7 +861,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_import_job][crate::client::MigrationCenter::update_import_job].
+        /// on [update_import_job][super::super::client::MigrationCenter::update_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_import_job(self.0.request, self.0.options)
@@ -937,7 +937,7 @@ pub mod migration_center {
     pub struct ValidateImportJob(RequestBuilder<crate::model::ValidateImportJobRequest>);
 
     impl ValidateImportJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -961,7 +961,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [validate_import_job][crate::client::MigrationCenter::validate_import_job].
+        /// on [validate_import_job][super::super::client::MigrationCenter::validate_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .validate_import_job(self.0.request, self.0.options)
@@ -1022,7 +1022,7 @@ pub mod migration_center {
     pub struct RunImportJob(RequestBuilder<crate::model::RunImportJobRequest>);
 
     impl RunImportJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1043,7 +1043,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_import_job][crate::client::MigrationCenter::run_import_job].
+        /// on [run_import_job][super::super::client::MigrationCenter::run_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_import_job(self.0.request, self.0.options)
@@ -1104,7 +1104,7 @@ pub mod migration_center {
     pub struct GetImportDataFile(RequestBuilder<crate::model::GetImportDataFileRequest>);
 
     impl GetImportDataFile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1148,7 +1148,7 @@ pub mod migration_center {
     pub struct ListImportDataFiles(RequestBuilder<crate::model::ListImportDataFilesRequest>);
 
     impl ListImportDataFiles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1175,12 +1175,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListImportDataFilesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1231,7 +1231,7 @@ pub mod migration_center {
     pub struct CreateImportDataFile(RequestBuilder<crate::model::CreateImportDataFileRequest>);
 
     impl CreateImportDataFile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1255,7 +1255,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_import_data_file][crate::client::MigrationCenter::create_import_data_file].
+        /// on [create_import_data_file][super::super::client::MigrationCenter::create_import_data_file].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_import_data_file(self.0.request, self.0.options)
@@ -1335,7 +1335,7 @@ pub mod migration_center {
     pub struct DeleteImportDataFile(RequestBuilder<crate::model::DeleteImportDataFileRequest>);
 
     impl DeleteImportDataFile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1359,7 +1359,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_import_data_file][crate::client::MigrationCenter::delete_import_data_file].
+        /// on [delete_import_data_file][super::super::client::MigrationCenter::delete_import_data_file].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_import_data_file(self.0.request, self.0.options)
@@ -1420,7 +1420,7 @@ pub mod migration_center {
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1444,12 +1444,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1500,7 +1500,7 @@ pub mod migration_center {
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1541,7 +1541,7 @@ pub mod migration_center {
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1562,7 +1562,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_group][crate::client::MigrationCenter::create_group].
+        /// on [create_group][super::super::client::MigrationCenter::create_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_group(self.0.request, self.0.options)
@@ -1640,7 +1640,7 @@ pub mod migration_center {
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1661,7 +1661,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_group][crate::client::MigrationCenter::update_group].
+        /// on [update_group][super::super::client::MigrationCenter::update_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
@@ -1736,7 +1736,7 @@ pub mod migration_center {
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1757,7 +1757,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_group][crate::client::MigrationCenter::delete_group].
+        /// on [delete_group][super::super::client::MigrationCenter::delete_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_group(self.0.request, self.0.options)
@@ -1818,7 +1818,7 @@ pub mod migration_center {
     pub struct AddAssetsToGroup(RequestBuilder<crate::model::AddAssetsToGroupRequest>);
 
     impl AddAssetsToGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1842,7 +1842,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [add_assets_to_group][crate::client::MigrationCenter::add_assets_to_group].
+        /// on [add_assets_to_group][super::super::client::MigrationCenter::add_assets_to_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .add_assets_to_group(self.0.request, self.0.options)
@@ -1920,7 +1920,7 @@ pub mod migration_center {
     pub struct RemoveAssetsFromGroup(RequestBuilder<crate::model::RemoveAssetsFromGroupRequest>);
 
     impl RemoveAssetsFromGroup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1944,7 +1944,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [remove_assets_from_group][crate::client::MigrationCenter::remove_assets_from_group].
+        /// on [remove_assets_from_group][super::super::client::MigrationCenter::remove_assets_from_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_assets_from_group(self.0.request, self.0.options)
@@ -2022,7 +2022,7 @@ pub mod migration_center {
     pub struct ListErrorFrames(RequestBuilder<crate::model::ListErrorFramesRequest>);
 
     impl ListErrorFrames {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2046,12 +2046,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListErrorFramesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2096,7 +2096,7 @@ pub mod migration_center {
     pub struct GetErrorFrame(RequestBuilder<crate::model::GetErrorFrameRequest>);
 
     impl GetErrorFrame {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2143,7 +2143,7 @@ pub mod migration_center {
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2167,12 +2167,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2223,7 +2223,7 @@ pub mod migration_center {
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2264,7 +2264,7 @@ pub mod migration_center {
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2285,7 +2285,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_source][crate::client::MigrationCenter::create_source].
+        /// on [create_source][super::super::client::MigrationCenter::create_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_source(self.0.request, self.0.options)
@@ -2363,7 +2363,7 @@ pub mod migration_center {
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2384,7 +2384,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_source][crate::client::MigrationCenter::update_source].
+        /// on [update_source][super::super::client::MigrationCenter::update_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_source(self.0.request, self.0.options)
@@ -2459,7 +2459,7 @@ pub mod migration_center {
     pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
 
     impl DeleteSource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2480,7 +2480,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_source][crate::client::MigrationCenter::delete_source].
+        /// on [delete_source][super::super::client::MigrationCenter::delete_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_source(self.0.request, self.0.options)
@@ -2541,7 +2541,7 @@ pub mod migration_center {
     pub struct ListPreferenceSets(RequestBuilder<crate::model::ListPreferenceSetsRequest>);
 
     impl ListPreferenceSets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2568,12 +2568,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPreferenceSetsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2618,7 +2618,7 @@ pub mod migration_center {
     pub struct GetPreferenceSet(RequestBuilder<crate::model::GetPreferenceSetRequest>);
 
     impl GetPreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2662,7 +2662,7 @@ pub mod migration_center {
     pub struct CreatePreferenceSet(RequestBuilder<crate::model::CreatePreferenceSetRequest>);
 
     impl CreatePreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2686,7 +2686,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_preference_set][crate::client::MigrationCenter::create_preference_set].
+        /// on [create_preference_set][super::super::client::MigrationCenter::create_preference_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_preference_set(self.0.request, self.0.options)
@@ -2766,7 +2766,7 @@ pub mod migration_center {
     pub struct UpdatePreferenceSet(RequestBuilder<crate::model::UpdatePreferenceSetRequest>);
 
     impl UpdatePreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2790,7 +2790,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_preference_set][crate::client::MigrationCenter::update_preference_set].
+        /// on [update_preference_set][super::super::client::MigrationCenter::update_preference_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_preference_set(self.0.request, self.0.options)
@@ -2867,7 +2867,7 @@ pub mod migration_center {
     pub struct DeletePreferenceSet(RequestBuilder<crate::model::DeletePreferenceSetRequest>);
 
     impl DeletePreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2891,7 +2891,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_preference_set][crate::client::MigrationCenter::delete_preference_set].
+        /// on [delete_preference_set][super::super::client::MigrationCenter::delete_preference_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_preference_set(self.0.request, self.0.options)
@@ -2952,7 +2952,7 @@ pub mod migration_center {
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2993,7 +2993,7 @@ pub mod migration_center {
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3014,7 +3014,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_settings][crate::client::MigrationCenter::update_settings].
+        /// on [update_settings][super::super::client::MigrationCenter::update_settings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_settings(self.0.request, self.0.options)
@@ -3090,7 +3090,7 @@ pub mod migration_center {
     pub struct CreateReportConfig(RequestBuilder<crate::model::CreateReportConfigRequest>);
 
     impl CreateReportConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3114,7 +3114,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_report_config][crate::client::MigrationCenter::create_report_config].
+        /// on [create_report_config][super::super::client::MigrationCenter::create_report_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_report_config(self.0.request, self.0.options)
@@ -3193,7 +3193,7 @@ pub mod migration_center {
     pub struct GetReportConfig(RequestBuilder<crate::model::GetReportConfigRequest>);
 
     impl GetReportConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3234,7 +3234,7 @@ pub mod migration_center {
     pub struct ListReportConfigs(RequestBuilder<crate::model::ListReportConfigsRequest>);
 
     impl ListReportConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3261,12 +3261,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListReportConfigsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3317,7 +3317,7 @@ pub mod migration_center {
     pub struct DeleteReportConfig(RequestBuilder<crate::model::DeleteReportConfigRequest>);
 
     impl DeleteReportConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3341,7 +3341,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_report_config][crate::client::MigrationCenter::delete_report_config].
+        /// on [delete_report_config][super::super::client::MigrationCenter::delete_report_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_report_config(self.0.request, self.0.options)
@@ -3408,7 +3408,7 @@ pub mod migration_center {
     pub struct CreateReport(RequestBuilder<crate::model::CreateReportRequest>);
 
     impl CreateReport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3429,7 +3429,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_report][crate::client::MigrationCenter::create_report].
+        /// on [create_report][super::super::client::MigrationCenter::create_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_report(self.0.request, self.0.options)
@@ -3507,7 +3507,7 @@ pub mod migration_center {
     pub struct GetReport(RequestBuilder<crate::model::GetReportRequest>);
 
     impl GetReport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3554,7 +3554,7 @@ pub mod migration_center {
     pub struct ListReports(RequestBuilder<crate::model::ListReportsRequest>);
 
     impl ListReports {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3578,12 +3578,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListReportsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3640,7 +3640,7 @@ pub mod migration_center {
     pub struct DeleteReport(RequestBuilder<crate::model::DeleteReportRequest>);
 
     impl DeleteReport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3661,7 +3661,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_report][crate::client::MigrationCenter::delete_report].
+        /// on [delete_report][super::super::client::MigrationCenter::delete_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_report(self.0.request, self.0.options)
@@ -3722,7 +3722,7 @@ pub mod migration_center {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3749,12 +3749,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3799,7 +3799,7 @@ pub mod migration_center {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3840,7 +3840,7 @@ pub mod migration_center {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3867,12 +3867,12 @@ pub mod migration_center {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3917,7 +3917,7 @@ pub mod migration_center {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3961,7 +3961,7 @@ pub mod migration_center {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4005,7 +4005,7 @@ pub mod migration_center {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::MigrationCenter>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

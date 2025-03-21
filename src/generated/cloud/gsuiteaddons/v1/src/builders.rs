@@ -18,10 +18,10 @@ pub mod g_suite_add_ons {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::GSuiteAddOns] request builders.
+    /// Common implementation for [super::super::client::GSuiteAddOns] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>,
+        stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod g_suite_add_ons {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod g_suite_add_ons {
     pub struct GetAuthorization(RequestBuilder<crate::model::GetAuthorizationRequest>);
 
     impl GetAuthorization {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -88,7 +88,7 @@ pub mod g_suite_add_ons {
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -147,7 +147,7 @@ pub mod g_suite_add_ons {
     pub struct ReplaceDeployment(RequestBuilder<crate::model::ReplaceDeploymentRequest>);
 
     impl ReplaceDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -194,7 +194,7 @@ pub mod g_suite_add_ons {
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -235,7 +235,7 @@ pub mod g_suite_add_ons {
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -259,12 +259,12 @@ pub mod g_suite_add_ons {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -303,7 +303,7 @@ pub mod g_suite_add_ons {
     pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
     impl DeleteDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -353,7 +353,7 @@ pub mod g_suite_add_ons {
     pub struct InstallDeployment(RequestBuilder<crate::model::InstallDeploymentRequest>);
 
     impl InstallDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -397,7 +397,7 @@ pub mod g_suite_add_ons {
     pub struct UninstallDeployment(RequestBuilder<crate::model::UninstallDeploymentRequest>);
 
     impl UninstallDeployment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -441,7 +441,7 @@ pub mod g_suite_add_ons {
     pub struct GetInstallStatus(RequestBuilder<crate::model::GetInstallStatusRequest>);
 
     impl GetInstallStatus {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::GSuiteAddOns>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

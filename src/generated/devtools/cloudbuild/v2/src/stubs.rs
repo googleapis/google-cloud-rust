@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::RepositoryManager].
+/// Defines the trait used to implement [super::client::RepositoryManager].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::RepositoryManager`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::RepositoryManager::create_connection].
+    /// Implements [super::client::RepositoryManager::create_connection].
     fn create_connection(
         &self,
         _req: crate::model::CreateConnectionRequest,
@@ -53,7 +53,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::get_connection].
+    /// Implements [super::client::RepositoryManager::get_connection].
     fn get_connection(
         &self,
         _req: crate::model::GetConnectionRequest,
@@ -64,7 +64,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::list_connections].
+    /// Implements [super::client::RepositoryManager::list_connections].
     fn list_connections(
         &self,
         _req: crate::model::ListConnectionsRequest,
@@ -76,7 +76,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RepositoryManager::update_connection].
+    /// Implements [super::client::RepositoryManager::update_connection].
     fn update_connection(
         &self,
         _req: crate::model::UpdateConnectionRequest,
@@ -88,7 +88,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::delete_connection].
+    /// Implements [super::client::RepositoryManager::delete_connection].
     fn delete_connection(
         &self,
         _req: crate::model::DeleteConnectionRequest,
@@ -100,7 +100,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::create_repository].
+    /// Implements [super::client::RepositoryManager::create_repository].
     fn create_repository(
         &self,
         _req: crate::model::CreateRepositoryRequest,
@@ -112,7 +112,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::batch_create_repositories].
+    /// Implements [super::client::RepositoryManager::batch_create_repositories].
     fn batch_create_repositories(
         &self,
         _req: crate::model::BatchCreateRepositoriesRequest,
@@ -124,7 +124,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::get_repository].
+    /// Implements [super::client::RepositoryManager::get_repository].
     fn get_repository(
         &self,
         _req: crate::model::GetRepositoryRequest,
@@ -135,7 +135,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::list_repositories].
+    /// Implements [super::client::RepositoryManager::list_repositories].
     fn list_repositories(
         &self,
         _req: crate::model::ListRepositoriesRequest,
@@ -147,7 +147,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RepositoryManager::delete_repository].
+    /// Implements [super::client::RepositoryManager::delete_repository].
     fn delete_repository(
         &self,
         _req: crate::model::DeleteRepositoryRequest,
@@ -159,7 +159,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::fetch_read_write_token].
+    /// Implements [super::client::RepositoryManager::fetch_read_write_token].
     fn fetch_read_write_token(
         &self,
         _req: crate::model::FetchReadWriteTokenRequest,
@@ -171,7 +171,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RepositoryManager::fetch_read_token].
+    /// Implements [super::client::RepositoryManager::fetch_read_token].
     fn fetch_read_token(
         &self,
         _req: crate::model::FetchReadTokenRequest,
@@ -183,7 +183,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RepositoryManager::fetch_linkable_repositories].
+    /// Implements [super::client::RepositoryManager::fetch_linkable_repositories].
     fn fetch_linkable_repositories(
         &self,
         _req: crate::model::FetchLinkableRepositoriesRequest,
@@ -196,7 +196,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RepositoryManager::fetch_git_refs].
+    /// Implements [super::client::RepositoryManager::fetch_git_refs].
     fn fetch_git_refs(
         &self,
         _req: crate::model::FetchGitRefsRequest,
@@ -208,7 +208,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::set_iam_policy].
+    /// Implements [super::client::RepositoryManager::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -219,7 +219,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::get_iam_policy].
+    /// Implements [super::client::RepositoryManager::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -230,7 +230,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::test_iam_permissions].
+    /// Implements [super::client::RepositoryManager::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -242,7 +242,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RepositoryManager::get_operation].
+    /// Implements [super::client::RepositoryManager::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -254,7 +254,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RepositoryManager::cancel_operation].
+    /// Implements [super::client::RepositoryManager::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

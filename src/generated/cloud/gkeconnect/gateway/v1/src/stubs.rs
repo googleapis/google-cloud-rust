@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::GatewayControl].
+/// Defines the trait used to implement [super::client::GatewayControl].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::GatewayControl`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait GatewayControl: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::GatewayControl::generate_credentials].
+    /// Implements [super::client::GatewayControl::generate_credentials].
     fn generate_credentials(
         &self,
         _req: crate::model::GenerateCredentialsRequest,

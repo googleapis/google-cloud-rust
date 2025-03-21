@@ -31,9 +31,9 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
 
 }
 
-/// All implementations of [crate::stubs::Locations] also implement [Locations].
+/// All implementations of [super::Locations] also implement [Locations].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Locations> Locations for T {
+impl<T: super::Locations> Locations for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,

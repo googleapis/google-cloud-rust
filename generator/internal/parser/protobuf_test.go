@@ -728,12 +728,21 @@ func TestProtobuf_MapFields(t *testing.T) {
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".test.Fake.SingularMapEntry",
 			},
+			{
+				Repeated: false,
+				Optional: false,
+				Name:     "enum_value",
+				JSONName: "enumValue",
+				ID:       ".test.Fake.enum_value",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".test.Fake.EnumValueEntry",
+			},
 		},
 	})
 
 	message, ok = test.State.MessageByID[".test.Fake.SingularMapEntry"]
 	if !ok {
-		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
+		t.Fatalf("Cannot find message %s in API State", ".test.Fake.SingularMapEntry")
 	}
 	checkMessage(t, message, &api.Message{
 		Name:    "SingularMapEntry",
@@ -756,6 +765,36 @@ func TestProtobuf_MapFields(t *testing.T) {
 				JSONName: "value",
 				ID:       ".test.Fake.SingularMapEntry.value",
 				Typez:    api.INT32_TYPE,
+			},
+		},
+	})
+
+	message, ok = test.State.MessageByID[".test.Fake.EnumValueEntry"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Fake.EnumValueEntry")
+	}
+	checkMessage(t, message, &api.Message{
+		Name:    "EnumValueEntry",
+		Package: "test",
+		ID:      ".test.Fake.EnumValueEntry",
+		IsMap:   true,
+		Fields: []*api.Field{
+			{
+				Repeated: false,
+				Optional: false,
+				Name:     "key",
+				JSONName: "key",
+				ID:       ".test.Fake.EnumValueEntry.key",
+				Typez:    api.STRING_TYPE,
+			},
+			{
+				Repeated: false,
+				Optional: false,
+				Name:     "value",
+				JSONName: "value",
+				ID:       ".test.Fake.EnumValueEntry.value",
+				Typez:    api.ENUM_TYPE,
+				TypezID:  ".test.TestEnum",
 			},
 		},
 	})
@@ -983,7 +1022,12 @@ func TestProtobuf_Pagination(t *testing.T) {
 					},
 					QueryParameters: map[string]bool{"page_size": true, "page_token": true},
 				},
-				IsPageable: true,
+				Pagination: &api.Field{
+					Name:     "page_token",
+					ID:       ".test.ListFooRequest.page_token",
+					Typez:    9,
+					JSONName: "pageToken",
+				},
 			},
 			{
 				Name:         "ListFooMissingNextPageToken",
@@ -1054,10 +1098,9 @@ func TestProtobuf_Pagination(t *testing.T) {
 		return
 	}
 	checkMessage(t, resp, &api.Message{
-		Name:               "ListFooResponse",
-		ID:                 ".test.ListFooResponse",
-		Package:            "test",
-		IsPageableResponse: true,
+		Name:    "ListFooResponse",
+		ID:      ".test.ListFooResponse",
+		Package: "test",
 		Fields: []*api.Field{
 			{
 				Name:     "next_page_token",
@@ -1080,13 +1123,21 @@ func TestProtobuf_Pagination(t *testing.T) {
 				JSONName: "totalSize",
 			},
 		},
-		PageableItem: &api.Field{
-			Name:     "foos",
-			ID:       ".test.ListFooResponse.foos",
-			Typez:    11,
-			TypezID:  ".test.Foo",
-			JSONName: "foos",
-			Repeated: true,
+		Pagination: &api.PaginationInfo{
+			NextPageToken: &api.Field{
+				Name:     "next_page_token",
+				ID:       ".test.ListFooResponse.next_page_token",
+				Typez:    9,
+				JSONName: "nextPageToken",
+			},
+			PageableItem: &api.Field{
+				Name:     "foos",
+				ID:       ".test.ListFooResponse.foos",
+				Typez:    11,
+				TypezID:  ".test.Foo",
+				JSONName: "foos",
+				Repeated: true,
+			},
 		},
 	})
 }

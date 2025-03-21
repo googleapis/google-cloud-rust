@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TraceService](crate::stubs::TraceService) using a [gax::http_client::ReqwestClient].
+/// Implements [TraceService](super::stubs::TraceService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TraceService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for TraceService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for TraceService {
 }
 
 impl TraceService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::TraceService for TraceService {
+impl super::stubs::TraceService for TraceService {
     async fn batch_write_spans(
         &self,
         req: crate::model::BatchWriteSpansRequest,

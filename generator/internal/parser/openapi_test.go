@@ -609,14 +609,23 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 				Optional:      true,
 			},
 		},
-		IsPageableResponse: true,
-		PageableItem: &api.Field{
-			Documentation: "A list of locations that matches the specified filter in the request.",
-			Name:          "locations",
-			Typez:         api.MESSAGE_TYPE,
-			TypezID:       "..Location",
-			JSONName:      "locations",
-			Repeated:      true,
+		Pagination: &api.PaginationInfo{
+			NextPageToken: &api.Field{
+				Name:          "nextPageToken",
+				JSONName:      "nextPageToken",
+				Documentation: "The standard List next-page token.",
+				Typez:         api.STRING_TYPE,
+				TypezID:       "string",
+				Optional:      true,
+			},
+			PageableItem: &api.Field{
+				Name:          "locations",
+				JSONName:      "locations",
+				Documentation: "A list of locations that matches the specified filter in the request.",
+				Typez:         api.MESSAGE_TYPE,
+				TypezID:       "..Location",
+				Repeated:      true,
+			},
 		},
 	})
 
@@ -716,7 +725,15 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 				"pageToken": true,
 			},
 		},
-		IsPageable: true,
+		Pagination: &api.Field{
+			Name:          "pageToken",
+			JSONName:      "pageToken",
+			Documentation: "A page token received from the `next_page_token` field in the response.\nSend that page token to receive the subsequent page.",
+			Typez:         api.STRING_TYPE,
+			TypezID:       "string",
+			Optional:      true,
+			Synthetic:     true,
+		},
 	})
 
 	cs := sample.MethodCreate()
@@ -883,7 +900,15 @@ func TestOpenAPI_Pagination(t *testing.T) {
 					},
 					QueryParameters: map[string]bool{"pageSize": true, "pageToken": true},
 				},
-				IsPageable: true,
+				Pagination: &api.Field{
+					Name:          "pageToken",
+					JSONName:      "pageToken",
+					Documentation: "The `{pageToken}` component of the target path.\n\nThe full target path will be in the form `/v1/projects/{project}/foos`.",
+					Typez:         api.STRING_TYPE,
+					TypezID:       "string",
+					Optional:      true,
+					Synthetic:     true,
+				},
 			},
 		},
 	})
@@ -893,9 +918,8 @@ func TestOpenAPI_Pagination(t *testing.T) {
 		return
 	}
 	checkMessage(t, resp, &api.Message{
-		Name:               "ListFoosResponse",
-		ID:                 "..ListFoosResponse",
-		IsPageableResponse: true,
+		Name: "ListFoosResponse",
+		ID:   "..ListFoosResponse",
 		Fields: []*api.Field{
 			{
 				Name:     "nextPageToken",
@@ -912,12 +936,21 @@ func TestOpenAPI_Pagination(t *testing.T) {
 				Repeated: true,
 			},
 		},
-		PageableItem: &api.Field{
-			Name:     "secrets",
-			Typez:    api.MESSAGE_TYPE,
-			TypezID:  "..Foo",
-			JSONName: "secrets",
-			Repeated: true,
+		Pagination: &api.PaginationInfo{
+			NextPageToken: &api.Field{
+				Name:     "nextPageToken",
+				Typez:    9,
+				TypezID:  "string",
+				JSONName: "nextPageToken",
+				Optional: true,
+			},
+			PageableItem: &api.Field{
+				Name:     "secrets",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  "..Foo",
+				JSONName: "secrets",
+				Repeated: true,
+			},
 		},
 	})
 }

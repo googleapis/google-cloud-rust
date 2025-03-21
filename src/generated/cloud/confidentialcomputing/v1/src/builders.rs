@@ -18,10 +18,10 @@ pub mod confidential_computing {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ConfidentialComputing] request builders.
+    /// Common implementation for [super::super::client::ConfidentialComputing] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ConfidentialComputing>,
+        stub: Arc<dyn super::super::stubs::dynamic::ConfidentialComputing>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod confidential_computing {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConfidentialComputing>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ConfidentialComputing>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod confidential_computing {
     pub struct CreateChallenge(RequestBuilder<crate::model::CreateChallengeRequest>);
 
     impl CreateChallenge {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConfidentialComputing>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ConfidentialComputing>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -94,7 +98,9 @@ pub mod confidential_computing {
     pub struct VerifyAttestation(RequestBuilder<crate::model::VerifyAttestationRequest>);
 
     impl VerifyAttestation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConfidentialComputing>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ConfidentialComputing>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -193,7 +199,9 @@ pub mod confidential_computing {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConfidentialComputing>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ConfidentialComputing>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -220,12 +228,12 @@ pub mod confidential_computing {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -270,7 +278,9 @@ pub mod confidential_computing {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConfidentialComputing>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ConfidentialComputing>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

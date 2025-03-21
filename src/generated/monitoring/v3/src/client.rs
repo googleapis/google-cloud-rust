@@ -46,7 +46,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AlertPolicyService {
-    inner: Arc<dyn crate::stubs::dynamic::AlertPolicyService>,
+    inner: Arc<dyn super::stubs::dynamic::AlertPolicyService>,
 }
 
 impl AlertPolicyService {
@@ -67,7 +67,7 @@ impl AlertPolicyService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AlertPolicyService + 'static,
+        T: super::stubs::AlertPolicyService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -76,7 +76,7 @@ impl AlertPolicyService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AlertPolicyService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AlertPolicyService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -85,24 +85,24 @@ impl AlertPolicyService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AlertPolicyService> {
-        crate::transport::AlertPolicyService::new(conf).await
+    ) -> Result<impl super::stubs::AlertPolicyService> {
+        super::transport::AlertPolicyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AlertPolicyService> {
+    ) -> Result<impl super::stubs::AlertPolicyService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AlertPolicyService::new)
+            .map(super::tracing::AlertPolicyService::new)
     }
 
     /// Lists the existing alerting policies for the workspace.
     pub fn list_alert_policies(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::alert_policy_service::ListAlertPolicies {
-        crate::builders::alert_policy_service::ListAlertPolicies::new(self.inner.clone())
+    ) -> super::builders::alert_policy_service::ListAlertPolicies {
+        super::builders::alert_policy_service::ListAlertPolicies::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -110,8 +110,8 @@ impl AlertPolicyService {
     pub fn get_alert_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::alert_policy_service::GetAlertPolicy {
-        crate::builders::alert_policy_service::GetAlertPolicy::new(self.inner.clone())
+    ) -> super::builders::alert_policy_service::GetAlertPolicy {
+        super::builders::alert_policy_service::GetAlertPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -123,8 +123,8 @@ impl AlertPolicyService {
     pub fn create_alert_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::alert_policy_service::CreateAlertPolicy {
-        crate::builders::alert_policy_service::CreateAlertPolicy::new(self.inner.clone())
+    ) -> super::builders::alert_policy_service::CreateAlertPolicy {
+        super::builders::alert_policy_service::CreateAlertPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -136,8 +136,8 @@ impl AlertPolicyService {
     pub fn delete_alert_policy(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::alert_policy_service::DeleteAlertPolicy {
-        crate::builders::alert_policy_service::DeleteAlertPolicy::new(self.inner.clone())
+    ) -> super::builders::alert_policy_service::DeleteAlertPolicy {
+        super::builders::alert_policy_service::DeleteAlertPolicy::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -152,8 +152,8 @@ impl AlertPolicyService {
     pub fn update_alert_policy(
         &self,
         alert_policy: impl Into<crate::model::AlertPolicy>,
-    ) -> crate::builders::alert_policy_service::UpdateAlertPolicy {
-        crate::builders::alert_policy_service::UpdateAlertPolicy::new(self.inner.clone())
+    ) -> super::builders::alert_policy_service::UpdateAlertPolicy {
+        super::builders::alert_policy_service::UpdateAlertPolicy::new(self.inner.clone())
             .set_alert_policy(alert_policy.into())
     }
 }
@@ -188,7 +188,7 @@ impl AlertPolicyService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct GroupService {
-    inner: Arc<dyn crate::stubs::dynamic::GroupService>,
+    inner: Arc<dyn super::stubs::dynamic::GroupService>,
 }
 
 impl GroupService {
@@ -209,7 +209,7 @@ impl GroupService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::GroupService + 'static,
+        T: super::stubs::GroupService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -218,7 +218,7 @@ impl GroupService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::GroupService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::GroupService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -227,40 +227,40 @@ impl GroupService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::GroupService> {
-        crate::transport::GroupService::new(conf).await
+    ) -> Result<impl super::stubs::GroupService> {
+        super::transport::GroupService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::GroupService> {
+    ) -> Result<impl super::stubs::GroupService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::GroupService::new)
+            .map(super::tracing::GroupService::new)
     }
 
     /// Lists the existing groups.
     pub fn list_groups(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::group_service::ListGroups {
-        crate::builders::group_service::ListGroups::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::group_service::ListGroups {
+        super::builders::group_service::ListGroups::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets a single group.
     pub fn get_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::group_service::GetGroup {
-        crate::builders::group_service::GetGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::group_service::GetGroup {
+        super::builders::group_service::GetGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new group.
     pub fn create_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::group_service::CreateGroup {
-        crate::builders::group_service::CreateGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::group_service::CreateGroup {
+        super::builders::group_service::CreateGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates an existing group.
@@ -268,24 +268,24 @@ impl GroupService {
     pub fn update_group(
         &self,
         group: impl Into<crate::model::Group>,
-    ) -> crate::builders::group_service::UpdateGroup {
-        crate::builders::group_service::UpdateGroup::new(self.inner.clone()).set_group(group.into())
+    ) -> super::builders::group_service::UpdateGroup {
+        super::builders::group_service::UpdateGroup::new(self.inner.clone()).set_group(group.into())
     }
 
     /// Deletes an existing group.
     pub fn delete_group(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::group_service::DeleteGroup {
-        crate::builders::group_service::DeleteGroup::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::group_service::DeleteGroup {
+        super::builders::group_service::DeleteGroup::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists the monitored resources that are members of a group.
     pub fn list_group_members(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::group_service::ListGroupMembers {
-        crate::builders::group_service::ListGroupMembers::new(self.inner.clone())
+    ) -> super::builders::group_service::ListGroupMembers {
+        super::builders::group_service::ListGroupMembers::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -310,7 +310,7 @@ impl GroupService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct MetricService {
-    inner: Arc<dyn crate::stubs::dynamic::MetricService>,
+    inner: Arc<dyn super::stubs::dynamic::MetricService>,
 }
 
 impl MetricService {
@@ -331,7 +331,7 @@ impl MetricService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::MetricService + 'static,
+        T: super::stubs::MetricService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -340,7 +340,7 @@ impl MetricService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::MetricService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::MetricService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -349,24 +349,24 @@ impl MetricService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::MetricService> {
-        crate::transport::MetricService::new(conf).await
+    ) -> Result<impl super::stubs::MetricService> {
+        super::transport::MetricService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::MetricService> {
+    ) -> Result<impl super::stubs::MetricService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::MetricService::new)
+            .map(super::tracing::MetricService::new)
     }
 
     /// Lists monitored resource descriptors that match a filter.
     pub fn list_monitored_resource_descriptors(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metric_service::ListMonitoredResourceDescriptors {
-        crate::builders::metric_service::ListMonitoredResourceDescriptors::new(self.inner.clone())
+    ) -> super::builders::metric_service::ListMonitoredResourceDescriptors {
+        super::builders::metric_service::ListMonitoredResourceDescriptors::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -374,8 +374,8 @@ impl MetricService {
     pub fn get_monitored_resource_descriptor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metric_service::GetMonitoredResourceDescriptor {
-        crate::builders::metric_service::GetMonitoredResourceDescriptor::new(self.inner.clone())
+    ) -> super::builders::metric_service::GetMonitoredResourceDescriptor {
+        super::builders::metric_service::GetMonitoredResourceDescriptor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -383,8 +383,8 @@ impl MetricService {
     pub fn list_metric_descriptors(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metric_service::ListMetricDescriptors {
-        crate::builders::metric_service::ListMetricDescriptors::new(self.inner.clone())
+    ) -> super::builders::metric_service::ListMetricDescriptors {
+        super::builders::metric_service::ListMetricDescriptors::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -392,8 +392,8 @@ impl MetricService {
     pub fn get_metric_descriptor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metric_service::GetMetricDescriptor {
-        crate::builders::metric_service::GetMetricDescriptor::new(self.inner.clone())
+    ) -> super::builders::metric_service::GetMetricDescriptor {
+        super::builders::metric_service::GetMetricDescriptor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -406,8 +406,8 @@ impl MetricService {
     pub fn create_metric_descriptor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metric_service::CreateMetricDescriptor {
-        crate::builders::metric_service::CreateMetricDescriptor::new(self.inner.clone())
+    ) -> super::builders::metric_service::CreateMetricDescriptor {
+        super::builders::metric_service::CreateMetricDescriptor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -417,8 +417,8 @@ impl MetricService {
     pub fn delete_metric_descriptor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metric_service::DeleteMetricDescriptor {
-        crate::builders::metric_service::DeleteMetricDescriptor::new(self.inner.clone())
+    ) -> super::builders::metric_service::DeleteMetricDescriptor {
+        super::builders::metric_service::DeleteMetricDescriptor::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -426,8 +426,8 @@ impl MetricService {
     pub fn list_time_series(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metric_service::ListTimeSeries {
-        crate::builders::metric_service::ListTimeSeries::new(self.inner.clone())
+    ) -> super::builders::metric_service::ListTimeSeries {
+        super::builders::metric_service::ListTimeSeries::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -441,8 +441,8 @@ impl MetricService {
     pub fn create_time_series(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metric_service::CreateTimeSeries {
-        crate::builders::metric_service::CreateTimeSeries::new(self.inner.clone())
+    ) -> super::builders::metric_service::CreateTimeSeries {
+        super::builders::metric_service::CreateTimeSeries::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -460,8 +460,8 @@ impl MetricService {
     pub fn create_service_time_series(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metric_service::CreateServiceTimeSeries {
-        crate::builders::metric_service::CreateServiceTimeSeries::new(self.inner.clone())
+    ) -> super::builders::metric_service::CreateServiceTimeSeries {
+        super::builders::metric_service::CreateServiceTimeSeries::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -486,7 +486,7 @@ impl MetricService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct NotificationChannelService {
-    inner: Arc<dyn crate::stubs::dynamic::NotificationChannelService>,
+    inner: Arc<dyn super::stubs::dynamic::NotificationChannelService>,
 }
 
 impl NotificationChannelService {
@@ -507,7 +507,7 @@ impl NotificationChannelService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::NotificationChannelService + 'static,
+        T: super::stubs::NotificationChannelService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -516,7 +516,7 @@ impl NotificationChannelService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::NotificationChannelService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::NotificationChannelService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -525,16 +525,16 @@ impl NotificationChannelService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::NotificationChannelService> {
-        crate::transport::NotificationChannelService::new(conf).await
+    ) -> Result<impl super::stubs::NotificationChannelService> {
+        super::transport::NotificationChannelService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::NotificationChannelService> {
+    ) -> Result<impl super::stubs::NotificationChannelService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::NotificationChannelService::new)
+            .map(super::tracing::NotificationChannelService::new)
     }
 
     /// Lists the descriptors for supported channel types. The use of descriptors
@@ -542,8 +542,8 @@ impl NotificationChannelService {
     pub fn list_notification_channel_descriptors(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::notification_channel_service::ListNotificationChannelDescriptors {
-        crate::builders::notification_channel_service::ListNotificationChannelDescriptors::new(
+    ) -> super::builders::notification_channel_service::ListNotificationChannelDescriptors {
+        super::builders::notification_channel_service::ListNotificationChannelDescriptors::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -554,8 +554,8 @@ impl NotificationChannelService {
     pub fn get_notification_channel_descriptor(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::notification_channel_service::GetNotificationChannelDescriptor {
-        crate::builders::notification_channel_service::GetNotificationChannelDescriptor::new(
+    ) -> super::builders::notification_channel_service::GetNotificationChannelDescriptor {
+        super::builders::notification_channel_service::GetNotificationChannelDescriptor::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -567,8 +567,8 @@ impl NotificationChannelService {
     pub fn list_notification_channels(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::notification_channel_service::ListNotificationChannels {
-        crate::builders::notification_channel_service::ListNotificationChannels::new(
+    ) -> super::builders::notification_channel_service::ListNotificationChannels {
+        super::builders::notification_channel_service::ListNotificationChannels::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -582,8 +582,8 @@ impl NotificationChannelService {
     pub fn get_notification_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::notification_channel_service::GetNotificationChannel {
-        crate::builders::notification_channel_service::GetNotificationChannel::new(
+    ) -> super::builders::notification_channel_service::GetNotificationChannel {
+        super::builders::notification_channel_service::GetNotificationChannel::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -599,8 +599,8 @@ impl NotificationChannelService {
     pub fn create_notification_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::notification_channel_service::CreateNotificationChannel {
-        crate::builders::notification_channel_service::CreateNotificationChannel::new(
+    ) -> super::builders::notification_channel_service::CreateNotificationChannel {
+        super::builders::notification_channel_service::CreateNotificationChannel::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -616,8 +616,8 @@ impl NotificationChannelService {
     pub fn update_notification_channel(
         &self,
         notification_channel: impl Into<crate::model::NotificationChannel>,
-    ) -> crate::builders::notification_channel_service::UpdateNotificationChannel {
-        crate::builders::notification_channel_service::UpdateNotificationChannel::new(
+    ) -> super::builders::notification_channel_service::UpdateNotificationChannel {
+        super::builders::notification_channel_service::UpdateNotificationChannel::new(
             self.inner.clone(),
         )
         .set_notification_channel(notification_channel.into())
@@ -632,8 +632,8 @@ impl NotificationChannelService {
     pub fn delete_notification_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::notification_channel_service::DeleteNotificationChannel {
-        crate::builders::notification_channel_service::DeleteNotificationChannel::new(
+    ) -> super::builders::notification_channel_service::DeleteNotificationChannel {
+        super::builders::notification_channel_service::DeleteNotificationChannel::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -644,9 +644,9 @@ impl NotificationChannelService {
     pub fn send_notification_channel_verification_code(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::notification_channel_service::SendNotificationChannelVerificationCode
+    ) -> super::builders::notification_channel_service::SendNotificationChannelVerificationCode
     {
-        crate::builders::notification_channel_service::SendNotificationChannelVerificationCode::new(
+        super::builders::notification_channel_service::SendNotificationChannelVerificationCode::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -676,8 +676,8 @@ impl NotificationChannelService {
     pub fn get_notification_channel_verification_code(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::notification_channel_service::GetNotificationChannelVerificationCode {
-        crate::builders::notification_channel_service::GetNotificationChannelVerificationCode::new(
+    ) -> super::builders::notification_channel_service::GetNotificationChannelVerificationCode {
+        super::builders::notification_channel_service::GetNotificationChannelVerificationCode::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -689,8 +689,8 @@ impl NotificationChannelService {
     pub fn verify_notification_channel(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::notification_channel_service::VerifyNotificationChannel {
-        crate::builders::notification_channel_service::VerifyNotificationChannel::new(
+    ) -> super::builders::notification_channel_service::VerifyNotificationChannel {
+        super::builders::notification_channel_service::VerifyNotificationChannel::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -718,7 +718,7 @@ impl NotificationChannelService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct QueryService {
-    inner: Arc<dyn crate::stubs::dynamic::QueryService>,
+    inner: Arc<dyn super::stubs::dynamic::QueryService>,
 }
 
 impl QueryService {
@@ -739,7 +739,7 @@ impl QueryService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::QueryService + 'static,
+        T: super::stubs::QueryService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -748,7 +748,7 @@ impl QueryService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::QueryService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::QueryService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -757,16 +757,16 @@ impl QueryService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::QueryService> {
-        crate::transport::QueryService::new(conf).await
+    ) -> Result<impl super::stubs::QueryService> {
+        super::transport::QueryService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::QueryService> {
+    ) -> Result<impl super::stubs::QueryService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::QueryService::new)
+            .map(super::tracing::QueryService::new)
     }
 
     /// Queries time series by using Monitoring Query Language (MQL). We recommend
@@ -776,8 +776,8 @@ impl QueryService {
     pub fn query_time_series(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::query_service::QueryTimeSeries {
-        crate::builders::query_service::QueryTimeSeries::new(self.inner.clone())
+    ) -> super::builders::query_service::QueryTimeSeries {
+        super::builders::query_service::QueryTimeSeries::new(self.inner.clone())
             .set_name(name.into())
     }
 }
@@ -804,7 +804,7 @@ impl QueryService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServiceMonitoringService {
-    inner: Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>,
+    inner: Arc<dyn super::stubs::dynamic::ServiceMonitoringService>,
 }
 
 impl ServiceMonitoringService {
@@ -825,7 +825,7 @@ impl ServiceMonitoringService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ServiceMonitoringService + 'static,
+        T: super::stubs::ServiceMonitoringService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -834,7 +834,7 @@ impl ServiceMonitoringService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ServiceMonitoringService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ServiceMonitoringService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -843,24 +843,24 @@ impl ServiceMonitoringService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceMonitoringService> {
-        crate::transport::ServiceMonitoringService::new(conf).await
+    ) -> Result<impl super::stubs::ServiceMonitoringService> {
+        super::transport::ServiceMonitoringService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceMonitoringService> {
+    ) -> Result<impl super::stubs::ServiceMonitoringService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ServiceMonitoringService::new)
+            .map(super::tracing::ServiceMonitoringService::new)
     }
 
     /// Create a `Service`.
     pub fn create_service(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::service_monitoring_service::CreateService {
-        crate::builders::service_monitoring_service::CreateService::new(self.inner.clone())
+    ) -> super::builders::service_monitoring_service::CreateService {
+        super::builders::service_monitoring_service::CreateService::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -868,8 +868,8 @@ impl ServiceMonitoringService {
     pub fn get_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_monitoring_service::GetService {
-        crate::builders::service_monitoring_service::GetService::new(self.inner.clone())
+    ) -> super::builders::service_monitoring_service::GetService {
+        super::builders::service_monitoring_service::GetService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -877,8 +877,8 @@ impl ServiceMonitoringService {
     pub fn list_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::service_monitoring_service::ListServices {
-        crate::builders::service_monitoring_service::ListServices::new(self.inner.clone())
+    ) -> super::builders::service_monitoring_service::ListServices {
+        super::builders::service_monitoring_service::ListServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -886,8 +886,8 @@ impl ServiceMonitoringService {
     pub fn update_service(
         &self,
         service: impl Into<crate::model::Service>,
-    ) -> crate::builders::service_monitoring_service::UpdateService {
-        crate::builders::service_monitoring_service::UpdateService::new(self.inner.clone())
+    ) -> super::builders::service_monitoring_service::UpdateService {
+        super::builders::service_monitoring_service::UpdateService::new(self.inner.clone())
             .set_service(service.into())
     }
 
@@ -895,8 +895,8 @@ impl ServiceMonitoringService {
     pub fn delete_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_monitoring_service::DeleteService {
-        crate::builders::service_monitoring_service::DeleteService::new(self.inner.clone())
+    ) -> super::builders::service_monitoring_service::DeleteService {
+        super::builders::service_monitoring_service::DeleteService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -904,8 +904,8 @@ impl ServiceMonitoringService {
     pub fn create_service_level_objective(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::service_monitoring_service::CreateServiceLevelObjective {
-        crate::builders::service_monitoring_service::CreateServiceLevelObjective::new(
+    ) -> super::builders::service_monitoring_service::CreateServiceLevelObjective {
+        super::builders::service_monitoring_service::CreateServiceLevelObjective::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -915,8 +915,8 @@ impl ServiceMonitoringService {
     pub fn get_service_level_objective(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_monitoring_service::GetServiceLevelObjective {
-        crate::builders::service_monitoring_service::GetServiceLevelObjective::new(
+    ) -> super::builders::service_monitoring_service::GetServiceLevelObjective {
+        super::builders::service_monitoring_service::GetServiceLevelObjective::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -926,8 +926,8 @@ impl ServiceMonitoringService {
     pub fn list_service_level_objectives(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::service_monitoring_service::ListServiceLevelObjectives {
-        crate::builders::service_monitoring_service::ListServiceLevelObjectives::new(
+    ) -> super::builders::service_monitoring_service::ListServiceLevelObjectives {
+        super::builders::service_monitoring_service::ListServiceLevelObjectives::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -937,8 +937,8 @@ impl ServiceMonitoringService {
     pub fn update_service_level_objective(
         &self,
         service_level_objective: impl Into<crate::model::ServiceLevelObjective>,
-    ) -> crate::builders::service_monitoring_service::UpdateServiceLevelObjective {
-        crate::builders::service_monitoring_service::UpdateServiceLevelObjective::new(
+    ) -> super::builders::service_monitoring_service::UpdateServiceLevelObjective {
+        super::builders::service_monitoring_service::UpdateServiceLevelObjective::new(
             self.inner.clone(),
         )
         .set_service_level_objective(service_level_objective.into())
@@ -948,8 +948,8 @@ impl ServiceMonitoringService {
     pub fn delete_service_level_objective(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_monitoring_service::DeleteServiceLevelObjective {
-        crate::builders::service_monitoring_service::DeleteServiceLevelObjective::new(
+    ) -> super::builders::service_monitoring_service::DeleteServiceLevelObjective {
+        super::builders::service_monitoring_service::DeleteServiceLevelObjective::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -977,7 +977,7 @@ impl ServiceMonitoringService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SnoozeService {
-    inner: Arc<dyn crate::stubs::dynamic::SnoozeService>,
+    inner: Arc<dyn super::stubs::dynamic::SnoozeService>,
 }
 
 impl SnoozeService {
@@ -998,7 +998,7 @@ impl SnoozeService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::SnoozeService + 'static,
+        T: super::stubs::SnoozeService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1007,7 +1007,7 @@ impl SnoozeService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::SnoozeService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::SnoozeService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1016,16 +1016,16 @@ impl SnoozeService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SnoozeService> {
-        crate::transport::SnoozeService::new(conf).await
+    ) -> Result<impl super::stubs::SnoozeService> {
+        super::transport::SnoozeService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SnoozeService> {
+    ) -> Result<impl super::stubs::SnoozeService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::SnoozeService::new)
+            .map(super::tracing::SnoozeService::new)
     }
 
     /// Creates a `Snooze` that will prevent alerts, which match the provided
@@ -1034,8 +1034,8 @@ impl SnoozeService {
     pub fn create_snooze(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::snooze_service::CreateSnooze {
-        crate::builders::snooze_service::CreateSnooze::new(self.inner.clone())
+    ) -> super::builders::snooze_service::CreateSnooze {
+        super::builders::snooze_service::CreateSnooze::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1044,8 +1044,8 @@ impl SnoozeService {
     pub fn list_snoozes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::snooze_service::ListSnoozes {
-        crate::builders::snooze_service::ListSnoozes::new(self.inner.clone())
+    ) -> super::builders::snooze_service::ListSnoozes {
+        super::builders::snooze_service::ListSnoozes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1053,8 +1053,8 @@ impl SnoozeService {
     pub fn get_snooze(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::snooze_service::GetSnooze {
-        crate::builders::snooze_service::GetSnooze::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::snooze_service::GetSnooze {
+        super::builders::snooze_service::GetSnooze::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates a `Snooze`, identified by its `name`, with the parameters in the
@@ -1062,8 +1062,8 @@ impl SnoozeService {
     pub fn update_snooze(
         &self,
         snooze: impl Into<crate::model::Snooze>,
-    ) -> crate::builders::snooze_service::UpdateSnooze {
-        crate::builders::snooze_service::UpdateSnooze::new(self.inner.clone())
+    ) -> super::builders::snooze_service::UpdateSnooze {
+        super::builders::snooze_service::UpdateSnooze::new(self.inner.clone())
             .set_snooze(snooze.into())
     }
 }
@@ -1094,7 +1094,7 @@ impl SnoozeService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct UptimeCheckService {
-    inner: Arc<dyn crate::stubs::dynamic::UptimeCheckService>,
+    inner: Arc<dyn super::stubs::dynamic::UptimeCheckService>,
 }
 
 impl UptimeCheckService {
@@ -1115,7 +1115,7 @@ impl UptimeCheckService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::UptimeCheckService + 'static,
+        T: super::stubs::UptimeCheckService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1124,7 +1124,7 @@ impl UptimeCheckService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::UptimeCheckService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::UptimeCheckService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1133,16 +1133,16 @@ impl UptimeCheckService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::UptimeCheckService> {
-        crate::transport::UptimeCheckService::new(conf).await
+    ) -> Result<impl super::stubs::UptimeCheckService> {
+        super::transport::UptimeCheckService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::UptimeCheckService> {
+    ) -> Result<impl super::stubs::UptimeCheckService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::UptimeCheckService::new)
+            .map(super::tracing::UptimeCheckService::new)
     }
 
     /// Lists the existing valid Uptime check configurations for the project
@@ -1150,8 +1150,8 @@ impl UptimeCheckService {
     pub fn list_uptime_check_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::uptime_check_service::ListUptimeCheckConfigs {
-        crate::builders::uptime_check_service::ListUptimeCheckConfigs::new(self.inner.clone())
+    ) -> super::builders::uptime_check_service::ListUptimeCheckConfigs {
+        super::builders::uptime_check_service::ListUptimeCheckConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1159,8 +1159,8 @@ impl UptimeCheckService {
     pub fn get_uptime_check_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::uptime_check_service::GetUptimeCheckConfig {
-        crate::builders::uptime_check_service::GetUptimeCheckConfig::new(self.inner.clone())
+    ) -> super::builders::uptime_check_service::GetUptimeCheckConfig {
+        super::builders::uptime_check_service::GetUptimeCheckConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -1168,8 +1168,8 @@ impl UptimeCheckService {
     pub fn create_uptime_check_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::uptime_check_service::CreateUptimeCheckConfig {
-        crate::builders::uptime_check_service::CreateUptimeCheckConfig::new(self.inner.clone())
+    ) -> super::builders::uptime_check_service::CreateUptimeCheckConfig {
+        super::builders::uptime_check_service::CreateUptimeCheckConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -1180,8 +1180,8 @@ impl UptimeCheckService {
     pub fn update_uptime_check_config(
         &self,
         uptime_check_config: impl Into<crate::model::UptimeCheckConfig>,
-    ) -> crate::builders::uptime_check_service::UpdateUptimeCheckConfig {
-        crate::builders::uptime_check_service::UpdateUptimeCheckConfig::new(self.inner.clone())
+    ) -> super::builders::uptime_check_service::UpdateUptimeCheckConfig {
+        super::builders::uptime_check_service::UpdateUptimeCheckConfig::new(self.inner.clone())
             .set_uptime_check_config(uptime_check_config.into())
     }
 
@@ -1191,15 +1191,15 @@ impl UptimeCheckService {
     pub fn delete_uptime_check_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::uptime_check_service::DeleteUptimeCheckConfig {
-        crate::builders::uptime_check_service::DeleteUptimeCheckConfig::new(self.inner.clone())
+    ) -> super::builders::uptime_check_service::DeleteUptimeCheckConfig {
+        super::builders::uptime_check_service::DeleteUptimeCheckConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
     /// Returns the list of IP addresses that checkers run from.
     pub fn list_uptime_check_ips(
         &self,
-    ) -> crate::builders::uptime_check_service::ListUptimeCheckIps {
-        crate::builders::uptime_check_service::ListUptimeCheckIps::new(self.inner.clone())
+    ) -> super::builders::uptime_check_service::ListUptimeCheckIps {
+        super::builders::uptime_check_service::ListUptimeCheckIps::new(self.inner.clone())
     }
 }

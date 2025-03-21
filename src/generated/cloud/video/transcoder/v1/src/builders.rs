@@ -18,10 +18,10 @@ pub mod transcoder_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::TranscoderService] request builders.
+    /// Common implementation for [super::super::client::TranscoderService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::TranscoderService>,
+        stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod transcoder_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod transcoder_service {
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -91,7 +91,7 @@ pub mod transcoder_service {
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,11 +115,11 @@ pub mod transcoder_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListJobsResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -170,7 +170,7 @@ pub mod transcoder_service {
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -209,7 +209,7 @@ pub mod transcoder_service {
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -256,7 +256,7 @@ pub mod transcoder_service {
     pub struct CreateJobTemplate(RequestBuilder<crate::model::CreateJobTemplateRequest>);
 
     impl CreateJobTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -315,7 +315,7 @@ pub mod transcoder_service {
     pub struct ListJobTemplates(RequestBuilder<crate::model::ListJobTemplatesRequest>);
 
     impl ListJobTemplates {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -342,12 +342,12 @@ pub mod transcoder_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListJobTemplatesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -398,7 +398,7 @@ pub mod transcoder_service {
     pub struct GetJobTemplate(RequestBuilder<crate::model::GetJobTemplateRequest>);
 
     impl GetJobTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -439,7 +439,7 @@ pub mod transcoder_service {
     pub struct DeleteJobTemplate(RequestBuilder<crate::model::DeleteJobTemplateRequest>);
 
     impl DeleteJobTemplate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::TranscoderService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct LookupService {
-    inner: Arc<dyn crate::stubs::dynamic::LookupService>,
+    inner: Arc<dyn super::stubs::dynamic::LookupService>,
 }
 
 impl LookupService {
@@ -59,7 +59,7 @@ impl LookupService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::LookupService + 'static,
+        T: super::stubs::LookupService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl LookupService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::LookupService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::LookupService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl LookupService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::LookupService> {
-        crate::transport::LookupService::new(conf).await
+    ) -> Result<impl super::stubs::LookupService> {
+        super::transport::LookupService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::LookupService> {
+    ) -> Result<impl super::stubs::LookupService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::LookupService::new)
+            .map(super::tracing::LookupService::new)
     }
 
     /// Returns a [service][google.cloud.servicedirectory.v1.Service] and its
@@ -97,8 +97,8 @@ impl LookupService {
     pub fn resolve_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::lookup_service::ResolveService {
-        crate::builders::lookup_service::ResolveService::new(self.inner.clone())
+    ) -> super::builders::lookup_service::ResolveService {
+        super::builders::lookup_service::ResolveService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -106,8 +106,8 @@ impl LookupService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::lookup_service::ListLocations {
-        crate::builders::lookup_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::lookup_service::ListLocations {
+        super::builders::lookup_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -115,8 +115,8 @@ impl LookupService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::lookup_service::GetLocation {
-        crate::builders::lookup_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::lookup_service::GetLocation {
+        super::builders::lookup_service::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -158,7 +158,7 @@ impl LookupService {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct RegistrationService {
-    inner: Arc<dyn crate::stubs::dynamic::RegistrationService>,
+    inner: Arc<dyn super::stubs::dynamic::RegistrationService>,
 }
 
 impl RegistrationService {
@@ -179,7 +179,7 @@ impl RegistrationService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::RegistrationService + 'static,
+        T: super::stubs::RegistrationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -188,7 +188,7 @@ impl RegistrationService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::RegistrationService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::RegistrationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -197,24 +197,24 @@ impl RegistrationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::RegistrationService> {
-        crate::transport::RegistrationService::new(conf).await
+    ) -> Result<impl super::stubs::RegistrationService> {
+        super::transport::RegistrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::RegistrationService> {
+    ) -> Result<impl super::stubs::RegistrationService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::RegistrationService::new)
+            .map(super::tracing::RegistrationService::new)
     }
 
     /// Creates a namespace, and returns the new namespace.
     pub fn create_namespace(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::CreateNamespace {
-        crate::builders::registration_service::CreateNamespace::new(self.inner.clone())
+    ) -> super::builders::registration_service::CreateNamespace {
+        super::builders::registration_service::CreateNamespace::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -222,8 +222,8 @@ impl RegistrationService {
     pub fn list_namespaces(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::ListNamespaces {
-        crate::builders::registration_service::ListNamespaces::new(self.inner.clone())
+    ) -> super::builders::registration_service::ListNamespaces {
+        super::builders::registration_service::ListNamespaces::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -231,8 +231,8 @@ impl RegistrationService {
     pub fn get_namespace(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::GetNamespace {
-        crate::builders::registration_service::GetNamespace::new(self.inner.clone())
+    ) -> super::builders::registration_service::GetNamespace {
+        super::builders::registration_service::GetNamespace::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -240,8 +240,8 @@ impl RegistrationService {
     pub fn update_namespace(
         &self,
         namespace: impl Into<crate::model::Namespace>,
-    ) -> crate::builders::registration_service::UpdateNamespace {
-        crate::builders::registration_service::UpdateNamespace::new(self.inner.clone())
+    ) -> super::builders::registration_service::UpdateNamespace {
+        super::builders::registration_service::UpdateNamespace::new(self.inner.clone())
             .set_namespace(namespace.into())
     }
 
@@ -250,8 +250,8 @@ impl RegistrationService {
     pub fn delete_namespace(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::DeleteNamespace {
-        crate::builders::registration_service::DeleteNamespace::new(self.inner.clone())
+    ) -> super::builders::registration_service::DeleteNamespace {
+        super::builders::registration_service::DeleteNamespace::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -259,8 +259,8 @@ impl RegistrationService {
     pub fn create_service(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::CreateService {
-        crate::builders::registration_service::CreateService::new(self.inner.clone())
+    ) -> super::builders::registration_service::CreateService {
+        super::builders::registration_service::CreateService::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -268,8 +268,8 @@ impl RegistrationService {
     pub fn list_services(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::ListServices {
-        crate::builders::registration_service::ListServices::new(self.inner.clone())
+    ) -> super::builders::registration_service::ListServices {
+        super::builders::registration_service::ListServices::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -277,8 +277,8 @@ impl RegistrationService {
     pub fn get_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::GetService {
-        crate::builders::registration_service::GetService::new(self.inner.clone())
+    ) -> super::builders::registration_service::GetService {
+        super::builders::registration_service::GetService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -286,8 +286,8 @@ impl RegistrationService {
     pub fn update_service(
         &self,
         service: impl Into<crate::model::Service>,
-    ) -> crate::builders::registration_service::UpdateService {
-        crate::builders::registration_service::UpdateService::new(self.inner.clone())
+    ) -> super::builders::registration_service::UpdateService {
+        super::builders::registration_service::UpdateService::new(self.inner.clone())
             .set_service(service.into())
     }
 
@@ -296,8 +296,8 @@ impl RegistrationService {
     pub fn delete_service(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::DeleteService {
-        crate::builders::registration_service::DeleteService::new(self.inner.clone())
+    ) -> super::builders::registration_service::DeleteService {
+        super::builders::registration_service::DeleteService::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -305,8 +305,8 @@ impl RegistrationService {
     pub fn create_endpoint(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::CreateEndpoint {
-        crate::builders::registration_service::CreateEndpoint::new(self.inner.clone())
+    ) -> super::builders::registration_service::CreateEndpoint {
+        super::builders::registration_service::CreateEndpoint::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -314,8 +314,8 @@ impl RegistrationService {
     pub fn list_endpoints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::ListEndpoints {
-        crate::builders::registration_service::ListEndpoints::new(self.inner.clone())
+    ) -> super::builders::registration_service::ListEndpoints {
+        super::builders::registration_service::ListEndpoints::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -323,8 +323,8 @@ impl RegistrationService {
     pub fn get_endpoint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::GetEndpoint {
-        crate::builders::registration_service::GetEndpoint::new(self.inner.clone())
+    ) -> super::builders::registration_service::GetEndpoint {
+        super::builders::registration_service::GetEndpoint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -332,8 +332,8 @@ impl RegistrationService {
     pub fn update_endpoint(
         &self,
         endpoint: impl Into<crate::model::Endpoint>,
-    ) -> crate::builders::registration_service::UpdateEndpoint {
-        crate::builders::registration_service::UpdateEndpoint::new(self.inner.clone())
+    ) -> super::builders::registration_service::UpdateEndpoint {
+        super::builders::registration_service::UpdateEndpoint::new(self.inner.clone())
             .set_endpoint(endpoint.into())
     }
 
@@ -341,8 +341,8 @@ impl RegistrationService {
     pub fn delete_endpoint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::DeleteEndpoint {
-        crate::builders::registration_service::DeleteEndpoint::new(self.inner.clone())
+    ) -> super::builders::registration_service::DeleteEndpoint {
+        super::builders::registration_service::DeleteEndpoint::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -350,8 +350,8 @@ impl RegistrationService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::GetIamPolicy {
-        crate::builders::registration_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::registration_service::GetIamPolicy {
+        super::builders::registration_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -359,8 +359,8 @@ impl RegistrationService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::SetIamPolicy {
-        crate::builders::registration_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::registration_service::SetIamPolicy {
+        super::builders::registration_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -368,8 +368,8 @@ impl RegistrationService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::TestIamPermissions {
-        crate::builders::registration_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::registration_service::TestIamPermissions {
+        super::builders::registration_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -377,8 +377,8 @@ impl RegistrationService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::ListLocations {
-        crate::builders::registration_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::registration_service::ListLocations {
+        super::builders::registration_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -386,8 +386,8 @@ impl RegistrationService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::registration_service::GetLocation {
-        crate::builders::registration_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::registration_service::GetLocation {
+        super::builders::registration_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

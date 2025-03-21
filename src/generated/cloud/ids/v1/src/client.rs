@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Ids {
-    inner: Arc<dyn crate::stubs::dynamic::Ids>,
+    inner: Arc<dyn super::stubs::dynamic::Ids>,
 }
 
 impl Ids {
@@ -59,7 +59,7 @@ impl Ids {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Ids + 'static,
+        T: super::stubs::Ids + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,39 +68,39 @@ impl Ids {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Ids>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Ids>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::Ids> {
-        crate::transport::Ids::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Ids> {
+        super::transport::Ids::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Ids> {
+    ) -> Result<impl super::stubs::Ids> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Ids::new)
+            .map(super::tracing::Ids::new)
     }
 
     /// Lists Endpoints in a given project and location.
     pub fn list_endpoints(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::ids::ListEndpoints {
-        crate::builders::ids::ListEndpoints::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::ids::ListEndpoints {
+        super::builders::ids::ListEndpoints::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single Endpoint.
     pub fn get_endpoint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::ids::GetEndpoint {
-        crate::builders::ids::GetEndpoint::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::ids::GetEndpoint {
+        super::builders::ids::GetEndpoint::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Endpoint in a given project and location.
@@ -117,8 +117,8 @@ impl Ids {
     pub fn create_endpoint(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::ids::CreateEndpoint {
-        crate::builders::ids::CreateEndpoint::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::ids::CreateEndpoint {
+        super::builders::ids::CreateEndpoint::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a single Endpoint.
@@ -135,8 +135,8 @@ impl Ids {
     pub fn delete_endpoint(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::ids::DeleteEndpoint {
-        crate::builders::ids::DeleteEndpoint::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::ids::DeleteEndpoint {
+        super::builders::ids::DeleteEndpoint::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -145,8 +145,8 @@ impl Ids {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::ids::ListOperations {
-        crate::builders::ids::ListOperations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::ids::ListOperations {
+        super::builders::ids::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -155,8 +155,8 @@ impl Ids {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::ids::GetOperation {
-        crate::builders::ids::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::ids::GetOperation {
+        super::builders::ids::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -165,8 +165,8 @@ impl Ids {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::ids::DeleteOperation {
-        crate::builders::ids::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::ids::DeleteOperation {
+        super::builders::ids::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -175,7 +175,7 @@ impl Ids {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::ids::CancelOperation {
-        crate::builders::ids::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::ids::CancelOperation {
+        super::builders::ids::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

@@ -18,10 +18,10 @@ pub mod assured_workloads_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AssuredWorkloadsService] request builders.
+    /// Common implementation for [super::super::client::AssuredWorkloadsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AssuredWorkloadsService>,
+        stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod assured_workloads_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssuredWorkloadsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod assured_workloads_service {
     pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
 
     impl CreateWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssuredWorkloadsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +69,7 @@ pub mod assured_workloads_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workload][crate::client::AssuredWorkloadsService::create_workload].
+        /// on [create_workload][super::super::client::AssuredWorkloadsService::create_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workload(self.0.request, self.0.options)
@@ -141,7 +145,9 @@ pub mod assured_workloads_service {
     pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
     impl UpdateWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssuredWorkloadsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -196,7 +202,9 @@ pub mod assured_workloads_service {
     );
 
     impl RestrictAllowedResources {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssuredWorkloadsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -251,7 +259,9 @@ pub mod assured_workloads_service {
     pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
     impl DeleteWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssuredWorkloadsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -298,7 +308,9 @@ pub mod assured_workloads_service {
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssuredWorkloadsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -339,7 +351,9 @@ pub mod assured_workloads_service {
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssuredWorkloadsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -363,12 +377,12 @@ pub mod assured_workloads_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -413,7 +427,9 @@ pub mod assured_workloads_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssuredWorkloadsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -440,12 +456,12 @@ pub mod assured_workloads_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -490,7 +506,9 @@ pub mod assured_workloads_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssuredWorkloadsService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AssuredWorkloadsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

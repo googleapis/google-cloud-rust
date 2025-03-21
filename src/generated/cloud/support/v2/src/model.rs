@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate serde;
@@ -269,7 +270,6 @@ impl wkt::message::Message for ListAttachmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAttachmentsResponse {
     type PageItem = crate::model::Attachment;
 
@@ -278,7 +278,8 @@ impl gax::paginator::PageableResponse for ListAttachmentsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -875,7 +876,6 @@ impl wkt::message::Message for ListCasesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCasesResponse {
     type PageItem = crate::model::Case;
 
@@ -884,7 +884,8 @@ impl gax::paginator::PageableResponse for ListCasesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1029,7 +1030,6 @@ impl wkt::message::Message for SearchCasesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchCasesResponse {
     type PageItem = crate::model::Case;
 
@@ -1038,7 +1038,8 @@ impl gax::paginator::PageableResponse for SearchCasesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1263,7 +1264,6 @@ impl wkt::message::Message for SearchCaseClassificationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchCaseClassificationsResponse {
     type PageItem = crate::model::CaseClassification;
 
@@ -1272,7 +1272,8 @@ impl gax::paginator::PageableResponse for SearchCaseClassificationsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1449,7 +1450,6 @@ impl wkt::message::Message for ListCommentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCommentsResponse {
     type PageItem = crate::model::Comment;
 
@@ -1458,7 +1458,8 @@ impl gax::paginator::PageableResponse for ListCommentsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

@@ -72,9 +72,9 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
 }
 
-/// All implementations of [crate::stubs::DataPolicyService] also implement [DataPolicyService].
+/// All implementations of [super::DataPolicyService] also implement [DataPolicyService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::DataPolicyService> DataPolicyService for T {
+impl<T: super::DataPolicyService> DataPolicyService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_data_policy(
         &self,

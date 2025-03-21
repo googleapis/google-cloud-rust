@@ -18,10 +18,10 @@ pub mod recommender {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Recommender] request builders.
+    /// Common implementation for [super::super::client::Recommender] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Recommender>,
+        stub: Arc<dyn super::super::stubs::dynamic::Recommender>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod recommender {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod recommender {
     pub struct ListInsights(RequestBuilder<crate::model::ListInsightsRequest>);
 
     impl ListInsights {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod recommender {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInsightsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -118,7 +118,7 @@ pub mod recommender {
     pub struct GetInsight(RequestBuilder<crate::model::GetInsightRequest>);
 
     impl GetInsight {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +159,7 @@ pub mod recommender {
     pub struct MarkInsightAccepted(RequestBuilder<crate::model::MarkInsightAcceptedRequest>);
 
     impl MarkInsightAccepted {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -221,7 +221,7 @@ pub mod recommender {
     pub struct ListRecommendations(RequestBuilder<crate::model::ListRecommendationsRequest>);
 
     impl ListRecommendations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -248,12 +248,12 @@ pub mod recommender {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRecommendationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -298,7 +298,7 @@ pub mod recommender {
     pub struct GetRecommendation(RequestBuilder<crate::model::GetRecommendationRequest>);
 
     impl GetRecommendation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -344,7 +344,7 @@ pub mod recommender {
     );
 
     impl MarkRecommendationDismissed {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -396,7 +396,7 @@ pub mod recommender {
     );
 
     impl MarkRecommendationClaimed {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -460,7 +460,7 @@ pub mod recommender {
     );
 
     impl MarkRecommendationSucceeded {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -524,7 +524,7 @@ pub mod recommender {
     );
 
     impl MarkRecommendationFailed {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -586,7 +586,7 @@ pub mod recommender {
     pub struct GetRecommenderConfig(RequestBuilder<crate::model::GetRecommenderConfigRequest>);
 
     impl GetRecommenderConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -632,7 +632,7 @@ pub mod recommender {
     );
 
     impl UpdateRecommenderConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -696,7 +696,7 @@ pub mod recommender {
     pub struct GetInsightTypeConfig(RequestBuilder<crate::model::GetInsightTypeConfigRequest>);
 
     impl GetInsightTypeConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -742,7 +742,7 @@ pub mod recommender {
     );
 
     impl UpdateInsightTypeConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Recommender>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

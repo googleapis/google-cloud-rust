@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::CloudControlsPartnerCore].
+/// Defines the trait used to implement [super::client::CloudControlsPartnerCore].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudControlsPartnerCore`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudControlsPartnerCore::get_workload].
+    /// Implements [super::client::CloudControlsPartnerCore::get_workload].
     fn get_workload(
         &self,
         _req: crate::model::GetWorkloadRequest,
@@ -51,7 +51,7 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudControlsPartnerCore::list_workloads].
+    /// Implements [super::client::CloudControlsPartnerCore::list_workloads].
     fn list_workloads(
         &self,
         _req: crate::model::ListWorkloadsRequest,
@@ -63,7 +63,7 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudControlsPartnerCore::get_customer].
+    /// Implements [super::client::CloudControlsPartnerCore::get_customer].
     fn get_customer(
         &self,
         _req: crate::model::GetCustomerRequest,
@@ -74,7 +74,7 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudControlsPartnerCore::list_customers].
+    /// Implements [super::client::CloudControlsPartnerCore::list_customers].
     fn list_customers(
         &self,
         _req: crate::model::ListCustomersRequest,
@@ -86,7 +86,7 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudControlsPartnerCore::get_ekm_connections].
+    /// Implements [super::client::CloudControlsPartnerCore::get_ekm_connections].
     fn get_ekm_connections(
         &self,
         _req: crate::model::GetEkmConnectionsRequest,
@@ -97,7 +97,7 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudControlsPartnerCore::get_partner_permissions].
+    /// Implements [super::client::CloudControlsPartnerCore::get_partner_permissions].
     fn get_partner_permissions(
         &self,
         _req: crate::model::GetPartnerPermissionsRequest,
@@ -109,7 +109,7 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::CloudControlsPartnerCore::list_access_approval_requests].
+    /// Implements [super::client::CloudControlsPartnerCore::list_access_approval_requests].
     fn list_access_approval_requests(
         &self,
         _req: crate::model::ListAccessApprovalRequestsRequest,
@@ -122,7 +122,7 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudControlsPartnerCore::get_partner].
+    /// Implements [super::client::CloudControlsPartnerCore::get_partner].
     fn get_partner(
         &self,
         _req: crate::model::GetPartnerRequest,
@@ -134,7 +134,7 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::CloudControlsPartnerMonitoring].
+/// Defines the trait used to implement [super::client::CloudControlsPartnerMonitoring].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::CloudControlsPartnerMonitoring`.  In other use-cases, application developers only
@@ -146,7 +146,7 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait CloudControlsPartnerMonitoring: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::CloudControlsPartnerMonitoring::list_violations].
+    /// Implements [super::client::CloudControlsPartnerMonitoring::list_violations].
     fn list_violations(
         &self,
         _req: crate::model::ListViolationsRequest,
@@ -158,7 +158,7 @@ pub trait CloudControlsPartnerMonitoring: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::CloudControlsPartnerMonitoring::get_violation].
+    /// Implements [super::client::CloudControlsPartnerMonitoring::get_violation].
     fn get_violation(
         &self,
         _req: crate::model::GetViolationRequest,

@@ -60,9 +60,9 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::EssentialContactsService] also implement [EssentialContactsService].
+/// All implementations of [super::EssentialContactsService] also implement [EssentialContactsService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::EssentialContactsService> EssentialContactsService for T {
+impl<T: super::EssentialContactsService> EssentialContactsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_contact(
         &self,

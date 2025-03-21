@@ -174,9 +174,9 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AssetService] also implement [AssetService].
+/// All implementations of [super::AssetService] also implement [AssetService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AssetService> AssetService for T {
+impl<T: super::AssetService> AssetService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn export_assets(
         &self,

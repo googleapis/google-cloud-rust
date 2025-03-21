@@ -18,10 +18,10 @@ pub mod language_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::LanguageService] request builders.
+    /// Common implementation for [super::super::client::LanguageService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::LanguageService>,
+        stub: Arc<dyn super::super::stubs::dynamic::LanguageService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod language_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LanguageService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod language_service {
     pub struct AnalyzeSentiment(RequestBuilder<crate::model::AnalyzeSentimentRequest>);
 
     impl AnalyzeSentiment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LanguageService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,7 +97,7 @@ pub mod language_service {
     pub struct AnalyzeEntities(RequestBuilder<crate::model::AnalyzeEntitiesRequest>);
 
     impl AnalyzeEntities {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LanguageService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -147,7 +147,7 @@ pub mod language_service {
     pub struct ClassifyText(RequestBuilder<crate::model::ClassifyTextRequest>);
 
     impl ClassifyText {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LanguageService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -191,7 +191,7 @@ pub mod language_service {
     pub struct ModerateText(RequestBuilder<crate::model::ModerateTextRequest>);
 
     impl ModerateText {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LanguageService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -244,7 +244,7 @@ pub mod language_service {
     pub struct AnnotateText(RequestBuilder<crate::model::AnnotateTextRequest>);
 
     impl AnnotateText {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LanguageService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -222,9 +222,9 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::LivestreamService] also implement [LivestreamService].
+/// All implementations of [super::LivestreamService] also implement [LivestreamService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::LivestreamService> LivestreamService for T {
+impl<T: super::LivestreamService> LivestreamService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_channel(
         &self,

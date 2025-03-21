@@ -18,10 +18,10 @@ pub mod cloud_shell_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudShellService] request builders.
+    /// Common implementation for [super::super::client::CloudShellService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudShellService>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudShellService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod cloud_shell_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudShellService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod cloud_shell_service {
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
     impl GetEnvironment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudShellService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -85,7 +85,7 @@ pub mod cloud_shell_service {
     pub struct StartEnvironment(RequestBuilder<crate::model::StartEnvironmentRequest>);
 
     impl StartEnvironment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudShellService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -109,7 +109,7 @@ pub mod cloud_shell_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_environment][crate::client::CloudShellService::start_environment].
+        /// on [start_environment][super::super::client::CloudShellService::start_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_environment(self.0.request, self.0.options)
@@ -189,7 +189,7 @@ pub mod cloud_shell_service {
     pub struct AuthorizeEnvironment(RequestBuilder<crate::model::AuthorizeEnvironmentRequest>);
 
     impl AuthorizeEnvironment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudShellService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,7 +213,7 @@ pub mod cloud_shell_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [authorize_environment][crate::client::CloudShellService::authorize_environment].
+        /// on [authorize_environment][super::super::client::CloudShellService::authorize_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .authorize_environment(self.0.request, self.0.options)
@@ -297,7 +297,7 @@ pub mod cloud_shell_service {
     pub struct AddPublicKey(RequestBuilder<crate::model::AddPublicKeyRequest>);
 
     impl AddPublicKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudShellService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -318,7 +318,7 @@ pub mod cloud_shell_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [add_public_key][crate::client::CloudShellService::add_public_key].
+        /// on [add_public_key][super::super::client::CloudShellService::add_public_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .add_public_key(self.0.request, self.0.options)
@@ -385,7 +385,7 @@ pub mod cloud_shell_service {
     pub struct RemovePublicKey(RequestBuilder<crate::model::RemovePublicKeyRequest>);
 
     impl RemovePublicKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudShellService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -406,7 +406,7 @@ pub mod cloud_shell_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [remove_public_key][crate::client::CloudShellService::remove_public_key].
+        /// on [remove_public_key][super::super::client::CloudShellService::remove_public_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_public_key(self.0.request, self.0.options)
@@ -473,7 +473,7 @@ pub mod cloud_shell_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudShellService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudShellService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

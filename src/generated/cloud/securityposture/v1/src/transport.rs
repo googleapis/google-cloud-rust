@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecurityPosture](crate::stubs::SecurityPosture) using a [gax::http_client::ReqwestClient].
+/// Implements [SecurityPosture](super::stubs::SecurityPosture) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SecurityPosture {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for SecurityPosture {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for SecurityPosture {
 }
 
 impl SecurityPosture {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::SecurityPosture for SecurityPosture {
+impl super::stubs::SecurityPosture for SecurityPosture {
     async fn list_postures(
         &self,
         req: crate::model::ListPosturesRequest,
@@ -57,7 +57,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -101,7 +101,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
             );
         let builder = builder.query(&[("revisionId", &req.revision_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -142,7 +142,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
                     "/v1/{}",
                     req.posture
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("posture"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("posture"))?
                         .name
                 ),
             )
@@ -158,7 +158,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("revisionId", &req.revision_id)]);
@@ -183,7 +183,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -228,7 +228,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -247,7 +247,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -288,7 +288,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
                     "/v1/{}",
                     req.posture_deployment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("posture_deployment"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("posture_deployment"))?
                         .name
                 ),
             )
@@ -304,7 +304,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -328,7 +328,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -353,7 +353,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -373,7 +373,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
             );
         let builder = builder.query(&[("revisionId", &req.revision_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -395,7 +395,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -414,7 +414,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -436,7 +436,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -455,7 +455,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -474,7 +474,7 @@ impl crate::stubs::SecurityPosture for SecurityPosture {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

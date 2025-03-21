@@ -41,7 +41,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Recommender {
-    inner: Arc<dyn crate::stubs::dynamic::Recommender>,
+    inner: Arc<dyn super::stubs::dynamic::Recommender>,
 }
 
 impl Recommender {
@@ -62,7 +62,7 @@ impl Recommender {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::Recommender + 'static,
+        T: super::stubs::Recommender + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -71,7 +71,7 @@ impl Recommender {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::Recommender>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::Recommender>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -80,16 +80,16 @@ impl Recommender {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Recommender> {
-        crate::transport::Recommender::new(conf).await
+    ) -> Result<impl super::stubs::Recommender> {
+        super::transport::Recommender::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::Recommender> {
+    ) -> Result<impl super::stubs::Recommender> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::Recommender::new)
+            .map(super::tracing::Recommender::new)
     }
 
     /// Lists insights for the specified Cloud Resource. Requires the
@@ -97,8 +97,8 @@ impl Recommender {
     pub fn list_insights(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::ListInsights {
-        crate::builders::recommender::ListInsights::new(self.inner.clone())
+    ) -> super::builders::recommender::ListInsights {
+        super::builders::recommender::ListInsights::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -107,8 +107,8 @@ impl Recommender {
     pub fn get_insight(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::GetInsight {
-        crate::builders::recommender::GetInsight::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::recommender::GetInsight {
+        super::builders::recommender::GetInsight::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Marks the Insight State as Accepted. Users can use this method to
@@ -120,8 +120,8 @@ impl Recommender {
     pub fn mark_insight_accepted(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::MarkInsightAccepted {
-        crate::builders::recommender::MarkInsightAccepted::new(self.inner.clone())
+    ) -> super::builders::recommender::MarkInsightAccepted {
+        super::builders::recommender::MarkInsightAccepted::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -130,8 +130,8 @@ impl Recommender {
     pub fn list_recommendations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::ListRecommendations {
-        crate::builders::recommender::ListRecommendations::new(self.inner.clone())
+    ) -> super::builders::recommender::ListRecommendations {
+        super::builders::recommender::ListRecommendations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +140,8 @@ impl Recommender {
     pub fn get_recommendation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::GetRecommendation {
-        crate::builders::recommender::GetRecommendation::new(self.inner.clone())
+    ) -> super::builders::recommender::GetRecommendation {
+        super::builders::recommender::GetRecommendation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -157,8 +157,8 @@ impl Recommender {
     pub fn mark_recommendation_dismissed(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::MarkRecommendationDismissed {
-        crate::builders::recommender::MarkRecommendationDismissed::new(self.inner.clone())
+    ) -> super::builders::recommender::MarkRecommendationDismissed {
+        super::builders::recommender::MarkRecommendationDismissed::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -175,8 +175,8 @@ impl Recommender {
     pub fn mark_recommendation_claimed(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::MarkRecommendationClaimed {
-        crate::builders::recommender::MarkRecommendationClaimed::new(self.inner.clone())
+    ) -> super::builders::recommender::MarkRecommendationClaimed {
+        super::builders::recommender::MarkRecommendationClaimed::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -194,8 +194,8 @@ impl Recommender {
     pub fn mark_recommendation_succeeded(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::MarkRecommendationSucceeded {
-        crate::builders::recommender::MarkRecommendationSucceeded::new(self.inner.clone())
+    ) -> super::builders::recommender::MarkRecommendationSucceeded {
+        super::builders::recommender::MarkRecommendationSucceeded::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -213,8 +213,8 @@ impl Recommender {
     pub fn mark_recommendation_failed(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::MarkRecommendationFailed {
-        crate::builders::recommender::MarkRecommendationFailed::new(self.inner.clone())
+    ) -> super::builders::recommender::MarkRecommendationFailed {
+        super::builders::recommender::MarkRecommendationFailed::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -223,8 +223,8 @@ impl Recommender {
     pub fn get_recommender_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::GetRecommenderConfig {
-        crate::builders::recommender::GetRecommenderConfig::new(self.inner.clone())
+    ) -> super::builders::recommender::GetRecommenderConfig {
+        super::builders::recommender::GetRecommenderConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -233,8 +233,8 @@ impl Recommender {
     pub fn update_recommender_config(
         &self,
         recommender_config: impl Into<crate::model::RecommenderConfig>,
-    ) -> crate::builders::recommender::UpdateRecommenderConfig {
-        crate::builders::recommender::UpdateRecommenderConfig::new(self.inner.clone())
+    ) -> super::builders::recommender::UpdateRecommenderConfig {
+        super::builders::recommender::UpdateRecommenderConfig::new(self.inner.clone())
             .set_recommender_config(recommender_config.into())
     }
 
@@ -243,8 +243,8 @@ impl Recommender {
     pub fn get_insight_type_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::recommender::GetInsightTypeConfig {
-        crate::builders::recommender::GetInsightTypeConfig::new(self.inner.clone())
+    ) -> super::builders::recommender::GetInsightTypeConfig {
+        super::builders::recommender::GetInsightTypeConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -253,8 +253,8 @@ impl Recommender {
     pub fn update_insight_type_config(
         &self,
         insight_type_config: impl Into<crate::model::InsightTypeConfig>,
-    ) -> crate::builders::recommender::UpdateInsightTypeConfig {
-        crate::builders::recommender::UpdateInsightTypeConfig::new(self.inner.clone())
+    ) -> super::builders::recommender::UpdateInsightTypeConfig {
+        super::builders::recommender::UpdateInsightTypeConfig::new(self.inner.clone())
             .set_insight_type_config(insight_type_config.into())
     }
 }

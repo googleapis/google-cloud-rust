@@ -66,9 +66,9 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::TranscoderService] also implement [TranscoderService].
+/// All implementations of [super::TranscoderService] also implement [TranscoderService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TranscoderService> TranscoderService for T {
+impl<T: super::TranscoderService> TranscoderService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_job(
         &self,

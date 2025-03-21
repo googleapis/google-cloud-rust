@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [BareMetalSolution](crate::stubs::BareMetalSolution) using a [gax::http_client::ReqwestClient].
+/// Implements [BareMetalSolution](super::stubs::BareMetalSolution) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct BareMetalSolution {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for BareMetalSolution {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for BareMetalSolution {
 }
 
 impl BareMetalSolution {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::BareMetalSolution for BareMetalSolution {
+impl super::stubs::BareMetalSolution for BareMetalSolution {
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
@@ -61,7 +61,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -80,7 +80,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -98,7 +98,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                     "/v2/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -114,7 +114,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -267,7 +267,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -306,7 +306,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -328,7 +328,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -347,7 +347,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -365,7 +365,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                     "/v2/{}",
                     req.volume
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("volume"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("volume"))?
                         .name
                 ),
             )
@@ -381,7 +381,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.volume), options).await
@@ -456,7 +456,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -478,7 +478,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -497,7 +497,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -515,7 +515,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                     "/v2/{}",
                     req.network
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("network"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("network"))?
                         .name
                 ),
             )
@@ -531,7 +531,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -596,7 +596,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -615,7 +615,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -639,7 +639,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -658,7 +658,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -679,7 +679,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -715,7 +715,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -740,7 +740,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -758,7 +758,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                     "/v2/{}",
                     req.nfs_share
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("nfs_share"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("nfs_share"))?
                         .name
                 ),
             )
@@ -774,7 +774,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -836,7 +836,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -860,7 +860,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -899,7 +899,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -940,7 +940,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                     "/v2/{}",
                     req.provisioning_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("provisioning_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("provisioning_config"))?
                         .name
                 ),
             )
@@ -956,7 +956,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("email", &req.email)]);
@@ -999,7 +999,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1021,7 +1021,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1040,7 +1040,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -1059,7 +1059,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

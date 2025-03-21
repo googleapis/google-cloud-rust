@@ -52,7 +52,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ReservationService {
-    inner: Arc<dyn crate::stubs::dynamic::ReservationService>,
+    inner: Arc<dyn super::stubs::dynamic::ReservationService>,
 }
 
 impl ReservationService {
@@ -73,7 +73,7 @@ impl ReservationService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ReservationService + 'static,
+        T: super::stubs::ReservationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -82,7 +82,7 @@ impl ReservationService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ReservationService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ReservationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -91,24 +91,24 @@ impl ReservationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ReservationService> {
-        crate::transport::ReservationService::new(conf).await
+    ) -> Result<impl super::stubs::ReservationService> {
+        super::transport::ReservationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ReservationService> {
+    ) -> Result<impl super::stubs::ReservationService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ReservationService::new)
+            .map(super::tracing::ReservationService::new)
     }
 
     /// Creates a new reservation resource.
     pub fn create_reservation(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::CreateReservation {
-        crate::builders::reservation_service::CreateReservation::new(self.inner.clone())
+    ) -> super::builders::reservation_service::CreateReservation {
+        super::builders::reservation_service::CreateReservation::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -116,8 +116,8 @@ impl ReservationService {
     pub fn list_reservations(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::ListReservations {
-        crate::builders::reservation_service::ListReservations::new(self.inner.clone())
+    ) -> super::builders::reservation_service::ListReservations {
+        super::builders::reservation_service::ListReservations::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -125,8 +125,8 @@ impl ReservationService {
     pub fn get_reservation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::GetReservation {
-        crate::builders::reservation_service::GetReservation::new(self.inner.clone())
+    ) -> super::builders::reservation_service::GetReservation {
+        super::builders::reservation_service::GetReservation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -136,8 +136,8 @@ impl ReservationService {
     pub fn delete_reservation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::DeleteReservation {
-        crate::builders::reservation_service::DeleteReservation::new(self.inner.clone())
+    ) -> super::builders::reservation_service::DeleteReservation {
+        super::builders::reservation_service::DeleteReservation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -145,8 +145,8 @@ impl ReservationService {
     pub fn update_reservation(
         &self,
         reservation: impl Into<crate::model::Reservation>,
-    ) -> crate::builders::reservation_service::UpdateReservation {
-        crate::builders::reservation_service::UpdateReservation::new(self.inner.clone())
+    ) -> super::builders::reservation_service::UpdateReservation {
+        super::builders::reservation_service::UpdateReservation::new(self.inner.clone())
             .set_reservation(reservation.into())
     }
 
@@ -158,8 +158,8 @@ impl ReservationService {
     pub fn failover_reservation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::FailoverReservation {
-        crate::builders::reservation_service::FailoverReservation::new(self.inner.clone())
+    ) -> super::builders::reservation_service::FailoverReservation {
+        super::builders::reservation_service::FailoverReservation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -167,8 +167,8 @@ impl ReservationService {
     pub fn create_capacity_commitment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::CreateCapacityCommitment {
-        crate::builders::reservation_service::CreateCapacityCommitment::new(self.inner.clone())
+    ) -> super::builders::reservation_service::CreateCapacityCommitment {
+        super::builders::reservation_service::CreateCapacityCommitment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -176,8 +176,8 @@ impl ReservationService {
     pub fn list_capacity_commitments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::ListCapacityCommitments {
-        crate::builders::reservation_service::ListCapacityCommitments::new(self.inner.clone())
+    ) -> super::builders::reservation_service::ListCapacityCommitments {
+        super::builders::reservation_service::ListCapacityCommitments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -185,8 +185,8 @@ impl ReservationService {
     pub fn get_capacity_commitment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::GetCapacityCommitment {
-        crate::builders::reservation_service::GetCapacityCommitment::new(self.inner.clone())
+    ) -> super::builders::reservation_service::GetCapacityCommitment {
+        super::builders::reservation_service::GetCapacityCommitment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -196,8 +196,8 @@ impl ReservationService {
     pub fn delete_capacity_commitment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::DeleteCapacityCommitment {
-        crate::builders::reservation_service::DeleteCapacityCommitment::new(self.inner.clone())
+    ) -> super::builders::reservation_service::DeleteCapacityCommitment {
+        super::builders::reservation_service::DeleteCapacityCommitment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -211,8 +211,8 @@ impl ReservationService {
     pub fn update_capacity_commitment(
         &self,
         capacity_commitment: impl Into<crate::model::CapacityCommitment>,
-    ) -> crate::builders::reservation_service::UpdateCapacityCommitment {
-        crate::builders::reservation_service::UpdateCapacityCommitment::new(self.inner.clone())
+    ) -> super::builders::reservation_service::UpdateCapacityCommitment {
+        super::builders::reservation_service::UpdateCapacityCommitment::new(self.inner.clone())
             .set_capacity_commitment(capacity_commitment.into())
     }
 
@@ -227,8 +227,8 @@ impl ReservationService {
     pub fn split_capacity_commitment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::SplitCapacityCommitment {
-        crate::builders::reservation_service::SplitCapacityCommitment::new(self.inner.clone())
+    ) -> super::builders::reservation_service::SplitCapacityCommitment {
+        super::builders::reservation_service::SplitCapacityCommitment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -242,8 +242,8 @@ impl ReservationService {
     pub fn merge_capacity_commitments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::MergeCapacityCommitments {
-        crate::builders::reservation_service::MergeCapacityCommitments::new(self.inner.clone())
+    ) -> super::builders::reservation_service::MergeCapacityCommitments {
+        super::builders::reservation_service::MergeCapacityCommitments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -285,8 +285,8 @@ impl ReservationService {
     pub fn create_assignment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::CreateAssignment {
-        crate::builders::reservation_service::CreateAssignment::new(self.inner.clone())
+    ) -> super::builders::reservation_service::CreateAssignment {
+        super::builders::reservation_service::CreateAssignment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -314,8 +314,8 @@ impl ReservationService {
     pub fn list_assignments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::ListAssignments {
-        crate::builders::reservation_service::ListAssignments::new(self.inner.clone())
+    ) -> super::builders::reservation_service::ListAssignments {
+        super::builders::reservation_service::ListAssignments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -337,8 +337,8 @@ impl ReservationService {
     pub fn delete_assignment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::DeleteAssignment {
-        crate::builders::reservation_service::DeleteAssignment::new(self.inner.clone())
+    ) -> super::builders::reservation_service::DeleteAssignment {
+        super::builders::reservation_service::DeleteAssignment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -368,8 +368,8 @@ impl ReservationService {
     pub fn search_assignments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::SearchAssignments {
-        crate::builders::reservation_service::SearchAssignments::new(self.inner.clone())
+    ) -> super::builders::reservation_service::SearchAssignments {
+        super::builders::reservation_service::SearchAssignments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -396,8 +396,8 @@ impl ReservationService {
     pub fn search_all_assignments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::SearchAllAssignments {
-        crate::builders::reservation_service::SearchAllAssignments::new(self.inner.clone())
+    ) -> super::builders::reservation_service::SearchAllAssignments {
+        super::builders::reservation_service::SearchAllAssignments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -409,8 +409,8 @@ impl ReservationService {
     pub fn move_assignment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::MoveAssignment {
-        crate::builders::reservation_service::MoveAssignment::new(self.inner.clone())
+    ) -> super::builders::reservation_service::MoveAssignment {
+        super::builders::reservation_service::MoveAssignment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -420,8 +420,8 @@ impl ReservationService {
     pub fn update_assignment(
         &self,
         assignment: impl Into<crate::model::Assignment>,
-    ) -> crate::builders::reservation_service::UpdateAssignment {
-        crate::builders::reservation_service::UpdateAssignment::new(self.inner.clone())
+    ) -> super::builders::reservation_service::UpdateAssignment {
+        super::builders::reservation_service::UpdateAssignment::new(self.inner.clone())
             .set_assignment(assignment.into())
     }
 
@@ -429,8 +429,8 @@ impl ReservationService {
     pub fn get_bi_reservation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::reservation_service::GetBiReservation {
-        crate::builders::reservation_service::GetBiReservation::new(self.inner.clone())
+    ) -> super::builders::reservation_service::GetBiReservation {
+        super::builders::reservation_service::GetBiReservation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -445,8 +445,8 @@ impl ReservationService {
     pub fn update_bi_reservation(
         &self,
         bi_reservation: impl Into<crate::model::BiReservation>,
-    ) -> crate::builders::reservation_service::UpdateBiReservation {
-        crate::builders::reservation_service::UpdateBiReservation::new(self.inner.clone())
+    ) -> super::builders::reservation_service::UpdateBiReservation {
+        super::builders::reservation_service::UpdateBiReservation::new(self.inner.clone())
             .set_bi_reservation(bi_reservation.into())
     }
 }

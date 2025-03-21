@@ -42,9 +42,9 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Execution>;
 }
 
-/// All implementations of [crate::stubs::Executions] also implement [Executions].
+/// All implementations of [super::Executions] also implement [Executions].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Executions> Executions for T {
+impl<T: super::Executions> Executions for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_executions(
         &self,

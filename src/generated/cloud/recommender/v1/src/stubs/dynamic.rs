@@ -96,9 +96,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::InsightTypeConfig>;
 }
 
-/// All implementations of [crate::stubs::Recommender] also implement [Recommender].
+/// All implementations of [super::Recommender] also implement [Recommender].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Recommender> Recommender for T {
+impl<T: super::Recommender> Recommender for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_insights(
         &self,

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Executions](crate::stubs::Executions) using a [gax::http_client::ReqwestClient].
+/// Implements [Executions](super::stubs::Executions) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Executions {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for Executions {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for Executions {
 }
 
 impl Executions {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::Executions for Executions {
+impl super::stubs::Executions for Executions {
     async fn list_executions(
         &self,
         req: crate::model::ListExecutionsRequest,
@@ -63,7 +63,7 @@ impl crate::stubs::Executions for Executions {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -105,7 +105,7 @@ impl crate::stubs::Executions for Executions {
             );
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

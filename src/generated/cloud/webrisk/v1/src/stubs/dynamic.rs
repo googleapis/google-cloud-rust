@@ -84,9 +84,9 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::WebRiskService] also implement [WebRiskService].
+/// All implementations of [super::WebRiskService] also implement [WebRiskService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::WebRiskService> WebRiskService for T {
+impl<T: super::WebRiskService> WebRiskService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn compute_threat_list_diff(
         &self,

@@ -22,6 +22,7 @@ default-members = [
   "src/base",
   "src/firestore",
   "src/gax",
+  "src/gax-internal",
   "src/integration-tests",
   "src/lro",
   "src/root",
@@ -35,6 +36,7 @@ members = [
   "src/base",
   "src/firestore",
   "src/gax",
+  "src/gax-internal",
   "src/generated/api/apikeys/v2",
   "src/generated/api/servicecontrol/v1",
   "src/generated/api/servicecontrol/v2",
@@ -74,6 +76,7 @@ members = [
   "src/generated/cloud/bigquery/datatransfer/v1",
   "src/generated/cloud/bigquery/migration/v2",
   "src/generated/cloud/bigquery/reservation/v1",
+  "src/generated/cloud/bigquery/v2",
   "src/generated/cloud/billing/v1",
   "src/generated/cloud/binaryauthorization/v1",
   "src/generated/cloud/certificatemanager/v1",
@@ -224,10 +227,11 @@ members = [
 ]
 
 [workspace.package]
-edition     = "2021"
-authors     = ["Google LLC"]
-description = "Google Cloud Client Libraries for Rust"
-license     = "Apache-2.0"
-repository  = "https://github.com/googleapis/google-cloud-rust/tree/main"
-keywords    = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
-categories  = ["network-programming"]
+edition      = "2021"
+authors      = ["Google LLC"]
+description  = "Google Cloud Client Libraries for Rust"
+license      = "Apache-2.0"
+repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
+keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
+categories   = ["network-programming"]
+rust-version = "1.85.0"

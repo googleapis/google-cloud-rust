@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::LicenseManagementService].
+/// Defines the trait used to implement [super::client::LicenseManagementService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::LicenseManagementService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::LicenseManagementService::get_license_pool].
+    /// Implements [super::client::LicenseManagementService::get_license_pool].
     fn get_license_pool(
         &self,
         _req: crate::model::GetLicensePoolRequest,
@@ -52,7 +52,7 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LicenseManagementService::update_license_pool].
+    /// Implements [super::client::LicenseManagementService::update_license_pool].
     fn update_license_pool(
         &self,
         _req: crate::model::UpdateLicensePoolRequest,
@@ -63,7 +63,7 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LicenseManagementService::assign].
+    /// Implements [super::client::LicenseManagementService::assign].
     fn assign(
         &self,
         _req: crate::model::AssignRequest,
@@ -74,7 +74,7 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LicenseManagementService::unassign].
+    /// Implements [super::client::LicenseManagementService::unassign].
     fn unassign(
         &self,
         _req: crate::model::UnassignRequest,
@@ -86,7 +86,7 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::LicenseManagementService::enumerate_licensed_users].
+    /// Implements [super::client::LicenseManagementService::enumerate_licensed_users].
     fn enumerate_licensed_users(
         &self,
         _req: crate::model::EnumerateLicensedUsersRequest,
@@ -98,7 +98,7 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::LicenseManagementService::get_operation].
+    /// Implements [super::client::LicenseManagementService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -111,7 +111,7 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ConsumerProcurementService].
+/// Defines the trait used to implement [super::client::ConsumerProcurementService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ConsumerProcurementService`.  In other use-cases, application developers only
@@ -123,7 +123,7 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ConsumerProcurementService::place_order].
+    /// Implements [super::client::ConsumerProcurementService::place_order].
     fn place_order(
         &self,
         _req: crate::model::PlaceOrderRequest,
@@ -135,7 +135,7 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConsumerProcurementService::get_order].
+    /// Implements [super::client::ConsumerProcurementService::get_order].
     fn get_order(
         &self,
         _req: crate::model::GetOrderRequest,
@@ -144,7 +144,7 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Order>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ConsumerProcurementService::list_orders].
+    /// Implements [super::client::ConsumerProcurementService::list_orders].
     fn list_orders(
         &self,
         _req: crate::model::ListOrdersRequest,
@@ -156,7 +156,7 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConsumerProcurementService::modify_order].
+    /// Implements [super::client::ConsumerProcurementService::modify_order].
     fn modify_order(
         &self,
         _req: crate::model::ModifyOrderRequest,
@@ -168,7 +168,7 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConsumerProcurementService::cancel_order].
+    /// Implements [super::client::ConsumerProcurementService::cancel_order].
     fn cancel_order(
         &self,
         _req: crate::model::CancelOrderRequest,
@@ -180,7 +180,7 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ConsumerProcurementService::get_operation].
+    /// Implements [super::client::ConsumerProcurementService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

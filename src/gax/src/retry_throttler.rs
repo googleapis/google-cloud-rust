@@ -27,9 +27,9 @@
 //! ```
 //! # use google_cloud_gax::*;
 //! # use google_cloud_gax::retry_throttler::*;
-//! fn configure_throttler() -> http_client::ClientConfig {
+//! fn configure_throttler() -> options::ClientConfig {
 //!     let throttler = AdaptiveThrottler::default();
-//!     http_client::ClientConfig::default()
+//!     options::ClientConfig::default()
 //!         .set_retry_throttler(throttler)
 //! }
 //! ```
@@ -67,14 +67,14 @@ pub trait RetryThrottler: Send + Sync + std::fmt::Debug {
     fn on_success(&mut self);
 }
 
-// Retry throttlers are shared by many clients, so they are wrapped in `Arc<>`.
-// They are (consequently) used from many threads at the same time, so they
-// are wrapped in `Mutex`.
-pub(crate) type RetryThrottlerWrapped = Arc<Mutex<dyn RetryThrottler>>;
+/// Retry throttlers are shared by many clients, so they are wrapped in `Arc<>`.
+/// Consequently, they are used from many threads at the same time, so they are
+/// wrapped in `Mutex`.
+pub type SharedRetryThrottler = Arc<Mutex<dyn RetryThrottler>>;
 
 /// A helper type to use [RetryThrottler] in client and request options.
 #[derive(Clone)]
-pub struct RetryThrottlerArg(pub(crate) RetryThrottlerWrapped);
+pub struct RetryThrottlerArg(pub(crate) SharedRetryThrottler);
 
 impl<T: RetryThrottler + 'static> std::convert::From<T> for RetryThrottlerArg {
     fn from(value: T) -> Self {
@@ -82,8 +82,8 @@ impl<T: RetryThrottler + 'static> std::convert::From<T> for RetryThrottlerArg {
     }
 }
 
-impl std::convert::From<RetryThrottlerWrapped> for RetryThrottlerArg {
-    fn from(value: RetryThrottlerWrapped) -> Self {
+impl std::convert::From<SharedRetryThrottler> for RetryThrottlerArg {
+    fn from(value: SharedRetryThrottler) -> Self {
         Self(value)
     }
 }
@@ -138,9 +138,9 @@ impl AdaptiveThrottler {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
-    /// fn configure_throttler() -> Result<http_client::ClientConfig> {
+    /// fn configure_throttler() -> Result<options::ClientConfig> {
     ///     let throttler = AdaptiveThrottler::new(2.0)?;
-    ///     Ok(http_client::ClientConfig::default()
+    ///     Ok(options::ClientConfig::default()
     ///           .set_retry_throttler(throttler))
     /// }
     /// ```
@@ -271,9 +271,9 @@ impl CircuitBreaker {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
-    /// fn configure_throttler() -> Result<http_client::ClientConfig> {
+    /// fn configure_throttler() -> Result<options::ClientConfig> {
     ///     let throttler = CircuitBreaker::new(1000, 250, 10)?;
-    ///     Ok(http_client::ClientConfig::default().set_retry_throttler(throttler))
+    ///     Ok(options::ClientConfig::default().set_retry_throttler(throttler))
     /// }
     /// ```
     pub fn new(tokens: u64, min_tokens: u64, error_cost: u64) -> Result<Self> {
@@ -305,9 +305,9 @@ impl CircuitBreaker {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
-    /// fn configure_throttler() -> http_client::ClientConfig {
+    /// fn configure_throttler() -> options::ClientConfig {
     ///     let throttler = CircuitBreaker::clamp(1000, 250, 10);
-    ///     http_client::ClientConfig::default().set_retry_throttler(throttler)
+    ///     options::ClientConfig::default().set_retry_throttler(throttler)
     /// }
     /// ```
     pub fn clamp(tokens: u64, min_tokens: u64, error_cost: u64) -> Self {
@@ -327,9 +327,9 @@ impl std::default::Default for CircuitBreaker {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
-    /// fn configure_throttler() -> http_client::ClientConfig {
+    /// fn configure_throttler() -> options::ClientConfig {
     ///     let throttler = CircuitBreaker::default();
-    ///     http_client::ClientConfig::default().set_retry_throttler(throttler)
+    ///     options::ClientConfig::default().set_retry_throttler(throttler)
     /// }
     /// ```
     fn default() -> Self {

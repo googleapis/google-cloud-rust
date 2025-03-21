@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate longrunning;
@@ -956,7 +957,6 @@ impl wkt::message::Message for SearchCatalogResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchCatalogResponse {
     type PageItem = crate::model::SearchCatalogResult;
 
@@ -965,7 +965,8 @@ impl gax::paginator::PageableResponse for SearchCatalogResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1275,7 +1276,6 @@ impl wkt::message::Message for ListEntryGroupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEntryGroupsResponse {
     type PageItem = crate::model::EntryGroup;
 
@@ -1284,7 +1284,8 @@ impl gax::paginator::PageableResponse for ListEntryGroupsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -2624,7 +2625,7 @@ pub struct DatabaseTableSpec {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub dataplex_table: std::option::Option<crate::model::DataplexTableSpec>,
 
-    /// Spec what aplies to tables that are actually views.
+    /// Spec what applies to tables that are actually views.
     /// Not set for "real" tables.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub database_view_spec:
@@ -4262,7 +4263,7 @@ pub mod model_spec {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct FeatureOnlineStoreSpec {
-    /// Output only. Type of underelaying storage for the FeatureOnlineStore.
+    /// Output only. Type of underlying storage for the FeatureOnlineStore.
     pub storage_type: crate::model::feature_online_store_spec::StorageType,
 }
 
@@ -4294,7 +4295,7 @@ pub mod feature_online_store_spec {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Type of underlaying storage type.
+    /// Type of underlying storage type.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StorageType(i32);
 
@@ -4305,7 +4306,7 @@ pub mod feature_online_store_spec {
         /// Underlsying storgae is Bigtable.
         pub const BIGTABLE: StorageType = StorageType::new(1);
 
-        /// Underlaying is optimized online server (Lightning).
+        /// Underlying is optimized online server (Lightning).
         pub const OPTIMIZED: StorageType = StorageType::new(2);
 
         /// Creates a new StorageType instance.
@@ -5322,7 +5323,6 @@ impl wkt::message::Message for ListTagsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTagsResponse {
     type PageItem = crate::model::Tag;
 
@@ -5331,7 +5331,8 @@ impl gax::paginator::PageableResponse for ListTagsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -5712,7 +5713,6 @@ impl wkt::message::Message for ListEntriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEntriesResponse {
     type PageItem = crate::model::Entry;
 
@@ -5721,7 +5721,8 @@ impl gax::paginator::PageableResponse for ListEntriesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -8011,7 +8012,6 @@ impl wkt::message::Message for ListTaxonomiesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTaxonomiesResponse {
     type PageItem = crate::model::Taxonomy;
 
@@ -8020,7 +8020,8 @@ impl gax::paginator::PageableResponse for ListTaxonomiesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -8293,7 +8294,6 @@ impl wkt::message::Message for ListPolicyTagsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListPolicyTagsResponse {
     type PageItem = crate::model::PolicyTag;
 
@@ -8302,7 +8302,8 @@ impl gax::paginator::PageableResponse for ListPolicyTagsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

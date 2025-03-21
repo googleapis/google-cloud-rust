@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Executions].
+/// Defines the trait used to implement [super::client::Executions].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Executions`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Executions: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Executions::list_executions].
+    /// Implements [super::client::Executions::list_executions].
     fn list_executions(
         &self,
         _req: crate::model::ListExecutionsRequest,
@@ -52,7 +52,7 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Executions::create_execution].
+    /// Implements [super::client::Executions::create_execution].
     fn create_execution(
         &self,
         _req: crate::model::CreateExecutionRequest,
@@ -63,7 +63,7 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Executions::get_execution].
+    /// Implements [super::client::Executions::get_execution].
     fn get_execution(
         &self,
         _req: crate::model::GetExecutionRequest,
@@ -74,7 +74,7 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Executions::cancel_execution].
+    /// Implements [super::client::Executions::cancel_execution].
     fn cancel_execution(
         &self,
         _req: crate::model::CancelExecutionRequest,

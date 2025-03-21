@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::FirestoreAdmin].
+/// Defines the trait used to implement [super::client::FirestoreAdmin].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::FirestoreAdmin`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::FirestoreAdmin::create_index].
+    /// Implements [super::client::FirestoreAdmin::create_index].
     fn create_index(
         &self,
         _req: crate::model::CreateIndexRequest,
@@ -53,7 +53,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::list_indexes].
+    /// Implements [super::client::FirestoreAdmin::list_indexes].
     fn list_indexes(
         &self,
         _req: crate::model::ListIndexesRequest,
@@ -65,7 +65,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::get_index].
+    /// Implements [super::client::FirestoreAdmin::get_index].
     fn get_index(
         &self,
         _req: crate::model::GetIndexRequest,
@@ -74,7 +74,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Index>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::delete_index].
+    /// Implements [super::client::FirestoreAdmin::delete_index].
     fn delete_index(
         &self,
         _req: crate::model::DeleteIndexRequest,
@@ -83,7 +83,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::get_field].
+    /// Implements [super::client::FirestoreAdmin::get_field].
     fn get_field(
         &self,
         _req: crate::model::GetFieldRequest,
@@ -92,7 +92,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Field>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::update_field].
+    /// Implements [super::client::FirestoreAdmin::update_field].
     fn update_field(
         &self,
         _req: crate::model::UpdateFieldRequest,
@@ -104,7 +104,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::list_fields].
+    /// Implements [super::client::FirestoreAdmin::list_fields].
     fn list_fields(
         &self,
         _req: crate::model::ListFieldsRequest,
@@ -116,7 +116,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::export_documents].
+    /// Implements [super::client::FirestoreAdmin::export_documents].
     fn export_documents(
         &self,
         _req: crate::model::ExportDocumentsRequest,
@@ -128,7 +128,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::import_documents].
+    /// Implements [super::client::FirestoreAdmin::import_documents].
     fn import_documents(
         &self,
         _req: crate::model::ImportDocumentsRequest,
@@ -140,7 +140,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::bulk_delete_documents].
+    /// Implements [super::client::FirestoreAdmin::bulk_delete_documents].
     fn bulk_delete_documents(
         &self,
         _req: crate::model::BulkDeleteDocumentsRequest,
@@ -152,7 +152,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::create_database].
+    /// Implements [super::client::FirestoreAdmin::create_database].
     fn create_database(
         &self,
         _req: crate::model::CreateDatabaseRequest,
@@ -164,7 +164,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::get_database].
+    /// Implements [super::client::FirestoreAdmin::get_database].
     fn get_database(
         &self,
         _req: crate::model::GetDatabaseRequest,
@@ -175,7 +175,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::list_databases].
+    /// Implements [super::client::FirestoreAdmin::list_databases].
     fn list_databases(
         &self,
         _req: crate::model::ListDatabasesRequest,
@@ -187,7 +187,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::update_database].
+    /// Implements [super::client::FirestoreAdmin::update_database].
     fn update_database(
         &self,
         _req: crate::model::UpdateDatabaseRequest,
@@ -199,7 +199,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::delete_database].
+    /// Implements [super::client::FirestoreAdmin::delete_database].
     fn delete_database(
         &self,
         _req: crate::model::DeleteDatabaseRequest,
@@ -211,7 +211,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::get_backup].
+    /// Implements [super::client::FirestoreAdmin::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -222,7 +222,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::list_backups].
+    /// Implements [super::client::FirestoreAdmin::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -234,7 +234,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::delete_backup].
+    /// Implements [super::client::FirestoreAdmin::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -243,7 +243,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::restore_database].
+    /// Implements [super::client::FirestoreAdmin::restore_database].
     fn restore_database(
         &self,
         _req: crate::model::RestoreDatabaseRequest,
@@ -255,7 +255,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::create_backup_schedule].
+    /// Implements [super::client::FirestoreAdmin::create_backup_schedule].
     fn create_backup_schedule(
         &self,
         _req: crate::model::CreateBackupScheduleRequest,
@@ -266,7 +266,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::get_backup_schedule].
+    /// Implements [super::client::FirestoreAdmin::get_backup_schedule].
     fn get_backup_schedule(
         &self,
         _req: crate::model::GetBackupScheduleRequest,
@@ -277,7 +277,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::list_backup_schedules].
+    /// Implements [super::client::FirestoreAdmin::list_backup_schedules].
     fn list_backup_schedules(
         &self,
         _req: crate::model::ListBackupSchedulesRequest,
@@ -289,7 +289,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::update_backup_schedule].
+    /// Implements [super::client::FirestoreAdmin::update_backup_schedule].
     fn update_backup_schedule(
         &self,
         _req: crate::model::UpdateBackupScheduleRequest,
@@ -300,7 +300,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::delete_backup_schedule].
+    /// Implements [super::client::FirestoreAdmin::delete_backup_schedule].
     fn delete_backup_schedule(
         &self,
         _req: crate::model::DeleteBackupScheduleRequest,
@@ -309,7 +309,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::list_operations].
+    /// Implements [super::client::FirestoreAdmin::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -321,7 +321,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::get_operation].
+    /// Implements [super::client::FirestoreAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -333,7 +333,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::delete_operation].
+    /// Implements [super::client::FirestoreAdmin::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -342,7 +342,7 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::FirestoreAdmin::cancel_operation].
+    /// Implements [super::client::FirestoreAdmin::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

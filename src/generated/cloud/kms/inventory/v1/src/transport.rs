@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [KeyDashboardService](crate::stubs::KeyDashboardService) using a [gax::http_client::ReqwestClient].
+/// Implements [KeyDashboardService](super::stubs::KeyDashboardService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct KeyDashboardService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for KeyDashboardService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for KeyDashboardService {
 }
 
 impl KeyDashboardService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::KeyDashboardService for KeyDashboardService {
+impl super::stubs::KeyDashboardService for KeyDashboardService {
     async fn list_crypto_keys(
         &self,
         req: crate::model::ListCryptoKeysRequest,
@@ -60,15 +60,15 @@ impl crate::stubs::KeyDashboardService for KeyDashboardService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }
 
-/// Implements [KeyTrackingService](crate::stubs::KeyTrackingService) using a [gax::http_client::ReqwestClient].
+/// Implements [KeyTrackingService](super::stubs::KeyTrackingService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct KeyTrackingService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for KeyTrackingService {
@@ -80,13 +80,13 @@ impl std::fmt::Debug for KeyTrackingService {
 }
 
 impl KeyTrackingService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::KeyTrackingService for KeyTrackingService {
+impl super::stubs::KeyTrackingService for KeyTrackingService {
     async fn get_protected_resources_summary(
         &self,
         req: crate::model::GetProtectedResourcesSummaryRequest,
@@ -105,7 +105,7 @@ impl crate::stubs::KeyTrackingService for KeyTrackingService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -134,7 +134,7 @@ impl crate::stubs::KeyTrackingService for KeyTrackingService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("resourceTypes", p)]));
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

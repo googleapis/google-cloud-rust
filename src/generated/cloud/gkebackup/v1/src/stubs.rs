@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::BackupForGKE].
+/// Defines the trait used to implement [super::client::BackupForGKE].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::BackupForGKE`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::BackupForGKE::create_backup_plan].
+    /// Implements [super::client::BackupForGKE::create_backup_plan].
     fn create_backup_plan(
         &self,
         _req: crate::model::CreateBackupPlanRequest,
@@ -53,7 +53,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::list_backup_plans].
+    /// Implements [super::client::BackupForGKE::list_backup_plans].
     fn list_backup_plans(
         &self,
         _req: crate::model::ListBackupPlansRequest,
@@ -65,7 +65,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupForGKE::get_backup_plan].
+    /// Implements [super::client::BackupForGKE::get_backup_plan].
     fn get_backup_plan(
         &self,
         _req: crate::model::GetBackupPlanRequest,
@@ -76,7 +76,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::update_backup_plan].
+    /// Implements [super::client::BackupForGKE::update_backup_plan].
     fn update_backup_plan(
         &self,
         _req: crate::model::UpdateBackupPlanRequest,
@@ -88,7 +88,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::delete_backup_plan].
+    /// Implements [super::client::BackupForGKE::delete_backup_plan].
     fn delete_backup_plan(
         &self,
         _req: crate::model::DeleteBackupPlanRequest,
@@ -100,7 +100,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::create_backup].
+    /// Implements [super::client::BackupForGKE::create_backup].
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
@@ -112,7 +112,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::list_backups].
+    /// Implements [super::client::BackupForGKE::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -124,7 +124,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::get_backup].
+    /// Implements [super::client::BackupForGKE::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -135,7 +135,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::update_backup].
+    /// Implements [super::client::BackupForGKE::update_backup].
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
@@ -147,7 +147,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::delete_backup].
+    /// Implements [super::client::BackupForGKE::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -159,7 +159,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::list_volume_backups].
+    /// Implements [super::client::BackupForGKE::list_volume_backups].
     fn list_volume_backups(
         &self,
         _req: crate::model::ListVolumeBackupsRequest,
@@ -171,7 +171,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupForGKE::get_volume_backup].
+    /// Implements [super::client::BackupForGKE::get_volume_backup].
     fn get_volume_backup(
         &self,
         _req: crate::model::GetVolumeBackupRequest,
@@ -182,7 +182,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::create_restore_plan].
+    /// Implements [super::client::BackupForGKE::create_restore_plan].
     fn create_restore_plan(
         &self,
         _req: crate::model::CreateRestorePlanRequest,
@@ -194,7 +194,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::list_restore_plans].
+    /// Implements [super::client::BackupForGKE::list_restore_plans].
     fn list_restore_plans(
         &self,
         _req: crate::model::ListRestorePlansRequest,
@@ -206,7 +206,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupForGKE::get_restore_plan].
+    /// Implements [super::client::BackupForGKE::get_restore_plan].
     fn get_restore_plan(
         &self,
         _req: crate::model::GetRestorePlanRequest,
@@ -217,7 +217,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::update_restore_plan].
+    /// Implements [super::client::BackupForGKE::update_restore_plan].
     fn update_restore_plan(
         &self,
         _req: crate::model::UpdateRestorePlanRequest,
@@ -229,7 +229,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::delete_restore_plan].
+    /// Implements [super::client::BackupForGKE::delete_restore_plan].
     fn delete_restore_plan(
         &self,
         _req: crate::model::DeleteRestorePlanRequest,
@@ -241,7 +241,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::create_restore].
+    /// Implements [super::client::BackupForGKE::create_restore].
     fn create_restore(
         &self,
         _req: crate::model::CreateRestoreRequest,
@@ -253,7 +253,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::list_restores].
+    /// Implements [super::client::BackupForGKE::list_restores].
     fn list_restores(
         &self,
         _req: crate::model::ListRestoresRequest,
@@ -265,7 +265,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::get_restore].
+    /// Implements [super::client::BackupForGKE::get_restore].
     fn get_restore(
         &self,
         _req: crate::model::GetRestoreRequest,
@@ -276,7 +276,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::update_restore].
+    /// Implements [super::client::BackupForGKE::update_restore].
     fn update_restore(
         &self,
         _req: crate::model::UpdateRestoreRequest,
@@ -288,7 +288,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::delete_restore].
+    /// Implements [super::client::BackupForGKE::delete_restore].
     fn delete_restore(
         &self,
         _req: crate::model::DeleteRestoreRequest,
@@ -300,7 +300,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::list_volume_restores].
+    /// Implements [super::client::BackupForGKE::list_volume_restores].
     fn list_volume_restores(
         &self,
         _req: crate::model::ListVolumeRestoresRequest,
@@ -312,7 +312,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupForGKE::get_volume_restore].
+    /// Implements [super::client::BackupForGKE::get_volume_restore].
     fn get_volume_restore(
         &self,
         _req: crate::model::GetVolumeRestoreRequest,
@@ -323,7 +323,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::get_backup_index_download_url].
+    /// Implements [super::client::BackupForGKE::get_backup_index_download_url].
     fn get_backup_index_download_url(
         &self,
         _req: crate::model::GetBackupIndexDownloadUrlRequest,
@@ -336,7 +336,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupForGKE::list_locations].
+    /// Implements [super::client::BackupForGKE::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -348,7 +348,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupForGKE::get_location].
+    /// Implements [super::client::BackupForGKE::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -359,7 +359,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::set_iam_policy].
+    /// Implements [super::client::BackupForGKE::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -370,7 +370,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::get_iam_policy].
+    /// Implements [super::client::BackupForGKE::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -381,7 +381,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::test_iam_permissions].
+    /// Implements [super::client::BackupForGKE::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -393,7 +393,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupForGKE::list_operations].
+    /// Implements [super::client::BackupForGKE::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -405,7 +405,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::BackupForGKE::get_operation].
+    /// Implements [super::client::BackupForGKE::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -417,7 +417,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::BackupForGKE::delete_operation].
+    /// Implements [super::client::BackupForGKE::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -426,7 +426,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::BackupForGKE::cancel_operation].
+    /// Implements [super::client::BackupForGKE::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

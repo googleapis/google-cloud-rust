@@ -18,10 +18,10 @@ pub mod document_processor_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DocumentProcessorService] request builders.
+    /// Common implementation for [super::super::client::DocumentProcessorService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>,
+        stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod document_processor_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod document_processor_service {
     pub struct ProcessDocument(RequestBuilder<crate::model::ProcessRequest>);
 
     impl ProcessDocument {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -135,7 +139,9 @@ pub mod document_processor_service {
     pub struct BatchProcessDocuments(RequestBuilder<crate::model::BatchProcessRequest>);
 
     impl BatchProcessDocuments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,7 +162,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_process_documents][crate::client::DocumentProcessorService::batch_process_documents].
+        /// on [batch_process_documents][super::super::client::DocumentProcessorService::batch_process_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_process_documents(self.0.request, self.0.options)
@@ -265,7 +271,9 @@ pub mod document_processor_service {
     pub struct FetchProcessorTypes(RequestBuilder<crate::model::FetchProcessorTypesRequest>);
 
     impl FetchProcessorTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -309,7 +317,9 @@ pub mod document_processor_service {
     pub struct ListProcessorTypes(RequestBuilder<crate::model::ListProcessorTypesRequest>);
 
     impl ListProcessorTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -336,12 +346,12 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListProcessorTypesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -380,7 +390,9 @@ pub mod document_processor_service {
     pub struct GetProcessorType(RequestBuilder<crate::model::GetProcessorTypeRequest>);
 
     impl GetProcessorType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -424,7 +436,9 @@ pub mod document_processor_service {
     pub struct ListProcessors(RequestBuilder<crate::model::ListProcessorsRequest>);
 
     impl ListProcessors {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -448,12 +462,12 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListProcessorsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -492,7 +506,9 @@ pub mod document_processor_service {
     pub struct GetProcessor(RequestBuilder<crate::model::GetProcessorRequest>);
 
     impl GetProcessor {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -533,7 +549,9 @@ pub mod document_processor_service {
     pub struct TrainProcessorVersion(RequestBuilder<crate::model::TrainProcessorVersionRequest>);
 
     impl TrainProcessorVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -557,7 +575,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [train_processor_version][crate::client::DocumentProcessorService::train_processor_version].
+        /// on [train_processor_version][super::super::client::DocumentProcessorService::train_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .train_processor_version(self.0.request, self.0.options)
@@ -668,7 +686,9 @@ pub mod document_processor_service {
     pub struct GetProcessorVersion(RequestBuilder<crate::model::GetProcessorVersionRequest>);
 
     impl GetProcessorVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -712,7 +732,9 @@ pub mod document_processor_service {
     pub struct ListProcessorVersions(RequestBuilder<crate::model::ListProcessorVersionsRequest>);
 
     impl ListProcessorVersions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -739,12 +761,12 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListProcessorVersionsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -783,7 +805,9 @@ pub mod document_processor_service {
     pub struct DeleteProcessorVersion(RequestBuilder<crate::model::DeleteProcessorVersionRequest>);
 
     impl DeleteProcessorVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -807,7 +831,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_processor_version][crate::client::DocumentProcessorService::delete_processor_version].
+        /// on [delete_processor_version][super::super::client::DocumentProcessorService::delete_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_processor_version(self.0.request, self.0.options)
@@ -865,7 +889,9 @@ pub mod document_processor_service {
     pub struct DeployProcessorVersion(RequestBuilder<crate::model::DeployProcessorVersionRequest>);
 
     impl DeployProcessorVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -889,7 +915,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [deploy_processor_version][crate::client::DocumentProcessorService::deploy_processor_version].
+        /// on [deploy_processor_version][super::super::client::DocumentProcessorService::deploy_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .deploy_processor_version(self.0.request, self.0.options)
@@ -954,7 +980,9 @@ pub mod document_processor_service {
     );
 
     impl UndeployProcessorVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -978,7 +1006,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undeploy_processor_version][crate::client::DocumentProcessorService::undeploy_processor_version].
+        /// on [undeploy_processor_version][super::super::client::DocumentProcessorService::undeploy_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undeploy_processor_version(self.0.request, self.0.options)
@@ -1041,7 +1069,9 @@ pub mod document_processor_service {
     pub struct CreateProcessor(RequestBuilder<crate::model::CreateProcessorRequest>);
 
     impl CreateProcessor {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1091,7 +1121,9 @@ pub mod document_processor_service {
     pub struct DeleteProcessor(RequestBuilder<crate::model::DeleteProcessorRequest>);
 
     impl DeleteProcessor {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1112,7 +1144,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_processor][crate::client::DocumentProcessorService::delete_processor].
+        /// on [delete_processor][super::super::client::DocumentProcessorService::delete_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_processor(self.0.request, self.0.options)
@@ -1167,7 +1199,9 @@ pub mod document_processor_service {
     pub struct EnableProcessor(RequestBuilder<crate::model::EnableProcessorRequest>);
 
     impl EnableProcessor {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1188,7 +1222,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_processor][crate::client::DocumentProcessorService::enable_processor].
+        /// on [enable_processor][super::super::client::DocumentProcessorService::enable_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_processor(self.0.request, self.0.options)
@@ -1249,7 +1283,9 @@ pub mod document_processor_service {
     pub struct DisableProcessor(RequestBuilder<crate::model::DisableProcessorRequest>);
 
     impl DisableProcessor {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1273,7 +1309,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_processor][crate::client::DocumentProcessorService::disable_processor].
+        /// on [disable_processor][super::super::client::DocumentProcessorService::disable_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_processor(self.0.request, self.0.options)
@@ -1338,7 +1374,9 @@ pub mod document_processor_service {
     );
 
     impl SetDefaultProcessorVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1362,7 +1400,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [set_default_processor_version][crate::client::DocumentProcessorService::set_default_processor_version].
+        /// on [set_default_processor_version][super::super::client::DocumentProcessorService::set_default_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .set_default_processor_version(self.0.request, self.0.options)
@@ -1431,7 +1469,9 @@ pub mod document_processor_service {
     pub struct ReviewDocument(RequestBuilder<crate::model::ReviewDocumentRequest>);
 
     impl ReviewDocument {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1452,7 +1492,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [review_document][crate::client::DocumentProcessorService::review_document].
+        /// on [review_document][super::super::client::DocumentProcessorService::review_document].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .review_document(self.0.request, self.0.options)
@@ -1550,7 +1590,9 @@ pub mod document_processor_service {
     );
 
     impl EvaluateProcessorVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1574,7 +1616,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [evaluate_processor_version][crate::client::DocumentProcessorService::evaluate_processor_version].
+        /// on [evaluate_processor_version][super::super::client::DocumentProcessorService::evaluate_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .evaluate_processor_version(self.0.request, self.0.options)
@@ -1648,7 +1690,9 @@ pub mod document_processor_service {
     pub struct GetEvaluation(RequestBuilder<crate::model::GetEvaluationRequest>);
 
     impl GetEvaluation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1689,7 +1733,9 @@ pub mod document_processor_service {
     pub struct ListEvaluations(RequestBuilder<crate::model::ListEvaluationsRequest>);
 
     impl ListEvaluations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1713,12 +1759,12 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEvaluationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1757,7 +1803,9 @@ pub mod document_processor_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1784,12 +1832,12 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1834,7 +1882,9 @@ pub mod document_processor_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1875,7 +1925,9 @@ pub mod document_processor_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1902,12 +1954,12 @@ pub mod document_processor_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1952,7 +2004,9 @@ pub mod document_processor_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1996,7 +2050,9 @@ pub mod document_processor_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentProcessorService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::DocumentProcessorService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -78,9 +78,9 @@ pub trait ServiceUsage: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ServiceUsage] also implement [ServiceUsage].
+/// All implementations of [super::ServiceUsage] also implement [ServiceUsage].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ServiceUsage> ServiceUsage for T {
+impl<T: super::ServiceUsage> ServiceUsage for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn enable_service(
         &self,

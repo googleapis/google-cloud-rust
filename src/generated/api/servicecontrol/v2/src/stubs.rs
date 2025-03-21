@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ServiceController].
+/// Defines the trait used to implement [super::client::ServiceController].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ServiceController`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ServiceController: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ServiceController::check].
+    /// Implements [super::client::ServiceController::check].
     fn check(
         &self,
         _req: crate::model::CheckRequest,
@@ -51,7 +51,7 @@ pub trait ServiceController: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceController::report].
+    /// Implements [super::client::ServiceController::report].
     fn report(
         &self,
         _req: crate::model::ReportRequest,

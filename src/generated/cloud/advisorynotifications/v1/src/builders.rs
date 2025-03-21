@@ -18,10 +18,10 @@ pub mod advisory_notifications_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AdvisoryNotificationsService] request builders.
+    /// Common implementation for [super::super::client::AdvisoryNotificationsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AdvisoryNotificationsService>,
+        stub: Arc<dyn super::super::stubs::dynamic::AdvisoryNotificationsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -31,7 +31,7 @@ pub mod advisory_notifications_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::AdvisoryNotificationsService>,
+            stub: Arc<dyn super::super::stubs::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self {
                 stub,
@@ -47,7 +47,7 @@ pub mod advisory_notifications_service {
 
     impl ListNotifications {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::AdvisoryNotificationsService>,
+            stub: Arc<dyn super::super::stubs::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -75,12 +75,12 @@ pub mod advisory_notifications_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNotificationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -132,7 +132,7 @@ pub mod advisory_notifications_service {
 
     impl GetNotification {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::AdvisoryNotificationsService>,
+            stub: Arc<dyn super::super::stubs::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -181,7 +181,7 @@ pub mod advisory_notifications_service {
 
     impl GetSettings {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::AdvisoryNotificationsService>,
+            stub: Arc<dyn super::super::stubs::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -224,7 +224,7 @@ pub mod advisory_notifications_service {
 
     impl UpdateSettings {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::AdvisoryNotificationsService>,
+            stub: Arc<dyn super::super::stubs::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

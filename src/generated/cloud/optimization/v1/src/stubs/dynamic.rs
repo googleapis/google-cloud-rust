@@ -48,9 +48,9 @@ pub trait FleetRouting: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::FleetRouting] also implement [FleetRouting].
+/// All implementations of [super::FleetRouting] also implement [FleetRouting].
 #[async_trait::async_trait]
-impl<T: crate::stubs::FleetRouting> FleetRouting for T {
+impl<T: super::FleetRouting> FleetRouting for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn optimize_tours(
         &self,

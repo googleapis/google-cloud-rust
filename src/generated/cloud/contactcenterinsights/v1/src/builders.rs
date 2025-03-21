@@ -18,10 +18,10 @@ pub mod contact_center_insights {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ContactCenterInsights] request builders.
+    /// Common implementation for [super::super::client::ContactCenterInsights] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>,
+        stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod contact_center_insights {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod contact_center_insights {
     pub struct CreateConversation(RequestBuilder<crate::model::CreateConversationRequest>);
 
     impl CreateConversation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -103,7 +107,9 @@ pub mod contact_center_insights {
     pub struct UploadConversation(RequestBuilder<crate::model::UploadConversationRequest>);
 
     impl UploadConversation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -127,7 +133,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upload_conversation][crate::client::ContactCenterInsights::upload_conversation].
+        /// on [upload_conversation][super::super::client::ContactCenterInsights::upload_conversation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upload_conversation(self.0.request, self.0.options)
@@ -221,7 +227,9 @@ pub mod contact_center_insights {
     pub struct UpdateConversation(RequestBuilder<crate::model::UpdateConversationRequest>);
 
     impl UpdateConversation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -277,7 +285,9 @@ pub mod contact_center_insights {
     pub struct GetConversation(RequestBuilder<crate::model::GetConversationRequest>);
 
     impl GetConversation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -324,7 +334,9 @@ pub mod contact_center_insights {
     pub struct ListConversations(RequestBuilder<crate::model::ListConversationsRequest>);
 
     impl ListConversations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -351,12 +363,12 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConversationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -413,7 +425,9 @@ pub mod contact_center_insights {
     pub struct DeleteConversation(RequestBuilder<crate::model::DeleteConversationRequest>);
 
     impl DeleteConversation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -463,7 +477,9 @@ pub mod contact_center_insights {
     pub struct CreateAnalysis(RequestBuilder<crate::model::CreateAnalysisRequest>);
 
     impl CreateAnalysis {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -484,7 +500,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_analysis][crate::client::ContactCenterInsights::create_analysis].
+        /// on [create_analysis][super::super::client::ContactCenterInsights::create_analysis].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_analysis(self.0.request, self.0.options)
@@ -554,7 +570,9 @@ pub mod contact_center_insights {
     pub struct GetAnalysis(RequestBuilder<crate::model::GetAnalysisRequest>);
 
     impl GetAnalysis {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -595,7 +613,9 @@ pub mod contact_center_insights {
     pub struct ListAnalyses(RequestBuilder<crate::model::ListAnalysesRequest>);
 
     impl ListAnalyses {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -619,12 +639,12 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAnalysesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -669,7 +689,9 @@ pub mod contact_center_insights {
     pub struct DeleteAnalysis(RequestBuilder<crate::model::DeleteAnalysisRequest>);
 
     impl DeleteAnalysis {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -712,7 +734,9 @@ pub mod contact_center_insights {
     );
 
     impl BulkAnalyzeConversations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -736,7 +760,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_analyze_conversations][crate::client::ContactCenterInsights::bulk_analyze_conversations].
+        /// on [bulk_analyze_conversations][super::super::client::ContactCenterInsights::bulk_analyze_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_analyze_conversations(self.0.request, self.0.options)
@@ -824,7 +848,9 @@ pub mod contact_center_insights {
     );
 
     impl BulkDeleteConversations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -848,7 +874,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_delete_conversations][crate::client::ContactCenterInsights::bulk_delete_conversations].
+        /// on [bulk_delete_conversations][super::super::client::ContactCenterInsights::bulk_delete_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_delete_conversations(self.0.request, self.0.options)
@@ -929,7 +955,9 @@ pub mod contact_center_insights {
     pub struct IngestConversations(RequestBuilder<crate::model::IngestConversationsRequest>);
 
     impl IngestConversations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -953,7 +981,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [ingest_conversations][crate::client::ContactCenterInsights::ingest_conversations].
+        /// on [ingest_conversations][super::super::client::ContactCenterInsights::ingest_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .ingest_conversations(self.0.request, self.0.options)
@@ -1073,7 +1101,9 @@ pub mod contact_center_insights {
     pub struct ExportInsightsData(RequestBuilder<crate::model::ExportInsightsDataRequest>);
 
     impl ExportInsightsData {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1097,7 +1127,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_insights_data][crate::client::ContactCenterInsights::export_insights_data].
+        /// on [export_insights_data][super::super::client::ContactCenterInsights::export_insights_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_insights_data(self.0.request, self.0.options)
@@ -1194,7 +1224,9 @@ pub mod contact_center_insights {
     pub struct CreateIssueModel(RequestBuilder<crate::model::CreateIssueModelRequest>);
 
     impl CreateIssueModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1218,7 +1250,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_issue_model][crate::client::ContactCenterInsights::create_issue_model].
+        /// on [create_issue_model][super::super::client::ContactCenterInsights::create_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_issue_model(self.0.request, self.0.options)
@@ -1286,7 +1318,9 @@ pub mod contact_center_insights {
     pub struct UpdateIssueModel(RequestBuilder<crate::model::UpdateIssueModelRequest>);
 
     impl UpdateIssueModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1342,7 +1376,9 @@ pub mod contact_center_insights {
     pub struct GetIssueModel(RequestBuilder<crate::model::GetIssueModelRequest>);
 
     impl GetIssueModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1383,7 +1419,9 @@ pub mod contact_center_insights {
     pub struct ListIssueModels(RequestBuilder<crate::model::ListIssueModelsRequest>);
 
     impl ListIssueModels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1424,7 +1462,9 @@ pub mod contact_center_insights {
     pub struct DeleteIssueModel(RequestBuilder<crate::model::DeleteIssueModelRequest>);
 
     impl DeleteIssueModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1448,7 +1488,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_issue_model][crate::client::ContactCenterInsights::delete_issue_model].
+        /// on [delete_issue_model][super::super::client::ContactCenterInsights::delete_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_issue_model(self.0.request, self.0.options)
@@ -1505,7 +1545,9 @@ pub mod contact_center_insights {
     pub struct DeployIssueModel(RequestBuilder<crate::model::DeployIssueModelRequest>);
 
     impl DeployIssueModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1529,7 +1571,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [deploy_issue_model][crate::client::ContactCenterInsights::deploy_issue_model].
+        /// on [deploy_issue_model][super::super::client::ContactCenterInsights::deploy_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .deploy_issue_model(self.0.request, self.0.options)
@@ -1592,7 +1634,9 @@ pub mod contact_center_insights {
     pub struct UndeployIssueModel(RequestBuilder<crate::model::UndeployIssueModelRequest>);
 
     impl UndeployIssueModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1616,7 +1660,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undeploy_issue_model][crate::client::ContactCenterInsights::undeploy_issue_model].
+        /// on [undeploy_issue_model][super::super::client::ContactCenterInsights::undeploy_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undeploy_issue_model(self.0.request, self.0.options)
@@ -1679,7 +1723,9 @@ pub mod contact_center_insights {
     pub struct ExportIssueModel(RequestBuilder<crate::model::ExportIssueModelRequest>);
 
     impl ExportIssueModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1703,7 +1749,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_issue_model][crate::client::ContactCenterInsights::export_issue_model].
+        /// on [export_issue_model][super::super::client::ContactCenterInsights::export_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_issue_model(self.0.request, self.0.options)
@@ -1777,7 +1823,9 @@ pub mod contact_center_insights {
     pub struct ImportIssueModel(RequestBuilder<crate::model::ImportIssueModelRequest>);
 
     impl ImportIssueModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1801,7 +1849,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_issue_model][crate::client::ContactCenterInsights::import_issue_model].
+        /// on [import_issue_model][super::super::client::ContactCenterInsights::import_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_issue_model(self.0.request, self.0.options)
@@ -1879,7 +1927,9 @@ pub mod contact_center_insights {
     pub struct GetIssue(RequestBuilder<crate::model::GetIssueRequest>);
 
     impl GetIssue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1920,7 +1970,9 @@ pub mod contact_center_insights {
     pub struct ListIssues(RequestBuilder<crate::model::ListIssuesRequest>);
 
     impl ListIssues {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1961,7 +2013,9 @@ pub mod contact_center_insights {
     pub struct UpdateIssue(RequestBuilder<crate::model::UpdateIssueRequest>);
 
     impl UpdateIssue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2014,7 +2068,9 @@ pub mod contact_center_insights {
     pub struct DeleteIssue(RequestBuilder<crate::model::DeleteIssueRequest>);
 
     impl DeleteIssue {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2057,7 +2113,9 @@ pub mod contact_center_insights {
     );
 
     impl CalculateIssueModelStats {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2101,7 +2159,9 @@ pub mod contact_center_insights {
     pub struct CreatePhraseMatcher(RequestBuilder<crate::model::CreatePhraseMatcherRequest>);
 
     impl CreatePhraseMatcher {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2154,7 +2214,9 @@ pub mod contact_center_insights {
     pub struct GetPhraseMatcher(RequestBuilder<crate::model::GetPhraseMatcherRequest>);
 
     impl GetPhraseMatcher {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2198,7 +2260,9 @@ pub mod contact_center_insights {
     pub struct ListPhraseMatchers(RequestBuilder<crate::model::ListPhraseMatchersRequest>);
 
     impl ListPhraseMatchers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2225,12 +2289,12 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPhraseMatchersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2275,7 +2339,9 @@ pub mod contact_center_insights {
     pub struct DeletePhraseMatcher(RequestBuilder<crate::model::DeletePhraseMatcherRequest>);
 
     impl DeletePhraseMatcher {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2319,7 +2385,9 @@ pub mod contact_center_insights {
     pub struct UpdatePhraseMatcher(RequestBuilder<crate::model::UpdatePhraseMatcherRequest>);
 
     impl UpdatePhraseMatcher {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2375,7 +2443,9 @@ pub mod contact_center_insights {
     pub struct CalculateStats(RequestBuilder<crate::model::CalculateStatsRequest>);
 
     impl CalculateStats {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2422,7 +2492,9 @@ pub mod contact_center_insights {
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2463,7 +2535,9 @@ pub mod contact_center_insights {
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2516,7 +2590,9 @@ pub mod contact_center_insights {
     pub struct CreateAnalysisRule(RequestBuilder<crate::model::CreateAnalysisRuleRequest>);
 
     impl CreateAnalysisRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2569,7 +2645,9 @@ pub mod contact_center_insights {
     pub struct GetAnalysisRule(RequestBuilder<crate::model::GetAnalysisRuleRequest>);
 
     impl GetAnalysisRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2610,7 +2688,9 @@ pub mod contact_center_insights {
     pub struct ListAnalysisRules(RequestBuilder<crate::model::ListAnalysisRulesRequest>);
 
     impl ListAnalysisRules {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2637,12 +2717,12 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAnalysisRulesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2681,7 +2761,9 @@ pub mod contact_center_insights {
     pub struct UpdateAnalysisRule(RequestBuilder<crate::model::UpdateAnalysisRuleRequest>);
 
     impl UpdateAnalysisRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2737,7 +2819,9 @@ pub mod contact_center_insights {
     pub struct DeleteAnalysisRule(RequestBuilder<crate::model::DeleteAnalysisRuleRequest>);
 
     impl DeleteAnalysisRule {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2781,7 +2865,9 @@ pub mod contact_center_insights {
     pub struct GetEncryptionSpec(RequestBuilder<crate::model::GetEncryptionSpecRequest>);
 
     impl GetEncryptionSpec {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2827,7 +2913,9 @@ pub mod contact_center_insights {
     );
 
     impl InitializeEncryptionSpec {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2851,7 +2939,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [initialize_encryption_spec][crate::client::ContactCenterInsights::initialize_encryption_spec].
+        /// on [initialize_encryption_spec][super::super::client::ContactCenterInsights::initialize_encryption_spec].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .initialize_encryption_spec(self.0.request, self.0.options)
@@ -2917,7 +3005,9 @@ pub mod contact_center_insights {
     pub struct CreateView(RequestBuilder<crate::model::CreateViewRequest>);
 
     impl CreateView {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2964,7 +3054,9 @@ pub mod contact_center_insights {
     pub struct GetView(RequestBuilder<crate::model::GetViewRequest>);
 
     impl GetView {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3005,7 +3097,9 @@ pub mod contact_center_insights {
     pub struct ListViews(RequestBuilder<crate::model::ListViewsRequest>);
 
     impl ListViews {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3029,11 +3123,11 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3072,7 +3166,9 @@ pub mod contact_center_insights {
     pub struct UpdateView(RequestBuilder<crate::model::UpdateViewRequest>);
 
     impl UpdateView {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3122,7 +3218,9 @@ pub mod contact_center_insights {
     pub struct DeleteView(RequestBuilder<crate::model::DeleteViewRequest>);
 
     impl DeleteView {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3163,7 +3261,9 @@ pub mod contact_center_insights {
     pub struct QueryMetrics(RequestBuilder<crate::model::QueryMetricsRequest>);
 
     impl QueryMetrics {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3184,7 +3284,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [query_metrics][crate::client::ContactCenterInsights::query_metrics].
+        /// on [query_metrics][super::super::client::ContactCenterInsights::query_metrics].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .query_metrics(self.0.request, self.0.options)
@@ -3282,7 +3382,9 @@ pub mod contact_center_insights {
     pub struct CreateQaQuestion(RequestBuilder<crate::model::CreateQaQuestionRequest>);
 
     impl CreateQaQuestion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3341,7 +3443,9 @@ pub mod contact_center_insights {
     pub struct GetQaQuestion(RequestBuilder<crate::model::GetQaQuestionRequest>);
 
     impl GetQaQuestion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3382,7 +3486,9 @@ pub mod contact_center_insights {
     pub struct UpdateQaQuestion(RequestBuilder<crate::model::UpdateQaQuestionRequest>);
 
     impl UpdateQaQuestion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3438,7 +3544,9 @@ pub mod contact_center_insights {
     pub struct DeleteQaQuestion(RequestBuilder<crate::model::DeleteQaQuestionRequest>);
 
     impl DeleteQaQuestion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3482,7 +3590,9 @@ pub mod contact_center_insights {
     pub struct ListQaQuestions(RequestBuilder<crate::model::ListQaQuestionsRequest>);
 
     impl ListQaQuestions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3506,12 +3616,12 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListQaQuestionsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3550,7 +3660,9 @@ pub mod contact_center_insights {
     pub struct CreateQaScorecard(RequestBuilder<crate::model::CreateQaScorecardRequest>);
 
     impl CreateQaScorecard {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3609,7 +3721,9 @@ pub mod contact_center_insights {
     pub struct GetQaScorecard(RequestBuilder<crate::model::GetQaScorecardRequest>);
 
     impl GetQaScorecard {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3650,7 +3764,9 @@ pub mod contact_center_insights {
     pub struct UpdateQaScorecard(RequestBuilder<crate::model::UpdateQaScorecardRequest>);
 
     impl UpdateQaScorecard {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3706,7 +3822,9 @@ pub mod contact_center_insights {
     pub struct DeleteQaScorecard(RequestBuilder<crate::model::DeleteQaScorecardRequest>);
 
     impl DeleteQaScorecard {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3756,7 +3874,9 @@ pub mod contact_center_insights {
     pub struct ListQaScorecards(RequestBuilder<crate::model::ListQaScorecardsRequest>);
 
     impl ListQaScorecards {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3783,12 +3903,12 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListQaScorecardsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3829,7 +3949,9 @@ pub mod contact_center_insights {
     );
 
     impl CreateQaScorecardRevision {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3890,7 +4012,9 @@ pub mod contact_center_insights {
     pub struct GetQaScorecardRevision(RequestBuilder<crate::model::GetQaScorecardRevisionRequest>);
 
     impl GetQaScorecardRevision {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3936,7 +4060,9 @@ pub mod contact_center_insights {
     );
 
     impl TuneQaScorecardRevision {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3960,7 +4086,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [tune_qa_scorecard_revision][crate::client::ContactCenterInsights::tune_qa_scorecard_revision].
+        /// on [tune_qa_scorecard_revision][super::super::client::ContactCenterInsights::tune_qa_scorecard_revision].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .tune_qa_scorecard_revision(self.0.request, self.0.options)
@@ -4037,7 +4163,9 @@ pub mod contact_center_insights {
     );
 
     impl DeployQaScorecardRevision {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4083,7 +4211,9 @@ pub mod contact_center_insights {
     );
 
     impl UndeployQaScorecardRevision {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4129,7 +4259,9 @@ pub mod contact_center_insights {
     );
 
     impl DeleteQaScorecardRevision {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4181,7 +4313,9 @@ pub mod contact_center_insights {
     );
 
     impl ListQaScorecardRevisions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4208,14 +4342,14 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListQaScorecardRevisionsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -4260,7 +4394,9 @@ pub mod contact_center_insights {
     pub struct CreateFeedbackLabel(RequestBuilder<crate::model::CreateFeedbackLabelRequest>);
 
     impl CreateFeedbackLabel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4319,7 +4455,9 @@ pub mod contact_center_insights {
     pub struct ListFeedbackLabels(RequestBuilder<crate::model::ListFeedbackLabelsRequest>);
 
     impl ListFeedbackLabels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4346,12 +4484,12 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFeedbackLabelsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -4396,7 +4534,9 @@ pub mod contact_center_insights {
     pub struct GetFeedbackLabel(RequestBuilder<crate::model::GetFeedbackLabelRequest>);
 
     impl GetFeedbackLabel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4440,7 +4580,9 @@ pub mod contact_center_insights {
     pub struct UpdateFeedbackLabel(RequestBuilder<crate::model::UpdateFeedbackLabelRequest>);
 
     impl UpdateFeedbackLabel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4496,7 +4638,9 @@ pub mod contact_center_insights {
     pub struct DeleteFeedbackLabel(RequestBuilder<crate::model::DeleteFeedbackLabelRequest>);
 
     impl DeleteFeedbackLabel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4540,7 +4684,9 @@ pub mod contact_center_insights {
     pub struct ListAllFeedbackLabels(RequestBuilder<crate::model::ListAllFeedbackLabelsRequest>);
 
     impl ListAllFeedbackLabels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4567,12 +4713,12 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAllFeedbackLabelsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -4619,7 +4765,9 @@ pub mod contact_center_insights {
     );
 
     impl BulkUploadFeedbackLabels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4643,7 +4791,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_upload_feedback_labels][crate::client::ContactCenterInsights::bulk_upload_feedback_labels].
+        /// on [bulk_upload_feedback_labels][super::super::client::ContactCenterInsights::bulk_upload_feedback_labels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_upload_feedback_labels(self.0.request, self.0.options)
@@ -4725,7 +4873,9 @@ pub mod contact_center_insights {
     );
 
     impl BulkDownloadFeedbackLabels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4749,7 +4899,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_download_feedback_labels][crate::client::ContactCenterInsights::bulk_download_feedback_labels].
+        /// on [bulk_download_feedback_labels][super::super::client::ContactCenterInsights::bulk_download_feedback_labels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_download_feedback_labels(self.0.request, self.0.options)
@@ -4863,7 +5013,9 @@ pub mod contact_center_insights {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4890,12 +5042,12 @@ pub mod contact_center_insights {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -4940,7 +5092,9 @@ pub mod contact_center_insights {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4984,7 +5138,9 @@ pub mod contact_center_insights {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ContactCenterInsights>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ContactCenterInsights>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

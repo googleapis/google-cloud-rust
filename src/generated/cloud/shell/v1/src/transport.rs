@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudShellService](crate::stubs::CloudShellService) using a [gax::http_client::ReqwestClient].
+/// Implements [CloudShellService](super::stubs::CloudShellService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudShellService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for CloudShellService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for CloudShellService {
 }
 
 impl CloudShellService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::CloudShellService for CloudShellService {
+impl super::stubs::CloudShellService for CloudShellService {
     async fn get_environment(
         &self,
         req: crate::model::GetEnvironmentRequest,
@@ -55,7 +55,7 @@ impl crate::stubs::CloudShellService for CloudShellService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -148,7 +148,7 @@ impl crate::stubs::CloudShellService for CloudShellService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

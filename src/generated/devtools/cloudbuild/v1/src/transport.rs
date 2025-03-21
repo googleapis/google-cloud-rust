@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudBuild](crate::stubs::CloudBuild) using a [gax::http_client::ReqwestClient].
+/// Implements [CloudBuild](super::stubs::CloudBuild) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudBuild {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for CloudBuild {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for CloudBuild {
 }
 
 impl CloudBuild {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::CloudBuild for CloudBuild {
+impl super::stubs::CloudBuild for CloudBuild {
     async fn create_build(
         &self,
         req: crate::model::CreateBuildRequest,
@@ -80,7 +80,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
             );
         let builder = builder.query(&[("name", &req.name)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -106,7 +106,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -212,7 +212,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
             );
         let builder = builder.query(&[("name", &req.name)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -237,7 +237,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -263,7 +263,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
             );
         let builder = builder.query(&[("name", &req.name)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -294,7 +294,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -390,7 +390,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -412,7 +412,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -430,7 +430,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                     "/v1/{}",
                     req.worker_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("worker_pool"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("worker_pool"))?
                         .name
                 ),
             )
@@ -446,7 +446,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -475,7 +475,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -494,7 +494,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

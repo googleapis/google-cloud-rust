@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ServiceHealth](crate::stubs::ServiceHealth) using a [gax::http_client::ReqwestClient].
+/// Implements [ServiceHealth](super::stubs::ServiceHealth) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ServiceHealth {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ServiceHealth {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for ServiceHealth {
 }
 
 impl ServiceHealth {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::ServiceHealth for ServiceHealth {
+impl super::stubs::ServiceHealth for ServiceHealth {
     async fn list_events(
         &self,
         req: crate::model::ListEventsRequest,
@@ -59,7 +59,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -78,7 +78,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -104,7 +104,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("view", &req.view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -123,7 +123,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -148,7 +148,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -167,7 +167,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -189,7 +189,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -208,7 +208,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

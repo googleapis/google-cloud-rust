@@ -18,10 +18,10 @@ pub mod bigtable_instance_admin {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::BigtableInstanceAdmin] request builders.
+    /// Common implementation for [super::super::client::BigtableInstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>,
+        stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod bigtable_instance_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod bigtable_instance_admin {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +69,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][crate::client::BigtableInstanceAdmin::create_instance].
+        /// on [create_instance][super::super::client::BigtableInstanceAdmin::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -150,7 +154,9 @@ pub mod bigtable_instance_admin {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -191,7 +197,9 @@ pub mod bigtable_instance_admin {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -238,7 +246,9 @@ pub mod bigtable_instance_admin {
     pub struct UpdateInstance(RequestBuilder<crate::model::Instance>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -329,7 +339,9 @@ pub mod bigtable_instance_admin {
     pub struct PartialUpdateInstance(RequestBuilder<crate::model::PartialUpdateInstanceRequest>);
 
     impl PartialUpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -353,7 +365,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [partial_update_instance][crate::client::BigtableInstanceAdmin::partial_update_instance].
+        /// on [partial_update_instance][super::super::client::BigtableInstanceAdmin::partial_update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .partial_update_instance(self.0.request, self.0.options)
@@ -424,7 +436,9 @@ pub mod bigtable_instance_admin {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -465,7 +479,9 @@ pub mod bigtable_instance_admin {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -486,7 +502,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][crate::client::BigtableInstanceAdmin::create_cluster].
+        /// on [create_cluster][super::super::client::BigtableInstanceAdmin::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -559,7 +575,9 @@ pub mod bigtable_instance_admin {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -600,7 +618,9 @@ pub mod bigtable_instance_admin {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -647,7 +667,9 @@ pub mod bigtable_instance_admin {
     pub struct UpdateCluster(RequestBuilder<crate::model::Cluster>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -668,7 +690,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][crate::client::BigtableInstanceAdmin::update_cluster].
+        /// on [update_cluster][super::super::client::BigtableInstanceAdmin::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -779,7 +801,9 @@ pub mod bigtable_instance_admin {
     pub struct PartialUpdateCluster(RequestBuilder<crate::model::PartialUpdateClusterRequest>);
 
     impl PartialUpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -803,7 +827,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [partial_update_cluster][crate::client::BigtableInstanceAdmin::partial_update_cluster].
+        /// on [partial_update_cluster][super::super::client::BigtableInstanceAdmin::partial_update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .partial_update_cluster(self.0.request, self.0.options)
@@ -874,7 +898,9 @@ pub mod bigtable_instance_admin {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -915,7 +941,9 @@ pub mod bigtable_instance_admin {
     pub struct CreateAppProfile(RequestBuilder<crate::model::CreateAppProfileRequest>);
 
     impl CreateAppProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -980,7 +1008,9 @@ pub mod bigtable_instance_admin {
     pub struct GetAppProfile(RequestBuilder<crate::model::GetAppProfileRequest>);
 
     impl GetAppProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1021,7 +1051,9 @@ pub mod bigtable_instance_admin {
     pub struct ListAppProfiles(RequestBuilder<crate::model::ListAppProfilesRequest>);
 
     impl ListAppProfiles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1045,12 +1077,12 @@ pub mod bigtable_instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAppProfilesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1089,7 +1121,9 @@ pub mod bigtable_instance_admin {
     pub struct UpdateAppProfile(RequestBuilder<crate::model::UpdateAppProfileRequest>);
 
     impl UpdateAppProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1113,7 +1147,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_app_profile][crate::client::BigtableInstanceAdmin::update_app_profile].
+        /// on [update_app_profile][super::super::client::BigtableInstanceAdmin::update_app_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_app_profile(self.0.request, self.0.options)
@@ -1190,7 +1224,9 @@ pub mod bigtable_instance_admin {
     pub struct DeleteAppProfile(RequestBuilder<crate::model::DeleteAppProfileRequest>);
 
     impl DeleteAppProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1240,7 +1276,9 @@ pub mod bigtable_instance_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1290,7 +1328,9 @@ pub mod bigtable_instance_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1349,7 +1389,9 @@ pub mod bigtable_instance_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1404,7 +1446,9 @@ pub mod bigtable_instance_admin {
     pub struct ListHotTablets(RequestBuilder<crate::model::ListHotTabletsRequest>);
 
     impl ListHotTablets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1428,12 +1472,12 @@ pub mod bigtable_instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListHotTabletsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1482,12 +1526,755 @@ pub mod bigtable_instance_admin {
         }
     }
 
+    /// The request builder for a BigtableInstanceAdmin::create_logical_view call.
+    #[derive(Clone, Debug)]
+    pub struct CreateLogicalView(RequestBuilder<crate::model::CreateLogicalViewRequest>);
+
+    impl CreateLogicalView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateLogicalViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_logical_view][super::super::client::BigtableInstanceAdmin::create_logical_view].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_logical_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_logical_view`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>
+        {
+            type Operation =
+                lro::Operation<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>;
+            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [logical_view_id][crate::model::CreateLogicalViewRequest::logical_view_id].
+        pub fn set_logical_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.logical_view_id = v.into();
+            self
+        }
+
+        /// Sets the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
+        pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.logical_view = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for CreateLogicalView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::get_logical_view call.
+    #[derive(Clone, Debug)]
+    pub struct GetLogicalView(RequestBuilder<crate::model::GetLogicalViewRequest>);
+
+    impl GetLogicalView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetLogicalViewRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::LogicalView> {
+            (*self.0.stub)
+                .get_logical_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::GetLogicalViewRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for GetLogicalView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::list_logical_views call.
+    #[derive(Clone, Debug)]
+    pub struct ListLogicalViews(RequestBuilder<crate::model::ListLogicalViewsRequest>);
+
+    impl ListLogicalViews {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListLogicalViewsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListLogicalViewsResponse> {
+            (*self.0.stub)
+                .list_logical_views(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Streams the responses back.
+        pub async fn paginator(
+            self,
+        ) -> gax::paginator::Paginator<crate::model::ListLogicalViewsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::Paginator::new(token, execute)
+        }
+
+        /// Sets the value of [parent][crate::model::ListLogicalViewsRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListLogicalViewsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListLogicalViewsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for ListLogicalViews {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::update_logical_view call.
+    #[derive(Clone, Debug)]
+    pub struct UpdateLogicalView(RequestBuilder<crate::model::UpdateLogicalViewRequest>);
+
+    impl UpdateLogicalView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateLogicalViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_logical_view][super::super::client::BigtableInstanceAdmin::update_logical_view].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_logical_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_logical_view`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>
+        {
+            type Operation =
+                lro::Operation<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>;
+            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
+        pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.logical_view = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mask = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for UpdateLogicalView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::delete_logical_view call.
+    #[derive(Clone, Debug)]
+    pub struct DeleteLogicalView(RequestBuilder<crate::model::DeleteLogicalViewRequest>);
+
+    impl DeleteLogicalView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteLogicalViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<wkt::Empty> {
+            (*self.0.stub)
+                .delete_logical_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::DeleteLogicalViewRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteLogicalViewRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for DeleteLogicalView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::create_materialized_view call.
+    #[derive(Clone, Debug)]
+    pub struct CreateMaterializedView(RequestBuilder<crate::model::CreateMaterializedViewRequest>);
+
+    impl CreateMaterializedView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateMaterializedViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_materialized_view][super::super::client::BigtableInstanceAdmin::create_materialized_view].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_materialized_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_materialized_view`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::CreateMaterializedViewMetadata>
+        {
+            type Operation = lro::Operation<
+                crate::model::MaterializedView,
+                crate::model::CreateMaterializedViewMetadata,
+            >;
+            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [materialized_view_id][crate::model::CreateMaterializedViewRequest::materialized_view_id].
+        pub fn set_materialized_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.materialized_view_id = v.into();
+            self
+        }
+
+        /// Sets the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
+        pub fn set_materialized_view<
+            T: Into<std::option::Option<crate::model::MaterializedView>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.materialized_view = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for CreateMaterializedView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::get_materialized_view call.
+    #[derive(Clone, Debug)]
+    pub struct GetMaterializedView(RequestBuilder<crate::model::GetMaterializedViewRequest>);
+
+    impl GetMaterializedView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMaterializedViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::MaterializedView> {
+            (*self.0.stub)
+                .get_materialized_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::GetMaterializedViewRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for GetMaterializedView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::list_materialized_views call.
+    #[derive(Clone, Debug)]
+    pub struct ListMaterializedViews(RequestBuilder<crate::model::ListMaterializedViewsRequest>);
+
+    impl ListMaterializedViews {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMaterializedViewsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMaterializedViewsResponse> {
+            (*self.0.stub)
+                .list_materialized_views(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Streams the responses back.
+        pub async fn paginator(
+            self,
+        ) -> gax::paginator::Paginator<crate::model::ListMaterializedViewsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::Paginator::new(token, execute)
+        }
+
+        /// Sets the value of [parent][crate::model::ListMaterializedViewsRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMaterializedViewsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMaterializedViewsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for ListMaterializedViews {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::update_materialized_view call.
+    #[derive(Clone, Debug)]
+    pub struct UpdateMaterializedView(RequestBuilder<crate::model::UpdateMaterializedViewRequest>);
+
+    impl UpdateMaterializedView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateMaterializedViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_materialized_view][super::super::client::BigtableInstanceAdmin::update_materialized_view].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_materialized_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_materialized_view`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::UpdateMaterializedViewMetadata>
+        {
+            type Operation = lro::Operation<
+                crate::model::MaterializedView,
+                crate::model::UpdateMaterializedViewMetadata,
+            >;
+            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
+        pub fn set_materialized_view<
+            T: Into<std::option::Option<crate::model::MaterializedView>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.materialized_view = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mask = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for UpdateMaterializedView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a BigtableInstanceAdmin::delete_materialized_view call.
+    #[derive(Clone, Debug)]
+    pub struct DeleteMaterializedView(RequestBuilder<crate::model::DeleteMaterializedViewRequest>);
+
+    impl DeleteMaterializedView {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteMaterializedViewRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<wkt::Empty> {
+            (*self.0.stub)
+                .delete_materialized_view(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMaterializedViewRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteMaterializedViewRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for DeleteMaterializedView {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for a BigtableInstanceAdmin::list_operations call.
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1514,12 +2301,12 @@ pub mod bigtable_instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1564,7 +2351,9 @@ pub mod bigtable_instance_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1608,7 +2397,9 @@ pub mod bigtable_instance_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1652,7 +2443,9 @@ pub mod bigtable_instance_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1696,10 +2489,10 @@ pub mod bigtable_table_admin {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::BigtableTableAdmin] request builders.
+    /// Common implementation for [super::super::client::BigtableTableAdmin] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>,
+        stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1708,7 +2501,7 @@ pub mod bigtable_table_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1722,7 +2515,7 @@ pub mod bigtable_table_admin {
     pub struct CreateTable(RequestBuilder<crate::model::CreateTableRequest>);
 
     impl CreateTable {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1791,7 +2584,7 @@ pub mod bigtable_table_admin {
     );
 
     impl CreateTableFromSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1815,7 +2608,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_table_from_snapshot][crate::client::BigtableTableAdmin::create_table_from_snapshot].
+        /// on [create_table_from_snapshot][super::super::client::BigtableTableAdmin::create_table_from_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_table_from_snapshot(self.0.request, self.0.options)
@@ -1886,7 +2679,7 @@ pub mod bigtable_table_admin {
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1910,12 +2703,12 @@ pub mod bigtable_table_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTablesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1960,7 +2753,7 @@ pub mod bigtable_table_admin {
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2007,7 +2800,7 @@ pub mod bigtable_table_admin {
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateTableRequest>);
 
     impl UpdateTable {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2028,7 +2821,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_table][crate::client::BigtableTableAdmin::update_table].
+        /// on [update_table][super::super::client::BigtableTableAdmin::update_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_table(self.0.request, self.0.options)
@@ -2103,7 +2896,7 @@ pub mod bigtable_table_admin {
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2144,7 +2937,7 @@ pub mod bigtable_table_admin {
     pub struct UndeleteTable(RequestBuilder<crate::model::UndeleteTableRequest>);
 
     impl UndeleteTable {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2165,7 +2958,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_table][crate::client::BigtableTableAdmin::undelete_table].
+        /// on [undelete_table][super::super::client::BigtableTableAdmin::undelete_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_table(self.0.request, self.0.options)
@@ -2223,7 +3016,7 @@ pub mod bigtable_table_admin {
     pub struct CreateAuthorizedView(RequestBuilder<crate::model::CreateAuthorizedViewRequest>);
 
     impl CreateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2247,7 +3040,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_authorized_view][crate::client::BigtableTableAdmin::create_authorized_view].
+        /// on [create_authorized_view][super::super::client::BigtableTableAdmin::create_authorized_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_authorized_view(self.0.request, self.0.options)
@@ -2323,7 +3116,7 @@ pub mod bigtable_table_admin {
     pub struct ListAuthorizedViews(RequestBuilder<crate::model::ListAuthorizedViewsRequest>);
 
     impl ListAuthorizedViews {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2350,12 +3143,12 @@ pub mod bigtable_table_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAuthorizedViewsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2403,7 +3196,7 @@ pub mod bigtable_table_admin {
     pub struct GetAuthorizedView(RequestBuilder<crate::model::GetAuthorizedViewRequest>);
 
     impl GetAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2456,7 +3249,7 @@ pub mod bigtable_table_admin {
     pub struct UpdateAuthorizedView(RequestBuilder<crate::model::UpdateAuthorizedViewRequest>);
 
     impl UpdateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2480,7 +3273,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_authorized_view][crate::client::BigtableTableAdmin::update_authorized_view].
+        /// on [update_authorized_view][super::super::client::BigtableTableAdmin::update_authorized_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_authorized_view(self.0.request, self.0.options)
@@ -2559,7 +3352,7 @@ pub mod bigtable_table_admin {
     pub struct DeleteAuthorizedView(RequestBuilder<crate::model::DeleteAuthorizedViewRequest>);
 
     impl DeleteAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2609,7 +3402,7 @@ pub mod bigtable_table_admin {
     pub struct ModifyColumnFamilies(RequestBuilder<crate::model::ModifyColumnFamiliesRequest>);
 
     impl ModifyColumnFamilies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2670,7 +3463,7 @@ pub mod bigtable_table_admin {
     pub struct DropRowRange(RequestBuilder<crate::model::DropRowRangeRequest>);
 
     impl DropRowRange {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2722,7 +3515,7 @@ pub mod bigtable_table_admin {
     );
 
     impl GenerateConsistencyToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2766,7 +3559,7 @@ pub mod bigtable_table_admin {
     pub struct CheckConsistency(RequestBuilder<crate::model::CheckConsistencyRequest>);
 
     impl CheckConsistency {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2825,7 +3618,7 @@ pub mod bigtable_table_admin {
     pub struct SnapshotTable(RequestBuilder<crate::model::SnapshotTableRequest>);
 
     impl SnapshotTable {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2846,7 +3639,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [snapshot_table][crate::client::BigtableTableAdmin::snapshot_table].
+        /// on [snapshot_table][super::super::client::BigtableTableAdmin::snapshot_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .snapshot_table(self.0.request, self.0.options)
@@ -2928,7 +3721,7 @@ pub mod bigtable_table_admin {
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2969,7 +3762,7 @@ pub mod bigtable_table_admin {
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2993,12 +3786,12 @@ pub mod bigtable_table_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3037,7 +3830,7 @@ pub mod bigtable_table_admin {
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3078,7 +3871,7 @@ pub mod bigtable_table_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3099,7 +3892,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][crate::client::BigtableTableAdmin::create_backup].
+        /// on [create_backup][super::super::client::BigtableTableAdmin::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -3172,7 +3965,7 @@ pub mod bigtable_table_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3213,7 +4006,7 @@ pub mod bigtable_table_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3266,7 +4059,7 @@ pub mod bigtable_table_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3307,7 +4100,7 @@ pub mod bigtable_table_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3331,12 +4124,12 @@ pub mod bigtable_table_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3387,7 +4180,7 @@ pub mod bigtable_table_admin {
     pub struct RestoreTable(RequestBuilder<crate::model::RestoreTableRequest>);
 
     impl RestoreTable {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3408,7 +4201,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_table][crate::client::BigtableTableAdmin::restore_table].
+        /// on [restore_table][super::super::client::BigtableTableAdmin::restore_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_table(self.0.request, self.0.options)
@@ -3481,7 +4274,7 @@ pub mod bigtable_table_admin {
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3502,7 +4295,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [copy_backup][crate::client::BigtableTableAdmin::copy_backup].
+        /// on [copy_backup][super::super::client::BigtableTableAdmin::copy_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .copy_backup(self.0.request, self.0.options)
@@ -3580,7 +4373,7 @@ pub mod bigtable_table_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3630,7 +4423,7 @@ pub mod bigtable_table_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3689,7 +4482,7 @@ pub mod bigtable_table_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3744,7 +4537,7 @@ pub mod bigtable_table_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3771,12 +4564,12 @@ pub mod bigtable_table_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3821,7 +4614,7 @@ pub mod bigtable_table_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3865,7 +4658,7 @@ pub mod bigtable_table_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3909,7 +4702,7 @@ pub mod bigtable_table_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

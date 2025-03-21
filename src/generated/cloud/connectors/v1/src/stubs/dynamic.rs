@@ -186,9 +186,9 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Connectors] also implement [Connectors].
+/// All implementations of [super::Connectors] also implement [Connectors].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Connectors> Connectors for T {
+impl<T: super::Connectors> Connectors for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_connections(
         &self,

@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct Locations {
-    inner: Arc<dyn crate::stubs::dynamic::Locations>,
+    inner: Arc<dyn super::stubs::dynamic::Locations>,
 }
 
 impl Locations {
@@ -60,32 +60,32 @@ impl Locations {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::Locations + 'static {
+    where T: super::stubs::Locations + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::Locations>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn super::stubs::dynamic::Locations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::Locations> {
-        crate::transport::Locations::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Locations> {
+        super::transport::Locations::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::Locations> {
-        Self::build_transport(conf).await.map(crate::tracing::Locations::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl super::stubs::Locations> {
+        Self::build_transport(conf).await.map(super::tracing::Locations::new)
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::locations::ListLocations
+    ) -> super::builders::locations::ListLocations
     {
-        crate::builders::locations::ListLocations::new(self.inner.clone())
+        super::builders::locations::ListLocations::new(self.inner.clone())
             .set_name ( name.into() )
     }
 
@@ -93,9 +93,9 @@ impl Locations {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::locations::GetLocation
+    ) -> super::builders::locations::GetLocation
     {
-        crate::builders::locations::GetLocation::new(self.inner.clone())
+        super::builders::locations::GetLocation::new(self.inner.clone())
             .set_name ( name.into() )
     }
 

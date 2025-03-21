@@ -18,10 +18,10 @@ pub mod key_dashboard_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::KeyDashboardService] request builders.
+    /// Common implementation for [super::super::client::KeyDashboardService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::KeyDashboardService>,
+        stub: Arc<dyn super::super::stubs::dynamic::KeyDashboardService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod key_dashboard_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::KeyDashboardService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::KeyDashboardService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod key_dashboard_service {
     pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
     impl ListCryptoKeys {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::KeyDashboardService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::KeyDashboardService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +72,12 @@ pub mod key_dashboard_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -112,10 +116,10 @@ pub mod key_tracking_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::KeyTrackingService] request builders.
+    /// Common implementation for [super::super::client::KeyTrackingService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::KeyTrackingService>,
+        stub: Arc<dyn super::super::stubs::dynamic::KeyTrackingService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -124,7 +128,7 @@ pub mod key_tracking_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::KeyTrackingService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -140,7 +144,7 @@ pub mod key_tracking_service {
     );
 
     impl GetProtectedResourcesSummary {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::KeyTrackingService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -186,7 +190,7 @@ pub mod key_tracking_service {
     );
 
     impl SearchProtectedResources {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::KeyTrackingService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,14 +217,14 @@ pub mod key_tracking_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::SearchProtectedResourcesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);

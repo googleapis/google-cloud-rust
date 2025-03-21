@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate reqwest;
@@ -134,7 +135,6 @@ impl wkt::message::Message for ListTunnelDestGroupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTunnelDestGroupsResponse {
     type PageItem = crate::model::TunnelDestGroup;
 
@@ -143,7 +143,8 @@ impl gax::paginator::PageableResponse for ListTunnelDestGroupsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1585,7 +1586,6 @@ impl wkt::message::Message for ListIdentityAwareProxyClientsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListIdentityAwareProxyClientsResponse {
     type PageItem = crate::model::IdentityAwareProxyClient;
 
@@ -1594,7 +1594,8 @@ impl gax::paginator::PageableResponse for ListIdentityAwareProxyClientsResponse 
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

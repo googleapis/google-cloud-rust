@@ -252,9 +252,9 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::BackupDR] also implement [BackupDR].
+/// All implementations of [super::BackupDR] also implement [BackupDR].
 #[async_trait::async_trait]
-impl<T: crate::stubs::BackupDR> BackupDR for T {
+impl<T: super::BackupDR> BackupDR for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_management_servers(
         &self,

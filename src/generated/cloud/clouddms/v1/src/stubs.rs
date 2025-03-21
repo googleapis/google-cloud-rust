@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DataMigrationService].
+/// Defines the trait used to implement [super::client::DataMigrationService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DataMigrationService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DataMigrationService::list_migration_jobs].
+    /// Implements [super::client::DataMigrationService::list_migration_jobs].
     fn list_migration_jobs(
         &self,
         _req: crate::model::ListMigrationJobsRequest,
@@ -53,7 +53,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::get_migration_job].
+    /// Implements [super::client::DataMigrationService::get_migration_job].
     fn get_migration_job(
         &self,
         _req: crate::model::GetMigrationJobRequest,
@@ -64,7 +64,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::create_migration_job].
+    /// Implements [super::client::DataMigrationService::create_migration_job].
     fn create_migration_job(
         &self,
         _req: crate::model::CreateMigrationJobRequest,
@@ -76,7 +76,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::update_migration_job].
+    /// Implements [super::client::DataMigrationService::update_migration_job].
     fn update_migration_job(
         &self,
         _req: crate::model::UpdateMigrationJobRequest,
@@ -88,7 +88,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::delete_migration_job].
+    /// Implements [super::client::DataMigrationService::delete_migration_job].
     fn delete_migration_job(
         &self,
         _req: crate::model::DeleteMigrationJobRequest,
@@ -100,7 +100,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::start_migration_job].
+    /// Implements [super::client::DataMigrationService::start_migration_job].
     fn start_migration_job(
         &self,
         _req: crate::model::StartMigrationJobRequest,
@@ -112,7 +112,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::stop_migration_job].
+    /// Implements [super::client::DataMigrationService::stop_migration_job].
     fn stop_migration_job(
         &self,
         _req: crate::model::StopMigrationJobRequest,
@@ -124,7 +124,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::resume_migration_job].
+    /// Implements [super::client::DataMigrationService::resume_migration_job].
     fn resume_migration_job(
         &self,
         _req: crate::model::ResumeMigrationJobRequest,
@@ -136,7 +136,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::promote_migration_job].
+    /// Implements [super::client::DataMigrationService::promote_migration_job].
     fn promote_migration_job(
         &self,
         _req: crate::model::PromoteMigrationJobRequest,
@@ -148,7 +148,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::verify_migration_job].
+    /// Implements [super::client::DataMigrationService::verify_migration_job].
     fn verify_migration_job(
         &self,
         _req: crate::model::VerifyMigrationJobRequest,
@@ -160,7 +160,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::restart_migration_job].
+    /// Implements [super::client::DataMigrationService::restart_migration_job].
     fn restart_migration_job(
         &self,
         _req: crate::model::RestartMigrationJobRequest,
@@ -172,7 +172,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::generate_ssh_script].
+    /// Implements [super::client::DataMigrationService::generate_ssh_script].
     fn generate_ssh_script(
         &self,
         _req: crate::model::GenerateSshScriptRequest,
@@ -183,7 +183,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::generate_tcp_proxy_script].
+    /// Implements [super::client::DataMigrationService::generate_tcp_proxy_script].
     fn generate_tcp_proxy_script(
         &self,
         _req: crate::model::GenerateTcpProxyScriptRequest,
@@ -194,7 +194,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::list_connection_profiles].
+    /// Implements [super::client::DataMigrationService::list_connection_profiles].
     fn list_connection_profiles(
         &self,
         _req: crate::model::ListConnectionProfilesRequest,
@@ -206,7 +206,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::get_connection_profile].
+    /// Implements [super::client::DataMigrationService::get_connection_profile].
     fn get_connection_profile(
         &self,
         _req: crate::model::GetConnectionProfileRequest,
@@ -218,7 +218,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::create_connection_profile].
+    /// Implements [super::client::DataMigrationService::create_connection_profile].
     fn create_connection_profile(
         &self,
         _req: crate::model::CreateConnectionProfileRequest,
@@ -230,7 +230,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::update_connection_profile].
+    /// Implements [super::client::DataMigrationService::update_connection_profile].
     fn update_connection_profile(
         &self,
         _req: crate::model::UpdateConnectionProfileRequest,
@@ -242,7 +242,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::delete_connection_profile].
+    /// Implements [super::client::DataMigrationService::delete_connection_profile].
     fn delete_connection_profile(
         &self,
         _req: crate::model::DeleteConnectionProfileRequest,
@@ -254,7 +254,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::create_private_connection].
+    /// Implements [super::client::DataMigrationService::create_private_connection].
     fn create_private_connection(
         &self,
         _req: crate::model::CreatePrivateConnectionRequest,
@@ -266,7 +266,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::get_private_connection].
+    /// Implements [super::client::DataMigrationService::get_private_connection].
     fn get_private_connection(
         &self,
         _req: crate::model::GetPrivateConnectionRequest,
@@ -278,7 +278,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::list_private_connections].
+    /// Implements [super::client::DataMigrationService::list_private_connections].
     fn list_private_connections(
         &self,
         _req: crate::model::ListPrivateConnectionsRequest,
@@ -290,7 +290,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::delete_private_connection].
+    /// Implements [super::client::DataMigrationService::delete_private_connection].
     fn delete_private_connection(
         &self,
         _req: crate::model::DeletePrivateConnectionRequest,
@@ -302,7 +302,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::get_conversion_workspace].
+    /// Implements [super::client::DataMigrationService::get_conversion_workspace].
     fn get_conversion_workspace(
         &self,
         _req: crate::model::GetConversionWorkspaceRequest,
@@ -314,7 +314,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::list_conversion_workspaces].
+    /// Implements [super::client::DataMigrationService::list_conversion_workspaces].
     fn list_conversion_workspaces(
         &self,
         _req: crate::model::ListConversionWorkspacesRequest,
@@ -327,7 +327,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::create_conversion_workspace].
+    /// Implements [super::client::DataMigrationService::create_conversion_workspace].
     fn create_conversion_workspace(
         &self,
         _req: crate::model::CreateConversionWorkspaceRequest,
@@ -339,7 +339,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::update_conversion_workspace].
+    /// Implements [super::client::DataMigrationService::update_conversion_workspace].
     fn update_conversion_workspace(
         &self,
         _req: crate::model::UpdateConversionWorkspaceRequest,
@@ -351,7 +351,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::delete_conversion_workspace].
+    /// Implements [super::client::DataMigrationService::delete_conversion_workspace].
     fn delete_conversion_workspace(
         &self,
         _req: crate::model::DeleteConversionWorkspaceRequest,
@@ -363,7 +363,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::create_mapping_rule].
+    /// Implements [super::client::DataMigrationService::create_mapping_rule].
     fn create_mapping_rule(
         &self,
         _req: crate::model::CreateMappingRuleRequest,
@@ -374,7 +374,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::delete_mapping_rule].
+    /// Implements [super::client::DataMigrationService::delete_mapping_rule].
     fn delete_mapping_rule(
         &self,
         _req: crate::model::DeleteMappingRuleRequest,
@@ -383,7 +383,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataMigrationService::list_mapping_rules].
+    /// Implements [super::client::DataMigrationService::list_mapping_rules].
     fn list_mapping_rules(
         &self,
         _req: crate::model::ListMappingRulesRequest,
@@ -395,7 +395,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::get_mapping_rule].
+    /// Implements [super::client::DataMigrationService::get_mapping_rule].
     fn get_mapping_rule(
         &self,
         _req: crate::model::GetMappingRuleRequest,
@@ -406,7 +406,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::seed_conversion_workspace].
+    /// Implements [super::client::DataMigrationService::seed_conversion_workspace].
     fn seed_conversion_workspace(
         &self,
         _req: crate::model::SeedConversionWorkspaceRequest,
@@ -418,7 +418,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::import_mapping_rules].
+    /// Implements [super::client::DataMigrationService::import_mapping_rules].
     fn import_mapping_rules(
         &self,
         _req: crate::model::ImportMappingRulesRequest,
@@ -430,7 +430,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::convert_conversion_workspace].
+    /// Implements [super::client::DataMigrationService::convert_conversion_workspace].
     fn convert_conversion_workspace(
         &self,
         _req: crate::model::ConvertConversionWorkspaceRequest,
@@ -442,7 +442,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::commit_conversion_workspace].
+    /// Implements [super::client::DataMigrationService::commit_conversion_workspace].
     fn commit_conversion_workspace(
         &self,
         _req: crate::model::CommitConversionWorkspaceRequest,
@@ -454,7 +454,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::rollback_conversion_workspace].
+    /// Implements [super::client::DataMigrationService::rollback_conversion_workspace].
     fn rollback_conversion_workspace(
         &self,
         _req: crate::model::RollbackConversionWorkspaceRequest,
@@ -466,7 +466,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::apply_conversion_workspace].
+    /// Implements [super::client::DataMigrationService::apply_conversion_workspace].
     fn apply_conversion_workspace(
         &self,
         _req: crate::model::ApplyConversionWorkspaceRequest,
@@ -478,7 +478,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::describe_database_entities].
+    /// Implements [super::client::DataMigrationService::describe_database_entities].
     fn describe_database_entities(
         &self,
         _req: crate::model::DescribeDatabaseEntitiesRequest,
@@ -491,7 +491,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::search_background_jobs].
+    /// Implements [super::client::DataMigrationService::search_background_jobs].
     fn search_background_jobs(
         &self,
         _req: crate::model::SearchBackgroundJobsRequest,
@@ -503,7 +503,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::describe_conversion_workspace_revisions].
+    /// Implements [super::client::DataMigrationService::describe_conversion_workspace_revisions].
     fn describe_conversion_workspace_revisions(
         &self,
         _req: crate::model::DescribeConversionWorkspaceRevisionsRequest,
@@ -516,7 +516,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataMigrationService::fetch_static_ips].
+    /// Implements [super::client::DataMigrationService::fetch_static_ips].
     fn fetch_static_ips(
         &self,
         _req: crate::model::FetchStaticIpsRequest,
@@ -528,7 +528,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::list_locations].
+    /// Implements [super::client::DataMigrationService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -540,7 +540,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::get_location].
+    /// Implements [super::client::DataMigrationService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -551,7 +551,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::set_iam_policy].
+    /// Implements [super::client::DataMigrationService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -562,7 +562,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::get_iam_policy].
+    /// Implements [super::client::DataMigrationService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -573,7 +573,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::test_iam_permissions].
+    /// Implements [super::client::DataMigrationService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -585,7 +585,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::list_operations].
+    /// Implements [super::client::DataMigrationService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -597,7 +597,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataMigrationService::get_operation].
+    /// Implements [super::client::DataMigrationService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -609,7 +609,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataMigrationService::delete_operation].
+    /// Implements [super::client::DataMigrationService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -618,7 +618,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataMigrationService::cancel_operation].
+    /// Implements [super::client::DataMigrationService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

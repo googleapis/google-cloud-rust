@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::AppHub].
+/// Defines the trait used to implement [super::client::AppHub].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::AppHub`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AppHub: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::AppHub::lookup_service_project_attachment].
+    /// Implements [super::client::AppHub::lookup_service_project_attachment].
     fn lookup_service_project_attachment(
         &self,
         _req: crate::model::LookupServiceProjectAttachmentRequest,
@@ -54,7 +54,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::AppHub::list_service_project_attachments].
+    /// Implements [super::client::AppHub::list_service_project_attachments].
     fn list_service_project_attachments(
         &self,
         _req: crate::model::ListServiceProjectAttachmentsRequest,
@@ -67,7 +67,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::AppHub::create_service_project_attachment].
+    /// Implements [super::client::AppHub::create_service_project_attachment].
     fn create_service_project_attachment(
         &self,
         _req: crate::model::CreateServiceProjectAttachmentRequest,
@@ -79,7 +79,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::get_service_project_attachment].
+    /// Implements [super::client::AppHub::get_service_project_attachment].
     fn get_service_project_attachment(
         &self,
         _req: crate::model::GetServiceProjectAttachmentRequest,
@@ -91,7 +91,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppHub::delete_service_project_attachment].
+    /// Implements [super::client::AppHub::delete_service_project_attachment].
     fn delete_service_project_attachment(
         &self,
         _req: crate::model::DeleteServiceProjectAttachmentRequest,
@@ -103,7 +103,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::detach_service_project_attachment].
+    /// Implements [super::client::AppHub::detach_service_project_attachment].
     fn detach_service_project_attachment(
         &self,
         _req: crate::model::DetachServiceProjectAttachmentRequest,
@@ -116,7 +116,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::AppHub::list_discovered_services].
+    /// Implements [super::client::AppHub::list_discovered_services].
     fn list_discovered_services(
         &self,
         _req: crate::model::ListDiscoveredServicesRequest,
@@ -128,7 +128,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppHub::get_discovered_service].
+    /// Implements [super::client::AppHub::get_discovered_service].
     fn get_discovered_service(
         &self,
         _req: crate::model::GetDiscoveredServiceRequest,
@@ -140,7 +140,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::lookup_discovered_service].
+    /// Implements [super::client::AppHub::lookup_discovered_service].
     fn lookup_discovered_service(
         &self,
         _req: crate::model::LookupDiscoveredServiceRequest,
@@ -153,7 +153,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppHub::list_services].
+    /// Implements [super::client::AppHub::list_services].
     fn list_services(
         &self,
         _req: crate::model::ListServicesRequest,
@@ -165,7 +165,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::create_service].
+    /// Implements [super::client::AppHub::create_service].
     fn create_service(
         &self,
         _req: crate::model::CreateServiceRequest,
@@ -177,7 +177,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::get_service].
+    /// Implements [super::client::AppHub::get_service].
     fn get_service(
         &self,
         _req: crate::model::GetServiceRequest,
@@ -188,7 +188,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::update_service].
+    /// Implements [super::client::AppHub::update_service].
     fn update_service(
         &self,
         _req: crate::model::UpdateServiceRequest,
@@ -200,7 +200,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::delete_service].
+    /// Implements [super::client::AppHub::delete_service].
     fn delete_service(
         &self,
         _req: crate::model::DeleteServiceRequest,
@@ -212,7 +212,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::list_discovered_workloads].
+    /// Implements [super::client::AppHub::list_discovered_workloads].
     fn list_discovered_workloads(
         &self,
         _req: crate::model::ListDiscoveredWorkloadsRequest,
@@ -225,7 +225,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppHub::get_discovered_workload].
+    /// Implements [super::client::AppHub::get_discovered_workload].
     fn get_discovered_workload(
         &self,
         _req: crate::model::GetDiscoveredWorkloadRequest,
@@ -237,7 +237,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::lookup_discovered_workload].
+    /// Implements [super::client::AppHub::lookup_discovered_workload].
     fn lookup_discovered_workload(
         &self,
         _req: crate::model::LookupDiscoveredWorkloadRequest,
@@ -250,7 +250,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppHub::list_workloads].
+    /// Implements [super::client::AppHub::list_workloads].
     fn list_workloads(
         &self,
         _req: crate::model::ListWorkloadsRequest,
@@ -262,7 +262,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::create_workload].
+    /// Implements [super::client::AppHub::create_workload].
     fn create_workload(
         &self,
         _req: crate::model::CreateWorkloadRequest,
@@ -274,7 +274,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::get_workload].
+    /// Implements [super::client::AppHub::get_workload].
     fn get_workload(
         &self,
         _req: crate::model::GetWorkloadRequest,
@@ -285,7 +285,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::update_workload].
+    /// Implements [super::client::AppHub::update_workload].
     fn update_workload(
         &self,
         _req: crate::model::UpdateWorkloadRequest,
@@ -297,7 +297,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::delete_workload].
+    /// Implements [super::client::AppHub::delete_workload].
     fn delete_workload(
         &self,
         _req: crate::model::DeleteWorkloadRequest,
@@ -309,7 +309,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::list_applications].
+    /// Implements [super::client::AppHub::list_applications].
     fn list_applications(
         &self,
         _req: crate::model::ListApplicationsRequest,
@@ -321,7 +321,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppHub::create_application].
+    /// Implements [super::client::AppHub::create_application].
     fn create_application(
         &self,
         _req: crate::model::CreateApplicationRequest,
@@ -333,7 +333,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::get_application].
+    /// Implements [super::client::AppHub::get_application].
     fn get_application(
         &self,
         _req: crate::model::GetApplicationRequest,
@@ -344,7 +344,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::update_application].
+    /// Implements [super::client::AppHub::update_application].
     fn update_application(
         &self,
         _req: crate::model::UpdateApplicationRequest,
@@ -356,7 +356,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::delete_application].
+    /// Implements [super::client::AppHub::delete_application].
     fn delete_application(
         &self,
         _req: crate::model::DeleteApplicationRequest,
@@ -368,7 +368,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::list_locations].
+    /// Implements [super::client::AppHub::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -380,7 +380,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppHub::get_location].
+    /// Implements [super::client::AppHub::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -391,7 +391,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::set_iam_policy].
+    /// Implements [super::client::AppHub::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -402,7 +402,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::get_iam_policy].
+    /// Implements [super::client::AppHub::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -413,7 +413,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::test_iam_permissions].
+    /// Implements [super::client::AppHub::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -425,7 +425,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppHub::list_operations].
+    /// Implements [super::client::AppHub::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -437,7 +437,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::AppHub::get_operation].
+    /// Implements [super::client::AppHub::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -449,7 +449,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::AppHub::delete_operation].
+    /// Implements [super::client::AppHub::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -458,7 +458,7 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::AppHub::cancel_operation].
+    /// Implements [super::client::AppHub::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

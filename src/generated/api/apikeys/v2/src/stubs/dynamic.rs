@@ -84,9 +84,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ApiKeys] also implement [ApiKeys].
+/// All implementations of [super::ApiKeys] also implement [ApiKeys].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ApiKeys> ApiKeys for T {
+impl<T: super::ApiKeys> ApiKeys for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_key(
         &self,

@@ -174,9 +174,9 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::CloudFilestoreManager] also implement [CloudFilestoreManager].
+/// All implementations of [super::CloudFilestoreManager] also implement [CloudFilestoreManager].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudFilestoreManager> CloudFilestoreManager for T {
+impl<T: super::CloudFilestoreManager> CloudFilestoreManager for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_instances(
         &self,

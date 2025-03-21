@@ -210,9 +210,9 @@ pub trait HubService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::HubService] also implement [HubService].
+/// All implementations of [super::HubService] also implement [HubService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::HubService> HubService for T {
+impl<T: super::HubService> HubService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_hubs(
         &self,
@@ -590,9 +590,9 @@ pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::PolicyBasedRoutingService] also implement [PolicyBasedRoutingService].
+/// All implementations of [super::PolicyBasedRoutingService] also implement [PolicyBasedRoutingService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::PolicyBasedRoutingService> PolicyBasedRoutingService for T {
+impl<T: super::PolicyBasedRoutingService> PolicyBasedRoutingService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_policy_based_routes(
         &self,

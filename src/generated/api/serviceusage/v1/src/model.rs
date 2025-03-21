@@ -21,6 +21,7 @@ extern crate api;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate lazy_static;
 extern crate longrunning;
 extern crate lro;
@@ -682,7 +683,6 @@ impl wkt::message::Message for ListServicesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
@@ -691,7 +691,8 @@ impl gax::paginator::PageableResponse for ListServicesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

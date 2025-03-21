@@ -120,9 +120,9 @@ pub trait AppConnectionsService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AppConnectionsService] also implement [AppConnectionsService].
+/// All implementations of [super::AppConnectionsService] also implement [AppConnectionsService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AppConnectionsService> AppConnectionsService for T {
+impl<T: super::AppConnectionsService> AppConnectionsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_app_connections(
         &self,

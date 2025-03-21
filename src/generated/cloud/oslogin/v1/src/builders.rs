@@ -18,10 +18,10 @@ pub mod os_login_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::OsLoginService] request builders.
+    /// Common implementation for [super::super::client::OsLoginService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::OsLoginService>,
+        stub: Arc<dyn super::super::stubs::dynamic::OsLoginService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod os_login_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OsLoginService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod os_login_service {
     pub struct CreateSshPublicKey(RequestBuilder<crate::model::CreateSshPublicKeyRequest>);
 
     impl CreateSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OsLoginService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,7 +99,7 @@ pub mod os_login_service {
     pub struct DeletePosixAccount(RequestBuilder<crate::model::DeletePosixAccountRequest>);
 
     impl DeletePosixAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OsLoginService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -143,7 +143,7 @@ pub mod os_login_service {
     pub struct DeleteSshPublicKey(RequestBuilder<crate::model::DeleteSshPublicKeyRequest>);
 
     impl DeleteSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OsLoginService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -187,7 +187,7 @@ pub mod os_login_service {
     pub struct GetLoginProfile(RequestBuilder<crate::model::GetLoginProfileRequest>);
 
     impl GetLoginProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OsLoginService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -240,7 +240,7 @@ pub mod os_login_service {
     pub struct GetSshPublicKey(RequestBuilder<crate::model::GetSshPublicKeyRequest>);
 
     impl GetSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OsLoginService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -281,7 +281,7 @@ pub mod os_login_service {
     pub struct ImportSshPublicKey(RequestBuilder<crate::model::ImportSshPublicKeyRequest>);
 
     impl ImportSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OsLoginService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -353,7 +353,7 @@ pub mod os_login_service {
     pub struct UpdateSshPublicKey(RequestBuilder<crate::model::UpdateSshPublicKeyRequest>);
 
     impl UpdateSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OsLoginService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct RepositoryManager {
-    inner: Arc<dyn crate::stubs::dynamic::RepositoryManager>,
+    inner: Arc<dyn super::stubs::dynamic::RepositoryManager>,
 }
 
 impl RepositoryManager {
@@ -59,7 +59,7 @@ impl RepositoryManager {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::RepositoryManager + 'static,
+        T: super::stubs::RepositoryManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl RepositoryManager {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::RepositoryManager>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::RepositoryManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl RepositoryManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::RepositoryManager> {
-        crate::transport::RepositoryManager::new(conf).await
+    ) -> Result<impl super::stubs::RepositoryManager> {
+        super::transport::RepositoryManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::RepositoryManager> {
+    ) -> Result<impl super::stubs::RepositoryManager> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::RepositoryManager::new)
+            .map(super::tracing::RepositoryManager::new)
     }
 
     /// Creates a Connection.
@@ -103,8 +103,8 @@ impl RepositoryManager {
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::CreateConnection {
-        crate::builders::repository_manager::CreateConnection::new(self.inner.clone())
+    ) -> super::builders::repository_manager::CreateConnection {
+        super::builders::repository_manager::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -112,8 +112,8 @@ impl RepositoryManager {
     pub fn get_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::GetConnection {
-        crate::builders::repository_manager::GetConnection::new(self.inner.clone())
+    ) -> super::builders::repository_manager::GetConnection {
+        super::builders::repository_manager::GetConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -121,8 +121,8 @@ impl RepositoryManager {
     pub fn list_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::ListConnections {
-        crate::builders::repository_manager::ListConnections::new(self.inner.clone())
+    ) -> super::builders::repository_manager::ListConnections {
+        super::builders::repository_manager::ListConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -140,8 +140,8 @@ impl RepositoryManager {
     pub fn update_connection(
         &self,
         connection: impl Into<crate::model::Connection>,
-    ) -> crate::builders::repository_manager::UpdateConnection {
-        crate::builders::repository_manager::UpdateConnection::new(self.inner.clone())
+    ) -> super::builders::repository_manager::UpdateConnection {
+        super::builders::repository_manager::UpdateConnection::new(self.inner.clone())
             .set_connection(connection.into())
     }
 
@@ -159,8 +159,8 @@ impl RepositoryManager {
     pub fn delete_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::DeleteConnection {
-        crate::builders::repository_manager::DeleteConnection::new(self.inner.clone())
+    ) -> super::builders::repository_manager::DeleteConnection {
+        super::builders::repository_manager::DeleteConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -178,8 +178,8 @@ impl RepositoryManager {
     pub fn create_repository(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::CreateRepository {
-        crate::builders::repository_manager::CreateRepository::new(self.inner.clone())
+    ) -> super::builders::repository_manager::CreateRepository {
+        super::builders::repository_manager::CreateRepository::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -197,8 +197,8 @@ impl RepositoryManager {
     pub fn batch_create_repositories(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::BatchCreateRepositories {
-        crate::builders::repository_manager::BatchCreateRepositories::new(self.inner.clone())
+    ) -> super::builders::repository_manager::BatchCreateRepositories {
+        super::builders::repository_manager::BatchCreateRepositories::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -206,8 +206,8 @@ impl RepositoryManager {
     pub fn get_repository(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::GetRepository {
-        crate::builders::repository_manager::GetRepository::new(self.inner.clone())
+    ) -> super::builders::repository_manager::GetRepository {
+        super::builders::repository_manager::GetRepository::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -215,8 +215,8 @@ impl RepositoryManager {
     pub fn list_repositories(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::ListRepositories {
-        crate::builders::repository_manager::ListRepositories::new(self.inner.clone())
+    ) -> super::builders::repository_manager::ListRepositories {
+        super::builders::repository_manager::ListRepositories::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -234,8 +234,8 @@ impl RepositoryManager {
     pub fn delete_repository(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::DeleteRepository {
-        crate::builders::repository_manager::DeleteRepository::new(self.inner.clone())
+    ) -> super::builders::repository_manager::DeleteRepository {
+        super::builders::repository_manager::DeleteRepository::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -243,8 +243,8 @@ impl RepositoryManager {
     pub fn fetch_read_write_token(
         &self,
         repository: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::FetchReadWriteToken {
-        crate::builders::repository_manager::FetchReadWriteToken::new(self.inner.clone())
+    ) -> super::builders::repository_manager::FetchReadWriteToken {
+        super::builders::repository_manager::FetchReadWriteToken::new(self.inner.clone())
             .set_repository(repository.into())
     }
 
@@ -252,8 +252,8 @@ impl RepositoryManager {
     pub fn fetch_read_token(
         &self,
         repository: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::FetchReadToken {
-        crate::builders::repository_manager::FetchReadToken::new(self.inner.clone())
+    ) -> super::builders::repository_manager::FetchReadToken {
+        super::builders::repository_manager::FetchReadToken::new(self.inner.clone())
             .set_repository(repository.into())
     }
 
@@ -262,8 +262,8 @@ impl RepositoryManager {
     pub fn fetch_linkable_repositories(
         &self,
         connection: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::FetchLinkableRepositories {
-        crate::builders::repository_manager::FetchLinkableRepositories::new(self.inner.clone())
+    ) -> super::builders::repository_manager::FetchLinkableRepositories {
+        super::builders::repository_manager::FetchLinkableRepositories::new(self.inner.clone())
             .set_connection(connection.into())
     }
 
@@ -271,8 +271,8 @@ impl RepositoryManager {
     pub fn fetch_git_refs(
         &self,
         repository: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::FetchGitRefs {
-        crate::builders::repository_manager::FetchGitRefs::new(self.inner.clone())
+    ) -> super::builders::repository_manager::FetchGitRefs {
+        super::builders::repository_manager::FetchGitRefs::new(self.inner.clone())
             .set_repository(repository.into())
     }
 
@@ -284,8 +284,8 @@ impl RepositoryManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::SetIamPolicy {
-        crate::builders::repository_manager::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::repository_manager::SetIamPolicy {
+        super::builders::repository_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -294,8 +294,8 @@ impl RepositoryManager {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::GetIamPolicy {
-        crate::builders::repository_manager::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::repository_manager::GetIamPolicy {
+        super::builders::repository_manager::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -309,8 +309,8 @@ impl RepositoryManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::TestIamPermissions {
-        crate::builders::repository_manager::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::repository_manager::TestIamPermissions {
+        super::builders::repository_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -320,8 +320,8 @@ impl RepositoryManager {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::GetOperation {
-        crate::builders::repository_manager::GetOperation::new(self.inner.clone())
+    ) -> super::builders::repository_manager::GetOperation {
+        super::builders::repository_manager::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -331,8 +331,8 @@ impl RepositoryManager {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::repository_manager::CancelOperation {
-        crate::builders::repository_manager::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::repository_manager::CancelOperation {
+        super::builders::repository_manager::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

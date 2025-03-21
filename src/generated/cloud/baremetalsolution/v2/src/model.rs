@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate lazy_static;
 extern crate location;
 extern crate longrunning;
@@ -655,7 +656,6 @@ impl wkt::message::Message for ListInstancesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
@@ -664,7 +664,8 @@ impl gax::paginator::PageableResponse for ListInstancesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1700,7 +1701,6 @@ impl wkt::message::Message for ListLunsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLunsResponse {
     type PageItem = crate::model::Lun;
 
@@ -1709,7 +1709,8 @@ impl gax::paginator::PageableResponse for ListLunsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -2676,7 +2677,6 @@ impl wkt::message::Message for ListNetworksResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNetworksResponse {
     type PageItem = crate::model::Network;
 
@@ -2685,7 +2685,8 @@ impl gax::paginator::PageableResponse for ListNetworksResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3523,7 +3524,6 @@ impl wkt::message::Message for ListNfsSharesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNfsSharesResponse {
     type PageItem = crate::model::NfsShare;
 
@@ -3532,7 +3532,8 @@ impl gax::paginator::PageableResponse for ListNfsSharesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3875,7 +3876,6 @@ impl wkt::message::Message for ListOSImagesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOSImagesResponse {
     type PageItem = crate::model::OSImage;
 
@@ -3884,7 +3884,8 @@ impl gax::paginator::PageableResponse for ListOSImagesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -4650,7 +4651,6 @@ impl wkt::message::Message for ListProvisioningQuotasResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListProvisioningQuotasResponse {
     type PageItem = crate::model::ProvisioningQuota;
 
@@ -4659,7 +4659,8 @@ impl gax::paginator::PageableResponse for ListProvisioningQuotasResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -6230,7 +6231,6 @@ impl wkt::message::Message for ListSSHKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSSHKeysResponse {
     type PageItem = crate::model::SSHKey;
 
@@ -6239,7 +6239,8 @@ impl gax::paginator::PageableResponse for ListSSHKeysResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -7169,7 +7170,6 @@ impl wkt::message::Message for ListVolumesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVolumesResponse {
     type PageItem = crate::model::Volume;
 
@@ -7178,7 +7178,8 @@ impl gax::paginator::PageableResponse for ListVolumesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -7628,7 +7629,6 @@ impl wkt::message::Message for ListVolumeSnapshotsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVolumeSnapshotsResponse {
     type PageItem = crate::model::VolumeSnapshot;
 
@@ -7637,7 +7637,8 @@ impl gax::paginator::PageableResponse for ListVolumeSnapshotsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

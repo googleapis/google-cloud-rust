@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TextToSpeech {
-    inner: Arc<dyn crate::stubs::dynamic::TextToSpeech>,
+    inner: Arc<dyn super::stubs::dynamic::TextToSpeech>,
 }
 
 impl TextToSpeech {
@@ -59,7 +59,7 @@ impl TextToSpeech {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::TextToSpeech + 'static,
+        T: super::stubs::TextToSpeech + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl TextToSpeech {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::TextToSpeech>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::TextToSpeech>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,27 +77,27 @@ impl TextToSpeech {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TextToSpeech> {
-        crate::transport::TextToSpeech::new(conf).await
+    ) -> Result<impl super::stubs::TextToSpeech> {
+        super::transport::TextToSpeech::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TextToSpeech> {
+    ) -> Result<impl super::stubs::TextToSpeech> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::TextToSpeech::new)
+            .map(super::tracing::TextToSpeech::new)
     }
 
     /// Returns a list of Voice supported for synthesis.
-    pub fn list_voices(&self) -> crate::builders::text_to_speech::ListVoices {
-        crate::builders::text_to_speech::ListVoices::new(self.inner.clone())
+    pub fn list_voices(&self) -> super::builders::text_to_speech::ListVoices {
+        super::builders::text_to_speech::ListVoices::new(self.inner.clone())
     }
 
     /// Synthesizes speech synchronously: receive results after all text input
     /// has been processed.
-    pub fn synthesize_speech(&self) -> crate::builders::text_to_speech::SynthesizeSpeech {
-        crate::builders::text_to_speech::SynthesizeSpeech::new(self.inner.clone())
+    pub fn synthesize_speech(&self) -> super::builders::text_to_speech::SynthesizeSpeech {
+        super::builders::text_to_speech::SynthesizeSpeech::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -106,8 +106,8 @@ impl TextToSpeech {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::text_to_speech::ListOperations {
-        crate::builders::text_to_speech::ListOperations::new(self.inner.clone())
+    ) -> super::builders::text_to_speech::ListOperations {
+        super::builders::text_to_speech::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -117,8 +117,8 @@ impl TextToSpeech {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::text_to_speech::GetOperation {
-        crate::builders::text_to_speech::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::text_to_speech::GetOperation {
+        super::builders::text_to_speech::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
 
@@ -141,7 +141,7 @@ impl TextToSpeech {
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TextToSpeechLongAudioSynthesize {
-    inner: Arc<dyn crate::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
+    inner: Arc<dyn super::stubs::dynamic::TextToSpeechLongAudioSynthesize>,
 }
 
 impl TextToSpeechLongAudioSynthesize {
@@ -162,7 +162,7 @@ impl TextToSpeechLongAudioSynthesize {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::TextToSpeechLongAudioSynthesize + 'static,
+        T: super::stubs::TextToSpeechLongAudioSynthesize + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -171,7 +171,7 @@ impl TextToSpeechLongAudioSynthesize {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::TextToSpeechLongAudioSynthesize>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::TextToSpeechLongAudioSynthesize>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -180,16 +180,16 @@ impl TextToSpeechLongAudioSynthesize {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TextToSpeechLongAudioSynthesize> {
-        crate::transport::TextToSpeechLongAudioSynthesize::new(conf).await
+    ) -> Result<impl super::stubs::TextToSpeechLongAudioSynthesize> {
+        super::transport::TextToSpeechLongAudioSynthesize::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TextToSpeechLongAudioSynthesize> {
+    ) -> Result<impl super::stubs::TextToSpeechLongAudioSynthesize> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::TextToSpeechLongAudioSynthesize::new)
+            .map(super::tracing::TextToSpeechLongAudioSynthesize::new)
     }
 
     /// Synthesizes long form text asynchronously.
@@ -206,8 +206,8 @@ impl TextToSpeechLongAudioSynthesize {
     pub fn synthesize_long_audio(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::text_to_speech_long_audio_synthesize::SynthesizeLongAudio {
-        crate::builders::text_to_speech_long_audio_synthesize::SynthesizeLongAudio::new(
+    ) -> super::builders::text_to_speech_long_audio_synthesize::SynthesizeLongAudio {
+        super::builders::text_to_speech_long_audio_synthesize::SynthesizeLongAudio::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
@@ -219,8 +219,8 @@ impl TextToSpeechLongAudioSynthesize {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::text_to_speech_long_audio_synthesize::ListOperations {
-        crate::builders::text_to_speech_long_audio_synthesize::ListOperations::new(
+    ) -> super::builders::text_to_speech_long_audio_synthesize::ListOperations {
+        super::builders::text_to_speech_long_audio_synthesize::ListOperations::new(
             self.inner.clone(),
         )
         .set_name(name.into())
@@ -232,8 +232,8 @@ impl TextToSpeechLongAudioSynthesize {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::text_to_speech_long_audio_synthesize::GetOperation {
-        crate::builders::text_to_speech_long_audio_synthesize::GetOperation::new(self.inner.clone())
+    ) -> super::builders::text_to_speech_long_audio_synthesize::GetOperation {
+        super::builders::text_to_speech_long_audio_synthesize::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

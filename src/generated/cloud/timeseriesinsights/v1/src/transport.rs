@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TimeseriesInsightsController](crate::stubs::TimeseriesInsightsController) using a [gax::http_client::ReqwestClient].
+/// Implements [TimeseriesInsightsController](super::stubs::TimeseriesInsightsController) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct TimeseriesInsightsController {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for TimeseriesInsightsController {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for TimeseriesInsightsController {
 }
 
 impl TimeseriesInsightsController {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController {
+impl super::stubs::TimeseriesInsightsController for TimeseriesInsightsController {
     async fn list_data_sets(
         &self,
         req: crate::model::ListDataSetsRequest,
@@ -57,7 +57,7 @@ impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -98,7 +98,7 @@ impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

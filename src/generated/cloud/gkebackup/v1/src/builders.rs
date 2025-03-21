@@ -18,10 +18,10 @@ pub mod backup_for_gke {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::BackupForGKE] request builders.
+    /// Common implementation for [super::super::client::BackupForGKE] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>,
+        stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod backup_for_gke {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod backup_for_gke {
     pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
     impl CreateBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,7 +68,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_plan][crate::client::BackupForGKE::create_backup_plan].
+        /// on [create_backup_plan][super::super::client::BackupForGKE::create_backup_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_plan(self.0.request, self.0.options)
@@ -141,7 +141,7 @@ pub mod backup_for_gke {
     pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
 
     impl ListBackupPlans {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,12 +165,12 @@ pub mod backup_for_gke {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupPlansResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -221,7 +221,7 @@ pub mod backup_for_gke {
     pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
 
     impl GetBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -262,7 +262,7 @@ pub mod backup_for_gke {
     pub struct UpdateBackupPlan(RequestBuilder<crate::model::UpdateBackupPlanRequest>);
 
     impl UpdateBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -286,7 +286,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_plan][crate::client::BackupForGKE::update_backup_plan].
+        /// on [update_backup_plan][super::super::client::BackupForGKE::update_backup_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_plan(self.0.request, self.0.options)
@@ -356,7 +356,7 @@ pub mod backup_for_gke {
     pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
     impl DeleteBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -380,7 +380,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_plan][crate::client::BackupForGKE::delete_backup_plan].
+        /// on [delete_backup_plan][super::super::client::BackupForGKE::delete_backup_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_plan(self.0.request, self.0.options)
@@ -441,7 +441,7 @@ pub mod backup_for_gke {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -462,7 +462,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][crate::client::BackupForGKE::create_backup].
+        /// on [create_backup][super::super::client::BackupForGKE::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -534,7 +534,7 @@ pub mod backup_for_gke {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -558,12 +558,12 @@ pub mod backup_for_gke {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -614,7 +614,7 @@ pub mod backup_for_gke {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -655,7 +655,7 @@ pub mod backup_for_gke {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -676,7 +676,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][crate::client::BackupForGKE::update_backup].
+        /// on [update_backup][super::super::client::BackupForGKE::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -745,7 +745,7 @@ pub mod backup_for_gke {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -766,7 +766,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][crate::client::BackupForGKE::delete_backup].
+        /// on [delete_backup][super::super::client::BackupForGKE::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -833,7 +833,7 @@ pub mod backup_for_gke {
     pub struct ListVolumeBackups(RequestBuilder<crate::model::ListVolumeBackupsRequest>);
 
     impl ListVolumeBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -860,12 +860,12 @@ pub mod backup_for_gke {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVolumeBackupsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -916,7 +916,7 @@ pub mod backup_for_gke {
     pub struct GetVolumeBackup(RequestBuilder<crate::model::GetVolumeBackupRequest>);
 
     impl GetVolumeBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -957,7 +957,7 @@ pub mod backup_for_gke {
     pub struct CreateRestorePlan(RequestBuilder<crate::model::CreateRestorePlanRequest>);
 
     impl CreateRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -981,7 +981,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_restore_plan][crate::client::BackupForGKE::create_restore_plan].
+        /// on [create_restore_plan][super::super::client::BackupForGKE::create_restore_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_restore_plan(self.0.request, self.0.options)
@@ -1054,7 +1054,7 @@ pub mod backup_for_gke {
     pub struct ListRestorePlans(RequestBuilder<crate::model::ListRestorePlansRequest>);
 
     impl ListRestorePlans {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1081,12 +1081,12 @@ pub mod backup_for_gke {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRestorePlansResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1137,7 +1137,7 @@ pub mod backup_for_gke {
     pub struct GetRestorePlan(RequestBuilder<crate::model::GetRestorePlanRequest>);
 
     impl GetRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1178,7 +1178,7 @@ pub mod backup_for_gke {
     pub struct UpdateRestorePlan(RequestBuilder<crate::model::UpdateRestorePlanRequest>);
 
     impl UpdateRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1202,7 +1202,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_restore_plan][crate::client::BackupForGKE::update_restore_plan].
+        /// on [update_restore_plan][super::super::client::BackupForGKE::update_restore_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_restore_plan(self.0.request, self.0.options)
@@ -1272,7 +1272,7 @@ pub mod backup_for_gke {
     pub struct DeleteRestorePlan(RequestBuilder<crate::model::DeleteRestorePlanRequest>);
 
     impl DeleteRestorePlan {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1296,7 +1296,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_restore_plan][crate::client::BackupForGKE::delete_restore_plan].
+        /// on [delete_restore_plan][super::super::client::BackupForGKE::delete_restore_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_restore_plan(self.0.request, self.0.options)
@@ -1363,7 +1363,7 @@ pub mod backup_for_gke {
     pub struct CreateRestore(RequestBuilder<crate::model::CreateRestoreRequest>);
 
     impl CreateRestore {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1384,7 +1384,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_restore][crate::client::BackupForGKE::create_restore].
+        /// on [create_restore][super::super::client::BackupForGKE::create_restore].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_restore(self.0.request, self.0.options)
@@ -1456,7 +1456,7 @@ pub mod backup_for_gke {
     pub struct ListRestores(RequestBuilder<crate::model::ListRestoresRequest>);
 
     impl ListRestores {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1480,12 +1480,12 @@ pub mod backup_for_gke {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRestoresResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1536,7 +1536,7 @@ pub mod backup_for_gke {
     pub struct GetRestore(RequestBuilder<crate::model::GetRestoreRequest>);
 
     impl GetRestore {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1577,7 +1577,7 @@ pub mod backup_for_gke {
     pub struct UpdateRestore(RequestBuilder<crate::model::UpdateRestoreRequest>);
 
     impl UpdateRestore {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1598,7 +1598,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_restore][crate::client::BackupForGKE::update_restore].
+        /// on [update_restore][super::super::client::BackupForGKE::update_restore].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_restore(self.0.request, self.0.options)
@@ -1667,7 +1667,7 @@ pub mod backup_for_gke {
     pub struct DeleteRestore(RequestBuilder<crate::model::DeleteRestoreRequest>);
 
     impl DeleteRestore {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1688,7 +1688,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_restore][crate::client::BackupForGKE::delete_restore].
+        /// on [delete_restore][super::super::client::BackupForGKE::delete_restore].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_restore(self.0.request, self.0.options)
@@ -1755,7 +1755,7 @@ pub mod backup_for_gke {
     pub struct ListVolumeRestores(RequestBuilder<crate::model::ListVolumeRestoresRequest>);
 
     impl ListVolumeRestores {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1782,12 +1782,12 @@ pub mod backup_for_gke {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVolumeRestoresResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1838,7 +1838,7 @@ pub mod backup_for_gke {
     pub struct GetVolumeRestore(RequestBuilder<crate::model::GetVolumeRestoreRequest>);
 
     impl GetVolumeRestore {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1884,7 +1884,7 @@ pub mod backup_for_gke {
     );
 
     impl GetBackupIndexDownloadUrl {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1928,7 +1928,7 @@ pub mod backup_for_gke {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1955,12 +1955,12 @@ pub mod backup_for_gke {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2005,7 +2005,7 @@ pub mod backup_for_gke {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2046,7 +2046,7 @@ pub mod backup_for_gke {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2105,7 +2105,7 @@ pub mod backup_for_gke {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2155,7 +2155,7 @@ pub mod backup_for_gke {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2210,7 +2210,7 @@ pub mod backup_for_gke {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2237,12 +2237,12 @@ pub mod backup_for_gke {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2287,7 +2287,7 @@ pub mod backup_for_gke {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2331,7 +2331,7 @@ pub mod backup_for_gke {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2375,7 +2375,7 @@ pub mod backup_for_gke {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BackupForGKE>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::BackupForGKE>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

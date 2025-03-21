@@ -63,7 +63,14 @@ func TestTemplatesAvailable(t *testing.T) {
 func TestMessageNames(t *testing.T) {
 	r := sample.Replication()
 	a := sample.Automatic()
-	model := api.NewTestAPI([]*api.Message{r, a}, []*api.Enum{}, []*api.Service{})
+	f := &api.Message{
+		Name: "Function",
+		ID:   ".google.cloud.functions.v2.Function",
+	}
+	model := api.NewTestAPI(
+		[]*api.Message{r, a, f, sample.CustomerManagedEncryption()},
+		[]*api.Enum{},
+		[]*api.Service{})
 	model.PackageName = "test"
 	annotateModel(model, map[string]string{})
 
@@ -73,6 +80,7 @@ func TestMessageNames(t *testing.T) {
 	}{
 		{message: r, want: "Replication"},
 		{message: a, want: "Replication$Automatic"},
+		{message: f, want: "Function$"},
 		{message: sample.SecretPayload(), want: "SecretPayload"},
 	} {
 		t.Run(test.want, func(t *testing.T) {
@@ -86,13 +94,13 @@ func TestMessageNames(t *testing.T) {
 func TestEnumNames(t *testing.T) {
 	parent := &api.Message{
 		Name:    "SecretVersion",
-		ID:      ".test.SecretVersion",
+		ID:      sample.SecretVersion().ID,
 		Package: "test",
 		Fields: []*api.Field{
 			{
 				Name:     "automatic",
 				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".test.Automatic",
+				TypezID:  sample.Automatic().ID,
 				Optional: true,
 				Repeated: false,
 			},
@@ -110,7 +118,10 @@ func TestEnumNames(t *testing.T) {
 		Package: "test",
 	}
 
-	model := api.NewTestAPI([]*api.Message{parent}, []*api.Enum{nested, non_nested}, []*api.Service{})
+	model := api.NewTestAPI(
+		[]*api.Message{parent, sample.Automatic(), sample.CustomerManagedEncryption()},
+		[]*api.Enum{nested, non_nested},
+		[]*api.Service{})
 	model.PackageName = "test"
 	annotateModel(model, map[string]string{})
 
@@ -533,5 +544,23 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
 	got := formatDocComments(input, state)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestHttpPathFmt(t *testing.T) {
+	for _, test := range []struct {
+		method *api.Method
+		want   string
+	}{
+		{method: sample.MethodCreate(), want: "/v1/${request.parent}/secrets/${request.secretId}"},
+		{method: sample.MethodUpdate(), want: "/v1/${request.secret.name}"},
+		{method: sample.MethodAddSecretVersion(), want: "/v1/projects/${request.project}/secrets/${request.secret}:addVersion"},
+		{method: sample.MethodListSecretVersions(), want: "/v1/projects/${request.parent}/secrets/${request.secret}:listSecretVersions"},
+	} {
+		t.Run(test.method.Name, func(t *testing.T) {
+			if got := httpPathFmt(test.method.PathInfo); got != test.want {
+				t.Errorf("unexpected httpPathFmt, got=%q, want=%q", got, test.want)
+			}
+		})
 	}
 }

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CertificateAuthorityService](crate::stubs::CertificateAuthorityService) using a [gax::http_client::ReqwestClient].
+/// Implements [CertificateAuthorityService](super::stubs::CertificateAuthorityService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CertificateAuthorityService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for CertificateAuthorityService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for CertificateAuthorityService {
 }
 
 impl CertificateAuthorityService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
+impl super::stubs::CertificateAuthorityService for CertificateAuthorityService {
     async fn create_certificate(
         &self,
         req: crate::model::CreateCertificateRequest,
@@ -84,7 +84,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -110,7 +110,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -145,7 +145,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}",
                     req.certificate
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("certificate"))?
                         .name
                 ),
             )
@@ -161,7 +161,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -260,7 +260,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -279,7 +279,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -305,7 +305,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -347,7 +347,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
         let builder =
             builder.query(&[("ignoreDependentResources", &req.ignore_dependent_resources)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -365,7 +365,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}",
                     req.certificate_authority
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate_authority"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("certificate_authority"))?
                         .name
                 ),
             )
@@ -381,7 +381,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -425,7 +425,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}",
                     req.ca_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("ca_pool"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("ca_pool"))?
                         .name
                 ),
             )
@@ -441,7 +441,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -465,7 +465,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -488,7 +488,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -510,7 +510,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
         let builder =
             builder.query(&[("ignoreDependentResources", &req.ignore_dependent_resources)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -549,7 +549,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -575,7 +575,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -593,7 +593,9 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}",
                     req.certificate_revocation_list
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate_revocation_list"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing(
+                            "certificate_revocation_list"
+                        ))?
                         .name
                 ),
             )
@@ -609,7 +611,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -658,7 +660,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -677,7 +679,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -703,7 +705,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -721,7 +723,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                     "/v1/{}",
                     req.certificate_template
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("certificate_template"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("certificate_template"))?
                         .name
                 ),
             )
@@ -737,7 +739,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -764,7 +766,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -783,7 +785,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -831,11 +833,11 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -877,7 +879,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -896,7 +898,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -915,7 +917,7 @@ impl crate::stubs::CertificateAuthorityService for CertificateAuthorityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

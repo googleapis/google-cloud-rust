@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ContainerAnalysis].
+/// Defines the trait used to implement [super::client::ContainerAnalysis].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ContainerAnalysis`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ContainerAnalysis::set_iam_policy].
+    /// Implements [super::client::ContainerAnalysis::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -51,7 +51,7 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContainerAnalysis::get_iam_policy].
+    /// Implements [super::client::ContainerAnalysis::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -62,7 +62,7 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ContainerAnalysis::test_iam_permissions].
+    /// Implements [super::client::ContainerAnalysis::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -74,7 +74,7 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ContainerAnalysis::get_vulnerability_occurrences_summary].
+    /// Implements [super::client::ContainerAnalysis::get_vulnerability_occurrences_summary].
     fn get_vulnerability_occurrences_summary(
         &self,
         _req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,

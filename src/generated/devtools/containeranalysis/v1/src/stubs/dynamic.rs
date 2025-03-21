@@ -42,9 +42,9 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::VulnerabilityOccurrencesSummary>;
 }
 
-/// All implementations of [crate::stubs::ContainerAnalysis] also implement [ContainerAnalysis].
+/// All implementations of [super::ContainerAnalysis] also implement [ContainerAnalysis].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ContainerAnalysis> ContainerAnalysis for T {
+impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,

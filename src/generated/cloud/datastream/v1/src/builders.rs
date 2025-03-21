@@ -18,10 +18,10 @@ pub mod datastream {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Datastream] request builders.
+    /// Common implementation for [super::super::client::Datastream] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Datastream>,
+        stub: Arc<dyn super::super::stubs::dynamic::Datastream>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod datastream {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod datastream {
     pub struct ListConnectionProfiles(RequestBuilder<crate::model::ListConnectionProfilesRequest>);
 
     impl ListConnectionProfiles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -71,14 +71,14 @@ pub mod datastream {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListConnectionProfilesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -129,7 +129,7 @@ pub mod datastream {
     pub struct GetConnectionProfile(RequestBuilder<crate::model::GetConnectionProfileRequest>);
 
     impl GetConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -175,7 +175,7 @@ pub mod datastream {
     );
 
     impl CreateConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -199,7 +199,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection_profile][crate::client::Datastream::create_connection_profile].
+        /// on [create_connection_profile][super::super::client::Datastream::create_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection_profile(self.0.request, self.0.options)
@@ -295,7 +295,7 @@ pub mod datastream {
     );
 
     impl UpdateConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -319,7 +319,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection_profile][crate::client::Datastream::update_connection_profile].
+        /// on [update_connection_profile][super::super::client::Datastream::update_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection_profile(self.0.request, self.0.options)
@@ -412,7 +412,7 @@ pub mod datastream {
     );
 
     impl DeleteConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -436,7 +436,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection_profile][crate::client::Datastream::delete_connection_profile].
+        /// on [delete_connection_profile][super::super::client::Datastream::delete_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection_profile(self.0.request, self.0.options)
@@ -499,7 +499,7 @@ pub mod datastream {
     );
 
     impl DiscoverConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -576,7 +576,7 @@ pub mod datastream {
     pub struct ListStreams(RequestBuilder<crate::model::ListStreamsRequest>);
 
     impl ListStreams {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -600,12 +600,12 @@ pub mod datastream {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListStreamsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -656,7 +656,7 @@ pub mod datastream {
     pub struct GetStream(RequestBuilder<crate::model::GetStreamRequest>);
 
     impl GetStream {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -697,7 +697,7 @@ pub mod datastream {
     pub struct CreateStream(RequestBuilder<crate::model::CreateStreamRequest>);
 
     impl CreateStream {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -718,7 +718,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_stream][crate::client::Datastream::create_stream].
+        /// on [create_stream][super::super::client::Datastream::create_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_stream(self.0.request, self.0.options)
@@ -808,7 +808,7 @@ pub mod datastream {
     pub struct UpdateStream(RequestBuilder<crate::model::UpdateStreamRequest>);
 
     impl UpdateStream {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -829,7 +829,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_stream][crate::client::Datastream::update_stream].
+        /// on [update_stream][super::super::client::Datastream::update_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_stream(self.0.request, self.0.options)
@@ -916,7 +916,7 @@ pub mod datastream {
     pub struct DeleteStream(RequestBuilder<crate::model::DeleteStreamRequest>);
 
     impl DeleteStream {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -937,7 +937,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_stream][crate::client::Datastream::delete_stream].
+        /// on [delete_stream][super::super::client::Datastream::delete_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_stream(self.0.request, self.0.options)
@@ -998,7 +998,7 @@ pub mod datastream {
     pub struct RunStream(RequestBuilder<crate::model::RunStreamRequest>);
 
     impl RunStream {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1019,7 +1019,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_stream][crate::client::Datastream::run_stream].
+        /// on [run_stream][super::super::client::Datastream::run_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_stream(self.0.request, self.0.options)
@@ -1091,7 +1091,7 @@ pub mod datastream {
     pub struct GetStreamObject(RequestBuilder<crate::model::GetStreamObjectRequest>);
 
     impl GetStreamObject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1132,7 +1132,7 @@ pub mod datastream {
     pub struct LookupStreamObject(RequestBuilder<crate::model::LookupStreamObjectRequest>);
 
     impl LookupStreamObject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1187,7 +1187,7 @@ pub mod datastream {
     pub struct ListStreamObjects(RequestBuilder<crate::model::ListStreamObjectsRequest>);
 
     impl ListStreamObjects {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1214,12 +1214,12 @@ pub mod datastream {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListStreamObjectsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1258,7 +1258,7 @@ pub mod datastream {
     pub struct StartBackfillJob(RequestBuilder<crate::model::StartBackfillJobRequest>);
 
     impl StartBackfillJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1302,7 +1302,7 @@ pub mod datastream {
     pub struct StopBackfillJob(RequestBuilder<crate::model::StopBackfillJobRequest>);
 
     impl StopBackfillJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1343,7 +1343,7 @@ pub mod datastream {
     pub struct FetchStaticIps(RequestBuilder<crate::model::FetchStaticIpsRequest>);
 
     impl FetchStaticIps {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1398,7 +1398,7 @@ pub mod datastream {
     );
 
     impl CreatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1422,7 +1422,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_private_connection][crate::client::Datastream::create_private_connection].
+        /// on [create_private_connection][super::super::client::Datastream::create_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
@@ -1510,7 +1510,7 @@ pub mod datastream {
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
     impl GetPrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1554,7 +1554,7 @@ pub mod datastream {
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
     impl ListPrivateConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1581,14 +1581,14 @@ pub mod datastream {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListPrivateConnectionsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1641,7 +1641,7 @@ pub mod datastream {
     );
 
     impl DeletePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1665,7 +1665,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_private_connection][crate::client::Datastream::delete_private_connection].
+        /// on [delete_private_connection][super::super::client::Datastream::delete_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
@@ -1732,7 +1732,7 @@ pub mod datastream {
     pub struct CreateRoute(RequestBuilder<crate::model::CreateRouteRequest>);
 
     impl CreateRoute {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1753,7 +1753,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_route][crate::client::Datastream::create_route].
+        /// on [create_route][super::super::client::Datastream::create_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_route(self.0.request, self.0.options)
@@ -1831,7 +1831,7 @@ pub mod datastream {
     pub struct GetRoute(RequestBuilder<crate::model::GetRouteRequest>);
 
     impl GetRoute {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1872,7 +1872,7 @@ pub mod datastream {
     pub struct ListRoutes(RequestBuilder<crate::model::ListRoutesRequest>);
 
     impl ListRoutes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1896,12 +1896,12 @@ pub mod datastream {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRoutesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1952,7 +1952,7 @@ pub mod datastream {
     pub struct DeleteRoute(RequestBuilder<crate::model::DeleteRouteRequest>);
 
     impl DeleteRoute {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1973,7 +1973,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_route][crate::client::Datastream::delete_route].
+        /// on [delete_route][super::super::client::Datastream::delete_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_route(self.0.request, self.0.options)
@@ -2034,7 +2034,7 @@ pub mod datastream {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2061,12 +2061,12 @@ pub mod datastream {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2111,7 +2111,7 @@ pub mod datastream {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2152,7 +2152,7 @@ pub mod datastream {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2179,12 +2179,12 @@ pub mod datastream {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2229,7 +2229,7 @@ pub mod datastream {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2273,7 +2273,7 @@ pub mod datastream {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2317,7 +2317,7 @@ pub mod datastream {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Datastream>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -18,10 +18,10 @@ pub mod web_security_scanner {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::WebSecurityScanner] request builders.
+    /// Common implementation for [super::super::client::WebSecurityScanner] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>,
+        stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod web_security_scanner {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod web_security_scanner {
     pub struct CreateScanConfig(RequestBuilder<crate::model::CreateScanConfigRequest>);
 
     impl CreateScanConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -97,7 +97,7 @@ pub mod web_security_scanner {
     pub struct DeleteScanConfig(RequestBuilder<crate::model::DeleteScanConfigRequest>);
 
     impl DeleteScanConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -141,7 +141,7 @@ pub mod web_security_scanner {
     pub struct GetScanConfig(RequestBuilder<crate::model::GetScanConfigRequest>);
 
     impl GetScanConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -182,7 +182,7 @@ pub mod web_security_scanner {
     pub struct ListScanConfigs(RequestBuilder<crate::model::ListScanConfigsRequest>);
 
     impl ListScanConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -206,12 +206,12 @@ pub mod web_security_scanner {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListScanConfigsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -250,7 +250,7 @@ pub mod web_security_scanner {
     pub struct UpdateScanConfig(RequestBuilder<crate::model::UpdateScanConfigRequest>);
 
     impl UpdateScanConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -306,7 +306,7 @@ pub mod web_security_scanner {
     pub struct StartScanRun(RequestBuilder<crate::model::StartScanRunRequest>);
 
     impl StartScanRun {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -347,7 +347,7 @@ pub mod web_security_scanner {
     pub struct GetScanRun(RequestBuilder<crate::model::GetScanRunRequest>);
 
     impl GetScanRun {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -388,7 +388,7 @@ pub mod web_security_scanner {
     pub struct ListScanRuns(RequestBuilder<crate::model::ListScanRunsRequest>);
 
     impl ListScanRuns {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -412,12 +412,12 @@ pub mod web_security_scanner {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListScanRunsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -456,7 +456,7 @@ pub mod web_security_scanner {
     pub struct StopScanRun(RequestBuilder<crate::model::StopScanRunRequest>);
 
     impl StopScanRun {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -497,7 +497,7 @@ pub mod web_security_scanner {
     pub struct ListCrawledUrls(RequestBuilder<crate::model::ListCrawledUrlsRequest>);
 
     impl ListCrawledUrls {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -521,12 +521,12 @@ pub mod web_security_scanner {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCrawledUrlsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -565,7 +565,7 @@ pub mod web_security_scanner {
     pub struct GetFinding(RequestBuilder<crate::model::GetFindingRequest>);
 
     impl GetFinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -606,7 +606,7 @@ pub mod web_security_scanner {
     pub struct ListFindings(RequestBuilder<crate::model::ListFindingsRequest>);
 
     impl ListFindings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -630,12 +630,12 @@ pub mod web_security_scanner {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -680,7 +680,7 @@ pub mod web_security_scanner {
     pub struct ListFindingTypeStats(RequestBuilder<crate::model::ListFindingTypeStatsRequest>);
 
     impl ListFindingTypeStats {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebSecurityScanner>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::WebSecurityScanner>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

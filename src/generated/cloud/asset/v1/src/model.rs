@@ -21,6 +21,7 @@ extern crate accesscontextmanager_v1;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate gtype;
 extern crate iam_v1;
 extern crate lazy_static;
@@ -488,7 +489,6 @@ impl wkt::message::Message for ListAssetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAssetsResponse {
     type PageItem = crate::model::Asset;
 
@@ -497,7 +497,8 @@ impl gax::paginator::PageableResponse for ListAssetsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -2036,7 +2037,6 @@ impl wkt::message::Message for SearchAllResourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchAllResourcesResponse {
     type PageItem = crate::model::ResourceSearchResult;
 
@@ -2045,7 +2045,8 @@ impl gax::paginator::PageableResponse for SearchAllResourcesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -2264,7 +2265,6 @@ impl wkt::message::Message for SearchAllIamPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchAllIamPoliciesResponse {
     type PageItem = crate::model::IamPolicySearchResult;
 
@@ -2273,7 +2273,8 @@ impl gax::paginator::PageableResponse for SearchAllIamPoliciesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3909,7 +3910,6 @@ impl wkt::message::Message for ListSavedQueriesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSavedQueriesResponse {
     type PageItem = crate::model::SavedQuery;
 
@@ -3918,7 +3918,8 @@ impl gax::paginator::PageableResponse for ListSavedQueriesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -6632,7 +6633,6 @@ impl wkt::message::Message for AnalyzeOrgPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for AnalyzeOrgPoliciesResponse {
     type PageItem = crate::model::analyze_org_policies_response::OrgPolicyResult;
 
@@ -6641,7 +6641,8 @@ impl gax::paginator::PageableResponse for AnalyzeOrgPoliciesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -6918,7 +6919,6 @@ impl wkt::message::Message for AnalyzeOrgPolicyGovernedContainersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for AnalyzeOrgPolicyGovernedContainersResponse {
     type PageItem =
         crate::model::analyze_org_policy_governed_containers_response::GovernedContainer;
@@ -6928,7 +6928,8 @@ impl gax::paginator::PageableResponse for AnalyzeOrgPolicyGovernedContainersResp
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -7272,7 +7273,6 @@ impl wkt::message::Message for AnalyzeOrgPolicyGovernedAssetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for AnalyzeOrgPolicyGovernedAssetsResponse {
     type PageItem = crate::model::analyze_org_policy_governed_assets_response::GovernedAsset;
 
@@ -7281,7 +7281,8 @@ impl gax::paginator::PageableResponse for AnalyzeOrgPolicyGovernedAssetsResponse
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

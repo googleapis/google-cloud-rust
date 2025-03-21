@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SecurityCenter {
-    inner: Arc<dyn crate::stubs::dynamic::SecurityCenter>,
+    inner: Arc<dyn super::stubs::dynamic::SecurityCenter>,
 }
 
 impl SecurityCenter {
@@ -59,7 +59,7 @@ impl SecurityCenter {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::SecurityCenter + 'static,
+        T: super::stubs::SecurityCenter + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl SecurityCenter {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::SecurityCenter>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::SecurityCenter>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl SecurityCenter {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SecurityCenter> {
-        crate::transport::SecurityCenter::new(conf).await
+    ) -> Result<impl super::stubs::SecurityCenter> {
+        super::transport::SecurityCenter::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SecurityCenter> {
+    ) -> Result<impl super::stubs::SecurityCenter> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::SecurityCenter::new)
+            .map(super::tracing::SecurityCenter::new)
     }
 
     /// Creates a ResourceValueConfig for an organization. Maps user's tags to
@@ -94,8 +94,8 @@ impl SecurityCenter {
     pub fn batch_create_resource_value_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::BatchCreateResourceValueConfigs {
-        crate::builders::security_center::BatchCreateResourceValueConfigs::new(self.inner.clone())
+    ) -> super::builders::security_center::BatchCreateResourceValueConfigs {
+        super::builders::security_center::BatchCreateResourceValueConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -116,8 +116,8 @@ impl SecurityCenter {
     pub fn bulk_mute_findings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::BulkMuteFindings {
-        crate::builders::security_center::BulkMuteFindings::new(self.inner.clone())
+    ) -> super::builders::security_center::BulkMuteFindings {
+        super::builders::security_center::BulkMuteFindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -125,8 +125,8 @@ impl SecurityCenter {
     pub fn create_big_query_export(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::CreateBigQueryExport {
-        crate::builders::security_center::CreateBigQueryExport::new(self.inner.clone())
+    ) -> super::builders::security_center::CreateBigQueryExport {
+        super::builders::security_center::CreateBigQueryExport::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -135,8 +135,8 @@ impl SecurityCenter {
     pub fn create_finding(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::CreateFinding {
-        crate::builders::security_center::CreateFinding::new(self.inner.clone())
+    ) -> super::builders::security_center::CreateFinding {
+        super::builders::security_center::CreateFinding::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -144,8 +144,8 @@ impl SecurityCenter {
     pub fn create_mute_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::CreateMuteConfig {
-        crate::builders::security_center::CreateMuteConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::CreateMuteConfig {
+        super::builders::security_center::CreateMuteConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +153,8 @@ impl SecurityCenter {
     pub fn create_notification_config(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::CreateNotificationConfig {
-        crate::builders::security_center::CreateNotificationConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::CreateNotificationConfig {
+        super::builders::security_center::CreateNotificationConfig::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -162,8 +162,8 @@ impl SecurityCenter {
     pub fn create_source(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::CreateSource {
-        crate::builders::security_center::CreateSource::new(self.inner.clone())
+    ) -> super::builders::security_center::CreateSource {
+        super::builders::security_center::CreateSource::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -171,8 +171,8 @@ impl SecurityCenter {
     pub fn delete_big_query_export(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::DeleteBigQueryExport {
-        crate::builders::security_center::DeleteBigQueryExport::new(self.inner.clone())
+    ) -> super::builders::security_center::DeleteBigQueryExport {
+        super::builders::security_center::DeleteBigQueryExport::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -181,8 +181,8 @@ impl SecurityCenter {
     pub fn delete_mute_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::DeleteMuteConfig {
-        crate::builders::security_center::DeleteMuteConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::DeleteMuteConfig {
+        super::builders::security_center::DeleteMuteConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -190,8 +190,8 @@ impl SecurityCenter {
     pub fn delete_notification_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::DeleteNotificationConfig {
-        crate::builders::security_center::DeleteNotificationConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::DeleteNotificationConfig {
+        super::builders::security_center::DeleteNotificationConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -199,8 +199,8 @@ impl SecurityCenter {
     pub fn delete_resource_value_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::DeleteResourceValueConfig {
-        crate::builders::security_center::DeleteResourceValueConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::DeleteResourceValueConfig {
+        super::builders::security_center::DeleteResourceValueConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -208,8 +208,8 @@ impl SecurityCenter {
     pub fn get_big_query_export(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::GetBigQueryExport {
-        crate::builders::security_center::GetBigQueryExport::new(self.inner.clone())
+    ) -> super::builders::security_center::GetBigQueryExport {
+        super::builders::security_center::GetBigQueryExport::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -218,8 +218,8 @@ impl SecurityCenter {
     pub fn get_simulation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::GetSimulation {
-        crate::builders::security_center::GetSimulation::new(self.inner.clone())
+    ) -> super::builders::security_center::GetSimulation {
+        super::builders::security_center::GetSimulation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -227,8 +227,8 @@ impl SecurityCenter {
     pub fn get_valued_resource(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::GetValuedResource {
-        crate::builders::security_center::GetValuedResource::new(self.inner.clone())
+    ) -> super::builders::security_center::GetValuedResource {
+        super::builders::security_center::GetValuedResource::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -236,8 +236,8 @@ impl SecurityCenter {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::GetIamPolicy {
-        crate::builders::security_center::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::security_center::GetIamPolicy {
+        super::builders::security_center::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -246,8 +246,8 @@ impl SecurityCenter {
     pub fn get_mute_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::GetMuteConfig {
-        crate::builders::security_center::GetMuteConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::GetMuteConfig {
+        super::builders::security_center::GetMuteConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -255,8 +255,8 @@ impl SecurityCenter {
     pub fn get_notification_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::GetNotificationConfig {
-        crate::builders::security_center::GetNotificationConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::GetNotificationConfig {
+        super::builders::security_center::GetNotificationConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -264,8 +264,8 @@ impl SecurityCenter {
     pub fn get_resource_value_config(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::GetResourceValueConfig {
-        crate::builders::security_center::GetResourceValueConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::GetResourceValueConfig {
+        super::builders::security_center::GetResourceValueConfig::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -273,8 +273,8 @@ impl SecurityCenter {
     pub fn get_source(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::GetSource {
-        crate::builders::security_center::GetSource::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::security_center::GetSource {
+        super::builders::security_center::GetSource::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Filters an organization or source's findings and groups them by their
@@ -295,8 +295,8 @@ impl SecurityCenter {
     pub fn group_findings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::GroupFindings {
-        crate::builders::security_center::GroupFindings::new(self.inner.clone())
+    ) -> super::builders::security_center::GroupFindings {
+        super::builders::security_center::GroupFindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -305,8 +305,8 @@ impl SecurityCenter {
     pub fn list_attack_paths(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::ListAttackPaths {
-        crate::builders::security_center::ListAttackPaths::new(self.inner.clone())
+    ) -> super::builders::security_center::ListAttackPaths {
+        super::builders::security_center::ListAttackPaths::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -318,8 +318,8 @@ impl SecurityCenter {
     pub fn list_big_query_exports(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::ListBigQueryExports {
-        crate::builders::security_center::ListBigQueryExports::new(self.inner.clone())
+    ) -> super::builders::security_center::ListBigQueryExports {
+        super::builders::security_center::ListBigQueryExports::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -335,8 +335,8 @@ impl SecurityCenter {
     pub fn list_findings(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::ListFindings {
-        crate::builders::security_center::ListFindings::new(self.inner.clone())
+    ) -> super::builders::security_center::ListFindings {
+        super::builders::security_center::ListFindings::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -345,8 +345,8 @@ impl SecurityCenter {
     pub fn list_mute_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::ListMuteConfigs {
-        crate::builders::security_center::ListMuteConfigs::new(self.inner.clone())
+    ) -> super::builders::security_center::ListMuteConfigs {
+        super::builders::security_center::ListMuteConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -354,8 +354,8 @@ impl SecurityCenter {
     pub fn list_notification_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::ListNotificationConfigs {
-        crate::builders::security_center::ListNotificationConfigs::new(self.inner.clone())
+    ) -> super::builders::security_center::ListNotificationConfigs {
+        super::builders::security_center::ListNotificationConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -363,8 +363,8 @@ impl SecurityCenter {
     pub fn list_resource_value_configs(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::ListResourceValueConfigs {
-        crate::builders::security_center::ListResourceValueConfigs::new(self.inner.clone())
+    ) -> super::builders::security_center::ListResourceValueConfigs {
+        super::builders::security_center::ListResourceValueConfigs::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -372,8 +372,8 @@ impl SecurityCenter {
     pub fn list_sources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::ListSources {
-        crate::builders::security_center::ListSources::new(self.inner.clone())
+    ) -> super::builders::security_center::ListSources {
+        super::builders::security_center::ListSources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -381,8 +381,8 @@ impl SecurityCenter {
     pub fn list_valued_resources(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::ListValuedResources {
-        crate::builders::security_center::ListValuedResources::new(self.inner.clone())
+    ) -> super::builders::security_center::ListValuedResources {
+        super::builders::security_center::ListValuedResources::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -391,8 +391,8 @@ impl SecurityCenter {
     pub fn set_finding_state(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::SetFindingState {
-        crate::builders::security_center::SetFindingState::new(self.inner.clone())
+    ) -> super::builders::security_center::SetFindingState {
+        super::builders::security_center::SetFindingState::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -400,8 +400,8 @@ impl SecurityCenter {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::SetIamPolicy {
-        crate::builders::security_center::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::security_center::SetIamPolicy {
+        super::builders::security_center::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -410,16 +410,16 @@ impl SecurityCenter {
     pub fn set_mute(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::SetMute {
-        crate::builders::security_center::SetMute::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::security_center::SetMute {
+        super::builders::security_center::SetMute::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns the permissions that a caller has on the specified source.
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::TestIamPermissions {
-        crate::builders::security_center::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::security_center::TestIamPermissions {
+        super::builders::security_center::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -427,8 +427,8 @@ impl SecurityCenter {
     pub fn update_big_query_export(
         &self,
         big_query_export: impl Into<crate::model::BigQueryExport>,
-    ) -> crate::builders::security_center::UpdateBigQueryExport {
-        crate::builders::security_center::UpdateBigQueryExport::new(self.inner.clone())
+    ) -> super::builders::security_center::UpdateBigQueryExport {
+        super::builders::security_center::UpdateBigQueryExport::new(self.inner.clone())
             .set_big_query_export(big_query_export.into())
     }
 
@@ -437,8 +437,8 @@ impl SecurityCenter {
     pub fn update_external_system(
         &self,
         external_system: impl Into<crate::model::ExternalSystem>,
-    ) -> crate::builders::security_center::UpdateExternalSystem {
-        crate::builders::security_center::UpdateExternalSystem::new(self.inner.clone())
+    ) -> super::builders::security_center::UpdateExternalSystem {
+        super::builders::security_center::UpdateExternalSystem::new(self.inner.clone())
             .set_external_system(external_system.into())
     }
 
@@ -448,8 +448,8 @@ impl SecurityCenter {
     pub fn update_finding(
         &self,
         finding: impl Into<crate::model::Finding>,
-    ) -> crate::builders::security_center::UpdateFinding {
-        crate::builders::security_center::UpdateFinding::new(self.inner.clone())
+    ) -> super::builders::security_center::UpdateFinding {
+        super::builders::security_center::UpdateFinding::new(self.inner.clone())
             .set_finding(finding.into())
     }
 
@@ -458,8 +458,8 @@ impl SecurityCenter {
     pub fn update_mute_config(
         &self,
         mute_config: impl Into<crate::model::MuteConfig>,
-    ) -> crate::builders::security_center::UpdateMuteConfig {
-        crate::builders::security_center::UpdateMuteConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::UpdateMuteConfig {
+        super::builders::security_center::UpdateMuteConfig::new(self.inner.clone())
             .set_mute_config(mute_config.into())
     }
 
@@ -468,8 +468,8 @@ impl SecurityCenter {
     pub fn update_notification_config(
         &self,
         notification_config: impl Into<crate::model::NotificationConfig>,
-    ) -> crate::builders::security_center::UpdateNotificationConfig {
-        crate::builders::security_center::UpdateNotificationConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::UpdateNotificationConfig {
+        super::builders::security_center::UpdateNotificationConfig::new(self.inner.clone())
             .set_notification_config(notification_config.into())
     }
 
@@ -477,8 +477,8 @@ impl SecurityCenter {
     pub fn update_resource_value_config(
         &self,
         resource_value_config: impl Into<crate::model::ResourceValueConfig>,
-    ) -> crate::builders::security_center::UpdateResourceValueConfig {
-        crate::builders::security_center::UpdateResourceValueConfig::new(self.inner.clone())
+    ) -> super::builders::security_center::UpdateResourceValueConfig {
+        super::builders::security_center::UpdateResourceValueConfig::new(self.inner.clone())
             .set_resource_value_config(resource_value_config.into())
     }
 
@@ -488,8 +488,8 @@ impl SecurityCenter {
     pub fn update_security_marks(
         &self,
         security_marks: impl Into<crate::model::SecurityMarks>,
-    ) -> crate::builders::security_center::UpdateSecurityMarks {
-        crate::builders::security_center::UpdateSecurityMarks::new(self.inner.clone())
+    ) -> super::builders::security_center::UpdateSecurityMarks {
+        super::builders::security_center::UpdateSecurityMarks::new(self.inner.clone())
             .set_security_marks(security_marks.into())
     }
 
@@ -497,8 +497,8 @@ impl SecurityCenter {
     pub fn update_source(
         &self,
         source: impl Into<crate::model::Source>,
-    ) -> crate::builders::security_center::UpdateSource {
-        crate::builders::security_center::UpdateSource::new(self.inner.clone())
+    ) -> super::builders::security_center::UpdateSource {
+        super::builders::security_center::UpdateSource::new(self.inner.clone())
             .set_source(source.into())
     }
 
@@ -508,8 +508,8 @@ impl SecurityCenter {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::ListOperations {
-        crate::builders::security_center::ListOperations::new(self.inner.clone())
+    ) -> super::builders::security_center::ListOperations {
+        super::builders::security_center::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -519,8 +519,8 @@ impl SecurityCenter {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::GetOperation {
-        crate::builders::security_center::GetOperation::new(self.inner.clone())
+    ) -> super::builders::security_center::GetOperation {
+        super::builders::security_center::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -530,8 +530,8 @@ impl SecurityCenter {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::DeleteOperation {
-        crate::builders::security_center::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::security_center::DeleteOperation {
+        super::builders::security_center::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -541,8 +541,8 @@ impl SecurityCenter {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_center::CancelOperation {
-        crate::builders::security_center::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::security_center::CancelOperation {
+        super::builders::security_center::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

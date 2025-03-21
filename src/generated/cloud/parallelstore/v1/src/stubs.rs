@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Parallelstore].
+/// Defines the trait used to implement [super::client::Parallelstore].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Parallelstore`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Parallelstore: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Parallelstore::list_instances].
+    /// Implements [super::client::Parallelstore::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -53,7 +53,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Parallelstore::get_instance].
+    /// Implements [super::client::Parallelstore::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -64,7 +64,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Parallelstore::create_instance].
+    /// Implements [super::client::Parallelstore::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -76,7 +76,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Parallelstore::update_instance].
+    /// Implements [super::client::Parallelstore::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -88,7 +88,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Parallelstore::delete_instance].
+    /// Implements [super::client::Parallelstore::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -100,7 +100,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Parallelstore::import_data].
+    /// Implements [super::client::Parallelstore::import_data].
     fn import_data(
         &self,
         _req: crate::model::ImportDataRequest,
@@ -112,7 +112,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Parallelstore::export_data].
+    /// Implements [super::client::Parallelstore::export_data].
     fn export_data(
         &self,
         _req: crate::model::ExportDataRequest,
@@ -124,7 +124,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Parallelstore::list_locations].
+    /// Implements [super::client::Parallelstore::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -136,7 +136,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Parallelstore::get_location].
+    /// Implements [super::client::Parallelstore::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -147,7 +147,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Parallelstore::list_operations].
+    /// Implements [super::client::Parallelstore::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -159,7 +159,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Parallelstore::get_operation].
+    /// Implements [super::client::Parallelstore::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -171,7 +171,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Parallelstore::delete_operation].
+    /// Implements [super::client::Parallelstore::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -180,7 +180,7 @@ pub trait Parallelstore: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Parallelstore::cancel_operation].
+    /// Implements [super::client::Parallelstore::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

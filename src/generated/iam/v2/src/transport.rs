@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Policies](crate::stubs::Policies) using a [gax::http_client::ReqwestClient].
+/// Implements [Policies](super::stubs::Policies) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Policies {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for Policies {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for Policies {
 }
 
 impl Policies {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::Policies for Policies {
+impl super::stubs::Policies for Policies {
     async fn list_policies(
         &self,
         req: crate::model::ListPoliciesRequest,
@@ -57,7 +57,7 @@ impl crate::stubs::Policies for Policies {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -76,7 +76,7 @@ impl crate::stubs::Policies for Policies {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -112,7 +112,7 @@ impl crate::stubs::Policies for Policies {
                     "/v2/{}",
                     req.policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
                         .name
                 ),
             )
@@ -140,7 +140,7 @@ impl crate::stubs::Policies for Policies {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -159,7 +159,7 @@ impl crate::stubs::Policies for Policies {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

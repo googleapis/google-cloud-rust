@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate lazy_static;
 extern crate longrunning;
 extern crate lro;
@@ -2985,7 +2986,6 @@ impl wkt::message::Message for ListCdnKeysResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCdnKeysResponse {
     type PageItem = crate::model::CdnKey;
 
@@ -2994,7 +2994,8 @@ impl gax::paginator::PageableResponse for ListCdnKeysResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3271,7 +3272,6 @@ impl wkt::message::Message for ListVodStitchDetailsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVodStitchDetailsResponse {
     type PageItem = crate::model::VodStitchDetail;
 
@@ -3280,7 +3280,8 @@ impl gax::paginator::PageableResponse for ListVodStitchDetailsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3408,7 +3409,6 @@ impl wkt::message::Message for ListVodAdTagDetailsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVodAdTagDetailsResponse {
     type PageItem = crate::model::VodAdTagDetail;
 
@@ -3417,7 +3417,8 @@ impl gax::paginator::PageableResponse for ListVodAdTagDetailsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3545,7 +3546,6 @@ impl wkt::message::Message for ListLiveAdTagDetailsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLiveAdTagDetailsResponse {
     type PageItem = crate::model::LiveAdTagDetail;
 
@@ -3554,7 +3554,8 @@ impl gax::paginator::PageableResponse for ListLiveAdTagDetailsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3825,7 +3826,6 @@ impl wkt::message::Message for ListSlatesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSlatesResponse {
     type PageItem = crate::model::Slate;
 
@@ -3834,7 +3834,8 @@ impl gax::paginator::PageableResponse for ListSlatesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -4194,7 +4195,6 @@ impl wkt::message::Message for ListLiveConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLiveConfigsResponse {
     type PageItem = crate::model::LiveConfig;
 
@@ -4203,7 +4203,8 @@ impl gax::paginator::PageableResponse for ListLiveConfigsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -4523,7 +4524,6 @@ impl wkt::message::Message for ListVodConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListVodConfigsResponse {
     type PageItem = crate::model::VodConfig;
 
@@ -4532,7 +4532,8 @@ impl gax::paginator::PageableResponse for ListVodConfigsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

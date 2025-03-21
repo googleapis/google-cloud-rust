@@ -46,7 +46,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct IAMCredentials {
-    inner: Arc<dyn crate::stubs::dynamic::IAMCredentials>,
+    inner: Arc<dyn super::stubs::dynamic::IAMCredentials>,
 }
 
 impl IAMCredentials {
@@ -67,7 +67,7 @@ impl IAMCredentials {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::IAMCredentials + 'static,
+        T: super::stubs::IAMCredentials + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -76,7 +76,7 @@ impl IAMCredentials {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::IAMCredentials>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::IAMCredentials>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -85,24 +85,24 @@ impl IAMCredentials {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::IAMCredentials> {
-        crate::transport::IAMCredentials::new(conf).await
+    ) -> Result<impl super::stubs::IAMCredentials> {
+        super::transport::IAMCredentials::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::IAMCredentials> {
+    ) -> Result<impl super::stubs::IAMCredentials> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::IAMCredentials::new)
+            .map(super::tracing::IAMCredentials::new)
     }
 
     /// Generates an OAuth 2.0 access token for a service account.
     pub fn generate_access_token(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::iam_credentials::GenerateAccessToken {
-        crate::builders::iam_credentials::GenerateAccessToken::new(self.inner.clone())
+    ) -> super::builders::iam_credentials::GenerateAccessToken {
+        super::builders::iam_credentials::GenerateAccessToken::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -110,8 +110,8 @@ impl IAMCredentials {
     pub fn generate_id_token(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::iam_credentials::GenerateIdToken {
-        crate::builders::iam_credentials::GenerateIdToken::new(self.inner.clone())
+    ) -> super::builders::iam_credentials::GenerateIdToken {
+        super::builders::iam_credentials::GenerateIdToken::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -119,15 +119,15 @@ impl IAMCredentials {
     pub fn sign_blob(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::iam_credentials::SignBlob {
-        crate::builders::iam_credentials::SignBlob::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::iam_credentials::SignBlob {
+        super::builders::iam_credentials::SignBlob::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Signs a JWT using a service account's system-managed private key.
     pub fn sign_jwt(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::iam_credentials::SignJwt {
-        crate::builders::iam_credentials::SignJwt::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::iam_credentials::SignJwt {
+        super::builders::iam_credentials::SignJwt::new(self.inner.clone()).set_name(name.into())
     }
 }

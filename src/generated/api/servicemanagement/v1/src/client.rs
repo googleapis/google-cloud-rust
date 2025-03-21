@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ServiceManager {
-    inner: Arc<dyn crate::stubs::dynamic::ServiceManager>,
+    inner: Arc<dyn super::stubs::dynamic::ServiceManager>,
 }
 
 impl ServiceManager {
@@ -60,7 +60,7 @@ impl ServiceManager {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ServiceManager + 'static,
+        T: super::stubs::ServiceManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl ServiceManager {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ServiceManager>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ServiceManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,16 +78,16 @@ impl ServiceManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceManager> {
-        crate::transport::ServiceManager::new(conf).await
+    ) -> Result<impl super::stubs::ServiceManager> {
+        super::transport::ServiceManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ServiceManager> {
+    ) -> Result<impl super::stubs::ServiceManager> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ServiceManager::new)
+            .map(super::tracing::ServiceManager::new)
     }
 
     /// Lists managed services.
@@ -95,8 +95,8 @@ impl ServiceManager {
     /// Returns all public services. For authenticated users, also returns all
     /// services the calling user has "servicemanagement.services.get" permission
     /// for.
-    pub fn list_services(&self) -> crate::builders::service_manager::ListServices {
-        crate::builders::service_manager::ListServices::new(self.inner.clone())
+    pub fn list_services(&self) -> super::builders::service_manager::ListServices {
+        super::builders::service_manager::ListServices::new(self.inner.clone())
     }
 
     /// Gets a managed service. Authentication is required unless the service is
@@ -104,8 +104,8 @@ impl ServiceManager {
     pub fn get_service(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::GetService {
-        crate::builders::service_manager::GetService::new(self.inner.clone())
+    ) -> super::builders::service_manager::GetService {
+        super::builders::service_manager::GetService::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -130,8 +130,8 @@ impl ServiceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_service(&self) -> crate::builders::service_manager::CreateService {
-        crate::builders::service_manager::CreateService::new(self.inner.clone())
+    pub fn create_service(&self) -> super::builders::service_manager::CreateService {
+        super::builders::service_manager::CreateService::new(self.inner.clone())
     }
 
     /// Deletes a managed service. This method will change the service to the
@@ -157,8 +157,8 @@ impl ServiceManager {
     pub fn delete_service(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::DeleteService {
-        crate::builders::service_manager::DeleteService::new(self.inner.clone())
+    ) -> super::builders::service_manager::DeleteService {
+        super::builders::service_manager::DeleteService::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -181,8 +181,8 @@ impl ServiceManager {
     pub fn undelete_service(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::UndeleteService {
-        crate::builders::service_manager::UndeleteService::new(self.inner.clone())
+    ) -> super::builders::service_manager::UndeleteService {
+        super::builders::service_manager::UndeleteService::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -191,8 +191,8 @@ impl ServiceManager {
     pub fn list_service_configs(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::ListServiceConfigs {
-        crate::builders::service_manager::ListServiceConfigs::new(self.inner.clone())
+    ) -> super::builders::service_manager::ListServiceConfigs {
+        super::builders::service_manager::ListServiceConfigs::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -201,8 +201,8 @@ impl ServiceManager {
         &self,
         service_name: impl Into<std::string::String>,
         config_id: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::GetServiceConfig {
-        crate::builders::service_manager::GetServiceConfig::new(self.inner.clone())
+    ) -> super::builders::service_manager::GetServiceConfig {
+        super::builders::service_manager::GetServiceConfig::new(self.inner.clone())
             .set_service_name(service_name.into())
             .set_config_id(config_id.into())
     }
@@ -220,8 +220,8 @@ impl ServiceManager {
     pub fn create_service_config(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::CreateServiceConfig {
-        crate::builders::service_manager::CreateServiceConfig::new(self.inner.clone())
+    ) -> super::builders::service_manager::CreateServiceConfig {
+        super::builders::service_manager::CreateServiceConfig::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -254,8 +254,8 @@ impl ServiceManager {
     pub fn submit_config_source(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::SubmitConfigSource {
-        crate::builders::service_manager::SubmitConfigSource::new(self.inner.clone())
+    ) -> super::builders::service_manager::SubmitConfigSource {
+        super::builders::service_manager::SubmitConfigSource::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -264,8 +264,8 @@ impl ServiceManager {
     pub fn list_service_rollouts(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::ListServiceRollouts {
-        crate::builders::service_manager::ListServiceRollouts::new(self.inner.clone())
+    ) -> super::builders::service_manager::ListServiceRollouts {
+        super::builders::service_manager::ListServiceRollouts::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -277,8 +277,8 @@ impl ServiceManager {
         &self,
         service_name: impl Into<std::string::String>,
         rollout_id: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::GetServiceRollout {
-        crate::builders::service_manager::GetServiceRollout::new(self.inner.clone())
+    ) -> super::builders::service_manager::GetServiceRollout {
+        super::builders::service_manager::GetServiceRollout::new(self.inner.clone())
             .set_service_name(service_name.into())
             .set_rollout_id(rollout_id.into())
     }
@@ -310,8 +310,8 @@ impl ServiceManager {
     pub fn create_service_rollout(
         &self,
         service_name: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::CreateServiceRollout {
-        crate::builders::service_manager::CreateServiceRollout::new(self.inner.clone())
+    ) -> super::builders::service_manager::CreateServiceRollout {
+        super::builders::service_manager::CreateServiceRollout::new(self.inner.clone())
             .set_service_name(service_name.into())
     }
 
@@ -326,8 +326,8 @@ impl ServiceManager {
     /// If GenerateConfigReportRequest.old_value is not specified, this method
     /// will compare GenerateConfigReportRequest.new_value with the last pushed
     /// service configuration.
-    pub fn generate_config_report(&self) -> crate::builders::service_manager::GenerateConfigReport {
-        crate::builders::service_manager::GenerateConfigReport::new(self.inner.clone())
+    pub fn generate_config_report(&self) -> super::builders::service_manager::GenerateConfigReport {
+        super::builders::service_manager::GenerateConfigReport::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -338,8 +338,8 @@ impl ServiceManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::SetIamPolicy {
-        crate::builders::service_manager::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::service_manager::SetIamPolicy {
+        super::builders::service_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -348,8 +348,8 @@ impl ServiceManager {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::GetIamPolicy {
-        crate::builders::service_manager::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::service_manager::GetIamPolicy {
+        super::builders::service_manager::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -363,14 +363,14 @@ impl ServiceManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::TestIamPermissions {
-        crate::builders::service_manager::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::service_manager::TestIamPermissions {
+        super::builders::service_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
     /// Lists service operations that match the specified filter in the request.
-    pub fn list_operations(&self) -> crate::builders::service_manager::ListOperations {
-        crate::builders::service_manager::ListOperations::new(self.inner.clone())
+    pub fn list_operations(&self) -> super::builders::service_manager::ListOperations {
+        super::builders::service_manager::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -379,8 +379,8 @@ impl ServiceManager {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::service_manager::GetOperation {
-        crate::builders::service_manager::GetOperation::new(self.inner.clone())
+    ) -> super::builders::service_manager::GetOperation {
+        super::builders::service_manager::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

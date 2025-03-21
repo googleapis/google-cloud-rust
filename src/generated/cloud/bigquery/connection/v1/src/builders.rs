@@ -18,10 +18,10 @@ pub mod connection_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ConnectionService] request builders.
+    /// Common implementation for [super::super::client::ConnectionService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ConnectionService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ConnectionService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod connection_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ConnectionService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod connection_service {
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ConnectionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -103,7 +103,7 @@ pub mod connection_service {
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ConnectionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -144,7 +144,7 @@ pub mod connection_service {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ConnectionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -168,12 +168,12 @@ pub mod connection_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -212,7 +212,7 @@ pub mod connection_service {
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ConnectionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -274,7 +274,7 @@ pub mod connection_service {
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ConnectionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -318,7 +318,7 @@ pub mod connection_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ConnectionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -368,7 +368,7 @@ pub mod connection_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ConnectionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -427,7 +427,7 @@ pub mod connection_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ConnectionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ConnectionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

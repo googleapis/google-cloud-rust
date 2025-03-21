@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Locations](crate::stubs::Locations) using a [gax::http_client::ReqwestClient].
+/// Implements [Locations](super::stubs::Locations) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Locations {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for Locations {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for Locations {
 }
 
 impl Locations {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::Locations for Locations {
+impl super::stubs::Locations for Locations {
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
@@ -62,7 +62,7 @@ impl crate::stubs::Locations for Locations {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }
@@ -86,7 +86,7 @@ impl crate::stubs::Locations for Locations {
         self.inner.execute(
             builder,
             
-            None::<gax::http_client::NoBody>,
+            None::<gaxi::http::NoBody>,
             options,
         ).await
     }

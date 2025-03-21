@@ -18,10 +18,10 @@ pub mod org_policy {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::OrgPolicy] request builders.
+    /// Common implementation for [super::super::client::OrgPolicy] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>,
+        stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod org_policy {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod org_policy {
     pub struct ListConstraints(RequestBuilder<crate::model::ListConstraintsRequest>);
 
     impl ListConstraints {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod org_policy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConstraintsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -112,7 +112,7 @@ pub mod org_policy {
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -136,12 +136,12 @@ pub mod org_policy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPoliciesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -180,7 +180,7 @@ pub mod org_policy {
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -221,7 +221,7 @@ pub mod org_policy {
     pub struct GetEffectivePolicy(RequestBuilder<crate::model::GetEffectivePolicyRequest>);
 
     impl GetEffectivePolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -265,7 +265,7 @@ pub mod org_policy {
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -315,7 +315,7 @@ pub mod org_policy {
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -368,7 +368,7 @@ pub mod org_policy {
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -415,7 +415,7 @@ pub mod org_policy {
     pub struct CreateCustomConstraint(RequestBuilder<crate::model::CreateCustomConstraintRequest>);
 
     impl CreateCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -470,7 +470,7 @@ pub mod org_policy {
     pub struct UpdateCustomConstraint(RequestBuilder<crate::model::UpdateCustomConstraintRequest>);
 
     impl UpdateCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -519,7 +519,7 @@ pub mod org_policy {
     pub struct GetCustomConstraint(RequestBuilder<crate::model::GetCustomConstraintRequest>);
 
     impl GetCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -563,7 +563,7 @@ pub mod org_policy {
     pub struct ListCustomConstraints(RequestBuilder<crate::model::ListCustomConstraintsRequest>);
 
     impl ListCustomConstraints {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -590,12 +590,12 @@ pub mod org_policy {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCustomConstraintsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -634,7 +634,7 @@ pub mod org_policy {
     pub struct DeleteCustomConstraint(RequestBuilder<crate::model::DeleteCustomConstraintRequest>);
 
     impl DeleteCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::OrgPolicy>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

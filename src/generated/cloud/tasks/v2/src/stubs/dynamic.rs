@@ -126,9 +126,9 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<location::model::Location>;
 }
 
-/// All implementations of [crate::stubs::CloudTasks] also implement [CloudTasks].
+/// All implementations of [super::CloudTasks] also implement [CloudTasks].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudTasks> CloudTasks for T {
+impl<T: super::CloudTasks> CloudTasks for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_queues(
         &self,

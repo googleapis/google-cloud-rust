@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Google APIs helpers.
+//! Google APIs eXtensions for Rust.
 //!
 //! **WARNING:** this crate is under active development. We expect multiple
 //! breaking changes in the upcoming releases. Testing is also incomplete, we do
@@ -35,14 +35,6 @@
 /// This is the result type used by all functions wrapping RPCs.
 pub type Result<T> = std::result::Result<T, crate::error::Error>;
 
-#[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
-pub mod query_parameter;
-
-#[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
-pub mod path_parameter;
-
 /// Implements helpers to create telemetry headers.
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
@@ -52,14 +44,7 @@ pub mod api_header;
 pub mod error;
 
 /// Defines some types and traits to convert and use List RPCs as a Stream.
-/// Async streams are not yet stable, so neither is the use of this feature.
-#[cfg(feature = "unstable-stream")]
 pub mod paginator;
-
-/// Defines traits and helpers for HTTP client implementations.
-#[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
-pub mod http_client;
 
 pub mod backoff_policy;
 pub mod exponential_backoff;

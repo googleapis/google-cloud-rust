@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct SecurityPosture {
-    inner: Arc<dyn crate::stubs::dynamic::SecurityPosture>,
+    inner: Arc<dyn super::stubs::dynamic::SecurityPosture>,
 }
 
 impl SecurityPosture {
@@ -59,7 +59,7 @@ impl SecurityPosture {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::SecurityPosture + 'static,
+        T: super::stubs::SecurityPosture + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl SecurityPosture {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::SecurityPosture>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::SecurityPosture>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,16 +77,16 @@ impl SecurityPosture {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SecurityPosture> {
-        crate::transport::SecurityPosture::new(conf).await
+    ) -> Result<impl super::stubs::SecurityPosture> {
+        super::transport::SecurityPosture::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::SecurityPosture> {
+    ) -> Result<impl super::stubs::SecurityPosture> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::SecurityPosture::new)
+            .map(super::tracing::SecurityPosture::new)
     }
 
     /// (-- This option restricts the visibility of the API to only projects that
@@ -99,8 +99,8 @@ impl SecurityPosture {
     pub fn list_postures(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::ListPostures {
-        crate::builders::security_posture::ListPostures::new(self.inner.clone())
+    ) -> super::builders::security_posture::ListPostures {
+        super::builders::security_posture::ListPostures::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -108,8 +108,8 @@ impl SecurityPosture {
     pub fn list_posture_revisions(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::ListPostureRevisions {
-        crate::builders::security_posture::ListPostureRevisions::new(self.inner.clone())
+    ) -> super::builders::security_posture::ListPostureRevisions {
+        super::builders::security_posture::ListPostureRevisions::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -122,8 +122,8 @@ impl SecurityPosture {
     pub fn get_posture(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::GetPosture {
-        crate::builders::security_posture::GetPosture::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::security_posture::GetPosture {
+        super::builders::security_posture::GetPosture::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new Posture resource.
@@ -143,8 +143,8 @@ impl SecurityPosture {
     pub fn create_posture(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::CreatePosture {
-        crate::builders::security_posture::CreatePosture::new(self.inner.clone())
+    ) -> super::builders::security_posture::CreatePosture {
+        super::builders::security_posture::CreatePosture::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -173,8 +173,8 @@ impl SecurityPosture {
     pub fn update_posture(
         &self,
         posture: impl Into<crate::model::Posture>,
-    ) -> crate::builders::security_posture::UpdatePosture {
-        crate::builders::security_posture::UpdatePosture::new(self.inner.clone())
+    ) -> super::builders::security_posture::UpdatePosture {
+        super::builders::security_posture::UpdatePosture::new(self.inner.clone())
             .set_posture(posture.into())
     }
 
@@ -194,8 +194,8 @@ impl SecurityPosture {
     pub fn delete_posture(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::DeletePosture {
-        crate::builders::security_posture::DeletePosture::new(self.inner.clone())
+    ) -> super::builders::security_posture::DeletePosture {
+        super::builders::security_posture::DeletePosture::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -215,8 +215,8 @@ impl SecurityPosture {
     pub fn extract_posture(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::ExtractPosture {
-        crate::builders::security_posture::ExtractPosture::new(self.inner.clone())
+    ) -> super::builders::security_posture::ExtractPosture {
+        super::builders::security_posture::ExtractPosture::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -225,8 +225,8 @@ impl SecurityPosture {
     pub fn list_posture_deployments(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::ListPostureDeployments {
-        crate::builders::security_posture::ListPostureDeployments::new(self.inner.clone())
+    ) -> super::builders::security_posture::ListPostureDeployments {
+        super::builders::security_posture::ListPostureDeployments::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -234,8 +234,8 @@ impl SecurityPosture {
     pub fn get_posture_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::GetPostureDeployment {
-        crate::builders::security_posture::GetPostureDeployment::new(self.inner.clone())
+    ) -> super::builders::security_posture::GetPostureDeployment {
+        super::builders::security_posture::GetPostureDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -253,8 +253,8 @@ impl SecurityPosture {
     pub fn create_posture_deployment(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::CreatePostureDeployment {
-        crate::builders::security_posture::CreatePostureDeployment::new(self.inner.clone())
+    ) -> super::builders::security_posture::CreatePostureDeployment {
+        super::builders::security_posture::CreatePostureDeployment::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -272,8 +272,8 @@ impl SecurityPosture {
     pub fn update_posture_deployment(
         &self,
         posture_deployment: impl Into<crate::model::PostureDeployment>,
-    ) -> crate::builders::security_posture::UpdatePostureDeployment {
-        crate::builders::security_posture::UpdatePostureDeployment::new(self.inner.clone())
+    ) -> super::builders::security_posture::UpdatePostureDeployment {
+        super::builders::security_posture::UpdatePostureDeployment::new(self.inner.clone())
             .set_posture_deployment(posture_deployment.into())
     }
 
@@ -291,8 +291,8 @@ impl SecurityPosture {
     pub fn delete_posture_deployment(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::DeletePostureDeployment {
-        crate::builders::security_posture::DeletePostureDeployment::new(self.inner.clone())
+    ) -> super::builders::security_posture::DeletePostureDeployment {
+        super::builders::security_posture::DeletePostureDeployment::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -301,8 +301,8 @@ impl SecurityPosture {
     pub fn list_posture_templates(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::ListPostureTemplates {
-        crate::builders::security_posture::ListPostureTemplates::new(self.inner.clone())
+    ) -> super::builders::security_posture::ListPostureTemplates {
+        super::builders::security_posture::ListPostureTemplates::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -315,8 +315,8 @@ impl SecurityPosture {
     pub fn get_posture_template(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::GetPostureTemplate {
-        crate::builders::security_posture::GetPostureTemplate::new(self.inner.clone())
+    ) -> super::builders::security_posture::GetPostureTemplate {
+        super::builders::security_posture::GetPostureTemplate::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -324,8 +324,8 @@ impl SecurityPosture {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::ListLocations {
-        crate::builders::security_posture::ListLocations::new(self.inner.clone())
+    ) -> super::builders::security_posture::ListLocations {
+        super::builders::security_posture::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -333,8 +333,8 @@ impl SecurityPosture {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::GetLocation {
-        crate::builders::security_posture::GetLocation::new(self.inner.clone())
+    ) -> super::builders::security_posture::GetLocation {
+        super::builders::security_posture::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -344,8 +344,8 @@ impl SecurityPosture {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::ListOperations {
-        crate::builders::security_posture::ListOperations::new(self.inner.clone())
+    ) -> super::builders::security_posture::ListOperations {
+        super::builders::security_posture::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -355,8 +355,8 @@ impl SecurityPosture {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::GetOperation {
-        crate::builders::security_posture::GetOperation::new(self.inner.clone())
+    ) -> super::builders::security_posture::GetOperation {
+        super::builders::security_posture::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -366,8 +366,8 @@ impl SecurityPosture {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::DeleteOperation {
-        crate::builders::security_posture::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::security_posture::DeleteOperation {
+        super::builders::security_posture::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -377,8 +377,8 @@ impl SecurityPosture {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::security_posture::CancelOperation {
-        crate::builders::security_posture::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::security_posture::CancelOperation {
+        super::builders::security_posture::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

@@ -222,9 +222,9 @@ pub trait Datastream: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Datastream] also implement [Datastream].
+/// All implementations of [super::Datastream] also implement [Datastream].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Datastream> Datastream for T {
+impl<T: super::Datastream> Datastream for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_connection_profiles(
         &self,

@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::SecureSourceManager].
+/// Defines the trait used to implement [super::client::SecureSourceManager].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::SecureSourceManager`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::SecureSourceManager::list_instances].
+    /// Implements [super::client::SecureSourceManager::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -53,7 +53,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::get_instance].
+    /// Implements [super::client::SecureSourceManager::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -64,7 +64,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::create_instance].
+    /// Implements [super::client::SecureSourceManager::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -76,7 +76,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::delete_instance].
+    /// Implements [super::client::SecureSourceManager::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -88,7 +88,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::list_repositories].
+    /// Implements [super::client::SecureSourceManager::list_repositories].
     fn list_repositories(
         &self,
         _req: crate::model::ListRepositoriesRequest,
@@ -100,7 +100,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecureSourceManager::get_repository].
+    /// Implements [super::client::SecureSourceManager::get_repository].
     fn get_repository(
         &self,
         _req: crate::model::GetRepositoryRequest,
@@ -111,7 +111,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::create_repository].
+    /// Implements [super::client::SecureSourceManager::create_repository].
     fn create_repository(
         &self,
         _req: crate::model::CreateRepositoryRequest,
@@ -123,7 +123,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::delete_repository].
+    /// Implements [super::client::SecureSourceManager::delete_repository].
     fn delete_repository(
         &self,
         _req: crate::model::DeleteRepositoryRequest,
@@ -135,7 +135,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::get_iam_policy_repo].
+    /// Implements [super::client::SecureSourceManager::get_iam_policy_repo].
     fn get_iam_policy_repo(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -146,7 +146,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::set_iam_policy_repo].
+    /// Implements [super::client::SecureSourceManager::set_iam_policy_repo].
     fn set_iam_policy_repo(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -157,7 +157,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::test_iam_permissions_repo].
+    /// Implements [super::client::SecureSourceManager::test_iam_permissions_repo].
     fn test_iam_permissions_repo(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -169,7 +169,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecureSourceManager::create_branch_rule].
+    /// Implements [super::client::SecureSourceManager::create_branch_rule].
     fn create_branch_rule(
         &self,
         _req: crate::model::CreateBranchRuleRequest,
@@ -181,7 +181,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::list_branch_rules].
+    /// Implements [super::client::SecureSourceManager::list_branch_rules].
     fn list_branch_rules(
         &self,
         _req: crate::model::ListBranchRulesRequest,
@@ -193,7 +193,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecureSourceManager::get_branch_rule].
+    /// Implements [super::client::SecureSourceManager::get_branch_rule].
     fn get_branch_rule(
         &self,
         _req: crate::model::GetBranchRuleRequest,
@@ -204,7 +204,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::update_branch_rule].
+    /// Implements [super::client::SecureSourceManager::update_branch_rule].
     fn update_branch_rule(
         &self,
         _req: crate::model::UpdateBranchRuleRequest,
@@ -216,7 +216,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::delete_branch_rule].
+    /// Implements [super::client::SecureSourceManager::delete_branch_rule].
     fn delete_branch_rule(
         &self,
         _req: crate::model::DeleteBranchRuleRequest,
@@ -228,7 +228,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::list_locations].
+    /// Implements [super::client::SecureSourceManager::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -240,7 +240,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecureSourceManager::get_location].
+    /// Implements [super::client::SecureSourceManager::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -251,7 +251,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::set_iam_policy].
+    /// Implements [super::client::SecureSourceManager::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -262,7 +262,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::get_iam_policy].
+    /// Implements [super::client::SecureSourceManager::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -273,7 +273,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::test_iam_permissions].
+    /// Implements [super::client::SecureSourceManager::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -285,7 +285,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecureSourceManager::list_operations].
+    /// Implements [super::client::SecureSourceManager::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -297,7 +297,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::SecureSourceManager::get_operation].
+    /// Implements [super::client::SecureSourceManager::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -309,7 +309,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::SecureSourceManager::delete_operation].
+    /// Implements [super::client::SecureSourceManager::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -318,7 +318,7 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::SecureSourceManager::cancel_operation].
+    /// Implements [super::client::SecureSourceManager::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

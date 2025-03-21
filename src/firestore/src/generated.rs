@@ -12,6 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#1426) - fix references to the `client::Firestore::*` methods
-#[allow(rustdoc::broken_intra_doc_links)]
-pub mod model;
+pub(crate) mod gapic;

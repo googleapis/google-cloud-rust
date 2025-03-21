@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct TranslationService {
-    inner: Arc<dyn crate::stubs::dynamic::TranslationService>,
+    inner: Arc<dyn super::stubs::dynamic::TranslationService>,
 }
 
 impl TranslationService {
@@ -59,7 +59,7 @@ impl TranslationService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::TranslationService + 'static,
+        T: super::stubs::TranslationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl TranslationService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::TranslationService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::TranslationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl TranslationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TranslationService> {
-        crate::transport::TranslationService::new(conf).await
+    ) -> Result<impl super::stubs::TranslationService> {
+        super::transport::TranslationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::TranslationService> {
+    ) -> Result<impl super::stubs::TranslationService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::TranslationService::new)
+            .map(super::tracing::TranslationService::new)
     }
 
     /// Translates input text and returns translated text.
     pub fn translate_text(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::TranslateText {
-        crate::builders::translation_service::TranslateText::new(self.inner.clone())
+    ) -> super::builders::translation_service::TranslateText {
+        super::builders::translation_service::TranslateText::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl TranslationService {
     pub fn romanize_text(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::RomanizeText {
-        crate::builders::translation_service::RomanizeText::new(self.inner.clone())
+    ) -> super::builders::translation_service::RomanizeText {
+        super::builders::translation_service::RomanizeText::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -111,8 +111,8 @@ impl TranslationService {
     pub fn detect_language(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::DetectLanguage {
-        crate::builders::translation_service::DetectLanguage::new(self.inner.clone())
+    ) -> super::builders::translation_service::DetectLanguage {
+        super::builders::translation_service::DetectLanguage::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -120,8 +120,8 @@ impl TranslationService {
     pub fn get_supported_languages(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::GetSupportedLanguages {
-        crate::builders::translation_service::GetSupportedLanguages::new(self.inner.clone())
+    ) -> super::builders::translation_service::GetSupportedLanguages {
+        super::builders::translation_service::GetSupportedLanguages::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -129,8 +129,8 @@ impl TranslationService {
     pub fn translate_document(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::TranslateDocument {
-        crate::builders::translation_service::TranslateDocument::new(self.inner.clone())
+    ) -> super::builders::translation_service::TranslateDocument {
+        super::builders::translation_service::TranslateDocument::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -154,8 +154,8 @@ impl TranslationService {
     pub fn batch_translate_text(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::BatchTranslateText {
-        crate::builders::translation_service::BatchTranslateText::new(self.inner.clone())
+    ) -> super::builders::translation_service::BatchTranslateText {
+        super::builders::translation_service::BatchTranslateText::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -179,8 +179,8 @@ impl TranslationService {
     pub fn batch_translate_document(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::BatchTranslateDocument {
-        crate::builders::translation_service::BatchTranslateDocument::new(self.inner.clone())
+    ) -> super::builders::translation_service::BatchTranslateDocument {
+        super::builders::translation_service::BatchTranslateDocument::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -199,8 +199,8 @@ impl TranslationService {
     pub fn create_glossary(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::CreateGlossary {
-        crate::builders::translation_service::CreateGlossary::new(self.inner.clone())
+    ) -> super::builders::translation_service::CreateGlossary {
+        super::builders::translation_service::CreateGlossary::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -219,8 +219,8 @@ impl TranslationService {
     pub fn update_glossary(
         &self,
         glossary: impl Into<crate::model::Glossary>,
-    ) -> crate::builders::translation_service::UpdateGlossary {
-        crate::builders::translation_service::UpdateGlossary::new(self.inner.clone())
+    ) -> super::builders::translation_service::UpdateGlossary {
+        super::builders::translation_service::UpdateGlossary::new(self.inner.clone())
             .set_glossary(glossary.into())
     }
 
@@ -229,8 +229,8 @@ impl TranslationService {
     pub fn list_glossaries(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ListGlossaries {
-        crate::builders::translation_service::ListGlossaries::new(self.inner.clone())
+    ) -> super::builders::translation_service::ListGlossaries {
+        super::builders::translation_service::ListGlossaries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -239,8 +239,8 @@ impl TranslationService {
     pub fn get_glossary(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::GetGlossary {
-        crate::builders::translation_service::GetGlossary::new(self.inner.clone())
+    ) -> super::builders::translation_service::GetGlossary {
+        super::builders::translation_service::GetGlossary::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -260,8 +260,8 @@ impl TranslationService {
     pub fn delete_glossary(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::DeleteGlossary {
-        crate::builders::translation_service::DeleteGlossary::new(self.inner.clone())
+    ) -> super::builders::translation_service::DeleteGlossary {
+        super::builders::translation_service::DeleteGlossary::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -269,8 +269,8 @@ impl TranslationService {
     pub fn get_glossary_entry(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::GetGlossaryEntry {
-        crate::builders::translation_service::GetGlossaryEntry::new(self.inner.clone())
+    ) -> super::builders::translation_service::GetGlossaryEntry {
+        super::builders::translation_service::GetGlossaryEntry::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -278,8 +278,8 @@ impl TranslationService {
     pub fn list_glossary_entries(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ListGlossaryEntries {
-        crate::builders::translation_service::ListGlossaryEntries::new(self.inner.clone())
+    ) -> super::builders::translation_service::ListGlossaryEntries {
+        super::builders::translation_service::ListGlossaryEntries::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -287,8 +287,8 @@ impl TranslationService {
     pub fn create_glossary_entry(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::CreateGlossaryEntry {
-        crate::builders::translation_service::CreateGlossaryEntry::new(self.inner.clone())
+    ) -> super::builders::translation_service::CreateGlossaryEntry {
+        super::builders::translation_service::CreateGlossaryEntry::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -296,8 +296,8 @@ impl TranslationService {
     pub fn update_glossary_entry(
         &self,
         glossary_entry: impl Into<crate::model::GlossaryEntry>,
-    ) -> crate::builders::translation_service::UpdateGlossaryEntry {
-        crate::builders::translation_service::UpdateGlossaryEntry::new(self.inner.clone())
+    ) -> super::builders::translation_service::UpdateGlossaryEntry {
+        super::builders::translation_service::UpdateGlossaryEntry::new(self.inner.clone())
             .set_glossary_entry(glossary_entry.into())
     }
 
@@ -305,8 +305,8 @@ impl TranslationService {
     pub fn delete_glossary_entry(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::DeleteGlossaryEntry {
-        crate::builders::translation_service::DeleteGlossaryEntry::new(self.inner.clone())
+    ) -> super::builders::translation_service::DeleteGlossaryEntry {
+        super::builders::translation_service::DeleteGlossaryEntry::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -324,8 +324,8 @@ impl TranslationService {
     pub fn create_dataset(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::CreateDataset {
-        crate::builders::translation_service::CreateDataset::new(self.inner.clone())
+    ) -> super::builders::translation_service::CreateDataset {
+        super::builders::translation_service::CreateDataset::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -333,8 +333,8 @@ impl TranslationService {
     pub fn get_dataset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::GetDataset {
-        crate::builders::translation_service::GetDataset::new(self.inner.clone())
+    ) -> super::builders::translation_service::GetDataset {
+        super::builders::translation_service::GetDataset::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -342,8 +342,8 @@ impl TranslationService {
     pub fn list_datasets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ListDatasets {
-        crate::builders::translation_service::ListDatasets::new(self.inner.clone())
+    ) -> super::builders::translation_service::ListDatasets {
+        super::builders::translation_service::ListDatasets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -361,8 +361,8 @@ impl TranslationService {
     pub fn delete_dataset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::DeleteDataset {
-        crate::builders::translation_service::DeleteDataset::new(self.inner.clone())
+    ) -> super::builders::translation_service::DeleteDataset {
+        super::builders::translation_service::DeleteDataset::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -370,8 +370,8 @@ impl TranslationService {
     pub fn create_adaptive_mt_dataset(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::CreateAdaptiveMtDataset {
-        crate::builders::translation_service::CreateAdaptiveMtDataset::new(self.inner.clone())
+    ) -> super::builders::translation_service::CreateAdaptiveMtDataset {
+        super::builders::translation_service::CreateAdaptiveMtDataset::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -380,8 +380,8 @@ impl TranslationService {
     pub fn delete_adaptive_mt_dataset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::DeleteAdaptiveMtDataset {
-        crate::builders::translation_service::DeleteAdaptiveMtDataset::new(self.inner.clone())
+    ) -> super::builders::translation_service::DeleteAdaptiveMtDataset {
+        super::builders::translation_service::DeleteAdaptiveMtDataset::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -389,8 +389,8 @@ impl TranslationService {
     pub fn get_adaptive_mt_dataset(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::GetAdaptiveMtDataset {
-        crate::builders::translation_service::GetAdaptiveMtDataset::new(self.inner.clone())
+    ) -> super::builders::translation_service::GetAdaptiveMtDataset {
+        super::builders::translation_service::GetAdaptiveMtDataset::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -398,8 +398,8 @@ impl TranslationService {
     pub fn list_adaptive_mt_datasets(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ListAdaptiveMtDatasets {
-        crate::builders::translation_service::ListAdaptiveMtDatasets::new(self.inner.clone())
+    ) -> super::builders::translation_service::ListAdaptiveMtDatasets {
+        super::builders::translation_service::ListAdaptiveMtDatasets::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -407,8 +407,8 @@ impl TranslationService {
     pub fn adaptive_mt_translate(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::AdaptiveMtTranslate {
-        crate::builders::translation_service::AdaptiveMtTranslate::new(self.inner.clone())
+    ) -> super::builders::translation_service::AdaptiveMtTranslate {
+        super::builders::translation_service::AdaptiveMtTranslate::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -416,8 +416,8 @@ impl TranslationService {
     pub fn get_adaptive_mt_file(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::GetAdaptiveMtFile {
-        crate::builders::translation_service::GetAdaptiveMtFile::new(self.inner.clone())
+    ) -> super::builders::translation_service::GetAdaptiveMtFile {
+        super::builders::translation_service::GetAdaptiveMtFile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -425,8 +425,8 @@ impl TranslationService {
     pub fn delete_adaptive_mt_file(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::DeleteAdaptiveMtFile {
-        crate::builders::translation_service::DeleteAdaptiveMtFile::new(self.inner.clone())
+    ) -> super::builders::translation_service::DeleteAdaptiveMtFile {
+        super::builders::translation_service::DeleteAdaptiveMtFile::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -435,8 +435,8 @@ impl TranslationService {
     pub fn import_adaptive_mt_file(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ImportAdaptiveMtFile {
-        crate::builders::translation_service::ImportAdaptiveMtFile::new(self.inner.clone())
+    ) -> super::builders::translation_service::ImportAdaptiveMtFile {
+        super::builders::translation_service::ImportAdaptiveMtFile::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -444,8 +444,8 @@ impl TranslationService {
     pub fn list_adaptive_mt_files(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ListAdaptiveMtFiles {
-        crate::builders::translation_service::ListAdaptiveMtFiles::new(self.inner.clone())
+    ) -> super::builders::translation_service::ListAdaptiveMtFiles {
+        super::builders::translation_service::ListAdaptiveMtFiles::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -453,8 +453,8 @@ impl TranslationService {
     pub fn list_adaptive_mt_sentences(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ListAdaptiveMtSentences {
-        crate::builders::translation_service::ListAdaptiveMtSentences::new(self.inner.clone())
+    ) -> super::builders::translation_service::ListAdaptiveMtSentences {
+        super::builders::translation_service::ListAdaptiveMtSentences::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -472,8 +472,8 @@ impl TranslationService {
     pub fn import_data(
         &self,
         dataset: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ImportData {
-        crate::builders::translation_service::ImportData::new(self.inner.clone())
+    ) -> super::builders::translation_service::ImportData {
+        super::builders::translation_service::ImportData::new(self.inner.clone())
             .set_dataset(dataset.into())
     }
 
@@ -491,8 +491,8 @@ impl TranslationService {
     pub fn export_data(
         &self,
         dataset: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ExportData {
-        crate::builders::translation_service::ExportData::new(self.inner.clone())
+    ) -> super::builders::translation_service::ExportData {
+        super::builders::translation_service::ExportData::new(self.inner.clone())
             .set_dataset(dataset.into())
     }
 
@@ -500,8 +500,8 @@ impl TranslationService {
     pub fn list_examples(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ListExamples {
-        crate::builders::translation_service::ListExamples::new(self.inner.clone())
+    ) -> super::builders::translation_service::ListExamples {
+        super::builders::translation_service::ListExamples::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -519,8 +519,8 @@ impl TranslationService {
     pub fn create_model(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::CreateModel {
-        crate::builders::translation_service::CreateModel::new(self.inner.clone())
+    ) -> super::builders::translation_service::CreateModel {
+        super::builders::translation_service::CreateModel::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -528,8 +528,8 @@ impl TranslationService {
     pub fn list_models(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ListModels {
-        crate::builders::translation_service::ListModels::new(self.inner.clone())
+    ) -> super::builders::translation_service::ListModels {
+        super::builders::translation_service::ListModels::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -537,8 +537,8 @@ impl TranslationService {
     pub fn get_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::GetModel {
-        crate::builders::translation_service::GetModel::new(self.inner.clone())
+    ) -> super::builders::translation_service::GetModel {
+        super::builders::translation_service::GetModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -556,8 +556,8 @@ impl TranslationService {
     pub fn delete_model(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::DeleteModel {
-        crate::builders::translation_service::DeleteModel::new(self.inner.clone())
+    ) -> super::builders::translation_service::DeleteModel {
+        super::builders::translation_service::DeleteModel::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -565,8 +565,8 @@ impl TranslationService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ListLocations {
-        crate::builders::translation_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::translation_service::ListLocations {
+        super::builders::translation_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -574,8 +574,8 @@ impl TranslationService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::GetLocation {
-        crate::builders::translation_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::translation_service::GetLocation {
+        super::builders::translation_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -585,8 +585,8 @@ impl TranslationService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::ListOperations {
-        crate::builders::translation_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::translation_service::ListOperations {
+        super::builders::translation_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -596,8 +596,8 @@ impl TranslationService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::GetOperation {
-        crate::builders::translation_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::translation_service::GetOperation {
+        super::builders::translation_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -607,8 +607,8 @@ impl TranslationService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::DeleteOperation {
-        crate::builders::translation_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::translation_service::DeleteOperation {
+        super::builders::translation_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -618,8 +618,8 @@ impl TranslationService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::CancelOperation {
-        crate::builders::translation_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::translation_service::CancelOperation {
+        super::builders::translation_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -629,8 +629,8 @@ impl TranslationService {
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::translation_service::WaitOperation {
-        crate::builders::translation_service::WaitOperation::new(self.inner.clone())
+    ) -> super::builders::translation_service::WaitOperation {
+        super::builders::translation_service::WaitOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

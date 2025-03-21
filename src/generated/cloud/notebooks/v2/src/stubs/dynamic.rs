@@ -156,9 +156,9 @@ pub trait NotebookService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::NotebookService] also implement [NotebookService].
+/// All implementations of [super::NotebookService] also implement [NotebookService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::NotebookService> NotebookService for T {
+impl<T: super::NotebookService> NotebookService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_instances(
         &self,

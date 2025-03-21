@@ -18,10 +18,10 @@ pub mod cloud_scheduler {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudScheduler] request builders.
+    /// Common implementation for [super::super::client::CloudScheduler] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod cloud_scheduler {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod cloud_scheduler {
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,11 +68,11 @@ pub mod cloud_scheduler {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListJobsResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -111,7 +111,7 @@ pub mod cloud_scheduler {
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -150,7 +150,7 @@ pub mod cloud_scheduler {
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -197,7 +197,7 @@ pub mod cloud_scheduler {
     pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
 
     impl UpdateJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -247,7 +247,7 @@ pub mod cloud_scheduler {
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -288,7 +288,7 @@ pub mod cloud_scheduler {
     pub struct PauseJob(RequestBuilder<crate::model::PauseJobRequest>);
 
     impl PauseJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -329,7 +329,7 @@ pub mod cloud_scheduler {
     pub struct ResumeJob(RequestBuilder<crate::model::ResumeJobRequest>);
 
     impl ResumeJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -370,7 +370,7 @@ pub mod cloud_scheduler {
     pub struct RunJob(RequestBuilder<crate::model::RunJobRequest>);
 
     impl RunJob {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -409,7 +409,7 @@ pub mod cloud_scheduler {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -436,12 +436,12 @@ pub mod cloud_scheduler {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -486,7 +486,7 @@ pub mod cloud_scheduler {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudScheduler>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

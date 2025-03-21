@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate lazy_static;
 extern crate location;
 extern crate reqwest;
@@ -1537,7 +1538,6 @@ impl wkt::message::Message for ListEventsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEventsResponse {
     type PageItem = crate::model::Event;
 
@@ -1546,7 +1546,8 @@ impl gax::paginator::PageableResponse for ListEventsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1752,7 +1753,6 @@ impl wkt::message::Message for ListOrganizationEventsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOrganizationEventsResponse {
     type PageItem = crate::model::OrganizationEvent;
 
@@ -1761,7 +1761,8 @@ impl gax::paginator::PageableResponse for ListOrganizationEventsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1960,7 +1961,6 @@ impl wkt::message::Message for ListOrganizationImpactsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOrganizationImpactsResponse {
     type PageItem = crate::model::OrganizationImpact;
 
@@ -1969,7 +1969,8 @@ impl gax::paginator::PageableResponse for ListOrganizationImpactsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

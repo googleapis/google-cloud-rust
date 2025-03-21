@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Grafeas].
+/// Defines the trait used to implement [super::client::Grafeas].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Grafeas`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Grafeas: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Grafeas::get_occurrence].
+    /// Implements [super::client::Grafeas::get_occurrence].
     fn get_occurrence(
         &self,
         _req: crate::model::GetOccurrenceRequest,
@@ -51,7 +51,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Grafeas::list_occurrences].
+    /// Implements [super::client::Grafeas::list_occurrences].
     fn list_occurrences(
         &self,
         _req: crate::model::ListOccurrencesRequest,
@@ -63,7 +63,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Grafeas::delete_occurrence].
+    /// Implements [super::client::Grafeas::delete_occurrence].
     fn delete_occurrence(
         &self,
         _req: crate::model::DeleteOccurrenceRequest,
@@ -72,7 +72,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Grafeas::create_occurrence].
+    /// Implements [super::client::Grafeas::create_occurrence].
     fn create_occurrence(
         &self,
         _req: crate::model::CreateOccurrenceRequest,
@@ -83,7 +83,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Grafeas::batch_create_occurrences].
+    /// Implements [super::client::Grafeas::batch_create_occurrences].
     fn batch_create_occurrences(
         &self,
         _req: crate::model::BatchCreateOccurrencesRequest,
@@ -95,7 +95,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Grafeas::update_occurrence].
+    /// Implements [super::client::Grafeas::update_occurrence].
     fn update_occurrence(
         &self,
         _req: crate::model::UpdateOccurrenceRequest,
@@ -106,7 +106,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Grafeas::get_occurrence_note].
+    /// Implements [super::client::Grafeas::get_occurrence_note].
     fn get_occurrence_note(
         &self,
         _req: crate::model::GetOccurrenceNoteRequest,
@@ -115,7 +115,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Note>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Grafeas::get_note].
+    /// Implements [super::client::Grafeas::get_note].
     fn get_note(
         &self,
         _req: crate::model::GetNoteRequest,
@@ -124,7 +124,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Note>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Grafeas::list_notes].
+    /// Implements [super::client::Grafeas::list_notes].
     fn list_notes(
         &self,
         _req: crate::model::ListNotesRequest,
@@ -136,7 +136,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Grafeas::delete_note].
+    /// Implements [super::client::Grafeas::delete_note].
     fn delete_note(
         &self,
         _req: crate::model::DeleteNoteRequest,
@@ -145,7 +145,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Grafeas::create_note].
+    /// Implements [super::client::Grafeas::create_note].
     fn create_note(
         &self,
         _req: crate::model::CreateNoteRequest,
@@ -154,7 +154,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Note>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Grafeas::batch_create_notes].
+    /// Implements [super::client::Grafeas::batch_create_notes].
     fn batch_create_notes(
         &self,
         _req: crate::model::BatchCreateNotesRequest,
@@ -166,7 +166,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Grafeas::update_note].
+    /// Implements [super::client::Grafeas::update_note].
     fn update_note(
         &self,
         _req: crate::model::UpdateNoteRequest,
@@ -175,7 +175,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Note>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Grafeas::list_note_occurrences].
+    /// Implements [super::client::Grafeas::list_note_occurrences].
     fn list_note_occurrences(
         &self,
         _req: crate::model::ListNoteOccurrencesRequest,

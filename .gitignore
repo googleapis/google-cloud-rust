@@ -16,6 +16,10 @@
 /target/
 **/target/
 
+# We create lockfiles when generating code via Prost+Tonic, but we do not want
+# to save these.
+**/Cargo.lock
+
 # We use a few Python tools for development [^1]. Reserve `.env/` to install
 # these tools in a local Python virtual environment.
 /.venv/

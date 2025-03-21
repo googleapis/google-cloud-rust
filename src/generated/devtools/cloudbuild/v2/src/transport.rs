@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [RepositoryManager](crate::stubs::RepositoryManager) using a [gax::http_client::ReqwestClient].
+/// Implements [RepositoryManager](super::stubs::RepositoryManager) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct RepositoryManager {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for RepositoryManager {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for RepositoryManager {
 }
 
 impl RepositoryManager {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::RepositoryManager for RepositoryManager {
+impl super::stubs::RepositoryManager for RepositoryManager {
     async fn create_connection(
         &self,
         req: crate::model::CreateConnectionRequest,
@@ -78,7 +78,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -102,7 +102,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -120,7 +120,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                     "/v2/{}",
                     req.connection
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("connection"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("connection"))?
                         .name
                 ),
             )
@@ -136,7 +136,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -163,7 +163,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -225,7 +225,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -250,7 +250,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -271,7 +271,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -335,7 +335,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -358,7 +358,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
             );
         let builder = builder.query(&[("refType", &req.ref_type.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -406,11 +406,11 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -449,7 +449,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

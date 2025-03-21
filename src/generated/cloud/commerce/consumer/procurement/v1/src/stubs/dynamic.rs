@@ -56,9 +56,9 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::LicenseManagementService] also implement [LicenseManagementService].
+/// All implementations of [super::LicenseManagementService] also implement [LicenseManagementService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::LicenseManagementService> LicenseManagementService for T {
+impl<T: super::LicenseManagementService> LicenseManagementService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_license_pool(
         &self,
@@ -164,9 +164,9 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ConsumerProcurementService] also implement [ConsumerProcurementService].
+/// All implementations of [super::ConsumerProcurementService] also implement [ConsumerProcurementService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ConsumerProcurementService> ConsumerProcurementService for T {
+impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn place_order(
         &self,

@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate gtype;
 extern crate lazy_static;
 extern crate reqwest;
@@ -238,7 +239,6 @@ impl wkt::message::Message for ListAccessApprovalRequestsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAccessApprovalRequestsResponse {
     type PageItem = crate::model::AccessApprovalRequest;
 
@@ -247,7 +247,8 @@ impl gax::paginator::PageableResponse for ListAccessApprovalRequestsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -854,7 +855,6 @@ impl wkt::message::Message for ListWorkloadsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkloadsResponse {
     type PageItem = crate::model::Workload;
 
@@ -863,7 +863,8 @@ impl gax::paginator::PageableResponse for ListWorkloadsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1260,7 +1261,6 @@ impl wkt::message::Message for ListCustomersResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCustomersResponse {
     type PageItem = crate::model::Customer;
 
@@ -1269,7 +1269,8 @@ impl gax::paginator::PageableResponse for ListCustomersResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -2914,7 +2915,6 @@ impl wkt::message::Message for ListViolationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListViolationsResponse {
     type PageItem = crate::model::Violation;
 
@@ -2923,7 +2923,8 @@ impl gax::paginator::PageableResponse for ListViolationsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

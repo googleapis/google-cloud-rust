@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ServiceHealth].
+/// Defines the trait used to implement [super::client::ServiceHealth].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ServiceHealth`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ServiceHealth::list_events].
+    /// Implements [super::client::ServiceHealth::list_events].
     fn list_events(
         &self,
         _req: crate::model::ListEventsRequest,
@@ -52,7 +52,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceHealth::get_event].
+    /// Implements [super::client::ServiceHealth::get_event].
     fn get_event(
         &self,
         _req: crate::model::GetEventRequest,
@@ -61,7 +61,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Event>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ServiceHealth::list_organization_events].
+    /// Implements [super::client::ServiceHealth::list_organization_events].
     fn list_organization_events(
         &self,
         _req: crate::model::ListOrganizationEventsRequest,
@@ -73,7 +73,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ServiceHealth::get_organization_event].
+    /// Implements [super::client::ServiceHealth::get_organization_event].
     fn get_organization_event(
         &self,
         _req: crate::model::GetOrganizationEventRequest,
@@ -85,7 +85,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceHealth::list_organization_impacts].
+    /// Implements [super::client::ServiceHealth::list_organization_impacts].
     fn list_organization_impacts(
         &self,
         _req: crate::model::ListOrganizationImpactsRequest,
@@ -98,7 +98,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ServiceHealth::get_organization_impact].
+    /// Implements [super::client::ServiceHealth::get_organization_impact].
     fn get_organization_impact(
         &self,
         _req: crate::model::GetOrganizationImpactRequest,
@@ -110,7 +110,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ServiceHealth::list_locations].
+    /// Implements [super::client::ServiceHealth::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -122,7 +122,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ServiceHealth::get_location].
+    /// Implements [super::client::ServiceHealth::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,

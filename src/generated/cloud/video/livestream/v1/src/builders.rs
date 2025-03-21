@@ -18,10 +18,10 @@ pub mod livestream_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::LivestreamService] request builders.
+    /// Common implementation for [super::super::client::LivestreamService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::LivestreamService>,
+        stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod livestream_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod livestream_service {
     pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
 
     impl CreateChannel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +65,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_channel][crate::client::LivestreamService::create_channel].
+        /// on [create_channel][super::super::client::LivestreamService::create_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_channel(self.0.request, self.0.options)
@@ -143,7 +143,7 @@ pub mod livestream_service {
     pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
 
     impl ListChannels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -167,12 +167,12 @@ pub mod livestream_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListChannelsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -223,7 +223,7 @@ pub mod livestream_service {
     pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
 
     impl GetChannel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -264,7 +264,7 @@ pub mod livestream_service {
     pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
 
     impl DeleteChannel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -285,7 +285,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_channel][crate::client::LivestreamService::delete_channel].
+        /// on [delete_channel][super::super::client::LivestreamService::delete_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_channel(self.0.request, self.0.options)
@@ -352,7 +352,7 @@ pub mod livestream_service {
     pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
 
     impl UpdateChannel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -373,7 +373,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_channel][crate::client::LivestreamService::update_channel].
+        /// on [update_channel][super::super::client::LivestreamService::update_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_channel(self.0.request, self.0.options)
@@ -448,7 +448,7 @@ pub mod livestream_service {
     pub struct StartChannel(RequestBuilder<crate::model::StartChannelRequest>);
 
     impl StartChannel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -469,7 +469,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_channel][crate::client::LivestreamService::start_channel].
+        /// on [start_channel][super::super::client::LivestreamService::start_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_channel(self.0.request, self.0.options)
@@ -536,7 +536,7 @@ pub mod livestream_service {
     pub struct StopChannel(RequestBuilder<crate::model::StopChannelRequest>);
 
     impl StopChannel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -557,7 +557,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_channel][crate::client::LivestreamService::stop_channel].
+        /// on [stop_channel][super::super::client::LivestreamService::stop_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_channel(self.0.request, self.0.options)
@@ -624,7 +624,7 @@ pub mod livestream_service {
     pub struct CreateInput(RequestBuilder<crate::model::CreateInputRequest>);
 
     impl CreateInput {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -645,7 +645,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_input][crate::client::LivestreamService::create_input].
+        /// on [create_input][super::super::client::LivestreamService::create_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_input(self.0.request, self.0.options)
@@ -723,7 +723,7 @@ pub mod livestream_service {
     pub struct ListInputs(RequestBuilder<crate::model::ListInputsRequest>);
 
     impl ListInputs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -747,12 +747,12 @@ pub mod livestream_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInputsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -803,7 +803,7 @@ pub mod livestream_service {
     pub struct GetInput(RequestBuilder<crate::model::GetInputRequest>);
 
     impl GetInput {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -844,7 +844,7 @@ pub mod livestream_service {
     pub struct DeleteInput(RequestBuilder<crate::model::DeleteInputRequest>);
 
     impl DeleteInput {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -865,7 +865,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_input][crate::client::LivestreamService::delete_input].
+        /// on [delete_input][super::super::client::LivestreamService::delete_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_input(self.0.request, self.0.options)
@@ -926,7 +926,7 @@ pub mod livestream_service {
     pub struct UpdateInput(RequestBuilder<crate::model::UpdateInputRequest>);
 
     impl UpdateInput {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -947,7 +947,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_input][crate::client::LivestreamService::update_input].
+        /// on [update_input][super::super::client::LivestreamService::update_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_input(self.0.request, self.0.options)
@@ -1022,7 +1022,7 @@ pub mod livestream_service {
     pub struct CreateEvent(RequestBuilder<crate::model::CreateEventRequest>);
 
     impl CreateEvent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1084,7 +1084,7 @@ pub mod livestream_service {
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1108,12 +1108,12 @@ pub mod livestream_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEventsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1164,7 +1164,7 @@ pub mod livestream_service {
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1205,7 +1205,7 @@ pub mod livestream_service {
     pub struct DeleteEvent(RequestBuilder<crate::model::DeleteEventRequest>);
 
     impl DeleteEvent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1252,7 +1252,7 @@ pub mod livestream_service {
     pub struct ListClips(RequestBuilder<crate::model::ListClipsRequest>);
 
     impl ListClips {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1276,11 +1276,11 @@ pub mod livestream_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListClipsResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1331,7 +1331,7 @@ pub mod livestream_service {
     pub struct GetClip(RequestBuilder<crate::model::GetClipRequest>);
 
     impl GetClip {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1372,7 +1372,7 @@ pub mod livestream_service {
     pub struct CreateClip(RequestBuilder<crate::model::CreateClipRequest>);
 
     impl CreateClip {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1393,7 +1393,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_clip][crate::client::LivestreamService::create_clip].
+        /// on [create_clip][super::super::client::LivestreamService::create_clip].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_clip(self.0.request, self.0.options)
@@ -1468,7 +1468,7 @@ pub mod livestream_service {
     pub struct DeleteClip(RequestBuilder<crate::model::DeleteClipRequest>);
 
     impl DeleteClip {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1489,7 +1489,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_clip][crate::client::LivestreamService::delete_clip].
+        /// on [delete_clip][super::super::client::LivestreamService::delete_clip].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_clip(self.0.request, self.0.options)
@@ -1550,7 +1550,7 @@ pub mod livestream_service {
     pub struct CreateAsset(RequestBuilder<crate::model::CreateAssetRequest>);
 
     impl CreateAsset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1571,7 +1571,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_asset][crate::client::LivestreamService::create_asset].
+        /// on [create_asset][super::super::client::LivestreamService::create_asset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_asset(self.0.request, self.0.options)
@@ -1649,7 +1649,7 @@ pub mod livestream_service {
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1670,7 +1670,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_asset][crate::client::LivestreamService::delete_asset].
+        /// on [delete_asset][super::super::client::LivestreamService::delete_asset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_asset(self.0.request, self.0.options)
@@ -1731,7 +1731,7 @@ pub mod livestream_service {
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1772,7 +1772,7 @@ pub mod livestream_service {
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1796,12 +1796,12 @@ pub mod livestream_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1852,7 +1852,7 @@ pub mod livestream_service {
     pub struct GetPool(RequestBuilder<crate::model::GetPoolRequest>);
 
     impl GetPool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1893,7 +1893,7 @@ pub mod livestream_service {
     pub struct UpdatePool(RequestBuilder<crate::model::UpdatePoolRequest>);
 
     impl UpdatePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1914,7 +1914,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_pool][crate::client::LivestreamService::update_pool].
+        /// on [update_pool][super::super::client::LivestreamService::update_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_pool(self.0.request, self.0.options)
@@ -1986,7 +1986,7 @@ pub mod livestream_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2013,12 +2013,12 @@ pub mod livestream_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2063,7 +2063,7 @@ pub mod livestream_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2104,7 +2104,7 @@ pub mod livestream_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2131,12 +2131,12 @@ pub mod livestream_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2181,7 +2181,7 @@ pub mod livestream_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2225,7 +2225,7 @@ pub mod livestream_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2269,7 +2269,7 @@ pub mod livestream_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::LivestreamService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

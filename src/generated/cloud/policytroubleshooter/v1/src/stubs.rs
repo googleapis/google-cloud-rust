@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::IamChecker].
+/// Defines the trait used to implement [super::client::IamChecker].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::IamChecker`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait IamChecker: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::IamChecker::troubleshoot_iam_policy].
+    /// Implements [super::client::IamChecker::troubleshoot_iam_policy].
     fn troubleshoot_iam_policy(
         &self,
         _req: crate::model::TroubleshootIamPolicyRequest,

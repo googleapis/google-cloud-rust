@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [IAMCredentials](crate::stubs::IAMCredentials) using a [gax::http_client::ReqwestClient].
+/// Implements [IAMCredentials](super::stubs::IAMCredentials) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct IAMCredentials {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for IAMCredentials {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for IAMCredentials {
 }
 
 impl IAMCredentials {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::IAMCredentials for IAMCredentials {
+impl super::stubs::IAMCredentials for IAMCredentials {
     async fn generate_access_token(
         &self,
         req: crate::model::GenerateAccessTokenRequest,

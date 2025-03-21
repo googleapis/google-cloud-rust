@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate rpc;
@@ -851,7 +852,6 @@ impl wkt::message::Message for ListDataSetsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDataSetsResponse {
     type PageItem = crate::model::DataSet;
 
@@ -860,7 +860,8 @@ impl gax::paginator::PageableResponse for ListDataSetsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

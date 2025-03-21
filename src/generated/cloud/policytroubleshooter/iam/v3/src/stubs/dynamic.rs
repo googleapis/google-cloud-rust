@@ -24,9 +24,9 @@ pub trait PolicyTroubleshooter: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::TroubleshootIamPolicyResponse>;
 }
 
-/// All implementations of [crate::stubs::PolicyTroubleshooter] also implement [PolicyTroubleshooter].
+/// All implementations of [super::PolicyTroubleshooter] also implement [PolicyTroubleshooter].
 #[async_trait::async_trait]
-impl<T: crate::stubs::PolicyTroubleshooter> PolicyTroubleshooter for T {
+impl<T: super::PolicyTroubleshooter> PolicyTroubleshooter for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn troubleshoot_iam_policy(
         &self,

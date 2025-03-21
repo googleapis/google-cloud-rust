@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Config].
+/// Defines the trait used to implement [super::client::Config].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Config`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Config: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Config::list_deployments].
+    /// Implements [super::client::Config::list_deployments].
     fn list_deployments(
         &self,
         _req: crate::model::ListDeploymentsRequest,
@@ -53,7 +53,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Config::get_deployment].
+    /// Implements [super::client::Config::get_deployment].
     fn get_deployment(
         &self,
         _req: crate::model::GetDeploymentRequest,
@@ -64,7 +64,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::create_deployment].
+    /// Implements [super::client::Config::create_deployment].
     fn create_deployment(
         &self,
         _req: crate::model::CreateDeploymentRequest,
@@ -76,7 +76,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::update_deployment].
+    /// Implements [super::client::Config::update_deployment].
     fn update_deployment(
         &self,
         _req: crate::model::UpdateDeploymentRequest,
@@ -88,7 +88,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::delete_deployment].
+    /// Implements [super::client::Config::delete_deployment].
     fn delete_deployment(
         &self,
         _req: crate::model::DeleteDeploymentRequest,
@@ -100,7 +100,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::list_revisions].
+    /// Implements [super::client::Config::list_revisions].
     fn list_revisions(
         &self,
         _req: crate::model::ListRevisionsRequest,
@@ -112,7 +112,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::get_revision].
+    /// Implements [super::client::Config::get_revision].
     fn get_revision(
         &self,
         _req: crate::model::GetRevisionRequest,
@@ -123,7 +123,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::get_resource].
+    /// Implements [super::client::Config::get_resource].
     fn get_resource(
         &self,
         _req: crate::model::GetResourceRequest,
@@ -134,7 +134,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::list_resources].
+    /// Implements [super::client::Config::list_resources].
     fn list_resources(
         &self,
         _req: crate::model::ListResourcesRequest,
@@ -146,7 +146,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::export_deployment_statefile].
+    /// Implements [super::client::Config::export_deployment_statefile].
     fn export_deployment_statefile(
         &self,
         _req: crate::model::ExportDeploymentStatefileRequest,
@@ -157,7 +157,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::export_revision_statefile].
+    /// Implements [super::client::Config::export_revision_statefile].
     fn export_revision_statefile(
         &self,
         _req: crate::model::ExportRevisionStatefileRequest,
@@ -168,7 +168,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::import_statefile].
+    /// Implements [super::client::Config::import_statefile].
     fn import_statefile(
         &self,
         _req: crate::model::ImportStatefileRequest,
@@ -179,7 +179,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::delete_statefile].
+    /// Implements [super::client::Config::delete_statefile].
     fn delete_statefile(
         &self,
         _req: crate::model::DeleteStatefileRequest,
@@ -188,7 +188,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Config::lock_deployment].
+    /// Implements [super::client::Config::lock_deployment].
     fn lock_deployment(
         &self,
         _req: crate::model::LockDeploymentRequest,
@@ -200,7 +200,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::unlock_deployment].
+    /// Implements [super::client::Config::unlock_deployment].
     fn unlock_deployment(
         &self,
         _req: crate::model::UnlockDeploymentRequest,
@@ -212,7 +212,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::export_lock_info].
+    /// Implements [super::client::Config::export_lock_info].
     fn export_lock_info(
         &self,
         _req: crate::model::ExportLockInfoRequest,
@@ -223,7 +223,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::create_preview].
+    /// Implements [super::client::Config::create_preview].
     fn create_preview(
         &self,
         _req: crate::model::CreatePreviewRequest,
@@ -235,7 +235,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::get_preview].
+    /// Implements [super::client::Config::get_preview].
     fn get_preview(
         &self,
         _req: crate::model::GetPreviewRequest,
@@ -246,7 +246,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::list_previews].
+    /// Implements [super::client::Config::list_previews].
     fn list_previews(
         &self,
         _req: crate::model::ListPreviewsRequest,
@@ -258,7 +258,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::delete_preview].
+    /// Implements [super::client::Config::delete_preview].
     fn delete_preview(
         &self,
         _req: crate::model::DeletePreviewRequest,
@@ -270,7 +270,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::export_preview_result].
+    /// Implements [super::client::Config::export_preview_result].
     fn export_preview_result(
         &self,
         _req: crate::model::ExportPreviewResultRequest,
@@ -282,7 +282,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Config::list_terraform_versions].
+    /// Implements [super::client::Config::list_terraform_versions].
     fn list_terraform_versions(
         &self,
         _req: crate::model::ListTerraformVersionsRequest,
@@ -294,7 +294,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Config::get_terraform_version].
+    /// Implements [super::client::Config::get_terraform_version].
     fn get_terraform_version(
         &self,
         _req: crate::model::GetTerraformVersionRequest,
@@ -306,7 +306,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::list_locations].
+    /// Implements [super::client::Config::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -318,7 +318,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Config::get_location].
+    /// Implements [super::client::Config::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -329,7 +329,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::set_iam_policy].
+    /// Implements [super::client::Config::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -340,7 +340,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::get_iam_policy].
+    /// Implements [super::client::Config::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -351,7 +351,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::test_iam_permissions].
+    /// Implements [super::client::Config::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -363,7 +363,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Config::list_operations].
+    /// Implements [super::client::Config::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -375,7 +375,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Config::get_operation].
+    /// Implements [super::client::Config::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -387,7 +387,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Config::delete_operation].
+    /// Implements [super::client::Config::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -396,7 +396,7 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Config::cancel_operation].
+    /// Implements [super::client::Config::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

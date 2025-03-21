@@ -18,10 +18,10 @@ pub mod instance_admin {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::InstanceAdmin] request builders.
+    /// Common implementation for [super::super::client::InstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>,
+        stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod instance_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod instance_admin {
     pub struct ListInstanceConfigs(RequestBuilder<crate::model::ListInstanceConfigsRequest>);
 
     impl ListInstanceConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -71,12 +71,12 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInstanceConfigsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -115,7 +115,7 @@ pub mod instance_admin {
     pub struct GetInstanceConfig(RequestBuilder<crate::model::GetInstanceConfigRequest>);
 
     impl GetInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +159,7 @@ pub mod instance_admin {
     pub struct CreateInstanceConfig(RequestBuilder<crate::model::CreateInstanceConfigRequest>);
 
     impl CreateInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -183,7 +183,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance_config][crate::client::InstanceAdmin::create_instance_config].
+        /// on [create_instance_config][super::super::client::InstanceAdmin::create_instance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance_config(self.0.request, self.0.options)
@@ -265,7 +265,7 @@ pub mod instance_admin {
     pub struct UpdateInstanceConfig(RequestBuilder<crate::model::UpdateInstanceConfigRequest>);
 
     impl UpdateInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -289,7 +289,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance_config][crate::client::InstanceAdmin::update_instance_config].
+        /// on [update_instance_config][super::super::client::InstanceAdmin::update_instance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance_config(self.0.request, self.0.options)
@@ -368,7 +368,7 @@ pub mod instance_admin {
     pub struct DeleteInstanceConfig(RequestBuilder<crate::model::DeleteInstanceConfigRequest>);
 
     impl DeleteInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -426,7 +426,7 @@ pub mod instance_admin {
     );
 
     impl ListInstanceConfigOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -453,14 +453,14 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListInstanceConfigOperationsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -505,7 +505,7 @@ pub mod instance_admin {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -529,12 +529,12 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -588,7 +588,7 @@ pub mod instance_admin {
     pub struct ListInstancePartitions(RequestBuilder<crate::model::ListInstancePartitionsRequest>);
 
     impl ListInstancePartitions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -615,14 +615,14 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListInstancePartitionsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -670,7 +670,7 @@ pub mod instance_admin {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -720,7 +720,7 @@ pub mod instance_admin {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -741,7 +741,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][crate::client::InstanceAdmin::create_instance].
+        /// on [create_instance][super::super::client::InstanceAdmin::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -815,7 +815,7 @@ pub mod instance_admin {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -836,7 +836,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][crate::client::InstanceAdmin::update_instance].
+        /// on [update_instance][super::super::client::InstanceAdmin::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -907,7 +907,7 @@ pub mod instance_admin {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -948,7 +948,7 @@ pub mod instance_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1007,7 +1007,7 @@ pub mod instance_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1057,7 +1057,7 @@ pub mod instance_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1112,7 +1112,7 @@ pub mod instance_admin {
     pub struct GetInstancePartition(RequestBuilder<crate::model::GetInstancePartitionRequest>);
 
     impl GetInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1158,7 +1158,7 @@ pub mod instance_admin {
     );
 
     impl CreateInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1182,7 +1182,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance_partition][crate::client::InstanceAdmin::create_instance_partition].
+        /// on [create_instance_partition][super::super::client::InstanceAdmin::create_instance_partition].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance_partition(self.0.request, self.0.options)
@@ -1264,7 +1264,7 @@ pub mod instance_admin {
     );
 
     impl DeleteInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1316,7 +1316,7 @@ pub mod instance_admin {
     );
 
     impl UpdateInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1340,7 +1340,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance_partition][crate::client::InstanceAdmin::update_instance_partition].
+        /// on [update_instance_partition][super::super::client::InstanceAdmin::update_instance_partition].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance_partition(self.0.request, self.0.options)
@@ -1419,7 +1419,7 @@ pub mod instance_admin {
     );
 
     impl ListInstancePartitionOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1446,14 +1446,14 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListInstancePartitionOperationsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1507,7 +1507,7 @@ pub mod instance_admin {
     pub struct MoveInstance(RequestBuilder<crate::model::MoveInstanceRequest>);
 
     impl MoveInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1528,7 +1528,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [move_instance][crate::client::InstanceAdmin::move_instance].
+        /// on [move_instance][super::super::client::InstanceAdmin::move_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .move_instance(self.0.request, self.0.options)
@@ -1595,7 +1595,7 @@ pub mod instance_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1622,12 +1622,12 @@ pub mod instance_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1672,7 +1672,7 @@ pub mod instance_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1716,7 +1716,7 @@ pub mod instance_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1760,7 +1760,7 @@ pub mod instance_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

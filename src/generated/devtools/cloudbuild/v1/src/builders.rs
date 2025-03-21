@@ -18,10 +18,10 @@ pub mod cloud_build {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudBuild] request builders.
+    /// Common implementation for [super::super::client::CloudBuild] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudBuild>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod cloud_build {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod cloud_build {
     pub struct CreateBuild(RequestBuilder<crate::model::CreateBuildRequest>);
 
     impl CreateBuild {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +65,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_build][crate::client::CloudBuild::create_build].
+        /// on [create_build][super::super::client::CloudBuild::create_build].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_build(self.0.request, self.0.options)
@@ -138,7 +138,7 @@ pub mod cloud_build {
     pub struct GetBuild(RequestBuilder<crate::model::GetBuildRequest>);
 
     impl GetBuild {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -191,7 +191,7 @@ pub mod cloud_build {
     pub struct ListBuilds(RequestBuilder<crate::model::ListBuildsRequest>);
 
     impl ListBuilds {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -215,12 +215,12 @@ pub mod cloud_build {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBuildsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -271,7 +271,7 @@ pub mod cloud_build {
     pub struct CancelBuild(RequestBuilder<crate::model::CancelBuildRequest>);
 
     impl CancelBuild {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -324,7 +324,7 @@ pub mod cloud_build {
     pub struct RetryBuild(RequestBuilder<crate::model::RetryBuildRequest>);
 
     impl RetryBuild {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -345,7 +345,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [retry_build][crate::client::CloudBuild::retry_build].
+        /// on [retry_build][super::super::client::CloudBuild::retry_build].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .retry_build(self.0.request, self.0.options)
@@ -415,7 +415,7 @@ pub mod cloud_build {
     pub struct ApproveBuild(RequestBuilder<crate::model::ApproveBuildRequest>);
 
     impl ApproveBuild {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -436,7 +436,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [approve_build][crate::client::CloudBuild::approve_build].
+        /// on [approve_build][super::super::client::CloudBuild::approve_build].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .approve_build(self.0.request, self.0.options)
@@ -503,7 +503,7 @@ pub mod cloud_build {
     pub struct CreateBuildTrigger(RequestBuilder<crate::model::CreateBuildTriggerRequest>);
 
     impl CreateBuildTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -562,7 +562,7 @@ pub mod cloud_build {
     pub struct GetBuildTrigger(RequestBuilder<crate::model::GetBuildTriggerRequest>);
 
     impl GetBuildTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -615,7 +615,7 @@ pub mod cloud_build {
     pub struct ListBuildTriggers(RequestBuilder<crate::model::ListBuildTriggersRequest>);
 
     impl ListBuildTriggers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -642,12 +642,12 @@ pub mod cloud_build {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBuildTriggersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -692,7 +692,7 @@ pub mod cloud_build {
     pub struct DeleteBuildTrigger(RequestBuilder<crate::model::DeleteBuildTriggerRequest>);
 
     impl DeleteBuildTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -748,7 +748,7 @@ pub mod cloud_build {
     pub struct UpdateBuildTrigger(RequestBuilder<crate::model::UpdateBuildTriggerRequest>);
 
     impl UpdateBuildTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -816,7 +816,7 @@ pub mod cloud_build {
     pub struct RunBuildTrigger(RequestBuilder<crate::model::RunBuildTriggerRequest>);
 
     impl RunBuildTrigger {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -837,7 +837,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_build_trigger][crate::client::CloudBuild::run_build_trigger].
+        /// on [run_build_trigger][super::super::client::CloudBuild::run_build_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_build_trigger(self.0.request, self.0.options)
@@ -916,7 +916,7 @@ pub mod cloud_build {
     pub struct ReceiveTriggerWebhook(RequestBuilder<crate::model::ReceiveTriggerWebhookRequest>);
 
     impl ReceiveTriggerWebhook {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -987,7 +987,7 @@ pub mod cloud_build {
     pub struct CreateWorkerPool(RequestBuilder<crate::model::CreateWorkerPoolRequest>);
 
     impl CreateWorkerPool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1011,7 +1011,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_worker_pool][crate::client::CloudBuild::create_worker_pool].
+        /// on [create_worker_pool][super::super::client::CloudBuild::create_worker_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_worker_pool(self.0.request, self.0.options)
@@ -1093,7 +1093,7 @@ pub mod cloud_build {
     pub struct GetWorkerPool(RequestBuilder<crate::model::GetWorkerPoolRequest>);
 
     impl GetWorkerPool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1134,7 +1134,7 @@ pub mod cloud_build {
     pub struct DeleteWorkerPool(RequestBuilder<crate::model::DeleteWorkerPoolRequest>);
 
     impl DeleteWorkerPool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1158,7 +1158,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_worker_pool][crate::client::CloudBuild::delete_worker_pool].
+        /// on [delete_worker_pool][super::super::client::CloudBuild::delete_worker_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_worker_pool(self.0.request, self.0.options)
@@ -1234,7 +1234,7 @@ pub mod cloud_build {
     pub struct UpdateWorkerPool(RequestBuilder<crate::model::UpdateWorkerPoolRequest>);
 
     impl UpdateWorkerPool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1258,7 +1258,7 @@ pub mod cloud_build {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_worker_pool][crate::client::CloudBuild::update_worker_pool].
+        /// on [update_worker_pool][super::super::client::CloudBuild::update_worker_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_worker_pool(self.0.request, self.0.options)
@@ -1337,7 +1337,7 @@ pub mod cloud_build {
     pub struct ListWorkerPools(RequestBuilder<crate::model::ListWorkerPoolsRequest>);
 
     impl ListWorkerPools {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1361,12 +1361,12 @@ pub mod cloud_build {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListWorkerPoolsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1405,7 +1405,7 @@ pub mod cloud_build {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1449,7 +1449,7 @@ pub mod cloud_build {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBuild>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBuild>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

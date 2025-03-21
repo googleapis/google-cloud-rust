@@ -21,6 +21,7 @@ extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate serde;

@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ModelArmor](crate::stubs::ModelArmor) using a [gax::http_client::ReqwestClient].
+/// Implements [ModelArmor](super::stubs::ModelArmor) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ModelArmor {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ModelArmor {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for ModelArmor {
 }
 
 impl ModelArmor {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::ModelArmor for ModelArmor {
+impl super::stubs::ModelArmor for ModelArmor {
     async fn list_templates(
         &self,
         req: crate::model::ListTemplatesRequest,
@@ -62,7 +62,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -123,7 +123,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
                     "/v1/{}",
                     req.template
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("template"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("template"))?
                         .name
                 ),
             )
@@ -139,7 +139,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -164,7 +164,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -183,7 +183,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -201,7 +201,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
                     "/v1/{}",
                     req.floor_setting
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("floor_setting"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("floor_setting"))?
                         .name
                 ),
             )
@@ -217,7 +217,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -283,7 +283,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -302,7 +302,7 @@ impl crate::stubs::ModelArmor for ModelArmor {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

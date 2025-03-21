@@ -18,10 +18,10 @@ pub mod policy_bindings {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::PolicyBindings] request builders.
+    /// Common implementation for [super::super::client::PolicyBindings] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::PolicyBindings>,
+        stub: Arc<dyn super::super::stubs::dynamic::PolicyBindings>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod policy_bindings {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::PolicyBindings>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod policy_bindings {
     pub struct CreatePolicyBinding(RequestBuilder<crate::model::CreatePolicyBindingRequest>);
 
     impl CreatePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::PolicyBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,7 +68,7 @@ pub mod policy_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_policy_binding][crate::client::PolicyBindings::create_policy_binding].
+        /// on [create_policy_binding][super::super::client::PolicyBindings::create_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_policy_binding(self.0.request, self.0.options)
@@ -148,7 +148,7 @@ pub mod policy_bindings {
     pub struct GetPolicyBinding(RequestBuilder<crate::model::GetPolicyBindingRequest>);
 
     impl GetPolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::PolicyBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -192,7 +192,7 @@ pub mod policy_bindings {
     pub struct UpdatePolicyBinding(RequestBuilder<crate::model::UpdatePolicyBindingRequest>);
 
     impl UpdatePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::PolicyBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -216,7 +216,7 @@ pub mod policy_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_policy_binding][crate::client::PolicyBindings::update_policy_binding].
+        /// on [update_policy_binding][super::super::client::PolicyBindings::update_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_policy_binding(self.0.request, self.0.options)
@@ -293,7 +293,7 @@ pub mod policy_bindings {
     pub struct DeletePolicyBinding(RequestBuilder<crate::model::DeletePolicyBindingRequest>);
 
     impl DeletePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::PolicyBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -317,7 +317,7 @@ pub mod policy_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_policy_binding][crate::client::PolicyBindings::delete_policy_binding].
+        /// on [delete_policy_binding][super::super::client::PolicyBindings::delete_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_policy_binding(self.0.request, self.0.options)
@@ -384,7 +384,7 @@ pub mod policy_bindings {
     pub struct ListPolicyBindings(RequestBuilder<crate::model::ListPolicyBindingsRequest>);
 
     impl ListPolicyBindings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::PolicyBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -411,12 +411,12 @@ pub mod policy_bindings {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPolicyBindingsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -463,7 +463,7 @@ pub mod policy_bindings {
     );
 
     impl SearchTargetPolicyBindings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::PolicyBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -490,14 +490,14 @@ pub mod policy_bindings {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::SearchTargetPolicyBindingsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -542,7 +542,7 @@ pub mod policy_bindings {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::PolicyBindings>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -586,10 +586,10 @@ pub mod principal_access_boundary_policies {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::PrincipalAccessBoundaryPolicies] request builders.
+    /// Common implementation for [super::super::client::PrincipalAccessBoundaryPolicies] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+        stub: Arc<dyn super::super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -599,7 +599,7 @@ pub mod principal_access_boundary_policies {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: Arc<dyn super::super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self {
                 stub,
@@ -617,7 +617,7 @@ pub mod principal_access_boundary_policies {
 
     impl CreatePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: Arc<dyn super::super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -642,7 +642,7 @@ pub mod principal_access_boundary_policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy].
+        /// on [create_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_principal_access_boundary_policy(self.0.request, self.0.options)
@@ -732,7 +732,7 @@ pub mod principal_access_boundary_policies {
 
     impl GetPrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: Arc<dyn super::super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -780,7 +780,7 @@ pub mod principal_access_boundary_policies {
 
     impl UpdatePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: Arc<dyn super::super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -805,7 +805,7 @@ pub mod principal_access_boundary_policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy].
+        /// on [update_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_principal_access_boundary_policy(self.0.request, self.0.options)
@@ -889,7 +889,7 @@ pub mod principal_access_boundary_policies {
 
     impl DeletePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: Arc<dyn super::super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -914,7 +914,7 @@ pub mod principal_access_boundary_policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy].
+        /// on [delete_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_principal_access_boundary_policy(self.0.request, self.0.options)
@@ -990,7 +990,7 @@ pub mod principal_access_boundary_policies {
 
     impl ListPrincipalAccessBoundaryPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: Arc<dyn super::super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1020,14 +1020,14 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListPrincipalAccessBoundaryPoliciesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1069,7 +1069,7 @@ pub mod principal_access_boundary_policies {
 
     impl SearchPrincipalAccessBoundaryPolicyBindings {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: Arc<dyn super::super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1101,14 +1101,14 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1148,7 +1148,7 @@ pub mod principal_access_boundary_policies {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: Arc<dyn super::super::stubs::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

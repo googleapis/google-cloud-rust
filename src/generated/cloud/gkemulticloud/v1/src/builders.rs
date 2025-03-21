@@ -18,10 +18,10 @@ pub mod attached_clusters {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AttachedClusters] request builders.
+    /// Common implementation for [super::super::client::AttachedClusters] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>,
+        stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod attached_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod attached_clusters {
     pub struct CreateAttachedCluster(RequestBuilder<crate::model::CreateAttachedClusterRequest>);
 
     impl CreateAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,7 +68,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_attached_cluster][crate::client::AttachedClusters::create_attached_cluster].
+        /// on [create_attached_cluster][super::super::client::AttachedClusters::create_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_attached_cluster(self.0.request, self.0.options)
@@ -148,7 +148,7 @@ pub mod attached_clusters {
     pub struct UpdateAttachedCluster(RequestBuilder<crate::model::UpdateAttachedClusterRequest>);
 
     impl UpdateAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -172,7 +172,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_attached_cluster][crate::client::AttachedClusters::update_attached_cluster].
+        /// on [update_attached_cluster][super::super::client::AttachedClusters::update_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_attached_cluster(self.0.request, self.0.options)
@@ -249,7 +249,7 @@ pub mod attached_clusters {
     pub struct ImportAttachedCluster(RequestBuilder<crate::model::ImportAttachedClusterRequest>);
 
     impl ImportAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -273,7 +273,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_attached_cluster][crate::client::AttachedClusters::import_attached_cluster].
+        /// on [import_attached_cluster][super::super::client::AttachedClusters::import_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_attached_cluster(self.0.request, self.0.options)
@@ -365,7 +365,7 @@ pub mod attached_clusters {
     pub struct GetAttachedCluster(RequestBuilder<crate::model::GetAttachedClusterRequest>);
 
     impl GetAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -409,7 +409,7 @@ pub mod attached_clusters {
     pub struct ListAttachedClusters(RequestBuilder<crate::model::ListAttachedClustersRequest>);
 
     impl ListAttachedClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -436,12 +436,12 @@ pub mod attached_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAttachedClustersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -480,7 +480,7 @@ pub mod attached_clusters {
     pub struct DeleteAttachedCluster(RequestBuilder<crate::model::DeleteAttachedClusterRequest>);
 
     impl DeleteAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -504,7 +504,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_attached_cluster][crate::client::AttachedClusters::delete_attached_cluster].
+        /// on [delete_attached_cluster][super::super::client::AttachedClusters::delete_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_attached_cluster(self.0.request, self.0.options)
@@ -585,7 +585,7 @@ pub mod attached_clusters {
     );
 
     impl GetAttachedServerConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -631,7 +631,7 @@ pub mod attached_clusters {
     );
 
     impl GenerateAttachedClusterInstallManifest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -702,7 +702,7 @@ pub mod attached_clusters {
     );
 
     impl GenerateAttachedClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -794,7 +794,7 @@ pub mod attached_clusters {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -821,12 +821,12 @@ pub mod attached_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -871,7 +871,7 @@ pub mod attached_clusters {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -915,7 +915,7 @@ pub mod attached_clusters {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -959,7 +959,7 @@ pub mod attached_clusters {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AttachedClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1003,10 +1003,10 @@ pub mod aws_clusters {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AwsClusters] request builders.
+    /// Common implementation for [super::super::client::AwsClusters] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AwsClusters>,
+        stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1015,7 +1015,7 @@ pub mod aws_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1029,7 +1029,7 @@ pub mod aws_clusters {
     pub struct CreateAwsCluster(RequestBuilder<crate::model::CreateAwsClusterRequest>);
 
     impl CreateAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1053,7 +1053,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_aws_cluster][crate::client::AwsClusters::create_aws_cluster].
+        /// on [create_aws_cluster][super::super::client::AwsClusters::create_aws_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_aws_cluster(self.0.request, self.0.options)
@@ -1132,7 +1132,7 @@ pub mod aws_clusters {
     pub struct UpdateAwsCluster(RequestBuilder<crate::model::UpdateAwsClusterRequest>);
 
     impl UpdateAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1156,7 +1156,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_aws_cluster][crate::client::AwsClusters::update_aws_cluster].
+        /// on [update_aws_cluster][super::super::client::AwsClusters::update_aws_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_aws_cluster(self.0.request, self.0.options)
@@ -1232,7 +1232,7 @@ pub mod aws_clusters {
     pub struct GetAwsCluster(RequestBuilder<crate::model::GetAwsClusterRequest>);
 
     impl GetAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1273,7 +1273,7 @@ pub mod aws_clusters {
     pub struct ListAwsClusters(RequestBuilder<crate::model::ListAwsClustersRequest>);
 
     impl ListAwsClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1297,12 +1297,12 @@ pub mod aws_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAwsClustersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1341,7 +1341,7 @@ pub mod aws_clusters {
     pub struct DeleteAwsCluster(RequestBuilder<crate::model::DeleteAwsClusterRequest>);
 
     impl DeleteAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1365,7 +1365,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_aws_cluster][crate::client::AwsClusters::delete_aws_cluster].
+        /// on [delete_aws_cluster][super::super::client::AwsClusters::delete_aws_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_aws_cluster(self.0.request, self.0.options)
@@ -1446,7 +1446,7 @@ pub mod aws_clusters {
     );
 
     impl GenerateAwsClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1544,7 +1544,7 @@ pub mod aws_clusters {
     pub struct GenerateAwsAccessToken(RequestBuilder<crate::model::GenerateAwsAccessTokenRequest>);
 
     impl GenerateAwsAccessToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1588,7 +1588,7 @@ pub mod aws_clusters {
     pub struct CreateAwsNodePool(RequestBuilder<crate::model::CreateAwsNodePoolRequest>);
 
     impl CreateAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1612,7 +1612,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_aws_node_pool][crate::client::AwsClusters::create_aws_node_pool].
+        /// on [create_aws_node_pool][super::super::client::AwsClusters::create_aws_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_aws_node_pool(self.0.request, self.0.options)
@@ -1691,7 +1691,7 @@ pub mod aws_clusters {
     pub struct UpdateAwsNodePool(RequestBuilder<crate::model::UpdateAwsNodePoolRequest>);
 
     impl UpdateAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1715,7 +1715,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_aws_node_pool][crate::client::AwsClusters::update_aws_node_pool].
+        /// on [update_aws_node_pool][super::super::client::AwsClusters::update_aws_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_aws_node_pool(self.0.request, self.0.options)
@@ -1793,7 +1793,7 @@ pub mod aws_clusters {
     );
 
     impl RollbackAwsNodePoolUpdate {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1817,7 +1817,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rollback_aws_node_pool_update][crate::client::AwsClusters::rollback_aws_node_pool_update].
+        /// on [rollback_aws_node_pool_update][super::super::client::AwsClusters::rollback_aws_node_pool_update].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rollback_aws_node_pool_update(self.0.request, self.0.options)
@@ -1881,7 +1881,7 @@ pub mod aws_clusters {
     pub struct GetAwsNodePool(RequestBuilder<crate::model::GetAwsNodePoolRequest>);
 
     impl GetAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1922,7 +1922,7 @@ pub mod aws_clusters {
     pub struct ListAwsNodePools(RequestBuilder<crate::model::ListAwsNodePoolsRequest>);
 
     impl ListAwsNodePools {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1949,12 +1949,12 @@ pub mod aws_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAwsNodePoolsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1993,7 +1993,7 @@ pub mod aws_clusters {
     pub struct DeleteAwsNodePool(RequestBuilder<crate::model::DeleteAwsNodePoolRequest>);
 
     impl DeleteAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2017,7 +2017,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_aws_node_pool][crate::client::AwsClusters::delete_aws_node_pool].
+        /// on [delete_aws_node_pool][super::super::client::AwsClusters::delete_aws_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_aws_node_pool(self.0.request, self.0.options)
@@ -2096,7 +2096,7 @@ pub mod aws_clusters {
     pub struct GetAwsOpenIdConfig(RequestBuilder<crate::model::GetAwsOpenIdConfigRequest>);
 
     impl GetAwsOpenIdConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2140,7 +2140,7 @@ pub mod aws_clusters {
     pub struct GetAwsJsonWebKeys(RequestBuilder<crate::model::GetAwsJsonWebKeysRequest>);
 
     impl GetAwsJsonWebKeys {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2184,7 +2184,7 @@ pub mod aws_clusters {
     pub struct GetAwsServerConfig(RequestBuilder<crate::model::GetAwsServerConfigRequest>);
 
     impl GetAwsServerConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2228,7 +2228,7 @@ pub mod aws_clusters {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2255,12 +2255,12 @@ pub mod aws_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2305,7 +2305,7 @@ pub mod aws_clusters {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2349,7 +2349,7 @@ pub mod aws_clusters {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2393,7 +2393,7 @@ pub mod aws_clusters {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AwsClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2437,10 +2437,10 @@ pub mod azure_clusters {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AzureClusters] request builders.
+    /// Common implementation for [super::super::client::AzureClusters] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AzureClusters>,
+        stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2449,7 +2449,7 @@ pub mod azure_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2463,7 +2463,7 @@ pub mod azure_clusters {
     pub struct CreateAzureClient(RequestBuilder<crate::model::CreateAzureClientRequest>);
 
     impl CreateAzureClient {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2487,7 +2487,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_azure_client][crate::client::AzureClusters::create_azure_client].
+        /// on [create_azure_client][super::super::client::AzureClusters::create_azure_client].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_azure_client(self.0.request, self.0.options)
@@ -2566,7 +2566,7 @@ pub mod azure_clusters {
     pub struct GetAzureClient(RequestBuilder<crate::model::GetAzureClientRequest>);
 
     impl GetAzureClient {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2607,7 +2607,7 @@ pub mod azure_clusters {
     pub struct ListAzureClients(RequestBuilder<crate::model::ListAzureClientsRequest>);
 
     impl ListAzureClients {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2634,12 +2634,12 @@ pub mod azure_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAzureClientsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2678,7 +2678,7 @@ pub mod azure_clusters {
     pub struct DeleteAzureClient(RequestBuilder<crate::model::DeleteAzureClientRequest>);
 
     impl DeleteAzureClient {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2702,7 +2702,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_azure_client][crate::client::AzureClusters::delete_azure_client].
+        /// on [delete_azure_client][super::super::client::AzureClusters::delete_azure_client].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_azure_client(self.0.request, self.0.options)
@@ -2769,7 +2769,7 @@ pub mod azure_clusters {
     pub struct CreateAzureCluster(RequestBuilder<crate::model::CreateAzureClusterRequest>);
 
     impl CreateAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2793,7 +2793,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_azure_cluster][crate::client::AzureClusters::create_azure_cluster].
+        /// on [create_azure_cluster][super::super::client::AzureClusters::create_azure_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_azure_cluster(self.0.request, self.0.options)
@@ -2872,7 +2872,7 @@ pub mod azure_clusters {
     pub struct UpdateAzureCluster(RequestBuilder<crate::model::UpdateAzureClusterRequest>);
 
     impl UpdateAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2896,7 +2896,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_azure_cluster][crate::client::AzureClusters::update_azure_cluster].
+        /// on [update_azure_cluster][super::super::client::AzureClusters::update_azure_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_azure_cluster(self.0.request, self.0.options)
@@ -2972,7 +2972,7 @@ pub mod azure_clusters {
     pub struct GetAzureCluster(RequestBuilder<crate::model::GetAzureClusterRequest>);
 
     impl GetAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3013,7 +3013,7 @@ pub mod azure_clusters {
     pub struct ListAzureClusters(RequestBuilder<crate::model::ListAzureClustersRequest>);
 
     impl ListAzureClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3040,12 +3040,12 @@ pub mod azure_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAzureClustersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3084,7 +3084,7 @@ pub mod azure_clusters {
     pub struct DeleteAzureCluster(RequestBuilder<crate::model::DeleteAzureClusterRequest>);
 
     impl DeleteAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3108,7 +3108,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_azure_cluster][crate::client::AzureClusters::delete_azure_cluster].
+        /// on [delete_azure_cluster][super::super::client::AzureClusters::delete_azure_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_azure_cluster(self.0.request, self.0.options)
@@ -3189,7 +3189,7 @@ pub mod azure_clusters {
     );
 
     impl GenerateAzureClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3289,7 +3289,7 @@ pub mod azure_clusters {
     );
 
     impl GenerateAzureAccessToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3333,7 +3333,7 @@ pub mod azure_clusters {
     pub struct CreateAzureNodePool(RequestBuilder<crate::model::CreateAzureNodePoolRequest>);
 
     impl CreateAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3357,7 +3357,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_azure_node_pool][crate::client::AzureClusters::create_azure_node_pool].
+        /// on [create_azure_node_pool][super::super::client::AzureClusters::create_azure_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_azure_node_pool(self.0.request, self.0.options)
@@ -3437,7 +3437,7 @@ pub mod azure_clusters {
     pub struct UpdateAzureNodePool(RequestBuilder<crate::model::UpdateAzureNodePoolRequest>);
 
     impl UpdateAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3461,7 +3461,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_azure_node_pool][crate::client::AzureClusters::update_azure_node_pool].
+        /// on [update_azure_node_pool][super::super::client::AzureClusters::update_azure_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_azure_node_pool(self.0.request, self.0.options)
@@ -3538,7 +3538,7 @@ pub mod azure_clusters {
     pub struct GetAzureNodePool(RequestBuilder<crate::model::GetAzureNodePoolRequest>);
 
     impl GetAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3582,7 +3582,7 @@ pub mod azure_clusters {
     pub struct ListAzureNodePools(RequestBuilder<crate::model::ListAzureNodePoolsRequest>);
 
     impl ListAzureNodePools {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3609,12 +3609,12 @@ pub mod azure_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAzureNodePoolsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3653,7 +3653,7 @@ pub mod azure_clusters {
     pub struct DeleteAzureNodePool(RequestBuilder<crate::model::DeleteAzureNodePoolRequest>);
 
     impl DeleteAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3677,7 +3677,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_azure_node_pool][crate::client::AzureClusters::delete_azure_node_pool].
+        /// on [delete_azure_node_pool][super::super::client::AzureClusters::delete_azure_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_azure_node_pool(self.0.request, self.0.options)
@@ -3756,7 +3756,7 @@ pub mod azure_clusters {
     pub struct GetAzureOpenIdConfig(RequestBuilder<crate::model::GetAzureOpenIdConfigRequest>);
 
     impl GetAzureOpenIdConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3800,7 +3800,7 @@ pub mod azure_clusters {
     pub struct GetAzureJsonWebKeys(RequestBuilder<crate::model::GetAzureJsonWebKeysRequest>);
 
     impl GetAzureJsonWebKeys {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3844,7 +3844,7 @@ pub mod azure_clusters {
     pub struct GetAzureServerConfig(RequestBuilder<crate::model::GetAzureServerConfigRequest>);
 
     impl GetAzureServerConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3888,7 +3888,7 @@ pub mod azure_clusters {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3915,12 +3915,12 @@ pub mod azure_clusters {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3965,7 +3965,7 @@ pub mod azure_clusters {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4009,7 +4009,7 @@ pub mod azure_clusters {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4053,7 +4053,7 @@ pub mod azure_clusters {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AzureClusters>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

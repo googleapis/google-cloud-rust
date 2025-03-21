@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::Environments].
+/// Defines the trait used to implement [super::client::Environments].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::Environments`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Environments: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::Environments::create_environment].
+    /// Implements [super::client::Environments::create_environment].
     fn create_environment(
         &self,
         _req: crate::model::CreateEnvironmentRequest,
@@ -53,7 +53,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::get_environment].
+    /// Implements [super::client::Environments::get_environment].
     fn get_environment(
         &self,
         _req: crate::model::GetEnvironmentRequest,
@@ -64,7 +64,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::list_environments].
+    /// Implements [super::client::Environments::list_environments].
     fn list_environments(
         &self,
         _req: crate::model::ListEnvironmentsRequest,
@@ -76,7 +76,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::update_environment].
+    /// Implements [super::client::Environments::update_environment].
     fn update_environment(
         &self,
         _req: crate::model::UpdateEnvironmentRequest,
@@ -88,7 +88,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::delete_environment].
+    /// Implements [super::client::Environments::delete_environment].
     fn delete_environment(
         &self,
         _req: crate::model::DeleteEnvironmentRequest,
@@ -100,7 +100,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::execute_airflow_command].
+    /// Implements [super::client::Environments::execute_airflow_command].
     fn execute_airflow_command(
         &self,
         _req: crate::model::ExecuteAirflowCommandRequest,
@@ -112,7 +112,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::stop_airflow_command].
+    /// Implements [super::client::Environments::stop_airflow_command].
     fn stop_airflow_command(
         &self,
         _req: crate::model::StopAirflowCommandRequest,
@@ -124,7 +124,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::poll_airflow_command].
+    /// Implements [super::client::Environments::poll_airflow_command].
     fn poll_airflow_command(
         &self,
         _req: crate::model::PollAirflowCommandRequest,
@@ -136,7 +136,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::list_workloads].
+    /// Implements [super::client::Environments::list_workloads].
     fn list_workloads(
         &self,
         _req: crate::model::ListWorkloadsRequest,
@@ -148,7 +148,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::check_upgrade].
+    /// Implements [super::client::Environments::check_upgrade].
     fn check_upgrade(
         &self,
         _req: crate::model::CheckUpgradeRequest,
@@ -160,7 +160,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::create_user_workloads_secret].
+    /// Implements [super::client::Environments::create_user_workloads_secret].
     fn create_user_workloads_secret(
         &self,
         _req: crate::model::CreateUserWorkloadsSecretRequest,
@@ -172,7 +172,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::get_user_workloads_secret].
+    /// Implements [super::client::Environments::get_user_workloads_secret].
     fn get_user_workloads_secret(
         &self,
         _req: crate::model::GetUserWorkloadsSecretRequest,
@@ -184,7 +184,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::list_user_workloads_secrets].
+    /// Implements [super::client::Environments::list_user_workloads_secrets].
     fn list_user_workloads_secrets(
         &self,
         _req: crate::model::ListUserWorkloadsSecretsRequest,
@@ -197,7 +197,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::update_user_workloads_secret].
+    /// Implements [super::client::Environments::update_user_workloads_secret].
     fn update_user_workloads_secret(
         &self,
         _req: crate::model::UpdateUserWorkloadsSecretRequest,
@@ -209,7 +209,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::delete_user_workloads_secret].
+    /// Implements [super::client::Environments::delete_user_workloads_secret].
     fn delete_user_workloads_secret(
         &self,
         _req: crate::model::DeleteUserWorkloadsSecretRequest,
@@ -218,7 +218,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Environments::create_user_workloads_config_map].
+    /// Implements [super::client::Environments::create_user_workloads_config_map].
     fn create_user_workloads_config_map(
         &self,
         _req: crate::model::CreateUserWorkloadsConfigMapRequest,
@@ -230,7 +230,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::get_user_workloads_config_map].
+    /// Implements [super::client::Environments::get_user_workloads_config_map].
     fn get_user_workloads_config_map(
         &self,
         _req: crate::model::GetUserWorkloadsConfigMapRequest,
@@ -242,7 +242,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::list_user_workloads_config_maps].
+    /// Implements [super::client::Environments::list_user_workloads_config_maps].
     fn list_user_workloads_config_maps(
         &self,
         _req: crate::model::ListUserWorkloadsConfigMapsRequest,
@@ -255,7 +255,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::update_user_workloads_config_map].
+    /// Implements [super::client::Environments::update_user_workloads_config_map].
     fn update_user_workloads_config_map(
         &self,
         _req: crate::model::UpdateUserWorkloadsConfigMapRequest,
@@ -267,7 +267,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::delete_user_workloads_config_map].
+    /// Implements [super::client::Environments::delete_user_workloads_config_map].
     fn delete_user_workloads_config_map(
         &self,
         _req: crate::model::DeleteUserWorkloadsConfigMapRequest,
@@ -276,7 +276,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::Environments::save_snapshot].
+    /// Implements [super::client::Environments::save_snapshot].
     fn save_snapshot(
         &self,
         _req: crate::model::SaveSnapshotRequest,
@@ -288,7 +288,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::load_snapshot].
+    /// Implements [super::client::Environments::load_snapshot].
     fn load_snapshot(
         &self,
         _req: crate::model::LoadSnapshotRequest,
@@ -300,7 +300,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::database_failover].
+    /// Implements [super::client::Environments::database_failover].
     fn database_failover(
         &self,
         _req: crate::model::DatabaseFailoverRequest,
@@ -312,7 +312,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::fetch_database_properties].
+    /// Implements [super::client::Environments::fetch_database_properties].
     fn fetch_database_properties(
         &self,
         _req: crate::model::FetchDatabasePropertiesRequest,
@@ -325,7 +325,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::list_operations].
+    /// Implements [super::client::Environments::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -337,7 +337,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::Environments::get_operation].
+    /// Implements [super::client::Environments::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -349,7 +349,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::Environments::delete_operation].
+    /// Implements [super::client::Environments::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -381,7 +381,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [crate::client::ImageVersions].
+/// Defines the trait used to implement [super::client::ImageVersions].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ImageVersions`.  In other use-cases, application developers only
@@ -393,7 +393,7 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ImageVersions: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ImageVersions::list_image_versions].
+    /// Implements [super::client::ImageVersions::list_image_versions].
     fn list_image_versions(
         &self,
         _req: crate::model::ListImageVersionsRequest,
@@ -405,7 +405,7 @@ pub trait ImageVersions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ImageVersions::list_operations].
+    /// Implements [super::client::ImageVersions::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -417,7 +417,7 @@ pub trait ImageVersions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ImageVersions::get_operation].
+    /// Implements [super::client::ImageVersions::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -429,7 +429,7 @@ pub trait ImageVersions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ImageVersions::delete_operation].
+    /// Implements [super::client::ImageVersions::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,

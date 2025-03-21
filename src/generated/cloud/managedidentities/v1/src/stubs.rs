@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ManagedIdentitiesService].
+/// Defines the trait used to implement [super::client::ManagedIdentitiesService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ManagedIdentitiesService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ManagedIdentitiesService::create_microsoft_ad_domain].
+    /// Implements [super::client::ManagedIdentitiesService::create_microsoft_ad_domain].
     fn create_microsoft_ad_domain(
         &self,
         _req: crate::model::CreateMicrosoftAdDomainRequest,
@@ -53,7 +53,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::reset_admin_password].
+    /// Implements [super::client::ManagedIdentitiesService::reset_admin_password].
     fn reset_admin_password(
         &self,
         _req: crate::model::ResetAdminPasswordRequest,
@@ -65,7 +65,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::list_domains].
+    /// Implements [super::client::ManagedIdentitiesService::list_domains].
     fn list_domains(
         &self,
         _req: crate::model::ListDomainsRequest,
@@ -77,7 +77,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::get_domain].
+    /// Implements [super::client::ManagedIdentitiesService::get_domain].
     fn get_domain(
         &self,
         _req: crate::model::GetDomainRequest,
@@ -88,7 +88,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::update_domain].
+    /// Implements [super::client::ManagedIdentitiesService::update_domain].
     fn update_domain(
         &self,
         _req: crate::model::UpdateDomainRequest,
@@ -100,7 +100,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::delete_domain].
+    /// Implements [super::client::ManagedIdentitiesService::delete_domain].
     fn delete_domain(
         &self,
         _req: crate::model::DeleteDomainRequest,
@@ -112,7 +112,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::attach_trust].
+    /// Implements [super::client::ManagedIdentitiesService::attach_trust].
     fn attach_trust(
         &self,
         _req: crate::model::AttachTrustRequest,
@@ -124,7 +124,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::reconfigure_trust].
+    /// Implements [super::client::ManagedIdentitiesService::reconfigure_trust].
     fn reconfigure_trust(
         &self,
         _req: crate::model::ReconfigureTrustRequest,
@@ -136,7 +136,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::detach_trust].
+    /// Implements [super::client::ManagedIdentitiesService::detach_trust].
     fn detach_trust(
         &self,
         _req: crate::model::DetachTrustRequest,
@@ -148,7 +148,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::validate_trust].
+    /// Implements [super::client::ManagedIdentitiesService::validate_trust].
     fn validate_trust(
         &self,
         _req: crate::model::ValidateTrustRequest,
@@ -160,7 +160,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::list_operations].
+    /// Implements [super::client::ManagedIdentitiesService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -172,7 +172,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::get_operation].
+    /// Implements [super::client::ManagedIdentitiesService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -184,7 +184,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::delete_operation].
+    /// Implements [super::client::ManagedIdentitiesService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -193,7 +193,7 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ManagedIdentitiesService::cancel_operation].
+    /// Implements [super::client::ManagedIdentitiesService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

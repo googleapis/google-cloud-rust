@@ -43,7 +43,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct FunctionService {
-    inner: Arc<dyn crate::stubs::dynamic::FunctionService>,
+    inner: Arc<dyn super::stubs::dynamic::FunctionService>,
 }
 
 impl FunctionService {
@@ -64,7 +64,7 @@ impl FunctionService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::FunctionService + 'static,
+        T: super::stubs::FunctionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -73,7 +73,7 @@ impl FunctionService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::FunctionService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::FunctionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -82,24 +82,24 @@ impl FunctionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::FunctionService> {
-        crate::transport::FunctionService::new(conf).await
+    ) -> Result<impl super::stubs::FunctionService> {
+        super::transport::FunctionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::FunctionService> {
+    ) -> Result<impl super::stubs::FunctionService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::FunctionService::new)
+            .map(super::tracing::FunctionService::new)
     }
 
     /// Returns a function with the given name from the requested project.
     pub fn get_function(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::GetFunction {
-        crate::builders::function_service::GetFunction::new(self.inner.clone())
+    ) -> super::builders::function_service::GetFunction {
+        super::builders::function_service::GetFunction::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -107,8 +107,8 @@ impl FunctionService {
     pub fn list_functions(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::ListFunctions {
-        crate::builders::function_service::ListFunctions::new(self.inner.clone())
+    ) -> super::builders::function_service::ListFunctions {
+        super::builders::function_service::ListFunctions::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -128,8 +128,8 @@ impl FunctionService {
     pub fn create_function(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::CreateFunction {
-        crate::builders::function_service::CreateFunction::new(self.inner.clone())
+    ) -> super::builders::function_service::CreateFunction {
+        super::builders::function_service::CreateFunction::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -147,8 +147,8 @@ impl FunctionService {
     pub fn update_function(
         &self,
         function: impl Into<crate::model::Function>,
-    ) -> crate::builders::function_service::UpdateFunction {
-        crate::builders::function_service::UpdateFunction::new(self.inner.clone())
+    ) -> super::builders::function_service::UpdateFunction {
+        super::builders::function_service::UpdateFunction::new(self.inner.clone())
             .set_function(function.into())
     }
 
@@ -168,8 +168,8 @@ impl FunctionService {
     pub fn delete_function(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::DeleteFunction {
-        crate::builders::function_service::DeleteFunction::new(self.inner.clone())
+    ) -> super::builders::function_service::DeleteFunction {
+        super::builders::function_service::DeleteFunction::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -199,8 +199,8 @@ impl FunctionService {
     pub fn generate_upload_url(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::GenerateUploadUrl {
-        crate::builders::function_service::GenerateUploadUrl::new(self.inner.clone())
+    ) -> super::builders::function_service::GenerateUploadUrl {
+        super::builders::function_service::GenerateUploadUrl::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -212,8 +212,8 @@ impl FunctionService {
     pub fn generate_download_url(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::GenerateDownloadUrl {
-        crate::builders::function_service::GenerateDownloadUrl::new(self.inner.clone())
+    ) -> super::builders::function_service::GenerateDownloadUrl {
+        super::builders::function_service::GenerateDownloadUrl::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -221,8 +221,8 @@ impl FunctionService {
     pub fn list_runtimes(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::ListRuntimes {
-        crate::builders::function_service::ListRuntimes::new(self.inner.clone())
+    ) -> super::builders::function_service::ListRuntimes {
+        super::builders::function_service::ListRuntimes::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -230,8 +230,8 @@ impl FunctionService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::ListLocations {
-        crate::builders::function_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::function_service::ListLocations {
+        super::builders::function_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -243,8 +243,8 @@ impl FunctionService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::SetIamPolicy {
-        crate::builders::function_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::function_service::SetIamPolicy {
+        super::builders::function_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -253,8 +253,8 @@ impl FunctionService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::GetIamPolicy {
-        crate::builders::function_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::function_service::GetIamPolicy {
+        super::builders::function_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -268,8 +268,8 @@ impl FunctionService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::TestIamPermissions {
-        crate::builders::function_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::function_service::TestIamPermissions {
+        super::builders::function_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -279,8 +279,8 @@ impl FunctionService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::ListOperations {
-        crate::builders::function_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::function_service::ListOperations {
+        super::builders::function_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -290,8 +290,8 @@ impl FunctionService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::function_service::GetOperation {
-        crate::builders::function_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::function_service::GetOperation {
+        super::builders::function_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

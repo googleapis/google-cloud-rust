@@ -18,10 +18,10 @@ pub mod dashboards_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DashboardsService] request builders.
+    /// Common implementation for [super::super::client::DashboardsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DashboardsService>,
+        stub: Arc<dyn super::super::stubs::dynamic::DashboardsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod dashboards_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DashboardsService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod dashboards_service {
     pub struct CreateDashboard(RequestBuilder<crate::model::CreateDashboardRequest>);
 
     impl CreateDashboard {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DashboardsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -100,7 +100,7 @@ pub mod dashboards_service {
     pub struct ListDashboards(RequestBuilder<crate::model::ListDashboardsRequest>);
 
     impl ListDashboards {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DashboardsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -124,12 +124,12 @@ pub mod dashboards_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDashboardsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -168,7 +168,7 @@ pub mod dashboards_service {
     pub struct GetDashboard(RequestBuilder<crate::model::GetDashboardRequest>);
 
     impl GetDashboard {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DashboardsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -209,7 +209,7 @@ pub mod dashboards_service {
     pub struct DeleteDashboard(RequestBuilder<crate::model::DeleteDashboardRequest>);
 
     impl DeleteDashboard {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DashboardsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -250,7 +250,7 @@ pub mod dashboards_service {
     pub struct UpdateDashboard(RequestBuilder<crate::model::UpdateDashboardRequest>);
 
     impl UpdateDashboard {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DashboardsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

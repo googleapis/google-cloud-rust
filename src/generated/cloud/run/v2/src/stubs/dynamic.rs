@@ -50,9 +50,9 @@ pub trait Builds: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::Builds] also implement [Builds].
+/// All implementations of [super::Builds] also implement [Builds].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Builds> Builds for T {
+impl<T: super::Builds> Builds for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn submit_build(
         &self,
@@ -161,9 +161,9 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Executions] also implement [Executions].
+/// All implementations of [super::Executions] also implement [Executions].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Executions> Executions for T {
+impl<T: super::Executions> Executions for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_execution(
         &self,
@@ -343,9 +343,9 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Jobs] also implement [Jobs].
+/// All implementations of [super::Jobs] also implement [Jobs].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Jobs> Jobs for T {
+impl<T: super::Jobs> Jobs for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_job(
         &self,
@@ -534,9 +534,9 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Revisions] also implement [Revisions].
+/// All implementations of [super::Revisions] also implement [Revisions].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Revisions> Revisions for T {
+impl<T: super::Revisions> Revisions for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_revision(
         &self,
@@ -701,9 +701,9 @@ pub trait Services: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Services] also implement [Services].
+/// All implementations of [super::Services] also implement [Services].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Services> Services for T {
+impl<T: super::Services> Services for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_service(
         &self,
@@ -867,9 +867,9 @@ pub trait Tasks: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::Tasks] also implement [Tasks].
+/// All implementations of [super::Tasks] also implement [Tasks].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Tasks> Tasks for T {
+impl<T: super::Tasks> Tasks for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_task(
         &self,

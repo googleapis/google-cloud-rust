@@ -18,10 +18,10 @@ pub mod edge_network {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::EdgeNetwork] request builders.
+    /// Common implementation for [super::super::client::EdgeNetwork] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>,
+        stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod edge_network {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod edge_network {
     pub struct InitializeZone(RequestBuilder<crate::model::InitializeZoneRequest>);
 
     impl InitializeZone {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -85,7 +85,7 @@ pub mod edge_network {
     pub struct ListZones(RequestBuilder<crate::model::ListZonesRequest>);
 
     impl ListZones {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -109,11 +109,11 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListZonesResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -164,7 +164,7 @@ pub mod edge_network {
     pub struct GetZone(RequestBuilder<crate::model::GetZoneRequest>);
 
     impl GetZone {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -205,7 +205,7 @@ pub mod edge_network {
     pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
 
     impl ListNetworks {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -229,12 +229,12 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNetworksResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -285,7 +285,7 @@ pub mod edge_network {
     pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
 
     impl GetNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -326,7 +326,7 @@ pub mod edge_network {
     pub struct DiagnoseNetwork(RequestBuilder<crate::model::DiagnoseNetworkRequest>);
 
     impl DiagnoseNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -367,7 +367,7 @@ pub mod edge_network {
     pub struct CreateNetwork(RequestBuilder<crate::model::CreateNetworkRequest>);
 
     impl CreateNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -388,7 +388,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_network][crate::client::EdgeNetwork::create_network].
+        /// on [create_network][super::super::client::EdgeNetwork::create_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_network(self.0.request, self.0.options)
@@ -466,7 +466,7 @@ pub mod edge_network {
     pub struct DeleteNetwork(RequestBuilder<crate::model::DeleteNetworkRequest>);
 
     impl DeleteNetwork {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -487,7 +487,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_network][crate::client::EdgeNetwork::delete_network].
+        /// on [delete_network][super::super::client::EdgeNetwork::delete_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_network(self.0.request, self.0.options)
@@ -548,7 +548,7 @@ pub mod edge_network {
     pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
 
     impl ListSubnets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -572,12 +572,12 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSubnetsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -628,7 +628,7 @@ pub mod edge_network {
     pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
 
     impl GetSubnet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -669,7 +669,7 @@ pub mod edge_network {
     pub struct CreateSubnet(RequestBuilder<crate::model::CreateSubnetRequest>);
 
     impl CreateSubnet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -690,7 +690,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_subnet][crate::client::EdgeNetwork::create_subnet].
+        /// on [create_subnet][super::super::client::EdgeNetwork::create_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_subnet(self.0.request, self.0.options)
@@ -768,7 +768,7 @@ pub mod edge_network {
     pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
 
     impl UpdateSubnet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -789,7 +789,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_subnet][crate::client::EdgeNetwork::update_subnet].
+        /// on [update_subnet][super::super::client::EdgeNetwork::update_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_subnet(self.0.request, self.0.options)
@@ -864,7 +864,7 @@ pub mod edge_network {
     pub struct DeleteSubnet(RequestBuilder<crate::model::DeleteSubnetRequest>);
 
     impl DeleteSubnet {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -885,7 +885,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_subnet][crate::client::EdgeNetwork::delete_subnet].
+        /// on [delete_subnet][super::super::client::EdgeNetwork::delete_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_subnet(self.0.request, self.0.options)
@@ -946,7 +946,7 @@ pub mod edge_network {
     pub struct ListInterconnects(RequestBuilder<crate::model::ListInterconnectsRequest>);
 
     impl ListInterconnects {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -973,12 +973,12 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInterconnectsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1029,7 +1029,7 @@ pub mod edge_network {
     pub struct GetInterconnect(RequestBuilder<crate::model::GetInterconnectRequest>);
 
     impl GetInterconnect {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1070,7 +1070,7 @@ pub mod edge_network {
     pub struct DiagnoseInterconnect(RequestBuilder<crate::model::DiagnoseInterconnectRequest>);
 
     impl DiagnoseInterconnect {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1116,7 +1116,7 @@ pub mod edge_network {
     );
 
     impl ListInterconnectAttachments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1143,14 +1143,14 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListInterconnectAttachmentsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1203,7 +1203,7 @@ pub mod edge_network {
     );
 
     impl GetInterconnectAttachment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1249,7 +1249,7 @@ pub mod edge_network {
     );
 
     impl CreateInterconnectAttachment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1273,7 +1273,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_interconnect_attachment][crate::client::EdgeNetwork::create_interconnect_attachment].
+        /// on [create_interconnect_attachment][super::super::client::EdgeNetwork::create_interconnect_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_interconnect_attachment(self.0.request, self.0.options)
@@ -1362,7 +1362,7 @@ pub mod edge_network {
     );
 
     impl DeleteInterconnectAttachment {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1386,7 +1386,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_interconnect_attachment][crate::client::EdgeNetwork::delete_interconnect_attachment].
+        /// on [delete_interconnect_attachment][super::super::client::EdgeNetwork::delete_interconnect_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_interconnect_attachment(self.0.request, self.0.options)
@@ -1447,7 +1447,7 @@ pub mod edge_network {
     pub struct ListRouters(RequestBuilder<crate::model::ListRoutersRequest>);
 
     impl ListRouters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1471,12 +1471,12 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRoutersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1527,7 +1527,7 @@ pub mod edge_network {
     pub struct GetRouter(RequestBuilder<crate::model::GetRouterRequest>);
 
     impl GetRouter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1568,7 +1568,7 @@ pub mod edge_network {
     pub struct DiagnoseRouter(RequestBuilder<crate::model::DiagnoseRouterRequest>);
 
     impl DiagnoseRouter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1609,7 +1609,7 @@ pub mod edge_network {
     pub struct CreateRouter(RequestBuilder<crate::model::CreateRouterRequest>);
 
     impl CreateRouter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1630,7 +1630,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_router][crate::client::EdgeNetwork::create_router].
+        /// on [create_router][super::super::client::EdgeNetwork::create_router].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_router(self.0.request, self.0.options)
@@ -1708,7 +1708,7 @@ pub mod edge_network {
     pub struct UpdateRouter(RequestBuilder<crate::model::UpdateRouterRequest>);
 
     impl UpdateRouter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1729,7 +1729,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_router][crate::client::EdgeNetwork::update_router].
+        /// on [update_router][super::super::client::EdgeNetwork::update_router].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_router(self.0.request, self.0.options)
@@ -1804,7 +1804,7 @@ pub mod edge_network {
     pub struct DeleteRouter(RequestBuilder<crate::model::DeleteRouterRequest>);
 
     impl DeleteRouter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1825,7 +1825,7 @@ pub mod edge_network {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_router][crate::client::EdgeNetwork::delete_router].
+        /// on [delete_router][super::super::client::EdgeNetwork::delete_router].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_router(self.0.request, self.0.options)
@@ -1886,7 +1886,7 @@ pub mod edge_network {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1913,12 +1913,12 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1963,7 +1963,7 @@ pub mod edge_network {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2004,7 +2004,7 @@ pub mod edge_network {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2031,12 +2031,12 @@ pub mod edge_network {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2081,7 +2081,7 @@ pub mod edge_network {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2125,7 +2125,7 @@ pub mod edge_network {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2169,7 +2169,7 @@ pub mod edge_network {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeNetwork>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeNetwork>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

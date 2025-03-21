@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Workflows](crate::stubs::Workflows) using a [gax::http_client::ReqwestClient].
+/// Implements [Workflows](super::stubs::Workflows) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Workflows {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for Workflows {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for Workflows {
 }
 
 impl Workflows {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::Workflows for Workflows {
+impl super::stubs::Workflows for Workflows {
     async fn list_workflows(
         &self,
         req: crate::model::ListWorkflowsRequest,
@@ -62,7 +62,7 @@ impl crate::stubs::Workflows for Workflows {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -82,7 +82,7 @@ impl crate::stubs::Workflows for Workflows {
             );
         let builder = builder.query(&[("revisionId", &req.revision_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -124,7 +124,7 @@ impl crate::stubs::Workflows for Workflows {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -142,7 +142,7 @@ impl crate::stubs::Workflows for Workflows {
                     "/v1/{}",
                     req.workflow
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("workflow"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("workflow"))?
                         .name
                 ),
             )
@@ -158,11 +158,35 @@ impl crate::stubs::Workflows for Workflows {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
             .execute(builder, Some(req.workflow), options)
+            .await
+    }
+
+    async fn list_workflow_revisions(
+        &self,
+        req: crate::model::ListWorkflowRevisionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListWorkflowRevisionsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}:listRevisions", req.name),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -184,7 +208,7 @@ impl crate::stubs::Workflows for Workflows {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -203,7 +227,7 @@ impl crate::stubs::Workflows for Workflows {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -225,7 +249,7 @@ impl crate::stubs::Workflows for Workflows {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -244,7 +268,7 @@ impl crate::stubs::Workflows for Workflows {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -263,7 +287,7 @@ impl crate::stubs::Workflows for Workflows {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate rpc;
@@ -885,7 +886,6 @@ impl wkt::message::Message for ListReservationsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListReservationsResponse {
     type PageItem = crate::model::Reservation;
 
@@ -894,7 +894,8 @@ impl gax::paginator::PageableResponse for ListReservationsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1222,7 +1223,6 @@ impl wkt::message::Message for ListCapacityCommitmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListCapacityCommitmentsResponse {
     type PageItem = crate::model::CapacityCommitment;
 
@@ -1231,7 +1231,8 @@ impl gax::paginator::PageableResponse for ListCapacityCommitmentsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1900,7 +1901,6 @@ impl wkt::message::Message for ListAssignmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
@@ -1909,7 +1909,8 @@ impl gax::paginator::PageableResponse for ListAssignmentsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -2138,7 +2139,6 @@ impl wkt::message::Message for SearchAssignmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
@@ -2147,7 +2147,8 @@ impl gax::paginator::PageableResponse for SearchAssignmentsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -2199,7 +2200,6 @@ impl wkt::message::Message for SearchAllAssignmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for SearchAllAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
@@ -2208,7 +2208,8 @@ impl gax::paginator::PageableResponse for SearchAllAssignmentsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

@@ -18,10 +18,10 @@ pub mod dataproc_metastore {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DataprocMetastore] request builders.
+    /// Common implementation for [super::super::client::DataprocMetastore] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>,
+        stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod dataproc_metastore {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod dataproc_metastore {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod dataproc_metastore {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -124,7 +124,7 @@ pub mod dataproc_metastore {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,7 +165,7 @@ pub mod dataproc_metastore {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -186,7 +186,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service][crate::client::DataprocMetastore::create_service].
+        /// on [create_service][super::super::client::DataprocMetastore::create_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
@@ -264,7 +264,7 @@ pub mod dataproc_metastore {
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -285,7 +285,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service][crate::client::DataprocMetastore::update_service].
+        /// on [update_service][super::super::client::DataprocMetastore::update_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
@@ -360,7 +360,7 @@ pub mod dataproc_metastore {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -381,7 +381,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service][crate::client::DataprocMetastore::delete_service].
+        /// on [delete_service][super::super::client::DataprocMetastore::delete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
@@ -442,7 +442,7 @@ pub mod dataproc_metastore {
     pub struct ListMetadataImports(RequestBuilder<crate::model::ListMetadataImportsRequest>);
 
     impl ListMetadataImports {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -469,12 +469,12 @@ pub mod dataproc_metastore {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMetadataImportsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -525,7 +525,7 @@ pub mod dataproc_metastore {
     pub struct GetMetadataImport(RequestBuilder<crate::model::GetMetadataImportRequest>);
 
     impl GetMetadataImport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -569,7 +569,7 @@ pub mod dataproc_metastore {
     pub struct CreateMetadataImport(RequestBuilder<crate::model::CreateMetadataImportRequest>);
 
     impl CreateMetadataImport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -593,7 +593,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_metadata_import][crate::client::DataprocMetastore::create_metadata_import].
+        /// on [create_metadata_import][super::super::client::DataprocMetastore::create_metadata_import].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_metadata_import(self.0.request, self.0.options)
@@ -673,7 +673,7 @@ pub mod dataproc_metastore {
     pub struct UpdateMetadataImport(RequestBuilder<crate::model::UpdateMetadataImportRequest>);
 
     impl UpdateMetadataImport {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -697,7 +697,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_metadata_import][crate::client::DataprocMetastore::update_metadata_import].
+        /// on [update_metadata_import][super::super::client::DataprocMetastore::update_metadata_import].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_metadata_import(self.0.request, self.0.options)
@@ -774,7 +774,7 @@ pub mod dataproc_metastore {
     pub struct ExportMetadata(RequestBuilder<crate::model::ExportMetadataRequest>);
 
     impl ExportMetadata {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -795,7 +795,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_metadata][crate::client::DataprocMetastore::export_metadata].
+        /// on [export_metadata][super::super::client::DataprocMetastore::export_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_metadata(self.0.request, self.0.options)
@@ -880,7 +880,7 @@ pub mod dataproc_metastore {
     pub struct RestoreService(RequestBuilder<crate::model::RestoreServiceRequest>);
 
     impl RestoreService {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -901,7 +901,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_service][crate::client::DataprocMetastore::restore_service].
+        /// on [restore_service][super::super::client::DataprocMetastore::restore_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_service(self.0.request, self.0.options)
@@ -979,7 +979,7 @@ pub mod dataproc_metastore {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1003,12 +1003,12 @@ pub mod dataproc_metastore {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1059,7 +1059,7 @@ pub mod dataproc_metastore {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1100,7 +1100,7 @@ pub mod dataproc_metastore {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1121,7 +1121,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][crate::client::DataprocMetastore::create_backup].
+        /// on [create_backup][super::super::client::DataprocMetastore::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -1199,7 +1199,7 @@ pub mod dataproc_metastore {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1220,7 +1220,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][crate::client::DataprocMetastore::delete_backup].
+        /// on [delete_backup][super::super::client::DataprocMetastore::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -1281,7 +1281,7 @@ pub mod dataproc_metastore {
     pub struct QueryMetadata(RequestBuilder<crate::model::QueryMetadataRequest>);
 
     impl QueryMetadata {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1302,7 +1302,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [query_metadata][crate::client::DataprocMetastore::query_metadata].
+        /// on [query_metadata][super::super::client::DataprocMetastore::query_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .query_metadata(self.0.request, self.0.options)
@@ -1369,7 +1369,7 @@ pub mod dataproc_metastore {
     pub struct MoveTableToDatabase(RequestBuilder<crate::model::MoveTableToDatabaseRequest>);
 
     impl MoveTableToDatabase {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1393,7 +1393,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [move_table_to_database][crate::client::DataprocMetastore::move_table_to_database].
+        /// on [move_table_to_database][super::super::client::DataprocMetastore::move_table_to_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .move_table_to_database(self.0.request, self.0.options)
@@ -1474,7 +1474,7 @@ pub mod dataproc_metastore {
     );
 
     impl AlterMetadataResourceLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1498,7 +1498,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [alter_metadata_resource_location][crate::client::DataprocMetastore::alter_metadata_resource_location].
+        /// on [alter_metadata_resource_location][super::super::client::DataprocMetastore::alter_metadata_resource_location].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .alter_metadata_resource_location(self.0.request, self.0.options)
@@ -1573,7 +1573,7 @@ pub mod dataproc_metastore {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1600,12 +1600,12 @@ pub mod dataproc_metastore {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1650,7 +1650,7 @@ pub mod dataproc_metastore {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1691,7 +1691,7 @@ pub mod dataproc_metastore {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1750,7 +1750,7 @@ pub mod dataproc_metastore {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1800,7 +1800,7 @@ pub mod dataproc_metastore {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1855,7 +1855,7 @@ pub mod dataproc_metastore {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1882,12 +1882,12 @@ pub mod dataproc_metastore {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1932,7 +1932,7 @@ pub mod dataproc_metastore {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1976,7 +1976,7 @@ pub mod dataproc_metastore {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2020,7 +2020,7 @@ pub mod dataproc_metastore {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastore>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2064,10 +2064,10 @@ pub mod dataproc_metastore_federation {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DataprocMetastoreFederation] request builders.
+    /// Common implementation for [super::super::client::DataprocMetastoreFederation] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+        stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2077,7 +2077,7 @@ pub mod dataproc_metastore_federation {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self {
                 stub,
@@ -2093,7 +2093,7 @@ pub mod dataproc_metastore_federation {
 
     impl ListFederations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2118,12 +2118,12 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListFederationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2175,7 +2175,7 @@ pub mod dataproc_metastore_federation {
 
     impl GetFederation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2218,7 +2218,7 @@ pub mod dataproc_metastore_federation {
 
     impl CreateFederation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2243,7 +2243,7 @@ pub mod dataproc_metastore_federation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_federation][crate::client::DataprocMetastoreFederation::create_federation].
+        /// on [create_federation][super::super::client::DataprocMetastoreFederation::create_federation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_federation(self.0.request, self.0.options)
@@ -2323,7 +2323,7 @@ pub mod dataproc_metastore_federation {
 
     impl UpdateFederation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2348,7 +2348,7 @@ pub mod dataproc_metastore_federation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_federation][crate::client::DataprocMetastoreFederation::update_federation].
+        /// on [update_federation][super::super::client::DataprocMetastoreFederation::update_federation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_federation(self.0.request, self.0.options)
@@ -2425,7 +2425,7 @@ pub mod dataproc_metastore_federation {
 
     impl DeleteFederation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2450,7 +2450,7 @@ pub mod dataproc_metastore_federation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_federation][crate::client::DataprocMetastoreFederation::delete_federation].
+        /// on [delete_federation][super::super::client::DataprocMetastoreFederation::delete_federation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_federation(self.0.request, self.0.options)
@@ -2512,7 +2512,7 @@ pub mod dataproc_metastore_federation {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2540,12 +2540,12 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2591,7 +2591,7 @@ pub mod dataproc_metastore_federation {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2634,7 +2634,7 @@ pub mod dataproc_metastore_federation {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2695,7 +2695,7 @@ pub mod dataproc_metastore_federation {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2747,7 +2747,7 @@ pub mod dataproc_metastore_federation {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2804,7 +2804,7 @@ pub mod dataproc_metastore_federation {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2832,12 +2832,12 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2883,7 +2883,7 @@ pub mod dataproc_metastore_federation {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2929,7 +2929,7 @@ pub mod dataproc_metastore_federation {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2975,7 +2975,7 @@ pub mod dataproc_metastore_federation {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::DataprocMetastoreFederation>,
+            stub: Arc<dyn super::super::stubs::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

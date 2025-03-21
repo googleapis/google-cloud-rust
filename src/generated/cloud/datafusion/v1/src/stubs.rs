@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DataFusion].
+/// Defines the trait used to implement [super::client::DataFusion].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DataFusion`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DataFusion: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DataFusion::list_available_versions].
+    /// Implements [super::client::DataFusion::list_available_versions].
     fn list_available_versions(
         &self,
         _req: crate::model::ListAvailableVersionsRequest,
@@ -53,7 +53,7 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataFusion::list_instances].
+    /// Implements [super::client::DataFusion::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -65,7 +65,7 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataFusion::get_instance].
+    /// Implements [super::client::DataFusion::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -76,7 +76,7 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataFusion::create_instance].
+    /// Implements [super::client::DataFusion::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -88,7 +88,7 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataFusion::delete_instance].
+    /// Implements [super::client::DataFusion::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -100,7 +100,7 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataFusion::update_instance].
+    /// Implements [super::client::DataFusion::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
@@ -112,7 +112,7 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataFusion::restart_instance].
+    /// Implements [super::client::DataFusion::restart_instance].
     fn restart_instance(
         &self,
         _req: crate::model::RestartInstanceRequest,
@@ -124,7 +124,7 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataFusion::list_operations].
+    /// Implements [super::client::DataFusion::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -136,7 +136,7 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataFusion::get_operation].
+    /// Implements [super::client::DataFusion::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -148,7 +148,7 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataFusion::delete_operation].
+    /// Implements [super::client::DataFusion::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -157,7 +157,7 @@ pub trait DataFusion: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataFusion::cancel_operation].
+    /// Implements [super::client::DataFusion::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

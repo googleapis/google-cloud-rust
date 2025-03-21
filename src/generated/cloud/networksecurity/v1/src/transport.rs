@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [NetworkSecurity](crate::stubs::NetworkSecurity) using a [gax::http_client::ReqwestClient].
+/// Implements [NetworkSecurity](super::stubs::NetworkSecurity) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct NetworkSecurity {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for NetworkSecurity {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for NetworkSecurity {
 }
 
 impl NetworkSecurity {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::NetworkSecurity for NetworkSecurity {
+impl super::stubs::NetworkSecurity for NetworkSecurity {
     async fn list_authorization_policies(
         &self,
         req: crate::model::ListAuthorizationPoliciesRequest,
@@ -60,7 +60,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -79,7 +79,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -120,7 +120,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                     "/v1/{}",
                     req.authorization_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("authorization_policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("authorization_policy"))?
                         .name
                 ),
             )
@@ -136,7 +136,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -159,7 +159,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -183,7 +183,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -202,7 +202,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -243,7 +243,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                     "/v1/{}",
                     req.server_tls_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("server_tls_policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("server_tls_policy"))?
                         .name
                 ),
             )
@@ -259,7 +259,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -282,7 +282,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -306,7 +306,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -325,7 +325,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -366,7 +366,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                     "/v1/{}",
                     req.client_tls_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("client_tls_policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("client_tls_policy"))?
                         .name
                 ),
             )
@@ -382,7 +382,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -405,7 +405,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -427,7 +427,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -446,7 +446,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -494,11 +494,11 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -540,7 +540,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -559,7 +559,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -578,7 +578,7 @@ impl crate::stubs::NetworkSecurity for NetworkSecurity {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

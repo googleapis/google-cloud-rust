@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DataPolicyService](crate::stubs::DataPolicyService) using a [gax::http_client::ReqwestClient].
+/// Implements [DataPolicyService](super::stubs::DataPolicyService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DataPolicyService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for DataPolicyService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for DataPolicyService {
 }
 
 impl DataPolicyService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::DataPolicyService for DataPolicyService {
+impl super::stubs::DataPolicyService for DataPolicyService {
     async fn create_data_policy(
         &self,
         req: crate::model::CreateDataPolicyRequest,
@@ -76,7 +76,7 @@ impl crate::stubs::DataPolicyService for DataPolicyService {
                     "/v1/{}",
                     req.data_policy
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("data_policy"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("data_policy"))?
                         .name
                 ),
             )
@@ -92,7 +92,7 @@ impl crate::stubs::DataPolicyService for DataPolicyService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -132,7 +132,7 @@ impl crate::stubs::DataPolicyService for DataPolicyService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -151,7 +151,7 @@ impl crate::stubs::DataPolicyService for DataPolicyService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -176,7 +176,7 @@ impl crate::stubs::DataPolicyService for DataPolicyService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

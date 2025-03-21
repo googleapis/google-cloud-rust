@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate gtype;
 extern crate lazy_static;
 extern crate location;
@@ -2688,7 +2689,6 @@ impl wkt::message::Message for ListNodesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListNodesResponse {
     type PageItem = crate::model::Node;
 
@@ -2697,7 +2697,8 @@ impl gax::paginator::PageableResponse for ListNodesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3042,7 +3043,6 @@ impl wkt::message::Message for ListQueuedResourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListQueuedResourcesResponse {
     type PageItem = crate::model::QueuedResource;
 
@@ -3051,7 +3051,8 @@ impl gax::paginator::PageableResponse for ListQueuedResourcesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3561,7 +3562,6 @@ impl wkt::message::Message for ListAcceleratorTypesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAcceleratorTypesResponse {
     type PageItem = crate::model::AcceleratorType;
 
@@ -3570,7 +3570,8 @@ impl gax::paginator::PageableResponse for ListAcceleratorTypesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3777,7 +3778,6 @@ impl wkt::message::Message for ListRuntimeVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListRuntimeVersionsResponse {
     type PageItem = crate::model::RuntimeVersion;
 
@@ -3786,7 +3786,8 @@ impl gax::paginator::PageableResponse for ListRuntimeVersionsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

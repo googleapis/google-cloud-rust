@@ -18,10 +18,10 @@ pub mod reachability_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ReachabilityService] request builders.
+    /// Common implementation for [super::super::client::ReachabilityService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod reachability_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod reachability_service {
     pub struct ListConnectivityTests(RequestBuilder<crate::model::ListConnectivityTestsRequest>);
 
     impl ListConnectivityTests {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -71,12 +75,12 @@ pub mod reachability_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConnectivityTestsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -127,7 +131,9 @@ pub mod reachability_service {
     pub struct GetConnectivityTest(RequestBuilder<crate::model::GetConnectivityTestRequest>);
 
     impl GetConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -171,7 +177,9 @@ pub mod reachability_service {
     pub struct CreateConnectivityTest(RequestBuilder<crate::model::CreateConnectivityTestRequest>);
 
     impl CreateConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -195,7 +203,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connectivity_test][crate::client::ReachabilityService::create_connectivity_test].
+        /// on [create_connectivity_test][super::super::client::ReachabilityService::create_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connectivity_test(self.0.request, self.0.options)
@@ -269,7 +277,9 @@ pub mod reachability_service {
     pub struct UpdateConnectivityTest(RequestBuilder<crate::model::UpdateConnectivityTestRequest>);
 
     impl UpdateConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -293,7 +303,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connectivity_test][crate::client::ReachabilityService::update_connectivity_test].
+        /// on [update_connectivity_test][super::super::client::ReachabilityService::update_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connectivity_test(self.0.request, self.0.options)
@@ -364,7 +374,9 @@ pub mod reachability_service {
     pub struct RerunConnectivityTest(RequestBuilder<crate::model::RerunConnectivityTestRequest>);
 
     impl RerunConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -388,7 +400,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rerun_connectivity_test][crate::client::ReachabilityService::rerun_connectivity_test].
+        /// on [rerun_connectivity_test][super::super::client::ReachabilityService::rerun_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rerun_connectivity_test(self.0.request, self.0.options)
@@ -447,7 +459,9 @@ pub mod reachability_service {
     pub struct DeleteConnectivityTest(RequestBuilder<crate::model::DeleteConnectivityTestRequest>);
 
     impl DeleteConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -471,7 +485,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connectivity_test][crate::client::ReachabilityService::delete_connectivity_test].
+        /// on [delete_connectivity_test][super::super::client::ReachabilityService::delete_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connectivity_test(self.0.request, self.0.options)
@@ -526,7 +540,9 @@ pub mod reachability_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -553,12 +569,12 @@ pub mod reachability_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -603,7 +619,9 @@ pub mod reachability_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,7 +662,9 @@ pub mod reachability_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -703,7 +723,9 @@ pub mod reachability_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -753,7 +775,9 @@ pub mod reachability_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -808,7 +832,9 @@ pub mod reachability_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -835,12 +861,12 @@ pub mod reachability_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -885,7 +911,9 @@ pub mod reachability_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -929,7 +957,9 @@ pub mod reachability_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -973,7 +1003,9 @@ pub mod reachability_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1017,10 +1049,10 @@ pub mod vpc_flow_logs_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::VpcFlowLogsService] request builders.
+    /// Common implementation for [super::super::client::VpcFlowLogsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>,
+        stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1029,7 +1061,7 @@ pub mod vpc_flow_logs_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1043,7 +1075,7 @@ pub mod vpc_flow_logs_service {
     pub struct ListVpcFlowLogsConfigs(RequestBuilder<crate::model::ListVpcFlowLogsConfigsRequest>);
 
     impl ListVpcFlowLogsConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1070,14 +1102,14 @@ pub mod vpc_flow_logs_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListVpcFlowLogsConfigsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1128,7 +1160,7 @@ pub mod vpc_flow_logs_service {
     pub struct GetVpcFlowLogsConfig(RequestBuilder<crate::model::GetVpcFlowLogsConfigRequest>);
 
     impl GetVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1174,7 +1206,7 @@ pub mod vpc_flow_logs_service {
     );
 
     impl CreateVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1198,7 +1230,7 @@ pub mod vpc_flow_logs_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vpc_flow_logs_config][crate::client::VpcFlowLogsService::create_vpc_flow_logs_config].
+        /// on [create_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::create_vpc_flow_logs_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vpc_flow_logs_config(self.0.request, self.0.options)
@@ -1276,7 +1308,7 @@ pub mod vpc_flow_logs_service {
     );
 
     impl UpdateVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1300,7 +1332,7 @@ pub mod vpc_flow_logs_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_vpc_flow_logs_config][crate::client::VpcFlowLogsService::update_vpc_flow_logs_config].
+        /// on [update_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::update_vpc_flow_logs_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_vpc_flow_logs_config(self.0.request, self.0.options)
@@ -1375,7 +1407,7 @@ pub mod vpc_flow_logs_service {
     );
 
     impl DeleteVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1399,7 +1431,7 @@ pub mod vpc_flow_logs_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vpc_flow_logs_config][crate::client::VpcFlowLogsService::delete_vpc_flow_logs_config].
+        /// on [delete_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::delete_vpc_flow_logs_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vpc_flow_logs_config(self.0.request, self.0.options)
@@ -1454,7 +1486,7 @@ pub mod vpc_flow_logs_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1481,12 +1513,12 @@ pub mod vpc_flow_logs_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1531,7 +1563,7 @@ pub mod vpc_flow_logs_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1572,7 +1604,7 @@ pub mod vpc_flow_logs_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1631,7 +1663,7 @@ pub mod vpc_flow_logs_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1681,7 +1713,7 @@ pub mod vpc_flow_logs_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1736,7 +1768,7 @@ pub mod vpc_flow_logs_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1763,12 +1795,12 @@ pub mod vpc_flow_logs_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1813,7 +1845,7 @@ pub mod vpc_flow_logs_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1857,7 +1889,7 @@ pub mod vpc_flow_logs_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1901,7 +1933,7 @@ pub mod vpc_flow_logs_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::VpcFlowLogsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

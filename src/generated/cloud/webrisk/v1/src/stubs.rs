@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::WebRiskService].
+/// Defines the trait used to implement [super::client::WebRiskService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::WebRiskService`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait WebRiskService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::WebRiskService::compute_threat_list_diff].
+    /// Implements [super::client::WebRiskService::compute_threat_list_diff].
     fn compute_threat_list_diff(
         &self,
         _req: crate::model::ComputeThreatListDiffRequest,
@@ -53,7 +53,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::WebRiskService::search_uris].
+    /// Implements [super::client::WebRiskService::search_uris].
     fn search_uris(
         &self,
         _req: crate::model::SearchUrisRequest,
@@ -65,7 +65,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebRiskService::search_hashes].
+    /// Implements [super::client::WebRiskService::search_hashes].
     fn search_hashes(
         &self,
         _req: crate::model::SearchHashesRequest,
@@ -77,7 +77,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebRiskService::create_submission].
+    /// Implements [super::client::WebRiskService::create_submission].
     fn create_submission(
         &self,
         _req: crate::model::CreateSubmissionRequest,
@@ -88,7 +88,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebRiskService::submit_uri].
+    /// Implements [super::client::WebRiskService::submit_uri].
     fn submit_uri(
         &self,
         _req: crate::model::SubmitUriRequest,
@@ -100,7 +100,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebRiskService::list_operations].
+    /// Implements [super::client::WebRiskService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -112,7 +112,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::WebRiskService::get_operation].
+    /// Implements [super::client::WebRiskService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -124,7 +124,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebRiskService::delete_operation].
+    /// Implements [super::client::WebRiskService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -133,7 +133,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::WebRiskService::cancel_operation].
+    /// Implements [super::client::WebRiskService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

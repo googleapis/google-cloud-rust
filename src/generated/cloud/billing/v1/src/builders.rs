@@ -18,10 +18,10 @@ pub mod cloud_billing {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudBilling] request builders.
+    /// Common implementation for [super::super::client::CloudBilling] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudBilling>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod cloud_billing {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod cloud_billing {
     pub struct GetBillingAccount(RequestBuilder<crate::model::GetBillingAccountRequest>);
 
     impl GetBillingAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -88,7 +88,7 @@ pub mod cloud_billing {
     pub struct ListBillingAccounts(RequestBuilder<crate::model::ListBillingAccountsRequest>);
 
     impl ListBillingAccounts {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,12 +115,12 @@ pub mod cloud_billing {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBillingAccountsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -165,7 +165,7 @@ pub mod cloud_billing {
     pub struct UpdateBillingAccount(RequestBuilder<crate::model::UpdateBillingAccountRequest>);
 
     impl UpdateBillingAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -227,7 +227,7 @@ pub mod cloud_billing {
     pub struct CreateBillingAccount(RequestBuilder<crate::model::CreateBillingAccountRequest>);
 
     impl CreateBillingAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -280,7 +280,7 @@ pub mod cloud_billing {
     pub struct ListProjectBillingInfo(RequestBuilder<crate::model::ListProjectBillingInfoRequest>);
 
     impl ListProjectBillingInfo {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -307,14 +307,14 @@ pub mod cloud_billing {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListProjectBillingInfoResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -353,7 +353,7 @@ pub mod cloud_billing {
     pub struct GetProjectBillingInfo(RequestBuilder<crate::model::GetProjectBillingInfoRequest>);
 
     impl GetProjectBillingInfo {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -399,7 +399,7 @@ pub mod cloud_billing {
     );
 
     impl UpdateProjectBillingInfo {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -454,7 +454,7 @@ pub mod cloud_billing {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -504,7 +504,7 @@ pub mod cloud_billing {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -563,7 +563,7 @@ pub mod cloud_billing {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -618,7 +618,7 @@ pub mod cloud_billing {
     pub struct MoveBillingAccount(RequestBuilder<crate::model::MoveBillingAccountRequest>);
 
     impl MoveBillingAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudBilling>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -668,10 +668,10 @@ pub mod cloud_catalog {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CloudCatalog] request builders.
+    /// Common implementation for [super::super::client::CloudCatalog] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CloudCatalog>,
+        stub: Arc<dyn super::super::stubs::dynamic::CloudCatalog>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -680,7 +680,7 @@ pub mod cloud_catalog {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudCatalog>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudCatalog>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -694,7 +694,7 @@ pub mod cloud_catalog {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudCatalog>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudCatalog>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -718,12 +718,12 @@ pub mod cloud_catalog {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -756,7 +756,7 @@ pub mod cloud_catalog {
     pub struct ListSkus(RequestBuilder<crate::model::ListSkusRequest>);
 
     impl ListSkus {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudCatalog>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CloudCatalog>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -780,11 +780,11 @@ pub mod cloud_catalog {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSkusResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);

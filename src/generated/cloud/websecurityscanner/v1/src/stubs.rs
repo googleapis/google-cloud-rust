@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::WebSecurityScanner].
+/// Defines the trait used to implement [super::client::WebSecurityScanner].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::WebSecurityScanner`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::WebSecurityScanner::create_scan_config].
+    /// Implements [super::client::WebSecurityScanner::create_scan_config].
     fn create_scan_config(
         &self,
         _req: crate::model::CreateScanConfigRequest,
@@ -51,7 +51,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::delete_scan_config].
+    /// Implements [super::client::WebSecurityScanner::delete_scan_config].
     fn delete_scan_config(
         &self,
         _req: crate::model::DeleteScanConfigRequest,
@@ -60,7 +60,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::get_scan_config].
+    /// Implements [super::client::WebSecurityScanner::get_scan_config].
     fn get_scan_config(
         &self,
         _req: crate::model::GetScanConfigRequest,
@@ -71,7 +71,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::list_scan_configs].
+    /// Implements [super::client::WebSecurityScanner::list_scan_configs].
     fn list_scan_configs(
         &self,
         _req: crate::model::ListScanConfigsRequest,
@@ -83,7 +83,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::update_scan_config].
+    /// Implements [super::client::WebSecurityScanner::update_scan_config].
     fn update_scan_config(
         &self,
         _req: crate::model::UpdateScanConfigRequest,
@@ -94,7 +94,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::start_scan_run].
+    /// Implements [super::client::WebSecurityScanner::start_scan_run].
     fn start_scan_run(
         &self,
         _req: crate::model::StartScanRunRequest,
@@ -105,7 +105,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::get_scan_run].
+    /// Implements [super::client::WebSecurityScanner::get_scan_run].
     fn get_scan_run(
         &self,
         _req: crate::model::GetScanRunRequest,
@@ -116,7 +116,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::list_scan_runs].
+    /// Implements [super::client::WebSecurityScanner::list_scan_runs].
     fn list_scan_runs(
         &self,
         _req: crate::model::ListScanRunsRequest,
@@ -128,7 +128,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::stop_scan_run].
+    /// Implements [super::client::WebSecurityScanner::stop_scan_run].
     fn stop_scan_run(
         &self,
         _req: crate::model::StopScanRunRequest,
@@ -139,7 +139,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::list_crawled_urls].
+    /// Implements [super::client::WebSecurityScanner::list_crawled_urls].
     fn list_crawled_urls(
         &self,
         _req: crate::model::ListCrawledUrlsRequest,
@@ -151,7 +151,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::get_finding].
+    /// Implements [super::client::WebSecurityScanner::get_finding].
     fn get_finding(
         &self,
         _req: crate::model::GetFindingRequest,
@@ -162,7 +162,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::list_findings].
+    /// Implements [super::client::WebSecurityScanner::list_findings].
     fn list_findings(
         &self,
         _req: crate::model::ListFindingsRequest,
@@ -174,7 +174,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::WebSecurityScanner::list_finding_type_stats].
+    /// Implements [super::client::WebSecurityScanner::list_finding_type_stats].
     fn list_finding_type_stats(
         &self,
         _req: crate::model::ListFindingTypeStatsRequest,

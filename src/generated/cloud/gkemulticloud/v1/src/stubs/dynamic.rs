@@ -108,9 +108,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AttachedClusters] also implement [AttachedClusters].
+/// All implementations of [super::AttachedClusters] also implement [AttachedClusters].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AttachedClusters> AttachedClusters for T {
+impl<T: super::AttachedClusters> AttachedClusters for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_attached_cluster(
         &self,
@@ -377,9 +377,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AwsClusters] also implement [AwsClusters].
+/// All implementations of [super::AwsClusters] also implement [AwsClusters].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AwsClusters> AwsClusters for T {
+impl<T: super::AwsClusters> AwsClusters for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_aws_cluster(
         &self,
@@ -727,9 +727,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::AzureClusters] also implement [AzureClusters].
+/// All implementations of [super::AzureClusters] also implement [AzureClusters].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AzureClusters> AzureClusters for T {
+impl<T: super::AzureClusters> AzureClusters for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_azure_client(
         &self,

@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate location;
@@ -627,7 +628,6 @@ impl wkt::message::Message for ListAuthorizationPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAuthorizationPoliciesResponse {
     type PageItem = crate::model::AuthorizationPolicy;
 
@@ -636,7 +636,8 @@ impl gax::paginator::PageableResponse for ListAuthorizationPoliciesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1038,7 +1039,6 @@ impl wkt::message::Message for ListClientTlsPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListClientTlsPoliciesResponse {
     type PageItem = crate::model::ClientTlsPolicy;
 
@@ -1047,7 +1047,8 @@ impl gax::paginator::PageableResponse for ListClientTlsPoliciesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1598,7 +1599,6 @@ impl wkt::message::Message for ListServerTlsPoliciesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListServerTlsPoliciesResponse {
     type PageItem = crate::model::ServerTlsPolicy;
 
@@ -1607,7 +1607,8 @@ impl gax::paginator::PageableResponse for ListServerTlsPoliciesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

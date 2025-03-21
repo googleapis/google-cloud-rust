@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudTasks](crate::stubs::CloudTasks) using a [gax::http_client::ReqwestClient].
+/// Implements [CloudTasks](super::stubs::CloudTasks) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudTasks {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for CloudTasks {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for CloudTasks {
 }
 
 impl CloudTasks {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::CloudTasks for CloudTasks {
+impl super::stubs::CloudTasks for CloudTasks {
     async fn list_queues(
         &self,
         req: crate::model::ListQueuesRequest,
@@ -58,7 +58,7 @@ impl crate::stubs::CloudTasks for CloudTasks {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -77,7 +77,7 @@ impl crate::stubs::CloudTasks for CloudTasks {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -112,7 +112,7 @@ impl crate::stubs::CloudTasks for CloudTasks {
                     "/v2/{}",
                     req.queue
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("queue"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("queue"))?
                         .name
                 ),
             )
@@ -128,7 +128,7 @@ impl crate::stubs::CloudTasks for CloudTasks {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.queue), options).await
@@ -149,7 +149,7 @@ impl crate::stubs::CloudTasks for CloudTasks {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -282,7 +282,7 @@ impl crate::stubs::CloudTasks for CloudTasks {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -302,7 +302,7 @@ impl crate::stubs::CloudTasks for CloudTasks {
             );
         let builder = builder.query(&[("responseView", &req.response_view.value())]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -338,7 +338,7 @@ impl crate::stubs::CloudTasks for CloudTasks {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -377,7 +377,7 @@ impl crate::stubs::CloudTasks for CloudTasks {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -396,7 +396,7 @@ impl crate::stubs::CloudTasks for CloudTasks {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

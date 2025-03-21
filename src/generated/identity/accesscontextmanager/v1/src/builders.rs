@@ -18,10 +18,10 @@ pub mod access_context_manager {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AccessContextManager] request builders.
+    /// Common implementation for [super::super::client::AccessContextManager] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>,
+        stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,9 @@ pub mod access_context_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +46,9 @@ pub mod access_context_manager {
     pub struct ListAccessPolicies(RequestBuilder<crate::model::ListAccessPoliciesRequest>);
 
     impl ListAccessPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -71,12 +75,12 @@ pub mod access_context_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAccessPoliciesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -115,7 +119,9 @@ pub mod access_context_manager {
     pub struct GetAccessPolicy(RequestBuilder<crate::model::GetAccessPolicyRequest>);
 
     impl GetAccessPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,7 +162,9 @@ pub mod access_context_manager {
     pub struct CreateAccessPolicy(RequestBuilder<crate::model::AccessPolicy>);
 
     impl CreateAccessPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -177,7 +185,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_access_policy][crate::client::AccessContextManager::create_access_policy].
+        /// on [create_access_policy][super::super::client::AccessContextManager::create_access_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_access_policy(self.0.request, self.0.options)
@@ -287,7 +295,9 @@ pub mod access_context_manager {
     pub struct UpdateAccessPolicy(RequestBuilder<crate::model::UpdateAccessPolicyRequest>);
 
     impl UpdateAccessPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -311,7 +321,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_access_policy][crate::client::AccessContextManager::update_access_policy].
+        /// on [update_access_policy][super::super::client::AccessContextManager::update_access_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_access_policy(self.0.request, self.0.options)
@@ -386,7 +396,9 @@ pub mod access_context_manager {
     pub struct DeleteAccessPolicy(RequestBuilder<crate::model::DeleteAccessPolicyRequest>);
 
     impl DeleteAccessPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -410,7 +422,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_access_policy][crate::client::AccessContextManager::delete_access_policy].
+        /// on [delete_access_policy][super::super::client::AccessContextManager::delete_access_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_access_policy(self.0.request, self.0.options)
@@ -469,7 +481,9 @@ pub mod access_context_manager {
     pub struct ListAccessLevels(RequestBuilder<crate::model::ListAccessLevelsRequest>);
 
     impl ListAccessLevels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -496,12 +510,12 @@ pub mod access_context_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAccessLevelsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -546,7 +560,9 @@ pub mod access_context_manager {
     pub struct GetAccessLevel(RequestBuilder<crate::model::GetAccessLevelRequest>);
 
     impl GetAccessLevel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -593,7 +609,9 @@ pub mod access_context_manager {
     pub struct CreateAccessLevel(RequestBuilder<crate::model::CreateAccessLevelRequest>);
 
     impl CreateAccessLevel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -617,7 +635,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_access_level][crate::client::AccessContextManager::create_access_level].
+        /// on [create_access_level][super::super::client::AccessContextManager::create_access_level].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_access_level(self.0.request, self.0.options)
@@ -689,7 +707,9 @@ pub mod access_context_manager {
     pub struct UpdateAccessLevel(RequestBuilder<crate::model::UpdateAccessLevelRequest>);
 
     impl UpdateAccessLevel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -713,7 +733,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_access_level][crate::client::AccessContextManager::update_access_level].
+        /// on [update_access_level][super::super::client::AccessContextManager::update_access_level].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_access_level(self.0.request, self.0.options)
@@ -788,7 +808,9 @@ pub mod access_context_manager {
     pub struct DeleteAccessLevel(RequestBuilder<crate::model::DeleteAccessLevelRequest>);
 
     impl DeleteAccessLevel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -812,7 +834,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_access_level][crate::client::AccessContextManager::delete_access_level].
+        /// on [delete_access_level][super::super::client::AccessContextManager::delete_access_level].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_access_level(self.0.request, self.0.options)
@@ -871,7 +893,9 @@ pub mod access_context_manager {
     pub struct ReplaceAccessLevels(RequestBuilder<crate::model::ReplaceAccessLevelsRequest>);
 
     impl ReplaceAccessLevels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -895,7 +919,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [replace_access_levels][crate::client::AccessContextManager::replace_access_levels].
+        /// on [replace_access_levels][super::super::client::AccessContextManager::replace_access_levels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .replace_access_levels(self.0.request, self.0.options)
@@ -975,7 +999,9 @@ pub mod access_context_manager {
     pub struct ListServicePerimeters(RequestBuilder<crate::model::ListServicePerimetersRequest>);
 
     impl ListServicePerimeters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1002,12 +1028,12 @@ pub mod access_context_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListServicePerimetersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1046,7 +1072,9 @@ pub mod access_context_manager {
     pub struct GetServicePerimeter(RequestBuilder<crate::model::GetServicePerimeterRequest>);
 
     impl GetServicePerimeter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1090,7 +1118,9 @@ pub mod access_context_manager {
     pub struct CreateServicePerimeter(RequestBuilder<crate::model::CreateServicePerimeterRequest>);
 
     impl CreateServicePerimeter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1114,7 +1144,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_perimeter][crate::client::AccessContextManager::create_service_perimeter].
+        /// on [create_service_perimeter][super::super::client::AccessContextManager::create_service_perimeter].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_perimeter(self.0.request, self.0.options)
@@ -1188,7 +1218,9 @@ pub mod access_context_manager {
     pub struct UpdateServicePerimeter(RequestBuilder<crate::model::UpdateServicePerimeterRequest>);
 
     impl UpdateServicePerimeter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1212,7 +1244,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service_perimeter][crate::client::AccessContextManager::update_service_perimeter].
+        /// on [update_service_perimeter][super::super::client::AccessContextManager::update_service_perimeter].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_perimeter(self.0.request, self.0.options)
@@ -1289,7 +1321,9 @@ pub mod access_context_manager {
     pub struct DeleteServicePerimeter(RequestBuilder<crate::model::DeleteServicePerimeterRequest>);
 
     impl DeleteServicePerimeter {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1313,7 +1347,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_perimeter][crate::client::AccessContextManager::delete_service_perimeter].
+        /// on [delete_service_perimeter][super::super::client::AccessContextManager::delete_service_perimeter].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_perimeter(self.0.request, self.0.options)
@@ -1374,7 +1408,9 @@ pub mod access_context_manager {
     );
 
     impl ReplaceServicePerimeters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1398,7 +1434,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [replace_service_perimeters][crate::client::AccessContextManager::replace_service_perimeters].
+        /// on [replace_service_perimeters][super::super::client::AccessContextManager::replace_service_perimeters].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .replace_service_perimeters(self.0.request, self.0.options)
@@ -1480,7 +1516,9 @@ pub mod access_context_manager {
     );
 
     impl CommitServicePerimeters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1504,7 +1542,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [commit_service_perimeters][crate::client::AccessContextManager::commit_service_perimeters].
+        /// on [commit_service_perimeters][super::super::client::AccessContextManager::commit_service_perimeters].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .commit_service_perimeters(self.0.request, self.0.options)
@@ -1575,7 +1613,9 @@ pub mod access_context_manager {
     );
 
     impl ListGcpUserAccessBindings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1602,14 +1642,14 @@ pub mod access_context_manager {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListGcpUserAccessBindingsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1650,7 +1690,9 @@ pub mod access_context_manager {
     );
 
     impl GetGcpUserAccessBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1696,7 +1738,9 @@ pub mod access_context_manager {
     );
 
     impl CreateGcpUserAccessBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1720,7 +1764,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_gcp_user_access_binding][crate::client::AccessContextManager::create_gcp_user_access_binding].
+        /// on [create_gcp_user_access_binding][super::super::client::AccessContextManager::create_gcp_user_access_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_gcp_user_access_binding(self.0.request, self.0.options)
@@ -1796,7 +1840,9 @@ pub mod access_context_manager {
     );
 
     impl UpdateGcpUserAccessBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1820,7 +1866,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_gcp_user_access_binding][crate::client::AccessContextManager::update_gcp_user_access_binding].
+        /// on [update_gcp_user_access_binding][super::super::client::AccessContextManager::update_gcp_user_access_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_gcp_user_access_binding(self.0.request, self.0.options)
@@ -1899,7 +1945,9 @@ pub mod access_context_manager {
     );
 
     impl DeleteGcpUserAccessBinding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1923,7 +1971,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_gcp_user_access_binding][crate::client::AccessContextManager::delete_gcp_user_access_binding].
+        /// on [delete_gcp_user_access_binding][super::super::client::AccessContextManager::delete_gcp_user_access_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_gcp_user_access_binding(self.0.request, self.0.options)
@@ -1982,7 +2030,9 @@ pub mod access_context_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2041,7 +2091,9 @@ pub mod access_context_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2091,7 +2143,9 @@ pub mod access_context_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2146,7 +2200,9 @@ pub mod access_context_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessContextManager>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::AccessContextManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DataTransferService].
+/// Defines the trait used to implement [super::client::DataTransferService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DataTransferService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DataTransferService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DataTransferService::get_data_source].
+    /// Implements [super::client::DataTransferService::get_data_source].
     fn get_data_source(
         &self,
         _req: crate::model::GetDataSourceRequest,
@@ -51,7 +51,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataTransferService::list_data_sources].
+    /// Implements [super::client::DataTransferService::list_data_sources].
     fn list_data_sources(
         &self,
         _req: crate::model::ListDataSourcesRequest,
@@ -63,7 +63,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataTransferService::create_transfer_config].
+    /// Implements [super::client::DataTransferService::create_transfer_config].
     fn create_transfer_config(
         &self,
         _req: crate::model::CreateTransferConfigRequest,
@@ -74,7 +74,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataTransferService::update_transfer_config].
+    /// Implements [super::client::DataTransferService::update_transfer_config].
     fn update_transfer_config(
         &self,
         _req: crate::model::UpdateTransferConfigRequest,
@@ -85,7 +85,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataTransferService::delete_transfer_config].
+    /// Implements [super::client::DataTransferService::delete_transfer_config].
     fn delete_transfer_config(
         &self,
         _req: crate::model::DeleteTransferConfigRequest,
@@ -94,7 +94,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataTransferService::get_transfer_config].
+    /// Implements [super::client::DataTransferService::get_transfer_config].
     fn get_transfer_config(
         &self,
         _req: crate::model::GetTransferConfigRequest,
@@ -105,7 +105,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataTransferService::list_transfer_configs].
+    /// Implements [super::client::DataTransferService::list_transfer_configs].
     fn list_transfer_configs(
         &self,
         _req: crate::model::ListTransferConfigsRequest,
@@ -117,7 +117,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataTransferService::schedule_transfer_runs].
+    /// Implements [super::client::DataTransferService::schedule_transfer_runs].
     fn schedule_transfer_runs(
         &self,
         _req: crate::model::ScheduleTransferRunsRequest,
@@ -129,7 +129,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataTransferService::start_manual_transfer_runs].
+    /// Implements [super::client::DataTransferService::start_manual_transfer_runs].
     fn start_manual_transfer_runs(
         &self,
         _req: crate::model::StartManualTransferRunsRequest,
@@ -142,7 +142,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataTransferService::get_transfer_run].
+    /// Implements [super::client::DataTransferService::get_transfer_run].
     fn get_transfer_run(
         &self,
         _req: crate::model::GetTransferRunRequest,
@@ -153,7 +153,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DataTransferService::delete_transfer_run].
+    /// Implements [super::client::DataTransferService::delete_transfer_run].
     fn delete_transfer_run(
         &self,
         _req: crate::model::DeleteTransferRunRequest,
@@ -162,7 +162,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataTransferService::list_transfer_runs].
+    /// Implements [super::client::DataTransferService::list_transfer_runs].
     fn list_transfer_runs(
         &self,
         _req: crate::model::ListTransferRunsRequest,
@@ -174,7 +174,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataTransferService::list_transfer_logs].
+    /// Implements [super::client::DataTransferService::list_transfer_logs].
     fn list_transfer_logs(
         &self,
         _req: crate::model::ListTransferLogsRequest,
@@ -186,7 +186,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataTransferService::check_valid_creds].
+    /// Implements [super::client::DataTransferService::check_valid_creds].
     fn check_valid_creds(
         &self,
         _req: crate::model::CheckValidCredsRequest,
@@ -198,7 +198,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataTransferService::enroll_data_sources].
+    /// Implements [super::client::DataTransferService::enroll_data_sources].
     fn enroll_data_sources(
         &self,
         _req: crate::model::EnrollDataSourcesRequest,
@@ -207,7 +207,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataTransferService::unenroll_data_sources].
+    /// Implements [super::client::DataTransferService::unenroll_data_sources].
     fn unenroll_data_sources(
         &self,
         _req: crate::model::UnenrollDataSourcesRequest,
@@ -216,7 +216,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DataTransferService::list_locations].
+    /// Implements [super::client::DataTransferService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -228,7 +228,7 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DataTransferService::get_location].
+    /// Implements [super::client::DataTransferService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,

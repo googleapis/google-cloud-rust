@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate iam_v1;
 extern crate lazy_static;
 extern crate longrunning;
@@ -1264,7 +1265,6 @@ impl wkt::message::Message for ListAppProfilesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAppProfilesResponse {
     type PageItem = crate::model::AppProfile;
 
@@ -1273,7 +1273,8 @@ impl gax::paginator::PageableResponse for ListAppProfilesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1530,7 +1531,6 @@ impl wkt::message::Message for ListHotTabletsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListHotTabletsResponse {
     type PageItem = crate::model::HotTablet;
 
@@ -1539,7 +1539,8 @@ impl gax::paginator::PageableResponse for ListHotTabletsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1660,6 +1661,149 @@ impl wkt::message::Message for CreateLogicalViewMetadata {
     }
 }
 
+/// Request message for BigtableInstanceAdmin.GetLogicalView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetLogicalViewRequest {
+    /// Required. The unique name of the requested logical view. Values are of the
+    /// form `projects/{project}/instances/{instance}/logicalViews/{logical_view}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl GetLogicalViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetLogicalViewRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetLogicalViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.GetLogicalViewRequest"
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.ListLogicalViews.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListLogicalViewsRequest {
+    /// Required. The unique name of the instance for which the list of logical
+    /// views is requested. Values are of the form
+    /// `projects/{project}/instances/{instance}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of logical views to return. The service may
+    /// return fewer than this value
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListLogicalViews` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListLogicalViews` must
+    /// match the call that provided the page token.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+}
+
+impl ListLogicalViewsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListLogicalViewsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListLogicalViewsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListLogicalViewsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListLogicalViewsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.ListLogicalViewsRequest"
+    }
+}
+
+/// Response message for BigtableInstanceAdmin.ListLogicalViews.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListLogicalViewsResponse {
+    /// The list of requested logical views.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub logical_views: std::vec::Vec<crate::model::LogicalView>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+}
+
+impl ListLogicalViewsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLogicalViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [logical_views][crate::model::ListLogicalViewsResponse::logical_views].
+    pub fn set_logical_views<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LogicalView>,
+    {
+        use std::iter::Iterator;
+        self.logical_views = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListLogicalViewsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.ListLogicalViewsResponse"
+    }
+}
+
+impl gax::paginator::PageableResponse for ListLogicalViewsResponse {
+    type PageItem = crate::model::LogicalView;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.logical_views
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.UpdateLogicalView.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1769,6 +1913,50 @@ impl UpdateLogicalViewMetadata {
 impl wkt::message::Message for UpdateLogicalViewMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.bigtable.admin.v2.UpdateLogicalViewMetadata"
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.DeleteLogicalView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteLogicalViewRequest {
+    /// Required. The unique name of the logical view to be deleted.
+    /// Format:
+    /// `projects/{project}/instances/{instance}/logicalViews/{logical_view}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. The current etag of the logical view.
+    /// If an etag is provided and does not match the current etag of the
+    /// logical view, deletion will be blocked and an ABORTED error will be
+    /// returned.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+}
+
+impl DeleteLogicalViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteLogicalViewRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteLogicalViewRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteLogicalViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.DeleteLogicalViewRequest"
     }
 }
 
@@ -1889,6 +2077,306 @@ impl CreateMaterializedViewMetadata {
 impl wkt::message::Message for CreateMaterializedViewMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.bigtable.admin.v2.CreateMaterializedViewMetadata"
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.GetMaterializedView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetMaterializedViewRequest {
+    /// Required. The unique name of the requested materialized view. Values are of
+    /// the form
+    /// `projects/{project}/instances/{instance}/materializedViews/{materialized_view}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl GetMaterializedViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMaterializedViewRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMaterializedViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.GetMaterializedViewRequest"
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.ListMaterializedViews.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListMaterializedViewsRequest {
+    /// Required. The unique name of the instance for which the list of
+    /// materialized views is requested. Values are of the form
+    /// `projects/{project}/instances/{instance}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of materialized views to return. The service
+    /// may return fewer than this value
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListMaterializedViews`
+    /// call. Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListMaterializedViews`
+    /// must match the call that provided the page token.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+}
+
+impl ListMaterializedViewsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMaterializedViewsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMaterializedViewsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMaterializedViewsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMaterializedViewsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.ListMaterializedViewsRequest"
+    }
+}
+
+/// Response message for BigtableInstanceAdmin.ListMaterializedViews.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListMaterializedViewsResponse {
+    /// The list of requested materialized views.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub materialized_views: std::vec::Vec<crate::model::MaterializedView>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+}
+
+impl ListMaterializedViewsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMaterializedViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [materialized_views][crate::model::ListMaterializedViewsResponse::materialized_views].
+    pub fn set_materialized_views<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MaterializedView>,
+    {
+        use std::iter::Iterator;
+        self.materialized_views = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMaterializedViewsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.ListMaterializedViewsResponse"
+    }
+}
+
+impl gax::paginator::PageableResponse for ListMaterializedViewsResponse {
+    type PageItem = crate::model::MaterializedView;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.materialized_views
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.UpdateMaterializedView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateMaterializedViewRequest {
+    /// Required. The materialized view to update.
+    ///
+    /// The materialized view's `name` field is used to identify the view to
+    /// update. Format:
+    /// `projects/{project}/instances/{instance}/materializedViews/{materialized_view}`.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub materialized_view: std::option::Option<crate::model::MaterializedView>,
+
+    /// Optional. The list of fields to update.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+}
+
+impl UpdateMaterializedViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
+    pub fn set_materialized_view<
+        T: std::convert::Into<std::option::Option<crate::model::MaterializedView>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.materialized_view = v.into();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMaterializedViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.UpdateMaterializedViewRequest"
+    }
+}
+
+/// The metadata for the Operation returned by UpdateMaterializedView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateMaterializedViewMetadata {
+    /// The request that prompted the initiation of this UpdateMaterializedView
+    /// operation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub original_request: std::option::Option<crate::model::UpdateMaterializedViewRequest>,
+
+    /// The time at which this operation was started.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// If set, the time at which this operation finished or was canceled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl UpdateMaterializedViewMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [original_request][crate::model::UpdateMaterializedViewMetadata::original_request].
+    pub fn set_original_request<
+        T: std::convert::Into<std::option::Option<crate::model::UpdateMaterializedViewRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.original_request = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::UpdateMaterializedViewMetadata::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::UpdateMaterializedViewMetadata::end_time].
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMaterializedViewMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.UpdateMaterializedViewMetadata"
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.DeleteMaterializedView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteMaterializedViewRequest {
+    /// Required. The unique name of the materialized view to be deleted.
+    /// Format:
+    /// `projects/{project}/instances/{instance}/materializedViews/{materialized_view}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. The current etag of the materialized view.
+    /// If an etag is provided and does not match the current etag of the
+    /// materialized view, deletion will be blocked and an ABORTED error will be
+    /// returned.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+}
+
+impl DeleteMaterializedViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteMaterializedViewRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteMaterializedViewRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteMaterializedViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.DeleteMaterializedViewRequest"
     }
 }
 
@@ -2614,7 +3102,6 @@ impl wkt::message::Message for ListTablesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTablesResponse {
     type PageItem = crate::model::Table;
 
@@ -2623,7 +3110,8 @@ impl gax::paginator::PageableResponse for ListTablesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3697,7 +4185,6 @@ impl wkt::message::Message for ListSnapshotsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSnapshotsResponse {
     type PageItem = crate::model::Snapshot;
 
@@ -3706,7 +4193,8 @@ impl gax::paginator::PageableResponse for ListSnapshotsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -4322,7 +4810,6 @@ impl wkt::message::Message for ListBackupsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
@@ -4331,7 +4818,8 @@ impl gax::paginator::PageableResponse for ListBackupsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -4733,7 +5221,6 @@ impl wkt::message::Message for ListAuthorizedViewsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListAuthorizedViewsResponse {
     type PageItem = crate::model::AuthorizedView;
 
@@ -4742,7 +5229,8 @@ impl gax::paginator::PageableResponse for ListAuthorizedViewsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

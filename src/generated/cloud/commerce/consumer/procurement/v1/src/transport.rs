@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [LicenseManagementService](crate::stubs::LicenseManagementService) using a [gax::http_client::ReqwestClient].
+/// Implements [LicenseManagementService](super::stubs::LicenseManagementService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct LicenseManagementService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for LicenseManagementService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for LicenseManagementService {
 }
 
 impl LicenseManagementService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::LicenseManagementService for LicenseManagementService {
+impl super::stubs::LicenseManagementService for LicenseManagementService {
     async fn get_license_pool(
         &self,
         req: crate::model::GetLicensePoolRequest,
@@ -55,7 +55,7 @@ impl crate::stubs::LicenseManagementService for LicenseManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -73,7 +73,7 @@ impl crate::stubs::LicenseManagementService for LicenseManagementService {
                     "/v1/{}",
                     req.license_pool
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("license_pool"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("license_pool"))?
                         .name
                 ),
             )
@@ -89,7 +89,7 @@ impl crate::stubs::LicenseManagementService for LicenseManagementService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -154,7 +154,7 @@ impl crate::stubs::LicenseManagementService for LicenseManagementService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -173,15 +173,15 @@ impl crate::stubs::LicenseManagementService for LicenseManagementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }
 
-/// Implements [ConsumerProcurementService](crate::stubs::ConsumerProcurementService) using a [gax::http_client::ReqwestClient].
+/// Implements [ConsumerProcurementService](super::stubs::ConsumerProcurementService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ConsumerProcurementService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ConsumerProcurementService {
@@ -193,13 +193,13 @@ impl std::fmt::Debug for ConsumerProcurementService {
 }
 
 impl ConsumerProcurementService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::ConsumerProcurementService for ConsumerProcurementService {
+impl super::stubs::ConsumerProcurementService for ConsumerProcurementService {
     async fn place_order(
         &self,
         req: crate::model::PlaceOrderRequest,
@@ -235,7 +235,7 @@ impl crate::stubs::ConsumerProcurementService for ConsumerProcurementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -257,7 +257,7 @@ impl crate::stubs::ConsumerProcurementService for ConsumerProcurementService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -310,7 +310,7 @@ impl crate::stubs::ConsumerProcurementService for ConsumerProcurementService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

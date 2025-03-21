@@ -29,7 +29,7 @@ use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DatastoreAdmin].
+/// Defines the trait used to implement [super::client::DatastoreAdmin].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DatastoreAdmin`.  In other use-cases, application developers only
@@ -41,7 +41,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DatastoreAdmin::export_entities].
+    /// Implements [super::client::DatastoreAdmin::export_entities].
     fn export_entities(
         &self,
         _req: crate::model::ExportEntitiesRequest,
@@ -53,7 +53,7 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatastoreAdmin::import_entities].
+    /// Implements [super::client::DatastoreAdmin::import_entities].
     fn import_entities(
         &self,
         _req: crate::model::ImportEntitiesRequest,
@@ -65,7 +65,7 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatastoreAdmin::create_index].
+    /// Implements [super::client::DatastoreAdmin::create_index].
     fn create_index(
         &self,
         _req: crate::model::CreateIndexRequest,
@@ -77,7 +77,7 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatastoreAdmin::delete_index].
+    /// Implements [super::client::DatastoreAdmin::delete_index].
     fn delete_index(
         &self,
         _req: crate::model::DeleteIndexRequest,
@@ -89,7 +89,7 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatastoreAdmin::get_index].
+    /// Implements [super::client::DatastoreAdmin::get_index].
     fn get_index(
         &self,
         _req: crate::model::GetIndexRequest,
@@ -98,7 +98,7 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Index>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DatastoreAdmin::list_indexes].
+    /// Implements [super::client::DatastoreAdmin::list_indexes].
     fn list_indexes(
         &self,
         _req: crate::model::ListIndexesRequest,
@@ -110,7 +110,7 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatastoreAdmin::list_operations].
+    /// Implements [super::client::DatastoreAdmin::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -122,7 +122,7 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DatastoreAdmin::get_operation].
+    /// Implements [super::client::DatastoreAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -134,7 +134,7 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DatastoreAdmin::delete_operation].
+    /// Implements [super::client::DatastoreAdmin::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -143,7 +143,7 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DatastoreAdmin::cancel_operation].
+    /// Implements [super::client::DatastoreAdmin::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct CloudTasks {
-    inner: Arc<dyn crate::stubs::dynamic::CloudTasks>,
+    inner: Arc<dyn super::stubs::dynamic::CloudTasks>,
 }
 
 impl CloudTasks {
@@ -60,7 +60,7 @@ impl CloudTasks {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::CloudTasks + 'static,
+        T: super::stubs::CloudTasks + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl CloudTasks {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::CloudTasks>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::CloudTasks>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,16 +78,16 @@ impl CloudTasks {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudTasks> {
-        crate::transport::CloudTasks::new(conf).await
+    ) -> Result<impl super::stubs::CloudTasks> {
+        super::transport::CloudTasks::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::CloudTasks> {
+    ) -> Result<impl super::stubs::CloudTasks> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::CloudTasks::new)
+            .map(super::tracing::CloudTasks::new)
     }
 
     /// Lists queues.
@@ -96,16 +96,16 @@ impl CloudTasks {
     pub fn list_queues(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::ListQueues {
-        crate::builders::cloud_tasks::ListQueues::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::cloud_tasks::ListQueues {
+        super::builders::cloud_tasks::ListQueues::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a queue.
     pub fn get_queue(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::GetQueue {
-        crate::builders::cloud_tasks::GetQueue::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_tasks::GetQueue {
+        super::builders::cloud_tasks::GetQueue::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a queue.
@@ -123,8 +123,8 @@ impl CloudTasks {
     pub fn create_queue(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::CreateQueue {
-        crate::builders::cloud_tasks::CreateQueue::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::cloud_tasks::CreateQueue {
+        super::builders::cloud_tasks::CreateQueue::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Updates a queue.
@@ -145,8 +145,8 @@ impl CloudTasks {
     pub fn update_queue(
         &self,
         queue: impl Into<crate::model::Queue>,
-    ) -> crate::builders::cloud_tasks::UpdateQueue {
-        crate::builders::cloud_tasks::UpdateQueue::new(self.inner.clone()).set_queue(queue.into())
+    ) -> super::builders::cloud_tasks::UpdateQueue {
+        super::builders::cloud_tasks::UpdateQueue::new(self.inner.clone()).set_queue(queue.into())
     }
 
     /// Deletes a queue.
@@ -165,8 +165,8 @@ impl CloudTasks {
     pub fn delete_queue(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::DeleteQueue {
-        crate::builders::cloud_tasks::DeleteQueue::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_tasks::DeleteQueue {
+        super::builders::cloud_tasks::DeleteQueue::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Purges a queue by deleting all of its tasks.
@@ -178,8 +178,8 @@ impl CloudTasks {
     pub fn purge_queue(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::PurgeQueue {
-        crate::builders::cloud_tasks::PurgeQueue::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_tasks::PurgeQueue {
+        super::builders::cloud_tasks::PurgeQueue::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Pauses the queue.
@@ -197,8 +197,8 @@ impl CloudTasks {
     pub fn pause_queue(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::PauseQueue {
-        crate::builders::cloud_tasks::PauseQueue::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_tasks::PauseQueue {
+        super::builders::cloud_tasks::PauseQueue::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Resume a queue.
@@ -223,8 +223,8 @@ impl CloudTasks {
     pub fn resume_queue(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::ResumeQueue {
-        crate::builders::cloud_tasks::ResumeQueue::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_tasks::ResumeQueue {
+        super::builders::cloud_tasks::ResumeQueue::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the access control policy for a [Queue][google.cloud.tasks.v2.Queue].
@@ -241,8 +241,8 @@ impl CloudTasks {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::GetIamPolicy {
-        crate::builders::cloud_tasks::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::cloud_tasks::GetIamPolicy {
+        super::builders::cloud_tasks::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -262,8 +262,8 @@ impl CloudTasks {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::SetIamPolicy {
-        crate::builders::cloud_tasks::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::cloud_tasks::SetIamPolicy {
+        super::builders::cloud_tasks::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -280,8 +280,8 @@ impl CloudTasks {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::TestIamPermissions {
-        crate::builders::cloud_tasks::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::cloud_tasks::TestIamPermissions {
+        super::builders::cloud_tasks::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -300,16 +300,16 @@ impl CloudTasks {
     pub fn list_tasks(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::ListTasks {
-        crate::builders::cloud_tasks::ListTasks::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::cloud_tasks::ListTasks {
+        super::builders::cloud_tasks::ListTasks::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets a task.
     pub fn get_task(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::GetTask {
-        crate::builders::cloud_tasks::GetTask::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_tasks::GetTask {
+        super::builders::cloud_tasks::GetTask::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a task and adds it to a queue.
@@ -320,8 +320,8 @@ impl CloudTasks {
     pub fn create_task(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::CreateTask {
-        crate::builders::cloud_tasks::CreateTask::new(self.inner.clone()).set_parent(parent.into())
+    ) -> super::builders::cloud_tasks::CreateTask {
+        super::builders::cloud_tasks::CreateTask::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Deletes a task.
@@ -332,8 +332,8 @@ impl CloudTasks {
     pub fn delete_task(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::DeleteTask {
-        crate::builders::cloud_tasks::DeleteTask::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_tasks::DeleteTask {
+        super::builders::cloud_tasks::DeleteTask::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Forces a task to run now.
@@ -371,23 +371,23 @@ impl CloudTasks {
     pub fn run_task(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::RunTask {
-        crate::builders::cloud_tasks::RunTask::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_tasks::RunTask {
+        super::builders::cloud_tasks::RunTask::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::ListLocations {
-        crate::builders::cloud_tasks::ListLocations::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_tasks::ListLocations {
+        super::builders::cloud_tasks::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::cloud_tasks::GetLocation {
-        crate::builders::cloud_tasks::GetLocation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::cloud_tasks::GetLocation {
+        super::builders::cloud_tasks::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 }

@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate gtype;
 extern crate lazy_static;
 extern crate longrunning;
@@ -200,7 +201,6 @@ impl wkt::message::Message for ListEnvironmentsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListEnvironmentsResponse {
     type PageItem = crate::model::Environment;
 
@@ -209,7 +209,8 @@ impl gax::paginator::PageableResponse for ListEnvironmentsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1361,7 +1362,6 @@ impl wkt::message::Message for ListUserWorkloadsSecretsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUserWorkloadsSecretsResponse {
     type PageItem = crate::model::UserWorkloadsSecret;
 
@@ -1370,7 +1370,8 @@ impl gax::paginator::PageableResponse for ListUserWorkloadsSecretsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1474,7 +1475,6 @@ impl wkt::message::Message for ListUserWorkloadsConfigMapsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListUserWorkloadsConfigMapsResponse {
     type PageItem = crate::model::UserWorkloadsConfigMap;
 
@@ -1483,7 +1483,8 @@ impl gax::paginator::PageableResponse for ListUserWorkloadsConfigMapsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1596,7 +1597,6 @@ impl wkt::message::Message for ListWorkloadsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListWorkloadsResponse {
     type PageItem = crate::model::list_workloads_response::ComposerWorkload;
 
@@ -1605,7 +1605,8 @@ impl gax::paginator::PageableResponse for ListWorkloadsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -3108,7 +3109,7 @@ pub struct SoftwareConfig {
     /// If unspecified, the field defaults to `PLUGINS_ENABLED`.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub web_server_plugins_mode: crate::model::software_config::WebServerPluginsMode,
 }
 
@@ -3650,7 +3651,7 @@ pub struct NodeConfig {
     /// projects/{project}/regions/{region}/networkAttachments/{networkAttachment}.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub composer_network_attachment: std::string::String,
 
@@ -3661,7 +3662,7 @@ pub struct NodeConfig {
     /// If not specified, the default value of '100.64.128.0/20' is used.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub composer_internal_ipv4_cidr_block: std::string::String,
 }
@@ -3961,7 +3962,7 @@ pub struct PrivateEnvironmentConfig {
     /// internet.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     pub enable_private_builds_only: bool,
 
     /// Optional. Configuration for the private GKE cluster for a Private IP
@@ -4168,7 +4169,7 @@ pub struct WorkloadsConfig {
     /// Optional. Resources used by Airflow DAG processors.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub dag_processor: std::option::Option<crate::model::workloads_config::DagProcessorResource>,
 }
@@ -4466,7 +4467,7 @@ pub mod workloads_config {
     /// Configuration for resources used by Airflow DAG processors.
     ///
     /// This field is supported for Cloud Composer environments in versions
-    /// composer-3.*.*-airflow-*.*.* and newer.
+    /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -5561,7 +5562,6 @@ impl wkt::message::Message for ListImageVersionsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListImageVersionsResponse {
     type PageItem = crate::model::ImageVersion;
 
@@ -5570,7 +5570,8 @@ impl gax::paginator::PageableResponse for ListImageVersionsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

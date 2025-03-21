@@ -42,9 +42,9 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::SignJwtResponse>;
 }
 
-/// All implementations of [crate::stubs::IAMCredentials] also implement [IAMCredentials].
+/// All implementations of [super::IAMCredentials] also implement [IAMCredentials].
 #[async_trait::async_trait]
-impl<T: crate::stubs::IAMCredentials> IAMCredentials for T {
+impl<T: super::IAMCredentials> IAMCredentials for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn generate_access_token(
         &self,

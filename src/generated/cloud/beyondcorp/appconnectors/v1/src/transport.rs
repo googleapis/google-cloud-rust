@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AppConnectorsService](crate::stubs::AppConnectorsService) using a [gax::http_client::ReqwestClient].
+/// Implements [AppConnectorsService](super::stubs::AppConnectorsService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct AppConnectorsService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for AppConnectorsService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for AppConnectorsService {
 }
 
 impl AppConnectorsService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::AppConnectorsService for AppConnectorsService {
+impl super::stubs::AppConnectorsService for AppConnectorsService {
     async fn list_app_connectors(
         &self,
         req: crate::model::ListAppConnectorsRequest,
@@ -62,7 +62,7 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -81,7 +81,7 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -124,7 +124,7 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
                     "/v1/{}",
                     req.app_connector
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("app_connector"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("app_connector"))?
                         .name
                 ),
             )
@@ -140,7 +140,7 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -167,7 +167,7 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -209,7 +209,7 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -228,7 +228,7 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -276,11 +276,11 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -322,7 +322,7 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -341,7 +341,7 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -360,7 +360,7 @@ impl crate::stubs::AppConnectorsService for AppConnectorsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

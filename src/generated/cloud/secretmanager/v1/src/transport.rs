@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecretManagerService](crate::stubs::SecretManagerService) using a [gax::http_client::ReqwestClient].
+/// Implements [SecretManagerService](super::stubs::SecretManagerService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SecretManagerService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for SecretManagerService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for SecretManagerService {
 }
 
 impl SecretManagerService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::SecretManagerService for SecretManagerService {
+impl super::stubs::SecretManagerService for SecretManagerService {
     async fn list_secrets(
         &self,
         req: crate::model::ListSecretsRequest,
@@ -58,7 +58,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -115,7 +115,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -133,7 +133,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     "/v1/{}",
                     req.secret
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("secret"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("secret"))?
                         .name
                 ),
             )
@@ -149,7 +149,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.secret), options).await
@@ -171,7 +171,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -193,7 +193,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -212,7 +212,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -231,7 +231,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -330,11 +330,11 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -376,7 +376,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -395,7 +395,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 }

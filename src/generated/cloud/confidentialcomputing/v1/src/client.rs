@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct ConfidentialComputing {
-    inner: Arc<dyn crate::stubs::dynamic::ConfidentialComputing>,
+    inner: Arc<dyn super::stubs::dynamic::ConfidentialComputing>,
 }
 
 impl ConfidentialComputing {
@@ -59,7 +59,7 @@ impl ConfidentialComputing {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::ConfidentialComputing + 'static,
+        T: super::stubs::ConfidentialComputing + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl ConfidentialComputing {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::ConfidentialComputing>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::ConfidentialComputing>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,24 +77,24 @@ impl ConfidentialComputing {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ConfidentialComputing> {
-        crate::transport::ConfidentialComputing::new(conf).await
+    ) -> Result<impl super::stubs::ConfidentialComputing> {
+        super::transport::ConfidentialComputing::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::ConfidentialComputing> {
+    ) -> Result<impl super::stubs::ConfidentialComputing> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::ConfidentialComputing::new)
+            .map(super::tracing::ConfidentialComputing::new)
     }
 
     /// Creates a new Challenge in a given project and location.
     pub fn create_challenge(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::confidential_computing::CreateChallenge {
-        crate::builders::confidential_computing::CreateChallenge::new(self.inner.clone())
+    ) -> super::builders::confidential_computing::CreateChallenge {
+        super::builders::confidential_computing::CreateChallenge::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -102,8 +102,8 @@ impl ConfidentialComputing {
     pub fn verify_attestation(
         &self,
         challenge: impl Into<std::string::String>,
-    ) -> crate::builders::confidential_computing::VerifyAttestation {
-        crate::builders::confidential_computing::VerifyAttestation::new(self.inner.clone())
+    ) -> super::builders::confidential_computing::VerifyAttestation {
+        super::builders::confidential_computing::VerifyAttestation::new(self.inner.clone())
             .set_challenge(challenge.into())
     }
 
@@ -111,8 +111,8 @@ impl ConfidentialComputing {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::confidential_computing::ListLocations {
-        crate::builders::confidential_computing::ListLocations::new(self.inner.clone())
+    ) -> super::builders::confidential_computing::ListLocations {
+        super::builders::confidential_computing::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -120,8 +120,8 @@ impl ConfidentialComputing {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::confidential_computing::GetLocation {
-        crate::builders::confidential_computing::GetLocation::new(self.inner.clone())
+    ) -> super::builders::confidential_computing::GetLocation {
+        super::builders::confidential_computing::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

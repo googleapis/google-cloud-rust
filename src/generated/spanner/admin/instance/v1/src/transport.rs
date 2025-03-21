@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [InstanceAdmin](crate::stubs::InstanceAdmin) using a [gax::http_client::ReqwestClient].
+/// Implements [InstanceAdmin](super::stubs::InstanceAdmin) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct InstanceAdmin {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for InstanceAdmin {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for InstanceAdmin {
 }
 
 impl InstanceAdmin {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::InstanceAdmin for InstanceAdmin {
+impl super::stubs::InstanceAdmin for InstanceAdmin {
     async fn list_instance_configs(
         &self,
         req: crate::model::ListInstanceConfigsRequest,
@@ -60,7 +60,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -79,7 +79,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -117,7 +117,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                     "/v1/{}",
                     req.instance_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("instance_config"))?
                         .name
                 ),
             )
@@ -146,7 +146,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -171,7 +171,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -202,11 +202,11 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "instanceDeadline")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -236,11 +236,11 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "instancePartitionDeadline")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -265,11 +265,11 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "fieldMask")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -307,7 +307,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                     "/v1/{}",
                     req.instance
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -334,7 +334,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -413,7 +413,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -453,7 +453,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -471,7 +471,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                     "/v1/{}",
                     req.instance_partition
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("instance_partition"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("instance_partition"))?
                         .name
                 ),
             )
@@ -510,11 +510,11 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "instancePartitionDeadline")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -553,7 +553,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -572,7 +572,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -591,7 +591,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -610,7 +610,7 @@ impl crate::stubs::InstanceAdmin for InstanceAdmin {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 

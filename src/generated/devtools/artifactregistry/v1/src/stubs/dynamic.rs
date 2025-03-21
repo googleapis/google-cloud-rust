@@ -342,9 +342,9 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::ArtifactRegistry] also implement [ArtifactRegistry].
+/// All implementations of [super::ArtifactRegistry] also implement [ArtifactRegistry].
 #[async_trait::async_trait]
-impl<T: crate::stubs::ArtifactRegistry> ArtifactRegistry for T {
+impl<T: super::ArtifactRegistry> ArtifactRegistry for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_docker_images(
         &self,

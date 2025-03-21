@@ -20,6 +20,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
+extern crate gaxi;
 extern crate lazy_static;
 extern crate location;
 extern crate reqwest;
@@ -832,7 +833,6 @@ impl wkt::message::Message for ListDataSourcesResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListDataSourcesResponse {
     type PageItem = crate::model::DataSource;
 
@@ -841,7 +841,8 @@ impl gax::paginator::PageableResponse for ListDataSourcesResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1341,7 +1342,6 @@ impl wkt::message::Message for ListTransferConfigsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTransferConfigsResponse {
     type PageItem = crate::model::TransferConfig;
 
@@ -1350,7 +1350,8 @@ impl gax::paginator::PageableResponse for ListTransferConfigsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1545,7 +1546,6 @@ impl wkt::message::Message for ListTransferRunsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTransferRunsResponse {
     type PageItem = crate::model::TransferRun;
 
@@ -1554,7 +1554,8 @@ impl gax::paginator::PageableResponse for ListTransferRunsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -1675,7 +1676,6 @@ impl wkt::message::Message for ListTransferLogsResponse {
     }
 }
 
-#[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListTransferLogsResponse {
     type PageItem = crate::model::TransferMessage;
 
@@ -1684,7 +1684,8 @@ impl gax::paginator::PageableResponse for ListTransferLogsResponse {
     }
 
     fn next_page_token(&self) -> std::string::String {
-        gax::paginator::extract_token(&self.next_page_token)
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

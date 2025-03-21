@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct MetricsScopes {
-    inner: Arc<dyn crate::stubs::dynamic::MetricsScopes>,
+    inner: Arc<dyn super::stubs::dynamic::MetricsScopes>,
 }
 
 impl MetricsScopes {
@@ -60,7 +60,7 @@ impl MetricsScopes {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::MetricsScopes + 'static,
+        T: super::stubs::MetricsScopes + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl MetricsScopes {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::MetricsScopes>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::MetricsScopes>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,24 +78,24 @@ impl MetricsScopes {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::MetricsScopes> {
-        crate::transport::MetricsScopes::new(conf).await
+    ) -> Result<impl super::stubs::MetricsScopes> {
+        super::transport::MetricsScopes::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::MetricsScopes> {
+    ) -> Result<impl super::stubs::MetricsScopes> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::MetricsScopes::new)
+            .map(super::tracing::MetricsScopes::new)
     }
 
     /// Returns a specific `Metrics Scope`.
     pub fn get_metrics_scope(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metrics_scopes::GetMetricsScope {
-        crate::builders::metrics_scopes::GetMetricsScope::new(self.inner.clone())
+    ) -> super::builders::metrics_scopes::GetMetricsScope {
+        super::builders::metrics_scopes::GetMetricsScope::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -104,8 +104,8 @@ impl MetricsScopes {
     /// project will always be the first entry in the response.
     pub fn list_metrics_scopes_by_monitored_project(
         &self,
-    ) -> crate::builders::metrics_scopes::ListMetricsScopesByMonitoredProject {
-        crate::builders::metrics_scopes::ListMetricsScopesByMonitoredProject::new(
+    ) -> super::builders::metrics_scopes::ListMetricsScopesByMonitoredProject {
+        super::builders::metrics_scopes::ListMetricsScopesByMonitoredProject::new(
             self.inner.clone(),
         )
     }
@@ -125,8 +125,8 @@ impl MetricsScopes {
     pub fn create_monitored_project(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::metrics_scopes::CreateMonitoredProject {
-        crate::builders::metrics_scopes::CreateMonitoredProject::new(self.inner.clone())
+    ) -> super::builders::metrics_scopes::CreateMonitoredProject {
+        super::builders::metrics_scopes::CreateMonitoredProject::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -144,8 +144,8 @@ impl MetricsScopes {
     pub fn delete_monitored_project(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metrics_scopes::DeleteMonitoredProject {
-        crate::builders::metrics_scopes::DeleteMonitoredProject::new(self.inner.clone())
+    ) -> super::builders::metrics_scopes::DeleteMonitoredProject {
+        super::builders::metrics_scopes::DeleteMonitoredProject::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -155,7 +155,7 @@ impl MetricsScopes {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::metrics_scopes::GetOperation {
-        crate::builders::metrics_scopes::GetOperation::new(self.inner.clone()).set_name(name.into())
+    ) -> super::builders::metrics_scopes::GetOperation {
+        super::builders::metrics_scopes::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

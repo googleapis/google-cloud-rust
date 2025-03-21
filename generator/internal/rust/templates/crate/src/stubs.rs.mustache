@@ -39,7 +39,7 @@ pub(crate) mod dynamic;
 
 {{/Codec.HasServices}}
 {{#Codec.Services}}
-/// Defines the trait used to implement [crate::client::{{Codec.Name}}].
+/// Defines the trait used to implement [super::client::{{Codec.Name}}].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::{{Codec.Name}}`.  In other use-cases, application developers only
@@ -53,7 +53,7 @@ pub(crate) mod dynamic;
 pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     {{#Codec.Methods}}
 
-    /// Implements [crate::client::{{Codec.ServiceNameToPascal}}::{{Codec.Name}}].
+    /// Implements [super::client::{{Codec.ServiceNameToPascal}}::{{Codec.Name}}].
     fn {{Codec.Name}}(
         &self,
         _req: {{InputType.Codec.QualifiedName}},

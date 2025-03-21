@@ -69,8 +69,10 @@ func TestAnnotateMethod(t *testing.T) {
 		Package:       sample.Package,
 	}
 	model := api.NewTestAPI(
-		[]*api.Message{sample.ListSecretVersionsRequest(), sample.ListSecretVersionsResponse()},
-		[]*api.Enum{},
+		[]*api.Message{sample.ListSecretVersionsRequest(), sample.ListSecretVersionsResponse(),
+			sample.Secret(), sample.SecretVersion(), sample.Replication(), sample.Automatic(),
+			sample.CustomerManagedEncryption()},
+		[]*api.Enum{sample.EnumState()},
 		[]*api.Service{service},
 	)
 	api.Validate(model)
@@ -145,19 +147,19 @@ func TestCalculateImports(t *testing.T) {
 			"import 'dart:typed_data';",
 		}},
 		{name: "package import", imports: []string{httpImport}, want: []string{
-			"import 'package:http/http.dart';",
+			"import 'package:http/http.dart' as http;",
 		}},
 		{name: "dart and package imports", imports: []string{typedDataImport, httpImport}, want: []string{
 			"import 'dart:typed_data';",
 			"",
-			"import 'package:http/http.dart';",
+			"import 'package:http/http.dart' as http;",
 		}},
 		{name: "package imports", imports: []string{
 			httpImport,
 			"package:google_cloud_foo/foo.dart",
 		}, want: []string{
 			"import 'package:google_cloud_foo/foo.dart';",
-			"import 'package:http/http.dart';",
+			"import 'package:http/http.dart' as http;",
 		}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
@@ -171,5 +173,74 @@ func TestCalculateImports(t *testing.T) {
 				t.Errorf("mismatch in calculateImports (-want, +got)\n:%s", diff)
 			}
 		})
+	}
+}
+
+func TestAnnotateMessageToString(t *testing.T) {
+	model := api.NewTestAPI(
+		[]*api.Message{sample.Secret(), sample.SecretVersion(), sample.Replication(),
+			sample.Automatic(), sample.CustomerManagedEncryption()},
+		[]*api.Enum{sample.EnumState()},
+		[]*api.Service{},
+	)
+
+	for _, test := range []struct {
+		message  *api.Message
+		expected int
+	}{
+		// Expect the number of fields less the number of message fields.
+		{message: sample.Secret(), expected: 1},
+		{message: sample.SecretVersion(), expected: 2},
+		{message: sample.Replication(), expected: 0},
+		{message: sample.Automatic(), expected: 0},
+	} {
+		t.Run(test.message.Name, func(t *testing.T) {
+			packageMapping := map[string]string{}
+			imports := map[string]string{}
+			requiredFields := map[string]*api.Field{}
+
+			annotateMessage(test.message, model.State, packageMapping, imports, requiredFields)
+
+			codec := test.message.Codec.(*messageAnnotation)
+			actual := codec.ToStringLines
+
+			if len(actual) != test.expected {
+				t.Errorf("Expected list of length %d, got %d", test.expected, len(actual))
+			}
+		})
+	}
+}
+
+func TestCalculateRequiredFields(t *testing.T) {
+	service := &api.Service{
+		Name:          sample.ServiceName,
+		Documentation: sample.APIDescription,
+		DefaultHost:   sample.DefaultHost,
+		Methods:       []*api.Method{sample.MethodListSecretVersions()},
+		Package:       sample.Package,
+	}
+	model := api.NewTestAPI(
+		[]*api.Message{sample.ListSecretVersionsRequest(), sample.ListSecretVersionsResponse(),
+			sample.Secret(), sample.SecretVersion(), sample.Replication()},
+		[]*api.Enum{sample.EnumState()},
+		[]*api.Service{service},
+	)
+	api.Validate(model)
+
+	// Test that field annotations correctly calculate their required state; this
+	// uses the method's PathInfo.
+	requiredFields := calculateRequiredFields(model)
+
+	got := map[string]string{}
+	for key, value := range requiredFields {
+		got[key] = value.Name
+	}
+
+	want := map[string]string{
+		"..Secret.parent": "parent",
+	}
+
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in TestCalculateRequiredFields (-want, +got)\n:%s", diff)
 	}
 }

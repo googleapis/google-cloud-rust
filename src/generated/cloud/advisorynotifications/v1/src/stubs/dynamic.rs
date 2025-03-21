@@ -42,9 +42,9 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::Settings>;
 }
 
-/// All implementations of [crate::stubs::AdvisoryNotificationsService] also implement [AdvisoryNotificationsService].
+/// All implementations of [super::AdvisoryNotificationsService] also implement [AdvisoryNotificationsService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::AdvisoryNotificationsService> AdvisoryNotificationsService for T {
+impl<T: super::AdvisoryNotificationsService> AdvisoryNotificationsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_notifications(
         &self,

@@ -18,10 +18,10 @@ pub mod datastore_admin {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DatastoreAdmin] request builders.
+    /// Common implementation for [super::super::client::DatastoreAdmin] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>,
+        stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod datastore_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod datastore_admin {
     pub struct ExportEntities(RequestBuilder<crate::model::ExportEntitiesRequest>);
 
     impl ExportEntities {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +65,7 @@ pub mod datastore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_entities][crate::client::DatastoreAdmin::export_entities].
+        /// on [export_entities][super::super::client::DatastoreAdmin::export_entities].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_entities(self.0.request, self.0.options)
@@ -152,7 +152,7 @@ pub mod datastore_admin {
     pub struct ImportEntities(RequestBuilder<crate::model::ImportEntitiesRequest>);
 
     impl ImportEntities {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -173,7 +173,7 @@ pub mod datastore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_entities][crate::client::DatastoreAdmin::import_entities].
+        /// on [import_entities][super::super::client::DatastoreAdmin::import_entities].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_entities(self.0.request, self.0.options)
@@ -254,7 +254,7 @@ pub mod datastore_admin {
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -275,7 +275,7 @@ pub mod datastore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_index][crate::client::DatastoreAdmin::create_index].
+        /// on [create_index][super::super::client::DatastoreAdmin::create_index].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_index(self.0.request, self.0.options)
@@ -342,7 +342,7 @@ pub mod datastore_admin {
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -363,7 +363,7 @@ pub mod datastore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_index][crate::client::DatastoreAdmin::delete_index].
+        /// on [delete_index][super::super::client::DatastoreAdmin::delete_index].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_index(self.0.request, self.0.options)
@@ -427,7 +427,7 @@ pub mod datastore_admin {
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -474,7 +474,7 @@ pub mod datastore_admin {
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -498,12 +498,12 @@ pub mod datastore_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListIndexesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -548,7 +548,7 @@ pub mod datastore_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -575,12 +575,12 @@ pub mod datastore_admin {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -625,7 +625,7 @@ pub mod datastore_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -669,7 +669,7 @@ pub mod datastore_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -713,7 +713,7 @@ pub mod datastore_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DatastoreAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

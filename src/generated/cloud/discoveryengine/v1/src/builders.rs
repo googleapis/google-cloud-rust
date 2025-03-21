@@ -18,10 +18,10 @@ pub mod completion_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CompletionService] request builders.
+    /// Common implementation for [super::super::client::CompletionService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CompletionService>,
+        stub: Arc<dyn super::super::stubs::dynamic::CompletionService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod completion_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CompletionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CompletionService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod completion_service {
     pub struct CompleteQuery(RequestBuilder<crate::model::CompleteQueryRequest>);
 
     impl CompleteQuery {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CompletionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CompletionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -111,7 +111,7 @@ pub mod completion_service {
     );
 
     impl ImportSuggestionDenyListEntries {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CompletionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CompletionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -135,7 +135,7 @@ pub mod completion_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_suggestion_deny_list_entries][crate::client::CompletionService::import_suggestion_deny_list_entries].
+        /// on [import_suggestion_deny_list_entries][super::super::client::CompletionService::import_suggestion_deny_list_entries].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_suggestion_deny_list_entries(self.0.request, self.0.options)
@@ -211,7 +211,7 @@ pub mod completion_service {
     );
 
     impl PurgeSuggestionDenyListEntries {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CompletionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CompletionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -235,7 +235,7 @@ pub mod completion_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [purge_suggestion_deny_list_entries][crate::client::CompletionService::purge_suggestion_deny_list_entries].
+        /// on [purge_suggestion_deny_list_entries][super::super::client::CompletionService::purge_suggestion_deny_list_entries].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .purge_suggestion_deny_list_entries(self.0.request, self.0.options)
@@ -300,7 +300,7 @@ pub mod completion_service {
     );
 
     impl ImportCompletionSuggestions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CompletionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CompletionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -324,7 +324,7 @@ pub mod completion_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_completion_suggestions][crate::client::CompletionService::import_completion_suggestions].
+        /// on [import_completion_suggestions][super::super::client::CompletionService::import_completion_suggestions].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_completion_suggestions(self.0.request, self.0.options)
@@ -409,7 +409,7 @@ pub mod completion_service {
     );
 
     impl PurgeCompletionSuggestions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CompletionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CompletionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -433,7 +433,7 @@ pub mod completion_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [purge_completion_suggestions][crate::client::CompletionService::purge_completion_suggestions].
+        /// on [purge_completion_suggestions][super::super::client::CompletionService::purge_completion_suggestions].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .purge_completion_suggestions(self.0.request, self.0.options)
@@ -496,7 +496,7 @@ pub mod completion_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CompletionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CompletionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -523,12 +523,12 @@ pub mod completion_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -573,7 +573,7 @@ pub mod completion_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CompletionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CompletionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -617,7 +617,7 @@ pub mod completion_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CompletionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::CompletionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -661,10 +661,10 @@ pub mod control_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ControlService] request builders.
+    /// Common implementation for [super::super::client::ControlService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ControlService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ControlService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -673,7 +673,7 @@ pub mod control_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ControlService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ControlService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -687,7 +687,7 @@ pub mod control_service {
     pub struct CreateControl(RequestBuilder<crate::model::CreateControlRequest>);
 
     impl CreateControl {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ControlService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ControlService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -743,7 +743,7 @@ pub mod control_service {
     pub struct DeleteControl(RequestBuilder<crate::model::DeleteControlRequest>);
 
     impl DeleteControl {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ControlService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ControlService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -784,7 +784,7 @@ pub mod control_service {
     pub struct UpdateControl(RequestBuilder<crate::model::UpdateControlRequest>);
 
     impl UpdateControl {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ControlService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ControlService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -837,7 +837,7 @@ pub mod control_service {
     pub struct GetControl(RequestBuilder<crate::model::GetControlRequest>);
 
     impl GetControl {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ControlService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ControlService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -878,7 +878,7 @@ pub mod control_service {
     pub struct ListControls(RequestBuilder<crate::model::ListControlsRequest>);
 
     impl ListControls {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ControlService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ControlService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -902,12 +902,12 @@ pub mod control_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListControlsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -952,7 +952,7 @@ pub mod control_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ControlService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ControlService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -979,12 +979,12 @@ pub mod control_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1029,7 +1029,7 @@ pub mod control_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ControlService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ControlService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1073,7 +1073,7 @@ pub mod control_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ControlService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ControlService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1117,10 +1117,10 @@ pub mod conversational_search_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ConversationalSearchService] request builders.
+    /// Common implementation for [super::super::client::ConversationalSearchService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1130,7 +1130,7 @@ pub mod conversational_search_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self {
                 stub,
@@ -1146,7 +1146,7 @@ pub mod conversational_search_service {
 
     impl ConverseConversation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1263,7 +1263,7 @@ pub mod conversational_search_service {
 
     impl CreateConversation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1318,7 +1318,7 @@ pub mod conversational_search_service {
 
     impl DeleteConversation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1364,7 +1364,7 @@ pub mod conversational_search_service {
 
     impl UpdateConversation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1422,7 +1422,7 @@ pub mod conversational_search_service {
 
     impl GetConversation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1465,7 +1465,7 @@ pub mod conversational_search_service {
 
     impl ListConversations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1493,12 +1493,12 @@ pub mod conversational_search_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListConversationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1550,7 +1550,7 @@ pub mod conversational_search_service {
 
     impl AnswerQuery {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1686,7 +1686,7 @@ pub mod conversational_search_service {
 
     impl GetAnswer {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1729,7 +1729,7 @@ pub mod conversational_search_service {
 
     impl CreateSession {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1781,7 +1781,7 @@ pub mod conversational_search_service {
 
     impl DeleteSession {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1824,7 +1824,7 @@ pub mod conversational_search_service {
 
     impl UpdateSession {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1879,7 +1879,7 @@ pub mod conversational_search_service {
 
     impl GetSession {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1922,7 +1922,7 @@ pub mod conversational_search_service {
 
     impl ListSessions {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1947,12 +1947,12 @@ pub mod conversational_search_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSessionsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2004,7 +2004,7 @@ pub mod conversational_search_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2032,12 +2032,12 @@ pub mod conversational_search_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2083,7 +2083,7 @@ pub mod conversational_search_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2129,7 +2129,7 @@ pub mod conversational_search_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::ConversationalSearchService>,
+            stub: Arc<dyn super::super::stubs::dynamic::ConversationalSearchService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2174,10 +2174,10 @@ pub mod data_store_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DataStoreService] request builders.
+    /// Common implementation for [super::super::client::DataStoreService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DataStoreService>,
+        stub: Arc<dyn super::super::stubs::dynamic::DataStoreService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2186,7 +2186,7 @@ pub mod data_store_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataStoreService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataStoreService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2200,7 +2200,7 @@ pub mod data_store_service {
     pub struct CreateDataStore(RequestBuilder<crate::model::CreateDataStoreRequest>);
 
     impl CreateDataStore {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataStoreService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataStoreService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2221,7 +2221,7 @@ pub mod data_store_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_data_store][crate::client::DataStoreService::create_data_store].
+        /// on [create_data_store][super::super::client::DataStoreService::create_data_store].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_data_store(self.0.request, self.0.options)
@@ -2307,7 +2307,7 @@ pub mod data_store_service {
     pub struct GetDataStore(RequestBuilder<crate::model::GetDataStoreRequest>);
 
     impl GetDataStore {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataStoreService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataStoreService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2348,7 +2348,7 @@ pub mod data_store_service {
     pub struct ListDataStores(RequestBuilder<crate::model::ListDataStoresRequest>);
 
     impl ListDataStores {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataStoreService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataStoreService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2372,12 +2372,12 @@ pub mod data_store_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDataStoresResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2422,7 +2422,7 @@ pub mod data_store_service {
     pub struct DeleteDataStore(RequestBuilder<crate::model::DeleteDataStoreRequest>);
 
     impl DeleteDataStore {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataStoreService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataStoreService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2443,7 +2443,7 @@ pub mod data_store_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_data_store][crate::client::DataStoreService::delete_data_store].
+        /// on [delete_data_store][super::super::client::DataStoreService::delete_data_store].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_data_store(self.0.request, self.0.options)
@@ -2498,7 +2498,7 @@ pub mod data_store_service {
     pub struct UpdateDataStore(RequestBuilder<crate::model::UpdateDataStoreRequest>);
 
     impl UpdateDataStore {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataStoreService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataStoreService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2551,7 +2551,7 @@ pub mod data_store_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataStoreService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataStoreService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2578,12 +2578,12 @@ pub mod data_store_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2628,7 +2628,7 @@ pub mod data_store_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataStoreService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataStoreService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2672,7 +2672,7 @@ pub mod data_store_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DataStoreService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DataStoreService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2716,10 +2716,10 @@ pub mod document_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::DocumentService] request builders.
+    /// Common implementation for [super::super::client::DocumentService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::DocumentService>,
+        stub: Arc<dyn super::super::stubs::dynamic::DocumentService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2728,7 +2728,7 @@ pub mod document_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2742,7 +2742,7 @@ pub mod document_service {
     pub struct GetDocument(RequestBuilder<crate::model::GetDocumentRequest>);
 
     impl GetDocument {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2783,7 +2783,7 @@ pub mod document_service {
     pub struct ListDocuments(RequestBuilder<crate::model::ListDocumentsRequest>);
 
     impl ListDocuments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2807,12 +2807,12 @@ pub mod document_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDocumentsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2851,7 +2851,7 @@ pub mod document_service {
     pub struct CreateDocument(RequestBuilder<crate::model::CreateDocumentRequest>);
 
     impl CreateDocument {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2907,7 +2907,7 @@ pub mod document_service {
     pub struct UpdateDocument(RequestBuilder<crate::model::UpdateDocumentRequest>);
 
     impl UpdateDocument {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2966,7 +2966,7 @@ pub mod document_service {
     pub struct DeleteDocument(RequestBuilder<crate::model::DeleteDocumentRequest>);
 
     impl DeleteDocument {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3007,7 +3007,7 @@ pub mod document_service {
     pub struct ImportDocuments(RequestBuilder<crate::model::ImportDocumentsRequest>);
 
     impl ImportDocuments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3028,7 +3028,7 @@ pub mod document_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_documents][crate::client::DocumentService::import_documents].
+        /// on [import_documents][super::super::client::DocumentService::import_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_documents(self.0.request, self.0.options)
@@ -3139,7 +3139,7 @@ pub mod document_service {
     pub struct PurgeDocuments(RequestBuilder<crate::model::PurgeDocumentsRequest>);
 
     impl PurgeDocuments {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3160,7 +3160,7 @@ pub mod document_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [purge_documents][crate::client::DocumentService::purge_documents].
+        /// on [purge_documents][super::super::client::DocumentService::purge_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .purge_documents(self.0.request, self.0.options)
@@ -3253,7 +3253,7 @@ pub mod document_service {
     );
 
     impl BatchGetDocumentsMetadata {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3308,7 +3308,7 @@ pub mod document_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3335,12 +3335,12 @@ pub mod document_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3385,7 +3385,7 @@ pub mod document_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3429,7 +3429,7 @@ pub mod document_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DocumentService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::DocumentService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3473,10 +3473,10 @@ pub mod engine_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::EngineService] request builders.
+    /// Common implementation for [super::super::client::EngineService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::EngineService>,
+        stub: Arc<dyn super::super::stubs::dynamic::EngineService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3485,7 +3485,7 @@ pub mod engine_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EngineService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EngineService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3499,7 +3499,7 @@ pub mod engine_service {
     pub struct CreateEngine(RequestBuilder<crate::model::CreateEngineRequest>);
 
     impl CreateEngine {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EngineService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EngineService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3520,7 +3520,7 @@ pub mod engine_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_engine][crate::client::EngineService::create_engine].
+        /// on [create_engine][super::super::client::EngineService::create_engine].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_engine(self.0.request, self.0.options)
@@ -3593,7 +3593,7 @@ pub mod engine_service {
     pub struct DeleteEngine(RequestBuilder<crate::model::DeleteEngineRequest>);
 
     impl DeleteEngine {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EngineService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EngineService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3614,7 +3614,7 @@ pub mod engine_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_engine][crate::client::EngineService::delete_engine].
+        /// on [delete_engine][super::super::client::EngineService::delete_engine].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_engine(self.0.request, self.0.options)
@@ -3669,7 +3669,7 @@ pub mod engine_service {
     pub struct UpdateEngine(RequestBuilder<crate::model::UpdateEngineRequest>);
 
     impl UpdateEngine {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EngineService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EngineService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3722,7 +3722,7 @@ pub mod engine_service {
     pub struct GetEngine(RequestBuilder<crate::model::GetEngineRequest>);
 
     impl GetEngine {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EngineService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EngineService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3763,7 +3763,7 @@ pub mod engine_service {
     pub struct ListEngines(RequestBuilder<crate::model::ListEnginesRequest>);
 
     impl ListEngines {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EngineService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EngineService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3787,12 +3787,12 @@ pub mod engine_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEnginesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3837,7 +3837,7 @@ pub mod engine_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EngineService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EngineService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3864,12 +3864,12 @@ pub mod engine_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3914,7 +3914,7 @@ pub mod engine_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EngineService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EngineService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3958,7 +3958,7 @@ pub mod engine_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EngineService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EngineService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4002,10 +4002,10 @@ pub mod grounded_generation_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::GroundedGenerationService] request builders.
+    /// Common implementation for [super::super::client::GroundedGenerationService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::GroundedGenerationService>,
+        stub: Arc<dyn super::super::stubs::dynamic::GroundedGenerationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4014,7 +4014,9 @@ pub mod grounded_generation_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroundedGenerationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::GroundedGenerationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -4030,7 +4032,9 @@ pub mod grounded_generation_service {
     );
 
     impl GenerateGroundedContent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroundedGenerationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::GroundedGenerationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4135,7 +4139,9 @@ pub mod grounded_generation_service {
     pub struct CheckGrounding(RequestBuilder<crate::model::CheckGroundingRequest>);
 
     impl CheckGrounding {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroundedGenerationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::GroundedGenerationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4215,7 +4221,9 @@ pub mod grounded_generation_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroundedGenerationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::GroundedGenerationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4242,12 +4250,12 @@ pub mod grounded_generation_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -4292,7 +4300,9 @@ pub mod grounded_generation_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroundedGenerationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::GroundedGenerationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4336,7 +4346,9 @@ pub mod grounded_generation_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::GroundedGenerationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::GroundedGenerationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4380,10 +4392,10 @@ pub mod project_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ProjectService] request builders.
+    /// Common implementation for [super::super::client::ProjectService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ProjectService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ProjectService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4392,7 +4404,7 @@ pub mod project_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ProjectService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -4406,7 +4418,7 @@ pub mod project_service {
     pub struct ProvisionProject(RequestBuilder<crate::model::ProvisionProjectRequest>);
 
     impl ProvisionProject {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ProjectService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4430,7 +4442,7 @@ pub mod project_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [provision_project][crate::client::ProjectService::provision_project].
+        /// on [provision_project][super::super::client::ProjectService::provision_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .provision_project(self.0.request, self.0.options)
@@ -4501,7 +4513,7 @@ pub mod project_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ProjectService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4528,12 +4540,12 @@ pub mod project_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -4578,7 +4590,7 @@ pub mod project_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ProjectService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4622,7 +4634,7 @@ pub mod project_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ProjectService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4666,10 +4678,10 @@ pub mod rank_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::RankService] request builders.
+    /// Common implementation for [super::super::client::RankService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::RankService>,
+        stub: Arc<dyn super::super::stubs::dynamic::RankService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4678,7 +4690,7 @@ pub mod rank_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RankService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RankService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -4692,7 +4704,7 @@ pub mod rank_service {
     pub struct Rank(RequestBuilder<crate::model::RankRequest>);
 
     impl Rank {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RankService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RankService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4777,7 +4789,7 @@ pub mod rank_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RankService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RankService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4804,12 +4816,12 @@ pub mod rank_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -4854,7 +4866,7 @@ pub mod rank_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RankService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RankService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4898,7 +4910,7 @@ pub mod rank_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RankService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::RankService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4942,10 +4954,10 @@ pub mod recommendation_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::RecommendationService] request builders.
+    /// Common implementation for [super::super::client::RecommendationService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::RecommendationService>,
+        stub: Arc<dyn super::super::stubs::dynamic::RecommendationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4954,7 +4966,9 @@ pub mod recommendation_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RecommendationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RecommendationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -4968,7 +4982,9 @@ pub mod recommendation_service {
     pub struct Recommend(RequestBuilder<crate::model::RecommendRequest>);
 
     impl Recommend {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RecommendationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RecommendationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5058,7 +5074,9 @@ pub mod recommendation_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RecommendationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RecommendationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5085,12 +5103,12 @@ pub mod recommendation_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -5135,7 +5153,9 @@ pub mod recommendation_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RecommendationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RecommendationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5179,7 +5199,9 @@ pub mod recommendation_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RecommendationService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::RecommendationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5223,10 +5245,10 @@ pub mod schema_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SchemaService] request builders.
+    /// Common implementation for [super::super::client::SchemaService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SchemaService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SchemaService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -5235,7 +5257,7 @@ pub mod schema_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SchemaService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SchemaService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -5249,7 +5271,7 @@ pub mod schema_service {
     pub struct GetSchema(RequestBuilder<crate::model::GetSchemaRequest>);
 
     impl GetSchema {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SchemaService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SchemaService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5290,7 +5312,7 @@ pub mod schema_service {
     pub struct ListSchemas(RequestBuilder<crate::model::ListSchemasRequest>);
 
     impl ListSchemas {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SchemaService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SchemaService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5314,12 +5336,12 @@ pub mod schema_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSchemasResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -5358,7 +5380,7 @@ pub mod schema_service {
     pub struct CreateSchema(RequestBuilder<crate::model::CreateSchemaRequest>);
 
     impl CreateSchema {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SchemaService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SchemaService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5379,7 +5401,7 @@ pub mod schema_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_schema][crate::client::SchemaService::create_schema].
+        /// on [create_schema][super::super::client::SchemaService::create_schema].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_schema(self.0.request, self.0.options)
@@ -5452,7 +5474,7 @@ pub mod schema_service {
     pub struct UpdateSchema(RequestBuilder<crate::model::UpdateSchemaRequest>);
 
     impl UpdateSchema {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SchemaService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SchemaService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5473,7 +5495,7 @@ pub mod schema_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_schema][crate::client::SchemaService::update_schema].
+        /// on [update_schema][super::super::client::SchemaService::update_schema].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_schema(self.0.request, self.0.options)
@@ -5540,7 +5562,7 @@ pub mod schema_service {
     pub struct DeleteSchema(RequestBuilder<crate::model::DeleteSchemaRequest>);
 
     impl DeleteSchema {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SchemaService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SchemaService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5561,7 +5583,7 @@ pub mod schema_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_schema][crate::client::SchemaService::delete_schema].
+        /// on [delete_schema][super::super::client::SchemaService::delete_schema].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_schema(self.0.request, self.0.options)
@@ -5616,7 +5638,7 @@ pub mod schema_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SchemaService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SchemaService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5643,12 +5665,12 @@ pub mod schema_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -5693,7 +5715,7 @@ pub mod schema_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SchemaService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SchemaService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5737,7 +5759,7 @@ pub mod schema_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SchemaService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SchemaService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5781,10 +5803,10 @@ pub mod search_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SearchService] request builders.
+    /// Common implementation for [super::super::client::SearchService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SearchService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SearchService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -5793,7 +5815,7 @@ pub mod search_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SearchService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -5807,7 +5829,7 @@ pub mod search_service {
     pub struct Search(RequestBuilder<crate::model::SearchRequest>);
 
     impl Search {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SearchService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5829,11 +5851,11 @@ pub mod search_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -6068,7 +6090,7 @@ pub mod search_service {
     pub struct SearchLite(RequestBuilder<crate::model::SearchRequest>);
 
     impl SearchLite {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SearchService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6092,11 +6114,11 @@ pub mod search_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -6331,7 +6353,7 @@ pub mod search_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SearchService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6358,12 +6380,12 @@ pub mod search_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -6408,7 +6430,7 @@ pub mod search_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SearchService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6452,7 +6474,7 @@ pub mod search_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::SearchService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6496,10 +6518,10 @@ pub mod search_tuning_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SearchTuningService] request builders.
+    /// Common implementation for [super::super::client::SearchTuningService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SearchTuningService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SearchTuningService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -6508,7 +6530,9 @@ pub mod search_tuning_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchTuningService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SearchTuningService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -6522,7 +6546,9 @@ pub mod search_tuning_service {
     pub struct TrainCustomModel(RequestBuilder<crate::model::TrainCustomModelRequest>);
 
     impl TrainCustomModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchTuningService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SearchTuningService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6546,7 +6572,7 @@ pub mod search_tuning_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [train_custom_model][crate::client::SearchTuningService::train_custom_model].
+        /// on [train_custom_model][super::super::client::SearchTuningService::train_custom_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .train_custom_model(self.0.request, self.0.options)
@@ -6641,7 +6667,9 @@ pub mod search_tuning_service {
     pub struct ListCustomModels(RequestBuilder<crate::model::ListCustomModelsRequest>);
 
     impl ListCustomModels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchTuningService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SearchTuningService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6685,7 +6713,9 @@ pub mod search_tuning_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchTuningService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SearchTuningService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6712,12 +6742,12 @@ pub mod search_tuning_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -6762,7 +6792,9 @@ pub mod search_tuning_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchTuningService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SearchTuningService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6806,7 +6838,9 @@ pub mod search_tuning_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SearchTuningService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SearchTuningService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6850,10 +6884,10 @@ pub mod site_search_engine_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::SiteSearchEngineService] request builders.
+    /// Common implementation for [super::super::client::SiteSearchEngineService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>,
+        stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -6862,7 +6896,9 @@ pub mod site_search_engine_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -6876,7 +6912,9 @@ pub mod site_search_engine_service {
     pub struct GetSiteSearchEngine(RequestBuilder<crate::model::GetSiteSearchEngineRequest>);
 
     impl GetSiteSearchEngine {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6920,7 +6958,9 @@ pub mod site_search_engine_service {
     pub struct CreateTargetSite(RequestBuilder<crate::model::CreateTargetSiteRequest>);
 
     impl CreateTargetSite {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6944,7 +6984,7 @@ pub mod site_search_engine_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_target_site][crate::client::SiteSearchEngineService::create_target_site].
+        /// on [create_target_site][super::super::client::SiteSearchEngineService::create_target_site].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_target_site(self.0.request, self.0.options)
@@ -7012,7 +7052,9 @@ pub mod site_search_engine_service {
     pub struct BatchCreateTargetSites(RequestBuilder<crate::model::BatchCreateTargetSitesRequest>);
 
     impl BatchCreateTargetSites {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7036,7 +7078,7 @@ pub mod site_search_engine_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_create_target_sites][crate::client::SiteSearchEngineService::batch_create_target_sites].
+        /// on [batch_create_target_sites][super::super::client::SiteSearchEngineService::batch_create_target_sites].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_create_target_sites(self.0.request, self.0.options)
@@ -7110,7 +7152,9 @@ pub mod site_search_engine_service {
     pub struct GetTargetSite(RequestBuilder<crate::model::GetTargetSiteRequest>);
 
     impl GetTargetSite {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7151,7 +7195,9 @@ pub mod site_search_engine_service {
     pub struct UpdateTargetSite(RequestBuilder<crate::model::UpdateTargetSiteRequest>);
 
     impl UpdateTargetSite {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7175,7 +7221,7 @@ pub mod site_search_engine_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_target_site][crate::client::SiteSearchEngineService::update_target_site].
+        /// on [update_target_site][super::super::client::SiteSearchEngineService::update_target_site].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_target_site(self.0.request, self.0.options)
@@ -7237,7 +7283,9 @@ pub mod site_search_engine_service {
     pub struct DeleteTargetSite(RequestBuilder<crate::model::DeleteTargetSiteRequest>);
 
     impl DeleteTargetSite {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7261,7 +7309,7 @@ pub mod site_search_engine_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_target_site][crate::client::SiteSearchEngineService::delete_target_site].
+        /// on [delete_target_site][super::super::client::SiteSearchEngineService::delete_target_site].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_target_site(self.0.request, self.0.options)
@@ -7318,7 +7366,9 @@ pub mod site_search_engine_service {
     pub struct ListTargetSites(RequestBuilder<crate::model::ListTargetSitesRequest>);
 
     impl ListTargetSites {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7342,12 +7392,12 @@ pub mod site_search_engine_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListTargetSitesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -7388,7 +7438,9 @@ pub mod site_search_engine_service {
     );
 
     impl EnableAdvancedSiteSearch {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7412,7 +7464,7 @@ pub mod site_search_engine_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_advanced_site_search][crate::client::SiteSearchEngineService::enable_advanced_site_search].
+        /// on [enable_advanced_site_search][super::super::client::SiteSearchEngineService::enable_advanced_site_search].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_advanced_site_search(self.0.request, self.0.options)
@@ -7477,7 +7529,9 @@ pub mod site_search_engine_service {
     );
 
     impl DisableAdvancedSiteSearch {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7501,7 +7555,7 @@ pub mod site_search_engine_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_advanced_site_search][crate::client::SiteSearchEngineService::disable_advanced_site_search].
+        /// on [disable_advanced_site_search][super::super::client::SiteSearchEngineService::disable_advanced_site_search].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_advanced_site_search(self.0.request, self.0.options)
@@ -7564,7 +7618,9 @@ pub mod site_search_engine_service {
     pub struct RecrawlUris(RequestBuilder<crate::model::RecrawlUrisRequest>);
 
     impl RecrawlUris {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7585,7 +7641,7 @@ pub mod site_search_engine_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [recrawl_uris][crate::client::SiteSearchEngineService::recrawl_uris].
+        /// on [recrawl_uris][super::super::client::SiteSearchEngineService::recrawl_uris].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .recrawl_uris(self.0.request, self.0.options)
@@ -7663,7 +7719,9 @@ pub mod site_search_engine_service {
     pub struct BatchVerifyTargetSites(RequestBuilder<crate::model::BatchVerifyTargetSitesRequest>);
 
     impl BatchVerifyTargetSites {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7687,7 +7745,7 @@ pub mod site_search_engine_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_verify_target_sites][crate::client::SiteSearchEngineService::batch_verify_target_sites].
+        /// on [batch_verify_target_sites][super::super::client::SiteSearchEngineService::batch_verify_target_sites].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_verify_target_sites(self.0.request, self.0.options)
@@ -7752,7 +7810,9 @@ pub mod site_search_engine_service {
     );
 
     impl FetchDomainVerificationStatus {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7779,14 +7839,14 @@ pub mod site_search_engine_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::FetchDomainVerificationStatusResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -7825,7 +7885,9 @@ pub mod site_search_engine_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7852,12 +7914,12 @@ pub mod site_search_engine_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -7902,7 +7964,9 @@ pub mod site_search_engine_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7946,7 +8010,9 @@ pub mod site_search_engine_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SiteSearchEngineService>) -> Self {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stubs::dynamic::SiteSearchEngineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -7990,10 +8056,10 @@ pub mod user_event_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::UserEventService] request builders.
+    /// Common implementation for [super::super::client::UserEventService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::UserEventService>,
+        stub: Arc<dyn super::super::stubs::dynamic::UserEventService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -8002,7 +8068,7 @@ pub mod user_event_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UserEventService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UserEventService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -8016,7 +8082,7 @@ pub mod user_event_service {
     pub struct WriteUserEvent(RequestBuilder<crate::model::WriteUserEventRequest>);
 
     impl WriteUserEvent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UserEventService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UserEventService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8072,7 +8138,7 @@ pub mod user_event_service {
     pub struct CollectUserEvent(RequestBuilder<crate::model::CollectUserEventRequest>);
 
     impl CollectUserEvent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UserEventService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UserEventService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8134,7 +8200,7 @@ pub mod user_event_service {
     pub struct PurgeUserEvents(RequestBuilder<crate::model::PurgeUserEventsRequest>);
 
     impl PurgeUserEvents {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UserEventService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UserEventService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8155,7 +8221,7 @@ pub mod user_event_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [purge_user_events][crate::client::UserEventService::purge_user_events].
+        /// on [purge_user_events][super::super::client::UserEventService::purge_user_events].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .purge_user_events(self.0.request, self.0.options)
@@ -8228,7 +8294,7 @@ pub mod user_event_service {
     pub struct ImportUserEvents(RequestBuilder<crate::model::ImportUserEventsRequest>);
 
     impl ImportUserEvents {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UserEventService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UserEventService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8252,7 +8318,7 @@ pub mod user_event_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_user_events][crate::client::UserEventService::import_user_events].
+        /// on [import_user_events][super::super::client::UserEventService::import_user_events].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_user_events(self.0.request, self.0.options)
@@ -8333,7 +8399,7 @@ pub mod user_event_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UserEventService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UserEventService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8360,12 +8426,12 @@ pub mod user_event_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -8410,7 +8476,7 @@ pub mod user_event_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UserEventService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UserEventService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -8454,7 +8520,7 @@ pub mod user_event_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::UserEventService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::UserEventService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

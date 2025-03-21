@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::RecaptchaEnterpriseService].
+/// Defines the trait used to implement [super::client::RecaptchaEnterpriseService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::RecaptchaEnterpriseService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::RecaptchaEnterpriseService::create_assessment].
+    /// Implements [super::client::RecaptchaEnterpriseService::create_assessment].
     fn create_assessment(
         &self,
         _req: crate::model::CreateAssessmentRequest,
@@ -51,7 +51,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::annotate_assessment].
+    /// Implements [super::client::RecaptchaEnterpriseService::annotate_assessment].
     fn annotate_assessment(
         &self,
         _req: crate::model::AnnotateAssessmentRequest,
@@ -63,7 +63,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::create_key].
+    /// Implements [super::client::RecaptchaEnterpriseService::create_key].
     fn create_key(
         &self,
         _req: crate::model::CreateKeyRequest,
@@ -72,7 +72,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Key>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::list_keys].
+    /// Implements [super::client::RecaptchaEnterpriseService::list_keys].
     fn list_keys(
         &self,
         _req: crate::model::ListKeysRequest,
@@ -84,7 +84,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::retrieve_legacy_secret_key].
+    /// Implements [super::client::RecaptchaEnterpriseService::retrieve_legacy_secret_key].
     fn retrieve_legacy_secret_key(
         &self,
         _req: crate::model::RetrieveLegacySecretKeyRequest,
@@ -97,7 +97,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::get_key].
+    /// Implements [super::client::RecaptchaEnterpriseService::get_key].
     fn get_key(
         &self,
         _req: crate::model::GetKeyRequest,
@@ -106,7 +106,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Key>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::update_key].
+    /// Implements [super::client::RecaptchaEnterpriseService::update_key].
     fn update_key(
         &self,
         _req: crate::model::UpdateKeyRequest,
@@ -115,7 +115,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Key>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::delete_key].
+    /// Implements [super::client::RecaptchaEnterpriseService::delete_key].
     fn delete_key(
         &self,
         _req: crate::model::DeleteKeyRequest,
@@ -124,7 +124,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::migrate_key].
+    /// Implements [super::client::RecaptchaEnterpriseService::migrate_key].
     fn migrate_key(
         &self,
         _req: crate::model::MigrateKeyRequest,
@@ -133,7 +133,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Key>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::add_ip_override].
+    /// Implements [super::client::RecaptchaEnterpriseService::add_ip_override].
     fn add_ip_override(
         &self,
         _req: crate::model::AddIpOverrideRequest,
@@ -145,7 +145,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::remove_ip_override].
+    /// Implements [super::client::RecaptchaEnterpriseService::remove_ip_override].
     fn remove_ip_override(
         &self,
         _req: crate::model::RemoveIpOverrideRequest,
@@ -157,7 +157,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::list_ip_overrides].
+    /// Implements [super::client::RecaptchaEnterpriseService::list_ip_overrides].
     fn list_ip_overrides(
         &self,
         _req: crate::model::ListIpOverridesRequest,
@@ -169,7 +169,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::get_metrics].
+    /// Implements [super::client::RecaptchaEnterpriseService::get_metrics].
     fn get_metrics(
         &self,
         _req: crate::model::GetMetricsRequest,
@@ -180,7 +180,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::create_firewall_policy].
+    /// Implements [super::client::RecaptchaEnterpriseService::create_firewall_policy].
     fn create_firewall_policy(
         &self,
         _req: crate::model::CreateFirewallPolicyRequest,
@@ -191,7 +191,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::list_firewall_policies].
+    /// Implements [super::client::RecaptchaEnterpriseService::list_firewall_policies].
     fn list_firewall_policies(
         &self,
         _req: crate::model::ListFirewallPoliciesRequest,
@@ -203,7 +203,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::get_firewall_policy].
+    /// Implements [super::client::RecaptchaEnterpriseService::get_firewall_policy].
     fn get_firewall_policy(
         &self,
         _req: crate::model::GetFirewallPolicyRequest,
@@ -214,7 +214,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::update_firewall_policy].
+    /// Implements [super::client::RecaptchaEnterpriseService::update_firewall_policy].
     fn update_firewall_policy(
         &self,
         _req: crate::model::UpdateFirewallPolicyRequest,
@@ -225,7 +225,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::delete_firewall_policy].
+    /// Implements [super::client::RecaptchaEnterpriseService::delete_firewall_policy].
     fn delete_firewall_policy(
         &self,
         _req: crate::model::DeleteFirewallPolicyRequest,
@@ -234,7 +234,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::reorder_firewall_policies].
+    /// Implements [super::client::RecaptchaEnterpriseService::reorder_firewall_policies].
     fn reorder_firewall_policies(
         &self,
         _req: crate::model::ReorderFirewallPoliciesRequest,
@@ -247,7 +247,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::list_related_account_groups].
+    /// Implements [super::client::RecaptchaEnterpriseService::list_related_account_groups].
     fn list_related_account_groups(
         &self,
         _req: crate::model::ListRelatedAccountGroupsRequest,
@@ -260,7 +260,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::list_related_account_group_memberships].
+    /// Implements [super::client::RecaptchaEnterpriseService::list_related_account_group_memberships].
     fn list_related_account_group_memberships(
         &self,
         _req: crate::model::ListRelatedAccountGroupMembershipsRequest,
@@ -273,7 +273,7 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Implements [crate::client::RecaptchaEnterpriseService::search_related_account_group_memberships].
+    /// Implements [super::client::RecaptchaEnterpriseService::search_related_account_group_memberships].
     fn search_related_account_group_memberships(
         &self,
         _req: crate::model::SearchRelatedAccountGroupMembershipsRequest,

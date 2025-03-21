@@ -18,10 +18,10 @@ pub mod aml {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Aml] request builders.
+    /// Common implementation for [super::super::client::Aml] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Aml>,
+        stub: Arc<dyn super::super::stubs::dynamic::Aml>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod aml {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod aml {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod aml {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -124,7 +124,7 @@ pub mod aml {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,7 +165,7 @@ pub mod aml {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -186,7 +186,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][crate::client::Aml::create_instance].
+        /// on [create_instance][super::super::client::Aml::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -265,7 +265,7 @@ pub mod aml {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -286,7 +286,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][crate::client::Aml::update_instance].
+        /// on [update_instance][super::super::client::Aml::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -362,7 +362,7 @@ pub mod aml {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -383,7 +383,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][crate::client::Aml::delete_instance].
+        /// on [delete_instance][super::super::client::Aml::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -446,7 +446,7 @@ pub mod aml {
     );
 
     impl ImportRegisteredParties {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -470,7 +470,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_registered_parties][crate::client::Aml::import_registered_parties].
+        /// on [import_registered_parties][super::super::client::Aml::import_registered_parties].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_registered_parties(self.0.request, self.0.options)
@@ -567,7 +567,7 @@ pub mod aml {
     );
 
     impl ExportRegisteredParties {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -591,7 +591,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_registered_parties][crate::client::Aml::export_registered_parties].
+        /// on [export_registered_parties][super::super::client::Aml::export_registered_parties].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_registered_parties(self.0.request, self.0.options)
@@ -669,7 +669,7 @@ pub mod aml {
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -693,12 +693,12 @@ pub mod aml {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListDatasetsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -749,7 +749,7 @@ pub mod aml {
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -790,7 +790,7 @@ pub mod aml {
     pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
 
     impl CreateDataset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -811,7 +811,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_dataset][crate::client::Aml::create_dataset].
+        /// on [create_dataset][super::super::client::Aml::create_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_dataset(self.0.request, self.0.options)
@@ -889,7 +889,7 @@ pub mod aml {
     pub struct UpdateDataset(RequestBuilder<crate::model::UpdateDatasetRequest>);
 
     impl UpdateDataset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -910,7 +910,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_dataset][crate::client::Aml::update_dataset].
+        /// on [update_dataset][super::super::client::Aml::update_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dataset(self.0.request, self.0.options)
@@ -985,7 +985,7 @@ pub mod aml {
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1006,7 +1006,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_dataset][crate::client::Aml::delete_dataset].
+        /// on [delete_dataset][super::super::client::Aml::delete_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_dataset(self.0.request, self.0.options)
@@ -1067,7 +1067,7 @@ pub mod aml {
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1091,12 +1091,12 @@ pub mod aml {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListModelsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1147,7 +1147,7 @@ pub mod aml {
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1188,7 +1188,7 @@ pub mod aml {
     pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
 
     impl CreateModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1209,7 +1209,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_model][crate::client::Aml::create_model].
+        /// on [create_model][super::super::client::Aml::create_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_model(self.0.request, self.0.options)
@@ -1287,7 +1287,7 @@ pub mod aml {
     pub struct UpdateModel(RequestBuilder<crate::model::UpdateModelRequest>);
 
     impl UpdateModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1308,7 +1308,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_model][crate::client::Aml::update_model].
+        /// on [update_model][super::super::client::Aml::update_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_model(self.0.request, self.0.options)
@@ -1383,7 +1383,7 @@ pub mod aml {
     pub struct ExportModelMetadata(RequestBuilder<crate::model::ExportModelMetadataRequest>);
 
     impl ExportModelMetadata {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1407,7 +1407,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_model_metadata][crate::client::Aml::export_model_metadata].
+        /// on [export_model_metadata][super::super::client::Aml::export_model_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_model_metadata(self.0.request, self.0.options)
@@ -1479,7 +1479,7 @@ pub mod aml {
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1500,7 +1500,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_model][crate::client::Aml::delete_model].
+        /// on [delete_model][super::super::client::Aml::delete_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
@@ -1561,7 +1561,7 @@ pub mod aml {
     pub struct ListEngineConfigs(RequestBuilder<crate::model::ListEngineConfigsRequest>);
 
     impl ListEngineConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1588,12 +1588,12 @@ pub mod aml {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEngineConfigsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1644,7 +1644,7 @@ pub mod aml {
     pub struct GetEngineConfig(RequestBuilder<crate::model::GetEngineConfigRequest>);
 
     impl GetEngineConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1685,7 +1685,7 @@ pub mod aml {
     pub struct CreateEngineConfig(RequestBuilder<crate::model::CreateEngineConfigRequest>);
 
     impl CreateEngineConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1709,7 +1709,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_engine_config][crate::client::Aml::create_engine_config].
+        /// on [create_engine_config][super::super::client::Aml::create_engine_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_engine_config(self.0.request, self.0.options)
@@ -1788,7 +1788,7 @@ pub mod aml {
     pub struct UpdateEngineConfig(RequestBuilder<crate::model::UpdateEngineConfigRequest>);
 
     impl UpdateEngineConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1812,7 +1812,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_engine_config][crate::client::Aml::update_engine_config].
+        /// on [update_engine_config][super::super::client::Aml::update_engine_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_engine_config(self.0.request, self.0.options)
@@ -1890,7 +1890,7 @@ pub mod aml {
     );
 
     impl ExportEngineConfigMetadata {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1914,7 +1914,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_engine_config_metadata][crate::client::Aml::export_engine_config_metadata].
+        /// on [export_engine_config_metadata][super::super::client::Aml::export_engine_config_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_engine_config_metadata(self.0.request, self.0.options)
@@ -1988,7 +1988,7 @@ pub mod aml {
     pub struct DeleteEngineConfig(RequestBuilder<crate::model::DeleteEngineConfigRequest>);
 
     impl DeleteEngineConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2012,7 +2012,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_engine_config][crate::client::Aml::delete_engine_config].
+        /// on [delete_engine_config][super::super::client::Aml::delete_engine_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_engine_config(self.0.request, self.0.options)
@@ -2073,7 +2073,7 @@ pub mod aml {
     pub struct GetEngineVersion(RequestBuilder<crate::model::GetEngineVersionRequest>);
 
     impl GetEngineVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2117,7 +2117,7 @@ pub mod aml {
     pub struct ListEngineVersions(RequestBuilder<crate::model::ListEngineVersionsRequest>);
 
     impl ListEngineVersions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2144,12 +2144,12 @@ pub mod aml {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEngineVersionsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2200,7 +2200,7 @@ pub mod aml {
     pub struct ListPredictionResults(RequestBuilder<crate::model::ListPredictionResultsRequest>);
 
     impl ListPredictionResults {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2227,12 +2227,12 @@ pub mod aml {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListPredictionResultsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2283,7 +2283,7 @@ pub mod aml {
     pub struct GetPredictionResult(RequestBuilder<crate::model::GetPredictionResultRequest>);
 
     impl GetPredictionResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2327,7 +2327,7 @@ pub mod aml {
     pub struct CreatePredictionResult(RequestBuilder<crate::model::CreatePredictionResultRequest>);
 
     impl CreatePredictionResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2351,7 +2351,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_prediction_result][crate::client::Aml::create_prediction_result].
+        /// on [create_prediction_result][super::super::client::Aml::create_prediction_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_prediction_result(self.0.request, self.0.options)
@@ -2433,7 +2433,7 @@ pub mod aml {
     pub struct UpdatePredictionResult(RequestBuilder<crate::model::UpdatePredictionResultRequest>);
 
     impl UpdatePredictionResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2457,7 +2457,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_prediction_result][crate::client::Aml::update_prediction_result].
+        /// on [update_prediction_result][super::super::client::Aml::update_prediction_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_prediction_result(self.0.request, self.0.options)
@@ -2538,7 +2538,7 @@ pub mod aml {
     );
 
     impl ExportPredictionResultMetadata {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2562,7 +2562,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_prediction_result_metadata][crate::client::Aml::export_prediction_result_metadata].
+        /// on [export_prediction_result_metadata][super::super::client::Aml::export_prediction_result_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_prediction_result_metadata(self.0.request, self.0.options)
@@ -2636,7 +2636,7 @@ pub mod aml {
     pub struct DeletePredictionResult(RequestBuilder<crate::model::DeletePredictionResultRequest>);
 
     impl DeletePredictionResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2660,7 +2660,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_prediction_result][crate::client::Aml::delete_prediction_result].
+        /// on [delete_prediction_result][super::super::client::Aml::delete_prediction_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_prediction_result(self.0.request, self.0.options)
@@ -2721,7 +2721,7 @@ pub mod aml {
     pub struct ListBacktestResults(RequestBuilder<crate::model::ListBacktestResultsRequest>);
 
     impl ListBacktestResults {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2748,12 +2748,12 @@ pub mod aml {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListBacktestResultsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2804,7 +2804,7 @@ pub mod aml {
     pub struct GetBacktestResult(RequestBuilder<crate::model::GetBacktestResultRequest>);
 
     impl GetBacktestResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2848,7 +2848,7 @@ pub mod aml {
     pub struct CreateBacktestResult(RequestBuilder<crate::model::CreateBacktestResultRequest>);
 
     impl CreateBacktestResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2872,7 +2872,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backtest_result][crate::client::Aml::create_backtest_result].
+        /// on [create_backtest_result][super::super::client::Aml::create_backtest_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backtest_result(self.0.request, self.0.options)
@@ -2952,7 +2952,7 @@ pub mod aml {
     pub struct UpdateBacktestResult(RequestBuilder<crate::model::UpdateBacktestResultRequest>);
 
     impl UpdateBacktestResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2976,7 +2976,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backtest_result][crate::client::Aml::update_backtest_result].
+        /// on [update_backtest_result][super::super::client::Aml::update_backtest_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backtest_result(self.0.request, self.0.options)
@@ -3055,7 +3055,7 @@ pub mod aml {
     );
 
     impl ExportBacktestResultMetadata {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3079,7 +3079,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_backtest_result_metadata][crate::client::Aml::export_backtest_result_metadata].
+        /// on [export_backtest_result_metadata][super::super::client::Aml::export_backtest_result_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_backtest_result_metadata(self.0.request, self.0.options)
@@ -3153,7 +3153,7 @@ pub mod aml {
     pub struct DeleteBacktestResult(RequestBuilder<crate::model::DeleteBacktestResultRequest>);
 
     impl DeleteBacktestResult {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3177,7 +3177,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backtest_result][crate::client::Aml::delete_backtest_result].
+        /// on [delete_backtest_result][super::super::client::Aml::delete_backtest_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backtest_result(self.0.request, self.0.options)
@@ -3238,7 +3238,7 @@ pub mod aml {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3265,12 +3265,12 @@ pub mod aml {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3315,7 +3315,7 @@ pub mod aml {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3356,7 +3356,7 @@ pub mod aml {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3383,12 +3383,12 @@ pub mod aml {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -3433,7 +3433,7 @@ pub mod aml {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3477,7 +3477,7 @@ pub mod aml {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3521,7 +3521,7 @@ pub mod aml {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

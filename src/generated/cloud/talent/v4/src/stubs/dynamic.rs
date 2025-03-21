@@ -56,9 +56,9 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::CompanyService] also implement [CompanyService].
+/// All implementations of [super::CompanyService] also implement [CompanyService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CompanyService> CompanyService for T {
+impl<T: super::CompanyService> CompanyService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_company(
         &self,
@@ -130,9 +130,9 @@ pub trait Completion: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::Completion] also implement [Completion].
+/// All implementations of [super::Completion] also implement [Completion].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Completion> Completion for T {
+impl<T: super::Completion> Completion for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn complete_query(
         &self,
@@ -168,9 +168,9 @@ pub trait EventService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::EventService] also implement [EventService].
+/// All implementations of [super::EventService] also implement [EventService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::EventService> EventService for T {
+impl<T: super::EventService> EventService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_client_event(
         &self,
@@ -270,9 +270,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::JobService] also implement [JobService].
+/// All implementations of [super::JobService] also implement [JobService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::JobService> JobService for T {
+impl<T: super::JobService> JobService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_job(
         &self,
@@ -427,9 +427,9 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<longrunning::model::Operation>;
 }
 
-/// All implementations of [crate::stubs::TenantService] also implement [TenantService].
+/// All implementations of [super::TenantService] also implement [TenantService].
 #[async_trait::async_trait]
-impl<T: crate::stubs::TenantService> TenantService for T {
+impl<T: super::TenantService> TenantService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn create_tenant(
         &self,

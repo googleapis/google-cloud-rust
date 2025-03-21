@@ -18,10 +18,10 @@ pub mod access_approval {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AccessApproval] request builders.
+    /// Common implementation for [super::super::client::AccessApproval] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AccessApproval>,
+        stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod access_approval {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod access_approval {
     pub struct ListApprovalRequests(RequestBuilder<crate::model::ListApprovalRequestsMessage>);
 
     impl ListApprovalRequests {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -71,12 +71,12 @@ pub mod access_approval {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListApprovalRequestsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -121,7 +121,7 @@ pub mod access_approval {
     pub struct GetApprovalRequest(RequestBuilder<crate::model::GetApprovalRequestMessage>);
 
     impl GetApprovalRequest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,7 +165,7 @@ pub mod access_approval {
     pub struct ApproveApprovalRequest(RequestBuilder<crate::model::ApproveApprovalRequestMessage>);
 
     impl ApproveApprovalRequest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -218,7 +218,7 @@ pub mod access_approval {
     pub struct DismissApprovalRequest(RequestBuilder<crate::model::DismissApprovalRequestMessage>);
 
     impl DismissApprovalRequest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -264,7 +264,7 @@ pub mod access_approval {
     );
 
     impl InvalidateApprovalRequest {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -310,7 +310,7 @@ pub mod access_approval {
     );
 
     impl GetAccessApprovalSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -356,7 +356,7 @@ pub mod access_approval {
     );
 
     impl UpdateAccessApprovalSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -414,7 +414,7 @@ pub mod access_approval {
     );
 
     impl DeleteAccessApprovalSettings {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -460,7 +460,7 @@ pub mod access_approval {
     );
 
     impl GetAccessApprovalServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AccessApproval>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -51,7 +51,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AppConnectionsService {
-    inner: Arc<dyn crate::stubs::dynamic::AppConnectionsService>,
+    inner: Arc<dyn super::stubs::dynamic::AppConnectionsService>,
 }
 
 impl AppConnectionsService {
@@ -72,7 +72,7 @@ impl AppConnectionsService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AppConnectionsService + 'static,
+        T: super::stubs::AppConnectionsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -81,7 +81,7 @@ impl AppConnectionsService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AppConnectionsService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AppConnectionsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -90,24 +90,24 @@ impl AppConnectionsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AppConnectionsService> {
-        crate::transport::AppConnectionsService::new(conf).await
+    ) -> Result<impl super::stubs::AppConnectionsService> {
+        super::transport::AppConnectionsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AppConnectionsService> {
+    ) -> Result<impl super::stubs::AppConnectionsService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AppConnectionsService::new)
+            .map(super::tracing::AppConnectionsService::new)
     }
 
     /// Lists AppConnections in a given project and location.
     pub fn list_app_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::ListAppConnections {
-        crate::builders::app_connections_service::ListAppConnections::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::ListAppConnections {
+        super::builders::app_connections_service::ListAppConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,8 +115,8 @@ impl AppConnectionsService {
     pub fn get_app_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::GetAppConnection {
-        crate::builders::app_connections_service::GetAppConnection::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::GetAppConnection {
+        super::builders::app_connections_service::GetAppConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -134,8 +134,8 @@ impl AppConnectionsService {
     pub fn create_app_connection(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::CreateAppConnection {
-        crate::builders::app_connections_service::CreateAppConnection::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::CreateAppConnection {
+        super::builders::app_connections_service::CreateAppConnection::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +153,8 @@ impl AppConnectionsService {
     pub fn update_app_connection(
         &self,
         app_connection: impl Into<crate::model::AppConnection>,
-    ) -> crate::builders::app_connections_service::UpdateAppConnection {
-        crate::builders::app_connections_service::UpdateAppConnection::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::UpdateAppConnection {
+        super::builders::app_connections_service::UpdateAppConnection::new(self.inner.clone())
             .set_app_connection(app_connection.into())
     }
 
@@ -172,8 +172,8 @@ impl AppConnectionsService {
     pub fn delete_app_connection(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::DeleteAppConnection {
-        crate::builders::app_connections_service::DeleteAppConnection::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::DeleteAppConnection {
+        super::builders::app_connections_service::DeleteAppConnection::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -183,8 +183,8 @@ impl AppConnectionsService {
     pub fn resolve_app_connections(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::ResolveAppConnections {
-        crate::builders::app_connections_service::ResolveAppConnections::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::ResolveAppConnections {
+        super::builders::app_connections_service::ResolveAppConnections::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -192,8 +192,8 @@ impl AppConnectionsService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::ListLocations {
-        crate::builders::app_connections_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::ListLocations {
+        super::builders::app_connections_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -201,8 +201,8 @@ impl AppConnectionsService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::GetLocation {
-        crate::builders::app_connections_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::GetLocation {
+        super::builders::app_connections_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -214,8 +214,8 @@ impl AppConnectionsService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::SetIamPolicy {
-        crate::builders::app_connections_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::SetIamPolicy {
+        super::builders::app_connections_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -224,8 +224,8 @@ impl AppConnectionsService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::GetIamPolicy {
-        crate::builders::app_connections_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::GetIamPolicy {
+        super::builders::app_connections_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -239,8 +239,8 @@ impl AppConnectionsService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::TestIamPermissions {
-        crate::builders::app_connections_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::TestIamPermissions {
+        super::builders::app_connections_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -250,8 +250,8 @@ impl AppConnectionsService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::ListOperations {
-        crate::builders::app_connections_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::ListOperations {
+        super::builders::app_connections_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -261,8 +261,8 @@ impl AppConnectionsService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::GetOperation {
-        crate::builders::app_connections_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::GetOperation {
+        super::builders::app_connections_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -272,8 +272,8 @@ impl AppConnectionsService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::DeleteOperation {
-        crate::builders::app_connections_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::DeleteOperation {
+        super::builders::app_connections_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -283,8 +283,8 @@ impl AppConnectionsService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_connections_service::CancelOperation {
-        crate::builders::app_connections_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::app_connections_service::CancelOperation {
+        super::builders::app_connections_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

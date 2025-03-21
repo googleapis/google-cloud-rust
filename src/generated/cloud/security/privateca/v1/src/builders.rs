@@ -18,10 +18,10 @@ pub mod certificate_authority_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::CertificateAuthorityService] request builders.
+    /// Common implementation for [super::super::client::CertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+        stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -31,7 +31,7 @@ pub mod certificate_authority_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self {
                 stub,
@@ -47,7 +47,7 @@ pub mod certificate_authority_service {
 
     impl CreateCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -129,7 +129,7 @@ pub mod certificate_authority_service {
 
     impl GetCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -172,7 +172,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificates {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -200,12 +200,12 @@ pub mod certificate_authority_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCertificatesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -257,7 +257,7 @@ pub mod certificate_authority_service {
 
     impl RevokeCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -315,7 +315,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -381,7 +381,7 @@ pub mod certificate_authority_service {
 
     impl ActivateCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -406,7 +406,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [activate_certificate_authority][crate::client::CertificateAuthorityService::activate_certificate_authority].
+        /// on [activate_certificate_authority][super::super::client::CertificateAuthorityService::activate_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .activate_certificate_authority(self.0.request, self.0.options)
@@ -491,7 +491,7 @@ pub mod certificate_authority_service {
 
     impl CreateCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -516,7 +516,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_authority][crate::client::CertificateAuthorityService::create_certificate_authority].
+        /// on [create_certificate_authority][super::super::client::CertificateAuthorityService::create_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_authority(self.0.request, self.0.options)
@@ -601,7 +601,7 @@ pub mod certificate_authority_service {
 
     impl DisableCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -626,7 +626,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_certificate_authority][crate::client::CertificateAuthorityService::disable_certificate_authority].
+        /// on [disable_certificate_authority][super::super::client::CertificateAuthorityService::disable_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_certificate_authority(self.0.request, self.0.options)
@@ -700,7 +700,7 @@ pub mod certificate_authority_service {
 
     impl EnableCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -725,7 +725,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_certificate_authority][crate::client::CertificateAuthorityService::enable_certificate_authority].
+        /// on [enable_certificate_authority][super::super::client::CertificateAuthorityService::enable_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_certificate_authority(self.0.request, self.0.options)
@@ -793,7 +793,7 @@ pub mod certificate_authority_service {
 
     impl FetchCertificateAuthorityCsr {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -841,7 +841,7 @@ pub mod certificate_authority_service {
 
     impl GetCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -889,7 +889,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificateAuthorities {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -917,14 +917,14 @@ pub mod certificate_authority_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListCertificateAuthoritiesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -978,7 +978,7 @@ pub mod certificate_authority_service {
 
     impl UndeleteCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1003,7 +1003,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_certificate_authority][crate::client::CertificateAuthorityService::undelete_certificate_authority].
+        /// on [undelete_certificate_authority][super::super::client::CertificateAuthorityService::undelete_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_certificate_authority(self.0.request, self.0.options)
@@ -1071,7 +1071,7 @@ pub mod certificate_authority_service {
 
     impl DeleteCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1096,7 +1096,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_authority][crate::client::CertificateAuthorityService::delete_certificate_authority].
+        /// on [delete_certificate_authority][super::super::client::CertificateAuthorityService::delete_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_authority(self.0.request, self.0.options)
@@ -1182,7 +1182,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1207,7 +1207,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_authority][crate::client::CertificateAuthorityService::update_certificate_authority].
+        /// on [update_certificate_authority][super::super::client::CertificateAuthorityService::update_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_authority(self.0.request, self.0.options)
@@ -1287,7 +1287,7 @@ pub mod certificate_authority_service {
 
     impl CreateCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1309,7 +1309,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_ca_pool][crate::client::CertificateAuthorityService::create_ca_pool].
+        /// on [create_ca_pool][super::super::client::CertificateAuthorityService::create_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_ca_pool(self.0.request, self.0.options)
@@ -1388,7 +1388,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1410,7 +1410,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_ca_pool][crate::client::CertificateAuthorityService::update_ca_pool].
+        /// on [update_ca_pool][super::super::client::CertificateAuthorityService::update_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_ca_pool(self.0.request, self.0.options)
@@ -1486,7 +1486,7 @@ pub mod certificate_authority_service {
 
     impl GetCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1529,7 +1529,7 @@ pub mod certificate_authority_service {
 
     impl ListCaPools {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1554,12 +1554,12 @@ pub mod certificate_authority_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListCaPoolsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1611,7 +1611,7 @@ pub mod certificate_authority_service {
 
     impl DeleteCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1633,7 +1633,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_ca_pool][crate::client::CertificateAuthorityService::delete_ca_pool].
+        /// on [delete_ca_pool][super::super::client::CertificateAuthorityService::delete_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_ca_pool(self.0.request, self.0.options)
@@ -1701,7 +1701,7 @@ pub mod certificate_authority_service {
 
     impl FetchCaCerts {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1752,7 +1752,7 @@ pub mod certificate_authority_service {
 
     impl GetCertificateRevocationList {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1800,7 +1800,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificateRevocationLists {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1828,14 +1828,14 @@ pub mod certificate_authority_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListCertificateRevocationListsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1889,7 +1889,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificateRevocationList {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1914,7 +1914,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_revocation_list][crate::client::CertificateAuthorityService::update_certificate_revocation_list].
+        /// on [update_certificate_revocation_list][super::super::client::CertificateAuthorityService::update_certificate_revocation_list].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_revocation_list(self.0.request, self.0.options)
@@ -1998,7 +1998,7 @@ pub mod certificate_authority_service {
 
     impl CreateCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2023,7 +2023,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_template][crate::client::CertificateAuthorityService::create_certificate_template].
+        /// on [create_certificate_template][super::super::client::CertificateAuthorityService::create_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_template(self.0.request, self.0.options)
@@ -2108,7 +2108,7 @@ pub mod certificate_authority_service {
 
     impl DeleteCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2133,7 +2133,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_template][crate::client::CertificateAuthorityService::delete_certificate_template].
+        /// on [delete_certificate_template][super::super::client::CertificateAuthorityService::delete_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_template(self.0.request, self.0.options)
@@ -2195,7 +2195,7 @@ pub mod certificate_authority_service {
 
     impl GetCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2243,7 +2243,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificateTemplates {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2271,14 +2271,14 @@ pub mod certificate_authority_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListCertificateTemplatesResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2332,7 +2332,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2357,7 +2357,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_template][crate::client::CertificateAuthorityService::update_certificate_template].
+        /// on [update_certificate_template][super::super::client::CertificateAuthorityService::update_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_template(self.0.request, self.0.options)
@@ -2437,7 +2437,7 @@ pub mod certificate_authority_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2465,12 +2465,12 @@ pub mod certificate_authority_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2516,7 +2516,7 @@ pub mod certificate_authority_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2559,7 +2559,7 @@ pub mod certificate_authority_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2620,7 +2620,7 @@ pub mod certificate_authority_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2672,7 +2672,7 @@ pub mod certificate_authority_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2729,7 +2729,7 @@ pub mod certificate_authority_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2757,12 +2757,12 @@ pub mod certificate_authority_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -2808,7 +2808,7 @@ pub mod certificate_authority_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2854,7 +2854,7 @@ pub mod certificate_authority_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2900,7 +2900,7 @@ pub mod certificate_authority_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn crate::stubs::dynamic::CertificateAuthorityService>,
+            stub: Arc<dyn super::super::stubs::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

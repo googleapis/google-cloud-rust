@@ -18,10 +18,10 @@ pub mod locations {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Locations] request builders.
+    /// Common implementation for [super::super::client::Locations] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Locations>,
+        stub: Arc<dyn super::super::stubs::dynamic::Locations>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod locations {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Locations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Locations>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod locations {
     pub struct ListLocations(RequestBuilder<crate::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Locations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Locations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod locations {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -118,7 +118,7 @@ pub mod locations {
     pub struct GetLocation(RequestBuilder<crate::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Locations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Locations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

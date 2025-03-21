@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::ClusterManager].
+/// Defines the trait used to implement [super::client::ClusterManager].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::ClusterManager`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ClusterManager: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::ClusterManager::list_clusters].
+    /// Implements [super::client::ClusterManager::list_clusters].
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
@@ -52,7 +52,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::get_cluster].
+    /// Implements [super::client::ClusterManager::get_cluster].
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
@@ -63,7 +63,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::create_cluster].
+    /// Implements [super::client::ClusterManager::create_cluster].
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
@@ -74,7 +74,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::update_cluster].
+    /// Implements [super::client::ClusterManager::update_cluster].
     fn update_cluster(
         &self,
         _req: crate::model::UpdateClusterRequest,
@@ -85,7 +85,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::update_node_pool].
+    /// Implements [super::client::ClusterManager::update_node_pool].
     fn update_node_pool(
         &self,
         _req: crate::model::UpdateNodePoolRequest,
@@ -96,7 +96,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_node_pool_autoscaling].
+    /// Implements [super::client::ClusterManager::set_node_pool_autoscaling].
     fn set_node_pool_autoscaling(
         &self,
         _req: crate::model::SetNodePoolAutoscalingRequest,
@@ -107,7 +107,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_logging_service].
+    /// Implements [super::client::ClusterManager::set_logging_service].
     fn set_logging_service(
         &self,
         _req: crate::model::SetLoggingServiceRequest,
@@ -118,7 +118,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_monitoring_service].
+    /// Implements [super::client::ClusterManager::set_monitoring_service].
     fn set_monitoring_service(
         &self,
         _req: crate::model::SetMonitoringServiceRequest,
@@ -129,7 +129,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_addons_config].
+    /// Implements [super::client::ClusterManager::set_addons_config].
     fn set_addons_config(
         &self,
         _req: crate::model::SetAddonsConfigRequest,
@@ -140,7 +140,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_locations].
+    /// Implements [super::client::ClusterManager::set_locations].
     fn set_locations(
         &self,
         _req: crate::model::SetLocationsRequest,
@@ -151,7 +151,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::update_master].
+    /// Implements [super::client::ClusterManager::update_master].
     fn update_master(
         &self,
         _req: crate::model::UpdateMasterRequest,
@@ -162,7 +162,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_master_auth].
+    /// Implements [super::client::ClusterManager::set_master_auth].
     fn set_master_auth(
         &self,
         _req: crate::model::SetMasterAuthRequest,
@@ -173,7 +173,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::delete_cluster].
+    /// Implements [super::client::ClusterManager::delete_cluster].
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
@@ -184,7 +184,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::list_operations].
+    /// Implements [super::client::ClusterManager::list_operations].
     fn list_operations(
         &self,
         _req: crate::model::ListOperationsRequest,
@@ -196,7 +196,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ClusterManager::get_operation].
+    /// Implements [super::client::ClusterManager::get_operation].
     fn get_operation(
         &self,
         _req: crate::model::GetOperationRequest,
@@ -207,7 +207,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::cancel_operation].
+    /// Implements [super::client::ClusterManager::cancel_operation].
     fn cancel_operation(
         &self,
         _req: crate::model::CancelOperationRequest,
@@ -216,7 +216,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ClusterManager::get_server_config].
+    /// Implements [super::client::ClusterManager::get_server_config].
     fn get_server_config(
         &self,
         _req: crate::model::GetServerConfigRequest,
@@ -227,7 +227,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::get_json_web_keys].
+    /// Implements [super::client::ClusterManager::get_json_web_keys].
     fn get_json_web_keys(
         &self,
         _req: crate::model::GetJSONWebKeysRequest,
@@ -239,7 +239,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ClusterManager::list_node_pools].
+    /// Implements [super::client::ClusterManager::list_node_pools].
     fn list_node_pools(
         &self,
         _req: crate::model::ListNodePoolsRequest,
@@ -251,7 +251,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::get_node_pool].
+    /// Implements [super::client::ClusterManager::get_node_pool].
     fn get_node_pool(
         &self,
         _req: crate::model::GetNodePoolRequest,
@@ -262,7 +262,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::create_node_pool].
+    /// Implements [super::client::ClusterManager::create_node_pool].
     fn create_node_pool(
         &self,
         _req: crate::model::CreateNodePoolRequest,
@@ -273,7 +273,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::delete_node_pool].
+    /// Implements [super::client::ClusterManager::delete_node_pool].
     fn delete_node_pool(
         &self,
         _req: crate::model::DeleteNodePoolRequest,
@@ -284,7 +284,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::complete_node_pool_upgrade].
+    /// Implements [super::client::ClusterManager::complete_node_pool_upgrade].
     fn complete_node_pool_upgrade(
         &self,
         _req: crate::model::CompleteNodePoolUpgradeRequest,
@@ -293,7 +293,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::ClusterManager::rollback_node_pool_upgrade].
+    /// Implements [super::client::ClusterManager::rollback_node_pool_upgrade].
     fn rollback_node_pool_upgrade(
         &self,
         _req: crate::model::RollbackNodePoolUpgradeRequest,
@@ -304,7 +304,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_node_pool_management].
+    /// Implements [super::client::ClusterManager::set_node_pool_management].
     fn set_node_pool_management(
         &self,
         _req: crate::model::SetNodePoolManagementRequest,
@@ -315,7 +315,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_labels].
+    /// Implements [super::client::ClusterManager::set_labels].
     fn set_labels(
         &self,
         _req: crate::model::SetLabelsRequest,
@@ -326,7 +326,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_legacy_abac].
+    /// Implements [super::client::ClusterManager::set_legacy_abac].
     fn set_legacy_abac(
         &self,
         _req: crate::model::SetLegacyAbacRequest,
@@ -337,7 +337,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::start_ip_rotation].
+    /// Implements [super::client::ClusterManager::start_ip_rotation].
     fn start_ip_rotation(
         &self,
         _req: crate::model::StartIPRotationRequest,
@@ -348,7 +348,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::complete_ip_rotation].
+    /// Implements [super::client::ClusterManager::complete_ip_rotation].
     fn complete_ip_rotation(
         &self,
         _req: crate::model::CompleteIPRotationRequest,
@@ -359,7 +359,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_node_pool_size].
+    /// Implements [super::client::ClusterManager::set_node_pool_size].
     fn set_node_pool_size(
         &self,
         _req: crate::model::SetNodePoolSizeRequest,
@@ -370,7 +370,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_network_policy].
+    /// Implements [super::client::ClusterManager::set_network_policy].
     fn set_network_policy(
         &self,
         _req: crate::model::SetNetworkPolicyRequest,
@@ -381,7 +381,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::set_maintenance_policy].
+    /// Implements [super::client::ClusterManager::set_maintenance_policy].
     fn set_maintenance_policy(
         &self,
         _req: crate::model::SetMaintenancePolicyRequest,
@@ -392,7 +392,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::ClusterManager::list_usable_subnetworks].
+    /// Implements [super::client::ClusterManager::list_usable_subnetworks].
     fn list_usable_subnetworks(
         &self,
         _req: crate::model::ListUsableSubnetworksRequest,
@@ -404,7 +404,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::ClusterManager::check_autopilot_compatibility].
+    /// Implements [super::client::ClusterManager::check_autopilot_compatibility].
     fn check_autopilot_compatibility(
         &self,
         _req: crate::model::CheckAutopilotCompatibilityRequest,

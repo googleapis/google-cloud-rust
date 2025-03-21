@@ -42,9 +42,9 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::Operations] also implement [Operations].
+/// All implementations of [super::Operations] also implement [Operations].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Operations> Operations for T {
+impl<T: super::Operations> Operations for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,

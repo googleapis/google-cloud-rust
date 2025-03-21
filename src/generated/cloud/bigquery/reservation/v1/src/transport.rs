@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [ReservationService](crate::stubs::ReservationService) using a [gax::http_client::ReqwestClient].
+/// Implements [ReservationService](super::stubs::ReservationService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct ReservationService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for ReservationService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for ReservationService {
 }
 
 impl ReservationService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::ReservationService for ReservationService {
+impl super::stubs::ReservationService for ReservationService {
     async fn create_reservation(
         &self,
         req: crate::model::CreateReservationRequest,
@@ -83,7 +83,7 @@ impl crate::stubs::ReservationService for ReservationService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -102,7 +102,7 @@ impl crate::stubs::ReservationService for ReservationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -121,7 +121,7 @@ impl crate::stubs::ReservationService for ReservationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -139,7 +139,7 @@ impl crate::stubs::ReservationService for ReservationService {
                     "/v1/{}",
                     req.reservation
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("reservation"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("reservation"))?
                         .name
                 ),
             )
@@ -155,7 +155,7 @@ impl crate::stubs::ReservationService for ReservationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -230,7 +230,7 @@ impl crate::stubs::ReservationService for ReservationService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -249,7 +249,7 @@ impl crate::stubs::ReservationService for ReservationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -269,7 +269,7 @@ impl crate::stubs::ReservationService for ReservationService {
             );
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -287,7 +287,7 @@ impl crate::stubs::ReservationService for ReservationService {
                     "/v1/{}",
                     req.capacity_commitment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("capacity_commitment"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("capacity_commitment"))?
                         .name
                 ),
             )
@@ -303,7 +303,7 @@ impl crate::stubs::ReservationService for ReservationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -391,7 +391,7 @@ impl crate::stubs::ReservationService for ReservationService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -410,7 +410,7 @@ impl crate::stubs::ReservationService for ReservationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -435,7 +435,7 @@ impl crate::stubs::ReservationService for ReservationService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -460,7 +460,7 @@ impl crate::stubs::ReservationService for ReservationService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -495,7 +495,7 @@ impl crate::stubs::ReservationService for ReservationService {
                     "/v1/{}",
                     req.assignment
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("assignment"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("assignment"))?
                         .name
                 ),
             )
@@ -511,7 +511,7 @@ impl crate::stubs::ReservationService for ReservationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner
@@ -534,7 +534,7 @@ impl crate::stubs::ReservationService for ReservationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -552,7 +552,7 @@ impl crate::stubs::ReservationService for ReservationService {
                     "/v1/{}",
                     req.bi_reservation
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("bi_reservation"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("bi_reservation"))?
                         .name
                 ),
             )
@@ -568,7 +568,7 @@ impl crate::stubs::ReservationService for ReservationService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

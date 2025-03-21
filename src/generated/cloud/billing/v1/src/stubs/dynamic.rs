@@ -84,9 +84,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::BillingAccount>;
 }
 
-/// All implementations of [crate::stubs::CloudBilling] also implement [CloudBilling].
+/// All implementations of [super::CloudBilling] also implement [CloudBilling].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudBilling> CloudBilling for T {
+impl<T: super::CloudBilling> CloudBilling for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_billing_account(
         &self,
@@ -203,9 +203,9 @@ pub trait CloudCatalog: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<crate::model::ListSkusResponse>;
 }
 
-/// All implementations of [crate::stubs::CloudCatalog] also implement [CloudCatalog].
+/// All implementations of [super::CloudCatalog] also implement [CloudCatalog].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudCatalog> CloudCatalog for T {
+impl<T: super::CloudCatalog> CloudCatalog for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_services(
         &self,

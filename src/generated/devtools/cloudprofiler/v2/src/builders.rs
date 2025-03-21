@@ -18,10 +18,10 @@ pub mod profiler_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ProfilerService] request builders.
+    /// Common implementation for [super::super::client::ProfilerService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ProfilerService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ProfilerService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod profiler_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ProfilerService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod profiler_service {
     pub struct CreateProfile(RequestBuilder<crate::model::CreateProfileRequest>);
 
     impl CreateProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ProfilerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -105,7 +105,7 @@ pub mod profiler_service {
     pub struct CreateOfflineProfile(RequestBuilder<crate::model::CreateOfflineProfileRequest>);
 
     impl CreateOfflineProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ProfilerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -158,7 +158,7 @@ pub mod profiler_service {
     pub struct UpdateProfile(RequestBuilder<crate::model::UpdateProfileRequest>);
 
     impl UpdateProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ProfilerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -211,10 +211,10 @@ pub mod export_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ExportService] request builders.
+    /// Common implementation for [super::super::client::ExportService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ExportService>,
+        stub: Arc<dyn super::super::stubs::dynamic::ExportService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -223,7 +223,7 @@ pub mod export_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ExportService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ExportService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -237,7 +237,7 @@ pub mod export_service {
     pub struct ListProfiles(RequestBuilder<crate::model::ListProfilesRequest>);
 
     impl ListProfiles {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ExportService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ExportService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -261,12 +261,12 @@ pub mod export_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListProfilesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);

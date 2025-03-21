@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [OsLoginService](crate::stubs::OsLoginService) using a [gax::http_client::ReqwestClient].
+/// Implements [OsLoginService](super::stubs::OsLoginService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct OsLoginService {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for OsLoginService {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for OsLoginService {
 }
 
 impl OsLoginService {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::OsLoginService for OsLoginService {
+impl super::stubs::OsLoginService for OsLoginService {
     async fn create_ssh_public_key(
         &self,
         req: crate::model::CreateSshPublicKeyRequest,
@@ -77,7 +77,7 @@ impl crate::stubs::OsLoginService for OsLoginService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -96,7 +96,7 @@ impl crate::stubs::OsLoginService for OsLoginService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -120,7 +120,7 @@ impl crate::stubs::OsLoginService for OsLoginService {
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("systemId", &req.system_id)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -139,7 +139,7 @@ impl crate::stubs::OsLoginService for OsLoginService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -191,7 +191,7 @@ impl crate::stubs::OsLoginService for OsLoginService {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         self.inner

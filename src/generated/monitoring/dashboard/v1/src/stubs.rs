@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::DashboardsService].
+/// Defines the trait used to implement [super::client::DashboardsService].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::DashboardsService`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait DashboardsService: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::DashboardsService::create_dashboard].
+    /// Implements [super::client::DashboardsService::create_dashboard].
     fn create_dashboard(
         &self,
         _req: crate::model::CreateDashboardRequest,
@@ -51,7 +51,7 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DashboardsService::list_dashboards].
+    /// Implements [super::client::DashboardsService::list_dashboards].
     fn list_dashboards(
         &self,
         _req: crate::model::ListDashboardsRequest,
@@ -63,7 +63,7 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [crate::client::DashboardsService::get_dashboard].
+    /// Implements [super::client::DashboardsService::get_dashboard].
     fn get_dashboard(
         &self,
         _req: crate::model::GetDashboardRequest,
@@ -74,7 +74,7 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::DashboardsService::delete_dashboard].
+    /// Implements [super::client::DashboardsService::delete_dashboard].
     fn delete_dashboard(
         &self,
         _req: crate::model::DeleteDashboardRequest,
@@ -83,7 +83,7 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::DashboardsService::update_dashboard].
+    /// Implements [super::client::DashboardsService::update_dashboard].
     fn update_dashboard(
         &self,
         _req: crate::model::UpdateDashboardRequest,

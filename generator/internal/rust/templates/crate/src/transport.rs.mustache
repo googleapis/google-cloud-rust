@@ -26,10 +26,10 @@ use gax::error::Error;
 
 {{/Codec.HasServices}}
 {{#Codec.Services}}
-/// Implements [{{Codec.Name}}](crate::stubs::{{Codec.Name}}) using a [gax::http_client::ReqwestClient].
+/// Implements [{{Codec.Name}}](super::stubs::{{Codec.Name}}) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for {{Codec.Name}} {
@@ -41,13 +41,13 @@ impl std::fmt::Debug for {{Codec.Name}} {
 }
 
 impl {{Codec.Name}} {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::{{Codec.Name}} for {{Codec.Name}} {
+impl super::stubs::{{Codec.Name}} for {{Codec.Name}} {
     {{#Codec.Methods}}
     async fn {{Codec.Name}}(
         &self,
@@ -66,7 +66,7 @@ impl crate::stubs::{{Codec.Name}} for {{Codec.Name}} {
                 {{#PathInfo.Codec.HasPathArgs}}
                 format!("{{PathInfo.Codec.PathFmt}}"
                     {{#PathInfo.Codec.PathArgs}}
-                        , req{{{.}}}
+                        , req{{{Accessor}}}
                     {{/PathInfo.Codec.PathArgs}}
                 )
                 {{/PathInfo.Codec.HasPathArgs}}
@@ -81,7 +81,7 @@ impl crate::stubs::{{Codec.Name}} for {{Codec.Name}} {
         self.inner.execute(
             builder,
             {{#PathInfo.Codec.HasBody}}Some(req{{Codec.BodyAccessor}}){{/PathInfo.Codec.HasBody}}
-            {{^PathInfo.Codec.HasBody}}None::<gax::http_client::NoBody>{{/PathInfo.Codec.HasBody}},
+            {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
             options,
         ).await
     }

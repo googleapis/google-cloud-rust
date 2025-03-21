@@ -18,10 +18,10 @@ pub mod asset_service {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::AssetService] request builders.
+    /// Common implementation for [super::super::client::AssetService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::AssetService>,
+        stub: Arc<dyn super::super::stubs::dynamic::AssetService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod asset_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod asset_service {
     pub struct ExportAssets(RequestBuilder<crate::model::ExportAssetsRequest>);
 
     impl ExportAssets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -65,7 +65,7 @@ pub mod asset_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_assets][crate::client::AssetService::export_assets].
+        /// on [export_assets][super::super::client::AssetService::export_assets].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_assets(self.0.request, self.0.options)
@@ -169,7 +169,7 @@ pub mod asset_service {
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -193,12 +193,12 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -271,7 +271,7 @@ pub mod asset_service {
     pub struct BatchGetAssetsHistory(RequestBuilder<crate::model::BatchGetAssetsHistoryRequest>);
 
     impl BatchGetAssetsHistory {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -352,7 +352,7 @@ pub mod asset_service {
     pub struct CreateFeed(RequestBuilder<crate::model::CreateFeedRequest>);
 
     impl CreateFeed {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -405,7 +405,7 @@ pub mod asset_service {
     pub struct GetFeed(RequestBuilder<crate::model::GetFeedRequest>);
 
     impl GetFeed {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -446,7 +446,7 @@ pub mod asset_service {
     pub struct ListFeeds(RequestBuilder<crate::model::ListFeedsRequest>);
 
     impl ListFeeds {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -487,7 +487,7 @@ pub mod asset_service {
     pub struct UpdateFeed(RequestBuilder<crate::model::UpdateFeedRequest>);
 
     impl UpdateFeed {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -537,7 +537,7 @@ pub mod asset_service {
     pub struct DeleteFeed(RequestBuilder<crate::model::DeleteFeedRequest>);
 
     impl DeleteFeed {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -578,7 +578,7 @@ pub mod asset_service {
     pub struct SearchAllResources(RequestBuilder<crate::model::SearchAllResourcesRequest>);
 
     impl SearchAllResources {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -605,12 +605,12 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchAllResourcesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -678,7 +678,7 @@ pub mod asset_service {
     pub struct SearchAllIamPolicies(RequestBuilder<crate::model::SearchAllIamPoliciesRequest>);
 
     impl SearchAllIamPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -705,12 +705,12 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::SearchAllIamPoliciesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -772,7 +772,7 @@ pub mod asset_service {
     pub struct AnalyzeIamPolicy(RequestBuilder<crate::model::AnalyzeIamPolicyRequest>);
 
     impl AnalyzeIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -838,7 +838,7 @@ pub mod asset_service {
     );
 
     impl AnalyzeIamPolicyLongrunning {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -862,7 +862,7 @@ pub mod asset_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [analyze_iam_policy_longrunning][crate::client::AssetService::analyze_iam_policy_longrunning].
+        /// on [analyze_iam_policy_longrunning][super::super::client::AssetService::analyze_iam_policy_longrunning].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .analyze_iam_policy_longrunning(self.0.request, self.0.options)
@@ -947,7 +947,7 @@ pub mod asset_service {
     pub struct AnalyzeMove(RequestBuilder<crate::model::AnalyzeMoveRequest>);
 
     impl AnalyzeMove {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1003,7 +1003,7 @@ pub mod asset_service {
     pub struct QueryAssets(RequestBuilder<crate::model::QueryAssetsRequest>);
 
     impl QueryAssets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1091,7 +1091,7 @@ pub mod asset_service {
     pub struct CreateSavedQuery(RequestBuilder<crate::model::CreateSavedQueryRequest>);
 
     impl CreateSavedQuery {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1150,7 +1150,7 @@ pub mod asset_service {
     pub struct GetSavedQuery(RequestBuilder<crate::model::GetSavedQueryRequest>);
 
     impl GetSavedQuery {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1191,7 +1191,7 @@ pub mod asset_service {
     pub struct ListSavedQueries(RequestBuilder<crate::model::ListSavedQueriesRequest>);
 
     impl ListSavedQueries {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1218,12 +1218,12 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListSavedQueriesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1268,7 +1268,7 @@ pub mod asset_service {
     pub struct UpdateSavedQuery(RequestBuilder<crate::model::UpdateSavedQueryRequest>);
 
     impl UpdateSavedQuery {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1324,7 +1324,7 @@ pub mod asset_service {
     pub struct DeleteSavedQuery(RequestBuilder<crate::model::DeleteSavedQueryRequest>);
 
     impl DeleteSavedQuery {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1370,7 +1370,7 @@ pub mod asset_service {
     );
 
     impl BatchGetEffectiveIamPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1425,7 +1425,7 @@ pub mod asset_service {
     pub struct AnalyzeOrgPolicies(RequestBuilder<crate::model::AnalyzeOrgPoliciesRequest>);
 
     impl AnalyzeOrgPolicies {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1452,12 +1452,12 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::AnalyzeOrgPoliciesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1510,7 +1510,7 @@ pub mod asset_service {
     );
 
     impl AnalyzeOrgPolicyGovernedContainers {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1539,14 +1539,14 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::AnalyzeOrgPolicyGovernedContainersResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1599,7 +1599,7 @@ pub mod asset_service {
     );
 
     impl AnalyzeOrgPolicyGovernedAssets {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1626,14 +1626,14 @@ pub mod asset_service {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::AnalyzeOrgPolicyGovernedAssetsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1684,7 +1684,7 @@ pub mod asset_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AssetService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::AssetService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

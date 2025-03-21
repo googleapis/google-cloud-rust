@@ -150,9 +150,9 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::CloudRedisCluster] also implement [CloudRedisCluster].
+/// All implementations of [super::CloudRedisCluster] also implement [CloudRedisCluster].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudRedisCluster> CloudRedisCluster for T {
+impl<T: super::CloudRedisCluster> CloudRedisCluster for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_clusters(
         &self,

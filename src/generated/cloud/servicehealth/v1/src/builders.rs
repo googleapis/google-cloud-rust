@@ -18,10 +18,10 @@ pub mod service_health {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::ServiceHealth] request builders.
+    /// Common implementation for [super::super::client::ServiceHealth] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::ServiceHealth>,
+        stub: Arc<dyn super::super::stubs::dynamic::ServiceHealth>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod service_health {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ServiceHealth>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod service_health {
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ServiceHealth>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod service_health {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListEventsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -124,7 +124,7 @@ pub mod service_health {
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ServiceHealth>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,7 +165,7 @@ pub mod service_health {
     pub struct ListOrganizationEvents(RequestBuilder<crate::model::ListOrganizationEventsRequest>);
 
     impl ListOrganizationEvents {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ServiceHealth>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -192,14 +192,14 @@ pub mod service_health {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListOrganizationEventsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -250,7 +250,7 @@ pub mod service_health {
     pub struct GetOrganizationEvent(RequestBuilder<crate::model::GetOrganizationEventRequest>);
 
     impl GetOrganizationEvent {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ServiceHealth>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,7 +296,7 @@ pub mod service_health {
     );
 
     impl ListOrganizationImpacts {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ServiceHealth>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -323,14 +323,14 @@ pub mod service_health {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<
             crate::model::ListOrganizationImpactsResponse,
             gax::error::Error,
         > {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -375,7 +375,7 @@ pub mod service_health {
     pub struct GetOrganizationImpact(RequestBuilder<crate::model::GetOrganizationImpactRequest>);
 
     impl GetOrganizationImpact {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ServiceHealth>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -419,7 +419,7 @@ pub mod service_health {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ServiceHealth>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -446,12 +446,12 @@ pub mod service_health {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -496,7 +496,7 @@ pub mod service_health {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::ServiceHealth>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

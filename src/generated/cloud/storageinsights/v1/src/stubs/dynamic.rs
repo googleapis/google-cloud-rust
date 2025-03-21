@@ -96,9 +96,9 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<wkt::Empty>;
 }
 
-/// All implementations of [crate::stubs::StorageInsights] also implement [StorageInsights].
+/// All implementations of [super::StorageInsights] also implement [StorageInsights].
 #[async_trait::async_trait]
-impl<T: crate::stubs::StorageInsights> StorageInsights for T {
+impl<T: super::StorageInsights> StorageInsights for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_report_configs(
         &self,

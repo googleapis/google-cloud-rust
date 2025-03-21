@@ -18,10 +18,10 @@ pub mod tpu {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Tpu] request builders.
+    /// Common implementation for [super::super::client::Tpu] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Tpu>,
+        stub: Arc<dyn super::super::stubs::dynamic::Tpu>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod tpu {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod tpu {
     pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
 
     impl ListNodes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,11 +68,11 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNodesResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -111,7 +111,7 @@ pub mod tpu {
     pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
 
     impl GetNode {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -152,7 +152,7 @@ pub mod tpu {
     pub struct CreateNode(RequestBuilder<crate::model::CreateNodeRequest>);
 
     impl CreateNode {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -173,7 +173,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_node][crate::client::Tpu::create_node].
+        /// on [create_node][super::super::client::Tpu::create_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_node(self.0.request, self.0.options)
@@ -242,7 +242,7 @@ pub mod tpu {
     pub struct DeleteNode(RequestBuilder<crate::model::DeleteNodeRequest>);
 
     impl DeleteNode {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -263,7 +263,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_node][crate::client::Tpu::delete_node].
+        /// on [delete_node][super::super::client::Tpu::delete_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_node(self.0.request, self.0.options)
@@ -318,7 +318,7 @@ pub mod tpu {
     pub struct StopNode(RequestBuilder<crate::model::StopNodeRequest>);
 
     impl StopNode {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -339,7 +339,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_node][crate::client::Tpu::stop_node].
+        /// on [stop_node][super::super::client::Tpu::stop_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_node(self.0.request, self.0.options)
@@ -396,7 +396,7 @@ pub mod tpu {
     pub struct StartNode(RequestBuilder<crate::model::StartNodeRequest>);
 
     impl StartNode {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -417,7 +417,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_node][crate::client::Tpu::start_node].
+        /// on [start_node][super::super::client::Tpu::start_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_node(self.0.request, self.0.options)
@@ -474,7 +474,7 @@ pub mod tpu {
     pub struct UpdateNode(RequestBuilder<crate::model::UpdateNodeRequest>);
 
     impl UpdateNode {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -495,7 +495,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_node][crate::client::Tpu::update_node].
+        /// on [update_node][super::super::client::Tpu::update_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_node(self.0.request, self.0.options)
@@ -561,7 +561,7 @@ pub mod tpu {
     pub struct ListQueuedResources(RequestBuilder<crate::model::ListQueuedResourcesRequest>);
 
     impl ListQueuedResources {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -588,12 +588,12 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListQueuedResourcesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -632,7 +632,7 @@ pub mod tpu {
     pub struct GetQueuedResource(RequestBuilder<crate::model::GetQueuedResourceRequest>);
 
     impl GetQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -676,7 +676,7 @@ pub mod tpu {
     pub struct CreateQueuedResource(RequestBuilder<crate::model::CreateQueuedResourceRequest>);
 
     impl CreateQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -700,7 +700,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_queued_resource][crate::client::Tpu::create_queued_resource].
+        /// on [create_queued_resource][super::super::client::Tpu::create_queued_resource].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_queued_resource(self.0.request, self.0.options)
@@ -780,7 +780,7 @@ pub mod tpu {
     pub struct DeleteQueuedResource(RequestBuilder<crate::model::DeleteQueuedResourceRequest>);
 
     impl DeleteQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -804,7 +804,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_queued_resource][crate::client::Tpu::delete_queued_resource].
+        /// on [delete_queued_resource][super::super::client::Tpu::delete_queued_resource].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_queued_resource(self.0.request, self.0.options)
@@ -871,7 +871,7 @@ pub mod tpu {
     pub struct ResetQueuedResource(RequestBuilder<crate::model::ResetQueuedResourceRequest>);
 
     impl ResetQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -895,7 +895,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_queued_resource][crate::client::Tpu::reset_queued_resource].
+        /// on [reset_queued_resource][super::super::client::Tpu::reset_queued_resource].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_queued_resource(self.0.request, self.0.options)
@@ -956,7 +956,7 @@ pub mod tpu {
     );
 
     impl GenerateServiceIdentity {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1000,7 +1000,7 @@ pub mod tpu {
     pub struct ListAcceleratorTypes(RequestBuilder<crate::model::ListAcceleratorTypesRequest>);
 
     impl ListAcceleratorTypes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1027,12 +1027,12 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListAcceleratorTypesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1083,7 +1083,7 @@ pub mod tpu {
     pub struct GetAcceleratorType(RequestBuilder<crate::model::GetAcceleratorTypeRequest>);
 
     impl GetAcceleratorType {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1127,7 +1127,7 @@ pub mod tpu {
     pub struct ListRuntimeVersions(RequestBuilder<crate::model::ListRuntimeVersionsRequest>);
 
     impl ListRuntimeVersions {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1154,12 +1154,12 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListRuntimeVersionsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1210,7 +1210,7 @@ pub mod tpu {
     pub struct GetRuntimeVersion(RequestBuilder<crate::model::GetRuntimeVersionRequest>);
 
     impl GetRuntimeVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1254,7 +1254,7 @@ pub mod tpu {
     pub struct GetGuestAttributes(RequestBuilder<crate::model::GetGuestAttributesRequest>);
 
     impl GetGuestAttributes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1315,7 +1315,7 @@ pub mod tpu {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1342,12 +1342,12 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1392,7 +1392,7 @@ pub mod tpu {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1433,7 +1433,7 @@ pub mod tpu {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1460,12 +1460,12 @@ pub mod tpu {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1510,7 +1510,7 @@ pub mod tpu {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1554,7 +1554,7 @@ pub mod tpu {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1598,7 +1598,7 @@ pub mod tpu {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

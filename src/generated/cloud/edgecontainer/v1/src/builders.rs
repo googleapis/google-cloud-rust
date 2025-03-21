@@ -18,10 +18,10 @@ pub mod edge_container {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::EdgeContainer] request builders.
+    /// Common implementation for [super::super::client::EdgeContainer] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>,
+        stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod edge_container {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod edge_container {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -68,12 +68,12 @@ pub mod edge_container {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -124,7 +124,7 @@ pub mod edge_container {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,7 +165,7 @@ pub mod edge_container {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -186,7 +186,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][crate::client::EdgeContainer::create_cluster].
+        /// on [create_cluster][super::super::client::EdgeContainer::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -264,7 +264,7 @@ pub mod edge_container {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -285,7 +285,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][crate::client::EdgeContainer::update_cluster].
+        /// on [update_cluster][super::super::client::EdgeContainer::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -360,7 +360,7 @@ pub mod edge_container {
     pub struct UpgradeCluster(RequestBuilder<crate::model::UpgradeClusterRequest>);
 
     impl UpgradeCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -381,7 +381,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_cluster][crate::client::EdgeContainer::upgrade_cluster].
+        /// on [upgrade_cluster][super::super::client::EdgeContainer::upgrade_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_cluster(self.0.request, self.0.options)
@@ -459,7 +459,7 @@ pub mod edge_container {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -480,7 +480,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][crate::client::EdgeContainer::delete_cluster].
+        /// on [delete_cluster][super::super::client::EdgeContainer::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -541,7 +541,7 @@ pub mod edge_container {
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -587,7 +587,7 @@ pub mod edge_container {
     );
 
     impl GenerateOfflineCredential {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -631,7 +631,7 @@ pub mod edge_container {
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -655,12 +655,12 @@ pub mod edge_container {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNodePoolsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -711,7 +711,7 @@ pub mod edge_container {
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -752,7 +752,7 @@ pub mod edge_container {
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -773,7 +773,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_node_pool][crate::client::EdgeContainer::create_node_pool].
+        /// on [create_node_pool][super::super::client::EdgeContainer::create_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_node_pool(self.0.request, self.0.options)
@@ -852,7 +852,7 @@ pub mod edge_container {
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -873,7 +873,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_node_pool][crate::client::EdgeContainer::update_node_pool].
+        /// on [update_node_pool][super::super::client::EdgeContainer::update_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_node_pool(self.0.request, self.0.options)
@@ -949,7 +949,7 @@ pub mod edge_container {
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -970,7 +970,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_node_pool][crate::client::EdgeContainer::delete_node_pool].
+        /// on [delete_node_pool][super::super::client::EdgeContainer::delete_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_node_pool(self.0.request, self.0.options)
@@ -1031,7 +1031,7 @@ pub mod edge_container {
     pub struct ListMachines(RequestBuilder<crate::model::ListMachinesRequest>);
 
     impl ListMachines {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1055,12 +1055,12 @@ pub mod edge_container {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListMachinesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1111,7 +1111,7 @@ pub mod edge_container {
     pub struct GetMachine(RequestBuilder<crate::model::GetMachineRequest>);
 
     impl GetMachine {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1152,7 +1152,7 @@ pub mod edge_container {
     pub struct ListVpnConnections(RequestBuilder<crate::model::ListVpnConnectionsRequest>);
 
     impl ListVpnConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1179,12 +1179,12 @@ pub mod edge_container {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListVpnConnectionsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1235,7 +1235,7 @@ pub mod edge_container {
     pub struct GetVpnConnection(RequestBuilder<crate::model::GetVpnConnectionRequest>);
 
     impl GetVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1279,7 +1279,7 @@ pub mod edge_container {
     pub struct CreateVpnConnection(RequestBuilder<crate::model::CreateVpnConnectionRequest>);
 
     impl CreateVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1303,7 +1303,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vpn_connection][crate::client::EdgeContainer::create_vpn_connection].
+        /// on [create_vpn_connection][super::super::client::EdgeContainer::create_vpn_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vpn_connection(self.0.request, self.0.options)
@@ -1383,7 +1383,7 @@ pub mod edge_container {
     pub struct DeleteVpnConnection(RequestBuilder<crate::model::DeleteVpnConnectionRequest>);
 
     impl DeleteVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1407,7 +1407,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vpn_connection][crate::client::EdgeContainer::delete_vpn_connection].
+        /// on [delete_vpn_connection][super::super::client::EdgeContainer::delete_vpn_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vpn_connection(self.0.request, self.0.options)
@@ -1468,7 +1468,7 @@ pub mod edge_container {
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1509,7 +1509,7 @@ pub mod edge_container {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1536,12 +1536,12 @@ pub mod edge_container {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1586,7 +1586,7 @@ pub mod edge_container {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1627,7 +1627,7 @@ pub mod edge_container {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1654,12 +1654,12 @@ pub mod edge_container {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -1704,7 +1704,7 @@ pub mod edge_container {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1748,7 +1748,7 @@ pub mod edge_container {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1792,7 +1792,7 @@ pub mod edge_container {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::EdgeContainer>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

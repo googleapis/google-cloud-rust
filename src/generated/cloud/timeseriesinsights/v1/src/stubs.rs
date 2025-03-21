@@ -28,7 +28,7 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [crate::client::TimeseriesInsightsController].
+/// Defines the trait used to implement [super::client::TimeseriesInsightsController].
 ///
 /// Application developers may need to implement this trait to mock
 /// `client::TimeseriesInsightsController`.  In other use-cases, application developers only
@@ -40,7 +40,7 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
-    /// Implements [crate::client::TimeseriesInsightsController::list_data_sets].
+    /// Implements [super::client::TimeseriesInsightsController::list_data_sets].
     fn list_data_sets(
         &self,
         _req: crate::model::ListDataSetsRequest,
@@ -52,7 +52,7 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TimeseriesInsightsController::create_data_set].
+    /// Implements [super::client::TimeseriesInsightsController::create_data_set].
     fn create_data_set(
         &self,
         _req: crate::model::CreateDataSetRequest,
@@ -63,7 +63,7 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TimeseriesInsightsController::delete_data_set].
+    /// Implements [super::client::TimeseriesInsightsController::delete_data_set].
     fn delete_data_set(
         &self,
         _req: crate::model::DeleteDataSetRequest,
@@ -72,7 +72,7 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Implements [crate::client::TimeseriesInsightsController::append_events].
+    /// Implements [super::client::TimeseriesInsightsController::append_events].
     fn append_events(
         &self,
         _req: crate::model::AppendEventsRequest,
@@ -84,7 +84,7 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TimeseriesInsightsController::query_data_set].
+    /// Implements [super::client::TimeseriesInsightsController::query_data_set].
     fn query_data_set(
         &self,
         _req: crate::model::QueryDataSetRequest,
@@ -96,7 +96,7 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TimeseriesInsightsController::evaluate_slice].
+    /// Implements [super::client::TimeseriesInsightsController::evaluate_slice].
     fn evaluate_slice(
         &self,
         _req: crate::model::EvaluateSliceRequest,
@@ -107,7 +107,7 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Implements [crate::client::TimeseriesInsightsController::evaluate_timeseries].
+    /// Implements [super::client::TimeseriesInsightsController::evaluate_timeseries].
     fn evaluate_timeseries(
         &self,
         _req: crate::model::EvaluateTimeseriesRequest,

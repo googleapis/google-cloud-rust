@@ -18,10 +18,10 @@ pub mod grafeas {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::Grafeas] request builders.
+    /// Common implementation for [super::super::client::Grafeas] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::Grafeas>,
+        stub: Arc<dyn super::super::stubs::dynamic::Grafeas>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod grafeas {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod grafeas {
     pub struct GetOccurrence(RequestBuilder<crate::model::GetOccurrenceRequest>);
 
     impl GetOccurrence {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -85,7 +85,7 @@ pub mod grafeas {
     pub struct ListOccurrences(RequestBuilder<crate::model::ListOccurrencesRequest>);
 
     impl ListOccurrences {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -109,12 +109,12 @@ pub mod grafeas {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListOccurrencesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -159,7 +159,7 @@ pub mod grafeas {
     pub struct DeleteOccurrence(RequestBuilder<crate::model::DeleteOccurrenceRequest>);
 
     impl DeleteOccurrence {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -203,7 +203,7 @@ pub mod grafeas {
     pub struct CreateOccurrence(RequestBuilder<crate::model::CreateOccurrenceRequest>);
 
     impl CreateOccurrence {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -256,7 +256,7 @@ pub mod grafeas {
     pub struct BatchCreateOccurrences(RequestBuilder<crate::model::BatchCreateOccurrencesRequest>);
 
     impl BatchCreateOccurrences {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -311,7 +311,7 @@ pub mod grafeas {
     pub struct UpdateOccurrence(RequestBuilder<crate::model::UpdateOccurrenceRequest>);
 
     impl UpdateOccurrence {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -373,7 +373,7 @@ pub mod grafeas {
     pub struct GetOccurrenceNote(RequestBuilder<crate::model::GetOccurrenceNoteRequest>);
 
     impl GetOccurrenceNote {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -417,7 +417,7 @@ pub mod grafeas {
     pub struct GetNote(RequestBuilder<crate::model::GetNoteRequest>);
 
     impl GetNote {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -458,7 +458,7 @@ pub mod grafeas {
     pub struct ListNotes(RequestBuilder<crate::model::ListNotesRequest>);
 
     impl ListNotes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -482,11 +482,11 @@ pub mod grafeas {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNotesResponse, gax::error::Error> {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);
@@ -531,7 +531,7 @@ pub mod grafeas {
     pub struct DeleteNote(RequestBuilder<crate::model::DeleteNoteRequest>);
 
     impl DeleteNote {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -572,7 +572,7 @@ pub mod grafeas {
     pub struct CreateNote(RequestBuilder<crate::model::CreateNoteRequest>);
 
     impl CreateNote {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -625,7 +625,7 @@ pub mod grafeas {
     pub struct BatchCreateNotes(RequestBuilder<crate::model::BatchCreateNotesRequest>);
 
     impl BatchCreateNotes {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -680,7 +680,7 @@ pub mod grafeas {
     pub struct UpdateNote(RequestBuilder<crate::model::UpdateNoteRequest>);
 
     impl UpdateNote {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -736,7 +736,7 @@ pub mod grafeas {
     pub struct ListNoteOccurrences(RequestBuilder<crate::model::ListNoteOccurrencesRequest>);
 
     impl ListNoteOccurrences {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn super::super::stubs::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -763,12 +763,12 @@ pub mod grafeas {
         }
 
         /// Streams the responses back.
-        #[cfg(feature = "unstable-stream")]
-        pub async fn stream(
+        pub async fn paginator(
             self,
         ) -> gax::paginator::Paginator<crate::model::ListNoteOccurrencesResponse, gax::error::Error>
         {
-            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
                 builder.0.request = builder.0.request.set_page_token(token);

@@ -51,7 +51,7 @@ use std::sync::Arc;
 /// internally.
 #[derive(Clone, Debug)]
 pub struct AppGatewaysService {
-    inner: Arc<dyn crate::stubs::dynamic::AppGatewaysService>,
+    inner: Arc<dyn super::stubs::dynamic::AppGatewaysService>,
 }
 
 impl AppGatewaysService {
@@ -72,7 +72,7 @@ impl AppGatewaysService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::stubs::AppGatewaysService + 'static,
+        T: super::stubs::AppGatewaysService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -81,7 +81,7 @@ impl AppGatewaysService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::stubs::dynamic::AppGatewaysService>> {
+    ) -> Result<Arc<dyn super::stubs::dynamic::AppGatewaysService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -90,24 +90,24 @@ impl AppGatewaysService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AppGatewaysService> {
-        crate::transport::AppGatewaysService::new(conf).await
+    ) -> Result<impl super::stubs::AppGatewaysService> {
+        super::transport::AppGatewaysService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::stubs::AppGatewaysService> {
+    ) -> Result<impl super::stubs::AppGatewaysService> {
         Self::build_transport(conf)
             .await
-            .map(crate::tracing::AppGatewaysService::new)
+            .map(super::tracing::AppGatewaysService::new)
     }
 
     /// Lists AppGateways in a given project and location.
     pub fn list_app_gateways(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::ListAppGateways {
-        crate::builders::app_gateways_service::ListAppGateways::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::ListAppGateways {
+        super::builders::app_gateways_service::ListAppGateways::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -115,8 +115,8 @@ impl AppGatewaysService {
     pub fn get_app_gateway(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::GetAppGateway {
-        crate::builders::app_gateways_service::GetAppGateway::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::GetAppGateway {
+        super::builders::app_gateways_service::GetAppGateway::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -134,8 +134,8 @@ impl AppGatewaysService {
     pub fn create_app_gateway(
         &self,
         parent: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::CreateAppGateway {
-        crate::builders::app_gateways_service::CreateAppGateway::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::CreateAppGateway {
+        super::builders::app_gateways_service::CreateAppGateway::new(self.inner.clone())
             .set_parent(parent.into())
     }
 
@@ -153,8 +153,8 @@ impl AppGatewaysService {
     pub fn delete_app_gateway(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::DeleteAppGateway {
-        crate::builders::app_gateways_service::DeleteAppGateway::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::DeleteAppGateway {
+        super::builders::app_gateways_service::DeleteAppGateway::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -162,8 +162,8 @@ impl AppGatewaysService {
     pub fn list_locations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::ListLocations {
-        crate::builders::app_gateways_service::ListLocations::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::ListLocations {
+        super::builders::app_gateways_service::ListLocations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -171,8 +171,8 @@ impl AppGatewaysService {
     pub fn get_location(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::GetLocation {
-        crate::builders::app_gateways_service::GetLocation::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::GetLocation {
+        super::builders::app_gateways_service::GetLocation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -184,8 +184,8 @@ impl AppGatewaysService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::SetIamPolicy {
-        crate::builders::app_gateways_service::SetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::SetIamPolicy {
+        super::builders::app_gateways_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -194,8 +194,8 @@ impl AppGatewaysService {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::GetIamPolicy {
-        crate::builders::app_gateways_service::GetIamPolicy::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::GetIamPolicy {
+        super::builders::app_gateways_service::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -209,8 +209,8 @@ impl AppGatewaysService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::TestIamPermissions {
-        crate::builders::app_gateways_service::TestIamPermissions::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::TestIamPermissions {
+        super::builders::app_gateways_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
     }
 
@@ -220,8 +220,8 @@ impl AppGatewaysService {
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::ListOperations {
-        crate::builders::app_gateways_service::ListOperations::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::ListOperations {
+        super::builders::app_gateways_service::ListOperations::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -231,8 +231,8 @@ impl AppGatewaysService {
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::GetOperation {
-        crate::builders::app_gateways_service::GetOperation::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::GetOperation {
+        super::builders::app_gateways_service::GetOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -242,8 +242,8 @@ impl AppGatewaysService {
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::DeleteOperation {
-        crate::builders::app_gateways_service::DeleteOperation::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::DeleteOperation {
+        super::builders::app_gateways_service::DeleteOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 
@@ -253,8 +253,8 @@ impl AppGatewaysService {
     pub fn cancel_operation(
         &self,
         name: impl Into<std::string::String>,
-    ) -> crate::builders::app_gateways_service::CancelOperation {
-        crate::builders::app_gateways_service::CancelOperation::new(self.inner.clone())
+    ) -> super::builders::app_gateways_service::CancelOperation {
+        super::builders::app_gateways_service::CancelOperation::new(self.inner.clone())
             .set_name(name.into())
     }
 }

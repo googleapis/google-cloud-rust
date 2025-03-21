@@ -49,6 +49,12 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
+    async fn list_workflow_revisions(
+        &self,
+        req: crate::model::ListWorkflowRevisionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListWorkflowRevisionsResponse>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -90,9 +96,9 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
-/// All implementations of [crate::stubs::Workflows] also implement [Workflows].
+/// All implementations of [super::Workflows] also implement [Workflows].
 #[async_trait::async_trait]
-impl<T: crate::stubs::Workflows> Workflows for T {
+impl<T: super::Workflows> Workflows for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_workflows(
         &self,
@@ -136,6 +142,15 @@ impl<T: crate::stubs::Workflows> Workflows for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation> {
         T::update_workflow(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_workflow_revisions(
+        &self,
+        req: crate::model::ListWorkflowRevisionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListWorkflowRevisionsResponse> {
+        T::list_workflow_revisions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

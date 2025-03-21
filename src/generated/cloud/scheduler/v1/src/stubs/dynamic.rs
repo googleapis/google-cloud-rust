@@ -78,9 +78,9 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<location::model::Location>;
 }
 
-/// All implementations of [crate::stubs::CloudScheduler] also implement [CloudScheduler].
+/// All implementations of [super::CloudScheduler] also implement [CloudScheduler].
 #[async_trait::async_trait]
-impl<T: crate::stubs::CloudScheduler> CloudScheduler for T {
+impl<T: super::CloudScheduler> CloudScheduler for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_jobs(
         &self,

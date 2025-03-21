@@ -18,10 +18,10 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Workstations](crate::stubs::Workstations) using a [gax::http_client::ReqwestClient].
+/// Implements [Workstations](super::stubs::Workstations) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Workstations {
-    inner: gax::http_client::ReqwestClient,
+    inner: gaxi::http::ReqwestClient,
 }
 
 impl std::fmt::Debug for Workstations {
@@ -33,13 +33,13 @@ impl std::fmt::Debug for Workstations {
 }
 
 impl Workstations {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+    pub async fn new(config: gax::options::ClientConfig) -> Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::Workstations for Workstations {
+impl super::stubs::Workstations for Workstations {
     async fn get_workstation_cluster(
         &self,
         req: crate::model::GetWorkstationClusterRequest,
@@ -55,7 +55,7 @@ impl crate::stubs::Workstations for Workstations {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -79,7 +79,7 @@ impl crate::stubs::Workstations for Workstations {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -121,7 +121,7 @@ impl crate::stubs::Workstations for Workstations {
                     "/v1/{}",
                     req.workstation_cluster
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("workstation_cluster"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("workstation_cluster"))?
                         .name
                 ),
             )
@@ -137,7 +137,7 @@ impl crate::stubs::Workstations for Workstations {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -165,7 +165,7 @@ impl crate::stubs::Workstations for Workstations {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -184,7 +184,7 @@ impl crate::stubs::Workstations for Workstations {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -208,7 +208,7 @@ impl crate::stubs::Workstations for Workstations {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -232,7 +232,7 @@ impl crate::stubs::Workstations for Workstations {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -274,7 +274,7 @@ impl crate::stubs::Workstations for Workstations {
                     "/v1/{}",
                     req.workstation_config
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("workstation_config"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("workstation_config"))?
                         .name
                 ),
             )
@@ -290,7 +290,7 @@ impl crate::stubs::Workstations for Workstations {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -318,7 +318,7 @@ impl crate::stubs::Workstations for Workstations {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("force", &req.force)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -337,7 +337,7 @@ impl crate::stubs::Workstations for Workstations {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -361,7 +361,7 @@ impl crate::stubs::Workstations for Workstations {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -385,7 +385,7 @@ impl crate::stubs::Workstations for Workstations {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -427,7 +427,7 @@ impl crate::stubs::Workstations for Workstations {
                     "/v1/{}",
                     req.workstation
                         .as_ref()
-                        .ok_or_else(|| gax::path_parameter::missing("workstation"))?
+                        .ok_or_else(|| gaxi::path_parameter::missing("workstation"))?
                         .name
                 ),
             )
@@ -443,7 +443,7 @@ impl crate::stubs::Workstations for Workstations {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
@@ -470,7 +470,7 @@ impl crate::stubs::Workstations for Workstations {
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("etag", &req.etag)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -572,11 +572,11 @@ impl crate::stubs::Workstations for Workstations {
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
-                use gax::query_parameter::QueryParameter;
+                use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -618,7 +618,7 @@ impl crate::stubs::Workstations for Workstations {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -637,7 +637,7 @@ impl crate::stubs::Workstations for Workstations {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
@@ -656,7 +656,7 @@ impl crate::stubs::Workstations for Workstations {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, options)
+            .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
 
