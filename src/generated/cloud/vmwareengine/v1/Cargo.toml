@@ -41,7 +41,7 @@ serde      = { version = "1", features = ["serde_derive"] }
 serde_json = { version = "1" }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 tracing    = { version = "0.1" }
-wkt        = { version = "0.2", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
+wkt        = { version = "0.3", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["time"] }
